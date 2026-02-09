@@ -1,0 +1,137 @@
+---
+import '../styles/global.css';
+import { supabase, type Lure } from '../lib/supabase';
+
+// ルアーデータ取得
+const { data: lures, error } = await supabase
+  .from('lures')
+  .select('*')
+  .order('created_at', { ascending: false });
+
+if (error) {
+  console.error('Error fetching lures:', error);
+}
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="世界最大のルアーデータベース - ルアー一覧" />
+    <meta name="viewport" content="width=device-width" />
+    <title>ルアー一覧 - Lure DB</title>
+  </head>
+  <body class="bg-gradient-to-br from-blue-50 to-teal-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+      <!-- ヘッダー -->
+      <header class="mb-12 text-center">
+        <h1 class="text-5xl font-bold text-gray-900 mb-2">
+          🎣 Lure DB
+        </h1>
+        <p class="text-xl text-gray-600">
+          世界最大のルアーデータベース
+        </p>
+        <div class="mt-4">
+          <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold">
+            登録ルアー数: {lures?.length || 0}本
+          </span>
+        </div>
+      </header>
+
+      <!-- ルアー一覧 -->
+      {lures && lures.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {lures.map((lure: Lure) => (
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+              {/* 画像エリア（仮） */}
+              <div class="h-48 bg-gradient-to-br from-blue-200 to-teal-200 flex items-center justify-center">
+                <span class="text-6xl">🎣</span>
+              </div>
+
+              {/* 内容エリア */}
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-3">
+                  <h2 class="text-2xl font-bold text-gray-900">
+                    {lure.name}
+                  </h2>
+                  <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                    {lure.type}
+                  </span>
+                </div>
+
+                <p class="text-gray-600 mb-2">
+                  メーカー: <span class="font-semibold">{lure.manufacturer}</span>
+                </p>
+
+                <p class="text-gray-700 mb-4 text-sm line-clamp-2">
+                  {lure.description}
+                </p>
+
+                {/* カラー情報 */}
+                {lure.color_name && (
+                  <div class="mb-4 p-3 bg-gray-50 rounded-lg">
+                    <p class="text-sm font-semibold text-gray-700 mb-1">
+                      {lure.color_name}
+                    </p>
+                    {lure.color_description && (
+                      <p class="text-xs text-gray-600">
+                        {lure.color_description}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* 詳細情報 */}
+                <div class="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-4">
+                  {lure.length && (
+                    <div>
+                      <span class="font-semibold">長さ:</span> {lure.length}mm
+                    </div>
+                  )}
+                  {lure.weight && (
+                    <div>
+                      <span class="font-semibold">重さ:</span> {lure.weight}g
+                    </div>
+                  )}
+                  {lure.diving_depth && (
+                    <div>
+                      <span class="font-semibold">潜行:</span> {lure.diving_depth}
+                    </div>
+                  )}
+                  {lure.release_year && (
+                    <div>
+                      <span class="font-semibold">発売:</span> {lure.release_year}年
+                    </div>
+                  )}
+                </div>
+
+                {/* 価格 */}
+                <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                  <span class="text-2xl font-bold text-teal-600">
+                    ¥{lure.price?.toLocaleString()}
+                  </span>
+                  {lure.is_limited && (
+                    <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-semibold">
+                      限定
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-16">
+          <p class="text-gray-600 text-lg">
+            ルアーデータがありません
+          </p>
+        </div>
+      )}
+
+      <!-- フッター -->
+      <footer class="text-center mt-16 text-gray-500">
+        <p>&copy; 2026 Lure DB. All rights reserved.</p>
+      </footer>
+    </div>
+  </body>
+</html>
