@@ -1,0 +1,64 @@
+---
+interface Props {
+  manufacturers: string[];
+  types: string[];
+  targetFish: string[];
+}
+
+const { manufacturers, types, targetFish } = Astro.props;
+---
+
+<div class="bg-white border-b border-gray-100 sticky top-14 z-40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div>
+        <select
+          data-filter-manufacturer
+          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        >
+          <option value="">メーカー</option>
+          {manufacturers.map(m => (
+            <option value={m}>{m}</option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <select
+          data-filter-type
+          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        >
+          <option value="">種類</option>
+          {types.map(t => (
+            <option value={t}>{t}</option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <select
+          data-filter-targetfish
+          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        >
+          <option value="">対象魚</option>
+          {targetFish.map(f => (
+            <option value={f}>{f}</option>
+          ))}
+        </select>
+      </div>
+      <div class="relative">
+        <input
+          type="text"
+          data-filter-search
+          placeholder="ルアー名で検索..."
+          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 placeholder:text-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        />
+        <button
+          data-filter-clear
+          class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs hidden"
+          aria-label="フィルターをクリア"
+        >
+          クリア
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

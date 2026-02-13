@@ -1,0 +1,24 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-14">
+      <a href="/" class="flex items-center gap-2 text-gray-900 hover:text-primary transition-colors">
+        <span class="text-xl font-bold tracking-tight">Lure DB</span>
+      </a>
+      <nav class="flex items-center gap-6 text-sm">
+        <a
+          href="/"
+          class:list={[
+            'transition-colors',
+            currentPath === '/' ? 'text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900'
+          ]}
+        >
+          ルアー検索
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>

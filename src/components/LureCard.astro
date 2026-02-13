@@ -1,0 +1,70 @@
+---
+import Badge from './Badge.astro';
+import Placeholder from './Placeholder.astro';
+import type { LureSeries } from '../lib/types';
+
+interface Props {
+  series: LureSeries;
+  isNew: boolean;
+}
+
+const { series, isNew } = Astro.props;
+
+const hasLimited = series.colors.some(c => c.is_limited);
+const hasPrice = series.price_range.max > 0;
+const priceDisplay = hasPrice
+  ? series.price_range.min === series.price_range.max
+    ? `¥${series.price_range.min.toLocaleString()}`
+    : `¥${series.price_range.min.toLocaleString()} - ¥${series.price_range.max.toLocaleString()}`
+  : null;
+
+const filterData = JSON.stringify({
+  name: series.name,
+  manufacturer: series.manufacturer,
+  type: series.type,
+  target_fish: series.target_fish,
+});
+---
+
+<a
+  href={`/lure/${series.slug}`}
+  class="group block"
+  data-series={filterData}
+>
+  <div class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 group-hover:shadow-card-hover group-hover:scale-[1.01]">
+    <div class="aspect-[4/3] relative overflow-hidden">
+      {series.representative_image ? (
+        <img
+          src={series.representative_image}
+          alt={series.name}
+          loading="lazy"
+          class="w-full h-full object-cover"
+        />
+      ) : (
+        <Placeholder type={series.type} />
+      )}
+      <div class="absolute top-2 right-2 flex flex-col gap-1">
+        {isNew && <Badge label="新着" variant="new" />}
+        {hasLimited && <Badge label="限定" variant="limited" />}
+      </div>
+    </div>
+
+    <div class="p-4">
+      <p class="text-xs text-text-secondary tracking-wider uppercase mb-1">
+        {series.manufacturer}
+      </p>
+      <h3 class="text-base font-bold text-gray-900 mb-1.5 group-hover:text-primary transition-colors">
+        {series.name}
+      </h3>
+      <div class="flex items-center gap-1.5 text-xs text-text-secondary mb-3">
+        <Badge label={series.type} variant="type" />
+        <span>{series.color_count}カラー</span>
+      </div>
+      {priceDisplay && (
+        <p class="text-sm font-bold text-gray-900">
+          {priceDisplay}
+        </p>
+      )}
+    </div>
+  </div>
+</a>

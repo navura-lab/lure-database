@@ -1,70 +1,118 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FilterBar from '../components/FilterBar.astro';
+import LureCard from '../components/LureCard.astro';
+import { supabase } from '../lib/supabase';
+import { groupLuresBySeries } from '../lib/group-lures';
+
+const { data: lures, error } = await supabase
+  .from('lures')
+  .select('*')
+  .order('created_at', { ascending: false });
+
+if (error) {
+  console.error('Error fetching lures:', error);
+}
+
+const series = groupLuresBySeries(lures ?? []);
+
+const manufacturers = [...new Set(series.map(s => s.manufacturer))].sort();
+const types = [...new Set(series.map(s => s.type))].sort();
+const targetFish = [...new Set(series.flatMap(s => s.target_fish))].sort();
+
+const thirtyDaysAgo = new Date();
+thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+const newThreshold = thirtyDaysAgo.toISOString();
 ---
 
-<!doctype html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="世界最大のルアーデータベース" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Lure DB - 世界最大のルアーデータベース</title>
-  </head>
-  <body class="bg-gradient-to-br from-blue-50 to-teal-50 min-h-screen">
-    <div class="container mx-auto px-4 py-16">
-      <header class="text-center mb-16">
-        <h1 class="text-6xl font-bold text-gray-900 mb-4">
-          🎣 Lure DB
-        </h1>
-        <p class="text-2xl text-gray-600 mb-2">
-          世界最大のルアーデータベース
+<BaseLayout title="Lure DB - ルアーデータベース">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+    <div class="flex items-end justify-between">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">ルアーデータベース</h1>
+        <p class="text-sm text-text-secondary mt-1">
+          {series.length}シリーズ・{lures?.length ?? 0}カラー登録
         </p>
-        <p class="text-lg text-gray-500">
-          準備中 - Coming Soon
-        </p>
-      </header>
-
-      <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">
-          まもなく公開
-        </h2>
-        <div class="space-y-4 text-gray-700">
-          <p class="flex items-center">
-            <span class="text-2xl mr-3">✨</span>
-            <span>日本最大級のルアーデータベース</span>
-          </p>
-          <p class="flex items-center">
-            <span class="text-2xl mr-3">🔍</span>
-            <span>カーセンサー方式の充実した検索機能</span>
-          </p>
-          <p class="flex items-center">
-            <span class="text-2xl mr-3">🎨</span>
-            <span>全カラーバリエーションを一覧表示</span>
-          </p>
-          <p class="flex items-center">
-            <span class="text-2xl mr-3">🎬</span>
-            <span>公式動画で動きをチェック</span>
-          </p>
-        </div>
-
-        <div class="mt-8 pt-8 border-t border-gray-200 text-center">
-          <p class="text-gray-600 mb-6">
-            現在、サイトを構築中です。<br />
-            サンプルデータで動作確認できます。
-          </p>
-          <a 
-            href="/lures" 
-            class="inline-block bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
-          >
-            ルアー一覧を見る 🎣
-          </a>
-        </div>
       </div>
-
-      <footer class="text-center mt-16 text-gray-500">
-        <p>&copy; 2026 Lure DB. All rights reserved.</p>
-      </footer>
     </div>
-  </body>
-</html>
+  </section>
+
+  <FilterBar manufacturers={manufacturers} types={types} targetFish={targetFish} />
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <p id="results-count" class="text-sm text-text-secondary mb-6">
+      {series.length}件のシリーズ
+    </p>
+
+    <div id="lure-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      {series.map(s => (
+        <LureCard series={s} isNew={s.created_at > newThreshold} />
+      ))}
+    </div>
+
+    <div id="no-results" class="hidden text-center py-16">
+      <p class="text-text-secondary">条件に一致するルアーが見つかりません</p>
+      <button data-filter-reset class="mt-4 text-primary text-sm font-medium hover:underline">
+        フィルターをリセット
+      </button>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const grid = document.getElementById('lure-grid')!;
+  const countDisplay = document.getElementById('results-count')!;
+  const noResults = document.getElementById('no-results')!;
+  const manufacturerSelect = document.querySelector<HTMLSelectElement>('[data-filter-manufacturer]')!;
+  const typeSelect = document.querySelector<HTMLSelectElement>('[data-filter-type]')!;
+  const targetFishSelect = document.querySelector<HTMLSelectElement>('[data-filter-targetfish]')!;
+  const searchInput = document.querySelector<HTMLInputElement>('[data-filter-search]')!;
+  const clearBtn = document.querySelector<HTMLButtonElement>('[data-filter-clear]')!;
+  const resetBtn = document.querySelector<HTMLButtonElement>('[data-filter-reset]');
+
+  function applyFilters() {
+    const mfr = manufacturerSelect.value;
+    const type = typeSelect.value;
+    const fish = targetFishSelect.value;
+    const query = searchInput.value.toLowerCase().trim();
+
+    const cards = grid.querySelectorAll<HTMLElement>('[data-series]');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const data = JSON.parse(card.dataset.series!);
+      let show = true;
+
+      if (mfr && data.manufacturer !== mfr) show = false;
+      if (type && data.type !== type) show = false;
+      if (fish && !data.target_fish.includes(fish)) show = false;
+      if (query && !data.name.toLowerCase().includes(query) &&
+          !data.manufacturer.toLowerCase().includes(query)) show = false;
+
+      card.style.display = show ? '' : 'none';
+      if (show) visibleCount++;
+    });
+
+    countDisplay.textContent = `${visibleCount}件のシリーズ`;
+    grid.classList.toggle('hidden', visibleCount === 0);
+    noResults.classList.toggle('hidden', visibleCount > 0);
+
+    const hasFilter = mfr || type || fish || query;
+    clearBtn.classList.toggle('hidden', !hasFilter);
+  }
+
+  function resetFilters() {
+    manufacturerSelect.value = '';
+    typeSelect.value = '';
+    targetFishSelect.value = '';
+    searchInput.value = '';
+    applyFilters();
+  }
+
+  [manufacturerSelect, typeSelect, targetFishSelect].forEach(el =>
+    el.addEventListener('change', applyFilters)
+  );
+  searchInput.addEventListener('input', applyFilters);
+  clearBtn.addEventListener('click', resetFilters);
+  resetBtn?.addEventListener('click', resetFilters);
+</script>

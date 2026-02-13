@@ -1,1 +1,29 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #0ea5e9;
+  --color-primary-light: #e0f2fe;
+  --color-accent-new: #f59e0b;
+  --color-accent-limited: #8b5cf6;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f9fafb;
+  --color-border: #f3f4f6;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #9ca3af;
+
+  --font-sans: 'Noto Sans JP', system-ui, -apple-system, sans-serif;
+
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-card-hover: 0 4px 12px 0 rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.04);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+.placeholder-lure-bg {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdf4 100%);
+}

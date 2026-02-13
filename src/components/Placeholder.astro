@@ -1,0 +1,57 @@
+---
+interface Props {
+  type?: string;
+  size?: 'sm' | 'lg';
+}
+
+const { type = '', size = 'lg' } = Astro.props;
+const iconSize = size === 'sm' ? 32 : 48;
+---
+
+<div class="placeholder-lure-bg w-full h-full flex flex-col items-center justify-center gap-2">
+  <svg
+    width={iconSize}
+    height={iconSize}
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class="text-sky-300"
+  >
+    <path
+      d="M24 4C24 4 28 8 28 14C28 18 26 20 24 22C22 20 20 18 20 14C20 8 24 4 24 4Z"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M24 22L24 38"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+    />
+    <path
+      d="M24 38C24 38 20 40 18 42C16 44 18 44 20 43L24 40L28 43C30 44 32 44 30 42C28 40 24 38 24 38Z"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle cx="24" cy="14" r="2" fill="currentColor" opacity="0.4" />
+    <path
+      d="M20 14C18 16 14 17 12 16"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+    />
+    <path
+      d="M28 14C30 16 34 17 36 16"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+    />
+  </svg>
+  {type && (
+    <span class="text-xs text-sky-400 font-medium">{type}</span>
+  )}
+</div>

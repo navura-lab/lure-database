@@ -1,0 +1,196 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/Badge.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import ColorVariantRow from '../../components/ColorVariantRow.astro';
+import { supabase } from '../../lib/supabase';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import type { LureSeries } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const { data: lures } = await supabase
+    .from('lures')
+    .select('*');
+
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  return allSeries.map(series => ({
+    params: { slug: series.slug },
+    props: { series },
+  }));
+}
+
+const { series } = Astro.props as { series: LureSeries };
+
+const hasLimited = series.colors.some(c => c.is_limited);
+
+const hasPrice = series.price_range.max > 0;
+const priceDisplay = hasPrice
+  ? series.price_range.min === series.price_range.max
+    ? `¥${series.price_range.min.toLocaleString()}`
+    : `¥${series.price_range.min.toLocaleString()} ~ ¥${series.price_range.max.toLocaleString()}`
+  : null;
+
+const weightDisplay = (() => {
+  if (!series.weight_range.min) return null;
+  if (series.weight_range.min === series.weight_range.max) return `${series.weight_range.min}g`;
+  return `${series.weight_range.min} ~ ${series.weight_range.max}g`;
+})();
+
+const lengthDisplay = (() => {
+  if (!series.length_range.min) return null;
+  if (series.length_range.min === series.length_range.max) return `${series.length_range.min}mm`;
+  return `${series.length_range.min} ~ ${series.length_range.max}mm`;
+})();
+
+function getYouTubeEmbedUrl(url: string): string | null {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+}
+
+const embedUrl = series.official_video_url
+  ? getYouTubeEmbedUrl(series.official_video_url)
+  : null;
+---
+
+<BaseLayout title={`${series.name} - Lure DB`} description={`${series.manufacturer} ${series.name} - ${series.type} | ${series.color_count}カラー`}>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-secondary mb-8">
+      <a href="/" class="hover:text-primary transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{series.name}</span>
+    </nav>
+
+    <!-- メインエリア -->
+    <div class="flex flex-col md:flex-row gap-8 mb-12">
+      <!-- 画像 -->
+      <div class="md:w-1/2">
+        <div class="aspect-square rounded-xl overflow-hidden border border-gray-100">
+          {series.representative_image ? (
+            <img
+              src={series.representative_image}
+              alt={series.name}
+              class="w-full h-full object-cover"
+            />
+          ) : (
+            <Placeholder type={series.type} />
+          )}
+        </div>
+      </div>
+
+      <!-- 情報 -->
+      <div class="md:w-1/2">
+        <p class="text-sm text-text-secondary tracking-wider uppercase mb-1">
+          {series.manufacturer}
+        </p>
+        <h1 class="text-3xl font-bold text-gray-900 mb-3">
+          {series.name}
+        </h1>
+
+        <div class="flex flex-wrap gap-2 mb-6">
+          <Badge label={series.type} variant="type" />
+          {hasLimited && <Badge label="限定あり" variant="limited" />}
+        </div>
+
+        <!-- スペック -->
+        <div class="grid grid-cols-2 gap-x-6 gap-y-3 text-sm mb-6">
+          {weightDisplay && (
+            <div>
+              <p class="text-text-tertiary">重さ</p>
+              <p class="font-medium">{weightDisplay}</p>
+            </div>
+          )}
+          {lengthDisplay && (
+            <div>
+              <p class="text-text-tertiary">長さ</p>
+              <p class="font-medium">{lengthDisplay}</p>
+            </div>
+          )}
+          {series.diving_depth && (
+            <div>
+              <p class="text-text-tertiary">潜行深度</p>
+              <p class="font-medium">{series.diving_depth}</p>
+            </div>
+          )}
+          {series.action_type && (
+            <div>
+              <p class="text-text-tertiary">アクション</p>
+              <p class="font-medium">{series.action_type}</p>
+            </div>
+          )}
+          {series.release_year && (
+            <div>
+              <p class="text-text-tertiary">発売年</p>
+              <p class="font-medium">{series.release_year}年</p>
+            </div>
+          )}
+          <div>
+            <p class="text-text-tertiary">カラー数</p>
+            <p class="font-medium">{series.color_count}色</p>
+          </div>
+        </div>
+
+        <!-- 価格 -->
+        {priceDisplay && (
+          <div class="border-t border-gray-100 pt-4 mb-6">
+            <p class="text-text-tertiary text-sm">価格</p>
+            <p class="text-2xl font-bold text-gray-900">{priceDisplay}</p>
+          </div>
+        )}
+
+        <!-- 説明 -->
+        {series.description && (
+          <p class="text-sm text-text-secondary leading-relaxed">
+            {series.description}
+          </p>
+        )}
+      </div>
+    </div>
+
+    <!-- カラーバリエーション -->
+    <section class="mb-12">
+      <div class="flex items-baseline gap-3 mb-4">
+        <h2 class="text-xl font-bold text-gray-900">カラーバリエーション</h2>
+        <span class="text-sm text-text-secondary">{series.color_count}色</span>
+      </div>
+      <div class="bg-white rounded-xl border border-gray-100 px-4">
+        {series.colors.map(color => (
+          <ColorVariantRow color={color} />
+        ))}
+      </div>
+    </section>
+
+    <!-- 公式動画 -->
+    {embedUrl && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">公式動画</h2>
+        <div class="aspect-video rounded-xl overflow-hidden border border-gray-100">
+          <iframe
+            src={embedUrl}
+            title={`${series.name} 公式動画`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            class="w-full h-full"
+          ></iframe>
+        </div>
+      </section>
+    )}
+
+    <!-- 対象魚 -->
+    {series.target_fish.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">対象魚</h2>
+        <div class="flex flex-wrap gap-2">
+          {series.target_fish.map(fish => (
+            <span class="px-3 py-1.5 bg-gray-50 text-gray-700 rounded-full text-sm border border-gray-100">
+              {fish}
+            </span>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>
