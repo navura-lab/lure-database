@@ -32,13 +32,13 @@ const filterData = JSON.stringify({
   data-series={filterData}
 >
   <div class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 group-hover:shadow-card-hover group-hover:scale-[1.01]">
-    <div class="aspect-[4/3] relative overflow-hidden">
+    <div class="aspect-[4/3] relative overflow-hidden bg-white">
       {series.representative_image ? (
         <img
           src={series.representative_image}
           alt={series.name}
           loading="lazy"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-scale-down p-3"
         />
       ) : (
         <Placeholder type={series.type} />

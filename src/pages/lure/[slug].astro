@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Badge from '../../components/Badge.astro';
 import Placeholder from '../../components/Placeholder.astro';
-import ColorVariantRow from '../../components/ColorVariantRow.astro';
+
 import { supabase } from '../../lib/supabase';
 import { groupLuresBySeries } from '../../lib/group-lures';
 import type { LureSeries } from '../../lib/types';
@@ -67,12 +67,12 @@ const embedUrl = series.official_video_url
     <div class="flex flex-col md:flex-row gap-8 mb-12">
       <!-- 画像 -->
       <div class="md:w-1/2">
-        <div class="aspect-square rounded-xl overflow-hidden border border-gray-100">
+        <div class="aspect-square rounded-xl overflow-hidden border border-gray-100 bg-white">
           {series.representative_image ? (
             <img
               src={series.representative_image}
               alt={series.name}
-              class="w-full h-full object-cover"
+              class="w-full h-full object-scale-down p-6"
             />
           ) : (
             <Placeholder type={series.type} />
@@ -151,13 +151,41 @@ const embedUrl = series.official_video_url
 
     <!-- カラーバリエーション -->
     <section class="mb-12">
-      <div class="flex items-baseline gap-3 mb-4">
+      <div class="flex items-baseline gap-3 mb-6">
         <h2 class="text-xl font-bold text-gray-900">カラーバリエーション</h2>
         <span class="text-sm text-text-secondary">{series.color_count}色</span>
       </div>
-      <div class="bg-white rounded-xl border border-gray-100 px-4">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {series.colors.map(color => (
-          <ColorVariantRow color={color} />
+          <div class="group">
+            <div class="aspect-square rounded-xl overflow-hidden border border-gray-100 bg-white mb-2 transition-all duration-200 group-hover:border-primary group-hover:shadow-card-hover">
+              {color.images && color.images.length > 0 ? (
+                <img
+                  src={color.images[0]}
+                  alt={color.color_name}
+                  loading="lazy"
+                  class="w-full h-full object-scale-down p-3"
+                />
+              ) : (
+                <Placeholder size="sm" />
+              )}
+            </div>
+            <p class="text-sm font-medium text-gray-900 truncate">{color.color_name}</p>
+            <div class="flex items-center gap-2 mt-0.5">
+              {(color.weight || color.length) && (
+                <p class="text-xs text-text-secondary">
+                  {color.length && <span>{color.length}mm</span>}
+                  {color.length && color.weight && <span> / </span>}
+                  {color.weight && <span>{color.weight}g</span>}
+                </p>
+              )}
+              {color.is_limited && <Badge label="限定" variant="limited" />}
+              {color.is_discontinued && <Badge label="廃盤" variant="discontinued" />}
+            </div>
+            {color.price > 0 && (
+              <p class="text-sm font-bold text-gray-900 mt-1">¥{color.price.toLocaleString()}</p>
+            )}
+          </div>
         ))}
       </div>
     </section>
