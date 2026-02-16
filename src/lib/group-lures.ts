@@ -1,64 +1,98 @@
 import type { Lure } from './supabase';
-import type { LureSeries, ColorVariant } from './types';
-import { slugify } from './slugify';
+import type { LureSeries, ColorVariant, WeightVariant } from './types';
 
 function stripHtmlTags(str: string): string {
   return str.replace(/<[^>]*>/g, '').trim();
 }
 
 export function groupLuresBySeries(lures: Lure[]): LureSeries[] {
+  // name + slug でグルーピング（slugはDBから取得）
   const seriesMap = new Map<string, Lure[]>();
 
   for (const lure of lures) {
-    const existing = seriesMap.get(lure.name) || [];
+    // slugがない旧データはスキップ（マイグレーション前の互換性）
+    if (!lure.slug || !lure.manufacturer_slug) continue;
+    const key = lure.slug; // DB格納の英語slug
+    const existing = seriesMap.get(key) || [];
     existing.push(lure);
-    seriesMap.set(lure.name, existing);
+    seriesMap.set(key, existing);
   }
 
   const result: LureSeries[] = [];
 
-  for (const [name, records] of seriesMap) {
-    const seen = new Set<string>();
-    const dedupedRecords: Lure[] = [];
-    for (const r of records) {
-      const key = `${r.color_name ?? ''}|${r.weight ?? ''}`;
-      if (!seen.has(key)) {
-        seen.add(key);
-        dedupedRecords.push(r);
-      }
-    }
+  for (const [slug, records] of seriesMap) {
+    const rep = records[0];
 
-    const rep = dedupedRecords[0];
-
-    const representativeImage = dedupedRecords
+    const representativeImage = records
       .flatMap(r => r.images ?? [])
       .find(img => img && img.length > 0) ?? null;
 
-    const colors: ColorVariant[] = dedupedRecords
-      .filter(r => r.color_name)
-      .map(r => ({
-        color_name: stripHtmlTags(r.color_name!),
-        color_description: r.color_description,
-        weight: r.weight,
-        length: r.length,
-        price: r.price,
-        images: r.images,
-        is_limited: r.is_limited,
-        is_discontinued: r.is_discontinued,
-      }));
+    // カラー名でグルーピング（同じカラー名の異なるウェイトは1つにまとめる）
+    const colorMap = new Map<string, {
+      records: Lure[];
+      color_name: string;
+    }>();
 
-    const prices = dedupedRecords.map(r => r.price).filter(Boolean) as number[];
-    const weights = dedupedRecords.map(r => r.weight).filter(Boolean) as number[];
-    const lengths = dedupedRecords.map(r => r.length).filter(Boolean) as number[];
+    for (const r of records) {
+      if (!r.color_name) continue;
+      const cleanName = stripHtmlTags(r.color_name);
+      const existing = colorMap.get(cleanName);
+      if (existing) {
+        existing.records.push(r);
+      } else {
+        colorMap.set(cleanName, { records: [r], color_name: cleanName });
+      }
+    }
+
+    const colors: ColorVariant[] = [];
+    for (const [, group] of colorMap) {
+      // 同じカラー名内でweight|lengthの重複排除
+      const seenWeights = new Set<string>();
+      const weights: WeightVariant[] = [];
+      const allImages: string[] = [];
+      let isLimited = false;
+      let isDiscontinued = false;
+      let colorDescription: string | null = null;
+
+      for (const r of group.records) {
+        const weightKey = `${r.weight ?? ''}|${r.length ?? ''}`;
+        if (!seenWeights.has(weightKey)) {
+          seenWeights.add(weightKey);
+          weights.push({
+            weight: r.weight,
+            length: r.length,
+            price: r.price,
+          });
+        }
+        if (r.images) allImages.push(...r.images);
+        if (r.is_limited) isLimited = true;
+        if (r.is_discontinued) isDiscontinued = true;
+        if (!colorDescription && r.color_description) colorDescription = r.color_description;
+      }
+
+      colors.push({
+        color_name: group.color_name,
+        color_description: colorDescription,
+        weights,
+        images: allImages.length > 0 ? [...new Set(allImages)] : null,
+        is_limited: isLimited,
+        is_discontinued: isDiscontinued,
+      });
+    }
+
+    const prices = records.map(r => r.price).filter(Boolean) as number[];
+    const weights = records.map(r => r.weight).filter(Boolean) as number[];
+    const lengths = records.map(r => r.length).filter(Boolean) as number[];
 
     const allTargetFish = [...new Set(
-      dedupedRecords.flatMap(r => r.target_fish ?? [])
+      records.flatMap(r => r.target_fish ?? [])
     )];
 
     result.push({
-      slug: slugify(name),
-      name,
+      slug,
+      name: rep.name,
       manufacturer: rep.manufacturer,
+      manufacturer_slug: rep.manufacturer_slug,
       type: rep.type,
       description: rep.description,
       target_fish: allTargetFish,
@@ -81,7 +115,7 @@ export function groupLuresBySeries(lures: Lure[]): LureSeries[] {
         min: lengths.length > 0 ? Math.min(...lengths) : null,
         max: lengths.length > 0 ? Math.max(...lengths) : null,
       },
-      created_at: dedupedRecords
+      created_at: records
         .map(r => r.created_at)
         .sort()[0],
     });

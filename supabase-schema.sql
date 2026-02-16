@@ -7,7 +7,9 @@ CREATE TABLE IF NOT EXISTS public.lures (
   
   -- 基本情報
   name TEXT NOT NULL,                      -- ルアー名
+  slug TEXT NOT NULL,                      -- 英語スラグ（URL用）
   manufacturer TEXT NOT NULL,              -- メーカー
+  manufacturer_slug TEXT NOT NULL,         -- メーカー英語スラグ（URL用）
   type TEXT NOT NULL,                      -- 種類（ミノー、クランク等）
   price NUMERIC(10, 2),                    -- 価格
   description TEXT,                        -- 説明文
@@ -32,6 +34,8 @@ CREATE TABLE IF NOT EXISTS public.lures (
 );
 
 -- インデックス作成
+CREATE INDEX IF NOT EXISTS idx_lures_slug ON public.lures(slug);
+CREATE INDEX IF NOT EXISTS idx_lures_manufacturer_slug ON public.lures(manufacturer_slug);
 CREATE INDEX IF NOT EXISTS idx_lures_manufacturer ON public.lures(manufacturer);
 CREATE INDEX IF NOT EXISTS idx_lures_type ON public.lures(type);
 CREATE INDEX IF NOT EXISTS idx_lures_price ON public.lures(price);

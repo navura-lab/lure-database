@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LureCard from '../../components/LureCard.astro';
+import { supabase } from '../../lib/supabase';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import type { LureSeries } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const { data: lures } = await supabase
+    .from('lures')
+    .select('*');
+
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  // メーカースラグでグルーピング
+  const manufacturerMap = new Map<string, { manufacturer: string; series: LureSeries[] }>();
+  for (const s of allSeries) {
+    const existing = manufacturerMap.get(s.manufacturer_slug);
+    if (existing) {
+      existing.series.push(s);
+    } else {
+      manufacturerMap.set(s.manufacturer_slug, {
+        manufacturer: s.manufacturer,
+        series: [s],
+      });
+    }
+  }
+
+  return [...manufacturerMap.entries()].map(([slug, data]) => ({
+    params: { manufacturer_slug: slug },
+    props: { manufacturer: data.manufacturer, series: data.series },
+  }));
+}
+
+const { manufacturer, series } = Astro.props as {
+  manufacturer: string;
+  series: LureSeries[];
+};
+
+const manufacturerSlug = Astro.params.manufacturer_slug;
+---
+
+<BaseLayout title={`${manufacturer} - Lure DB`} description={`${manufacturer}のルアー一覧 | ${series.length}シリーズ`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-secondary mb-8">
+      <a href="/" class="hover:text-primary transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{manufacturer}</span>
+    </nav>
+
+    <div class="mb-8">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">{manufacturer}</h1>
+      <p class="text-sm text-text-secondary mt-1">
+        {series.length}シリーズ
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      {series.map(s => (
+        <LureCard series={s} isNew={false} />
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

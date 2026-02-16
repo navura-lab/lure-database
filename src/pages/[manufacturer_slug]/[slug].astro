@@ -15,7 +15,7 @@ export async function getStaticPaths() {
   const allSeries = groupLuresBySeries(lures ?? []);
 
   return allSeries.map(series => ({
-    params: { slug: series.slug },
+    params: { manufacturer_slug: series.manufacturer_slug, slug: series.slug },
     props: { series },
   }));
 }
@@ -59,6 +59,8 @@ const embedUrl = series.official_video_url
     <!-- パンくず -->
     <nav class="text-sm text-text-secondary mb-8">
       <a href="/" class="hover:text-primary transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <a href={`/${series.manufacturer_slug}/`} class="hover:text-primary transition-colors">{series.manufacturer}</a>
       <span class="mx-2">/</span>
       <span class="text-gray-900">{series.name}</span>
     </nav>
@@ -171,19 +173,22 @@ const embedUrl = series.official_video_url
               )}
             </div>
             <p class="text-sm font-medium text-gray-900 truncate">{color.color_name}</p>
+            <!-- ウェイトバッジ横並び -->
+            {color.weights.length > 0 && (
+              <div class="flex flex-wrap gap-1 mt-1">
+                {color.weights.map(w => (
+                  <span class="px-2 py-0.5 bg-gray-50 text-xs text-gray-600 rounded-full border border-gray-100">
+                    {w.weight && `${w.weight}g`}{w.weight && w.length && ' / '}{w.length && `${w.length}mm`}
+                  </span>
+                ))}
+              </div>
+            )}
             <div class="flex items-center gap-2 mt-0.5">
-              {(color.weight || color.length) && (
-                <p class="text-xs text-text-secondary">
-                  {color.length && <span>{color.length}mm</span>}
-                  {color.length && color.weight && <span> / </span>}
-                  {color.weight && <span>{color.weight}g</span>}
-                </p>
-              )}
               {color.is_limited && <Badge label="限定" variant="limited" />}
               {color.is_discontinued && <Badge label="廃盤" variant="discontinued" />}
             </div>
-            {color.price > 0 && (
-              <p class="text-sm font-bold text-gray-900 mt-1">¥{color.price.toLocaleString()}</p>
+            {color.weights.length === 1 && color.weights[0].price > 0 && (
+              <p class="text-sm font-bold text-gray-900 mt-1">¥{color.weights[0].price.toLocaleString()}</p>
             )}
           </div>
         ))}

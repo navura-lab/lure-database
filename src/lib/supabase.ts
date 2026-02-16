@@ -8,7 +8,9 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 export type Lure = {
   id: string
   name: string
+  slug: string
   manufacturer: string
+  manufacturer_slug: string
   type: string
   price: number
   description: string | null

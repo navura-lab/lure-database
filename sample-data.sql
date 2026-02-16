@@ -2,14 +2,16 @@
 -- 人気ルアー5種類 × 代表カラー
 
 INSERT INTO public.lures (
-  name, manufacturer, type, price, description,
+  name, slug, manufacturer, manufacturer_slug, type, price, description,
   target_fish, length, weight, color_name, color_description,
   release_year, official_video_url, diving_depth, action_type
 ) VALUES
 -- 1. メガバス POP-X
 (
   'POP-X',
+  'pop-x',
   'メガバス',
+  'megabass',
   'ポッパー',
   1800,
   '伝説的トップウォータープラグ。独特のポップ音とスプラッシュでバスを魅了。',
@@ -27,7 +29,9 @@ INSERT INTO public.lures (
 -- 2. OSP ドライブクローラー
 (
   'ドライブクローラー',
+  'drive-crawler',
   'OSP',
+  'osp',
   'ワーム',
   850,
   '圧倒的な釣果実績を誇るホッグ系ワーム。フォール中の微振動が効く。',
@@ -45,7 +49,9 @@ INSERT INTO public.lures (
 -- 3. ダイワ ピーナッツII
 (
   'ピーナッツII',
+  'peanuts-2',
   'ダイワ',
+  'daiwa',
   'クランクベイト',
   1400,
   '伝説のクランクベイト。巻くだけで釣れる初心者にも優しいルアー。',
@@ -63,7 +69,9 @@ INSERT INTO public.lures (
 -- 4. ジャッカル TN60
 (
   'TN60',
+  'tn60',
   'ジャッカル',
+  'jackal',
   'バイブレーション',
   1350,
   'タングステン製バイブレーション。高比重で遠投性能抜群。',
@@ -81,7 +89,9 @@ INSERT INTO public.lures (
 -- 5. デプス サカマタシャッド
 (
   'サカマタシャッド',
+  'sakamata-shad',
   'デプス',
+  'deps',
   'ワーム',
   750,
   '琵琶湖発の実績派ワーム。独特のテールアクションが特徴。',

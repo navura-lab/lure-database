@@ -21,13 +21,14 @@ const priceDisplay = hasPrice
 const filterData = JSON.stringify({
   name: series.name,
   manufacturer: series.manufacturer,
+  manufacturer_slug: series.manufacturer_slug,
   type: series.type,
   target_fish: series.target_fish,
 });
 ---
 
 <a
-  href={`/lure/${series.slug}`}
+  href={`/${series.manufacturer_slug}/${series.slug}/`}
   class="group block"
   data-series={filterData}
 >

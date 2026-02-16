@@ -1,11 +1,15 @@
 import type { Lure } from './supabase';
 
-export type ColorVariant = {
-  color_name: string;
-  color_description: string | null;
+export type WeightVariant = {
   weight: number | null;
   length: number | null;
   price: number;
+};
+
+export type ColorVariant = {
+  color_name: string;
+  color_description: string | null;
+  weights: WeightVariant[];
   images: string[] | null;
   is_limited: boolean;
   is_discontinued: boolean;
@@ -15,6 +19,7 @@ export type LureSeries = {
   slug: string;
   name: string;
   manufacturer: string;
+  manufacturer_slug: string;
   type: string;
   description: string | null;
   target_fish: string[];
