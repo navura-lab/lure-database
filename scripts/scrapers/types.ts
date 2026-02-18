@@ -15,6 +15,7 @@ export interface ScrapedColor {
  */
 export interface ScrapedLure {
   name: string;
+  name_kana: string;          // カタカナ読み（検索用）
   slug: string;
   manufacturer: string;
   manufacturer_slug: string;

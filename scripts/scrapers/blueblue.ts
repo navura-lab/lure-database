@@ -489,6 +489,7 @@ export async function scrapeBlueBluePage(url: string): Promise<ScrapedLure> {
     // --- Build result ---
     const result: ScrapedLure = {
       name,
+      name_kana: name,  // BlueBlue products are all katakana
       slug,
       manufacturer: 'BlueBlueFishing',
       manufacturer_slug: 'blueblue',

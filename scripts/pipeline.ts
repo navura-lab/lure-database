@@ -365,6 +365,7 @@ async function processRecord(
 
         const row: Record<string, unknown> = {
           name: scraped.name,
+          name_kana: scraped.name_kana || scraped.name,
           slug: scraped.slug,
           manufacturer: manufacturerName,
           manufacturer_slug: manufacturerSlug,
