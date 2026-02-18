@@ -21,7 +21,7 @@ import {
   PAGE_LOAD_DELAY_MS,
   IMAGE_WIDTH,
 } from './config.js';
-import { scrapeBlueBluePage, type ScrapedLure } from './scrapers/blueblue.js';
+import { getScraper, getRegisteredManufacturers, type ScrapedLure } from './scrapers/index.js';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -305,8 +305,13 @@ async function processRecord(
       manufacturerSlug = maker.fields['Slug'] || manufacturerSlug;
     }
 
-    // Scrape the page
-    const scraped: ScrapedLure = await scrapeBlueBluePage(url);
+    // Scrape the page using the appropriate manufacturer scraper
+    const scraper = getScraper(manufacturerSlug);
+    if (!scraper) {
+      const supported = getRegisteredManufacturers().join(', ');
+      throw new Error(`No scraper registered for manufacturer "${manufacturerSlug}". Supported: ${supported}`);
+    }
+    const scraped: ScrapedLure = await scraper(url);
 
     // Override manufacturer info from Airtable (more reliable)
     scraped.manufacturer = manufacturerName;

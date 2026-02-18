@@ -3,30 +3,10 @@
 
 import { chromium, type Browser, type Page } from 'playwright';
 import { BLUEBLUE_BASE_URL } from '../config.js';
+import type { ScrapedColor, ScrapedLure } from './types.js';
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
-export interface ScrapedColor {
-  name: string;
-  imageUrl: string;
-}
-
-export interface ScrapedLure {
-  name: string;
-  slug: string;
-  manufacturer: string;
-  manufacturer_slug: string;
-  type: string;
-  description: string;
-  price: number;
-  colors: ScrapedColor[];
-  weights: number[];
-  length: number | null;
-  mainImage: string;
-  sourceUrl: string;
-}
+// Re-export types for backward compatibility
+export type { ScrapedColor, ScrapedLure } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Slug mapping  (Japanese product name -> romanized slug)
