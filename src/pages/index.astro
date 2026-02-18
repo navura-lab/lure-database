@@ -5,10 +5,6 @@ import LureCard from '../components/LureCard.astro';
 import { fetchAllLures } from '../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../lib/group-lures';
 
-const debugUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-const debugKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
-const debugInfo = `URL=${debugUrl ? debugUrl.substring(0, 30) : 'MISSING'} KEY=${debugKey ? debugKey.substring(0, 15) : 'MISSING'}`;
-
 const lures = await fetchAllLures();
 
 const series = groupLuresBySeries(lures ?? []);
@@ -23,7 +19,6 @@ const newThreshold = thirtyDaysAgo.toISOString();
 ---
 
 <BaseLayout title="Lure DB - ルアーデータベース">
-  <!-- DEBUG: {debugInfo} LURES={lures?.length ?? 0} SERIES={series.length} BUILT={new Date().toISOString()} -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
     <div class="flex items-end justify-between">
       <div>
