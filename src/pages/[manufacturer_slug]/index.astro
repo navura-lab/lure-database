@@ -1,14 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LureCard from '../../components/LureCard.astro';
-import { supabase } from '../../lib/supabase';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../lib/group-lures';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
-  const { data: lures } = await supabase
-    .from('lures')
-    .select('*');
+  const lures = await fetchAllLures();
 
   const allSeries = groupLuresBySeries(lures ?? []);
 

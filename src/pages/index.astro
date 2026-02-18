@@ -2,17 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FilterBar from '../components/FilterBar.astro';
 import LureCard from '../components/LureCard.astro';
-import { supabase } from '../lib/supabase';
+import { fetchAllLures } from '../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../lib/group-lures';
 
-const { data: lures, error } = await supabase
-  .from('lures')
-  .select('*')
-  .order('created_at', { ascending: false });
-
-if (error) {
-  console.error('Error fetching lures:', error);
-}
+const lures = await fetchAllLures();
 
 const series = groupLuresBySeries(lures ?? []);
 

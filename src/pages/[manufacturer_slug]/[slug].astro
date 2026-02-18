@@ -3,14 +3,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Badge from '../../components/Badge.astro';
 import Placeholder from '../../components/Placeholder.astro';
 
-import { supabase } from '../../lib/supabase';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../lib/group-lures';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
-  const { data: lures } = await supabase
-    .from('lures')
-    .select('*');
+  const lures = await fetchAllLures();
 
   const allSeries = groupLuresBySeries(lures ?? []);
 
