@@ -376,6 +376,7 @@ async function processRecord(
           color_name: color.name,
           weight: weight,
           length: scraped.length,
+          source_url: scraped.sourceUrl || url,
           is_limited: false,
           is_discontinued: false,
         };

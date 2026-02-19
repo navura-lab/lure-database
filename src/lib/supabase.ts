@@ -25,6 +25,7 @@ export type Lure = {
   is_limited: boolean
   diving_depth: string | null
   action_type: string | null
+  source_url: string | null
   is_discontinued: boolean
   created_at: string
   updated_at: string
