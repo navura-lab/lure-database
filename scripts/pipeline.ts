@@ -152,28 +152,57 @@ async function airtableFetch<T>(
 
 /**
  * Fetch all "未処理" records from the ルアーURL table.
+ * Handles Airtable's 100-record pagination automatically.
  */
 async function fetchPendingRecords(): Promise<AirtableLureRecord[]> {
   log('Fetching pending records from Airtable...');
-  const filterFormula = encodeURIComponent("{ステータス}='未処理'");
-  const data = await airtableFetch<{ records: AirtableLureRecord[] }>(
-    AIRTABLE_LURE_URL_TABLE_ID,
-    `?filterByFormula=${filterFormula}`,
-  );
-  log(`Found ${data.records.length} pending record(s)`);
-  return data.records;
+  const allRecords: AirtableLureRecord[] = [];
+  let offset: string | undefined;
+
+  do {
+    const filterFormula = encodeURIComponent("{ステータス}='未処理'");
+    let query = `?filterByFormula=${filterFormula}`;
+    if (offset) query += `&offset=${encodeURIComponent(offset)}`;
+
+    const data = await airtableFetch<{
+      records: AirtableLureRecord[];
+      offset?: string;
+    }>(AIRTABLE_LURE_URL_TABLE_ID, query);
+
+    allRecords.push(...data.records);
+    offset = data.offset;
+
+    if (offset) {
+      log(`  Fetched ${allRecords.length} records so far, loading next page...`);
+      await sleep(200); // Airtable rate limit
+    }
+  } while (offset);
+
+  log(`Found ${allRecords.length} pending record(s)`);
+  return allRecords;
 }
+
+// Cache maker records to avoid redundant API calls
+const makerCache = new Map<string, AirtableMakerRecord>();
 
 /**
  * Fetch a maker record by ID from the メーカー table.
+ * Results are cached in-memory for the pipeline run.
  */
 async function fetchMakerRecord(recordId: string): Promise<AirtableMakerRecord> {
+  const cached = makerCache.get(recordId);
+  if (cached) {
+    log(`Maker (cached): ${cached.fields['メーカー名']} (slug: ${cached.fields['Slug']})`);
+    return cached;
+  }
+
   log(`Fetching maker record: ${recordId}`);
   const data = await airtableFetch<AirtableMakerRecord>(
     AIRTABLE_MAKER_TABLE_ID,
     `/${recordId}`,
   );
   log(`Maker: ${data.fields['メーカー名']} (slug: ${data.fields['Slug']})`);
+  makerCache.set(recordId, data);
   return data;
 }
 
@@ -260,14 +289,37 @@ async function insertLure(row: Record<string, unknown>): Promise<void> {
 // Vercel deploy
 // ---------------------------------------------------------------------------
 
-async function triggerVercelDeploy(): Promise<void> {
+async function triggerVercelDeploy(maxRetries = 3): Promise<void> {
   log('Triggering Vercel deploy...');
-  const res = await fetch(VERCEL_DEPLOY_HOOK, { method: 'POST' });
-  if (!res.ok) {
-    logError(`Vercel deploy hook failed: ${res.status}`);
-  } else {
-    log('Vercel deploy triggered successfully');
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const res = await fetch(VERCEL_DEPLOY_HOOK, { method: 'POST' });
+      if (res.ok) {
+        log('Vercel deploy triggered successfully');
+        return;
+      }
+
+      if (res.status === 429) {
+        // Rate limited — wait and retry with exponential backoff
+        const waitMs = attempt * 10000; // 10s, 20s, 30s
+        log(`Vercel deploy hook rate limited (429). Retry ${attempt}/${maxRetries} in ${waitMs / 1000}s...`);
+        await sleep(waitMs);
+        continue;
+      }
+
+      logError(`Vercel deploy hook failed: ${res.status} (attempt ${attempt}/${maxRetries})`);
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      logError(`Vercel deploy hook error: ${errMsg} (attempt ${attempt}/${maxRetries})`);
+    }
+
+    if (attempt < maxRetries) {
+      await sleep(5000);
+    }
   }
+
+  logError('Vercel deploy hook failed after all retries — deploy manually if needed');
 }
 
 // ---------------------------------------------------------------------------
