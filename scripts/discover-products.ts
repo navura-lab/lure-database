@@ -334,7 +334,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'daiwa',
     name: 'DAIWA',
     discover: discoverDaiwa,
-    excludedNameKeywords: ['ワーム', 'WORM', 'ソフトルアー', 'SOFT LURE'],
+    excludedNameKeywords: ['ワーム', 'WORM', 'ソフトルアー', 'SOFT LURE', 'フック', 'HOOK', '替えフック'],
   },
   // Future manufacturers:
   // { slug: 'shimano', name: 'SHIMANO', discover: discoverShimano, excludedNameKeywords: [] },

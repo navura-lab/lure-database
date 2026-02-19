@@ -115,6 +115,55 @@ else
 fi
 echo ""
 
+# --- 7. Supabase: records with missing images ---
+echo "--- Supabase Image Check ---"
+if [ -n "${SUPABASE_URL:-}" ] && [ -n "${SUPABASE_SERVICE_ROLE_KEY:-}" ]; then
+  # Count records with null images
+  MISSING_IMG=$(curl -s -G "${SUPABASE_URL}/rest/v1/lures" \
+    --data-urlencode "select=id" \
+    --data-urlencode "images=is.null" \
+    -H "apikey: ${SUPABASE_SERVICE_ROLE_KEY}" \
+    -H "Authorization: Bearer ${SUPABASE_SERVICE_ROLE_KEY}" \
+    -H "Prefer: count=exact" \
+    -H "Range: 0-0" \
+    -o /dev/null -w "%{http_code}" -D /tmp/supabase-headers.txt 2>/dev/null)
+
+  if [ "$MISSING_IMG" = "200" ] || [ "$MISSING_IMG" = "206" ]; then
+    COUNT=$(grep -i "content-range" /tmp/supabase-headers.txt 2>/dev/null | sed 's/.*\///' | tr -d '\r\n' || echo "?")
+    if [ "$COUNT" = "0" ]; then
+      echo "  Missing images: 0 ✅"
+    else
+      echo "  Missing images: $COUNT rows ⚠️"
+      # Show which products
+      DETAILS=$(curl -s -G "${SUPABASE_URL}/rest/v1/lures" \
+        --data-urlencode "select=manufacturer_slug,slug,name" \
+        --data-urlencode "images=is.null" \
+        --data-urlencode "limit=10" \
+        -H "apikey: ${SUPABASE_SERVICE_ROLE_KEY}" \
+        -H "Authorization: Bearer ${SUPABASE_SERVICE_ROLE_KEY}" 2>/dev/null)
+      echo "  Products:"
+      echo "$DETAILS" | python3 -c "
+import sys, json
+try:
+    data = json.load(sys.stdin)
+    seen = set()
+    for r in data:
+        key = r['manufacturer_slug'] + '/' + r['slug']
+        if key not in seen:
+            seen.add(key)
+            print(f\"    {key} - {r['name']}\")
+except: pass
+" 2>/dev/null
+    fi
+  else
+    echo "  (Supabase query failed: HTTP $MISSING_IMG)"
+  fi
+  rm -f /tmp/supabase-headers.txt
+else
+  echo "  (Supabase credentials not loaded — skipped)"
+fi
+echo ""
+
 echo "========================================"
 echo "  Health check complete"
 echo "========================================"
