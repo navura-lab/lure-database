@@ -218,7 +218,15 @@ function generateSlug(name: string, sourceUrl: string): string {
   }
 
   // Last resort: encode the name
-  return encodeURIComponent(name).toLowerCase();
+  return encodeURIComponent(name).toLowerCase().replace(/%2f/g, '-');
+}
+
+/**
+ * Sanitize slug to ensure it's safe for URL path segments.
+ * Replaces any forward slashes with hyphens.
+ */
+function sanitizeSlug(slug: string): string {
+  return slug.replace(/\//g, '-');
 }
 
 /**
@@ -479,7 +487,7 @@ export async function scrapeBlueBluePage(url: string): Promise<ScrapedLure> {
     log(`Main image: ${mainImage}`);
 
     // --- Generate slug ---
-    const slug = generateSlug(name, url);
+    const slug = sanitizeSlug(generateSlug(name, url));
     log(`Slug: ${slug}`);
 
     // --- Detect type ---
