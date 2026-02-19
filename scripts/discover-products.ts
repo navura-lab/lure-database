@@ -219,6 +219,90 @@ async function discoverMegabass(page: Page): Promise<Array<{ url: string; name: 
 }
 
 // ---------------------------------------------------------------------------
+// Daiwa discovery logic
+// ---------------------------------------------------------------------------
+
+const DAIWA_BASE_URL = 'https://www.daiwa.com';
+const DAIWA_LURE_LIST_URL = `${DAIWA_BASE_URL}/jp/product/productlist?category1=ルアー`;
+const DAIWA_MAX_PAGES = 15;
+
+async function discoverDaiwa(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[daiwa] Discovering products...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  for (let pageNum = 1; pageNum <= DAIWA_MAX_PAGES; pageNum++) {
+    const listUrl = pageNum === 1
+      ? DAIWA_LURE_LIST_URL
+      : `${DAIWA_LURE_LIST_URL}&page=${pageNum}`;
+
+    log(`[daiwa] Crawling listing page ${pageNum}: ${listUrl}`);
+    await page.goto(listUrl, { waitUntil: 'networkidle', timeout: 30000 });
+    await sleep(PAGE_LOAD_DELAY_MS);
+
+    // Extract product links via page.evaluate for speed
+    const pageProducts = await page.evaluate(() => {
+      const results: { url: string; name: string }[] = [];
+      const links = document.querySelectorAll('a[href*="/jp/product/"]');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+        if (href.includes('productlist')) return;
+        if (href.includes('category')) return;
+        const text = link.textContent?.trim() || '';
+        const name = text.split('\n')[0].trim().substring(0, 100);
+        results.push({ url: href, name: name || '(名前取得失敗)' });
+      });
+      return results;
+    });
+
+    if (pageProducts.length === 0) {
+      log(`[daiwa]   No products found on page ${pageNum} — stopping pagination`);
+      break;
+    }
+
+    let newOnThisPage = 0;
+    for (const p of pageProducts) {
+      const fullUrl = p.url.startsWith('http') ? p.url : `${DAIWA_BASE_URL}${p.url}`;
+      // Remove trailing slash for Daiwa URLs
+      const normalized = fullUrl.endsWith('/') ? fullUrl.slice(0, -1) : fullUrl;
+
+      if (seen.has(normalized)) continue;
+      seen.add(normalized);
+      products.push({ url: normalized, name: p.name });
+      newOnThisPage++;
+    }
+
+    log(`[daiwa]   Found ${pageProducts.length} links, ${newOnThisPage} new unique products`);
+
+    // Check if there's a next page
+    const hasNextPage = await page.evaluate(() => {
+      const nextLinks = document.querySelectorAll('a[href*="page="]');
+      const currentPageMatch = window.location.search.match(/page=(\d+)/);
+      const currentPage = currentPageMatch ? parseInt(currentPageMatch[1]) : 1;
+      let hasNext = false;
+      nextLinks.forEach(link => {
+        const href = link.getAttribute('href') || '';
+        const pageMatch = href.match(/page=(\d+)/);
+        if (pageMatch) {
+          const linkPage = parseInt(pageMatch[1]);
+          if (linkPage > currentPage) hasNext = true;
+        }
+      });
+      return hasNext;
+    });
+
+    if (!hasNextPage) {
+      log(`[daiwa]   No next page found — stopping pagination at page ${pageNum}`);
+      break;
+    }
+  }
+
+  log(`[daiwa] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -246,8 +330,14 @@ const MANUFACTURERS: ManufacturerConfig[] = [
       'mag-draft_head', 'okashira_screw', 'okashira_head', 'okashira_head_hg',
     ],
   },
+  {
+    slug: 'daiwa',
+    name: 'DAIWA',
+    discover: discoverDaiwa,
+    excludedNameKeywords: ['ワーム', 'WORM', 'ソフトルアー', 'SOFT LURE'],
+  },
   // Future manufacturers:
-  // { slug: 'daiwa', name: 'ダイワ', discover: discoverDaiwa, excludedNameKeywords: [] },
+  // { slug: 'shimano', name: 'SHIMANO', discover: discoverShimano, excludedNameKeywords: [] },
 ];
 
 // ---------------------------------------------------------------------------
@@ -350,7 +440,8 @@ async function createAirtableRecord(
 
 /**
  * Normalize a URL to a canonical form for comparison.
- * Ensures trailing slash and www prefix for BlueBlue.
+ * Strips trailing slash for consistent matching across manufacturers.
+ * Ensures www prefix for BlueBlue.
  */
 function normalizeUrl(url: string): string {
   let normalized = url.trim();
@@ -359,8 +450,8 @@ function normalizeUrl(url: string): string {
     'https://bluebluefishing.com',
     'https://www.bluebluefishing.com',
   );
-  // Ensure trailing slash
-  if (!normalized.endsWith('/')) normalized += '/';
+  // Strip trailing slash for consistent comparison
+  if (normalized.endsWith('/')) normalized = normalized.slice(0, -1);
   return normalized;
 }
 

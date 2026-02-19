@@ -10,6 +10,7 @@
 import type { ScraperFunction } from './types.js';
 import { scrapeBlueBluePage } from './blueblue.js';
 import { scrapeMegabassPage } from './megabass.js';
+import { scrapeDaiwaPage } from './daiwa.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -18,8 +19,8 @@ import { scrapeMegabassPage } from './megabass.js';
 const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   blueblue: scrapeBlueBluePage,
   megabass: scrapeMegabassPage,
+  daiwa: scrapeDaiwaPage,
   // Future manufacturers:
-  // daiwa: scrapeDaiwaPage,
   // shimano: scrapeShimanoPage,
 };
 
