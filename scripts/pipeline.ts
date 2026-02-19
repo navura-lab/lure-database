@@ -461,7 +461,11 @@ async function processRecord(
   } catch (err) {
     const errMsg = err instanceof Error ? err.message : String(err);
     logError(`Failed to process ${lureName}: ${errMsg}`);
-    await updateAirtableStatus(recordId, 'エラー', errMsg.substring(0, 500));
+    try {
+      await updateAirtableStatus(recordId, 'エラー', errMsg.substring(0, 500));
+    } catch (statusErr) {
+      logError(`Failed to update Airtable status for ${lureName}: ${statusErr instanceof Error ? statusErr.message : String(statusErr)}`);
+    }
     return { recordId, lureName, status: 'error', message: errMsg, colorsProcessed: 0, rowsInserted: 0 };
   }
 }
