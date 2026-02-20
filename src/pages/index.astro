@@ -21,7 +21,7 @@ const newThreshold = thirtyDaysAgo.toISOString();
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Lure DB',
+  name: 'ルアーDB',
   url: 'https://www.lure-db.com',
   description: '釣り人のためのルアーデータベース。国内主要メーカーのルアーを網羅的に掲載。',
   inLanguage: 'ja',
@@ -35,7 +35,7 @@ const initialSeries = series.slice(0, INITIAL_COUNT);
 const apiToken = import.meta.env.LDB_API_TOKEN || '';
 ---
 
-<BaseLayout title="Lure DB - ルアーデータベース" description={`国内主要メーカーのルアーを網羅的に掲載。${series.length}シリーズ・${lures?.length ?? 0}カラー登録。`} canonicalPath="/" jsonLd={jsonLd}>
+<BaseLayout title="ルアーDB - ルアーデータベース" description={`国内主要メーカーのルアーを網羅的に掲載。${series.length}シリーズ・${lures?.length ?? 0}カラー登録。`} canonicalPath="/" jsonLd={jsonLd}>
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
     <div class="flex items-end justify-between">
       <div>
