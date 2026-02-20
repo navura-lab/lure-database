@@ -674,6 +674,163 @@ async function discoverDeps(page: Page): Promise<Array<{ url: string; name: stri
 }
 
 // ---------------------------------------------------------------------------
+// Jackall discovery logic
+// ---------------------------------------------------------------------------
+
+const JACKALL_BASE_URL = 'https://www.jackall.co.jp';
+
+// Sections to crawl: [sectionPath, sectionName]
+const JACKALL_SECTIONS: [string, string][] = [
+  ['/bass/', 'BASS'],
+  ['/saltwater/shore-casting/', 'SALT SHORE'],
+  ['/saltwater/offshore-casting/', 'SALT OFFSHORE'],
+  ['/timon/', 'TROUT (Timon)'],
+];
+
+// Category slugs to exclude (non-lure: rods, accessories, tackle, etc.)
+const JACKALL_EXCLUDED_CATEGORIES = new Set([
+  'rod', 'revoltage-rod', 'bpm', 'nazzy-choice',
+  'cian-rod', 'casting', 'surf-rod', 'light-game',
+  'tconnection', 't-connection-comfy-rod', 't-connection_s',
+  'rod-tairkabura', 'rod-hitosutenya', 'boat-casting-rod',
+  'rod-tachiuo-jigging', 'rod-bluefish-jigging',
+  'tiprun-rod', 'fugu-rod', 'ikametalrod',
+  'reel', 'accessory', 'apparel-tt', 'apparel-terminal-tackle', 'apparel',
+  'hook-jighead', 'line', 'sinker', 'tool',
+  'case-bag', 'sticker', 'jackall-works', 'bag', 'wear',
+  'hook', 'spare', 'parts',
+  'wader-gamevest', 'set', 'other', 'custom-parts',
+  'salt-products-offs-246',
+]);
+
+// URL/name keywords to exclude individual products (non-lure items)
+const JACKALL_URL_EXCLUDE = [
+  'hook', 'spare', 'replacement', 'parts', 'sticker',
+  'case', 'bag', 'apparel', 'wear', 'cap', 'shirt',
+  'custom-weight', 'e-snap', 'esnap',
+  'wader', 'vest', '/rod/', '/accessory/',
+  'sabiki', 'leader',
+];
+
+const JACKALL_NAME_EXCLUDE = [
+  'フック', 'HOOK', 'スペア', 'SPARE', 'ｽﾍﾟｱ', '替え', '交換',
+  'パーツ', 'PARTS', 'ケース', 'CASE', 'バッグ', 'BAG',
+  'キャップ', 'CAP', 'シャツ', 'SHIRT', 'ステッカー', 'STICKER',
+  'アパレル', 'ライン', 'LINE', 'シンカー', 'SINKER',
+  'ロッド', 'ROD', 'リール', 'REEL',
+  'イースナップ', 'ウェーダー', 'WADER', 'ベスト', 'VEST',
+  'カスタムウェイト', 'スターターセット', 'ワンタッチラバー',
+  'オーバルリング', 'VCリーダー', 'LGフロート',
+  'LEADER', 'リーダー', 'サビキ', 'SABIKI',
+];
+
+async function discoverJackall(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[jackall] Discovering products...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  for (const [sectionPath, sectionName] of JACKALL_SECTIONS) {
+    const productsUrl = `${JACKALL_BASE_URL}${sectionPath}products/`;
+    log(`[jackall] Loading ${sectionName}: ${productsUrl}`);
+
+    try {
+      await page.goto(productsUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await sleep(PAGE_LOAD_DELAY_MS);
+
+      // Get category links
+      const categoryLinks = await page.evaluate((basePath: string) => {
+        const links: { url: string; slug: string }[] = [];
+        const anchors = document.querySelectorAll(`a[href*="${basePath}products/category/"]`);
+        const seenSlugs = new Set<string>();
+
+        for (const a of anchors) {
+          const href = a.getAttribute('href');
+          if (!href) continue;
+          const match = href.match(/\/products\/category\/([^/]+)/);
+          if (!match) continue;
+          const slug = match[1];
+          if (seenSlugs.has(slug)) continue;
+          seenSlugs.add(slug);
+          const fullUrl = href.startsWith('http') ? href : `https://www.jackall.co.jp${href}`;
+          links.push({ url: fullUrl, slug });
+        }
+        return links;
+      }, sectionPath);
+
+      // Crawl each non-excluded category
+      for (const cat of categoryLinks) {
+        if (JACKALL_EXCLUDED_CATEGORIES.has(cat.slug)) continue;
+
+        for (let pageNum = 1; pageNum <= 20; pageNum++) {
+          const pageUrl = pageNum === 1
+            ? cat.url
+            : `${cat.url.replace(/\/$/, '')}/page/${pageNum}/`;
+
+          try {
+            await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+            await sleep(PAGE_LOAD_DELAY_MS);
+
+            const pageProducts = await page.evaluate(() => {
+              const results: { url: string; name: string }[] = [];
+              const items = document.querySelectorAll('.product-list__item a');
+              for (const a of items) {
+                const href = a.getAttribute('href');
+                if (!href || href.includes('/category/')) continue;
+                const jpName = a.querySelector('.product-list__title--main')?.textContent?.trim() || '';
+                const enName = a.querySelector('.product-list__title--sub, h4.common-list__meta')?.textContent?.trim().replace(/\s*NEW\s*$/i, '') || '';
+                results.push({ url: href, name: jpName || enName || '' });
+              }
+              return results;
+            });
+
+            if (pageProducts.length === 0) break;
+
+            for (const p of pageProducts) {
+              const fullUrl = p.url.startsWith('http') ? p.url : `${JACKALL_BASE_URL}${p.url}`;
+              const normalized = fullUrl.replace(/\/$/, '');
+              if (seen.has(normalized)) continue;
+
+              // URL exclusion
+              const urlLower = normalized.toLowerCase();
+              if (JACKALL_URL_EXCLUDE.some(kw => urlLower.includes(kw))) continue;
+
+              // Name exclusion
+              if (p.name && JACKALL_NAME_EXCLUDE.some(kw => p.name.toUpperCase().includes(kw.toUpperCase()))) continue;
+
+              seen.add(normalized);
+              products.push({ url: normalized, name: p.name || '(名前取得失敗)' });
+            }
+
+            // Check for next page
+            const hasNext = await page.evaluate((currentPage: number) => {
+              const pageLinks = document.querySelectorAll('.page-pagnation a, .navigation.pagination a');
+              for (const link of pageLinks) {
+                const href = link.getAttribute('href') || '';
+                const match = href.match(/\/page\/(\d+)/);
+                if (match && parseInt(match[1]) > currentPage) return true;
+              }
+              return false;
+            }, pageNum);
+
+            if (!hasNext) break;
+          } catch {
+            break;
+          }
+        }
+      }
+
+      log(`[jackall] ${sectionName}: ${products.length} total so far`);
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      logError(`[jackall] Failed to crawl ${sectionName}: ${errMsg}`);
+    }
+  }
+
+  log(`[jackall] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -740,6 +897,14 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     excludedNameKeywords: [],
     // Category-level filtering is handled in discoverDeps() itself.
     // SOFT BAIT, SUPER BIG WORM SERIES, JIGHEAD/HOOK are excluded at crawl time.
+  },
+  {
+    slug: 'jackall',
+    name: 'JACKALL',
+    discover: discoverJackall,
+    excludedNameKeywords: [],
+    // Category/URL/name-level filtering is handled in discoverJackall() itself.
+    // Non-lure items (rods, reels, accessories, hooks, parts) are excluded at crawl time.
   },
 ];
 
