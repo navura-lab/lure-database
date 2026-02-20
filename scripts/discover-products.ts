@@ -518,6 +518,77 @@ async function discoverIma(page: Page): Promise<Array<{ url: string; name: strin
 }
 
 // ---------------------------------------------------------------------------
+// DUO discovery logic
+// ---------------------------------------------------------------------------
+
+const DUO_BASE_URL = 'https://www.duo-inc.co.jp';
+// DUO category pages: SALT=2, TROUT=3, BASS=4, 鮎=5
+// Category 1 = ROD/GEAR (non-lure)
+const DUO_CATEGORY_IDS = [2, 3, 4, 5];
+
+async function discoverDuo(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[duo] Discovering products...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  for (const catId of DUO_CATEGORY_IDS) {
+    const categoryUrl = `${DUO_BASE_URL}/product/category/${catId}`;
+    const catName = catId === 2 ? 'SALT' : catId === 3 ? 'TROUT' : catId === 4 ? 'BASS' : '鮎';
+    log(`[duo] Crawling ${catName} category: ${categoryUrl}`);
+
+    try {
+      await page.goto(categoryUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await sleep(5000); // Nuxt SPA needs time to render
+
+      const pageProducts = await page.evaluate((baseUrl: string) => {
+        const results: { url: string; name: string }[] = [];
+        const links = document.querySelectorAll('a[href*="/product/"]');
+
+        links.forEach(link => {
+          const href = link.getAttribute('href');
+          if (!href) return;
+          // Only product pages with numeric IDs: /product/{id}
+          if (!/\/product\/\d+$/.test(href)) return;
+          // Skip category pages
+          if (href.includes('/category/')) return;
+
+          // Extract product name from link text or child elements
+          let name = '';
+          const h3 = link.querySelector('h3, h4, p');
+          if (h3) name = h3.textContent?.trim() || '';
+          if (!name) name = link.textContent?.trim() || '';
+          name = name.split('\n')[0].trim().substring(0, 100);
+
+          const fullUrl = href.startsWith('http') ? href : `${baseUrl}${href}`;
+          results.push({ url: fullUrl, name: name || '(名前取得失敗)' });
+        });
+
+        return results;
+      }, DUO_BASE_URL);
+
+      let newOnThisPage = 0;
+      for (const p of pageProducts) {
+        const normalized = normalizeUrl(p.url);
+        if (seen.has(normalized)) continue;
+        seen.add(normalized);
+        products.push({ url: normalized, name: p.name });
+        newOnThisPage++;
+      }
+
+      log(`[duo]   ${catName}: ${pageProducts.length} links, ${newOnThisPage} new unique products`);
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      logError(`[duo] Failed to crawl ${categoryUrl}: ${errMsg}`);
+    }
+
+    await sleep(PAGE_LOAD_DELAY_MS);
+  }
+
+  log(`[duo] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -563,6 +634,19 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'ima',
     discover: discoverIma,
     excludedNameKeywords: [],
+  },
+  {
+    slug: 'duo',
+    name: 'DUO',
+    discover: discoverDuo,
+    excludedNameKeywords: [
+      'ワーム', 'WORM', 'ソフトベイト', 'SOFT',
+      'フック', 'HOOK', 'シャツ', 'Tシャツ', 'キャップ', 'バッグ',
+      'ステッカー', 'タオル', 'ジャケット', 'パンツ', 'グローブ',
+      'ベルト', 'チラシ', '交換用', 'パーツ', 'PARTS',
+      'ポーチ', 'POUCH', 'ボックス', 'BOX', 'ケース', 'CASE',
+      'メジャー', 'セット', 'ZEXUS', 'バチコン仕掛',
+    ],
   },
 ];
 

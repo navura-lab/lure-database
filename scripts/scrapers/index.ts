@@ -13,6 +13,7 @@ import { scrapeMegabassPage } from './megabass.js';
 import { scrapeDaiwaPage } from './daiwa.js';
 import { scrapeShimanoPage } from './shimano.js';
 import { scrapeImaPage } from './ima.js';
+import { scrapeDuoPage } from './duo.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -24,6 +25,7 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   daiwa: scrapeDaiwaPage,
   shimano: scrapeShimanoPage,
   ima: scrapeImaPage,
+  duo: scrapeDuoPage,
 };
 
 /**
