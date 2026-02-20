@@ -36,6 +36,48 @@ Supabase JS Client は `src/lib/supabase.ts`。
 - **Obsidian設計書**: `ルアーDB 自動更新システム設計.md`
   - アーキテクチャ、スキーマ、改善履歴、作業ログ
 
+## 説明文リライト手順（SEO対策）
+
+**「リライトして」「説明文を書き直して」等の指示を受けたら以下を実行する。**
+
+パイプラインはメーカー公式の説明文をそのままDBに保存する。
+リライトはClaude Codeセッション内でSonnetサブエージェントを使い、無料で実行する。
+
+### 手順
+
+1. **リライト対象を取得**: Supabaseから未リライト or 指定メーカーの説明文を取得
+   ```bash
+   # 例: DAIWAの未リライト商品（description が長文=元テキストの可能性大）
+   npx tsx -e "
+     import 'dotenv/config';
+     import { createClient } from '@supabase/supabase-js';
+     const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+     const {data} = await sb.from('lures').select('slug,name,description').eq('manufacturer_slug','daiwa').gt('description','').limit(10);
+     // slug単位で重複排除
+     const unique = [...new Map(data!.map(r=>[r.slug,[r.slug,r.name,r.description]])).values()];
+     console.log(JSON.stringify(unique));
+   "
+   ```
+
+2. **バッチ分割**: 10件ずつのJSONファイルに分割して `/tmp/` に保存
+
+3. **Sonnetサブエージェントで並列リライト**: Task tool で `model: "sonnet"` を指定
+   - リライトルール:
+     - 釣り人目線、臨場感のある常体（だ・である調）
+     - 150〜250文字
+     - メーカー説明の核心的な情報を維持
+     - SEOキーワード（ルアー種別、対象魚、釣り方）を自然に含める
+     - 「このルアーは〜」等の説明調は禁止
+     - 絵文字は使わない
+
+4. **Supabaseに書き戻し**: slug + manufacturer_slug でマッチして description を更新
+
+5. **バックアップ**: リライト結果を `scripts/_xxx-rewritten-all.json` に保存
+
+### 過去の実績
+
+- DAIWA全367商品: 2026-02-20にSonnet×7並列で完了（平均145文字、エラー0件）
+
 ## 新メーカー追加時のルール
 
 **メーカー追加を指示されたら、Runbookの「新メーカー追加 完全チェックリスト」に従え。**

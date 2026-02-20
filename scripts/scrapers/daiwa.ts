@@ -215,11 +215,24 @@ export async function scrapeDaiwaPage(url: string): Promise<ScrapedLure> {
     // --- Description ---
     let description = '';
     try {
-      // Daiwa product descriptions are in sections below the main image
-      const descTexts = await page.locator('.product_detail p, section.mainParts_description p, .mainParts_point p')
-        .allInnerTexts().catch(() => []);
+      // Daiwa product descriptions are in div.containerText > div.text
+      // Also try h2.font_Midashi for the tagline/headline
+      const descTexts = await page.evaluate(() => {
+        const texts: string[] = [];
+        // Headline (h2.font_Midashi inside div.area)
+        const headline = document.querySelector('div.area h2.font_Midashi');
+        if (headline && headline.textContent) {
+          texts.push(headline.textContent.trim());
+        }
+        // Body text (div.containerText > div.text)
+        const bodyEls = document.querySelectorAll('div.containerText div.text');
+        bodyEls.forEach(el => {
+          const t = (el.textContent || '').trim();
+          if (t.length > 20) texts.push(t);
+        });
+        return texts;
+      });
       description = descTexts
-        .filter(t => t.trim().length > 20)
         .join('\n')
         .substring(0, 500);
     } catch { /* ignore */ }

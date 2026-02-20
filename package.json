@@ -6,7 +6,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "discover": "tsx scripts/discover-products.ts",
+    "discover:dry": "tsx scripts/discover-products.ts --dry-run",
+    "pipeline": "tsx scripts/pipeline.ts",
+    "pipeline:one": "tsx scripts/pipeline.ts --limit 1"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
