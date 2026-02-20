@@ -36,9 +36,28 @@ const { manufacturer, series } = Astro.props as {
 };
 
 const manufacturerSlug = Astro.params.manufacturer_slug;
+
+// JSON-LD: ItemList schema for manufacturer page
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${manufacturer}のルアー一覧`,
+  url: `https://www.lure-db.com/${manufacturerSlug}/`,
+  description: `${manufacturer}のルアー ${series.length}シリーズを掲載。カラーバリエーション・スペック・価格情報を網羅。`,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: series.length,
+    itemListElement: series.slice(0, 50).map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.lure-db.com/${s.manufacturer_slug}/${s.slug}/`,
+      name: s.name,
+    })),
+  },
+};
 ---
 
-<BaseLayout title={`${manufacturer} - Lure DB`} description={`${manufacturer}のルアー一覧 | ${series.length}シリーズ`}>
+<BaseLayout title={`${manufacturer}のルアー一覧 - Lure DB`} description={`${manufacturer}のルアー ${series.length}シリーズを掲載。カラーバリエーション・スペック・価格情報を網羅。`} canonicalPath={`/${manufacturerSlug}/`} jsonLd={jsonLd}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- パンくず -->

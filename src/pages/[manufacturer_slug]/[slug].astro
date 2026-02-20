@@ -49,9 +49,94 @@ function getYouTubeEmbedUrl(url: string): string | null {
 const embedUrl = series.official_video_url
   ? getYouTubeEmbedUrl(series.official_video_url)
   : null;
+
+// --- SEO: Description ---
+const specs = [
+  series.type,
+  weightDisplay ? `重さ${weightDisplay}` : null,
+  lengthDisplay ? `全長${lengthDisplay}` : null,
+  `${series.color_count}カラー`,
+].filter(Boolean).join('・');
+const pageDescription = `${series.manufacturer} ${series.name}（${specs}）のスペック・カラーバリエーション・価格情報。${series.description ? series.description.substring(0, 80) : ''}`;
+
+// --- SEO: JSON-LD Product schema ---
+const jsonLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: series.name,
+  description: series.description || `${series.manufacturer} ${series.name} - ${series.type}`,
+  brand: {
+    '@type': 'Brand',
+    name: series.manufacturer,
+  },
+  category: series.type,
+  url: `https://www.lure-db.com/${series.manufacturer_slug}/${series.slug}/`,
+  ...(series.representative_image ? { image: series.representative_image } : {}),
+  ...(hasPrice ? {
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'JPY',
+      lowPrice: series.price_range.min,
+      highPrice: series.price_range.max,
+      offerCount: series.color_count,
+    },
+  } : {}),
+  additionalProperty: [
+    ...(series.weight_range.min ? [{
+      '@type': 'PropertyValue',
+      name: '重量',
+      value: weightDisplay,
+    }] : []),
+    ...(series.length_range.min ? [{
+      '@type': 'PropertyValue',
+      name: '全長',
+      value: lengthDisplay,
+    }] : []),
+    ...(series.diving_depth ? [{
+      '@type': 'PropertyValue',
+      name: '潜行深度',
+      value: series.diving_depth,
+    }] : []),
+  ],
+};
+
+// BreadcrumbList JSON-LD
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'トップ',
+      item: 'https://www.lure-db.com/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: series.manufacturer,
+      item: `https://www.lure-db.com/${series.manufacturer_slug}/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: series.name,
+      item: `https://www.lure-db.com/${series.manufacturer_slug}/${series.slug}/`,
+    },
+  ],
+};
+
+// Combine JSON-LD as array
+const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unknown>;
 ---
 
-<BaseLayout title={`${series.name} - Lure DB`} description={`${series.manufacturer} ${series.name} - ${series.type} | ${series.color_count}カラー`}>
+<BaseLayout
+  title={`${series.name}（${series.manufacturer}）- Lure DB`}
+  description={pageDescription}
+  canonicalPath={`/${series.manufacturer_slug}/${series.slug}/`}
+  ogImage={series.representative_image || undefined}
+  jsonLd={combinedJsonLd}
+>
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- パンくず -->

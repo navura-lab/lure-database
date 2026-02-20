@@ -6,12 +6,24 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
+  canonicalPath?: string;
+  ogImage?: string;
+  jsonLd?: Record<string, unknown>;
 }
+
+const SITE_URL = 'https://www.lure-db.com';
 
 const {
   title,
   description = '釣り人のためのルアーデータベース',
+  canonicalPath,
+  ogImage,
+  jsonLd,
 } = Astro.props;
+
+const canonicalUrl = canonicalPath
+  ? `${SITE_URL}${canonicalPath}`
+  : `${SITE_URL}${Astro.url.pathname}`;
 ---
 
 <!doctype html>
@@ -21,9 +33,22 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="google-site-verification" content="D7Q80KgtUENvvxm2yGZ2xlpOjgCHHvRkMzonRL_bFS8" />
+    <link rel="canonical" href={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lure DB" />
+    <meta property="og:locale" content="ja_JP" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
     <!-- Google Analytics — deferred to avoid blocking render -->
     <script>
       window.dataLayer = window.dataLayer || [];
