@@ -559,6 +559,25 @@ async function main(): Promise<void> {
     log(`  [${icon}] ${result.lureName}: ${result.message}`);
   }
 
+  // 5. Check for unpushed commits (warn if local is ahead of remote)
+  try {
+    const { execSync } = await import('child_process');
+    const unpushed = execSync('git log --oneline origin/main..HEAD 2>/dev/null', {
+      cwd: new URL('..', import.meta.url).pathname,
+      encoding: 'utf-8',
+    }).trim();
+    if (unpushed) {
+      const count = unpushed.split('\n').length;
+      log('========================================');
+      log(`⚠️  WARNING: ${count} unpushed commit(s) detected!`);
+      log('⚠️  Deploy Hook rebuilds the LAST PUSHED commit.');
+      log('⚠️  Run "git push origin main" to deploy code changes.');
+      log('========================================');
+    }
+  } catch {
+    // git not available or not a git repo — skip check silently
+  }
+
   log('Pipeline complete.');
 }
 

@@ -81,7 +81,7 @@ Supabase JS Client は `src/lib/supabase.ts`。
 ## 新メーカー追加時のルール
 
 **メーカー追加を指示されたら、Runbookの「新メーカー追加 完全チェックリスト」に従え。**
-完了条件7項目をすべて満たすまで「完了」と報告するな:
+完了条件9項目をすべて満たすまで「完了」と報告するな:
 1. スクレイパーが動く（テスト済み）
 2. 全商品がSupabaseに登録されている（未処理0、エラー0）
 3. discover-products.ts に追加済み（--dry-run で新規0件）
@@ -89,3 +89,5 @@ Supabase JS Client は `src/lib/supabase.ts`。
 5. Obsidianが更新されている
 6. Gitコミット済み（working tree clean）
 7. テスト用スクリプトが _deprecated/ に移動済み
+8. **`git push origin main` 済み（⚠️ pushしないとサイトに反映されない）**
+9. **サイトに新メーカーの商品が表示されている（デプロイ反映確認）**
