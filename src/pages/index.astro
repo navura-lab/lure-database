@@ -16,6 +16,27 @@ const targetFish = [...new Set(series.flatMap(s => s.target_fish))].sort();
 const thirtyDaysAgo = new Date();
 thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 const newThreshold = thirtyDaysAgo.toISOString();
+
+// Progressive rendering: SSR first batch, lazy-load the rest
+const INITIAL_COUNT = 32;
+const initialSeries = series.slice(0, INITIAL_COUNT);
+const remainingSeries = series.slice(INITIAL_COUNT);
+
+// Pre-compute card data for client-side rendering
+const allCardData = series.map(s => ({
+  slug: s.slug,
+  name: s.name,
+  manufacturer: s.manufacturer,
+  manufacturer_slug: s.manufacturer_slug,
+  type: s.type,
+  target_fish: s.target_fish,
+  representative_image: s.representative_image,
+  color_count: s.color_count,
+  price_min: s.price_range.min,
+  price_max: s.price_range.max,
+  is_new: s.created_at > newThreshold,
+  has_limited: s.colors.some(c => c.is_limited),
+}));
 ---
 
 <BaseLayout title="Lure DB - ルアーデータベース">
@@ -38,10 +59,13 @@ const newThreshold = thirtyDaysAgo.toISOString();
     </p>
 
     <div id="lure-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-      {series.map(s => (
-        <LureCard series={s} isNew={s.created_at > newThreshold} />
+      {initialSeries.map((s, i) => (
+        <LureCard series={s} isNew={s.created_at > newThreshold} priority={i < 8} />
       ))}
     </div>
+
+    <!-- Sentinel for infinite scroll -->
+    <div id="load-more-sentinel" class="h-4"></div>
 
     <div id="no-results" class="hidden text-center py-16">
       <p class="text-text-secondary">条件に一致するルアーが見つかりません</p>
@@ -50,12 +74,16 @@ const newThreshold = thirtyDaysAgo.toISOString();
       </button>
     </div>
   </section>
+
+  <!-- All card data for progressive rendering + filtering -->
+  <script type="application/json" id="all-card-data" set:html={JSON.stringify(allCardData)} />
 </BaseLayout>
 
 <script>
   const grid = document.getElementById('lure-grid')!;
   const countDisplay = document.getElementById('results-count')!;
   const noResults = document.getElementById('no-results')!;
+  const sentinel = document.getElementById('load-more-sentinel')!;
   const manufacturerSelect = document.querySelector<HTMLSelectElement>('[data-filter-manufacturer]')!;
   const typeSelect = document.querySelector<HTMLSelectElement>('[data-filter-type]')!;
   const targetFishSelect = document.querySelector<HTMLSelectElement>('[data-filter-targetfish]')!;
@@ -63,35 +91,172 @@ const newThreshold = thirtyDaysAgo.toISOString();
   const clearBtn = document.querySelector<HTMLButtonElement>('[data-filter-clear]')!;
   const resetBtn = document.querySelector<HTMLButtonElement>('[data-filter-reset]');
 
+  // Load all card data
+  const allCards: CardData[] = JSON.parse(document.getElementById('all-card-data')!.textContent!);
+
+  interface CardData {
+    slug: string;
+    name: string;
+    manufacturer: string;
+    manufacturer_slug: string;
+    type: string;
+    target_fish: string[];
+    representative_image: string | null;
+    color_count: number;
+    price_min: number;
+    price_max: number;
+    is_new: boolean;
+    has_limited: boolean;
+  }
+
+  const BATCH_SIZE = 32;
+  const INITIAL_COUNT = 32;
+  let renderedCount = INITIAL_COUNT;
+  let isFiltering = false;
+
+  // Generate card HTML string from data
+  function cardHtml(d: CardData): string {
+    const filterData = JSON.stringify({
+      name: d.name,
+      manufacturer: d.manufacturer,
+      manufacturer_slug: d.manufacturer_slug,
+      type: d.type,
+      target_fish: d.target_fish,
+    });
+
+    const hasPrice = d.price_max > 0;
+    const priceDisplay = hasPrice
+      ? d.price_min === d.price_max
+        ? `¥${d.price_min.toLocaleString()}`
+        : `¥${d.price_min.toLocaleString()} - ¥${d.price_max.toLocaleString()}`
+      : '';
+
+    const imgHtml = d.representative_image
+      ? `<img src="${d.representative_image}" alt="${escHtml(d.name)}" loading="lazy" width="500" height="375" class="w-full h-full object-scale-down p-3">`
+      : `<div class="placeholder-lure-bg w-full h-full flex items-center justify-center"><span class="text-xs text-sky-400">${escHtml(d.type)}</span></div>`;
+
+    const badges = [
+      d.is_new ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-amber-50 text-amber-700 border-amber-200">新着</span>` : '',
+      d.has_limited ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-purple-50 text-purple-700 border-purple-200">限定</span>` : '',
+    ].filter(Boolean).join('');
+
+    return `<a href="/${d.manufacturer_slug}/${d.slug}/" class="group block" data-series='${escAttr(filterData)}'>
+      <div class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 group-hover:shadow-card-hover group-hover:scale-[1.01]">
+        <div class="aspect-[4/3] relative overflow-hidden bg-white">
+          ${imgHtml}
+          <div class="absolute top-2 right-2 flex flex-col gap-1">${badges}</div>
+        </div>
+        <div class="p-4">
+          <p class="text-xs text-text-secondary tracking-wider uppercase mb-1">${escHtml(d.manufacturer)}</p>
+          <h3 class="text-base font-bold text-gray-900 mb-1.5 group-hover:text-primary transition-colors">${escHtml(d.name)}</h3>
+          <div class="flex items-center gap-1.5 text-xs text-text-secondary mb-3">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-sky-50 text-sky-700 border-sky-200">${escHtml(d.type)}</span>
+            <span>${d.color_count}カラー</span>
+          </div>
+          ${priceDisplay ? `<p class="text-sm font-bold text-gray-900">${priceDisplay}</p>` : ''}
+        </div>
+      </div>
+    </a>`;
+  }
+
+  function escHtml(s: string): string {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function escAttr(s: string): string {
+    return s.replace(/&/g,'&amp;').replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+  }
+
+  // Append next batch of cards (no filter active)
+  function loadMoreCards() {
+    if (isFiltering || renderedCount >= allCards.length) return;
+    const batch = allCards.slice(renderedCount, renderedCount + BATCH_SIZE);
+    const fragment = document.createDocumentFragment();
+    const div = document.createElement('div');
+    for (const d of batch) {
+      div.innerHTML = cardHtml(d);
+      const el = div.firstElementChild;
+      if (el) fragment.appendChild(el);
+    }
+    grid.appendChild(fragment);
+    renderedCount += batch.length;
+
+    if (renderedCount >= allCards.length) {
+      sentinel.style.display = 'none';
+    }
+  }
+
+  // IntersectionObserver for infinite scroll
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      loadMoreCards();
+    }
+  }, { rootMargin: '400px' });
+  observer.observe(sentinel);
+
+  // Filter logic — operates on allCards data, re-renders matching cards
   function applyFilters() {
     const mfr = manufacturerSelect.value;
     const type = typeSelect.value;
     const fish = targetFishSelect.value;
     const query = searchInput.value.toLowerCase().trim();
+    const hasFilter = !!(mfr || type || fish || query);
 
-    const cards = grid.querySelectorAll<HTMLElement>('[data-series]');
-    let visibleCount = 0;
+    if (!hasFilter) {
+      // Reset to progressive mode
+      if (isFiltering) {
+        isFiltering = false;
+        grid.innerHTML = '';
+        renderedCount = 0;
+        // Re-render initial batch
+        const batch = allCards.slice(0, INITIAL_COUNT);
+        const fragment = document.createDocumentFragment();
+        const div = document.createElement('div');
+        for (const d of batch) {
+          div.innerHTML = cardHtml(d);
+          const el = div.firstElementChild;
+          if (el) fragment.appendChild(el);
+        }
+        grid.appendChild(fragment);
+        renderedCount = INITIAL_COUNT;
+        sentinel.style.display = '';
+        observer.observe(sentinel);
+      }
+      countDisplay.textContent = `${allCards.length}件のシリーズ`;
+      grid.classList.remove('hidden');
+      noResults.classList.add('hidden');
+      clearBtn.classList.add('hidden');
+      return;
+    }
 
-    cards.forEach(card => {
-      const data = JSON.parse(card.dataset.series!);
-      let show = true;
+    // Filter mode — render all matching cards at once
+    isFiltering = true;
+    observer.unobserve(sentinel);
+    sentinel.style.display = 'none';
 
-      if (mfr && data.manufacturer !== mfr) show = false;
-      if (type && data.type !== type) show = false;
-      if (fish && !data.target_fish.includes(fish)) show = false;
-      if (query && !data.name.toLowerCase().includes(query) &&
-          !data.manufacturer.toLowerCase().includes(query)) show = false;
-
-      card.style.display = show ? '' : 'none';
-      if (show) visibleCount++;
+    const matching = allCards.filter(d => {
+      if (mfr && d.manufacturer !== mfr) return false;
+      if (type && d.type !== type) return false;
+      if (fish && !d.target_fish.includes(fish)) return false;
+      if (query && !d.name.toLowerCase().includes(query) &&
+          !d.manufacturer.toLowerCase().includes(query)) return false;
+      return true;
     });
 
-    countDisplay.textContent = `${visibleCount}件のシリーズ`;
-    grid.classList.toggle('hidden', visibleCount === 0);
-    noResults.classList.toggle('hidden', visibleCount > 0);
+    grid.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+    const div = document.createElement('div');
+    for (const d of matching) {
+      div.innerHTML = cardHtml(d);
+      const el = div.firstElementChild;
+      if (el) fragment.appendChild(el);
+    }
+    grid.appendChild(fragment);
 
-    const hasFilter = mfr || type || fish || query;
-    clearBtn.classList.toggle('hidden', !hasFilter);
+    countDisplay.textContent = `${matching.length}件のシリーズ`;
+    grid.classList.toggle('hidden', matching.length === 0);
+    noResults.classList.toggle('hidden', matching.length > 0);
+    clearBtn.classList.remove('hidden');
   }
 
   function resetFilters() {

@@ -12,7 +12,9 @@ const { manufacturers, types, targetFish } = Astro.props;
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       <div>
+        <label for="filter-manufacturer" class="sr-only">メーカー</label>
         <select
+          id="filter-manufacturer"
           data-filter-manufacturer
           class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
         >
@@ -23,7 +25,9 @@ const { manufacturers, types, targetFish } = Astro.props;
         </select>
       </div>
       <div>
+        <label for="filter-type" class="sr-only">種類</label>
         <select
+          id="filter-type"
           data-filter-type
           class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
         >
@@ -34,7 +38,9 @@ const { manufacturers, types, targetFish } = Astro.props;
         </select>
       </div>
       <div>
+        <label for="filter-targetfish" class="sr-only">対象魚</label>
         <select
+          id="filter-targetfish"
           data-filter-targetfish
           class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
         >
@@ -45,7 +51,9 @@ const { manufacturers, types, targetFish } = Astro.props;
         </select>
       </div>
       <div class="relative">
+        <label for="filter-search" class="sr-only">ルアー名で検索</label>
         <input
+          id="filter-search"
           type="text"
           data-filter-search
           placeholder="ルアー名で検索..."

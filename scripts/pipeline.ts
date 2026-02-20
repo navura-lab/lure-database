@@ -125,6 +125,7 @@ async function processAndUploadImage(
       Key: r2Key,
       Body: webpBuffer,
       ContentType: 'image/webp',
+      CacheControl: 'public, max-age=31536000, immutable',
     }),
   );
 

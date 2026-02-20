@@ -6,9 +6,10 @@ import type { LureSeries } from '../lib/types';
 interface Props {
   series: LureSeries;
   isNew: boolean;
+  priority?: boolean;
 }
 
-const { series, isNew } = Astro.props;
+const { series, isNew, priority = false } = Astro.props;
 
 const hasLimited = series.colors.some(c => c.is_limited);
 const hasPrice = series.price_range.max > 0;
@@ -38,7 +39,10 @@ const filterData = JSON.stringify({
         <img
           src={series.representative_image}
           alt={series.name}
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
+          fetchpriority={priority ? "high" : undefined}
+          width="500"
+          height="375"
           class="w-full h-full object-scale-down p-3"
         />
       ) : (
