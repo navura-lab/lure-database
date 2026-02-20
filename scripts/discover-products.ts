@@ -29,6 +29,9 @@ interface ManufacturerConfig {
   discover: (page: Page) => Promise<Array<{ url: string; name: string }>>;
   excludedNameKeywords: string[];
   excludedUrlSlugs?: string[];
+  /** If true, launches a separate headed (headless: false) browser with custom UA.
+   *  Required for sites with strict WAF (e.g. Shimano's Akamai). */
+  requiresHeadedBrowser?: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -366,10 +369,8 @@ const SHIMANO_SUBCATEGORY_URLS = [
 
 async function discoverShimano(page: Page): Promise<Array<{ url: string; name: string }>> {
   log('[shimano] Discovering products...');
-  // NOTE: Shimano requires headless: false (WAF). The main function launches
-  // the browser in headless mode by default. If the WAF blocks access (403),
-  // shimano discovery will log errors and return partial/empty results.
-  // For full Shimano discovery, run: register-shimano-urls.ts (headless: false)
+  // Shimano requires headless: false (WAF). The main function handles this
+  // by launching a separate headed browser via requiresHeadedBrowser flag.
   const products: Array<{ url: string; name: string }> = [];
   const seen = new Set<string>();
 
@@ -499,6 +500,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'SHIMANO',
     discover: discoverShimano,
     excludedNameKeywords: ['ワーム', 'WORM', 'ソフトルアー', 'SOFT LURE', 'パーツ', 'PARTS'],
+    requiresHeadedBrowser: true,
   },
 ];
 
@@ -657,7 +659,7 @@ async function main(): Promise<void> {
   const existingUrls = await fetchExistingAirtableUrls();
 
   // 3. Launch browser and discover products for each manufacturer
-  log('Launching browser...');
+  log('Launching browser (headless)...');
   const browser: Browser = await chromium.launch({ headless: true });
   const page: Page = await browser.newPage();
 
@@ -675,7 +677,26 @@ async function main(): Promise<void> {
       let discovered: Array<{ url: string; name: string }> = [];
 
       try {
-        discovered = await mfg.discover(page);
+        if (mfg.requiresHeadedBrowser) {
+          // Some sites (e.g. Shimano) block headless browsers via WAF.
+          // Launch a separate headed browser with a real User-Agent.
+          log(`[${mfg.slug}] Launching headed browser (WAF workaround)...`);
+          const headedBrowser = await chromium.launch({ headless: false });
+          try {
+            const ctx = await headedBrowser.newContext({
+              userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+            });
+            const headedPage = await ctx.newPage();
+            discovered = await mfg.discover(headedPage);
+            await headedPage.close();
+            await ctx.close();
+          } finally {
+            await headedBrowser.close();
+            log(`[${mfg.slug}] Headed browser closed`);
+          }
+        } else {
+          discovered = await mfg.discover(page);
+        }
       } catch (err) {
         const errMsg = err instanceof Error ? err.message : String(err);
         logError(`Failed to discover products for ${mfg.name}: ${errMsg}`);
