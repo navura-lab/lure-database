@@ -462,6 +462,62 @@ async function discoverShimano(page: Page): Promise<Array<{ url: string; name: s
 }
 
 // ---------------------------------------------------------------------------
+// ima discovery logic
+// ---------------------------------------------------------------------------
+
+const IMA_BASE_URL = 'https://www.ima-ams.co.jp';
+const IMA_LURE_LIST_URL = `${IMA_BASE_URL}/product/products/list?category_id=7`;
+
+async function discoverIma(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[ima] Discovering products...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  try {
+    await page.goto(IMA_LURE_LIST_URL, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await sleep(PAGE_LOAD_DELAY_MS);
+
+    // All 177 products are on a single page — no pagination needed
+    const pageProducts = await page.evaluate(() => {
+      const results: { url: string; name: string }[] = [];
+      const links = document.querySelectorAll('a[href*="/products/detail/"]');
+      const seenHrefs = new Set<string>();
+
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href || seenHrefs.has(href)) return;
+        seenHrefs.add(href);
+
+        // Extract product name from the link's text or child element
+        const nameEl = link.querySelector('.product_list__name, h3, h4');
+        let name = nameEl?.textContent?.trim() || link.textContent?.trim() || '';
+        name = name.split('\n')[0].trim().substring(0, 100);
+
+        results.push({ url: href, name: name || '(名前取得失敗)' });
+      });
+      return results;
+    });
+
+    for (const p of pageProducts) {
+      const fullUrl = p.url.startsWith('http') ? p.url : `${IMA_BASE_URL}${p.url}`;
+      const normalized = normalizeUrl(fullUrl);
+
+      if (seen.has(normalized)) continue;
+      seen.add(normalized);
+      products.push({ url: normalized, name: p.name });
+    }
+
+    log(`[ima] Found ${pageProducts.length} links, ${products.length} unique products`);
+  } catch (err) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    logError(`[ima] Failed to crawl ${IMA_LURE_LIST_URL}: ${errMsg}`);
+  }
+
+  log(`[ima] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -501,6 +557,12 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverShimano,
     excludedNameKeywords: ['ワーム', 'WORM', 'ソフトルアー', 'SOFT LURE', 'パーツ', 'PARTS'],
     requiresHeadedBrowser: true,
+  },
+  {
+    slug: 'ima',
+    name: 'ima',
+    discover: discoverIma,
+    excludedNameKeywords: [],
   },
 ];
 
