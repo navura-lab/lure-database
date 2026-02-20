@@ -589,6 +589,91 @@ async function discoverDuo(page: Page): Promise<Array<{ url: string; name: strin
 }
 
 // ---------------------------------------------------------------------------
+// deps discovery logic
+// ---------------------------------------------------------------------------
+
+const DEPS_BASE_URL = 'https://www.depsweb.co.jp';
+const DEPS_LISTING_URL = `${DEPS_BASE_URL}/products/lure/`;
+
+// Categories to exclude from deps (non-hardbait)
+const DEPS_EXCLUDED_CATEGORIES = ['SOFT BAIT', 'SUPER BIG WORM SERIES', 'JIGHEAD/HOOK'];
+
+async function discoverDeps(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[deps] Discovering products...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  try {
+    await page.goto(DEPS_LISTING_URL, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await sleep(PAGE_LOAD_DELAY_MS);
+
+    // deps listing page groups products under h2 category headers.
+    // We need to exclude SOFT BAIT, SUPER BIG WORM SERIES, JIGHEAD/HOOK categories.
+    const pageProducts = await page.evaluate((excludedCategories: string[]) => {
+      const results: { url: string; name: string; category: string }[] = [];
+
+      // Walk through all h2 category headers
+      const h2s = document.querySelectorAll('h2');
+      for (const h2 of h2s) {
+        // Extract category name (h2 text may have duplicated lines due to line breaks)
+        const rawText = h2.textContent || '';
+        const lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+        const category = lines[0] || '';
+
+        if (!category) continue;
+
+        // Check if this category should be excluded
+        const isExcluded = excludedCategories.some(
+          exc => category.toUpperCase().includes(exc.toUpperCase()),
+        );
+        if (isExcluded) continue;
+
+        // Find the product list that follows this h2
+        // Walk siblings until we hit the next h2 or run out
+        let sibling = h2.nextElementSibling;
+        while (sibling && sibling.tagName !== 'H2') {
+          const links = sibling.querySelectorAll('a[href*="/product/"]');
+          for (const link of links) {
+            const href = link.getAttribute('href');
+            if (!href) continue;
+            // Skip if it's a category page or non-product link
+            if (href.includes('/products/') && !href.match(/\/product\/[^/]+\/?$/)) continue;
+
+            let name = '';
+            const nameEl = link.querySelector('h3, h4, .product-name, .title');
+            if (nameEl) name = nameEl.textContent?.trim() || '';
+            if (!name) name = link.textContent?.trim() || '';
+            name = name.split('\n')[0].trim().substring(0, 100);
+
+            results.push({ url: href, name: name || '(名前取得失敗)', category });
+          }
+          sibling = sibling.nextElementSibling;
+        }
+      }
+
+      return results;
+    }, DEPS_EXCLUDED_CATEGORIES);
+
+    for (const p of pageProducts) {
+      const fullUrl = p.url.startsWith('http') ? p.url : `${DEPS_BASE_URL}${p.url}`;
+      const normalized = normalizeUrl(fullUrl);
+
+      if (seen.has(normalized)) continue;
+      seen.add(normalized);
+      products.push({ url: normalized, name: p.name });
+    }
+
+    log(`[deps] Found ${pageProducts.length} links, ${products.length} unique products (excluded categories: ${DEPS_EXCLUDED_CATEGORIES.join(', ')})`);
+  } catch (err) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    logError(`[deps] Failed to crawl ${DEPS_LISTING_URL}: ${errMsg}`);
+  }
+
+  log(`[deps] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -647,6 +732,14 @@ const MANUFACTURERS: ManufacturerConfig[] = [
       'ポーチ', 'POUCH', 'ボックス', 'BOX', 'ケース', 'CASE',
       'メジャー', 'セット', 'ZEXUS', 'バチコン仕掛',
     ],
+  },
+  {
+    slug: 'deps',
+    name: 'deps',
+    discover: discoverDeps,
+    excludedNameKeywords: [],
+    // Category-level filtering is handled in discoverDeps() itself.
+    // SOFT BAIT, SUPER BIG WORM SERIES, JIGHEAD/HOOK are excluded at crawl time.
   },
 ];
 
