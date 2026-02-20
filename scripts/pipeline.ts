@@ -98,7 +98,15 @@ async function processAndUploadImage(
   r2Key: string,
 ): Promise<string> {
   log(`Downloading image: ${imageUrl}`);
-  const response = await fetch(imageUrl);
+  // Shimano CDN (dassets2.shimano.com) blocks requests without proper headers.
+  // Other CDNs are generally fine, but adding headers doesn't hurt.
+  const fetchHeaders: Record<string, string> = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+  };
+  if (imageUrl.includes('shimano.com')) {
+    fetchHeaders['Referer'] = 'https://fish.shimano.com/';
+  }
+  const response = await fetch(imageUrl, { headers: fetchHeaders });
   if (!response.ok) {
     throw new Error(`Failed to download image: ${response.status} ${response.statusText} for ${imageUrl}`);
   }

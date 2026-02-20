@@ -303,6 +303,164 @@ async function discoverDaiwa(page: Page): Promise<Array<{ url: string; name: str
 }
 
 // ---------------------------------------------------------------------------
+// Shimano discovery logic
+// ---------------------------------------------------------------------------
+
+const SHIMANO_BASE_URL = 'https://fish.shimano.com';
+
+// All Shimano lure sub-category URLs
+const SHIMANO_SUBCATEGORY_URLS = [
+  '/ja-JP/product/lure/seabass/minnow.html',
+  '/ja-JP/product/lure/seabass/sinkingpencil.html',
+  '/ja-JP/product/lure/seabass/topwater.html',
+  '/ja-JP/product/lure/seabass/vibration_blade.html',
+  '/ja-JP/product/lure/seabass/bigbait_jointbait.html',
+  '/ja-JP/product/lure/surf/minnow.html',
+  '/ja-JP/product/lure/surf/sinkingpencil.html',
+  '/ja-JP/product/lure/surf/topwater.html',
+  '/ja-JP/product/lure/surf/vibration_blade.html',
+  '/ja-JP/product/lure/surf/bigbait_jointbait.html',
+  '/ja-JP/product/lure/surf/jig_spoon.html',
+  '/ja-JP/product/lure/surf/worm_jighead.html',
+  '/ja-JP/product/lure/rockyshore_etc/jig.html',
+  '/ja-JP/product/lure/rockyshore_etc/vibration_blade.html',
+  '/ja-JP/product/lure/rockyshore_etc/topwater.html',
+  '/ja-JP/product/lure/rockyshore_etc/minnow.html',
+  '/ja-JP/product/lure/rockyshore_etc/sinkingpencil.html',
+  '/ja-JP/product/lure/shoreeging/egi.html',
+  '/ja-JP/product/lure/boateging/egi_dropper.html',
+  '/ja-JP/product/lure/boateging/sutte.html',
+  '/ja-JP/product/lure/tako/egi.html',
+  '/ja-JP/product/lure/tako/sutte.html',
+  '/ja-JP/product/lure/tako/others.html',
+  '/ja-JP/product/lure/bream/topwater.html',
+  '/ja-JP/product/lure/bream/minnow.html',
+  '/ja-JP/product/lure/lightgame/worm_jighead.html',
+  '/ja-JP/product/lure/lightgame/float.html',
+  '/ja-JP/product/lure/lightgame/minnow.html',
+  '/ja-JP/product/lure/lightgame/jig_vibration_blade.html',
+  '/ja-JP/product/lure/lightgame/sinkingpencil.html',
+  '/ja-JP/product/lure/offshorecasting/topwater.html',
+  '/ja-JP/product/lure/offshorecasting/minnow.html',
+  '/ja-JP/product/lure/offshorecasting/jointbait.html',
+  '/ja-JP/product/lure/offshorecasting/sinkingpencil.html',
+  '/ja-JP/product/lure/offshorecasting/others.html',
+  '/ja-JP/product/lure/offshorejigging/jig.html',
+  '/ja-JP/product/lure/offshorejigging/blade.html',
+  '/ja-JP/product/lure/offshorejigging/others.html',
+  '/ja-JP/product/lure/tairubber_etc/tairubber.html',
+  '/ja-JP/product/lure/tachiuo/tenya.html',
+  '/ja-JP/product/lure/bass/topwater.html',
+  '/ja-JP/product/lure/bass/minnow_shad.html',
+  '/ja-JP/product/lure/bass/i-motion.html',
+  '/ja-JP/product/lure/bass/crankbait.html',
+  '/ja-JP/product/lure/bass/bigbait_jointbait.html',
+  '/ja-JP/product/lure/bass/vibration_spintail.html',
+  '/ja-JP/product/lure/bass/spinnerbait_rubberjig.html',
+  '/ja-JP/product/lure/nativetrout/minnow.html',
+  '/ja-JP/product/lure/nativetrout/jigminnow_sinkingpencil.html',
+  '/ja-JP/product/lure/areatrout/spoon.html',
+  '/ja-JP/product/lure/areatrout/crankbait.html',
+  '/ja-JP/product/lure/areatrout/minnow.html',
+];
+
+async function discoverShimano(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[shimano] Discovering products...');
+  // NOTE: Shimano requires headless: false (WAF). The main function launches
+  // the browser in headless mode by default. If the WAF blocks access (403),
+  // shimano discovery will log errors and return partial/empty results.
+  // For full Shimano discovery, run: register-shimano-urls.ts (headless: false)
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  for (let i = 0; i < SHIMANO_SUBCATEGORY_URLS.length; i++) {
+    const subCatPath = SHIMANO_SUBCATEGORY_URLS[i];
+
+    for (let pageNum = 1; pageNum <= 10; pageNum++) {
+      const pageUrl = pageNum === 1
+        ? `${SHIMANO_BASE_URL}${subCatPath}`
+        : `${SHIMANO_BASE_URL}${subCatPath}?page=${pageNum}`;
+
+      try {
+        await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+        await sleep(PAGE_LOAD_DELAY_MS + 1000);
+
+        // Check for WAF block
+        const title = await page.title().catch(() => '');
+        if (title.includes('Access Denied') || title.includes('403')) {
+          if (i === 0 && pageNum === 1) {
+            logError('[shimano] WAF blocked. Shimano requires headless: false browser. Skipping all.');
+            return products;
+          }
+          break;
+        }
+
+        const pageProducts = await page.evaluate(() => {
+          const results: { url: string; name: string }[] = [];
+          const links = document.querySelectorAll('a[href*="/product/lure/"]');
+
+          links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href || !href.endsWith('.html')) return;
+            const segments = href.split('/').filter(Boolean);
+            if (segments.length < 6) return;
+            const lastSegment = segments[segments.length - 1].replace('.html', '');
+            if (!lastSegment || lastSegment.length < 10) return;
+
+            let name = '';
+            const nameEl = link.querySelector('[class*="name"], [class*="title"], h2, h3, h4');
+            if (nameEl) name = nameEl.textContent?.trim() || '';
+            if (!name) name = link.textContent?.trim().split('\n')[0].trim() || '';
+            name = name.substring(0, 100);
+
+            results.push({ url: href, name: name || '(名前取得失敗)' });
+          });
+          return results;
+        });
+
+        if (pageProducts.length === 0) break;
+
+        let newOnThisPage = 0;
+        for (const p of pageProducts) {
+          const fullUrl = p.url.startsWith('http') ? p.url : `${SHIMANO_BASE_URL}${p.url}`;
+          const normalized = normalizeUrl(fullUrl);
+          if (seen.has(normalized)) continue;
+          seen.add(normalized);
+          products.push({ url: normalized, name: p.name });
+          newOnThisPage++;
+        }
+
+        // If no new products found on this page, all remaining pages are duplicates — stop
+        if (newOnThisPage === 0 && pageNum > 1) break;
+
+        // Check for next page
+        const hasNextPage = await page.evaluate((currentPage: number) => {
+          const pageLinks = document.querySelectorAll('a[href*="page="]');
+          let hasNext = false;
+          pageLinks.forEach(link => {
+            const href = link.getAttribute('href') || '';
+            const pageMatch = href.match(/page=(\d+)/);
+            if (pageMatch && parseInt(pageMatch[1]) > currentPage) hasNext = true;
+          });
+          return hasNext;
+        }, pageNum);
+
+        if (!hasNextPage) break;
+      } catch (err) {
+        const errMsg = err instanceof Error ? err.message : String(err);
+        logError(`[shimano] Failed to crawl ${pageUrl}: ${errMsg}`);
+        break;
+      }
+    }
+
+    if (i < SHIMANO_SUBCATEGORY_URLS.length - 1) await sleep(2000);
+  }
+
+  log(`[shimano] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -336,8 +494,12 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverDaiwa,
     excludedNameKeywords: ['ワーム', 'WORM', 'ソフトルアー', 'SOFT LURE', 'フック', 'HOOK', '替えフック'],
   },
-  // Future manufacturers:
-  // { slug: 'shimano', name: 'SHIMANO', discover: discoverShimano, excludedNameKeywords: [] },
+  {
+    slug: 'shimano',
+    name: 'SHIMANO',
+    discover: discoverShimano,
+    excludedNameKeywords: ['ワーム', 'WORM', 'ソフトルアー', 'SOFT LURE', 'パーツ', 'PARTS'],
+  },
 ];
 
 // ---------------------------------------------------------------------------
