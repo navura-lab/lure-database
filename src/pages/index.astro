@@ -27,26 +27,12 @@ const jsonLd = {
   inLanguage: 'ja',
 };
 
-// Progressive rendering: SSR first batch, lazy-load the rest
+// Progressive rendering: SSR first batch only (no JSON blob!)
 const INITIAL_COUNT = 32;
 const initialSeries = series.slice(0, INITIAL_COUNT);
-const remainingSeries = series.slice(INITIAL_COUNT);
 
-// Pre-compute card data for client-side rendering
-const allCardData = series.map(s => ({
-  slug: s.slug,
-  name: s.name,
-  manufacturer: s.manufacturer,
-  manufacturer_slug: s.manufacturer_slug,
-  type: s.type,
-  target_fish: s.target_fish,
-  representative_image: s.representative_image,
-  color_count: s.color_count,
-  price_min: s.price_range.min,
-  price_max: s.price_range.max,
-  is_new: s.created_at > newThreshold,
-  has_limited: s.colors.some(c => c.is_limited),
-}));
+// API token — embedded for client-side API calls
+const apiToken = import.meta.env.LDB_API_TOKEN || '';
 ---
 
 <BaseLayout title="Lure DB - ルアーデータベース" description={`国内主要メーカーのルアーを網羅的に掲載。${series.length}シリーズ・${lures?.length ?? 0}カラー登録。`} canonicalPath="/" jsonLd={jsonLd}>
@@ -74,6 +60,11 @@ const allCardData = series.map(s => ({
       ))}
     </div>
 
+    <!-- Loading spinner for API calls -->
+    <div id="load-spinner" class="hidden py-8 text-center">
+      <div class="inline-block h-6 w-6 animate-spin rounded-full border-2 border-sky-500 border-t-transparent"></div>
+    </div>
+
     <!-- Sentinel for infinite scroll -->
     <div id="load-more-sentinel" class="h-4"></div>
 
@@ -85,8 +76,10 @@ const allCardData = series.map(s => ({
     </div>
   </section>
 
-  <!-- All card data for progressive rendering + filtering -->
-  <script type="application/json" id="all-card-data" set:html={JSON.stringify(allCardData)} />
+  <!-- API token (rotates every deploy) -->
+  <script define:vars={{ apiToken }}>
+    window.__LDB_T = apiToken;
+  </script>
 </BaseLayout>
 
 <script>
@@ -94,6 +87,7 @@ const allCardData = series.map(s => ({
   const countDisplay = document.getElementById('results-count')!;
   const noResults = document.getElementById('no-results')!;
   const sentinel = document.getElementById('load-more-sentinel')!;
+  const spinner = document.getElementById('load-spinner')!;
   const manufacturerSelect = document.querySelector<HTMLSelectElement>('[data-filter-manufacturer]')!;
   const typeSelect = document.querySelector<HTMLSelectElement>('[data-filter-type]')!;
   const targetFishSelect = document.querySelector<HTMLSelectElement>('[data-filter-targetfish]')!;
@@ -101,8 +95,8 @@ const allCardData = series.map(s => ({
   const clearBtn = document.querySelector<HTMLButtonElement>('[data-filter-clear]')!;
   const resetBtn = document.querySelector<HTMLButtonElement>('[data-filter-reset]');
 
-  // Load all card data
-  const allCards: CardData[] = JSON.parse(document.getElementById('all-card-data')!.textContent!);
+  // Get API token embedded by server
+  const TOKEN = (window as any).__LDB_T || '';
 
   interface CardData {
     slug: string;
@@ -119,21 +113,44 @@ const allCardData = series.map(s => ({
     has_limited: boolean;
   }
 
+  interface CatalogResponse {
+    items: CardData[];
+    total: number;
+    page: number;
+    hasMore: boolean;
+  }
+
   const BATCH_SIZE = 32;
-  const INITIAL_COUNT = 32;
-  let renderedCount = INITIAL_COUNT;
+  // SSR rendered the first page (page 0), so next API call starts at page 1
+  let currentPage = 1;
+  let hasMore = true;
+  let isLoading = false;
   let isFiltering = false;
+  let totalCount = 0;
+  let filterDebounceTimer: ReturnType<typeof setTimeout> | null = null;
 
-  // Generate card HTML string from data
+  // --- API fetch helper ---
+  async function fetchCatalog(params: Record<string, string | number>): Promise<CatalogResponse | null> {
+    const qs = new URLSearchParams();
+    for (const [k, v] of Object.entries(params)) {
+      if (v !== '' && v !== 0) qs.set(k, String(v));
+    }
+    try {
+      const res = await fetch(`/api/catalog?${qs.toString()}`, {
+        headers: {
+          'X-LDB-Token': TOKEN,
+          'Accept': 'application/json',
+        },
+      });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch {
+      return null;
+    }
+  }
+
+  // --- Card HTML renderer ---
   function cardHtml(d: CardData): string {
-    const filterData = JSON.stringify({
-      name: d.name,
-      manufacturer: d.manufacturer,
-      manufacturer_slug: d.manufacturer_slug,
-      type: d.type,
-      target_fish: d.target_fish,
-    });
-
     const hasPrice = d.price_max > 0;
     const priceDisplay = hasPrice
       ? d.price_min === d.price_max
@@ -142,7 +159,7 @@ const allCardData = series.map(s => ({
       : '';
 
     const imgHtml = d.representative_image
-      ? `<img src="${d.representative_image}" alt="${escHtml(d.name)}" loading="lazy" width="500" height="375" class="w-full h-full object-scale-down p-3">`
+      ? `<img src="${escHtml(d.representative_image)}" alt="${escHtml(d.name)}" loading="lazy" width="500" height="375" class="w-full h-full object-scale-down p-3">`
       : `<div class="placeholder-lure-bg w-full h-full flex items-center justify-center"><span class="text-xs text-sky-400">${escHtml(d.type)}</span></div>`;
 
     const badges = [
@@ -150,7 +167,7 @@ const allCardData = series.map(s => ({
       d.has_limited ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-purple-50 text-purple-700 border-purple-200">限定</span>` : '',
     ].filter(Boolean).join('');
 
-    return `<a href="/${d.manufacturer_slug}/${d.slug}/" class="group block" data-series='${escAttr(filterData)}'>
+    return `<a href="/${escHtml(d.manufacturer_slug)}/${escHtml(d.slug)}/" class="group block">
       <div class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 group-hover:shadow-card-hover group-hover:scale-[1.01]">
         <div class="aspect-[4/3] relative overflow-hidden bg-white">
           ${imgHtml}
@@ -173,25 +190,36 @@ const allCardData = series.map(s => ({
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
-  function escAttr(s: string): string {
-    return s.replace(/&/g,'&amp;').replace(/'/g,'&#39;').replace(/"/g,'&quot;');
-  }
-
-  // Append next batch of cards (no filter active)
-  function loadMoreCards() {
-    if (isFiltering || renderedCount >= allCards.length) return;
-    const batch = allCards.slice(renderedCount, renderedCount + BATCH_SIZE);
+  function appendCards(items: CardData[]) {
     const fragment = document.createDocumentFragment();
     const div = document.createElement('div');
-    for (const d of batch) {
+    for (const d of items) {
       div.innerHTML = cardHtml(d);
       const el = div.firstElementChild;
       if (el) fragment.appendChild(el);
     }
     grid.appendChild(fragment);
-    renderedCount += batch.length;
+  }
 
-    if (renderedCount >= allCards.length) {
+  // --- Infinite scroll: load next page ---
+  async function loadMoreCards() {
+    if (isFiltering || isLoading || !hasMore) return;
+    isLoading = true;
+    spinner.classList.remove('hidden');
+
+    const data = await fetchCatalog({ page: currentPage, limit: BATCH_SIZE });
+
+    spinner.classList.add('hidden');
+    isLoading = false;
+
+    if (!data) return;
+
+    appendCards(data.items);
+    currentPage++;
+    hasMore = data.hasMore;
+    totalCount = data.total;
+
+    if (!hasMore) {
       sentinel.style.display = 'none';
     }
   }
@@ -204,68 +232,79 @@ const allCardData = series.map(s => ({
   }, { rootMargin: '400px' });
   observer.observe(sentinel);
 
-  // Filter logic — operates on allCards data, re-renders matching cards
-  function applyFilters() {
+  // --- Filter logic — calls API with server-side filtering ---
+  async function applyFilters() {
     const mfr = manufacturerSelect.value;
     const type = typeSelect.value;
     const fish = targetFishSelect.value;
-    const query = searchInput.value.toLowerCase().trim();
+    const query = searchInput.value.trim();
     const hasFilter = !!(mfr || type || fish || query);
 
     if (!hasFilter) {
-      // Reset to progressive mode
       if (isFiltering) {
+        // Reset to normal pagination mode — reload from scratch
         isFiltering = false;
         grid.innerHTML = '';
-        renderedCount = 0;
-        // Re-render initial batch
-        const batch = allCards.slice(0, INITIAL_COUNT);
-        const fragment = document.createDocumentFragment();
-        const div = document.createElement('div');
-        for (const d of batch) {
-          div.innerHTML = cardHtml(d);
-          const el = div.firstElementChild;
-          if (el) fragment.appendChild(el);
+        spinner.classList.remove('hidden');
+
+        // Re-fetch page 0 (SSR cards are gone after filter cleared)
+        const data = await fetchCatalog({ page: 0, limit: BATCH_SIZE });
+        spinner.classList.add('hidden');
+
+        if (data) {
+          appendCards(data.items);
+          currentPage = 1;
+          hasMore = data.hasMore;
+          totalCount = data.total;
+          countDisplay.textContent = `${data.total}件のシリーズ`;
         }
-        grid.appendChild(fragment);
-        renderedCount = INITIAL_COUNT;
+
         sentinel.style.display = '';
         observer.observe(sentinel);
       }
-      countDisplay.textContent = `${allCards.length}件のシリーズ`;
       grid.classList.remove('hidden');
       noResults.classList.add('hidden');
       clearBtn.classList.add('hidden');
       return;
     }
 
-    // Filter mode — render all matching cards at once
+    // Filter mode — fetch all matching from API (page 0, larger limit)
     isFiltering = true;
     observer.unobserve(sentinel);
     sentinel.style.display = 'none';
 
-    const matching = allCards.filter(d => {
-      if (mfr && d.manufacturer !== mfr) return false;
-      if (type && d.type !== type) return false;
-      if (fish && !d.target_fish.includes(fish)) return false;
-      if (query && !d.name.toLowerCase().includes(query) &&
-          !d.manufacturer.toLowerCase().includes(query)) return false;
-      return true;
-    });
-
     grid.innerHTML = '';
-    const fragment = document.createDocumentFragment();
-    const div = document.createElement('div');
-    for (const d of matching) {
-      div.innerHTML = cardHtml(d);
-      const el = div.firstElementChild;
-      if (el) fragment.appendChild(el);
-    }
-    grid.appendChild(fragment);
+    spinner.classList.remove('hidden');
 
-    countDisplay.textContent = `${matching.length}件のシリーズ`;
-    grid.classList.toggle('hidden', matching.length === 0);
-    noResults.classList.toggle('hidden', matching.length > 0);
+    // Fetch filtered results — use larger limit for filter results
+    // API fetches all matching server-side and paginates, so we request generously
+    let allItems: CardData[] = [];
+    let page = 0;
+    let more = true;
+
+    while (more) {
+      const data = await fetchCatalog({
+        page,
+        limit: BATCH_SIZE,
+        ...(mfr && { manufacturer: mfr }),
+        ...(type && { type }),
+        ...(fish && { targetFish: fish }),
+        ...(query && { search: query }),
+      });
+      if (!data) break;
+      allItems = allItems.concat(data.items);
+      totalCount = data.total;
+      more = data.hasMore;
+      page++;
+    }
+
+    spinner.classList.add('hidden');
+
+    appendCards(allItems);
+
+    countDisplay.textContent = `${allItems.length}件のシリーズ`;
+    grid.classList.toggle('hidden', allItems.length === 0);
+    noResults.classList.toggle('hidden', allItems.length > 0);
     clearBtn.classList.remove('hidden');
   }
 
@@ -277,10 +316,16 @@ const allCardData = series.map(s => ({
     applyFilters();
   }
 
+  // Debounced filter for text input
+  function debouncedApplyFilters() {
+    if (filterDebounceTimer) clearTimeout(filterDebounceTimer);
+    filterDebounceTimer = setTimeout(applyFilters, 300);
+  }
+
   [manufacturerSelect, typeSelect, targetFishSelect].forEach(el =>
     el.addEventListener('change', applyFilters)
   );
-  searchInput.addEventListener('input', applyFilters);
+  searchInput.addEventListener('input', debouncedApplyFilters);
   clearBtn.addEventListener('click', resetFilters);
   resetBtn?.addEventListener('click', resetFilters);
 </script>

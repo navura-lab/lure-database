@@ -69,6 +69,8 @@ const canonicalUrl = canonicalPath
     <main class="flex-1">
       <slot />
     </main>
+    <!-- Honeypot: invisible link only visible to crawlers -->
+    <a href="/trap/harvest" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true" tabindex="-1">catalog download</a>
     <Footer />
   </body>
 </html>

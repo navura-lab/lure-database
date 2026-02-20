@@ -1,5 +1,17 @@
 User-agent: *
 Allow: /
-Disallow:
+Crawl-delay: 2
+Disallow: /api/
+Disallow: /trap/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /trap/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /trap/
 
 Sitemap: https://www.lure-db.com/sitemap-index.xml
