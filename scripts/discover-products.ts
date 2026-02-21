@@ -1029,6 +1029,86 @@ async function discoverCoreman(page: Page): Promise<Array<{ url: string; name: s
 }
 
 // ---------------------------------------------------------------------------
+// Pazdesign (reed) discovery logic
+// ---------------------------------------------------------------------------
+
+const PAZDESIGN_BASE_URL = 'https://pazdesign.co.jp';
+const PAZDESIGN_LURE_LIST_URL = `${PAZDESIGN_BASE_URL}/products/reed/`;
+
+// URL slugs to exclude (hooks, spare parts, accessories)
+const PAZDESIGN_EXCLUDED_URL_SLUGS = [
+  'ls_hook', 'perfectassisthook',
+  'benishizuku_skirt', 'benishizuku_necktie', 'benishizuku_hook',
+];
+
+async function discoverPazdesign(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[pazdesign] Discovering products...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  try {
+    await page.goto(PAZDESIGN_LURE_LIST_URL, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await sleep(3000); // jQuery client-side pagination — all products in DOM after JS runs
+
+    const pageProducts = await page.evaluate((baseUrl: string) => {
+      const results: { url: string; name: string }[] = [];
+      const links = document.querySelectorAll('a[href]');
+
+      for (const link of links) {
+        const href = link.getAttribute('href');
+        if (!href) continue;
+
+        // Match relative links like "./grandsoldier/" or "grandsoldier/"
+        // and absolute links like "/products/reed/grandsoldier/"
+        const relMatch = href.match(/^\.?\/?([a-zA-Z0-9_]+)\/?$/);
+        const absMatch = href.match(/\/products\/reed\/([a-zA-Z0-9_]+)\/?$/);
+
+        const slug = relMatch ? relMatch[1] : absMatch ? absMatch[1] : null;
+        if (!slug) continue;
+
+        // Skip "reed" itself (the listing page link)
+        if (slug === 'reed') continue;
+
+        const fullUrl = `${baseUrl}/products/reed/${slug}/`;
+
+        // Extract name from link text or child elements
+        let name = '';
+        const nameEl = link.querySelector('h3, h4, p, span');
+        if (nameEl) name = nameEl.textContent?.trim() || '';
+        if (!name) name = link.textContent?.trim() || '';
+        name = name.split('\n')[0].trim().substring(0, 100);
+
+        results.push({ url: fullUrl, name: name || '(名前取得失敗)' });
+      }
+      return results;
+    }, PAZDESIGN_BASE_URL);
+
+    for (const p of pageProducts) {
+      const normalized = normalizeUrl(p.url);
+      if (seen.has(normalized)) continue;
+
+      // Check excluded URL slugs
+      const slug = normalized.match(/\/products\/reed\/([^/]+)/)?.[1] || '';
+      if (PAZDESIGN_EXCLUDED_URL_SLUGS.some(exc => slug === exc)) {
+        log(`  [pazdesign] Skipping excluded slug: ${slug}`);
+        continue;
+      }
+
+      seen.add(normalized);
+      products.push({ url: normalized, name: p.name });
+    }
+
+    log(`[pazdesign] Found ${pageProducts.length} links, ${products.length} unique products (after slug exclusions)`);
+  } catch (err) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    logError(`[pazdesign] Failed to crawl ${PAZDESIGN_LURE_LIST_URL}: ${errMsg}`);
+  }
+
+  log(`[pazdesign] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -1121,6 +1201,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'COREMAN',
     discover: discoverCoreman,
     excludedNameKeywords: ['パーツ', 'PARTS', 'スペア', 'SPARE', 'シルバークロー', 'SILVER CLAW'],
+  },
+  {
+    slug: 'pazdesign',
+    name: 'Pazdesign',
+    discover: discoverPazdesign,
+    excludedNameKeywords: ['フック', 'HOOK', 'スカート', 'ネクタイ', 'パーツ', 'PARTS', 'スペア', 'SPARE', 'アシストフック'],
+    // URL-level slug exclusions are handled in discoverPazdesign() itself.
   },
 ];
 
