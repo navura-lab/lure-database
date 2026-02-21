@@ -969,6 +969,66 @@ async function discoverApia(page: Page): Promise<Array<{ url: string; name: stri
 }
 
 // ---------------------------------------------------------------------------
+// COREMAN discovery logic
+// ---------------------------------------------------------------------------
+
+const COREMAN_BASE_URL = 'https://www.coreman.jp';
+const COREMAN_LURE_LIST_URL = `${COREMAN_BASE_URL}/product_lure/`;
+
+async function discoverCoreman(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[coreman] Discovering products...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  try {
+    await page.goto(COREMAN_LURE_LIST_URL, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await sleep(PAGE_LOAD_DELAY_MS);
+
+    const pageProducts = await page.evaluate((baseUrl: string) => {
+      const results: { url: string; name: string }[] = [];
+      const links = document.querySelectorAll('a[href]');
+
+      for (const link of links) {
+        const href = link.getAttribute('href');
+        if (!href) continue;
+
+        // Match /product_lure/{slug} but NOT the listing page itself
+        if (!/\/product_lure\/[^/?#]+/.test(href)) continue;
+        const cleanHref = href.replace(/\/$/, '');
+        if (cleanHref === '/product_lure' || cleanHref.endsWith('/product_lure')) continue;
+
+        const fullUrl = href.startsWith('http') ? href : `${baseUrl}${href.startsWith('/') ? '' : '/'}${href}`;
+
+        // Skip external links (DUO collaboration products)
+        if (!fullUrl.includes('coreman.jp')) continue;
+
+        // Extract product name from link text
+        let name = link.textContent?.trim()?.split('\n')[0]?.trim() || '';
+        name = name.substring(0, 100);
+
+        results.push({ url: fullUrl, name: name || '(名前取得失敗)' });
+      }
+      return results;
+    }, COREMAN_BASE_URL);
+
+    for (const p of pageProducts) {
+      const normalized = normalizeUrl(p.url);
+      if (seen.has(normalized)) continue;
+      seen.add(normalized);
+      products.push({ url: normalized, name: p.name });
+    }
+
+    log(`[coreman] Found ${pageProducts.length} links, ${products.length} unique products`);
+  } catch (err) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    logError(`[coreman] Failed to crawl ${COREMAN_LURE_LIST_URL}: ${errMsg}`);
+  }
+
+  log(`[coreman] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -1055,6 +1115,12 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'APIA',
     discover: discoverApia,
     excludedNameKeywords: ['ルアーパーツ', 'パーツ', 'フック', 'HOOK', 'スペア', 'SPARE'],
+  },
+  {
+    slug: 'coreman',
+    name: 'COREMAN',
+    discover: discoverCoreman,
+    excludedNameKeywords: ['パーツ', 'PARTS', 'スペア', 'SPARE', 'シルバークロー', 'SILVER CLAW'],
   },
 ];
 
