@@ -1109,6 +1109,105 @@ async function discoverPazdesign(page: Page): Promise<Array<{ url: string; name:
 }
 
 // ---------------------------------------------------------------------------
+// O.S.P discovery logic
+// ---------------------------------------------------------------------------
+
+const OSP_BASE_URL = 'https://www.o-s-p.net';
+
+// All 13 category pages to crawl
+const OSP_CATEGORY_PAGES = [
+  '/products-list/bass/hardlure',
+  '/products-list/bass/softlure',
+  '/products-list/bass/wirebait',
+  '/products-list/bass/jig',
+  '/products-list/bass/metal',
+  '/products-list/bass/frog',
+  '/products-list/trout/hardlure',
+  '/products-list/ayu/hardlure',
+  '/products-list/salt/hardlure',
+  '/products-list/salt/softlure',
+  '/products-list/salt/jig',
+  '/products-list/salt/metaljig',
+  '/products-list/salt/tairubber',
+];
+
+// Products with these exact slugs are excluded (tairubber accessories)
+const OSP_EXCLUDED_SLUGS = new Set([
+  'tie_asym',
+  'tie_double',
+  'tie_str',
+  'tie_unit',
+]);
+
+async function discoverOsp(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[osp] Discovering products...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  for (const catPath of OSP_CATEGORY_PAGES) {
+    const categoryUrl = `${OSP_BASE_URL}${catPath}`;
+    log(`[osp] Crawling: ${categoryUrl}`);
+
+    try {
+      await page.goto(categoryUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await sleep(PAGE_LOAD_DELAY_MS);
+
+      const pageProducts = await page.evaluate((baseUrl: string) => {
+        const results: Array<{ url: string; name: string }> = [];
+        const links = document.querySelectorAll('a[href*="/products/"]');
+
+        for (const link of links) {
+          const href = link.getAttribute('href') || '';
+          const match = href.match(/\/products\/([a-zA-Z0-9_-]+)\/?$/);
+          if (!match) continue;
+
+          const slug = match[1];
+          if (slug === 'products' || slug === 'products-list') continue;
+
+          const fullUrl = `${baseUrl}/products/${slug}/`;
+
+          let name = '';
+          const nameEl = link.querySelector('h4, h3, p, span');
+          if (nameEl) name = nameEl.textContent?.trim() || '';
+          if (!name) name = link.textContent?.trim()?.split('\n')[0]?.trim() || '';
+          name = name.substring(0, 100);
+
+          results.push({ url: fullUrl, name: name || slug });
+        }
+
+        return results;
+      }, OSP_BASE_URL);
+
+      for (const p of pageProducts) {
+        const normalized = normalizeUrl(p.url);
+        if (seen.has(normalized)) continue;
+
+        // Check excluded slugs
+        const slugMatch = normalized.match(/\/products\/([^/]+)/);
+        const slug = slugMatch ? slugMatch[1].toLowerCase() : '';
+        if (OSP_EXCLUDED_SLUGS.has(slug)) {
+          log(`  [osp] Skipping excluded slug: ${slug}`);
+          continue;
+        }
+
+        seen.add(normalized);
+        products.push({ url: normalized, name: p.name });
+      }
+
+      log(`[osp]   ${catPath}: ${pageProducts.length} links, ${seen.size} unique so far`);
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      logError(`[osp] Failed to crawl ${categoryUrl}: ${errMsg}`);
+    }
+
+    await sleep(500); // Be polite between pages
+  }
+
+  log(`[osp] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -1208,6 +1307,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverPazdesign,
     excludedNameKeywords: ['フック', 'HOOK', 'スカート', 'ネクタイ', 'パーツ', 'PARTS', 'スペア', 'SPARE', 'アシストフック'],
     // URL-level slug exclusions are handled in discoverPazdesign() itself.
+  },
+  {
+    slug: 'osp',
+    name: 'O.S.P',
+    discover: discoverOsp,
+    excludedNameKeywords: ['ネクタイ', 'アシストフック', 'フックセット', 'HOOK SET', 'パーツ', 'PARTS', 'スペア', 'SPARE'],
+    // URL-level slug exclusions (tairubber accessories) are handled in discoverOsp() itself.
   },
 ];
 

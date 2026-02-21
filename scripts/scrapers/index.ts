@@ -20,6 +20,7 @@ import { scrapeEvergreenPage } from './evergreen.js';
 import { scrapeApiaPage } from './apia.js';
 import { scrapeCoremanPage } from './coreman.js';
 import { scrapePazdesignPage } from './pazdesign.js';
+import { scrapeOspPage } from './osp.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -38,6 +39,7 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   apia: scrapeApiaPage,
   coreman: scrapeCoremanPage,
   pazdesign: scrapePazdesignPage,
+  osp: scrapeOspPage,
 };
 
 /**
