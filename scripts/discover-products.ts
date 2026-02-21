@@ -907,6 +907,68 @@ async function discoverEvergreen(page: Page): Promise<Array<{ url: string; name:
 }
 
 // ---------------------------------------------------------------------------
+// APIA discovery logic
+// ---------------------------------------------------------------------------
+
+const APIA_BASE_URL = 'https://www.apiajapan.com';
+const APIA_LURE_LIST_URL = `${APIA_BASE_URL}/product/lure/`;
+
+async function discoverApia(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[apia] Discovering products...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  try {
+    await page.goto(APIA_LURE_LIST_URL, { waitUntil: 'networkidle', timeout: 30000 });
+    await sleep(PAGE_LOAD_DELAY_MS);
+
+    const pageProducts = await page.evaluate((baseUrl: string) => {
+      const results: { url: string; name: string }[] = [];
+      const links = document.querySelectorAll('a[href*="/product/lure/"]');
+
+      for (const link of links) {
+        const href = link.getAttribute('href');
+        if (!href) continue;
+
+        // Skip the listing page itself
+        if (href === '/product/lure/' || href === '/product/lure') continue;
+        if (href.endsWith('/product/lure/') || href.endsWith('/product/lure')) continue;
+
+        // Must match product pattern: /product/lure/{slug}/
+        if (!/\/product\/lure\/[^/]+\/?$/.test(href)) continue;
+
+        const fullUrl = href.startsWith('http') ? href : `${baseUrl}${href}`;
+
+        // Extract product name from link text or child elements
+        let name = '';
+        const nameEl = link.querySelector('h2, h3, h4, p, span');
+        if (nameEl) name = nameEl.textContent?.trim() || '';
+        if (!name) name = link.textContent?.trim() || '';
+        name = name.split('\n')[0].trim().substring(0, 100);
+
+        results.push({ url: fullUrl, name: name || '(名前取得失敗)' });
+      }
+      return results;
+    }, APIA_BASE_URL);
+
+    for (const p of pageProducts) {
+      const normalized = normalizeUrl(p.url);
+      if (seen.has(normalized)) continue;
+      seen.add(normalized);
+      products.push({ url: normalized, name: p.name });
+    }
+
+    log(`[apia] Found ${pageProducts.length} links, ${products.length} unique products`);
+  } catch (err) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    logError(`[apia] Failed to crawl ${APIA_LURE_LIST_URL}: ${errMsg}`);
+  }
+
+  log(`[apia] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -987,6 +1049,12 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'EVERGREEN INTERNATIONAL',
     discover: discoverEvergreen,
     excludedNameKeywords: ['フック', 'パーツ', 'リペアキット'],
+  },
+  {
+    slug: 'apia',
+    name: 'APIA',
+    discover: discoverApia,
+    excludedNameKeywords: ['ルアーパーツ', 'パーツ', 'フック', 'HOOK', 'スペア', 'SPARE'],
   },
 ];
 
