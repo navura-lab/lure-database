@@ -16,6 +16,7 @@ import { scrapeImaPage } from './ima.js';
 import { scrapeDuoPage } from './duo.js';
 import { scrapeDepsPage } from './deps.js';
 import { scrapeJackallPage } from './jackall.js';
+import { scrapeEvergreenPage } from './evergreen.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -30,6 +31,7 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   duo: scrapeDuoPage,
   deps: scrapeDepsPage,
   jackall: scrapeJackallPage,
+  evergreen: scrapeEvergreenPage,
 };
 
 /**

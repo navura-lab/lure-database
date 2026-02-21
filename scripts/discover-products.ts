@@ -831,6 +831,82 @@ async function discoverJackall(page: Page): Promise<Array<{ url: string; name: s
 }
 
 // ---------------------------------------------------------------------------
+// EVERGREEN discovery logic
+// ---------------------------------------------------------------------------
+
+const EVERGREEN_BASE_URL = 'https://www.evergreen-fishing.com';
+
+// 9 lure category pages
+const EVERGREEN_CATEGORY_URLS = [
+  `${EVERGREEN_BASE_URL}/goods_list/goods_list_22lure.php?vctg_no=4&vcts_no=29&vctt_no=1&g_no=4&r=2&s_no=29`, // Bass Combat
+  `${EVERGREEN_BASE_URL}/goods_list/goods_list_22lure.php?vctg_no=4&vcts_no=31&vctt_no=1&g_no=4&r=2&s_no=31`, // Bass Mode
+  `${EVERGREEN_BASE_URL}/goods_list/goods_list_22lure.php?vctg_no=4&vcts_no=57&vctt_no=1&g_no=4&r=2&s_no=57`, // Bass Fact
+  `${EVERGREEN_BASE_URL}/goods_list/goods_list_22lure.php?vctg_no=4&vcts_no=24&vctt_no=2&g_no=4&r=2&s_no=24`, // Salt Jigging
+  `${EVERGREEN_BASE_URL}/goods_list/goods_list_22lure.php?vctg_no=4&vcts_no=26&vctt_no=2&g_no=4&r=2&s_no=26`, // Salt Egging
+  `${EVERGREEN_BASE_URL}/goods_list/goods_list_22lure.php?vctg_no=4&vcts_no=25&vctt_no=2&g_no=4&r=2&s_no=25`, // Salt SeaBass
+  `${EVERGREEN_BASE_URL}/goods_list/goods_list_22lure.php?vctg_no=4&vcts_no=27&vctt_no=2&g_no=4&r=2&s_no=27`, // Salt LightGame
+  `${EVERGREEN_BASE_URL}/goods_list/goods_list_22lure.php?vctg_no=4&vcts_no=77&vctt_no=30&r=2&g_no=4&s_no=77`, // Trout Area
+  `${EVERGREEN_BASE_URL}/goods_list/goods_list_22lure.php?vctg_no=4&vcts_no=78&vctt_no=30&r=2&g_no=4&s_no=78`, // Trout Native
+];
+
+async function discoverEvergreen(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[evergreen] Discovering products...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  for (const categoryUrl of EVERGREEN_CATEGORY_URLS) {
+    try {
+      await page.goto(categoryUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await sleep(PAGE_LOAD_DELAY_MS);
+
+      const pageProducts = await page.evaluate(() => {
+        const results: { url: string; name: string }[] = [];
+        const links = document.querySelectorAll('a[href]');
+
+        for (const link of links) {
+          const href = link.getAttribute('href') || '';
+          // Product detail pages: /goods_list/ProductName.html (NOT .php)
+          if (href.includes('goods_list/') && href.endsWith('.html') && !href.includes('.php')) {
+            const fullUrl = href.startsWith('http')
+              ? href
+              : window.location.origin + (href.startsWith('/') ? '' : '/') + href;
+
+            const img = link.querySelector('img');
+            const text = img?.getAttribute('alt')?.trim() || link.textContent?.trim() || '';
+
+            results.push({ url: fullUrl, text: text.substring(0, 100) });
+          }
+        }
+
+        return results;
+      });
+
+      for (const p of pageProducts) {
+        const normalized = normalizeUrl(p.url);
+        if (seen.has(normalized)) continue;
+        seen.add(normalized);
+
+        let name = p.text;
+        if (!name) {
+          const match = normalized.match(/\/goods_list\/([^/]+)\.html/i);
+          name = match ? match[1] : '(名前取得失敗)';
+        }
+
+        products.push({ url: normalized, name });
+      }
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      logError(`[evergreen] Failed to crawl category: ${errMsg}`);
+    }
+
+    await sleep(PAGE_LOAD_DELAY_MS);
+  }
+
+  log(`[evergreen] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -905,6 +981,12 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     excludedNameKeywords: [],
     // Category/URL/name-level filtering is handled in discoverJackall() itself.
     // Non-lure items (rods, reels, accessories, hooks, parts) are excluded at crawl time.
+  },
+  {
+    slug: 'evergreen',
+    name: 'EVERGREEN INTERNATIONAL',
+    discover: discoverEvergreen,
+    excludedNameKeywords: ['フック', 'パーツ', 'リペアキット'],
   },
 ];
 
