@@ -180,6 +180,34 @@ function detectType(name: string, specType: string, tags: string): string {
 }
 
 // ---------------------------------------------------------------------------
+// Target fish derivation: type-based fallback
+// ---------------------------------------------------------------------------
+
+const TYPE_FISH_MAP: Record<string, string[]> = {
+  'エギ': ['イカ'], 'スッテ': ['イカ'], 'タイラバ': ['マダイ'],
+  'テンヤ': ['マダイ'], 'ひとつテンヤ': ['マダイ'],
+  'シーバスルアー': ['シーバス'], 'アジング': ['アジ'],
+  'メバリング': ['メバル'], 'チニング': ['クロダイ'],
+  'ロックフィッシュ': ['ロックフィッシュ'], 'タチウオルアー': ['タチウオ'],
+  'タチウオジギング': ['タチウオ'], 'ショアジギング': ['青物'],
+  'ジギング': ['青物'], 'オフショアキャスティング': ['青物'],
+  'サーフルアー': ['ヒラメ・マゴチ'], 'ティップラン': ['イカ'],
+  'イカメタル': ['イカ'], 'バチコン': ['アジ'],
+  'フロート': ['アジ', 'メバル'], 'フグルアー': ['フグ'],
+  'ナマズルアー': ['ナマズ'], 'トラウトルアー': ['トラウト'],
+  '鮎ルアー': ['鮎'], 'ラバージグ': ['バス'],
+  'バズベイト': ['バス'], 'i字系': ['バス'], 'フロッグ': ['バス'],
+};
+
+/**
+ * Derive target fish species from lure type (type-based fallback).
+ * DUO URLs don't encode category.
+ */
+function deriveTargetFish(type: string): string[] {
+  return TYPE_FISH_MAP[type] || [];
+}
+
+// ---------------------------------------------------------------------------
 // Main scraper function
 // ---------------------------------------------------------------------------
 
@@ -394,6 +422,10 @@ export async function scrapeDuoPage(url: string): Promise<ScrapedLure> {
     const type = detectType(name, specType, extracted.category);
     log(`Detected type: ${type}`);
 
+    // --- Target fish ---
+    const target_fish = deriveTargetFish(type);
+    log(`Target fish: [${target_fish.join(', ')}]`);
+
     // --- Generate slug ---
     const slug = generateSlug(name, productId);
     log(`Slug: ${slug}`);
@@ -418,6 +450,7 @@ export async function scrapeDuoPage(url: string): Promise<ScrapedLure> {
       manufacturer: 'DUO',
       manufacturer_slug: 'duo',
       type,
+      target_fish,
       description: extracted.description,
       price,
       colors,

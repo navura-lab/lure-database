@@ -215,6 +215,41 @@ function parseWeight(text: string): number {
 }
 
 // ---------------------------------------------------------------------------
+// Target fish derivation: category path → target fish species
+// ---------------------------------------------------------------------------
+
+const CATEGORY_FISH: Record<string, string[]> = {
+  'seabass': ['シーバス'],
+  'surf': ['ヒラメ・マゴチ'],
+  'bream': ['クロダイ'],
+  'lightgame': ['アジ', 'メバル'],
+  'rockyshore_etc': ['青物', 'ロックフィッシュ'],
+  'offshorecasting': ['青物'],
+  'offshorejigging': ['青物'],
+  'shoreeging': ['イカ'],
+  'boateging': ['イカ'],
+  'tako': ['タコ'],
+  'tairubber_etc': ['マダイ'],
+  'tachiuo': ['タチウオ'],
+  'bass': ['バス'],
+  'nativetrout': ['トラウト'],
+  'areatrout': ['トラウト'],
+};
+
+/**
+ * Derive target fish species from the URL category segment.
+ * URL pattern: /ja-JP/product/lure/{category}/{subcategory}/{id}.html
+ */
+function deriveTargetFish(url: string): string[] {
+  const match = url.match(/\/product\/lure\/([^/]+)\//);
+  if (match) {
+    const category = match[1];
+    return CATEGORY_FISH[category] || [];
+  }
+  return [];
+}
+
+// ---------------------------------------------------------------------------
 // Main scraper function
 // ---------------------------------------------------------------------------
 
@@ -522,6 +557,10 @@ export async function scrapeShimanoPage(url: string): Promise<ScrapedLure> {
     const type = detectType(url, titleTag, description);
     log(`Detected type: ${type}`);
 
+    // --- Target fish ---
+    const target_fish = deriveTargetFish(url);
+    log(`Target fish: [${target_fish.join(', ')}]`);
+
     // --- Name kana ---
     // Shimano products are typically in Japanese; the name itself serves as kana
     const name_kana = name;
@@ -535,6 +574,7 @@ export async function scrapeShimanoPage(url: string): Promise<ScrapedLure> {
       manufacturer: 'SHIMANO',
       manufacturer_slug: 'shimano',
       type,
+      target_fish,
       description,
       price,
       colors,

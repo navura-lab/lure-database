@@ -219,6 +219,37 @@ function parseLength(text: string): number | null {
 }
 
 // ---------------------------------------------------------------------------
+// Target fish derivation: URL section + subcategory → target fish species
+// ---------------------------------------------------------------------------
+
+const SUBCATEGORY_FISH: Record<string, string[]> = {
+  'sea-bass': ['シーバス'], 'blue-fish': ['青物'], 'azi': ['アジ'],
+  'mebaru': ['メバル'], 'surf': ['ヒラメ・マゴチ'], 'kurodai': ['クロダイ'],
+  'rock-fish': ['ロックフィッシュ'], 'tatiuo': ['タチウオ'], 'cian': ['青物'],
+  'tiprun': ['イカ'], 'ikametal': ['イカ'], 'binbinswitch': ['マダイ'],
+  'tairaba-tairaba&taijig': ['マダイ'], 'hitotsu-tenya': ['マダイ'],
+  'bluefish-jigging': ['青物'], 'boat-casting': ['青物'], 'tatchiuo': ['タチウオ'],
+  'bachikon': ['アジ'], 'fugu': ['フグ'], 'namazu': ['ナマズ'], 'ayu': ['鮎'],
+};
+
+/**
+ * Derive target fish species from URL section and subcategory.
+ * /bass/... → ['バス'], /timon/... → ['トラウト'],
+ * /saltwater/... → look up subcategory in SUBCATEGORY_FISH.
+ */
+function deriveTargetFish(url: string): string[] {
+  if (/\/bass\//.test(url)) return ['バス'];
+  if (/\/timon\//.test(url)) return ['トラウト'];
+  if (/\/saltwater\//.test(url)) {
+    const subMatch = url.match(/\/products\/lure\/([^/]+)\//);
+    if (subMatch) {
+      return SUBCATEGORY_FISH[subMatch[1]] || [];
+    }
+  }
+  return [];
+}
+
+// ---------------------------------------------------------------------------
 // Main scraper
 // ---------------------------------------------------------------------------
 
@@ -363,6 +394,10 @@ export async function scrapeJackallPage(url: string): Promise<ScrapedLure> {
     // Type detection
     const type = detectType(subcategory, name, englishName);
 
+    // Target fish
+    const target_fish = deriveTargetFish(url);
+    log(`Target fish: [${target_fish.join(', ')}]`);
+
     // ----- Parse spec table -----
     const headers = pageData.specs.headers.map(h => h.toUpperCase());
     const weightColIdx = headers.findIndex(h => h.includes('WEIGHT') || h.includes('重'));
@@ -435,6 +470,7 @@ export async function scrapeJackallPage(url: string): Promise<ScrapedLure> {
       manufacturer: 'JACKALL',
       manufacturer_slug: 'jackall',
       type,
+      target_fish,
       description: pageData.description,
       price: bestPrice,
       colors,
@@ -464,6 +500,7 @@ export async function scrapeJackallPage(url: string): Promise<ScrapedLure> {
       manufacturer: 'JACKALL',
       manufacturer_slug: 'jackall',
       type: 'ルアー',
+      target_fish: deriveTargetFish(url),
       description: '',
       price: 0,
       colors: [],

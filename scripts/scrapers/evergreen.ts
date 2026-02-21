@@ -199,6 +199,34 @@ function extractImageUrl(resizeUrl: string): string {
 }
 
 // ---------------------------------------------------------------------------
+// Target fish derivation: type-based fallback
+// ---------------------------------------------------------------------------
+
+const TYPE_FISH_MAP: Record<string, string[]> = {
+  'エギ': ['イカ'], 'スッテ': ['イカ'], 'タイラバ': ['マダイ'],
+  'テンヤ': ['マダイ'], 'ひとつテンヤ': ['マダイ'],
+  'シーバスルアー': ['シーバス'], 'アジング': ['アジ'],
+  'メバリング': ['メバル'], 'チニング': ['クロダイ'],
+  'ロックフィッシュ': ['ロックフィッシュ'], 'タチウオルアー': ['タチウオ'],
+  'タチウオジギング': ['タチウオ'], 'ショアジギング': ['青物'],
+  'ジギング': ['青物'], 'オフショアキャスティング': ['青物'],
+  'サーフルアー': ['ヒラメ・マゴチ'], 'ティップラン': ['イカ'],
+  'イカメタル': ['イカ'], 'バチコン': ['アジ'],
+  'フロート': ['アジ', 'メバル'], 'フグルアー': ['フグ'],
+  'ナマズルアー': ['ナマズ'], 'トラウトルアー': ['トラウト'],
+  '鮎ルアー': ['鮎'], 'ラバージグ': ['バス'],
+  'バズベイト': ['バス'], 'i字系': ['バス'], 'フロッグ': ['バス'],
+};
+
+/**
+ * Derive target fish species from lure type (type-based fallback).
+ * EVERGREEN product page URLs don't encode category info.
+ */
+function deriveTargetFish(type: string): string[] {
+  return TYPE_FISH_MAP[type] || [];
+}
+
+// ---------------------------------------------------------------------------
 // Main scraper
 // ---------------------------------------------------------------------------
 
@@ -390,6 +418,9 @@ export async function scrapeEvergreenPage(url: string): Promise<ScrapedLure> {
     // Type detection
     const type = detectType(pageData.breadcrumbText, name);
 
+    // Target fish
+    const target_fish = deriveTargetFish(type);
+
     // Parse weights from all spec tables (deduplicated)
     const allWeights: number[] = [];
     let firstLength: number | null = null;
@@ -435,6 +466,7 @@ export async function scrapeEvergreenPage(url: string): Promise<ScrapedLure> {
       manufacturer: 'EVERGREEN INTERNATIONAL',
       manufacturer_slug: 'evergreen',
       type,
+      target_fish,
       description: pageData.description,
       price: bestPrice,
       colors,
@@ -464,6 +496,7 @@ export async function scrapeEvergreenPage(url: string): Promise<ScrapedLure> {
       manufacturer: 'EVERGREEN INTERNATIONAL',
       manufacturer_slug: 'evergreen',
       type: 'ルアー',
+      target_fish: [],
       description: '',
       price: 0,
       colors: [],

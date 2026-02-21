@@ -157,6 +157,34 @@ function generateSlug(url: string): string {
 }
 
 // ---------------------------------------------------------------------------
+// Target fish derivation: type-based fallback
+// ---------------------------------------------------------------------------
+
+const TYPE_FISH_MAP: Record<string, string[]> = {
+  'エギ': ['イカ'], 'スッテ': ['イカ'], 'タイラバ': ['マダイ'],
+  'テンヤ': ['マダイ'], 'ひとつテンヤ': ['マダイ'],
+  'シーバスルアー': ['シーバス'], 'アジング': ['アジ'],
+  'メバリング': ['メバル'], 'チニング': ['クロダイ'],
+  'ロックフィッシュ': ['ロックフィッシュ'], 'タチウオルアー': ['タチウオ'],
+  'タチウオジギング': ['タチウオ'], 'ショアジギング': ['青物'],
+  'ジギング': ['青物'], 'オフショアキャスティング': ['青物'],
+  'サーフルアー': ['ヒラメ・マゴチ'], 'ティップラン': ['イカ'],
+  'イカメタル': ['イカ'], 'バチコン': ['アジ'],
+  'フロート': ['アジ', 'メバル'], 'フグルアー': ['フグ'],
+  'ナマズルアー': ['ナマズ'], 'トラウトルアー': ['トラウト'],
+  '鮎ルアー': ['鮎'], 'ラバージグ': ['バス'],
+  'バズベイト': ['バス'], 'i字系': ['バス'], 'フロッグ': ['バス'],
+};
+
+/**
+ * Derive target fish species from lure type (type-based fallback).
+ * Daiwa URLs don't encode category — all are /jp/product/{hash}.
+ */
+function deriveTargetFish(type: string): string[] {
+  return TYPE_FISH_MAP[type] || [];
+}
+
+// ---------------------------------------------------------------------------
 // Main scraper function
 // ---------------------------------------------------------------------------
 
@@ -426,6 +454,10 @@ export async function scrapeDaiwaPage(url: string): Promise<ScrapedLure> {
     const type = detectType(category, titleTag, description);
     log(`Detected type: ${type}`);
 
+    // --- Target fish ---
+    const target_fish = deriveTargetFish(type);
+    log(`Target fish: [${target_fish.join(', ')}]`);
+
     // --- Name kana ---
     // Daiwa products typically have Japanese names, so the name itself works as kana
     // For English-name products, we leave the name as-is (same as Megabass fallback)
@@ -440,6 +472,7 @@ export async function scrapeDaiwaPage(url: string): Promise<ScrapedLure> {
       manufacturer: 'DAIWA',
       manufacturer_slug: 'daiwa',
       type,
+      target_fish,
       description,
       price,
       colors,

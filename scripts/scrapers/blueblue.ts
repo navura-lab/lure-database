@@ -379,6 +379,29 @@ function makeAbsoluteUrl(src: string): string {
 }
 
 // ---------------------------------------------------------------------------
+// Target fish derivation: BlueBlue is a saltwater specialist
+// ---------------------------------------------------------------------------
+
+const TYPE_FISH_OVERRIDE: Record<string, string[]> = {
+  'エギ': ['イカ'], 'スッテ': ['イカ'], 'タイラバ': ['マダイ'],
+  'テンヤ': ['マダイ'], 'ひとつテンヤ': ['マダイ'],
+  'メバリング': ['メバル'], 'アジング': ['アジ'],
+  'チニング': ['クロダイ'], 'ロックフィッシュ': ['ロックフィッシュ'],
+  'タチウオルアー': ['タチウオ'], 'タチウオジギング': ['タチウオ'],
+  'サーフルアー': ['ヒラメ・マゴチ'], 'ティップラン': ['イカ'],
+  'イカメタル': ['イカ'], 'バチコン': ['アジ'],
+  'フロート': ['アジ', 'メバル'], 'フグルアー': ['フグ'],
+};
+
+/**
+ * Derive target fish species. BlueBlue defaults to ['シーバス', '青物'].
+ * Type-specific overrides take precedence.
+ */
+function deriveTargetFish(type: string): string[] {
+  return TYPE_FISH_OVERRIDE[type] || ['シーバス', '青物'];
+}
+
+// ---------------------------------------------------------------------------
 // Main scraper function
 // ---------------------------------------------------------------------------
 
@@ -494,6 +517,10 @@ export async function scrapeBlueBluePage(url: string): Promise<ScrapedLure> {
     const type = detectType(`${titleTag} ${typeFromTitle}`, description);
     log(`Detected type: ${type}`);
 
+    // --- Target fish ---
+    const target_fish = deriveTargetFish(type);
+    log(`Target fish: [${target_fish.join(', ')}]`);
+
     // --- Build result ---
     const result: ScrapedLure = {
       name,
@@ -502,6 +529,7 @@ export async function scrapeBlueBluePage(url: string): Promise<ScrapedLure> {
       manufacturer: 'BlueBlueFishing',
       manufacturer_slug: 'blueblue',
       type,
+      target_fish,
       description,
       price,
       colors,

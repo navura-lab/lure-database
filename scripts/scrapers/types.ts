@@ -20,6 +20,7 @@ export interface ScrapedLure {
   manufacturer: string;
   manufacturer_slug: string;
   type: string;
+  target_fish: string[];      // 対象魚（カテゴリURLや名前から導出）
   description: string;
   price: number;
   colors: ScrapedColor[];

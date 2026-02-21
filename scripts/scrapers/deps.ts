@@ -239,6 +239,17 @@ function generateNameKana(nameJa: string, nameEn: string): string {
 }
 
 // ---------------------------------------------------------------------------
+// Target fish derivation: deps is a bass specialist
+// ---------------------------------------------------------------------------
+
+/**
+ * Derive target fish species. deps defaults to ['バス'].
+ */
+function deriveTargetFish(): string[] {
+  return ['バス'];
+}
+
+// ---------------------------------------------------------------------------
 // Main scraper function
 // ---------------------------------------------------------------------------
 
@@ -389,6 +400,10 @@ export async function scrapeDepsPage(url: string): Promise<ScrapedLure> {
     const type = detectType(category, name);
     log(`Detected type: ${type} (category: "${category}")`);
 
+    // --- Target fish ---
+    const target_fish = deriveTargetFish();
+    log(`Target fish: [${target_fish.join(', ')}]`);
+
     // --- Colors ---
     const colors: ScrapedColor[] = [];
     try {
@@ -451,6 +466,7 @@ export async function scrapeDepsPage(url: string): Promise<ScrapedLure> {
       manufacturer: 'deps',
       manufacturer_slug: 'deps',
       type,
+      target_fish,
       description,
       price,
       colors,

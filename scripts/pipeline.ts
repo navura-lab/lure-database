@@ -431,6 +431,7 @@ async function processRecord(
           manufacturer: manufacturerName,
           manufacturer_slug: manufacturerSlug,
           type: scraped.type,
+          target_fish: scraped.target_fish?.length ? scraped.target_fish : null,
           price: scraped.price,
           description: scraped.description || null,
           images: imageUrl ? [imageUrl] : null,

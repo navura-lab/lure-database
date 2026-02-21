@@ -331,6 +331,34 @@ function parseLength(text: string): number | null {
 }
 
 // ---------------------------------------------------------------------------
+// Target fish derivation: type-based fallback
+// ---------------------------------------------------------------------------
+
+const TYPE_FISH_MAP: Record<string, string[]> = {
+  'エギ': ['イカ'], 'スッテ': ['イカ'], 'タイラバ': ['マダイ'],
+  'テンヤ': ['マダイ'], 'ひとつテンヤ': ['マダイ'],
+  'シーバスルアー': ['シーバス'], 'アジング': ['アジ'],
+  'メバリング': ['メバル'], 'チニング': ['クロダイ'],
+  'ロックフィッシュ': ['ロックフィッシュ'], 'タチウオルアー': ['タチウオ'],
+  'タチウオジギング': ['タチウオ'], 'ショアジギング': ['青物'],
+  'ジギング': ['青物'], 'オフショアキャスティング': ['青物'],
+  'サーフルアー': ['ヒラメ・マゴチ'], 'ティップラン': ['イカ'],
+  'イカメタル': ['イカ'], 'バチコン': ['アジ'],
+  'フロート': ['アジ', 'メバル'], 'フグルアー': ['フグ'],
+  'ナマズルアー': ['ナマズ'], 'トラウトルアー': ['トラウト'],
+  '鮎ルアー': ['鮎'], 'ラバージグ': ['バス'],
+  'バズベイト': ['バス'], 'i字系': ['バス'], 'フロッグ': ['バス'],
+};
+
+/**
+ * Derive target fish species from lure type (type-based fallback).
+ * Megabass URLs don't encode category — all are /site/products/{slug}/.
+ */
+function deriveTargetFish(type: string): string[] {
+  return TYPE_FISH_MAP[type] || [];
+}
+
+// ---------------------------------------------------------------------------
 // Main scraper function
 // ---------------------------------------------------------------------------
 
@@ -604,6 +632,10 @@ export async function scrapeMegabassPage(url: string): Promise<ScrapedLure> {
     const type = detectType(titleTag, description, breadcrumbText, specType);
     log(`Detected type: ${type}`);
 
+    // --- Target fish ---
+    const target_fish = deriveTargetFish(type);
+    log(`Target fish: [${target_fish.join(', ')}]`);
+
     // --- Name kana ---
     const name_kana = generateNameKana(name);
     log(`Name kana: ${name_kana}`);
@@ -616,6 +648,7 @@ export async function scrapeMegabassPage(url: string): Promise<ScrapedLure> {
       manufacturer: 'Megabass',
       manufacturer_slug: 'megabass',
       type,
+      target_fish,
       description,
       price,
       colors,

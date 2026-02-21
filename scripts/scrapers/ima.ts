@@ -189,6 +189,19 @@ function detectType(name: string, specType: string, description: string): string
 }
 
 // ---------------------------------------------------------------------------
+// Target fish derivation: ima is a seabass specialist
+// ---------------------------------------------------------------------------
+
+/**
+ * Derive target fish species. ima defaults to ['シーバス'].
+ * Name overrides: if name contains 真鯛 or 鯛, target is マダイ.
+ */
+function deriveTargetFish(name: string): string[] {
+  if (/真鯛|鯛/.test(name)) return ['マダイ'];
+  return ['シーバス'];
+}
+
+// ---------------------------------------------------------------------------
 // Main scraper function
 // ---------------------------------------------------------------------------
 
@@ -288,6 +301,10 @@ export async function scrapeImaPage(url: string): Promise<ScrapedLure> {
     const type = detectType(name, specType, description);
     log(`Detected type: ${type} (spec タイプ: "${specType}")`);
 
+    // --- Target fish ---
+    const target_fish = deriveTargetFish(name);
+    log(`Target fish: [${target_fish.join(', ')}]`);
+
     // --- Colors ---
     const colors: ScrapedColor[] = [];
     try {
@@ -362,6 +379,7 @@ export async function scrapeImaPage(url: string): Promise<ScrapedLure> {
       manufacturer: 'ima',
       manufacturer_slug: 'ima',
       type,
+      target_fish,
       description,
       price,
       colors,
