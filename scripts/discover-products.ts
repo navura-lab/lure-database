@@ -1614,6 +1614,125 @@ async function discoverSmith(page: Page): Promise<Array<{ url: string; name: str
 }
 
 // ---------------------------------------------------------------------------
+// TIEMCO discovery logic
+// ---------------------------------------------------------------------------
+
+const TIEMCO_BASE_URL = 'https://www.tiemco.co.jp';
+const TIEMCO_CATEGORY_CONFIGS = [
+  { cat: '002001003', label: 'Bass Hard Lures' },
+  { cat: '002001004', label: 'Bass Soft Lures' },
+  { cat: '002002004', label: 'Trout Hard Lures' },
+];
+const TIEMCO_SEARCH_KEYWORDS = [
+  '%E9%AE%8E%E3%83%AB%E3%82%A2%E3%83%BC',  // 鮎ルアー
+  '%E9%9B%B7%E9%AD%9A',                      // 雷魚
+  '%E5%B0%8F%E7%89%A9%E9%87%A3%E3%82%8A',   // 小物釣り
+];
+const TIEMCO_LURE_CAT_PREFIXES = [
+  '002001003', '002001004', '002002004', '002004', '002005', '002006',
+];
+const TIEMCO_EXCLUDED_CAT_PREFIXES = [
+  '002001001', '002001002', '002001005', '002001006', '002001007',
+  '002002001', '002002002', '002002003', '002002005',
+  '001', '003',
+];
+
+function tiemcoIsLureCat(catCode: string): boolean {
+  for (var i = 0; i < TIEMCO_EXCLUDED_CAT_PREFIXES.length; i++) {
+    if (catCode.startsWith(TIEMCO_EXCLUDED_CAT_PREFIXES[i])) return false;
+  }
+  for (var j = 0; j < TIEMCO_LURE_CAT_PREFIXES.length; j++) {
+    if (catCode.startsWith(TIEMCO_LURE_CAT_PREFIXES[j])) return true;
+  }
+  return false;
+}
+
+async function discoverTiemco(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[tiemco] Discovering products from category pages + search pages ...');
+  var products: Array<{ url: string; name: string }> = [];
+  var seenPids = new Set<string>();
+
+  // Helper: extract product links from current page
+  async function extractLinks(): Promise<Array<{ url: string; name: string }>> {
+    return page.evaluate(function () {
+      var anchors = document.querySelectorAll('a[href*="ProductDetail.aspx"]');
+      var results: Array<{ url: string; name: string }> = [];
+      for (var i = 0; i < anchors.length; i++) {
+        var a = anchors[i] as HTMLAnchorElement;
+        var href = a.href;
+        if (!href) continue;
+        var name = (a.textContent || '').trim();
+        // Remove image alt text and whitespace noise
+        name = name.replace(/\s+/g, ' ').trim();
+        if (name.length > 100) name = '';
+        results.push({ url: href, name: name });
+      }
+      return results;
+    });
+  }
+
+  function processLinks(links: Array<{ url: string; name: string }>): void {
+    for (var lk of links) {
+      var pidMatch = lk.url.match(/[?&]pid=(\d+)/);
+      if (!pidMatch) continue;
+      var pid = pidMatch[1];
+
+      var catMatch = lk.url.match(/[?&]cat=(\d+)/);
+      var catCode = catMatch ? catMatch[1] : '';
+
+      if (catCode && !tiemcoIsLureCat(catCode)) continue;
+
+      if (seenPids.has(pid)) continue;
+      seenPids.add(pid);
+
+      products.push({ url: lk.url, name: lk.name || pid });
+    }
+  }
+
+  // 1. Main category pages with pagination
+  for (var config of TIEMCO_CATEGORY_CONFIGS) {
+    var pno = 1;
+    while (true) {
+      var catUrl = TIEMCO_BASE_URL + '/Form/Product/ProductList.aspx?cat=' + config.cat + '&bid=lurefishing&dpcnt=40&pno=' + pno;
+      try {
+        await page.goto(catUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+        await sleep(PAGE_LOAD_DELAY_MS);
+
+        var links = await extractLinks();
+        log('[tiemco] ' + config.label + ' page ' + pno + ': ' + links.length + ' links');
+
+        if (links.length === 0) break;
+        processLinks(links);
+        if (links.length < 40) break;
+        pno++;
+      } catch (err) {
+        var errMsg = err instanceof Error ? err.message : String(err);
+        logError('[tiemco] Failed to crawl ' + config.label + ' page ' + pno + ': ' + errMsg);
+        break;
+      }
+    }
+  }
+
+  // 2. Search-based pages for smaller categories
+  for (var swrd of TIEMCO_SEARCH_KEYWORDS) {
+    var searchUrl = TIEMCO_BASE_URL + '/Form/Product/ProductList.aspx?swrd=' + swrd + '&bid=lurefishing&dpcnt=40&pno=1';
+    try {
+      await page.goto(searchUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await sleep(PAGE_LOAD_DELAY_MS);
+      var searchLinks = await extractLinks();
+      log('[tiemco] Search "' + decodeURIComponent(swrd) + '": ' + searchLinks.length + ' links');
+      processLinks(searchLinks);
+    } catch (err) {
+      var errMsg2 = err instanceof Error ? err.message : String(err);
+      logError('[tiemco] Failed search "' + swrd + '": ' + errMsg2);
+    }
+  }
+
+  log('[tiemco] Discovered ' + products.length + ' unique products');
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -1758,6 +1877,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverSmith,
     excludedNameKeywords: [],
     // URL-level exclusions (rods, accessories, tools) are handled in discoverSmith() itself.
+  },
+  {
+    slug: 'tiemco',
+    name: 'TIEMCO',
+    discover: discoverTiemco,
+    excludedNameKeywords: [],
+    // Category-based filtering (rods, accessories, apparel) is handled in discoverTiemco() itself.
   },
 ];
 
