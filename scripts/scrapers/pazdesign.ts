@@ -291,11 +291,20 @@ export async function scrapePazdesignPage(url: string): Promise<ScrapedLure> {
       const thumbImgs = document.querySelectorAll('ul.thumb li img, .thumb li img');
       const seenSrcs = new Set<string>();
 
+      // Track color index separately (only for actual color images)
+      let colorIndex = 0;
+
       for (let i = 0; i < thumbImgs.length; i++) {
         const img = thumbImgs[i] as HTMLImageElement;
         const src = img.getAttribute('src') || '';
         if (!src || seenSrcs.has(src)) continue;
+
+        // Only accept color images: img/{digits}.jpg pattern
+        // Skip catch reports (img/a1.jpg), product shots (img/image.jpg), etc.
+        if (!/img\/\d+\.jpg$/i.test(src)) continue;
+
         seenSrcs.add(src);
+        colorIndex++;
 
         // Build full URL
         const fullSrc = src.startsWith('http')
@@ -307,7 +316,7 @@ export async function scrapePazdesignPage(url: string): Promise<ScrapedLure> {
 
         // Fallback: try to find #NNN pattern in nearby text
         if (!colorName) {
-          const index = String(i + 1).padStart(3, '0');
+          const index = String(colorIndex).padStart(3, '0');
           // Look for "#NNN colorname" pattern in body text
           const colorNameMatch = bodyText.match(new RegExp(`#${index}\\s+(.+?)(?:\\n|$)`));
           if (colorNameMatch) {
@@ -323,13 +332,16 @@ export async function scrapePazdesignPage(url: string): Promise<ScrapedLure> {
 
       // --- Main image ---
       let mainImageUrl = '';
-      // Try main gallery first image
-      const mainImg = document.querySelector('ul.main li:first-child img, .main li:first-child img') as HTMLImageElement;
-      if (mainImg) {
-        const src = mainImg.getAttribute('src') || '';
-        mainImageUrl = src.startsWith('http')
-          ? src
-          : `${window.location.href.replace(/\/$/, '')}/${src.replace(/^\.\//, '')}`;
+      // Try main gallery first color image (img/{digits}.jpg pattern)
+      const mainGalleryImgs = document.querySelectorAll('ul.main li img, .main li img');
+      for (const img of mainGalleryImgs) {
+        const src = (img as HTMLImageElement).getAttribute('src') || '';
+        if (/img\/\d+\.jpg$/i.test(src)) {
+          mainImageUrl = src.startsWith('http')
+            ? src
+            : `${window.location.href.replace(/\/$/, '')}/${src.replace(/^\.\//, '')}`;
+          break;
+        }
       }
       // Fallback: first significant img
       if (!mainImageUrl) {
