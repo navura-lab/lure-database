@@ -1279,6 +1279,70 @@ async function discoverGancraft(page: Page): Promise<Array<{ url: string; name: 
 }
 
 // ---------------------------------------------------------------------------
+// LUCKY CRAFT discovery
+// ---------------------------------------------------------------------------
+
+async function discoverLuckyCraft(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[luckycraft] Discovering products from category.html...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  const categoryUrl = 'https://www.luckycraft.co.jp/category.html';
+  log(`[luckycraft] Crawling: ${categoryUrl}`);
+
+  try {
+    await page.goto(categoryUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await sleep(PAGE_LOAD_DELAY_MS);
+
+    const pageProducts = await page.evaluate(() => {
+      var results: Array<{ url: string; name: string }> = [];
+      var links = document.querySelectorAll('a[href*="/product/"]');
+
+      for (var i = 0; i < links.length; i++) {
+        var href = links[i].getAttribute('href') || '';
+        if (!href.includes('/product/')) continue;
+        if (!href.endsWith('.html')) continue;
+
+        // Make absolute
+        var fullUrl = href;
+        if (href.startsWith('/')) {
+          fullUrl = 'https://www.luckycraft.co.jp' + href;
+        } else if (!href.startsWith('http')) {
+          fullUrl = 'https://www.luckycraft.co.jp/' + href;
+        }
+        // Normalize http to https
+        fullUrl = fullUrl.replace(/^http:\/\//, 'https://');
+
+        // Extract name from link text
+        var name = (links[i].textContent || '').trim();
+        // Extract slug as fallback
+        var pathParts = fullUrl.split('/');
+        var fileName = (pathParts[pathParts.length - 1] || '').replace('.html', '');
+
+        results.push({ url: fullUrl, name: name || fileName });
+      }
+
+      return results;
+    });
+
+    for (const p of pageProducts) {
+      const normalized = normalizeUrl(p.url);
+      if (seen.has(normalized)) continue;
+      seen.add(normalized);
+      products.push({ url: normalized, name: p.name });
+    }
+
+    log(`[luckycraft]   category.html: ${pageProducts.length} links, ${seen.size} unique`);
+  } catch (err) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    logError(`[luckycraft] Failed to crawl ${categoryUrl}: ${errMsg}`);
+  }
+
+  log(`[luckycraft] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -1391,6 +1455,12 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'GANCRAFT',
     discover: discoverGancraft,
     excludedNameKeywords: ['ロッド', 'ROD', 'リール', 'REEL', 'グッズ', 'GOODS', 'バッグ', 'BAG', 'アパレル', 'APPAREL'],
+  },
+  {
+    slug: 'luckycraft',
+    name: 'LUCKY CRAFT',
+    discover: discoverLuckyCraft,
+    excludedNameKeywords: [],
   },
 ];
 

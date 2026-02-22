@@ -22,6 +22,7 @@ import { scrapeCoremanPage } from './coreman.js';
 import { scrapePazdesignPage } from './pazdesign.js';
 import { scrapeOspPage } from './osp.js';
 import { scrapeGancraftPage } from './gancraft.js';
+import { scrapeLuckyCraftPage } from './luckycraft.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -42,6 +43,7 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   pazdesign: scrapePazdesignPage,
   osp: scrapeOspPage,
   gancraft: scrapeGancraftPage,
+  luckycraft: scrapeLuckyCraftPage,
 };
 
 /**
