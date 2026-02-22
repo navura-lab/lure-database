@@ -1208,6 +1208,77 @@ async function discoverOsp(page: Page): Promise<Array<{ url: string; name: strin
 }
 
 // ---------------------------------------------------------------------------
+// GANCRAFT — gancraft.com (EUC-JP, static HTML, categories: bass/saltwater/ayu)
+// ---------------------------------------------------------------------------
+
+const GANCRAFT_BASE_URL = 'https://gancraft.com';
+const GANCRAFT_CATEGORY_PAGES = ['/bass.html', '/saltwater.html', '/ayu.html'];
+
+async function discoverGancraft(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[gancraft] Discovering products...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  for (const catPath of GANCRAFT_CATEGORY_PAGES) {
+    const categoryUrl = `${GANCRAFT_BASE_URL}${catPath}`;
+    log(`[gancraft] Crawling: ${categoryUrl}`);
+
+    try {
+      await page.goto(categoryUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await sleep(PAGE_LOAD_DELAY_MS);
+
+      const pageProducts = await page.evaluate((baseUrl: string) => {
+        const results: Array<{ url: string; name: string }> = [];
+        const links = document.querySelectorAll('a[href*="lures/"]');
+
+        for (const link of links) {
+          let href = link.getAttribute('href') || '';
+          if (!href.includes('lures/')) continue;
+
+          // Normalize: extract path, ensure .html suffix
+          let path = href.replace(/^(https?:\/\/[^/]+)?/, '').replace(/\/$/, '');
+          if (!path.endsWith('.html')) path += '.html';
+          if (!path.startsWith('/')) path = '/' + path;
+
+          const fullUrl = baseUrl + path;
+
+          // Extract product name from alt text or link text
+          const img = link.querySelector('img');
+          let name = img?.getAttribute('alt')?.trim() || '';
+          if (!name) name = link.textContent?.trim()?.split('\n')[0]?.trim() || '';
+          name = name.substring(0, 100);
+
+          // Extract slug for fallback name
+          const slugMatch = path.match(/\/lures\/(.+?)\.html$/);
+          const slug = slugMatch ? slugMatch[1] : '';
+
+          results.push({ url: fullUrl, name: name || slug });
+        }
+
+        return results;
+      }, GANCRAFT_BASE_URL);
+
+      for (const p of pageProducts) {
+        const normalized = normalizeUrl(p.url);
+        if (seen.has(normalized)) continue;
+        seen.add(normalized);
+        products.push({ url: normalized, name: p.name });
+      }
+
+      log(`[gancraft]   ${catPath}: ${pageProducts.length} links, ${seen.size} unique so far`);
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      logError(`[gancraft] Failed to crawl ${categoryUrl}: ${errMsg}`);
+    }
+
+    await sleep(500);
+  }
+
+  log(`[gancraft] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -1314,6 +1385,12 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverOsp,
     excludedNameKeywords: ['ネクタイ', 'アシストフック', 'フックセット', 'HOOK SET', 'パーツ', 'PARTS', 'スペア', 'SPARE'],
     // URL-level slug exclusions (tairubber accessories) are handled in discoverOsp() itself.
+  },
+  {
+    slug: 'gancraft',
+    name: 'GANCRAFT',
+    discover: discoverGancraft,
+    excludedNameKeywords: ['ロッド', 'ROD', 'リール', 'REEL', 'グッズ', 'GOODS', 'バッグ', 'BAG', 'アパレル', 'APPAREL'],
   },
 ];
 
