@@ -24,6 +24,7 @@ import { scrapeOspPage } from './osp.js';
 import { scrapeGancraftPage } from './gancraft.js';
 import { scrapeLuckyCraftPage } from './luckycraft.js';
 import { scrapeDuelPage } from './duel.js';
+import { scrapeTacklehousePage } from './tacklehouse.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -46,6 +47,7 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   gancraft: scrapeGancraftPage,
   luckycraft: scrapeLuckyCraftPage,
   duel: scrapeDuelPage,
+  tacklehouse: scrapeTacklehousePage,
 };
 
 /**

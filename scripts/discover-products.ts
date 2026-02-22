@@ -1394,6 +1394,72 @@ async function discoverDuel(page: Page): Promise<Array<{ url: string; name: stri
 }
 
 // ---------------------------------------------------------------------------
+// Tackle House — tacklehouse.co.jp (static HTML, single catalog page)
+// ---------------------------------------------------------------------------
+
+const TACKLEHOUSE_BASE_URL = 'https://tacklehouse.co.jp';
+const TACKLEHOUSE_PRODUCTS_URL = `${TACKLEHOUSE_BASE_URL}/product/`;
+
+// Overview pages and accessory pages to exclude by slug
+const TACKLEHOUSE_EXCLUDED_SLUGS = new Set([
+  'index', 'datasheet',
+  'kten', 'contact', 'shores', 'elfin',
+  'k2', 'twinkle', 'buffet', 'resistance', 'rb', 'pj', 'bo', 'cruise', 'shibuki',
+  'mlh', 'nts', 'tsuno', 'saltia',
+]);
+
+async function discoverTacklehouse(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[tacklehouse] Discovering products from /product/ ...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  try {
+    await page.goto(TACKLEHOUSE_PRODUCTS_URL, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await sleep(PAGE_LOAD_DELAY_MS);
+
+    const pageProducts = await page.evaluate(function () {
+      var results: Array<{ url: string; name: string }> = [];
+      var anchors = document.querySelectorAll('a[href$=".html"]');
+      for (var i = 0; i < anchors.length; i++) {
+        var a = anchors[i] as HTMLAnchorElement;
+        var href = a.href;
+        var name = (a.textContent || '').trim();
+        if (href && href.indexOf('/product/') >= 0) {
+          results.push({ url: href, name: name });
+        }
+      }
+      return results;
+    });
+
+    for (const p of pageProducts) {
+      // Extract slug from URL
+      var slugMatch = p.url.match(/\/product\/([^/]+)\.html/);
+      if (!slugMatch) continue;
+      var slug = slugMatch[1];
+
+      // Skip excluded slugs
+      if (TACKLEHOUSE_EXCLUDED_SLUGS.has(slug)) continue;
+
+      // Normalize URL
+      var normalizedUrl = `${TACKLEHOUSE_BASE_URL}/product/${slug}.html`;
+
+      if (seen.has(normalizedUrl)) continue;
+      seen.add(normalizedUrl);
+
+      products.push({ url: normalizedUrl, name: p.name || slug });
+    }
+
+    log(`[tacklehouse] Found ${pageProducts.length} links, ${products.length} unique products`);
+  } catch (err) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    logError(`[tacklehouse] Failed to crawl ${TACKLEHOUSE_PRODUCTS_URL}: ${errMsg}`);
+  }
+
+  log(`[tacklehouse] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -1518,6 +1584,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'DUEL',
     discover: discoverDuel,
     excludedNameKeywords: [],
+  },
+  {
+    slug: 'tacklehouse',
+    name: 'Tackle House',
+    discover: discoverTacklehouse,
+    excludedNameKeywords: ['フック', 'HOOK', 'パーツ', 'PARTS', 'ロッド', 'ROD', 'リール', 'REEL', 'スペア', 'SPARE', 'トローリング'],
+    excludedUrlSlugs: ['mlh', 'nts', 'tsuno', 'saltia'],
   },
 ];
 
