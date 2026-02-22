@@ -1343,6 +1343,57 @@ async function discoverLuckyCraft(page: Page): Promise<Array<{ url: string; name
 }
 
 // ---------------------------------------------------------------------------
+// DUEL — duel.co.jp
+// ---------------------------------------------------------------------------
+
+async function discoverDuel(page: Page): Promise<Array<{ url: string; name: string }>> {
+  const products: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+
+  const DUEL_BASE = 'https://www.duel.co.jp';
+  const CATEGORY = 277; // "ルアー全て"
+  let pageNum = 1;
+
+  while (true) {
+    const url = pageNum === 1
+      ? `${DUEL_BASE}/products/?category=${CATEGORY}`
+      : `${DUEL_BASE}/products/more.php?p=${pageNum}&category=${CATEGORY}`;
+
+    log(`[duel] Crawling page ${pageNum}: ${url}`);
+    await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+
+    const links = await page.evaluate(function () {
+      var anchors = document.querySelectorAll('a[href*="detail.php?pid="]');
+      var results: Array<{ url: string; name: string }> = [];
+      for (var i = 0; i < anchors.length; i++) {
+        var a = anchors[i] as HTMLAnchorElement;
+        var href = a.href;
+        // Try to extract product name from nearby text
+        var nameEl = a.querySelector('.c-card-product_name, .product-name, h3, h2');
+        var name = nameEl ? nameEl.textContent.trim() : '';
+        if (href) results.push({ url: href, name: name || href });
+      }
+      return results;
+    });
+
+    if (links.length === 0) break;
+
+    for (const link of links) {
+      const normalized = link.url.replace(/^http:/, 'https:');
+      if (seen.has(normalized)) continue;
+      seen.add(normalized);
+      products.push({ url: normalized, name: link.name });
+    }
+
+    log(`[duel]   page ${pageNum}: ${links.length} links, ${seen.size} unique total`);
+    pageNum++;
+  }
+
+  log(`[duel] Discovered ${products.length} products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -1460,6 +1511,12 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'luckycraft',
     name: 'LUCKY CRAFT',
     discover: discoverLuckyCraft,
+    excludedNameKeywords: [],
+  },
+  {
+    slug: 'duel',
+    name: 'DUEL',
+    discover: discoverDuel,
     excludedNameKeywords: [],
   },
 ];
