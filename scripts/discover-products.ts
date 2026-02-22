@@ -1460,6 +1460,61 @@ async function discoverTacklehouse(page: Page): Promise<Array<{ url: string; nam
 }
 
 // ---------------------------------------------------------------------------
+// ZIPBAITS discovery logic
+// ---------------------------------------------------------------------------
+
+const ZIPBAITS_BASE_URL = 'https://www.zipbaits.com';
+// Categories: c=1 TROUT, c=2 SEA BASS, c=3 KURODAI, c=4 LIGHT SALT, c=5 BASS
+const ZIPBAITS_CATEGORIES = [1, 2, 3, 4, 5];
+
+async function discoverZipbaits(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[zipbaits] Discovering products from /item/?c=1..5 ...');
+  const products: Array<{ url: string; name: string }> = [];
+  const seenIds = new Set<string>();
+
+  for (const cat of ZIPBAITS_CATEGORIES) {
+    const catUrl = `${ZIPBAITS_BASE_URL}/item/?c=${cat}`;
+    try {
+      await page.goto(catUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await sleep(PAGE_LOAD_DELAY_MS);
+
+      const pageProducts = await page.evaluate(function () {
+        var results: Array<{ url: string; name: string }> = [];
+        var anchors = document.querySelectorAll('a[href*="?i="]');
+        for (var i = 0; i < anchors.length; i++) {
+          var a = anchors[i] as HTMLAnchorElement;
+          var href = a.href;
+          var name = (a.textContent || '').trim();
+          if (href) {
+            results.push({ url: href, name: name });
+          }
+        }
+        return results;
+      });
+
+      log(`[zipbaits] Category ${cat}: found ${pageProducts.length} links`);
+
+      for (var p of pageProducts) {
+        var idMatch = p.url.match(/[?&]i=(\d+)/);
+        if (!idMatch) continue;
+        var id = idMatch[1];
+        if (seenIds.has(id)) continue;
+        seenIds.add(id);
+
+        var normalizedUrl = `${ZIPBAITS_BASE_URL}/item/?i=${id}`;
+        products.push({ url: normalizedUrl, name: p.name || id });
+      }
+    } catch (err) {
+      var errMsg = err instanceof Error ? err.message : String(err);
+      logError(`[zipbaits] Failed to crawl ${catUrl}: ${errMsg}`);
+    }
+  }
+
+  log(`[zipbaits] Discovered ${products.length} unique products`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -1591,6 +1646,12 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverTacklehouse,
     excludedNameKeywords: ['フック', 'HOOK', 'パーツ', 'PARTS', 'ロッド', 'ROD', 'リール', 'REEL', 'スペア', 'SPARE', 'トローリング'],
     excludedUrlSlugs: ['mlh', 'nts', 'tsuno', 'saltia'],
+  },
+  {
+    slug: 'zipbaits',
+    name: 'ZIPBAITS',
+    discover: discoverZipbaits,
+    excludedNameKeywords: [],  // ルアー専業のため除外不要
   },
 ];
 
