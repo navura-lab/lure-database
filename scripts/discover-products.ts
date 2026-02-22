@@ -1515,6 +1515,105 @@ async function discoverZipbaits(page: Page): Promise<Array<{ url: string; name: 
 }
 
 // ---------------------------------------------------------------------------
+// SMITH discovery logic
+// ---------------------------------------------------------------------------
+
+const SMITH_BASE_URL = 'https://www.smith.jp';
+const SMITH_CATEGORY_PAGES = [
+  '03-basstacle.html',
+  '03-trouttacle.html',
+  '03-saltwater.html',
+  '03-cattacle.html',
+  '03-snaketacle.html',
+  '03-expedition.html',
+];
+
+const SMITH_EXCLUDED_SLUGS = [
+  // Rods (bass)
+  'bareafun', 'hiroism',
+  // Rods (trout)
+  'lagless', 'tactist', 'realflex', 'daggerstream',
+  'bstc', 'multiyouse', 'panoramashaft', 'ss4custom', 'neuelimited',
+  'ilflusso', 'averlla', 'tareafun',
+  // Rods (salt)
+  'bowdevil', 'smoky', 'darkshadowex',
+  'baylineraj', 'baylinermk', 'baylinerakbm', 'baylinerrf', 'baylinersj',
+  'hsjbeveljerk', 'hsjcs', 'hsjssl', 'gravitation',
+  'kozexpcasting', 'kozexpspinning', 'kozexpjigging',
+  'amjx', 'gtk', 'wrc', 'olp',
+  // Rods (catfish/snakehead)
+  'namanchu', 'mhkoz3',
+  // Accessories & tools
+  'accessory', 'reelgrease', 'releaser', 'neomaghookkeeper',
+  'eyetunerfinesse', 'easyfishgrip', 'egisharpner',
+  'option', 'tool', 'parts',
+  // Non-product pages
+  'heddon_ss',
+  // External links
+  'superstrike',
+];
+
+async function discoverSmith(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[smith] Discovering products from 6 category pages ...');
+  var products: Array<{ url: string; name: string }> = [];
+  var seenKeys = new Set<string>();
+
+  for (var catPage of SMITH_CATEGORY_PAGES) {
+    var catUrl = SMITH_BASE_URL + '/html/' + catPage;
+    try {
+      await page.goto(catUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await sleep(PAGE_LOAD_DELAY_MS);
+
+      var pageProducts = await page.evaluate(function () {
+        var results: Array<{ url: string; name: string }> = [];
+        var anchors = document.querySelectorAll('a[href*="product/"]');
+        for (var i = 0; i < anchors.length; i++) {
+          var a = anchors[i] as HTMLAnchorElement;
+          var href = a.href;
+          if (href && href.indexOf('.html') > 0) {
+            var name = (a.textContent || '').trim();
+            results.push({ url: href, name: name });
+          }
+        }
+        return results;
+      });
+
+      log('[smith] Category ' + catPage + ': found ' + pageProducts.length + ' links');
+
+      for (var p of pageProducts) {
+        // Extract category/dir for dedup: "trout/dcontact"
+        var match = p.url.match(/\/product\/([^/]+)\/([^/]+)\//);
+        if (!match) continue;
+
+        var key = match[1] + '/' + match[2];
+
+        // Check exclusions
+        var excluded = false;
+        var lower = p.url.toLowerCase();
+        for (var j = 0; j < SMITH_EXCLUDED_SLUGS.length; j++) {
+          if (lower.indexOf(SMITH_EXCLUDED_SLUGS[j].toLowerCase()) >= 0) {
+            excluded = true;
+            break;
+          }
+        }
+        if (excluded) continue;
+
+        if (seenKeys.has(key)) continue;
+        seenKeys.add(key);
+
+        products.push({ url: p.url, name: p.name || match[2] });
+      }
+    } catch (err) {
+      var errMsg = err instanceof Error ? err.message : String(err);
+      logError('[smith] Failed to crawl ' + catUrl + ': ' + errMsg);
+    }
+  }
+
+  log('[smith] Discovered ' + products.length + ' unique products');
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
@@ -1652,6 +1751,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'ZIPBAITS',
     discover: discoverZipbaits,
     excludedNameKeywords: [],  // ルアー専業のため除外不要
+  },
+  {
+    slug: 'smith',
+    name: 'SMITH',
+    discover: discoverSmith,
+    excludedNameKeywords: [],
+    // URL-level exclusions (rods, accessories, tools) are handled in discoverSmith() itself.
   },
 ];
 
