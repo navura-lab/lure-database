@@ -1736,6 +1736,60 @@ async function discoverTiemco(page: Page): Promise<Array<{ url: string; name: st
 // Manufacturer registry
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// RAID JAPAN discovery logic
+// ---------------------------------------------------------------------------
+
+var RAID_BASE_URL = 'http://raidjapan.com';
+var RAID_LISTING_PAGES = [
+  { url: `${RAID_BASE_URL}/?page_id=43`, label: 'Lures' },
+  { url: `${RAID_BASE_URL}/?page_id=14122`, label: 'Backyard' },
+];
+
+async function discoverRaid(page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts = new Map<string, { url: string; name: string }>();
+
+  for (var config of RAID_LISTING_PAGES) {
+    log(`[raid] Fetching ${config.label}: ${config.url}`);
+    await page.goto(config.url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+
+    var products = await page.evaluate(function () {
+      var links = document.querySelectorAll('a[href*="?product="]');
+      var results: { slug: string; name: string }[] = [];
+      for (var i = 0; i < links.length; i++) {
+        var el = links[i] as HTMLAnchorElement;
+        var href = el.href;
+        var match = href.match(/[?&]product=([^&#]+)/);
+        if (!match) continue;
+        var slug = match[1];
+        // Try to get product name from child elements or alt text
+        var img = el.querySelector('img') as HTMLImageElement | null;
+        var nameText = img ? (img.alt || '') : (el.textContent?.trim() || '');
+        results.push({ slug: slug, name: nameText });
+      }
+      return results;
+    });
+
+    for (var p of products) {
+      if (!allProducts.has(p.slug)) {
+        allProducts.set(p.slug, {
+          url: `${RAID_BASE_URL}/?product=${p.slug}`,
+          name: p.name || p.slug,
+        });
+      }
+    }
+
+    log(`[raid] ${config.label}: ${products.length} links (${allProducts.size} unique total)`);
+  }
+
+  log(`[raid] Discovered ${allProducts.size} unique products`);
+  return Array.from(allProducts.values());
+}
+
+// ---------------------------------------------------------------------------
+// Manufacturer configurations
+// ---------------------------------------------------------------------------
+
 const MANUFACTURERS: ManufacturerConfig[] = [
   {
     slug: 'blueblue',
@@ -1884,6 +1938,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverTiemco,
     excludedNameKeywords: [],
     // Category-based filtering (rods, accessories, apparel) is handled in discoverTiemco() itself.
+  },
+  {
+    slug: 'raid',
+    name: 'RAID JAPAN',
+    discover: discoverRaid,
+    excludedNameKeywords: [],
+    // All products on Lures + Backyard pages are lures. No filtering needed.
   },
 ];
 
