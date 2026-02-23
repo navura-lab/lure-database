@@ -2077,6 +2077,85 @@ async function discoverBassday(page: Page): Promise<Array<{ url: string; name: s
 }
 
 // ---------------------------------------------------------------------------
+// Jackson — 2 category pages (salt + trout), SSR HTML
+// ---------------------------------------------------------------------------
+
+var JACKSON_CATEGORIES = [
+  'https://jackson.jp/?pt=products&cat=salt&s=',
+  'https://jackson.jp/?pt=products&cat=trout&s=',
+];
+
+// Rod tags to exclude from lure discovery
+var JACKSON_ROD_TAGS = ['rod', 'native rod', 'area rod'];
+
+async function discoverJackson(page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var seenSlugs = new Set<string>();
+
+  for (var i = 0; i < JACKSON_CATEGORIES.length; i++) {
+    var catUrl = JACKSON_CATEGORIES[i];
+    log(`[jackson] Crawling category ${i + 1}/${JACKSON_CATEGORIES.length}: ${catUrl}`);
+    await page.goto(catUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await page.waitForTimeout(2000);
+
+    var items: Array<{ url: string; name: string; tags: string[] }> = await page.evaluate(function () {
+      var results: Array<{ url: string; name: string; tags: string[] }> = [];
+      var links = document.querySelectorAll('ul.comListUl.flex > li > a');
+      for (var j = 0; j < links.length; j++) {
+        var anchor = links[j] as HTMLAnchorElement;
+        var href = anchor.getAttribute('href') || '';
+        if (href.indexOf('/products/') < 0) continue;
+
+        // Product name from span.ttl
+        var ttlSpan = anchor.querySelector('span.ttl');
+        var name = ttlSpan ? (ttlSpan.textContent || '').replace(/[\s\u3000]+/g, ' ').trim() : '';
+
+        // Category tags from span.tagList > span.info
+        var tagEls = anchor.querySelectorAll('span.tagList span.info');
+        var tags: string[] = [];
+        for (var ti = 0; ti < tagEls.length; ti++) {
+          var tagText = (tagEls[ti].textContent || '').trim();
+          if (tagText) tags.push(tagText);
+        }
+
+        results.push({ url: href, name: name, tags: tags });
+      }
+      return results;
+    });
+
+    var newCount = 0;
+    for (var item of items) {
+      // Extract slug
+      var slugMatch = item.url.match(/\/products\/([^/?#]+)/);
+      if (!slugMatch) continue;
+      var slug = slugMatch[1];
+      if (seenSlugs.has(slug)) continue;
+      seenSlugs.add(slug);
+
+      // Skip if any tag matches rod tags
+      var isRod = false;
+      for (var ti2 = 0; ti2 < item.tags.length; ti2++) {
+        if (JACKSON_ROD_TAGS.indexOf(item.tags[ti2].toLowerCase().trim()) >= 0) {
+          isRod = true;
+          break;
+        }
+      }
+      if (isRod) continue;
+
+      allProducts.push({
+        url: item.url.indexOf('http') === 0 ? item.url : 'https://jackson.jp' + item.url,
+        name: item.name || slug,
+      });
+      newCount++;
+    }
+    log(`[jackson] Category ${i + 1}: ${items.length} links, ${newCount} new, ${allProducts.length} total`);
+  }
+
+  log(`[jackson] Discovered ${allProducts.length} total lure products`);
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -2263,6 +2342,14 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverBassday,
     excludedNameKeywords: [],
     // All 6 categories contain only lures. No filtering needed.
+  },
+  {
+    slug: 'jackson',
+    name: 'Jackson',
+    discover: discoverJackson,
+    excludedNameKeywords: [],
+    excludedUrlSlugs: ['maccheroni-spare-parts-kit'],
+    // Rod filtering done in discover function via tag detection.
   },
 ];
 
