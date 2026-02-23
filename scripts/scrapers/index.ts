@@ -29,6 +29,7 @@ import { scrapeZipbaitsPage } from './zipbaits.js';
 import { scrapeSmithPage } from './smith.js';
 import { scrapeTiemcoPage } from './tiemco.js';
 import { scrapeRaidPage } from './raid.js';
+import { scrapeNoriesPage } from './nories.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -56,6 +57,7 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   smith: scrapeSmithPage,
   tiemco: scrapeTiemcoPage,
   raid: scrapeRaidPage,
+  nories: scrapeNoriesPage,
 };
 
 /**

@@ -1787,6 +1787,110 @@ async function discoverRaid(page: Page): Promise<Array<{ url: string; name: stri
 }
 
 // ---------------------------------------------------------------------------
+// Nories discovery logic
+// ---------------------------------------------------------------------------
+
+// Bass categories to EXCLUDE
+var NORIES_BASS_EXCLUDE_CATE_IDS = [7, 11]; // rods, accessories
+// Bass slugs to EXCLUDE (miscategorized non-lure products)
+var NORIES_BASS_EXCLUDE_SLUGS = [
+  'black-performance-treble-hooks', 'aging-bass-liquid',
+  'bitepowder-ebi', 'bitebass-liquid',
+];
+// Salt lure slugs (everything else is rods/jigheads)
+var NORIES_SALT_LURE_SLUGS = ['oyster-minnow-92'];
+// Trout slugs to EXCLUDE (rods + accessories)
+var NORIES_TROUT_EXCLUDE_SLUGS = [
+  'spike-arrow', 'escloser', 'ambitious-craque',
+  'fish-releaser-ns-01', 'trout-tackle-storage-ns-01_pa', 'feed',
+];
+
+async function discoverNories(page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+
+  // --- Bass: WP REST API ---
+  log('[nories] Fetching bass products via WP REST API...');
+  var apiPage = 1;
+  while (true) {
+    var apiUrl = `https://nories.com/wp-json/wp/v2/bass?per_page=100&page=${apiPage}&_fields=slug,basscate,link,title`;
+    var res = await fetch(apiUrl);
+    if (!res.ok) break;
+    var items: any[] = await res.json();
+    if (items.length === 0) break;
+
+    for (var item of items) {
+      var cats: number[] = item.basscate || [];
+      var excluded = cats.some(function (c: number) {
+        return NORIES_BASS_EXCLUDE_CATE_IDS.includes(c);
+      });
+      if (excluded || NORIES_BASS_EXCLUDE_SLUGS.includes(item.slug)) continue;
+      allProducts.push({
+        url: item.link,
+        name: item.title?.rendered || item.slug,
+      });
+    }
+    apiPage++;
+  }
+  log(`[nories] Bass lures: ${allProducts.length}`);
+
+  // --- Salt ---
+  for (var saltSlug of NORIES_SALT_LURE_SLUGS) {
+    allProducts.push({
+      url: `https://nories.com/salt/${saltSlug}/`,
+      name: saltSlug,
+    });
+  }
+  log(`[nories] Added ${NORIES_SALT_LURE_SLUGS.length} salt lure(s)`);
+
+  // --- Trout: listing page ---
+  log('[nories] Fetching trout products...');
+  await page.goto('https://trout.nories.com/products/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+
+  var troutLinks = await page.evaluate(function () {
+    var h2s = document.querySelectorAll('h2');
+    var luresH2: HTMLElement | null = null;
+    var accessoriesH2: HTMLElement | null = null;
+    for (var i = 0; i < h2s.length; i++) {
+      var text = (h2s[i].textContent || '').trim();
+      if (text === 'LURES') luresH2 = h2s[i] as HTMLElement;
+      if (text === 'ACCESSORIES') accessoriesH2 = h2s[i] as HTMLElement;
+    }
+    if (!luresH2) return [];
+    var links: string[] = [];
+    var current: Node | null = luresH2.nextSibling;
+    while (current) {
+      if (current === accessoriesH2) break;
+      if (current instanceof HTMLElement) {
+        if (current.tagName === 'H2') break;
+        var anchors = current.querySelectorAll('a[href*="/products/"]');
+        for (var j = 0; j < anchors.length; j++) {
+          var href = (anchors[j] as HTMLAnchorElement).href;
+          if (href.includes('/products/') && !href.endsWith('/products/')) links.push(href);
+        }
+      }
+      current = current.nextSibling;
+    }
+    return links;
+  });
+
+  var seenTrout = new Set<string>();
+  for (var tLink of troutLinks) {
+    var tMatch = tLink.match(/\/products\/([^/]+)\/?$/);
+    if (!tMatch) continue;
+    var tSlug = tMatch[1];
+    if (NORIES_TROUT_EXCLUDE_SLUGS.includes(tSlug) || seenTrout.has(tSlug)) continue;
+    seenTrout.add(tSlug);
+    allProducts.push({
+      url: `https://trout.nories.com/products/${tSlug}/`,
+      name: tSlug,
+    });
+  }
+  log(`[nories] Trout lures: ${seenTrout.size}`);
+  log(`[nories] Discovered ${allProducts.length} total lure products`);
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -1945,6 +2049,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverRaid,
     excludedNameKeywords: [],
     // All products on Lures + Backyard pages are lures. No filtering needed.
+  },
+  {
+    slug: 'nories',
+    name: 'Nories',
+    discover: discoverNories,
+    excludedNameKeywords: [],
+    // Category/slug filtering is handled inside discoverNories() itself.
   },
 ];
 
@@ -2160,7 +2271,7 @@ async function main(): Promise<void> {
       const newProducts: DiscoveredProduct[] = [];
 
       for (const [url, name] of uniqueProducts) {
-        if (existingUrls.has(url)) continue;
+        if (existingUrls.has(normalizeUrl(url))) continue;
 
         // Check name keywords
         const isExcludedByName = mfg.excludedNameKeywords.some(kw =>
