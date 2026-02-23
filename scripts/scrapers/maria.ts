@@ -10,7 +10,7 @@
 //   "Standard" (26/33): table.bk-th-tbl with <th> headers
 //   "Legacy" (7/33): table.wh-tbl or unstyled table, headers in <td> inside tr.bg_color02
 //
-// Color images: NOT available on most product pages — colors extracted from spec table
+// Color images: Extracted from ul.spec-item-list (modern) or div.spec_ > ul > li > dl (legacy)
 //
 // IMPORTANT: No function declarations/expressions inside page.evaluate().
 //   tsx + astro tsconfig injects __name which breaks browser-context eval.
@@ -128,7 +128,7 @@ export async function scrapeMariaPage(url: string): Promise<ScrapedLure> {
         specType: '',
         lengths: [] as number[],
         weights: [] as number[],
-        colors: [] as Array<{ name: string }>,
+        colors: [] as Array<{ name: string; imageUrl: string }>,
         titleTag: '',
       };
 
@@ -194,12 +194,92 @@ export async function scrapeMariaPage(url: string): Promise<ScrapedLure> {
       }
 
       // ================================================================
+      // COLOR EXTRACTION — Primary: ul.spec-item-list (with images)
+      // ================================================================
+
+      var seenColors: Record<string, boolean> = {};
+
+      // --- Primary: ul.spec-item-list > li (has both name + image) ---
+      var specItemList = document.querySelectorAll('ul.spec-item-list > li');
+      for (var sli = 0; sli < specItemList.length; sli++) {
+        var liEl = specItemList[sli];
+
+        // Color name from h3.item-ttl (strip <span> tags like "NEW")
+        var colorH3 = liEl.querySelector('h3.item-ttl');
+        if (!colorH3) continue;
+        // Clone to strip child elements like <span>
+        var h3Clone = colorH3.cloneNode(true) as HTMLElement;
+        var spans = h3Clone.querySelectorAll('span');
+        for (var sp = 0; sp < spans.length; sp++) {
+          spans[sp].parentNode && spans[sp].parentNode.removeChild(spans[sp]);
+        }
+        var colorName = (h3Clone.textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
+        if (!colorName || seenColors[colorName]) continue;
+        seenColors[colorName] = true;
+
+        // Color image from div.ph
+        var colorImgUrl = '';
+        var phDiv = liEl.querySelector('div.ph');
+        if (phDiv) {
+          // Priority 1: hover image (bg-hover-img01 = _off version = normal display)
+          var hoverImg = phDiv.querySelector('img.bg-hover-img01');
+          if (hoverImg) {
+            colorImgUrl = (hoverImg as HTMLImageElement).src || '';
+          }
+          // Priority 2: regular single image
+          if (!colorImgUrl) {
+            var regularImg = phDiv.querySelector('img');
+            if (regularImg) {
+              colorImgUrl = (regularImg as HTMLImageElement).src || '';
+            }
+          }
+        }
+
+        result.colors.push({ name: colorName, imageUrl: colorImgUrl });
+      }
+
+      // --- Secondary: Legacy layout — div.spec_ > ul > li > dl (dt=img, dd=name) ---
+      if (result.colors.length === 0) {
+        var specDiv = document.querySelector('div.spec_');
+        if (specDiv) {
+          var legacyUls = specDiv.querySelectorAll('ul');
+          for (var lui = 0; lui < legacyUls.length; lui++) {
+            var legUl = legacyUls[lui];
+            // Skip if it has a class (nav lists etc)
+            if (legUl.className) continue;
+            var legLis = legUl.querySelectorAll('li');
+            if (legLis.length < 2) continue; // Need at least 2 colors to be a color list
+
+            for (var lli = 0; lli < legLis.length; lli++) {
+              var legLi = legLis[lli];
+              // Image from dt > img
+              var dtImg = legLi.querySelector('dl > dt > img');
+              var legImgUrl = dtImg ? (dtImg as HTMLImageElement).getAttribute('src') || '' : '';
+              // Color name from first <p> text in dd
+              var ddP = legLi.querySelector('dl > dd > p');
+              if (!ddP) {
+                // Some pages nest: dl > dd > dl > dd > p
+                ddP = legLi.querySelector('dl > dd > dl > dd > p');
+              }
+              var legColorName = ddP ? (ddP.textContent || '').replace(/[\s\u3000]+/g, ' ').trim() : '';
+              if (!legColorName || seenColors[legColorName]) continue;
+              seenColors[legColorName] = true;
+              result.colors.push({ name: legColorName, imageUrl: legImgUrl });
+            }
+            // If we found colors from this ul, stop
+            if (result.colors.length > 0) break;
+          }
+        }
+      }
+
+      // ================================================================
       // SPEC TABLE EXTRACTION — supports two layouts
+      // Extracts weights, lengths, type, and colors (fallback if
+      // ul.spec-item-list was empty)
       // ================================================================
 
       var seenWeights: Record<string, boolean> = {};
       var seenLengths: Record<string, boolean> = {};
-      var seenColors: Record<string, boolean> = {};
 
       // --- Layout A: Standard — table.bk-th-tbl with <th> headers ---
       var specTableA = document.querySelector('.spec-tbl-area table.bk-th-tbl');
@@ -238,11 +318,12 @@ export async function scrapeMariaPage(url: string): Promise<ScrapedLure> {
             var ttA = (cellsA[colTypeA].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
             if (ttA) result.specType = ttA;
           }
-          if (colColorA >= 0 && colColorA < cellsA.length) {
+          // Only add colors from spec table if primary source (spec-item-list) found none
+          if (result.colors.length === 0 && colColorA >= 0 && colColorA < cellsA.length) {
             var ctA = (cellsA[colColorA].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
             if (ctA && !seenColors[ctA]) {
               seenColors[ctA] = true;
-              result.colors.push({ name: ctA });
+              result.colors.push({ name: ctA, imageUrl: '' });
             }
           }
         }
@@ -324,7 +405,7 @@ export async function scrapeMariaPage(url: string): Promise<ScrapedLure> {
               var ctB = (cellsB[colColorB].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
               if (ctB && !seenColors[ctB]) {
                 seenColors[ctB] = true;
-                result.colors.push({ name: ctB });
+                result.colors.push({ name: ctB, imageUrl: '' });
               }
             }
           }
@@ -415,12 +496,17 @@ export async function scrapeMariaPage(url: string): Promise<ScrapedLure> {
     var type = detectType(name, description, specType);
     var targetFish = detectTargetFish(name, description);
 
-    // Colors from spec table (no image URLs available on most pages)
+    // Colors — use imageUrl from page.evaluate (primary: spec-item-list, fallback: spec table)
     var colors: ScrapedColor[] = [];
     for (var ci = 0; ci < data.colors.length; ci++) {
+      var imgUrl = (data.colors[ci].imageUrl || '').trim().replace(/\s+/g, '');
+      // Relative URL → absolute URL conversion
+      if (imgUrl && imgUrl.indexOf('http') !== 0) {
+        imgUrl = 'https://www.yamaria.co.jp' + imgUrl;
+      }
       colors.push({
         name: data.colors[ci].name,
-        imageUrl: '',
+        imageUrl: imgUrl,
       });
     }
 

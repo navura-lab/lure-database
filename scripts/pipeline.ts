@@ -53,6 +53,7 @@ interface PipelineResult {
   status: 'success' | 'error';
   message: string;
   colorsProcessed: number;
+  colorsWithImage: number;
   rowsInserted: number;
 }
 
@@ -349,7 +350,7 @@ async function processRecord(
     const msg = 'No URL found in record';
     logError(msg);
     await updateAirtableStatus(recordId, 'エラー', msg);
-    return { recordId, lureName, status: 'error', message: msg, colorsProcessed: 0, rowsInserted: 0 };
+    return { recordId, lureName, status: 'error', message: msg, colorsProcessed: 0, colorsWithImage: 0, rowsInserted: 0 };
   }
 
   // Update to 処理中
@@ -463,8 +464,9 @@ async function processRecord(
       recordId,
       lureName,
       status: 'success',
-      message: `${scraped.colors.length} colors, ${rowsInserted} rows inserted`,
+      message: `${scraped.colors.length} colors (${colorImageMap.size} with image), ${rowsInserted} rows inserted`,
       colorsProcessed: scraped.colors.length,
+      colorsWithImage: colorImageMap.size,
       rowsInserted,
     };
 
@@ -476,7 +478,7 @@ async function processRecord(
     } catch (statusErr) {
       logError(`Failed to update Airtable status for ${lureName}: ${statusErr instanceof Error ? statusErr.message : String(statusErr)}`);
     }
-    return { recordId, lureName, status: 'error', message: errMsg, colorsProcessed: 0, rowsInserted: 0 };
+    return { recordId, lureName, status: 'error', message: errMsg, colorsProcessed: 0, colorsWithImage: 0, rowsInserted: 0 };
   }
 }
 
@@ -551,7 +553,14 @@ async function main(): Promise<void> {
   log(`Successful: ${results.filter(r => r.status === 'success').length}`);
   log(`Errors: ${results.filter(r => r.status === 'error').length}`);
   log(`Total rows inserted: ${results.reduce((sum, r) => sum + r.rowsInserted, 0)}`);
-  log(`Total colors processed: ${results.reduce((sum, r) => sum + r.colorsProcessed, 0)}`);
+  const totalColors = results.reduce((sum, r) => sum + r.colorsProcessed, 0);
+  const totalColorsWithImage = results.reduce((sum, r) => sum + r.colorsWithImage, 0);
+  const imageRate = totalColors > 0 ? Math.round(totalColorsWithImage / totalColors * 100) : 0;
+  log(`Total colors processed: ${totalColors}`);
+  log(`Colors with image: ${totalColorsWithImage}/${totalColors} (${imageRate}%)`);
+  if (totalColors > 0 && imageRate < 50) {
+    log(`⚠️  WARNING: Image coverage is below 50%! Check scraper color image extraction.`);
+  }
   log(`Elapsed time: ${elapsed}s`);
   log('========================================');
 
