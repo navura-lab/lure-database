@@ -1973,6 +1973,49 @@ async function discoverRapala(page: Page): Promise<Array<{ url: string; name: st
 }
 
 // ---------------------------------------------------------------------------
+// Maria (Yamaria) — /maria/product/gm/plug (3 pages, 12/page)
+// ---------------------------------------------------------------------------
+
+var MARIA_LISTING_PAGES = [
+  'https://www.yamaria.co.jp/maria/product/gm/plug',
+  'https://www.yamaria.co.jp/maria/product/gm/plug?absolutepage=2',
+  'https://www.yamaria.co.jp/maria/product/gm/plug?absolutepage=3',
+];
+
+async function discoverMaria(page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+
+  for (var i = 0; i < MARIA_LISTING_PAGES.length; i++) {
+    var listUrl = MARIA_LISTING_PAGES[i];
+    log(`[maria] Crawling page ${i + 1}/${MARIA_LISTING_PAGES.length}: ${listUrl}`);
+    await page.goto(listUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await page.waitForTimeout(2000);
+
+    var items: Array<{ url: string; name: string }> = await page.evaluate(function () {
+      var anchors = document.querySelectorAll('a[href*="/product/detail/"]');
+      var results: Array<{ url: string; name: string }> = [];
+      for (var j = 0; j < anchors.length; j++) {
+        var href = (anchors[j] as HTMLAnchorElement).href;
+        var name = (anchors[j].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
+        results.push({ url: href, name: name || href });
+      }
+      return results;
+    });
+
+    for (var item of items) {
+      if (seen.has(item.url)) continue;
+      seen.add(item.url);
+      allProducts.push(item);
+    }
+    log(`[maria] Page ${i + 1}: ${items.length} links, ${allProducts.length} unique so far`);
+  }
+
+  log(`[maria] Discovered ${allProducts.length} total lure products`);
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -2145,6 +2188,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverRapala,
     excludedNameKeywords: [],
     // URL-level filtering (non-lure pages, top pages) is handled in discoverRapala() itself.
+  },
+  {
+    slug: 'maria',
+    name: 'Maria',
+    discover: discoverMaria,
+    excludedNameKeywords: [],
+    // All products on /maria/product/gm/plug are lures. No filtering needed.
   },
 ];
 
