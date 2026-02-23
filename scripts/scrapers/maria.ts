@@ -5,8 +5,12 @@
 // Site: Server-rendered HTML (custom CMS), no WAF, headless OK.
 // Encoding: UTF-8
 // Price: NOT available — e-shop (ec.yamaria.com) sells apparel only, no lures → price = 0
-// Spec table: table.bk-th-tbl with variable headers (some have "タイプ" column, some don't)
-// Color images: NOT available on most product pages — colors extracted from spec table "カラー" column
+//
+// TWO page layouts exist:
+//   "Standard" (26/33): table.bk-th-tbl with <th> headers
+//   "Legacy" (7/33): table.wh-tbl or unstyled table, headers in <td> inside tr.bg_color02
+//
+// Color images: NOT available on most product pages — colors extracted from spec table
 //
 // IMPORTANT: No function declarations/expressions inside page.evaluate().
 //   tsx + astro tsconfig injects __name which breaks browser-context eval.
@@ -125,6 +129,7 @@ export async function scrapeMariaPage(url: string): Promise<ScrapedLure> {
         lengths: [] as number[],
         weights: [] as number[],
         colors: [] as Array<{ name: string }>,
+        titleTag: '',
       };
 
       // ---- Product name ----
@@ -132,21 +137,48 @@ export async function scrapeMariaPage(url: string): Promise<ScrapedLure> {
       if (h2) {
         result.name = (h2.textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
       }
+      // Fallback: extract from <title> tag  "商品名 - マリア製品情報詳細..."
+      result.titleTag = document.title || '';
+      if (!result.name && result.titleTag) {
+        var titleParts = result.titleTag.split(' - ');
+        if (titleParts.length > 0) {
+          result.name = titleParts[0].trim();
+        }
+      }
 
       // ---- Main image ----
-      var mainImgCandidates = document.querySelectorAll('.cont-area img');
-      for (var mi = 0; mi < mainImgCandidates.length; mi++) {
-        var imgSrc = (mainImgCandidates[mi] as HTMLImageElement).src || '';
-        if (imgSrc.indexOf('_main') >= 0 || imgSrc.indexOf('/cms/product/') >= 0) {
+      // Priority 1: image with _main in filename
+      var allPageImgs = document.querySelectorAll('img');
+      for (var mi = 0; mi < allPageImgs.length; mi++) {
+        var imgSrc = (allPageImgs[mi] as HTMLImageElement).src || '';
+        if (imgSrc.indexOf('/cms/product/maria/') >= 0 && imgSrc.indexOf('_main') >= 0) {
           result.mainImage = imgSrc;
           break;
+        }
+      }
+      // Fallback: first /cms/product/maria/ image that isn't a title/icon/common image
+      if (!result.mainImage) {
+        for (var fi = 0; fi < allPageImgs.length; fi++) {
+          var fSrc = (allPageImgs[fi] as HTMLImageElement).src || '';
+          if (fSrc.indexOf('/cms/product/maria/') >= 0 &&
+              fSrc.indexOf('title') < 0 &&
+              fSrc.indexOf('common') < 0 &&
+              fSrc.indexOf('icon') < 0 &&
+              fSrc.indexOf('banner') < 0) {
+            // Check it's a meaningful image (not tiny)
+            var w = (allPageImgs[fi] as HTMLImageElement).naturalWidth || 0;
+            if (w === 0 || w >= 100) {
+              result.mainImage = fSrc;
+              break;
+            }
+          }
         }
       }
 
       // ---- Description ----
       // Collect text from .item-body-area .item-cont-box elements
       var descBlocks = document.querySelectorAll('.item-body-area .item-cont-box');
-      var descTexts = [];
+      var descTexts: string[] = [];
       for (var di = 0; di < descBlocks.length; di++) {
         var txt = (descBlocks[di].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
         if (txt.length > 0) descTexts.push(txt);
@@ -161,64 +193,212 @@ export async function scrapeMariaPage(url: string): Promise<ScrapedLure> {
         }
       }
 
-      // ---- Spec table: table.bk-th-tbl ----
-      var specTable = document.querySelector('.spec-tbl-area table.bk-th-tbl');
-      if (specTable) {
-        // Detect column indices from headers
-        var headers = specTable.querySelectorAll('th');
-        var colLength = -1;
-        var colWeight = -1;
-        var colType = -1;
-        var colColor = -1;
-        for (var hi = 0; hi < headers.length; hi++) {
-          var hText = (headers[hi].textContent || '').trim();
-          if (hText === '全長') colLength = hi;
-          if (hText === '重量') colWeight = hi;
-          if (hText === 'タイプ') colType = hi;
-          if (hText === 'カラー') colColor = hi;
+      // ================================================================
+      // SPEC TABLE EXTRACTION — supports two layouts
+      // ================================================================
+
+      var seenWeights: Record<string, boolean> = {};
+      var seenLengths: Record<string, boolean> = {};
+      var seenColors: Record<string, boolean> = {};
+
+      // --- Layout A: Standard — table.bk-th-tbl with <th> headers ---
+      var specTableA = document.querySelector('.spec-tbl-area table.bk-th-tbl');
+      if (specTableA) {
+        var headersA = specTableA.querySelectorAll('th');
+        var colLenA = -1, colWtA = -1, colTypeA = -1, colColorA = -1;
+        for (var ha = 0; ha < headersA.length; ha++) {
+          var htA = (headersA[ha].textContent || '').trim();
+          if (htA === '全長') colLenA = ha;
+          if (htA === '重量') colWtA = ha;
+          if (htA === 'タイプ') colTypeA = ha;
+          if (htA === 'カラー') colColorA = ha;
         }
 
-        // Extract data from rows
-        var rows = specTable.querySelectorAll('tbody tr');
-        var seenWeights: Record<string, boolean> = {};
-        var seenLengths: Record<string, boolean> = {};
-        var seenColors: Record<string, boolean> = {};
+        var rowsA = specTableA.querySelectorAll('tbody tr');
+        for (var ra = 0; ra < rowsA.length; ra++) {
+          var cellsA = rowsA[ra].querySelectorAll('td');
 
-        for (var ri = 0; ri < rows.length; ri++) {
-          var cells = rows[ri].querySelectorAll('td');
+          if (colLenA >= 0 && colLenA < cellsA.length) {
+            var ltA = (cellsA[colLenA].textContent || '').trim();
+            var lmA = ltA.match(/(\d+)\s*mm/);
+            if (lmA && !seenLengths[lmA[1]]) {
+              seenLengths[lmA[1]] = true;
+              result.lengths.push(parseInt(lmA[1], 10));
+            }
+          }
+          if (colWtA >= 0 && colWtA < cellsA.length) {
+            var wtA = (cellsA[colWtA].textContent || '').trim();
+            var wmA = wtA.match(/([\d.]+)\s*g/);
+            if (wmA && !seenWeights[wmA[1]]) {
+              seenWeights[wmA[1]] = true;
+              result.weights.push(parseFloat(wmA[1]));
+            }
+          }
+          if (colTypeA >= 0 && colTypeA < cellsA.length && !result.specType) {
+            var ttA = (cellsA[colTypeA].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
+            if (ttA) result.specType = ttA;
+          }
+          if (colColorA >= 0 && colColorA < cellsA.length) {
+            var ctA = (cellsA[colColorA].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
+            if (ctA && !seenColors[ctA]) {
+              seenColors[ctA] = true;
+              result.colors.push({ name: ctA });
+            }
+          }
+        }
+      }
 
-          // Length
-          if (colLength >= 0 && colLength < cells.length) {
-            var lenText = (cells[colLength].textContent || '').trim();
-            var lenMatch = lenText.match(/(\d+)\s*mm/);
-            if (lenMatch && !seenLengths[lenMatch[1]]) {
-              seenLengths[lenMatch[1]] = true;
-              result.lengths.push(parseInt(lenMatch[1], 10));
+      // --- Layout B: Legacy — table.wh-tbl or unstyled table with <td> headers ---
+      // Only use if Layout A found nothing
+      if (result.colors.length === 0 && result.weights.length === 0) {
+        // Find all tables: first inside .spec-tbl-area, then any table on the page
+        var allSpecTables = document.querySelectorAll('.spec-tbl-area table, .cont-area table, table');
+        for (var ti = 0; ti < allSpecTables.length; ti++) {
+          var tbl = allSpecTables[ti];
+          // Skip if it's the bk-th-tbl we already processed
+          if (tbl.classList.contains('bk-th-tbl')) continue;
+
+          // Detect header row: look for tr.bg_color02 specifically (the darkest header row)
+          // NOTE: data rows also have bg_color00/bg_color01 classes (alternating zebra rows)
+          // so we ONLY match bg_color02 as the header
+          var allRows = tbl.querySelectorAll('tr');
+          var headerRow: Element | null = null;
+          var dataRows: Element[] = [];
+          for (var tri = 0; tri < allRows.length; tri++) {
+            var rowCls = (allRows[tri] as HTMLElement).className || '';
+            if (rowCls.indexOf('bg_color02') >= 0) {
+              headerRow = allRows[tri];
+            } else if (headerRow) {
+              dataRows.push(allRows[tri]);
+            }
+          }
+          // If no bg_color02 row, try first row as header if it contains spec-like text
+          if (!headerRow && allRows.length > 1) {
+            var firstRowText = (allRows[0].textContent || '').trim();
+            if (firstRowText.indexOf('カラー') >= 0 || firstRowText.indexOf('全長') >= 0 || firstRowText.indexOf('製品名') >= 0) {
+              headerRow = allRows[0];
+              for (var dri = 1; dri < allRows.length; dri++) {
+                dataRows.push(allRows[dri]);
+              }
             }
           }
 
-          // Weight
-          if (colWeight >= 0 && colWeight < cells.length) {
-            var wText = (cells[colWeight].textContent || '').trim();
-            var wMatch = wText.match(/([\d.]+)\s*g/);
-            if (wMatch && !seenWeights[wMatch[1]]) {
-              seenWeights[wMatch[1]] = true;
-              result.weights.push(parseFloat(wMatch[1]));
+          if (!headerRow || dataRows.length === 0) continue;
+
+          // Map columns from header <td> elements
+          var hCells = headerRow.querySelectorAll('td, th');
+          var colLenB = -1, colWtB = -1, colTypeB = -1, colColorB = -1;
+          for (var hb = 0; hb < hCells.length; hb++) {
+            var htB = (hCells[hb].textContent || '').trim();
+            if (htB === '全長') colLenB = hb;
+            if (htB === '重量') colWtB = hb;
+            if (htB === 'タイプ') colTypeB = hb;
+            if (htB === 'カラー名' || htB === 'カラー') colColorB = hb;
+          }
+
+          // Extract data rows
+          for (var rb = 0; rb < dataRows.length; rb++) {
+            var cellsB = dataRows[rb].querySelectorAll('td');
+
+            if (colLenB >= 0 && colLenB < cellsB.length) {
+              var ltB = (cellsB[colLenB].textContent || '').trim();
+              var lmB = ltB.match(/(\d+)\s*mm/);
+              if (lmB && !seenLengths[lmB[1]]) {
+                seenLengths[lmB[1]] = true;
+                result.lengths.push(parseInt(lmB[1], 10));
+              }
+            }
+            if (colWtB >= 0 && colWtB < cellsB.length) {
+              var wtB = (cellsB[colWtB].textContent || '').trim();
+              var wmB = wtB.match(/([\d.]+)\s*g/);
+              if (wmB && !seenWeights[wmB[1]]) {
+                seenWeights[wmB[1]] = true;
+                result.weights.push(parseFloat(wmB[1]));
+              }
+            }
+            if (colTypeB >= 0 && colTypeB < cellsB.length && !result.specType) {
+              var ttB = (cellsB[colTypeB].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
+              if (ttB) result.specType = ttB;
+            }
+            if (colColorB >= 0 && colColorB < cellsB.length) {
+              var ctB = (cellsB[colColorB].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
+              if (ctB && !seenColors[ctB]) {
+                seenColors[ctB] = true;
+                result.colors.push({ name: ctB });
+              }
             }
           }
 
-          // Type (first non-empty value)
-          if (colType >= 0 && colType < cells.length && !result.specType) {
-            var tText = (cells[colType].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
-            if (tText) result.specType = tText;
-          }
+          // If we found data from this table, stop
+          if (result.colors.length > 0 || result.weights.length > 0) break;
+        }
+      }
 
-          // Color name
-          if (colColor >= 0 && colColor < cells.length) {
-            var cText = (cells[colColor].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
-            if (cText && !seenColors[cText]) {
-              seenColors[cText] = true;
-              result.colors.push({ name: cText });
+      // --- Fallback C: .spec-cate-tbl-area summary tables ---
+      // These contain per-size summary (length/weight) but no color info
+      if (result.weights.length === 0) {
+        var cateTables = document.querySelectorAll('.spec-cate-tbl-area table.wh-tbl');
+        for (var ct = 0; ct < cateTables.length; ct++) {
+          var cateRows = cateTables[ct].querySelectorAll('tr');
+          for (var cr = 0; cr < cateRows.length; cr++) {
+            var cTh = cateRows[cr].querySelector('th, td:first-child');
+            var cTd = cateRows[cr].querySelector('td:last-child, td:nth-child(2)');
+            if (!cTh || !cTd) continue;
+            var label = (cTh.textContent || '').trim();
+            var value = (cTd.textContent || '').trim();
+
+            if (label === '全長' || label.indexOf('サイズ') >= 0) {
+              var clm = value.match(/(\d+)\s*mm/);
+              if (clm && !seenLengths[clm[1]]) {
+                seenLengths[clm[1]] = true;
+                result.lengths.push(parseInt(clm[1], 10));
+              }
+            }
+            if (label === '重量' || label.indexOf('ウェイト') >= 0 || label.indexOf('ウエイト') >= 0) {
+              var cwm = value.match(/([\d.]+)\s*g/);
+              if (cwm && !seenWeights[cwm[1]]) {
+                seenWeights[cwm[1]] = true;
+                result.weights.push(parseFloat(cwm[1]));
+              }
+            }
+            if ((label === 'タイプ' || label === 'Type') && !result.specType) {
+              result.specType = value;
+            }
+          }
+        }
+      }
+
+      // --- Fallback D: scan entire page text for weight/length patterns ---
+      // Last resort for pages with no structured spec data
+      if (result.weights.length === 0 && result.lengths.length === 0) {
+        var bodyText = document.body ? (document.body.textContent || '') : '';
+        // Extract all "Xmm" patterns
+        var lenMatches = bodyText.match(/(\d+)\s*mm/g);
+        if (lenMatches) {
+          for (var li = 0; li < lenMatches.length && result.lengths.length < 5; li++) {
+            var lVal = lenMatches[li].match(/(\d+)/);
+            if (lVal) {
+              var lNum = parseInt(lVal[1], 10);
+              // Filter reasonable lure lengths (20mm - 500mm)
+              if (lNum >= 20 && lNum <= 500 && !seenLengths[String(lNum)]) {
+                seenLengths[String(lNum)] = true;
+                result.lengths.push(lNum);
+              }
+            }
+          }
+        }
+        // Extract all "Xg" patterns
+        var wtMatches = bodyText.match(/([\d.]+)\s*g/g);
+        if (wtMatches) {
+          for (var wi = 0; wi < wtMatches.length && result.weights.length < 5; wi++) {
+            var wVal = wtMatches[wi].match(/([\d.]+)/);
+            if (wVal) {
+              var wNum = parseFloat(wVal[1]);
+              // Filter reasonable lure weights (1g - 500g)
+              if (wNum >= 1 && wNum <= 500 && !seenWeights[String(wNum)]) {
+                seenWeights[String(wNum)] = true;
+                result.weights.push(wNum);
+              }
             }
           }
         }
@@ -235,7 +415,7 @@ export async function scrapeMariaPage(url: string): Promise<ScrapedLure> {
     var type = detectType(name, description, specType);
     var targetFish = detectTargetFish(name, description);
 
-    // Colors from spec table (no image URLs available)
+    // Colors from spec table (no image URLs available on most pages)
     var colors: ScrapedColor[] = [];
     for (var ci = 0; ci < data.colors.length; ci++) {
       colors.push({

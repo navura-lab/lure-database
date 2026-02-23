@@ -2016,6 +2016,67 @@ async function discoverMaria(page: Page): Promise<Array<{ url: string; name: str
 }
 
 // ---------------------------------------------------------------------------
+// Bassday — 6 category pages, JS rendering required
+// ---------------------------------------------------------------------------
+
+var BASSDAY_CATEGORIES = [
+  'https://www.bassday.co.jp/item/?c=1',  // ネイティブトラウト
+  'https://www.bassday.co.jp/item/?c=2',  // エリア/フレッシュウォーター
+  'https://www.bassday.co.jp/item/?c=4',  // ソルトウォーター
+  'https://www.bassday.co.jp/item/?c=5',  // ライトソルト
+  'https://www.bassday.co.jp/item/?c=6',  // オフショア
+  'https://www.bassday.co.jp/item/?c=7',  // バス
+];
+
+async function discoverBassday(page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var seenIds = new Set<string>();
+
+  for (var i = 0; i < BASSDAY_CATEGORIES.length; i++) {
+    var catUrl = BASSDAY_CATEGORIES[i];
+    log(`[bassday] Crawling category ${i + 1}/${BASSDAY_CATEGORIES.length}: ${catUrl}`);
+    await page.goto(catUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    // JS rendering — wait for content
+    await page.waitForTimeout(3000);
+
+    var items: Array<{ id: string; name: string }> = await page.evaluate(function () {
+      var anchors = document.querySelectorAll('a[href*="?i="]');
+      var results: Array<{ id: string; name: string }> = [];
+      for (var j = 0; j < anchors.length; j++) {
+        var href = (anchors[j] as HTMLAnchorElement).getAttribute('href') || '';
+        var match = href.match(/[?&]i=(\d+)/);
+        if (!match) continue;
+        // Name from h4 (Japanese name) inside the link
+        var h4 = anchors[j].querySelector('h4');
+        var name = h4 ? (h4.textContent || '').replace(/[\s\u3000]+/g, ' ').trim() : '';
+        // Fallback to h3 (English name)
+        if (!name) {
+          var h3 = anchors[j].querySelector('h3');
+          name = h3 ? (h3.textContent || '').replace(/[\s\u3000]+/g, ' ').trim() : '';
+        }
+        results.push({ id: match[1], name: name || ('bassday-' + match[1]) });
+      }
+      return results;
+    });
+
+    var newCount = 0;
+    for (var item of items) {
+      if (seenIds.has(item.id)) continue;
+      seenIds.add(item.id);
+      allProducts.push({
+        url: 'https://www.bassday.co.jp/item/?i=' + item.id,
+        name: item.name,
+      });
+      newCount++;
+    }
+    log(`[bassday] Category ${i + 1}: ${items.length} links, ${newCount} new, ${allProducts.length} total`);
+  }
+
+  log(`[bassday] Discovered ${allProducts.length} total lure products`);
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -2195,6 +2256,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverMaria,
     excludedNameKeywords: [],
     // All products on /maria/product/gm/plug are lures. No filtering needed.
+  },
+  {
+    slug: 'bassday',
+    name: 'Bassday',
+    discover: discoverBassday,
+    excludedNameKeywords: [],
+    // All 6 categories contain only lures. No filtering needed.
   },
 ];
 
