@@ -1891,6 +1891,88 @@ async function discoverNories(page: Page): Promise<Array<{ url: string; name: st
 }
 
 // ---------------------------------------------------------------------------
+// Rapala (rapala.co.jp) — 5 brands: Rapala, Storm, Blue Fox, Luhr-Jensen, North Craft
+// ---------------------------------------------------------------------------
+
+var RAPALA_BRAND_LISTINGS = [
+  {
+    name: 'Rapala',
+    url: 'https://rapala.co.jp/cn4/cn5/rapala_lure.html',
+    filterPrefix: '/cn4/cn5/',
+    excludeKeywords: ['_top', 'rapala_lure', 'rapala_tool', 'rapala_cap', 'rapala_bag', 'line_top', 'rapala_sun', 'rod_reel', 'globe', 'tshirt'],
+  },
+  {
+    name: 'Storm',
+    url: 'https://rapala.co.jp/cn6/cn26/stormlure_top.html',
+    filterPrefix: '/cn6/',
+    excludeKeywords: ['_top', 'stormlure', 'storm_top', 'tool_top'],
+  },
+  {
+    name: 'Blue Fox',
+    url: 'https://rapala.co.jp/cn7/bluefoxlure_top.html',
+    filterPrefix: '/cn7/',
+    excludeKeywords: ['_top', 'bluefox'],
+  },
+  {
+    name: 'Luhr-Jensen',
+    url: 'https://rapala.co.jp/cn9/cn17/luhr_jensen_top.html',
+    filterPrefix: '/cn9/cn17/',
+    excludeKeywords: ['_top', 'luhr_jensen_top'],
+  },
+  {
+    name: 'North Craft',
+    url: 'https://rapala.co.jp/cn10/nrothcraft_top.html',
+    filterPrefix: '/cn10/',
+    excludeKeywords: ['_top', 'nrothcraft_top'],
+  },
+];
+
+async function discoverRapala(page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+
+  for (var brand of RAPALA_BRAND_LISTINGS) {
+    log(`[rapala] Crawling ${brand.name}: ${brand.url}`);
+    await page.goto(brand.url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await page.waitForTimeout(1500);
+
+    var links: string[] = await page.evaluate(function () {
+      var anchors = document.querySelectorAll('a[href*=".html"]');
+      var results: string[] = [];
+      for (var i = 0; i < anchors.length; i++) {
+        var href = (anchors[i] as HTMLAnchorElement).href;
+        if (results.indexOf(href) === -1) results.push(href);
+      }
+      return results;
+    });
+
+    var filterPrefix = brand.filterPrefix;
+    var excludeKeywords = brand.excludeKeywords;
+
+    var productUrls = links.filter(function (l) {
+      if (l.indexOf(filterPrefix) === -1) return false;
+      for (var kw of excludeKeywords) {
+        if (l.indexOf(kw) >= 0) return false;
+      }
+      return true;
+    });
+
+    for (var u of productUrls) {
+      if (seen.has(u)) continue;
+      seen.add(u);
+      // Extract short name from URL filename
+      var nameMatch = u.match(/\/([^/]+)\.html$/);
+      var shortName = nameMatch ? nameMatch[1].toUpperCase() : u;
+      allProducts.push({ url: u, name: `${brand.name} ${shortName}` });
+    }
+    log(`[rapala] ${brand.name}: ${productUrls.length} product URLs`);
+  }
+
+  log(`[rapala] Discovered ${allProducts.length} total lure products`);
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -2056,6 +2138,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverNories,
     excludedNameKeywords: [],
     // Category/slug filtering is handled inside discoverNories() itself.
+  },
+  {
+    slug: 'rapala',
+    name: 'Rapala',
+    discover: discoverRapala,
+    excludedNameKeywords: [],
+    // URL-level filtering (non-lure pages, top pages) is handled in discoverRapala() itself.
   },
 ];
 
