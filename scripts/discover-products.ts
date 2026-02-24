@@ -2156,6 +2156,138 @@ async function discoverJackson(page: Page): Promise<Array<{ url: string; name: s
 }
 
 // ---------------------------------------------------------------------------
+// Gamakatsu — WP REST API (no Playwright needed), filter lure bodies from hooks
+// ---------------------------------------------------------------------------
+
+// Gamakatsu "lure" category (p_category=108) contains mostly hooks.
+// These keywords in product names indicate hooks/accessories to exclude.
+var GAMAKATSU_EXCLUDE_PATTERNS = [
+  // Hooks (generic)
+  /ジグヘッド/i, /アシストフック/i, /トレブルフック/i, /シングルフック/i,
+  /ワームフック/i, /オフセットフック/i, /マス針/i, /チヌ針/i,
+  /ソルトウォーターフック/i, /ツインフック/i, /ダブルフック/i,
+  /替えフック/i, /スペアフック/i, /サポートフック/i,
+  /ジギングフック/i, /ジグフック/i, /トレーラーフック/i,
+  // Treble hooks: トレブル XX / SP / RB series
+  /^トレブル\s/i, /^トレブル$/i,
+  // Jig hooks: ジグ 29/31 etc.
+  /^ジグ\s\d/i,
+  // Named hook lines
+  /^TR-\d/i, /^SC\d/i, /^ダブル\s\d/i,
+  /ワーム\s*\d{3}/i, // ワーム 316, 318, 322, 329, 333 etc.
+  /HYDROLL/i,
+  /アウトバーブ/i, /剛双牙/i,
+  // Assist hooks / lines
+  /^アシスト\s/i, /アシストライン/i,
+  // Jig heads (named products)
+  /ホリゾンヘッド/i, /ボトムノッカー/i, /キャロヘッド/i,
+  /ミニフットボール/i, /レンジスイマー/i, /スイミングショット/i,
+  /マイクロダーター/i,
+  // Hook series
+  /セオライズ/i, /エリートツアラー/i, /ブリスペシャル/i,
+  /ソアリンロール/i, /LDマスター/i,
+  // Rig / leader / accessories
+  /ファイターズリング/i, /スナップ/i, /リーダー/i,
+  /シンカー/i, /ジカリグ/i, /ビフテキリグ/i, /フリーリグ/i,
+  /サーベルポイント/i, /スイベル/i, /ダブルクレン/i,
+  /シリコンスカート/i, /PEジョインター/i, /音速PE/i,
+  /チューンドヘッド/i, /チューンド管/i,
+  /AJカスタム/i, /コブラ/i, /P-?フレックス/i,
+  /カモフラージュ/i,
+  // Spare parts
+  /スペアテール/i, /スペアパーツ/i,
+  // ウェイテッドフック
+  /ウェイテッドフック/i,
+  // テンヤ / ラバージグ (heads, not lure bodies)
+  /テンヤ/i, /^ラバ(ー)?ジグ/i,
+  // Worm hooks with product-line name
+  /^宵姫.*(ヘッド|フック|リグ|リーダー)/i,
+  /^桜幻.*(フック|ネクタイ|スカート|スイベル)/i,
+  // ワインドマスター: some are jig heads, some are lure sets
+  /ワインドマスター.*ヘッド/i, /ワインドマスター.*セット/i,
+  // ラン＆ガン キャロライナ (rig)
+  /ラン＆ガン/i, /ラン&ガン/i,
+  // サーモンリグ / 海サクラ (salmon rig/hook)
+  /サーモンリグ/i, /海サクラ/i,
+  // ジョイントノッカー (jig head with hooks, not lure body)
+  /ジョイントノッカー/i,
+  // ツイン SP M (twin hook, not lure)
+  /^ツイン\sSP/i,
+  // 宵姫 ラウンド (jig head)
+  /宵姫\sラウンド/i,
+  // ワインドトレーラー (trailer hooks for winding rigs)
+  /ワインドトレーラー/i,
+];
+
+// Product IDs that are confirmed NOT lure bodies (hooks/accessories/jigheads)
+var GAMAKATSU_EXCLUDE_IDS = new Set([
+  // Worm hooks, assist hooks, jigheads, accessories etc.
+  // These were identified during initial product classification
+]);
+
+async function discoverGamakatsu(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var seenIds = new Set<string>();
+  var page2 = 1;
+  var perPage = 100;
+  var totalPages = 1;
+
+  log('[gamakatsu] Fetching products from WP REST API (p_category=108)...');
+
+  while (page2 <= totalPages) {
+    var apiUrl = 'https://www.gamakatsu.co.jp/wp-json/wp/v2/products?p_category=108&per_page=' + perPage + '&page=' + page2;
+    var res = await fetch(apiUrl, { headers: { 'Accept': 'application/json' } });
+    if (!res.ok) {
+      log('[gamakatsu] API error on page ' + page2 + ': ' + res.status);
+      break;
+    }
+
+    // Get total pages from header on first request
+    if (page2 === 1) {
+      var totalPagesHeader = res.headers.get('X-WP-TotalPages');
+      if (totalPagesHeader) totalPages = parseInt(totalPagesHeader, 10);
+      var totalItems = res.headers.get('X-WP-Total');
+      log('[gamakatsu] Total items in category: ' + (totalItems || '?') + ', pages: ' + totalPages);
+    }
+
+    var products: Array<{ id: number; title: { rendered: string }; link: string; slug: string }> = await res.json();
+
+    for (var pi = 0; pi < products.length; pi++) {
+      var prod = products[pi];
+      var prodName = prod.title.rendered.replace(/<[^>]+>/g, '').trim();
+      var prodUrl = prod.link;
+      var prodId = String(prod.id);
+      var prodSlug = prod.slug;
+
+      if (seenIds.has(prodId)) continue;
+      seenIds.add(prodId);
+
+      // Skip excluded IDs
+      if (GAMAKATSU_EXCLUDE_IDS.has(prodSlug)) continue;
+
+      // Skip if name matches exclusion patterns (hooks/accessories)
+      var excluded = false;
+      for (var ei = 0; ei < GAMAKATSU_EXCLUDE_PATTERNS.length; ei++) {
+        if (GAMAKATSU_EXCLUDE_PATTERNS[ei].test(prodName)) {
+          excluded = true;
+          break;
+        }
+      }
+      if (excluded) continue;
+
+      allProducts.push({ url: prodUrl, name: prodName });
+    }
+
+    log('[gamakatsu] Page ' + page2 + '/' + totalPages + ': ' + products.length + ' items, ' + allProducts.length + ' lures so far');
+    page2++;
+    await sleep(200);
+  }
+
+  log('[gamakatsu] Discovered ' + allProducts.length + ' lure products (filtered from ' + seenIds.size + ' total)');
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -2350,6 +2482,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     excludedNameKeywords: [],
     excludedUrlSlugs: ['maccheroni-spare-parts-kit'],
     // Rod filtering done in discover function via tag detection.
+  },
+  {
+    slug: 'gamakatsu',
+    name: 'がまかつ',
+    discover: discoverGamakatsu,
+    excludedNameKeywords: [],
+    // Filtering done in discover function via GAMAKATSU_EXCLUDE_PATTERNS.
   },
 ];
 
