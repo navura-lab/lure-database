@@ -2448,6 +2448,78 @@ async function discoverGaryYamamoto(_page: Page): Promise<Array<{ url: string; n
 }
 
 // ---------------------------------------------------------------------------
+// ValleyHill — Category page crawling (WordPress + Welcart, no usable sitemap)
+// ---------------------------------------------------------------------------
+
+var VALLEYHILL_CATEGORIES = [
+  '/category/item/salt-water/genrelist/tipruneging',
+  '/category/item/salt-water/genrelist/tachiuo',
+  '/category/item/salt-water/genrelist/ika-metal',
+  '/category/item/salt-water/genrelist/flatfish',
+  '/category/item/salt-water/genrelist/ajing',
+  '/category/item/salt-water/genrelist/tako',
+  '/category/item/salt-water/genrelist/rock-fish',
+  '/category/item/salt-water/genrelist/shoregame',
+  '/category/item/salt-water/genrelist/eging',
+  '/category/item/salt-water/genrelist/jigging',
+  '/category/item/salt-water/genrelist/tai',
+  '/category/item/fresh-water/fw-genrelist/fw-hardlure',
+  '/category/item/fresh-water/fw-genrelist/fw-worm',
+  '/category/item/fresh-water/fw-genrelist/fw-catfish',
+  '/category/item/fresh-water/fw-genrelist/snakehead',
+  '/category/item/kamiwaza/kamiwaza-lure',
+  '/category/item/kamiwaza/kamiwaza-jig',
+];
+
+async function discoverValleyhill(page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var seenIds = new Set<string>();
+
+  for (var ci = 0; ci < VALLEYHILL_CATEGORIES.length; ci++) {
+    var catPath = VALLEYHILL_CATEGORIES[ci];
+    var catUrl = 'https://valleyhill1.jp' + catPath;
+    var catName = catPath.split('/').pop() || catPath;
+
+    log('[valleyhill] Crawling category: ' + catName);
+
+    try {
+      await page.goto(catUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await page.waitForTimeout(2000);
+
+      var urls = await page.evaluate(function() {
+        var links: string[] = [];
+        document.querySelectorAll('a').forEach(function(el) {
+          var href = (el as HTMLAnchorElement).href || '';
+          var m = href.match(/valleyhill1\.jp\/(\d+)\/?$/);
+          if (m) links.push(m[1]);
+        });
+        return links.filter(function(v, i, a) { return a.indexOf(v) === i; });
+      });
+
+      for (var ui = 0; ui < urls.length; ui++) {
+        var productId = urls[ui];
+        if (!seenIds.has(productId)) {
+          seenIds.add(productId);
+          allProducts.push({
+            url: 'https://valleyhill1.jp/' + productId,
+            name: 'Product ' + productId,
+          });
+        }
+      }
+
+      log('[valleyhill] ' + catName + ': ' + urls.length + ' products');
+    } catch (err: any) {
+      logError('[valleyhill] Category error (' + catName + '): ' + (err.message || err));
+    }
+
+    await sleep(1000);
+  }
+
+  log('[valleyhill] Discovered ' + allProducts.length + ' total unique products from ' + VALLEYHILL_CATEGORIES.length + ' categories');
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -2664,6 +2736,22 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     excludedNameKeywords: [],
     // issei sitemaps contain only lure/soft bait products (green_cray_fish + umitaro CPTs).
     // No filtering needed — rods/accessories are separate CPTs not in these sitemaps.
+  },
+  {
+    slug: 'valleyhill',
+    name: 'ValleyHill',
+    discover: discoverValleyhill,
+    excludedNameKeywords: [
+      'フック', 'HOOK', 'ハサミ', '斬鋏', 'プライヤー',
+      'リング', 'スナップ', 'スイベル', 'シンカー', 'オモリ',
+      'リーダー', 'ロッド', 'リール', 'バッグ', 'ケース',
+      'ホルダー', 'ランヤード', 'カラビナ', 'ツール', 'ギャフ',
+      'タモ', 'ネット', 'グローブ', 'フィッシュグリップ', 'ストリンガー',
+      'ワイヤー', 'ライヴワイア', 'LIVE WIRE', 'アシスト', 'ASSIST',
+    ],
+    // ValleyHill has no usable sitemap — must crawl 17 category pages.
+    // Category pages contain lures + accessories mixed together.
+    // Name-based keyword exclusion filters out non-lure products.
   },
 ];
 
