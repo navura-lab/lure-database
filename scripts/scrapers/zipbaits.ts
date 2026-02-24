@@ -388,6 +388,13 @@ export async function scrapeZipbaitsPage(url: string): Promise<ScrapedLure> {
       mainImage = colors[0].imageUrl;
     }
 
+    // Fallback: if 0 colors found but mainImage exists, create default color entry
+    // (some pages like ?i=90 have no color chart on site)
+    if (colors.length === 0 && mainImage) {
+      log('Warning: 0 colors found, creating default entry from main image');
+      colors.push({ name: productName, imageUrl: mainImage });
+    }
+
     // Description: combine subject + body
     var description = '';
     if (data.subject) description = data.subject;

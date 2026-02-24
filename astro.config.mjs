@@ -8,6 +8,7 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://www.lure-db.com',
   output: 'static',
+  trailingSlash: 'always',
   adapter: vercel(),
   integrations: [sitemap()],
   vite: {

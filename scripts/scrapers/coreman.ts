@@ -200,12 +200,18 @@ export async function scrapeCoremanPage(url: string): Promise<ScrapedLure> {
       // --- Description ---
       let description = '';
       // Look for substantial text paragraphs (skip spec blocks)
-      const allText = document.querySelectorAll('.e-con p, .e-con .elementor-widget-text-editor');
+      // Try Elementor first, then fallback to classic WP selectors
+      const descSelectors = [
+        '.e-con p', '.e-con .elementor-widget-text-editor',
+        '.entry-content p', '.post-content p', 'article p', '.page-content p',
+      ];
+      const allText = document.querySelectorAll(descSelectors.join(', '));
       for (const el of allText) {
         const text = el.textContent?.trim() || '';
         if (text.length > 50 &&
             !text.includes('■ LURE SPEC') &&
             !text.includes('■ SPEC') &&
+            !text.includes('■ SYSTEM SPEC') &&
             !text.includes('LENGTH') &&
             !text.includes('WEIGHT') &&
             !/^\d+円/.test(text)) {
@@ -219,10 +225,10 @@ export async function scrapeCoremanPage(url: string): Promise<ScrapedLure> {
         description = metaDesc?.getAttribute('content')?.trim()?.substring(0, 500) || '';
       }
 
-      // --- Spec text (everything after ■ LURE SPEC ■ or ■ SPEC ■) ---
+      // --- Spec text (everything after ■ LURE SPEC ■ or ■ SPEC ■ or ■ SYSTEM SPEC ■) ---
       let specText = '';
       const bodyText = document.body.innerText || '';
-      const specMarkerMatch = bodyText.match(/■\s*(?:LURE\s+)?SPEC\s*■([\s\S]*?)(?=■|カラーチャート|Color|$)/i);
+      const specMarkerMatch = bodyText.match(/■\s*(?:LURE\s+|SYSTEM\s+)?SPEC\s*■([\s\S]*?)(?=■|カラーチャート|Color|$)/i);
       if (specMarkerMatch) {
         specText = specMarkerMatch[1].trim().substring(0, 1000);
       }
@@ -293,6 +299,62 @@ export async function scrapeCoremanPage(url: string): Promise<ScrapedLure> {
         }
 
         colors.push({ name: colorName, imageUrl: fullSrc });
+      }
+
+      // --- Fallback color extraction: figures after COLOR LINEUP marker ---
+      if (colors.length === 0) {
+        // Find the figure that contains "COLOR LINEUP" in its caption
+        const allFigures = document.querySelectorAll('figure');
+        let colorStartIdx = -1;
+        for (let fi = 0; fi < allFigures.length; fi++) {
+          const caption = allFigures[fi].querySelector('figcaption');
+          if (caption && /COLOR\s*LINEUP/i.test(caption.textContent || '')) {
+            colorStartIdx = fi + 1; // Colors start from the NEXT figure
+            break;
+          }
+        }
+        if (colorStartIdx >= 0) {
+          for (let fi = colorStartIdx; fi < allFigures.length; fi++) {
+            const img = allFigures[fi].querySelector('img');
+            const caption = allFigures[fi].querySelector('figcaption');
+            if (img && caption) {
+              const src = img.getAttribute('src') || '';
+              const capText = (caption.textContent || '').trim();
+              // Only take entries that look like color names: "#NNN name" or short text
+              if (src && capText && /^#\d+/.test(capText)) {
+                const fullSrc = src.startsWith('http') ? src : `${baseUrl}${src}`;
+                if (!seenColors.has(fullSrc)) {
+                  seenColors.add(fullSrc);
+                  colors.push({ name: capText, imageUrl: fullSrc });
+                }
+              }
+            }
+          }
+        }
+        // Fallback: parse COLOR LINEUP text and pair with first product image
+        if (colors.length === 0) {
+          const colorLineupMatch = bodyText.match(/COLOR\s*LINEUP\s*■?([\s\S]*?)$/i);
+          if (colorLineupMatch) {
+            const colorEntries = colorLineupMatch[1].match(/#\d+\s+[^\n#]+/g);
+            if (colorEntries) {
+              const wpImgs = document.querySelectorAll('img[src*="/wp-content/uploads/"]');
+              let mainImg = '';
+              for (const img of wpImgs) {
+                const src = img.getAttribute('src') || '';
+                if (src.includes('1024x1024') && !src.includes('logo')) {
+                  mainImg = src.startsWith('http') ? src : `${baseUrl}${src}`;
+                  break;
+                }
+              }
+              for (let ci = 0; ci < colorEntries.length; ci++) {
+                const cName = colorEntries[ci].trim();
+                if (cName && mainImg) {
+                  colors.push({ name: cName, imageUrl: mainImg });
+                }
+              }
+            }
+          }
+        }
       }
 
       // --- Main image ---
@@ -408,6 +470,12 @@ export async function scrapeCoremanPage(url: string): Promise<ScrapedLure> {
     // Fallback to first color image
     if (!mainImage && colors.length > 0) {
       mainImage = colors[0].imageUrl;
+    }
+
+    // Fallback: if 0 colors but mainImage exists, create default color entry
+    if (colors.length === 0 && mainImage) {
+      log('Warning: 0 colors found, creating default entry from main image');
+      colors.push({ name, imageUrl: mainImage });
     }
 
     // COREMAN is a seabass-specialist brand

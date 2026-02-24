@@ -1,4 +1,12 @@
 {
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/:path((?!api/|_astro/|favicon\\.svg|robots\\.txt|sitemap).*[^/])",
+      "destination": "/:path/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
