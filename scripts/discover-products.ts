@@ -2288,6 +2288,166 @@ async function discoverGamakatsu(_page: Page): Promise<Array<{ url: string; name
 }
 
 // ---------------------------------------------------------------------------
+// issei — WordPress sitemap XML (no REST API for CPTs)
+// ---------------------------------------------------------------------------
+
+async function discoverIssei(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var sitemaps = [
+    'https://issei.tv/wp-sitemap-posts-green_cray_fish-1.xml',
+    'https://issei.tv/wp-sitemap-posts-umitaro-1.xml',
+  ];
+
+  for (var si = 0; si < sitemaps.length; si++) {
+    var sitemapUrl = sitemaps[si];
+    var label = si === 0 ? 'bass' : 'salt';
+    log('[issei] Fetching sitemap (' + label + '): ' + sitemapUrl);
+
+    try {
+      var res = await fetch(sitemapUrl);
+      if (!res.ok) {
+        logError('[issei] Sitemap fetch failed: ' + res.status);
+        continue;
+      }
+      var xml = await res.text();
+      var locMatches = xml.match(/<loc>([^<]+)<\/loc>/g);
+      if (!locMatches) {
+        log('[issei] No <loc> entries found in ' + label + ' sitemap');
+        continue;
+      }
+
+      for (var li = 0; li < locMatches.length; li++) {
+        var locMatch = locMatches[li].match(/<loc>([^<]+)<\/loc>/);
+        if (!locMatch) continue;
+        var prodUrl = locMatch[1].trim();
+        // Extract post ID from URL as name placeholder
+        var idMatch = prodUrl.match(/\/(\d+)\.html$/);
+        var prodName = idMatch ? label + '-' + idMatch[1] : prodUrl;
+        allProducts.push({ url: prodUrl, name: prodName });
+      }
+
+      log('[issei] ' + label + ' sitemap: ' + locMatches.length + ' URLs');
+    } catch (err: any) {
+      logError('[issei] Sitemap error (' + label + '): ' + (err.message || err));
+    }
+
+    await sleep(500);
+  }
+
+  log('[issei] Discovered ' + allProducts.length + ' total products from sitemaps');
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
+// Gary Yamamoto — Yoast SEO sitemaps (not wp-sitemap)
+// ---------------------------------------------------------------------------
+
+var GARY_YAMAMOTO_SITEMAPS = [
+  'https://www.gary-yamamoto.com/sitemap-pt-products-2022-11.xml',
+  'https://www.gary-yamamoto.com/sitemap-pt-products-2021-08.xml',
+  'https://www.gary-yamamoto.com/sitemap-pt-products-2021-03.xml',
+  'https://www.gary-yamamoto.com/sitemap-pt-products-2020-12.xml',
+  'https://www.gary-yamamoto.com/sitemap-pt-products-2020-08.xml',
+  'https://www.gary-yamamoto.com/sitemap-pt-products-2020-06.xml',
+  'https://www.gary-yamamoto.com/sitemap-pt-products-2020-02.xml',
+  'https://www.gary-yamamoto.com/sitemap-pt-products-2020-01.xml',
+  'https://www.gary-yamamoto.com/sitemap-pt-products-2019-12.xml',
+  'https://www.gary-yamamoto.com/sitemap-pt-products-2019-07.xml',
+];
+
+var GARY_YAMAMOTO_EXCLUDED_SLUGS = [
+  'meshcap', 'cap2', 'lightningcap', 'flatbillcap', 'flatbillmeshcap', 'sunvisor',
+  'tshirt', 'drytshirt', 'longtshirt', 'yamamoto_tshirt', 'hoodjacket',
+  'sticker', 'gy-sticker', 'dokuro-sticker', 'dokuro-sticker-mini', 'cutting-sticker', 'ban18-sticker',
+  'sugoihook', 'sugoihookonikko', 'specialhook', 'footballjighead',
+  'sugoisinker', 'tiki-tiki-sinker', 'nyantamasinker',
+  'yabai-meshcap', 'yabaiflatbillmeshcap',
+  'yabai-low-cap', 'yabai-sunvisor',
+  'yabaiapparel',
+  'kawabe01',
+];
+
+var GARY_YAMAMOTO_EXCLUDED_KEYWORDS = [
+  'sticker', 'meshcap', 'tshirt', 'sunvisor', 'low-cap',
+  'hoodjacket', 'apparel',
+];
+
+async function discoverGaryYamamoto(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allUrls: string[] = [];
+  var seenUrls = new Set<string>();
+
+  for (var si = 0; si < GARY_YAMAMOTO_SITEMAPS.length; si++) {
+    var sitemapUrl = GARY_YAMAMOTO_SITEMAPS[si];
+    log('[gary-yamamoto] Fetching sitemap ' + (si + 1) + '/' + GARY_YAMAMOTO_SITEMAPS.length + '...');
+
+    try {
+      var res = await fetch(sitemapUrl);
+      if (!res.ok) {
+        logError('[gary-yamamoto] Sitemap fetch failed (' + res.status + '): ' + sitemapUrl);
+        continue;
+      }
+      var xml = await res.text();
+      var locMatches = xml.match(/<loc>([^<]+)<\/loc>/g);
+      if (!locMatches) continue;
+
+      for (var li = 0; li < locMatches.length; li++) {
+        var locMatch = locMatches[li].match(/<loc>([^<]+)<\/loc>/);
+        if (!locMatch) continue;
+        var prodUrl = locMatch[1].trim();
+        if (!seenUrls.has(prodUrl)) {
+          seenUrls.add(prodUrl);
+          allUrls.push(prodUrl);
+        }
+      }
+    } catch (err: any) {
+      logError('[gary-yamamoto] Sitemap error: ' + (err.message || err));
+    }
+
+    await sleep(200);
+  }
+
+  log('[gary-yamamoto] Total URLs from sitemaps: ' + allUrls.length);
+
+  // Filter out non-lure products
+  var allProducts: Array<{ url: string; name: string }> = [];
+  for (var ui = 0; ui < allUrls.length; ui++) {
+    var url = allUrls[ui];
+
+    // Extract last path segment as slug
+    var pathParts = url.replace(/\/$/, '').split('/');
+    var slug = pathParts[pathParts.length - 1];
+    var decodedSlug = decodeURIComponent(slug).toLowerCase();
+
+    // Skip category index pages (e.g., /products/gary/, /products/yabai/)
+    if (/\/products\/(gary|yabai)\/?$/.test(url)) continue;
+    // Skip category sub-pages (e.g., /products/gary/singletailgrub/)
+    if (/\/products\/(gary|yabai)\/[a-z_-]+\/?$/.test(url) && !/\/products\/(gary|yabai)\/[^/]+\/[^/]+/.test(url)) {
+      // This is a category page like /products/gary/curlytail — check if it's a known category
+      // Product URLs have the form /products/{slug} (no gary/yabai prefix in Airtable)
+    }
+
+    // Check excluded slugs
+    if (GARY_YAMAMOTO_EXCLUDED_SLUGS.indexOf(slug) >= 0) continue;
+    if (GARY_YAMAMOTO_EXCLUDED_SLUGS.indexOf(decodedSlug) >= 0) continue;
+
+    // Check excluded keywords
+    var keywordExcluded = false;
+    for (var ki = 0; ki < GARY_YAMAMOTO_EXCLUDED_KEYWORDS.length; ki++) {
+      if (decodedSlug.indexOf(GARY_YAMAMOTO_EXCLUDED_KEYWORDS[ki]) >= 0) {
+        keywordExcluded = true;
+        break;
+      }
+    }
+    if (keywordExcluded) continue;
+
+    allProducts.push({ url: url, name: slug });
+  }
+
+  log('[gary-yamamoto] After filtering: ' + allProducts.length + ' products (from ' + allUrls.length + ' total URLs)');
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -2489,6 +2649,21 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverGamakatsu,
     excludedNameKeywords: [],
     // Filtering done in discover function via GAMAKATSU_EXCLUDE_PATTERNS.
+  },
+  {
+    slug: 'gary-yamamoto',
+    name: 'Gary Yamamoto',
+    discover: discoverGaryYamamoto,
+    excludedNameKeywords: ['フック', 'HOOK', 'シンカー', 'SINKER', 'アパレル', 'ステッカー', 'DVD'],
+    // URL-level filtering done in discover function.
+  },
+  {
+    slug: 'issei',
+    name: 'issei',
+    discover: discoverIssei,
+    excludedNameKeywords: [],
+    // issei sitemaps contain only lure/soft bait products (green_cray_fish + umitaro CPTs).
+    // No filtering needed — rods/accessories are separate CPTs not in these sitemaps.
   },
 ];
 

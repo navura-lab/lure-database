@@ -36,6 +36,7 @@ import { scrapeBassdayPage } from './bassday.js';
 import { scrapeJacksonPage } from './jackson.js';
 import { scrapeGamakatsuPage } from './gamakatsu.js';
 import { scrapeGaryYamamotoPage } from './gary-yamamoto.js';
+import { scrapeIsseiPage } from './issei.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -70,6 +71,7 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   jackson: scrapeJacksonPage,
   gamakatsu: scrapeGamakatsuPage,
   'gary-yamamoto': scrapeGaryYamamotoPage,
+  issei: scrapeIsseiPage,
 };
 
 /**
