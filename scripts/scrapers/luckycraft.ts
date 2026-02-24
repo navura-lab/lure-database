@@ -201,7 +201,7 @@ export async function scrapeLuckyCraftPage(url: string): Promise<ScrapedLure> {
 
       // --- Detect template type ---
       var isNewTemplate = !!document.querySelector('.text-name');
-      var isOldTemplate = !!document.querySelector('.headerArea, .headerSalt, .headerBass');
+      var isOldTemplate = !!document.querySelector('.headerArea, .headerSalt, .headerBass, .headerNative, .headerSW, .headerNamazu, .headerPup, .headerYlw, .headerLight');
 
       // --- Product name ---
       var name = '';
@@ -223,7 +223,7 @@ export async function scrapeLuckyCraftPage(url: string): Promise<ScrapedLure> {
 
       // --- Category from header ---
       var category = '';
-      var headerEl = document.querySelector('.headerArea, .headerSalt, .headerBass, .headerNative, .headerSW');
+      var headerEl = document.querySelector('.headerArea, .headerSalt, .headerBass, .headerNative, .headerSW, .headerNamazu, .headerPup, .headerYlw, .headerLight');
       if (headerEl) {
         var headerText = (headerEl.textContent || '').trim();
         // "Seabass / Flash Minnow" → "Seabass"
@@ -369,9 +369,8 @@ export async function scrapeLuckyCraftPage(url: string): Promise<ScrapedLure> {
             // Skip "comingsoon" images
             if (imgSrc.includes('comingsoon')) imgSrc = '';
 
-            if (imgSrc) {
-              colors.push({ name: firstLine, imageUrl: imgSrc });
-            }
+            // Push color even without image (pipeline handles missing images)
+            colors.push({ name: firstLine, imageUrl: imgSrc });
           }
         }
       }
@@ -404,9 +403,38 @@ export async function scrapeLuckyCraftPage(url: string): Promise<ScrapedLure> {
           }
           if (cSrc.includes('comingsoon') || cSrc.includes('ImageComingSoon')) cSrc = '';
 
-          if (cSrc) {
-            colors.push({ name: cFirstLine, imageUrl: cSrc });
+          // Push color even without image (pipeline handles missing images)
+          colors.push({ name: cFirstLine, imageUrl: cSrc });
+        }
+      }
+
+      // --- Fallback: if neither template matched but tableColorImage exists ---
+      if (colors.length === 0) {
+        var fbColorImgs = document.querySelectorAll('.tableColorImage img');
+        var fbColorNames = document.querySelectorAll('.tableColorName');
+        var fbCount = Math.min(fbColorImgs.length, fbColorNames.length);
+        for (var fci = 0; fci < fbCount; fci++) {
+          var fbHtml = fbColorNames[fci].innerHTML || '';
+          var fbParts = fbHtml.split(/<br\s*\/?>/i);
+          var fbFirstLine = (fbParts[0] || '').replace(/<[^>]*>/g, '').trim();
+          if (!fbFirstLine) {
+            var fbName = (fbColorNames[fci].textContent || '').trim();
+            fbFirstLine = fbName.split('\n')[0].trim();
           }
+          if (!fbFirstLine || seenColorNames.has(fbFirstLine)) continue;
+          seenColorNames.add(fbFirstLine);
+
+          var fbSrc = fbColorImgs[fci].getAttribute('src') || '';
+          if (fbSrc && !fbSrc.startsWith('http')) {
+            if (fbSrc.startsWith('//')) {
+              fbSrc = 'https:' + fbSrc;
+            } else {
+              try { fbSrc = new URL(fbSrc, pageDir).href; } catch(e) { fbSrc = ''; }
+            }
+          }
+          if (fbSrc.includes('comingsoon') || fbSrc.includes('ImageComingSoon')) fbSrc = '';
+
+          colors.push({ name: fbFirstLine, imageUrl: fbSrc });
         }
       }
 
@@ -428,6 +456,31 @@ export async function scrapeLuckyCraftPage(url: string): Promise<ScrapedLure> {
           if (osrc.startsWith('http')) { mainImageUrl = osrc; }
           else if (osrc.startsWith('//')) { mainImageUrl = 'https:' + osrc; }
           else if (osrc) { try { mainImageUrl = new URL(osrc, pageDir).href; } catch(e) {} }
+        }
+      }
+      // Broader fallback: .ccimg or first product image (new template sub-pages)
+      if (!mainImageUrl) {
+        var ccimg = document.querySelector('img.ccimg');
+        if (ccimg) {
+          var csrc = (ccimg as HTMLImageElement).getAttribute('src') || '';
+          if (csrc && !csrc.includes('comingsoon')) {
+            if (csrc.startsWith('http')) { mainImageUrl = csrc; }
+            else if (csrc.startsWith('//')) { mainImageUrl = 'https:' + csrc; }
+            else { try { mainImageUrl = new URL(csrc, pageDir).href; } catch(e) {} }
+          }
+        }
+      }
+      // Last resort: first img with /product/images/ in src
+      if (!mainImageUrl) {
+        var productImgs = document.querySelectorAll('img[src*="/product/images/"]');
+        for (var pi = 0; pi < productImgs.length; pi++) {
+          var psrc = (productImgs[pi] as HTMLImageElement).getAttribute('src') || '';
+          if (psrc && !psrc.includes('comingsoon') && !psrc.includes('Shop-logo')) {
+            if (psrc.startsWith('http')) { mainImageUrl = psrc; }
+            else if (psrc.startsWith('//')) { mainImageUrl = 'https:' + psrc; }
+            else { try { mainImageUrl = new URL(psrc, pageDir).href; } catch(e) {} }
+            break;
+          }
         }
       }
 
@@ -474,6 +527,12 @@ export async function scrapeLuckyCraftPage(url: string): Promise<ScrapedLure> {
       name: c.name,
       imageUrl: c.imageUrl,
     }));
+
+    // Fallback: if 0 colors but we have main image, create a default color entry
+    if (colors.length === 0 && pageData.mainImageUrl) {
+      colors.push({ name: name, imageUrl: pageData.mainImageUrl });
+      log(`No colors found — created default entry from main image`);
+    }
 
     // Main image
     const mainImage = pageData.mainImageUrl || (colors.length > 0 ? colors[0].imageUrl : '');
