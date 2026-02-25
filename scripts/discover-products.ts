@@ -2520,6 +2520,61 @@ async function discoverValleyhill(page: Page): Promise<Array<{ url: string; name
 }
 
 // ---------------------------------------------------------------------------
+// Major Craft discovery logic
+// ---------------------------------------------------------------------------
+
+async function discoverMajorcraft(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[majorcraft] Crawling lure listing page...');
+
+  await page.goto('https://www.majorcraft.co.jp/lure/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await page.waitForTimeout(3000);
+
+  var products = await page.evaluate(function() {
+    var results: Array<{ url: string; name: string }> = [];
+    var seen: Record<string, boolean> = {};
+
+    // All product links on the listing page
+    var links = document.querySelectorAll('a[href*="/lure/"]');
+    for (var i = 0; i < links.length; i++) {
+      var a = links[i] as HTMLAnchorElement;
+      var href = a.href || '';
+
+      // Only product detail pages: /lure/{slug}/ (not /lure/?lure_cate=xxx)
+      var m = href.match(/\/lure\/([^?/]+)\/?$/);
+      if (!m) continue;
+
+      var slug = m[1];
+      // Skip the main listing page itself
+      if (slug === 'lure') continue;
+
+      // Normalize URL
+      var normalizedUrl = 'https://www.majorcraft.co.jp/lure/' + slug + '/';
+      if (seen[normalizedUrl]) continue;
+      seen[normalizedUrl] = true;
+
+      // Try to get name from the link text or nearby elements
+      var name = (a.textContent || '').trim();
+      if (!name || name.length < 2) {
+        // Try parent element text
+        var parent = a.parentElement;
+        if (parent) {
+          name = (parent.textContent || '').trim().substring(0, 60);
+        }
+      }
+      if (!name || name.length < 2) {
+        name = decodeURIComponent(slug);
+      }
+
+      results.push({ url: normalizedUrl, name: name });
+    }
+    return results;
+  });
+
+  log('[majorcraft] Discovered ' + products.length + ' unique products from listing page');
+  return products;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -2752,6 +2807,15 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // ValleyHill has no usable sitemap — must crawl 17 category pages.
     // Category pages contain lures + accessories mixed together.
     // Name-based keyword exclusion filters out non-lure products.
+  },
+  {
+    slug: 'majorcraft',
+    name: 'Major Craft',
+    discover: discoverMajorcraft,
+    excludedNameKeywords: [],
+    // Major Craft /lure/ page lists all lure products (jigs, plugs, soft baits, etc.).
+    // Hook/blade/jig-head/rig products are lure accessories and SHOULD be included.
+    // No URL-level or name-level filtering needed.
   },
 ];
 
