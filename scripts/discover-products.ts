@@ -2667,6 +2667,62 @@ async function discoverYamashita(page: Page): Promise<Array<{ url: string; name:
 }
 
 // ---------------------------------------------------------------------------
+// IMAKATSU discovery
+// ---------------------------------------------------------------------------
+
+var IMAKATSU_CATEGORIES = [
+  'https://www.imakatsu.co.jp/hard-lure/',
+  'https://www.imakatsu.co.jp/soft-lure/',
+  'https://www.imakatsu.co.jp/other-lure/',
+];
+
+async function discoverImakatsu(page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var seenUrls = new Set<string>();
+
+  for (var catUrl of IMAKATSU_CATEGORIES) {
+    log('[imakatsu] Crawling category: ' + catUrl);
+    await page.goto(catUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+
+    var products = await page.evaluate(function () {
+      var items = document.querySelectorAll('section.product_list li a');
+      var results: Array<{ url: string; name: string }> = [];
+      for (var i = 0; i < items.length; i++) {
+        var a = items[i] as HTMLAnchorElement;
+        var href = a.href || '';
+        var p = a.querySelector('p');
+        var name = p ? p.textContent?.trim() || '' : a.textContent?.trim() || '';
+        if (href) results.push({ url: href, name: name });
+      }
+      return results;
+    });
+
+    for (var p of products) {
+      // Skip legacy www2 links
+      if (p.url.includes('www2.imakatsu.co.jp')) {
+        log('[imakatsu] Skipping legacy URL: ' + p.url);
+        continue;
+      }
+      // Skip webshop links
+      if (p.url.includes('imakatsu-webshop.jp')) continue;
+      // Skip external links
+      if (!p.url.includes('imakatsu.co.jp')) continue;
+      // Normalize double slashes in path
+      var normalized = p.url.replace(/([^:])\/\//g, '$1/');
+      if (!seenUrls.has(normalized)) {
+        seenUrls.add(normalized);
+        allProducts.push({ url: normalized, name: p.name });
+      }
+    }
+
+    log('[imakatsu] Category ' + catUrl.split('/').filter(Boolean).pop() + ': ' + products.length + ' links, unique so far=' + allProducts.length);
+  }
+
+  log('[imakatsu] Discovered ' + allProducts.length + ' total unique products');
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -2921,6 +2977,16 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // YAMASHITA has 8 category pages with pagination (12 items/page).
     // Some categories (other) may include non-lure accessories.
     // ワーム, スッテ, エギ, タコベイト are all lures — do NOT exclude them.
+  },
+  {
+    slug: 'imakatsu',
+    name: 'IMAKATSU',
+    discover: discoverImakatsu,
+    excludedNameKeywords: [],
+    // IMAKATSU has 3 category pages (hard-lure, soft-lure, other-lure), no pagination.
+    // Legacy www2 links are skipped in discover function.
+    // All products are lures — no filtering needed.
+    // "ワームもルアーやろ？" — soft lures are included.
   },
 ];
 

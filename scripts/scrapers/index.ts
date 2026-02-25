@@ -40,6 +40,7 @@ import { scrapeIsseiPage } from './issei.js';
 import { scrapeValleyhillPage } from './valleyhill.js';
 import { scrapeMajorcraftPage } from './majorcraft.js';
 import { scrapeYamashitaPage } from './yamashita.js';
+import { scrapeImakatsuPage } from './imakatsu.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -78,6 +79,7 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   valleyhill: scrapeValleyhillPage,
   majorcraft: scrapeMajorcraftPage,
   yamashita: scrapeYamashitaPage,
+  imakatsu: scrapeImakatsuPage,
 };
 
 /**
