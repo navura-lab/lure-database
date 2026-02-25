@@ -2723,6 +2723,69 @@ async function discoverImakatsu(page: Page): Promise<Array<{ url: string; name: 
 }
 
 // ---------------------------------------------------------------------------
+// BOTTOMUP discovery
+// ---------------------------------------------------------------------------
+
+var BOTTOMUP_LISTING_URL = 'https://bottomup.info/products/';
+
+// Accessory slugs to exclude (non-lure products)
+var BOTTOMUP_ACCESSORY_SLUGS = new Set([
+  'artis2020newcolor', 'bottomup-trucker-meshcap', 'bup-sunvisor',
+  'bup-flat-cap', 'bottomupventilationworkcap',
+  'bottomup-complete-measure-sheet-mesh-type2024',
+  'bottomup-rod-holder-quick-shot', 'curl-rod-holder-hard',
+  'curl-rod-holder', 'bottomupcuttingsticker',
+]);
+
+async function discoverBottomup(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[bottomup] Crawling product listing: ' + BOTTOMUP_LISTING_URL);
+  await page.goto(BOTTOMUP_LISTING_URL, { waitUntil: 'domcontentloaded', timeout: 30000 });
+
+  var products = await page.evaluate(function () {
+    var results: Array<{ url: string; name: string; category: string }> = [];
+    var blocks = document.querySelectorAll('div.block01');
+    for (var b = 0; b < blocks.length; b++) {
+      var anchor = blocks[b].querySelector('a[name]');
+      var category = anchor ? anchor.getAttribute('name') || '' : '';
+      var links = blocks[b].querySelectorAll('ul.list-products > li > a');
+      for (var i = 0; i < links.length; i++) {
+        var a = links[i] as HTMLAnchorElement;
+        var href = a.href || '';
+        var name = a.textContent?.trim() || '';
+        results.push({ url: href, name: name, category: category });
+      }
+    }
+    return results;
+  });
+
+  // Filter: exclude accessory category and known accessory slugs
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var seenUrls = new Set<string>();
+
+  for (var p of products) {
+    // Skip accessory category
+    if (p.category === 'accessory') {
+      log('[bottomup] Skipping accessory: ' + p.name);
+      continue;
+    }
+    // Check slug against accessory list
+    var slugMatch = p.url.match(/\/products\/([^\/]+)\/?/);
+    var slug = slugMatch ? slugMatch[1] : '';
+    if (BOTTOMUP_ACCESSORY_SLUGS.has(slug)) {
+      log('[bottomup] Skipping accessory slug: ' + slug);
+      continue;
+    }
+    if (!seenUrls.has(p.url)) {
+      seenUrls.add(p.url);
+      allProducts.push({ url: p.url, name: p.name });
+    }
+  }
+
+  log('[bottomup] Discovered ' + allProducts.length + ' lure products (excluded ' + (products.length - allProducts.length) + ' accessories)');
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -2987,6 +3050,16 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // Legacy www2 links are skipped in discover function.
     // All products are lures — no filtering needed.
     // "ワームもルアーやろ？" — soft lures are included.
+  },
+  {
+    slug: 'bottomup',
+    name: 'BOTTOMUP',
+    discover: discoverBottomup,
+    excludedNameKeywords: [],
+    // BOTTOMUP has a single /products/ page with 3 sections: hardlure, softlure, accessory.
+    // Accessories are filtered out in the discover function.
+    // All remaining products are bass lures.
+    // "ワームもルアーやろ？" — soft lures (including PORK) are included.
   },
 ];
 
