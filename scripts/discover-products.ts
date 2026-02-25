@@ -2575,6 +2575,98 @@ async function discoverMajorcraft(page: Page): Promise<Array<{ url: string; name
 }
 
 // ---------------------------------------------------------------------------
+// YAMASHITA — 8 category pages with pagination, 12 items/page
+// ---------------------------------------------------------------------------
+
+var YAMASHITA_CATEGORIES = [
+  'https://www.yamaria.co.jp/yamashita/product/gy/eging',
+  'https://www.yamaria.co.jp/yamashita/product/gy/squid',
+  'https://www.yamaria.co.jp/yamashita/product/gy/octpass',
+  'https://www.yamaria.co.jp/yamashita/product/gy/hairtail',
+  'https://www.yamaria.co.jp/yamashita/product/gy/widgets',
+  'https://www.yamaria.co.jp/yamashita/product/gy/cushion',
+  'https://www.yamaria.co.jp/yamashita/product/gy/takobeito',
+  'https://www.yamaria.co.jp/yamashita/product/gy/other',
+];
+
+async function discoverYamashita(page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+
+  for (var ci = 0; ci < YAMASHITA_CATEGORIES.length; ci++) {
+    var catUrl = YAMASHITA_CATEGORIES[ci];
+    var catName = catUrl.split('/').pop() || 'unknown';
+
+    // First, get total count from page 1 to calculate pagination
+    await page.goto(catUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await page.waitForTimeout(2000);
+
+    var firstPageData = await page.evaluate(function () {
+      var r = { totalCount: 0, links: [] as Array<{ url: string; name: string }> };
+
+      // Total count from "XX件" text
+      var bodyText = document.body.textContent || '';
+      var countMatch = bodyText.match(/(\d+)\s*件/);
+      if (countMatch) r.totalCount = parseInt(countMatch[1], 10);
+
+      // Product links on this page
+      var anchors = document.querySelectorAll('a[href*="/product/detail/"]');
+      for (var i = 0; i < anchors.length; i++) {
+        var href = (anchors[i] as HTMLAnchorElement).href;
+        // Skip ec.yamaria.com links
+        if (href.indexOf('ec.yamaria.com') >= 0) continue;
+        // Must be yamashita product detail
+        if (href.indexOf('/yamashita/product/detail/') < 0) continue;
+        var name = (anchors[i].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
+        r.links.push({ url: href, name: name || href });
+      }
+      return r;
+    });
+
+    // Add page 1 results
+    for (var item of firstPageData.links) {
+      if (seen.has(item.url)) continue;
+      seen.add(item.url);
+      allProducts.push(item);
+    }
+    log('[yamashita] ' + catName + ' page 1: ' + firstPageData.links.length + ' links, total=' + firstPageData.totalCount + '件, unique so far=' + allProducts.length);
+
+    // Calculate remaining pages (12 items per page)
+    var totalPages = Math.ceil(firstPageData.totalCount / 12);
+    for (var pageNum = 2; pageNum <= totalPages; pageNum++) {
+      var pageUrl = catUrl + '?cmdarticlesearch=1&posted_sort=d&absolutepage=' + pageNum;
+      log('[yamashita] ' + catName + ' page ' + pageNum + '/' + totalPages + ': ' + pageUrl);
+
+      await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await page.waitForTimeout(2000);
+
+      var pageData = await page.evaluate(function () {
+        var links: Array<{ url: string; name: string }> = [];
+        var anchors = document.querySelectorAll('a[href*="/product/detail/"]');
+        for (var i = 0; i < anchors.length; i++) {
+          var href = (anchors[i] as HTMLAnchorElement).href;
+          if (href.indexOf('ec.yamaria.com') >= 0) continue;
+          if (href.indexOf('/yamashita/product/detail/') < 0) continue;
+          var name = (anchors[i].textContent || '').replace(/[\s\u3000]+/g, ' ').trim();
+          links.push({ url: href, name: name || href });
+        }
+        return links;
+      });
+
+      for (var pItem of pageData) {
+        if (seen.has(pItem.url)) continue;
+        seen.add(pItem.url);
+        allProducts.push(pItem);
+      }
+      log('[yamashita] ' + catName + ' page ' + pageNum + ': ' + pageData.length + ' links, unique so far=' + allProducts.length);
+    }
+  }
+
+  log('[yamashita] Discovered ' + allProducts.length + ' total unique products across all categories');
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -2816,6 +2908,19 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // Major Craft /lure/ page lists all lure products (jigs, plugs, soft baits, etc.).
     // Hook/blade/jig-head/rig products are lure accessories and SHOULD be included.
     // No URL-level or name-level filtering needed.
+  },
+  {
+    slug: 'yamashita',
+    name: 'YAMASHITA',
+    discover: discoverYamashita,
+    excludedNameKeywords: [
+      'フック', 'HOOK', 'スナップ', 'リーダー', 'ライン',
+      'ロッド', 'リール', 'バッグ', 'ケース', 'グローブ',
+      'ギャフ', 'タモ', 'ネット', 'ツール', 'プライヤー',
+    ],
+    // YAMASHITA has 8 category pages with pagination (12 items/page).
+    // Some categories (other) may include non-lure accessories.
+    // ワーム, スッテ, エギ, タコベイト are all lures — do NOT exclude them.
   },
 ];
 
