@@ -2919,6 +2919,73 @@ async function discoverKeitech(page: Page): Promise<Array<{ url: string; name: s
 }
 
 // ---------------------------------------------------------------------------
+// Sawamura — WordPress + Welcart, karil.co.jp
+// ---------------------------------------------------------------------------
+
+// Sawamura-specific subcategory IDs (lures only, exclude jig heads cat=47,48)
+var SAWAMURA_LURE_CATS = [42, 81, 41, 40, 39, 49, 46, 45, 44, 43];
+// cat=47 (ワンナップ魂) and cat=48 (ワンナップ魂オフセット) are jig heads = terminal tackle
+
+async function discoverSawamura(page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var seenIds = new Set<string>();
+
+  for (var ci = 0; ci < SAWAMURA_LURE_CATS.length; ci++) {
+    var catId = SAWAMURA_LURE_CATS[ci];
+    var pageNum = 1;
+
+    while (true) {
+      var catUrl = 'https://karil.co.jp/?cat=' + catId;
+      if (pageNum > 1) catUrl += '&paged=' + pageNum;
+
+      log('[sawamura] Fetching cat=' + catId + ' page=' + pageNum);
+      await page.goto(catUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await page.waitForTimeout(PAGE_LOAD_DELAY_MS);
+
+      var links = await page.evaluate(function() {
+        var results: Array<{ url: string; name: string; postId: string }> = [];
+        var articles = document.querySelectorAll('article');
+        for (var i = 0; i < articles.length; i++) {
+          var link = articles[i].querySelector('a[href*="?p="]');
+          if (!link) continue;
+          var href = link.getAttribute('href') || '';
+          var match = href.match(/[?&]p=(\d+)/);
+          if (!match) continue;
+
+          var nameEl = articles[i].querySelector('h2, .item-name, h3');
+          var name = nameEl ? (nameEl.textContent || '').trim() : 'Product ' + match[1];
+          // Clean name: remove "サワムラ" prefix for cleaner display
+          name = name.replace(/^サワムラ\s*/u, '').trim();
+
+          results.push({ url: 'https://karil.co.jp/?p=' + match[1], name: name, postId: match[1] });
+        }
+        return results;
+      });
+
+      if (links.length === 0) break;
+
+      for (var li = 0; li < links.length; li++) {
+        if (!seenIds.has(links[li].postId)) {
+          seenIds.add(links[li].postId);
+          allProducts.push({ url: links[li].url, name: links[li].name });
+        }
+      }
+
+      // Check if there's a next page
+      var hasNext = await page.evaluate(function() {
+        var nextLink = document.querySelector('a.next, .nav-next a, a[rel="next"]');
+        return !!nextLink;
+      });
+      if (!hasNext) break;
+      pageNum++;
+    }
+  }
+
+  log('[sawamura] Discovered ' + allProducts.length + ' lure products (from ' + seenIds.size + ' unique IDs)');
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -3214,6 +3281,17 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // Product listing at /pages/636/ with links to /pages/{ID}/.
     // 54 products total. Excluded: Custom Rods (4) + Terminal Tackle/Jig Heads (7).
     // Remaining ~43 products are all bass lures (ワーム, ラバージグ, バズベイト, etc.).
+    // "ワームもルアーやろ？" — soft lures are included.
+  },
+  {
+    slug: 'sawamura',
+    name: 'Sawamura',
+    discover: discoverSawamura,
+    excludedNameKeywords: [],
+    // Sawamura lures sold through karil.co.jp (Welcart e-commerce on WordPress).
+    // WP REST API disabled. Products discovered via subcategory pages.
+    // 10 Sawamura subcategories (lures), 2 excluded (jig heads: cat=47,48).
+    // ~50 lure products. All are bass lures.
     // "ワームもルアーやろ？" — soft lures are included.
   },
 ];
