@@ -2848,6 +2848,77 @@ async function discoverFisharrow(_page: Page): Promise<Array<{ url: string; name
 }
 
 // ---------------------------------------------------------------------------
+// Keitech — Custom CMS, product listing at /pages/636/
+// ---------------------------------------------------------------------------
+
+// Page IDs to exclude: non-product pages (rods, terminal tackle, categories, blogs, info)
+var KEITECH_EXCLUDED_PAGE_IDS = new Set([
+  '628', '629', '600', '589',  // Custom Rods
+  '616', '573', '22', '23', '24', '25', '160',  // Terminal Tackle (jig heads, weights)
+  '543', '462', '466', '555', '540', '644', '496',  // Category listing pages
+  '469', '502', '501', '500', '499',  // Blog / message pages
+  '637',  // Events
+  '618', '542',  // Weights & Jig Heads category pages
+  '3', '457', '4', '0',  // Contact, Sitemap, Privacy, Details link
+]);
+
+async function discoverKeitech(page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+
+  log('[keitech] Navigating to product listing: /pages/636/');
+  await page.goto('https://keitech.co.jp/pages/636/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await page.waitForTimeout(PAGE_LOAD_DELAY_MS);
+
+  // Extract all product links from the listing page
+  var links = await page.evaluate(function() {
+    var results: Array<{ url: string; name: string; pageId: string }> = [];
+    var seen = new Set();
+    var allLinks = document.querySelectorAll('a[href*="/pages/"]');
+    for (var i = 0; i < allLinks.length; i++) {
+      var href = allLinks[i].getAttribute('href') || '';
+      var match = href.match(/\/pages\/(\d+)\/?/);
+      if (!match) continue;
+      var pageId = match[1];
+      if (pageId === '636') continue; // Skip listing page itself
+      if (seen.has(pageId)) continue;
+      seen.add(pageId);
+
+      // Get name from link text or nearest text content
+      var name = (allLinks[i].textContent || '').trim();
+      // If link wraps an image, try parent or sibling text
+      if (!name || name.length < 2) {
+        var parent = allLinks[i].closest('.record');
+        if (parent) {
+          var textEl = parent.querySelector('.text-design-set-area');
+          if (textEl) {
+            name = (textEl.textContent || '').trim().split('\n')[0].trim();
+          }
+        }
+      }
+      if (!name) name = 'Page ' + pageId;
+
+      var fullUrl = 'https://keitech.co.jp/pages/' + pageId + '/';
+      results.push({ url: fullUrl, name: name, pageId: pageId });
+    }
+    return results;
+  });
+
+  log('[keitech] Found ' + links.length + ' total product links');
+
+  for (var li = 0; li < links.length; li++) {
+    var link = links[li];
+    if (KEITECH_EXCLUDED_PAGE_IDS.has(link.pageId)) {
+      log('[keitech] Excluding (rod/terminal): ' + link.name + ' (page ' + link.pageId + ')');
+      continue;
+    }
+    allProducts.push({ url: link.url, name: link.name });
+  }
+
+  log('[keitech] Discovered ' + allProducts.length + ' lure products (filtered from ' + links.length + ' total)');
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -3132,6 +3203,17 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // 49 products total. Categories 6(Bass) + 7(Salt) = lures only.
     // Categories 8(Sinker & Item) + 9(Others) = excluded in discover function.
     // data-type attribute: soft-lure, hard-lure (included), sinker/rod/other (excluded by category).
+    // "ワームもルアーやろ？" — soft lures are included.
+  },
+  {
+    slug: 'keitech',
+    name: 'Keitech',
+    discover: discoverKeitech,
+    excludedNameKeywords: [],
+    // Keitech uses custom CMS (NOT WordPress). No REST API, no sitemap.
+    // Product listing at /pages/636/ with links to /pages/{ID}/.
+    // 54 products total. Excluded: Custom Rods (4) + Terminal Tackle/Jig Heads (7).
+    // Remaining ~43 products are all bass lures (ワーム, ラバージグ, バズベイト, etc.).
     // "ワームもルアーやろ？" — soft lures are included.
   },
 ];
