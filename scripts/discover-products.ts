@@ -2986,6 +2986,128 @@ async function discoverSawamura(page: Page): Promise<Array<{ url: string; name: 
 }
 
 // ---------------------------------------------------------------------------
+// DSTYLE — dstyle-lure.co.jp (WordPress, custom post type "products")
+// All products listed on /products/ page in sections: soft-lure, hard-lure,
+// jackalldstyle (joint project), jigs. Exclude ROD and ACCESSORY.
+// ---------------------------------------------------------------------------
+
+var DSTYLE_EXCLUDED_SECTIONS = ['rod', 'accessory'];
+
+// ---------------------------------------------------------------------------
+// Ecogear (ecogear.jp) — WordPress REST API for ecogear + fishleague CPTs
+// ---------------------------------------------------------------------------
+
+async function discoverEcogear(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[ecogear] Fetching products via WP REST API...');
+
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+
+  // Fetch ecogear CPT (paginate)
+  var ecogearPage = 1;
+  while (true) {
+    var ecogearUrl = 'https://ecogear.jp/wp-json/wp/v2/ecogear?per_page=100&page=' + ecogearPage + '&_fields=id,slug,title,link';
+    log('[ecogear] Fetching: ' + ecogearUrl);
+    var res = await fetch(ecogearUrl);
+    if (!res.ok) break;
+    var items: Array<{ id: number; slug: string; title: { rendered: string }; link: string }> = await res.json();
+    if (items.length === 0) break;
+    for (var i = 0; i < items.length; i++) {
+      var url = items[i].link;
+      var name = items[i].title.rendered.replace(/&#\d+;/g, '').replace(/&amp;/g, '&').trim();
+      if (url && !seen.has(url)) {
+        seen.add(url);
+        results.push({ url: url, name: name });
+      }
+    }
+    ecogearPage++;
+    if (items.length < 100) break;
+  }
+
+  // Fetch fishleague CPT
+  var flUrl = 'https://ecogear.jp/wp-json/wp/v2/fishleague?per_page=100&_fields=id,slug,title,link';
+  log('[ecogear] Fetching FishLeague: ' + flUrl);
+  var flRes = await fetch(flUrl);
+  if (flRes.ok) {
+    var flItems: Array<{ id: number; slug: string; title: { rendered: string }; link: string }> = await flRes.json();
+    for (var fi = 0; fi < flItems.length; fi++) {
+      var flUrlItem = flItems[fi].link;
+      var flName = flItems[fi].title.rendered.replace(/&#\d+;/g, '').replace(/&amp;/g, '&').trim();
+      if (flUrlItem && !seen.has(flUrlItem)) {
+        seen.add(flUrlItem);
+        results.push({ url: flUrlItem, name: flName });
+      }
+    }
+  }
+
+  log('[ecogear] Total discovered: ' + results.length + ' products');
+  return results;
+}
+
+async function discoverDstyle(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[dstyle] Fetching product listing from /products/');
+  await page.goto('https://dstyle-lure.co.jp/products/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await page.waitForTimeout(2000);
+
+  var products = await page.evaluate(function() {
+    var results: Array<{ url: string; name: string; section: string }> = [];
+    var seen = new Set();
+
+    // Find all product cards
+    var cards = document.querySelectorAll('div.box-products');
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var linkEl = card.querySelector('p.link-products a');
+      if (!linkEl) continue;
+
+      var url = linkEl.getAttribute('href') || '';
+      var name = (linkEl.textContent || '').trim();
+      if (!url || !name) continue;
+
+      // Determine which section this card belongs to
+      // Walk up from card to find preceding anchor[name] or h3.tit-03
+      var section = 'unknown';
+      var prev = card.previousElementSibling;
+      var walkLimit = 50;
+      while (prev && walkLimit > 0) {
+        // Check for section anchor: <a name="soft-lure">
+        var anchor = prev.querySelector('a[name]');
+        if (anchor) {
+          section = anchor.getAttribute('name') || 'unknown';
+          break;
+        }
+        if (prev.tagName === 'A' && prev.getAttribute('name')) {
+          section = prev.getAttribute('name') || 'unknown';
+          break;
+        }
+        prev = prev.previousElementSibling;
+        walkLimit--;
+      }
+
+      if (!seen.has(url)) {
+        seen.add(url);
+        results.push({ url: url, name: name, section: section });
+      }
+    }
+    return results;
+  });
+
+  // Filter out excluded sections (rod, accessory)
+  var lureProducts = products.filter(function(p) {
+    for (var i = 0; i < DSTYLE_EXCLUDED_SECTIONS.length; i++) {
+      if (p.section === DSTYLE_EXCLUDED_SECTIONS[i]) return false;
+    }
+    return true;
+  });
+
+  log('[dstyle] Found ' + products.length + ' total products, ' + lureProducts.length + ' lure products (excluded ' + (products.length - lureProducts.length) + ' non-lure)');
+
+  return lureProducts.map(function(p) {
+    return { url: p.url, name: p.name };
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -3293,6 +3415,29 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // 10 Sawamura subcategories (lures), 2 excluded (jig heads: cat=47,48).
     // ~50 lure products. All are bass lures.
     // "ワームもルアーやろ？" — soft lures are included.
+  },
+  {
+    slug: 'dstyle',
+    name: 'DSTYLE',
+    discover: discoverDstyle,
+    excludedNameKeywords: [],
+    // dstyle-lure.co.jp — WordPress custom theme, custom post type "products"
+    // /products/ lists all: soft-lure(59), hard-lure(13), jackalldstyle(11), jigs(8)
+    // Exclude: rod(6), accessory(41). ~91 lure products.
+    // All products are bass lures. "ワームもルアーやろ？"
+  },
+  {
+    slug: 'ecogear',
+    name: 'Ecogear',
+    discover: discoverEcogear,
+    excludedNameKeywords: [
+      'ヘッド', 'テンヤ', 'オイル', 'リキッド', 'パウダー', 'ボトル',
+      'ストッカー', 'キーパー', 'キャップ', 'コバリ', '孫針',
+      'ポケットイン', 'リグ', 'コンビ',
+    ],
+    // ecogear.jp — WordPress, REST API available. Two CPTs: ecogear (76) + fishleague (7)
+    // Exclude: jig heads, tenya, accessories, sets, oil/powder/liquid.
+    // ~53 lure products (worms, soft baits, hard baits, metal jigs, egi).
   },
 ];
 
