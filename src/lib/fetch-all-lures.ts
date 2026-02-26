@@ -14,11 +14,10 @@ export async function fetchAllLures() {
     const { data, error } = await supabase
       .from('lures')
       .select('*')
-      .order('created_at', { ascending: false })
       .range(from, from + pageSize - 1);
 
     if (error) {
-      console.error('Error fetching lures:', error);
+      console.error(`Error fetching lures (offset ${from}):`, error);
       break;
     }
 
@@ -31,5 +30,6 @@ export async function fetchAllLures() {
     }
   }
 
+  console.log(`Fetched ${allLures.length} lures total`);
   return allLures;
 }
