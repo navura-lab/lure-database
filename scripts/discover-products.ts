@@ -3108,6 +3108,162 @@ async function discoverDstyle(page: Page): Promise<Array<{ url: string; name: st
 }
 
 // ---------------------------------------------------------------------------
+// GEECRACK discover
+// ---------------------------------------------------------------------------
+
+var GEECRACK_LURE_CATEGORIES = [
+  // Bass
+  { prefix: 'bass', category: 'hard_lure' },
+  { prefix: 'bass', category: 'soft_lure' },
+  { prefix: 'bass', category: 'wire_bait' },
+  { prefix: 'bass', category: 'jig' },
+  // Saltwater
+  { prefix: 'saltwater', category: 'ika' },
+  { prefix: 'saltwater', category: 'aji' },
+  { prefix: 'saltwater', category: 'aomono' },
+  { prefix: 'saltwater', category: 'tai' },
+  { prefix: 'saltwater', category: 'seabass' },
+  { prefix: 'saltwater', category: 'rockfish' },
+];
+
+async function discoverGeecrack(page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[geecrack] Discovering products from category pages...');
+
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+
+  for (var ci = 0; ci < GEECRACK_LURE_CATEGORIES.length; ci++) {
+    var cat = GEECRACK_LURE_CATEGORIES[ci];
+    var catUrl = 'https://www.geecrack.com/' + cat.prefix + '/product/' + cat.category + '/';
+    log('[geecrack] Fetching category: ' + cat.prefix + '/' + cat.category);
+
+    try {
+      await page.goto(catUrl, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.waitForTimeout(1500);
+
+      var products = await page.evaluate(function() {
+        var items: Array<{ url: string; name: string }> = [];
+        // Product links are in the listing area — a tags with href containing /detail/?id=
+        var allLinks = document.querySelectorAll('a[href*="detail/?id="]');
+        for (var i = 0; i < allLinks.length; i++) {
+          var href = allLinks[i].getAttribute('href') || '';
+          var text = (allLinks[i].textContent || '').trim();
+          // Skip links with no text (thumbnail links) — they duplicate the named links
+          if (!text || text.length < 2) continue;
+          // Normalize: extract only the first line (English name)
+          var name = text.split('\n')[0].trim();
+          items.push({ url: href, name: name });
+        }
+        return items;
+      });
+
+      for (var pi = 0; pi < products.length; pi++) {
+        var prodUrl = products[pi].url;
+        // Normalize URL to absolute
+        if (!prodUrl.startsWith('http')) {
+          prodUrl = 'https://www.geecrack.com' + prodUrl;
+        }
+        // Extract id for dedup
+        var idMatch = prodUrl.match(/id=(\d+)/);
+        var idKey = idMatch ? idMatch[1] : prodUrl;
+        if (!seen.has(idKey)) {
+          seen.add(idKey);
+          results.push({ url: prodUrl, name: products[pi].name });
+        }
+      }
+
+      log('[geecrack]   ' + cat.prefix + '/' + cat.category + ': ' + products.length + ' links, ' + results.length + ' unique total');
+
+    } catch (err: any) {
+      log('[geecrack]   ERROR fetching ' + catUrl + ': ' + err.message);
+    }
+  }
+
+  log('[geecrack] Total discovered: ' + results.length + ' unique products');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// REINS — reinsfishing.com (WC Store API, no Playwright needed)
+// ---------------------------------------------------------------------------
+
+var REINS_LURE_CATEGORY_SLUGS = [
+  'soft-baits', 'worms', 'craws-creatures', 'swimbaits',
+];
+
+async function discoverReins(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[reins] Discovering products via WC Store API...');
+
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+  var pageNum = 1;
+
+  while (true) {
+    var apiUrl = 'https://www.reinsfishing.com/wp-json/wc/store/products?per_page=100&page=' + pageNum;
+    log('[reins] Fetching page ' + pageNum + ': ' + apiUrl);
+
+    var response = await fetch(apiUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+      },
+    });
+
+    if (!response.ok) {
+      log('[reins] API returned ' + response.status + ', stopping pagination');
+      break;
+    }
+
+    var products: any[] = await response.json();
+    if (!products || products.length === 0) break;
+
+    log('[reins] Page ' + pageNum + ': ' + products.length + ' products');
+
+    for (var i = 0; i < products.length; i++) {
+      var p = products[i];
+      var categorySlugs: string[] = (p.categories || []).map(function(c: any) { return c.slug; });
+
+      // Must have 'reins' category
+      if (categorySlugs.indexOf('reins') < 0) continue;
+
+      // Must have at least one lure category
+      var isLure = false;
+      for (var ci = 0; ci < REINS_LURE_CATEGORY_SLUGS.length; ci++) {
+        if (categorySlugs.indexOf(REINS_LURE_CATEGORY_SLUGS[ci]) >= 0) {
+          isLure = true;
+          break;
+        }
+      }
+
+      // Also check: lure products have pa_color attribute
+      if (!isLure) {
+        var hasColor = false;
+        var attrs = p.attributes || [];
+        for (var ai = 0; ai < attrs.length; ai++) {
+          if (attrs[ai].taxonomy === 'pa_color') {
+            hasColor = true;
+            break;
+          }
+        }
+        if (!hasColor) continue;
+      }
+
+      var permalink = p.permalink || '';
+      var name = (p.name || '').replace(/&#8243;/g, '″').replace(/&#8217;/g, '\u2019').replace(/&#8211;/g, '–').replace(/&amp;/g, '&');
+
+      if (!permalink || seen.has(permalink)) continue;
+      seen.add(permalink);
+
+      results.push({ url: permalink, name: name });
+    }
+
+    pageNum++;
+  }
+
+  log('[reins] Total discovered: ' + results.length + ' lure products');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -3438,6 +3594,28 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // ecogear.jp — WordPress, REST API available. Two CPTs: ecogear (76) + fishleague (7)
     // Exclude: jig heads, tenya, accessories, sets, oil/powder/liquid.
     // ~53 lure products (worms, soft baits, hard baits, metal jigs, egi).
+  },
+  {
+    slug: 'geecrack',
+    name: 'GEECRACK',
+    discover: discoverGeecrack,
+    excludedNameKeywords: [],
+    // www.geecrack.com — Custom PHP (Xserver), no REST API
+    // 10 lure categories: bass(hard_lure, soft_lure, wire_bait, jig) + saltwater(ika, aji, aomono, tai, seabass, rockfish)
+    // Excluded categories: rod, sinker_hook, accessories (not scraped)
+    // All products in lure categories are actual lures. "ワームもルアーやろ？"
+  },
+  {
+    slug: 'reins',
+    name: 'REINS',
+    discover: discoverReins,
+    excludedNameKeywords: [],
+    // reinsfishing.com — WordPress + WooCommerce + Flatsome theme
+    // WC Store API: /wp-json/wc/store/products (no auth required)
+    // Lure categories: soft-baits, worms, craws-creatures, swimbaits
+    // Non-lure: tungsten-weights, hooks, accessories — filtered by pa_color attribute
+    // All REINS lures are soft baits (ワーム). "ワームもルアーやろ？"
+    // Japanese site (reinjp.com) unreachable. USD pricing stored as 0.
   },
 ];
 
