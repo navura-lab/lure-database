@@ -2786,6 +2786,68 @@ async function discoverBottomup(page: Page): Promise<Array<{ url: string; name: 
 }
 
 // ---------------------------------------------------------------------------
+// Fish Arrow — WordPress REST API (categories 6=Bass, 7=Salt only)
+// ---------------------------------------------------------------------------
+
+// Category IDs to INCLUDE (lures only)
+var FISHARROW_LURE_CATEGORY_IDS = new Set([6, 7]); // Bass, Salt
+
+async function discoverFisharrow(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var allProducts: Array<{ url: string; name: string }> = [];
+  var seenIds = new Set<string>();
+
+  log('[fisharrow] Fetching products from WP REST API...');
+
+  var apiUrl = 'https://fisharrow.co.jp/wp-json/wp/v2/product?per_page=100';
+  var res = await fetch(apiUrl, { headers: { 'Accept': 'application/json' } });
+  if (!res.ok) {
+    log('[fisharrow] API error: ' + res.status);
+    return allProducts;
+  }
+
+  var totalItems = res.headers.get('X-WP-Total');
+  log('[fisharrow] Total items from API: ' + (totalItems || '?'));
+
+  var products: Array<{
+    id: number;
+    title: { rendered: string };
+    link: string;
+    slug: string;
+    'product-category': number[];
+  }> = await res.json();
+
+  for (var pi = 0; pi < products.length; pi++) {
+    var prod = products[pi];
+    var prodId = String(prod.id);
+    if (seenIds.has(prodId)) continue;
+    seenIds.add(prodId);
+
+    // Filter by category: only include Bass (6) and Salt (7)
+    var categories = prod['product-category'] || [];
+    var hasLureCategory = false;
+    for (var ci = 0; ci < categories.length; ci++) {
+      if (FISHARROW_LURE_CATEGORY_IDS.has(categories[ci])) {
+        hasLureCategory = true;
+        break;
+      }
+    }
+    if (!hasLureCategory) {
+      var prodName0 = prod.title.rendered.replace(/<[^>]+>/g, '').trim();
+      log('[fisharrow] Skipping non-lure category: ' + prodName0);
+      continue;
+    }
+
+    var prodName = prod.title.rendered.replace(/<[^>]+>/g, '').trim();
+    var prodUrl = prod.link;
+
+    allProducts.push({ url: prodUrl, name: prodName });
+  }
+
+  log('[fisharrow] Discovered ' + allProducts.length + ' lure products (filtered from ' + seenIds.size + ' total)');
+  return allProducts;
+}
+
+// ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
 
@@ -3060,6 +3122,17 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // Accessories are filtered out in the discover function.
     // All remaining products are bass lures.
     // "ワームもルアーやろ？" — soft lures (including PORK) are included.
+  },
+  {
+    slug: 'fisharrow',
+    name: 'Fish Arrow',
+    discover: discoverFisharrow,
+    excludedNameKeywords: [],
+    // Fish Arrow uses WP REST API (/wp-json/wp/v2/product?per_page=100).
+    // 49 products total. Categories 6(Bass) + 7(Salt) = lures only.
+    // Categories 8(Sinker & Item) + 9(Others) = excluded in discover function.
+    // data-type attribute: soft-lure, hard-lure (included), sinker/rod/other (excluded by category).
+    // "ワームもルアーやろ？" — soft lures are included.
   },
 ];
 
