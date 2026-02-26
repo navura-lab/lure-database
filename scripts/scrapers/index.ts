@@ -49,6 +49,17 @@ import { scrapeDstylePage } from './dstyle.js';
 import { scrapeEcogearPage } from './ecogear.js';
 import { scrapeGeecrackPage } from './geecrack.js';
 import { scrapeReinsPage } from './reins.js';
+import { scrapeBerkleyPage } from './berkley.js';
+import { scrapeEnginePage } from './engine.js';
+import { scrapeHideupPage } from './hideup.js';
+import { scrapeLittleJackPage } from './littlejack.js';
+import { scrapeJumprizePage } from './jumprize.js';
+import { scrapeThirtyfourPage } from './thirtyfour.js';
+import { scrapeTictPage } from './tict.js';
+import { scrapeNoikePage } from './noike.js';
+import { scrapeBaitBreathPage } from './baitbreath.js';
+import { scrapePalmsPage } from './palms.js';
+import { scrapeMadnessPage } from './madness.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -96,6 +107,17 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   ecogear: scrapeEcogearPage,
   geecrack: scrapeGeecrackPage,
   reins: scrapeReinsPage,
+  berkley: scrapeBerkleyPage,
+  engine: scrapeEnginePage,
+  hideup: scrapeHideupPage,
+  littlejack: scrapeLittleJackPage,
+  jumprize: scrapeJumprizePage,
+  thirtyfour: scrapeThirtyfourPage,
+  tict: scrapeTictPage,
+  noike: scrapeNoikePage,
+  baitbreath: scrapeBaitBreathPage,
+  palms: scrapePalmsPage,
+  madness: scrapeMadnessPage,
 };
 
 /**

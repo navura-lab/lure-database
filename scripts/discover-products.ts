@@ -3187,6 +3187,245 @@ async function discoverGeecrack(page: Page): Promise<Array<{ url: string; name: 
 // REINS — reinsfishing.com (WC Store API, no Playwright needed)
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Berkley — purefishing.jp sitemap-based discovery (no Playwright needed)
+// ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// ENGINE — engine.rings-fishing.jp
+// ---------------------------------------------------------------------------
+
+var ENGINE_CATEGORIES = [
+  'https://engine.rings-fishing.jp/syouhin/soft-bait/',
+  'https://engine.rings-fishing.jp/syouhin/hard-bait/',
+  'https://engine.rings-fishing.jp/syouhin/loops/',
+  'https://engine.rings-fishing.jp/syouhin/collaboration/',
+];
+
+async function discoverEngine(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[engine] Discovering products from category pages...');
+
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+
+  for (var ci = 0; ci < ENGINE_CATEGORIES.length; ci++) {
+    var catUrl = ENGINE_CATEGORIES[ci];
+    log('[engine] Fetching category: ' + catUrl);
+
+    var resp = await fetch(catUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+    });
+    if (!resp.ok) {
+      log('[engine] WARNING: Failed to fetch category ' + catUrl + ' (' + resp.status + ')');
+      continue;
+    }
+
+    var html = await resp.text();
+
+    // Extract product links: <li><a href="...page2/{slug}/"><img...><span>Name</span></a></li>
+    var linkPattern = /<li>\s*<a\s+href="(https:\/\/engine\.rings-fishing\.jp\/page2\/[^"]+)"[^>]*>[\s\S]*?<span>([^<]+)<\/span>\s*<\/a>\s*<\/li>/g;
+    var match;
+
+    while ((match = linkPattern.exec(html)) !== null) {
+      var url = match[1];
+      var name = match[2].trim();
+      // Normalize URL: ensure trailing slash
+      if (!url.endsWith('/')) url = url + '/';
+      // Decode percent-encoded URLs
+      try { url = decodeURIComponent(url); } catch (e) { /* keep as-is */ }
+
+      if (!seen.has(url)) {
+        seen.add(url);
+        results.push({ url: url, name: name });
+      }
+    }
+  }
+
+  log('[engine] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// HIDEUP — hideup.jp
+// Single page at /product/ contains all products organized by category.
+// Products are linked as <a href="/product/{slug}.php"> in sidebar nav.
+// Categories to include: Hard lures, Soft lures, Jigs, Umbrella Rig, Saltwater, Retreex
+// Categories to exclude: Fishing Rods, Tools, RCMF, Apparel, Discon items
+// ---------------------------------------------------------------------------
+
+var HIDEUP_EXCLUDED_SLUGS = [
+  'rod_recommendation', 'macca', 'Red_macca', 'macca_red_signature', // Rods
+  'cblm', 'amistopper', 'HU-3010NDM', 'HU-3020NDDM', 'HU-3043NDD', // Tools
+  'RCMF2019', 'RCMF', 'RCMF_Fishing_Tee_2020', 'RCMF_parka_2020', 'RCMF_parka_2021', // RCMF merch
+  'mesh_cap_stream_logo', 'hu-slc', 'mesh-cap', 'knitcap', // Apparel
+  'hood_neck_warmer', 'hood_neck_warmer_sweat', 'facecover2020', 'facecover', // Apparel
+  'saltwater', // Saltwater color page (not a product)
+];
+
+async function discoverHideup(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[hideup] Discovering products from /product/ listing page...');
+
+  var listingUrl = 'https://hideup.jp/product/';
+  var resp = await fetch(listingUrl, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    },
+  });
+  if (!resp.ok) {
+    log('[hideup] WARNING: Failed to fetch listing page (' + resp.status + ')');
+    return [];
+  }
+
+  var html = await resp.text();
+
+  // Extract all product links: <a href="/product/{slug}.php">Name</a>
+  // Also capture links from banner area: <a href="{slug}.php">
+  var results: Array<{ url: string; name: string }> = [];
+  var seenSlugs: Record<string, boolean> = {};
+
+  // Pattern 1: sidebar nav links with explicit /product/ prefix
+  var linkPattern1 = /<a\s+href="\/product\/([^"]+\.php)"[^>]*>([^<]*)<\/a>/g;
+  var m1;
+  while ((m1 = linkPattern1.exec(html)) !== null) {
+    var slug1 = m1[1].replace(/\.php$/, '');
+    var name1 = m1[2].trim();
+    if (!slug1 || !name1) continue;
+    if (seenSlugs[slug1]) continue;
+    if (HIDEUP_EXCLUDED_SLUGS.indexOf(slug1) >= 0) continue;
+
+    seenSlugs[slug1] = true;
+    results.push({
+      url: 'https://hideup.jp/product/' + slug1 + '.php',
+      name: name1,
+    });
+  }
+
+  // Pattern 2: banner area links with relative paths (e.g., <a href="slide_fall_jig.php">)
+  var linkPattern2 = /<a\s+href="([a-zA-Z0-9_\-]+\.php)"[^>]*>/g;
+  var m2;
+  while ((m2 = linkPattern2.exec(html)) !== null) {
+    var slug2 = m2[1].replace(/\.php$/, '');
+    if (!slug2) continue;
+    if (seenSlugs[slug2]) continue;
+    if (HIDEUP_EXCLUDED_SLUGS.indexOf(slug2) >= 0) continue;
+
+    // Try to get name from nearby img alt or text
+    var nameContext = html.substring(m2.index, m2.index + 500);
+    var altMatch = nameContext.match(/alt="([^"]*)"/);
+    var prodName = altMatch ? altMatch[1] : slug2;
+
+    seenSlugs[slug2] = true;
+    results.push({
+      url: 'https://hideup.jp/product/' + slug2 + '.php',
+      name: prodName,
+    });
+  }
+
+  log('[hideup] Discovered ' + results.length + ' products');
+  return results;
+}
+
+var BERKLEY_EXCLUDED_URL_PARTS = ['/line/', '/acse/', '/bag/'];
+var BERKLEY_EXCLUDED_NAME_PARTS = [
+  'fireline', 'vanish', 'trilene', 'x5 ', 'x9 ', 'super fireline',
+  'messenger bag', 'mesh cap', 'jacket', 'cutter', 'clipper', 'plier',
+  'net', 'scale', 'stringer', 'inflatable',
+];
+
+async function discoverBerkley(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[berkley] Discovering products via sitemap.xml...');
+
+  var sitemapUrl = 'https://www.purefishing.jp/sitemap.xml';
+  var resp = await fetch(sitemapUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+  });
+  if (!resp.ok) throw new Error('Failed to fetch sitemap: ' + resp.status);
+
+  var xml = await resp.text();
+
+  // Extract all Berkley product URLs ending with .html
+  var urlPattern = /<loc>(https:\/\/www\.purefishing\.jp\/product\/berkley\/[^<]+\.html)<\/loc>/g;
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+  var match;
+
+  while ((match = urlPattern.exec(xml)) !== null) {
+    var url = match[1];
+    if (seen.has(url)) continue;
+    seen.add(url);
+
+    // Exclude non-lure URLs
+    var excluded = false;
+    for (var ei = 0; ei < BERKLEY_EXCLUDED_URL_PARTS.length; ei++) {
+      if (url.indexOf(BERKLEY_EXCLUDED_URL_PARTS[ei]) >= 0) {
+        excluded = true;
+        break;
+      }
+    }
+    if (excluded) continue;
+
+    // Extract name from URL slug: last segment without .html
+    var slug = url.replace(/\.html$/, '').split('/').pop() || '';
+    var name = slug.replace(/-/g, ' ');
+
+    // Exclude by name keywords
+    var nameLower = name.toLowerCase();
+    for (var ni = 0; ni < BERKLEY_EXCLUDED_NAME_PARTS.length; ni++) {
+      if (nameLower.indexOf(BERKLEY_EXCLUDED_NAME_PARTS[ni]) >= 0) {
+        excluded = true;
+        break;
+      }
+    }
+    if (excluded) continue;
+
+    results.push({ url: url, name: name });
+  }
+
+  // Also crawl category pages for products not in sitemap
+  var catBaseUrl = 'https://www.purefishing.jp/product/berkley/cat/';
+  for (var pageNum = 1; pageNum <= 10; pageNum++) {
+    var catUrl = pageNum === 1 ? catBaseUrl : catBaseUrl + 'index_' + pageNum + '.html';
+    try {
+      var catResp = await fetch(catUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+      });
+      if (!catResp.ok) break;
+      var catHtml = await catResp.text();
+      var linkPattern = /href="(\/product\/berkley\/[^"]+\.html)"/g;
+      var linkMatch;
+      while ((linkMatch = linkPattern.exec(catHtml)) !== null) {
+        var fullUrl = 'https://www.purefishing.jp' + linkMatch[1];
+        if (seen.has(fullUrl)) continue;
+        seen.add(fullUrl);
+
+        // Check exclusions
+        var excl = false;
+        for (var ei = 0; ei < BERKLEY_EXCLUDED_URL_PARTS.length; ei++) {
+          if (fullUrl.indexOf(BERKLEY_EXCLUDED_URL_PARTS[ei]) >= 0) { excl = true; break; }
+        }
+        if (excl) continue;
+
+        var catSlug = fullUrl.replace(/\.html$/, '').split('/').pop() || '';
+        var catName = catSlug.replace(/-/g, ' ');
+        var catNameLower = catName.toLowerCase();
+        for (var ni = 0; ni < BERKLEY_EXCLUDED_NAME_PARTS.length; ni++) {
+          if (catNameLower.indexOf(BERKLEY_EXCLUDED_NAME_PARTS[ni]) >= 0) { excl = true; break; }
+        }
+        if (excl) continue;
+
+        results.push({ url: fullUrl, name: catName });
+      }
+    } catch (e) {
+      break;
+    }
+    // Small delay
+    await new Promise(function(resolve) { setTimeout(resolve, 500); });
+  }
+
+  log('[berkley] Found ' + results.length + ' product URLs');
+  return results;
+}
+
 var REINS_LURE_CATEGORY_SLUGS = [
   'soft-baits', 'worms', 'craws-creatures', 'swimbaits',
 ];
@@ -3266,6 +3505,609 @@ async function discoverReins(_page: Page): Promise<Array<{ url: string; name: st
 // ---------------------------------------------------------------------------
 // Manufacturer configurations
 // ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// Little Jack discovery logic
+// ---------------------------------------------------------------------------
+
+async function discoverLittleJack(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[littlejack] Discovering products via WP REST API (template=page-lp.php)...');
+
+  // Little Jack uses WordPress with LP pages (page-lp.php template) for products
+  // NOTE: Pretty permalinks disabled → use ?rest_route= instead of /wp-json/
+  var apiUrl = 'https://www.little-jack-lure.com/?rest_route=/wp/v2/pages&per_page=100&_fields=id,title,template,status';
+  var resp = await fetch(apiUrl, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    },
+  });
+
+  if (!resp.ok) {
+    log('[littlejack] WARNING: WP REST API failed (' + resp.status + '). Trying page 2...');
+    return [];
+  }
+
+  var pages = await resp.json() as Array<{ id: number; title: { rendered: string }; template: string; status: string }>;
+  var results: Array<{ url: string; name: string }> = [];
+  var seenIds: Record<number, boolean> = {};
+
+  for (var i = 0; i < pages.length; i++) {
+    var p = pages[i];
+    if (p.status !== 'publish') continue;
+    // Only include LP template pages (product pages)
+    if (p.template !== 'page-lp.php') continue;
+    if (seenIds[p.id]) continue;
+    seenIds[p.id] = true;
+
+    // Decode HTML entities in title
+    var name = p.title.rendered
+      .replace(/&#8211;/g, '–')
+      .replace(/&#8212;/g, '—')
+      .replace(/&#038;/g, '&')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#8217;/g, "'")
+      .replace(/&#8216;/g, "'")
+      .trim();
+
+    if (!name) continue;
+
+    results.push({
+      url: 'https://www.little-jack-lure.com/?page_id=' + p.id,
+      name: name,
+    });
+  }
+
+  // Check if there are more pages (WP returns X-WP-TotalPages header)
+  var totalPages = parseInt(resp.headers.get('X-WP-TotalPages') || '1', 10);
+  if (totalPages > 1) {
+    for (var pg = 2; pg <= totalPages; pg++) {
+      var nextUrl = 'https://www.little-jack-lure.com/?rest_route=/wp/v2/pages&per_page=100&_fields=id,title,template,status&page=' + pg;
+      var nextResp = await fetch(nextUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        },
+      });
+      if (!nextResp.ok) break;
+
+      var nextPages = await nextResp.json() as Array<{ id: number; title: { rendered: string }; template: string; status: string }>;
+      for (var j = 0; j < nextPages.length; j++) {
+        var np = nextPages[j];
+        if (np.status !== 'publish') continue;
+        if (np.template !== 'page-lp.php') continue;
+        if (seenIds[np.id]) continue;
+        seenIds[np.id] = true;
+
+        var npName = np.title.rendered
+          .replace(/&#8211;/g, '–')
+          .replace(/&#8212;/g, '—')
+          .replace(/&#038;/g, '&')
+          .replace(/&amp;/g, '&')
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/&quot;/g, '"')
+          .replace(/&#8217;/g, "'")
+          .replace(/&#8216;/g, "'")
+          .trim();
+
+        if (!npName) continue;
+
+        results.push({
+          url: 'https://www.little-jack-lure.com/?page_id=' + np.id,
+          name: npName,
+        });
+      }
+    }
+  }
+
+  log('[littlejack] Discovered ' + results.length + ' products via WP REST API');
+  return results;
+}
+
+// Little Jack excluded name keywords:
+// GOODS/アクセサリーページ（フック等）はLPテンプレートを使っていないので
+// WP REST API `template=page-lp.php` で自動的に除外される。
+// 念のためキーワードフィルターも設定。
+var LITTLEJACK_EXCLUDED_NAMES = [
+  'GOODS', 'グッズ', 'アクセサリー', 'ACCESSORY',
+  'フック', 'HOOK', 'パーツ', 'PARTS',
+  'ロッド', 'ROD', 'リール', 'REEL',
+  'バッグ', 'BAG', 'ウェア', 'WEAR',
+  'キャップ', 'CAP', 'ステッカー', 'STICKER',
+];
+
+// ---- Jumprize ----
+// jumprize.com — Jimdo Creator (static HTML), sitemap.xml available
+// Product URLs: /lure/series{N}/{slug}/ or /lure/yukifactory/{slug}/
+// Fetch-only, no Playwright needed
+
+async function discoverJumprize(): Promise<DiscoveredProduct[]> {
+  var results: DiscoveredProduct[] = [];
+
+  // Fetch sitemap.xml
+  var sitemapUrl = 'https://www.jumprize.com/sitemap.xml';
+  log('[jumprize] Fetching sitemap: ' + sitemapUrl);
+  var res = await fetch(sitemapUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[jumprize] HTTP ' + res.status + ' fetching sitemap');
+  var xml = await res.text();
+
+  // Extract all <loc> URLs
+  var locRegex = /<loc>(.*?)<\/loc>/g;
+  var locMatch: RegExpExecArray | null;
+  var allUrls: string[] = [];
+  while ((locMatch = locRegex.exec(xml)) !== null) {
+    allUrls.push(locMatch[1]);
+  }
+  log('[jumprize] Sitemap URLs: ' + allUrls.length);
+
+  // Filter product pages:
+  // - Must be under /lure/ (not /metal/, /other/, etc — those are category pages)
+  // - Must have at least 5 path segments (e.g. /lure/series1/rowdy130f/)
+  // - Exclude category/series index pages
+  var EXCLUDED_PATHS = [
+    '/lure/',           // main lure index
+    '/hansoku/',        // promotional pages
+    '/q-a',             // Q&A page
+  ];
+  var SERIES_PATTERNS = /\/series\d+\/$/;
+
+  for (var i = 0; i < allUrls.length; i++) {
+    var rawUrl = allUrls[i];
+    // Decode URL-encoded characters for name extraction
+    var decodedUrl = decodeURIComponent(rawUrl);
+
+    // Must be under /lure/ path
+    if (decodedUrl.indexOf('/lure/') === -1) continue;
+
+    // Must have enough path depth (product page, not category)
+    var pathParts = decodedUrl.replace(/\/+$/, '').split('/');
+    if (pathParts.length < 6) continue; // https://www.jumprize.com/lure/series1/product/ = 6
+
+    // Exclude category pages and specific paths
+    var isExcluded = false;
+    for (var j = 0; j < EXCLUDED_PATHS.length; j++) {
+      if (decodedUrl.endsWith(EXCLUDED_PATHS[j])) { isExcluded = true; break; }
+    }
+    if (isExcluded) continue;
+
+    // Exclude series index pages (/lure/series1/, /lure/series2/, etc)
+    if (SERIES_PATTERNS.test(decodedUrl)) continue;
+    // Exclude yukifactory index
+    if (decodedUrl.endsWith('/yukifactory/')) continue;
+
+    // Extract product name from slug
+    var slug = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
+    var pName = slug
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, function(c: string) { return c.toUpperCase(); });
+
+    results.push({
+      url: rawUrl, // Use original (possibly encoded) URL
+      name: pName,
+    });
+  }
+
+  log('[jumprize] Discovered ' + results.length + ' product pages from sitemap');
+  return results;
+}
+
+var JUMPRIZE_EXCLUDED_NAMES = [
+  'ロッド', 'ROD', 'リール', 'REEL',
+  'フック', 'HOOK', 'ライン', 'LINE',
+  'バッグ', 'BAG', 'ウェア', 'WEAR',
+  'アクセサリー', 'ACCESSORY', 'グッズ', 'GOODS',
+];
+
+// ---- 34 (THIRTY FOUR) ----
+// 34net.jp — WordPress + custom theme, WP REST API available
+// Product URLs: /products/worm/{slug}/
+// Fetch-only, no Playwright needed. アジング専門メーカー
+
+async function discoverThirtyfour(): Promise<DiscoveredProduct[]> {
+  var results: DiscoveredProduct[] = [];
+
+  // Use WP REST API to get all pages
+  var apiUrl = 'https://34net.jp/wp-json/wp/v2/pages?per_page=100&_fields=id,slug,title,link';
+  log('[thirtyfour] Fetching pages via WP REST API: ' + apiUrl);
+
+  var page1Res = await fetch(apiUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!page1Res.ok) throw new Error('[thirtyfour] HTTP ' + page1Res.status);
+  var pages: any[] = await page1Res.json();
+
+  // Get page 2 if needed
+  var totalPages = parseInt(page1Res.headers.get('X-WP-TotalPages') || '1', 10);
+  if (totalPages > 1) {
+    var page2Res = await fetch(apiUrl + '&page=2', {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+    });
+    if (page2Res.ok) {
+      var p2 = await page2Res.json();
+      pages = pages.concat(p2);
+    }
+  }
+
+  log('[thirtyfour] Total WP pages: ' + pages.length);
+
+  // Filter: only /products/worm/ pages (individual product pages, not category)
+  for (var i = 0; i < pages.length; i++) {
+    var pg = pages[i];
+    var link = pg.link || '';
+
+    // Include worm product pages
+    if (link.indexOf('/products/worm/') !== -1 && link !== 'https://34net.jp/products/worm/') {
+      var pName = pg.title && pg.title.rendered
+        ? pg.title.rendered
+            .replace(/&amp;/g, '&')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&#8217;/g, "'")
+            .replace(/&#8220;/g, '"')
+            .replace(/&#8221;/g, '"')
+            .trim()
+        : pg.slug;
+      results.push({ url: link, name: pName });
+    }
+  }
+
+  log('[thirtyfour] Discovered ' + results.length + ' worm products via WP REST API');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// TICT (tict-net.com) — fetch-only, Shift_JIS
+// ---------------------------------------------------------------------------
+
+async function discoverTict(): Promise<DiscoveredProduct[]> {
+  var res = await fetch('https://tict-net.com/product/', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[tict] HTTP ' + res.status);
+
+  var buffer = await res.arrayBuffer();
+  var decoder = new TextDecoder('shift_jis');
+  var html = decoder.decode(buffer);
+
+  var products: DiscoveredProduct[] = [];
+  var seen = new Set<string>();
+
+  // Match all product links: <a href="xxx.html" class="hover_img2">
+  // and <li><a href="xxx.html">name</a></li> from the nav
+  var linkRegex = /href="([a-z][a-z0-9_]+\.html)"[^>]*>(?:<img[^>]*>)?([^<]*)/gi;
+  var match;
+  while ((match = linkRegex.exec(html)) !== null) {
+    var slug = match[1].replace('.html', '');
+    if (seen.has(slug)) continue;
+
+    // Extract name from text or from image alt
+    var rawName = match[2].trim();
+    if (!rawName) {
+      // Try to get name from the next link in nav
+      var navMatch = html.match(new RegExp('href="' + match[1] + '"[^>]*>([^<]+)<'));
+      if (navMatch) rawName = navMatch[1].trim();
+    }
+    if (!rawName) rawName = slug;
+
+    var url = 'https://tict-net.com/product/' + match[1];
+    seen.add(slug);
+    products.push({ url: url, name: rawName, maker: 'tict' });
+  }
+
+  return products;
+}
+
+var TICT_EXCLUDED_NAMES = [
+  // ロッド・リール
+  'SRAM', 'sram', 'ICE CUBE', 'icecube', 'UTR', 'EXR', 'MSR',
+  // ライン
+  'JOKER', 'SHINOBI', 'リーダー', 'leader', 'JACKBRIGHT', 'RHYME', 'ボルドーレッド', 'bordeaux',
+  // ジグヘッド・Mキャロ
+  'アジスタ', 'azisuta', 'メバスタ', 'mebasuta', 'キャロかぶら', 'carokabura',
+  'Mキャロ', 'mcaro', 'minimcaro', 'azisutatg',
+  // リグ・フック
+  'laclip', 'swivel', 'lacring', 'HOOK', 'hook',
+  // アクセサリー
+  'バランサー', 'balancer', 'キーパー', 'keeper', 'ガイドスルー', 'guidethrough',
+  'ロッドベルト', 'rodbelt', 'ティップ', 'tipcover', 'stamen', 'rodcase', 'forceps',
+  'utilitycase', 'fishingmat', 'fishingpliers', 'clearpouch', 'tissuecover',
+  'azishimepick', 'leaderholder', 'pacchinscale', 'rodwrap', 'slimcase', 'hangtowel',
+  // バッグ・ケース・バケツ
+  'slingbag', 'padbelt', 'dbelt', 'pliersholder', 'coolerbag', 'middlepouch',
+  'activebag', 'pocketpouch', 'instanet', 'tacklebag', 'rodholder',
+  'magreleaser', 'stool', 'versatileholder',
+  'bakkan', 'livebucket', 'holderbucket', 'microbucket', 'handycase',
+  'cargo', 'fbucket', 'optiontray', 'storage',
+  // ステッカー
+  'sticker', 'ステッカー', 'measure_sticker', 'graphicsticker',
+  // パーツリスト・旧製品
+  'partslist', 'oldgoods', 'expec',
+  // エギ計測
+  'paparazzi', 'BOTTOM COP', 'bottomcop',
+  // リベルテ
+  'liberte', 'Liberte',
+];
+
+var TICT_EXCLUDED_SLUGS = [
+  'index', 'partslist', 'oldgoods', 'expec_index',
+  'sram_utr', 'sram_utr_t2', 'sram_exr', 'sram_utr_552582t2', 'sram_utr_5558t2',
+  'msr_52ap', 'msr_54mt', 'msr_7480tc', 'msr_56it', 'msr_62xss', 'msr_6372ap',
+  'icecube', 'balancer',
+  'liberte', 'slingbag', 'padbelt', 'dbelt', 'pliersholder', 'coolerbag',
+  'middlepouch', 'activebag', 'pocketpouch', 'instanet', 'tacklebag', 'rodholder',
+  'magreleaser', 'stool', 'versatileholder',
+  'mcaro', 'minimcaro',
+  'azisuta', 'carokabura', 'mebasuta', 'azisutatg', 'mebasuta_vc',
+  'joker', 'shinobi', 'leader', 'jackbright', 'rhyme', 'bordeauxred', 'bordeauxred2',
+  'laclip', 'swivel', 'lacring_snap',
+  'keeper', 'guidethrough', 'rodbelt', 'tipcover', 'rodcase', 'forceps',
+  'utilitycase', 'fishingmat', 'fishingpliers', 'clearpouch', 'tissuecover',
+  'azishimepick', 'leaderholder', 'pacchinscale', 'rodwrap', 'slimcase', 'hangtowel',
+  'stamen_case', 'stamen_case2',
+  'sticker', 'graphicsticker', 'tacklesticker_viii', 'measure_sticker',
+  'ompact_bakkan3', 'compact_bakkan3', 'livebucket2', 'holderbucket2', 'holderbucket_dx',
+  'microbucket', 'compact_handycase', 'cargo', 'fbucket', 'optiontray', 'storage',
+  'paparazzi', 'hookg2', 'bottomcop_light', 'bottomcop',
+];
+
+// ---------------------------------------------------------------------------
+// NOIKE (noike-m.com) — WordPress, WP REST API
+// ---------------------------------------------------------------------------
+
+async function discoverNoike(): Promise<DiscoveredProduct[]> {
+  var results: DiscoveredProduct[] = [];
+
+  // Use WP REST API to get all pages
+  var apiUrl = 'https://noike-m.com/wp-json/wp/v2/pages?per_page=100&_fields=id,slug,title,link';
+  log('[noike] Fetching pages via WP REST API: ' + apiUrl);
+
+  var res = await fetch(apiUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[noike] HTTP ' + res.status);
+  var pages: any[] = await res.json();
+
+  log('[noike] Total WP pages: ' + pages.length);
+
+  for (var i = 0; i < pages.length; i++) {
+    var pg = pages[i];
+    var link = pg.link || '';
+    var slug = pg.slug || '';
+
+    // Skip category/info pages and non-product pages
+    if (NOIKE_NON_PRODUCT_SLUGS.indexOf(slug) !== -1) continue;
+
+    // Skip excluded slugs (sinkers, jig heads, accessories)
+    var excluded = false;
+    for (var e = 0; e < NOIKE_EXCLUDED_SLUGS.length; e++) {
+      if (slug.indexOf(NOIKE_EXCLUDED_SLUGS[e]) !== -1) {
+        excluded = true;
+        break;
+      }
+    }
+    if (excluded) continue;
+
+    var pName = pg.title && pg.title.rendered
+      ? pg.title.rendered
+          .replace(/&amp;/g, '&')
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/&#8217;/g, "'")
+          .replace(/&#8220;/g, '\u201C')
+          .replace(/&#8221;/g, '\u201D')
+          .replace(/&quot;/g, '"')
+          .replace(/&#0*39;/g, "'")
+          .trim()
+      : slug;
+
+    results.push({ url: link, name: pName });
+  }
+
+  log('[noike] Discovered ' + results.length + ' lure products via WP REST API');
+  return results;
+}
+
+var NOIKE_EXCLUDED_NAMES = [
+  'シンカー', 'SINKER', 'sinker',
+  'ジグヘッド', 'JIG HEAD',
+  'スナップ', 'SNAP', 'snap',
+  'ストッパー', 'STOPPER',
+];
+
+var NOIKE_EXCLUDED_SLUGS = [
+  'tg-nail-sinker', 'tg-bullet-sinker',
+  'tungsten-drop-shot', 'tungsten-dropshot',
+  'sinker-stopper', 'lure-snap',
+  'kemkem-head', 'kem-kem-head',
+];
+
+// Pages that are not products (category pages, info pages, etc.)
+var NOIKE_NON_PRODUCT_SLUGS = [
+  'soft-baits', 'blade-bait', 'equipment',
+  'home', 'news', 'about', 'contact', 'privacy-policy',
+  'sample-page', 'category', 'product', 'products',
+  'shop', 'cart', 'checkout', 'my-account',
+  'update', 'blog-2', 'dealers',
+  // Japanese slugs (URL-encoded in WP)
+  '%e3%83%97%e3%83%a9%e3%82%a4%e3%83%90%e3%82%b7%e3%83%bc%e3%83%9d%e3%83%aa%e3%82%b7%e3%83%bc',
+  '%e3%81%8a%e5%95%8f%e3%81%84%e5%90%88%e3%82%8f%e3%81%9b',
+];
+
+var THIRTYFOUR_EXCLUDED_NAMES = [
+  'ロッド', 'ROD', 'リール', 'REEL',
+  'ライン', 'LINE', 'ジグヘッド', 'JIG HEAD',
+  'ケース', 'CASE', 'グッズ', 'GOODS',
+  'アパレル', 'APPAREL', 'DVD', 'グリス',
+  'キャリー', 'ハンドル',
+];
+
+// ---------------------------------------------------------------------------
+// BAIT BREATH (baitbreath.net) — static HTML, HTTP-only
+// ---------------------------------------------------------------------------
+
+async function discoverBaitBreath(): Promise<DiscoveredProduct[]> {
+  var results: DiscoveredProduct[] = [];
+  var listUrl = 'http://www.baitbreath.net/products%20page.html';
+  log('[baitbreath] Fetching product list from: ' + listUrl);
+
+  var res = await fetch(listUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[baitbreath] HTTP ' + res.status);
+  var html = await res.text();
+
+  // Extract all .html links
+  var linkRegex = /href="([^"]*\.html)"/gi;
+  var match;
+  var seen = new Set<string>();
+
+  while ((match = linkRegex.exec(html)) !== null) {
+    var href = match[1];
+    // Skip non-product pages
+    if (/products?\s*page|index|information|bass\.html|saltwater|one\.html|goods|blog|facebook|video|channel/i.test(href)) continue;
+    if (href.indexOf('link') !== -1) continue;
+
+    var fullUrl = 'http://www.baitbreath.net/' + href;
+    if (seen.has(fullUrl)) continue;
+    seen.add(fullUrl);
+
+    // Extract name from link text (image alt or nearby text)
+    var pName = decodeURIComponent(href).replace(/\.html$/i, '').replace(/\s+/g, ' ').trim();
+    results.push({ url: fullUrl, name: pName, maker: 'baitbreath' });
+  }
+
+  log('[baitbreath] Discovered ' + results.length + ' products');
+  return results;
+}
+
+var BAITBREATH_EXCLUDED_NAMES = [
+  'シンカー', 'SINKER', 'Round Caro',
+  'ジグヘッド', 'JIG HEAD', 'Pine Head',
+  'フォーミュラ', 'FORMULA', 'MIX FORMULA', 'UV-COMBO', 'UV COMBO',
+  'M-Shaker', 'M-シェイカー',
+  'キジハタ', // hub page
+];
+
+var BAITBREATH_EXCLUDED_SLUGS = [
+  'bysmixformula', 'uv%20combo', 'uv-combo',
+  'round%20caro', 'roundcaro',
+  'pinehead', 'pine%20head',
+  'm-shaker', 'm%20shaker',
+  'kijihata',
+];
+
+// ---------------------------------------------------------------------------
+// Palms (palmsjapan.com) — static HTML, nginx
+// ---------------------------------------------------------------------------
+
+async function discoverPalms(): Promise<DiscoveredProduct[]> {
+  var results: DiscoveredProduct[] = [];
+  var listUrl = 'https://www.palmsjapan.com/lures/';
+  log('[palms] Fetching product list from: ' + listUrl);
+
+  var res = await fetch(listUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[palms] HTTP ' + res.status);
+  var html = await res.text();
+
+  // Extract product links: href="/lures/product/?name={slug}" or href="//product/?name={slug}"
+  var linkRegex = /href="[^"]*product\/\?name=([^"&]+)"/gi;
+  var match;
+  var seen = new Set<string>();
+
+  while ((match = linkRegex.exec(html)) !== null) {
+    var slug = match[1];
+    if (seen.has(slug)) continue;
+    seen.add(slug);
+
+    var fullUrl = 'https://www.palmsjapan.com/lures/product/?name=' + slug;
+
+    // Try to get name from nearby img alt or small text
+    var pName = slug.replace(/-/g, ' ');
+    results.push({ url: fullUrl, name: pName, maker: 'palms' });
+  }
+
+  log('[palms] Discovered ' + results.length + ' products');
+  return results;
+}
+
+var PALMS_EXCLUDED_NAMES = [
+  'フック', 'HOOK', 'hook',
+  'ジグヘッド', 'JIG HEAD',
+  'アシスト', 'ASSIST',
+  'スペア', 'SPARE',
+  'チラシ', 'チヌ針',
+];
+
+var PALMS_EXCLUDED_SLUGS = [
+  // Hook products to exclude
+  'shore-gun-evolv-treble',
+  'shore-gun-evolv-single',
+  'shore-gun-evolv-assist',
+  'mini-game-assist',
+  'the-micro-assist',
+  'smelt-tg-flasher-assist-hook',
+  'f-lead-flasher-hook',
+  'jighead',
+];
+
+// ---------------------------------------------------------------------------
+// MADNESS (madness.co.jp) — WordPress, fetch-only
+// ---------------------------------------------------------------------------
+
+async function discoverMadness(): Promise<DiscoveredProduct[]> {
+  var results: DiscoveredProduct[] = [];
+  var listUrl = 'https://www.madness.co.jp/category/products';
+  log('[madness] Fetching product list from: ' + listUrl);
+
+  var res = await fetch(listUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[madness] HTTP ' + res.status);
+  var html = await res.text();
+
+  // Extract product links: <a href="URL" title="PRODUCT NAME">
+  var linkRegex = /<a[^>]*href="(https?:\/\/www\.madness\.co\.jp\/products\/[^"]+)"[^>]*title="([^"]*)"[^>]*>/gi;
+  var match;
+  var seen = new Set<string>();
+
+  while ((match = linkRegex.exec(html)) !== null) {
+    var href = match[1];
+    var pName = match[2].trim();
+    if (seen.has(href)) continue;
+    seen.add(href);
+
+    results.push({ url: href, name: pName || href, maker: 'madness' });
+  }
+
+  // Also try gallery links (shiriten JIG 220 emperor links to /gallery/)
+  var galleryRegex = /<a[^>]*href="(https?:\/\/www\.madness\.co\.jp\/gallery\/[^"]+)"[^>]*title="([^"]*)"[^>]*>/gi;
+  while ((match = galleryRegex.exec(html)) !== null) {
+    var href2 = match[1];
+    var pName2 = match[2].trim();
+    if (seen.has(href2)) continue;
+    seen.add(href2);
+    results.push({ url: href2, name: pName2 || href2, maker: 'madness' });
+  }
+
+  log('[madness] Discovered ' + results.length + ' products');
+  return results;
+}
+
+var MADNESS_EXCLUDED_NAMES = [
+  'ジグヘッド', 'JIG HEAD', 'HEAD',
+  'フォーミュラ', 'FORMULA',
+];
+
+var MADNESS_EXCLUDED_SLUGS = [
+  'bakuree-head',      // ジグヘッド
+  'bakuru-formula',    // 集魚剤
+];
 
 const MANUFACTURERS: ManufacturerConfig[] = [
   {
@@ -3616,6 +4458,128 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // Non-lure: tungsten-weights, hooks, accessories — filtered by pa_color attribute
     // All REINS lures are soft baits (ワーム). "ワームもルアーやろ？"
     // Japanese site (reinjp.com) unreachable. USD pricing stored as 0.
+  },
+  {
+    slug: 'berkley',
+    name: 'Berkley',
+    discover: discoverBerkley,
+    excludedNameKeywords: ['fireline', 'vanish', 'trilene', 'x5 ', 'x9 ', 'messenger bag', 'mesh cap', 'jacket', 'cutter', 'clipper', 'plier', 'net', 'scale', 'stringer'],
+    excludedUrlSlugs: ['/line/', '/acse/', '/bag/'],
+    // purefishing.jp — Movable Type CMS, no REST API
+    // Sitemap: /sitemap.xml → filter /product/berkley/*.html
+    // Static HTML pages — fetch-only, no Playwright needed
+    // Two spec table layouts: soft bait (no weight) vs hard bait (with weight/length)
+    // Colors: spec table rows + swatch images (.productColorValidationArea)
+    // Price: ¥{amount} in spec table (税抜)
+  },
+  {
+    slug: 'engine',
+    name: 'ENGINE',
+    discover: discoverEngine,
+    excludedNameKeywords: [],
+    excludedUrlSlugs: [],
+    // engine.rings-fishing.jp — WordPress 6.2.2, product CPT at /page2/{slug}/
+    // Category pages: /syouhin/soft-bait/, /syouhin/hard-bait/, /syouhin/loops/, /syouhin/collaboration/
+    // Fetch-only, no Playwright needed. All products target ブラックバス.
+    // Soft bait detection: "入数" in spec text → ワーム
+  },
+  {
+    slug: 'hideup',
+    name: 'HIDEUP',
+    discover: discoverHideup,
+    excludedNameKeywords: [],
+    excludedUrlSlugs: HIDEUP_EXCLUDED_SLUGS,
+    // hideup.jp — Custom PHP + Bootstrap 5.3.3, no CMS/API/sitemap
+    // Single product listing at /product/, products at /product/{slug}.php
+    // Fetch-only, no Playwright needed. Primary target: ブラックバス, some saltwater.
+    // Soft bait detection: "入数" in spec text (but jig name takes priority)
+  },
+  {
+    slug: 'littlejack',
+    name: 'Little Jack',
+    discover: discoverLittleJack,
+    excludedNameKeywords: LITTLEJACK_EXCLUDED_NAMES,
+    excludedUrlSlugs: [],
+    // www.little-jack-lure.com — WordPress 6.6.4 + TCD Falcon theme
+    // WP REST API: /wp-json/wp/v2/pages?template=page-lp.php (LP pages = product pages)
+    // URL pattern: /?page_id={ID}. Fetch-only, no Playwright needed.
+    // Primary target: ソルトウォーター全般（シーバス、青物、根魚、イカ等）
+    // Colors: WordPress gallery (dl.gallery-item), JAN CODE table fallback
+    // "ワームもルアーやろ？" — soft lures are included.
+  },
+  {
+    slug: 'jumprize',
+    name: 'Jumprize',
+    discover: discoverJumprize,
+    excludedNameKeywords: JUMPRIZE_EXCLUDED_NAMES,
+    excludedUrlSlugs: [],
+    // jumprize.com — Jimdo Creator, sitemap.xml discovery
+    // Product pages: /lure/series{N}/{slug}/
+    // Fetch-only, no Playwright. Salt専門（シーバス・ヒラメ・青物）
+  },
+  {
+    slug: 'thirtyfour',
+    name: '34',
+    discover: discoverThirtyfour,
+    excludedNameKeywords: THIRTYFOUR_EXCLUDED_NAMES,
+    excludedUrlSlugs: [],
+    // 34net.jp — WordPress + custom theme, WP REST API
+    // Products: /products/worm/{slug}/ — ワーム専門
+    // Fetch-only, no Playwright. アジング専門（アジ・メバル）
+    // "ワームもルアーやろ？" — worms are included.
+  },
+  {
+    slug: 'tict',
+    name: 'TICT',
+    discover: discoverTict,
+    excludedNameKeywords: TICT_EXCLUDED_NAMES,
+    excludedUrlSlugs: TICT_EXCLUDED_SLUGS,
+    // tict-net.com — static HTML, Shift_JIS, nginx
+    // Product pages: /product/{slug}.html
+    // Fetch-only, no Playwright. ライトゲーム専門（アジ・メバル）
+  },
+  {
+    slug: 'noike',
+    name: 'NOIKE',
+    discover: discoverNoike,
+    excludedNameKeywords: NOIKE_EXCLUDED_NAMES,
+    excludedUrlSlugs: NOIKE_EXCLUDED_SLUGS,
+    // noike-m.com — WordPress 6.9, Lightning theme, WP REST API
+    // Product pages: /{slug}/
+    // Fetch-only, no Playwright. バス釣り専門（ブラックバス）
+    // "ワームもルアーやろ？" — worms are included.
+  },
+  {
+    slug: 'baitbreath',
+    name: 'BAIT BREATH',
+    discover: discoverBaitBreath,
+    excludedNameKeywords: BAITBREATH_EXCLUDED_NAMES,
+    excludedUrlSlugs: BAITBREATH_EXCLUDED_SLUGS,
+    // baitbreath.net — static HTML, HTTP-only, Apache
+    // Product pages: /{slug}.html
+    // Fetch-only, no Playwright. ワーム中心メーカー
+    // "ワームもルアーやろ？" — worms are included.
+  },
+  {
+    slug: 'palms',
+    name: 'Palms',
+    discover: discoverPalms,
+    excludedNameKeywords: PALMS_EXCLUDED_NAMES,
+    excludedUrlSlugs: PALMS_EXCLUDED_SLUGS,
+    // palmsjapan.com — static HTML, nginx, Bootstrap
+    // Product pages: /lures/product/?name={slug}
+    // Fetch-only, no Playwright. ソルト・トラウト向けハードルアー
+  },
+  {
+    slug: 'madness',
+    name: 'MADNESS',
+    discover: discoverMadness,
+    excludedNameKeywords: MADNESS_EXCLUDED_NAMES,
+    excludedUrlSlugs: MADNESS_EXCLUDED_SLUGS,
+    // madness.co.jp — WordPress, fetch-only
+    // Product pages: /products/{category}/{slug}
+    // シーバス・バス向け。ワーム含む。
+    // "ワームもルアーやろ？" — worms are included.
   },
 ];
 
