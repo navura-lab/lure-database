@@ -1,0 +1,61 @@
+name: Weekly Scraper Update
+
+on:
+  schedule:
+    # 毎週月曜 AM 9:00 JST (日曜 24:00 UTC)
+    - cron: '0 0 * * 1'
+  workflow_dispatch: # 手動実行も可能
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run BOREAS scraper
+        run: npx tsx scripts/scrapers/boreas.ts
+        env:
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+          AIRTABLE_LURE_URL_TABLE_ID: ${{ secrets.AIRTABLE_LURE_URL_TABLE_ID }}
+          AIRTABLE_MAKER_TABLE_ID: ${{ secrets.AIRTABLE_MAKER_TABLE_ID }}
+
+      - name: Run North Craft scraper
+        run: npx tsx scripts/scrapers/north-craft.ts
+        env:
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_PUBLIC_URL: ${{ secrets.R2_PUBLIC_URL }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+          AIRTABLE_LURE_URL_TABLE_ID: ${{ secrets.AIRTABLE_LURE_URL_TABLE_ID }}
+          AIRTABLE_MAKER_TABLE_ID: ${{ secrets.AIRTABLE_MAKER_TABLE_ID }}
+
+      # 新規データが追加された場合、Vercelを再デプロイ
+      - name: Trigger Vercel Deploy
+        run: |
+          curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK }}
+          echo "Deploy triggered"
