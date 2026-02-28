@@ -89,6 +89,31 @@ import { scrapeLonginPage } from './longin.js';
 import { scrapeSeafloorControlPage } from './seafloor-control.js';
 import { scrapeXestaPage } from './xesta.js';
 import { scrapeZeakePage } from './zeake.js';
+// --- New modular scrapers (Phase 3, 2026-03-01) ---
+import { scrapeSignalPage } from './signal.js';
+import { scrapeSkagitPage } from './skagit.js';
+import { scrapeSoulsPage } from './souls.js';
+import { scrapeThTacklePage } from './th-tackle.js';
+import { scrapeVivaPage } from './viva.js';
+import { scrapeYariePage } from './yarie.js';
+import { scrapeZeroDragonPage } from './zero-dragon.js';
+// --- Phase 3 batch A+B ---
+import { scrapeAtticPage } from './attic.js';
+import { scrapeDamikiPage } from './damiki.js';
+import { scrapeDreemupPage } from './dreemup.js';
+import { scrapeGodHandsPage } from './god-hands.js';
+import { scrapeGrassrootsPage } from './grassroots.js';
+import { scrapeItocraftPage } from './itocraft.js';
+import { scrapeIvyLinePage } from './ivy-line.js';
+import { scrapeJazzPage } from './jazz-lure.js';
+import { scrapeJungleGymPage } from './jungle-gym.js';
+import { scrapeMibroPage } from './mibro.js';
+import { scrapeObasslivePage } from './obasslive.js';
+import { scrapePhatLabPage } from './phat-lab.js';
+import { scrapePickupPage } from './pickup.js';
+import { scrapePozidriveGaragePage } from './pozidrive-garage.js';
+import { scrapeSeaFalconPage } from './sea-falcon.js';
+import { scrapeShoutPage } from './shout.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -176,6 +201,31 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   'seafloor-control': scrapeSeafloorControlPage,
   xesta: scrapeXestaPage,
   zeake: scrapeZeakePage,
+  // --- New modular scrapers (Phase 3, 2026-03-01) ---
+  signal: scrapeSignalPage,
+  skagit: scrapeSkagitPage,
+  souls: scrapeSoulsPage,
+  'th-tackle': scrapeThTacklePage,
+  viva: scrapeVivaPage,
+  yarie: scrapeYariePage,
+  'zero-dragon': scrapeZeroDragonPage,
+  // --- Phase 3 batch A+B ---
+  attic: scrapeAtticPage,
+  damiki: scrapeDamikiPage,
+  dreemup: scrapeDreemupPage,
+  'god-hands': scrapeGodHandsPage,
+  grassroots: scrapeGrassrootsPage,
+  itocraft: scrapeItocraftPage,
+  'ivy-line': scrapeIvyLinePage,
+  jazz: scrapeJazzPage,
+  'jungle-gym': scrapeJungleGymPage,
+  mibro: scrapeMibroPage,
+  obasslive: scrapeObasslivePage,
+  'phat-lab': scrapePhatLabPage,
+  pickup: scrapePickupPage,
+  'pozidrive-garage': scrapePozidriveGaragePage,
+  'sea-falcon': scrapeSeaFalconPage,
+  shout: scrapeShoutPage,
 };
 
 /**

@@ -1,0 +1,430 @@
+// scripts/scrapers/phat-lab.ts
+// PHAT LAB (phatlab.net / phat-lab.com) product page scraper
+// Fetch-only — no Playwright or cheerio needed.
+//
+// Site: Custom / possibly WordPress
+// Product URL pattern: https://phatlab.net/{product-slug}/ or https://phat-lab.com/...
+// Types: ビッグベイト
+// Target fish: ブラックバス
+
+import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
+
+// ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+const MANUFACTURER = 'PHAT LAB';
+const MANUFACTURER_SLUG = 'phat-lab';
+const SITE_BASE = 'https://phatlab.net';
+const DEFAULT_TARGET_FISH = ['ブラックバス'];
+
+// ---------------------------------------------------------------------------
+// Type detection
+// ---------------------------------------------------------------------------
+
+const TYPE_KEYWORDS: [RegExp, string][] = [
+  [/ビッグベイト|big\s*bait/i, 'ビッグベイト'],
+  [/ジョイント|jointed/i, 'ビッグベイト'],
+  [/スイムベイト|swim\s*bait/i, 'スイムベイト'],
+  [/クランク(?:ベイト)?|crank/i, 'クランクベイト'],
+  [/ミノー|minnow/i, 'ミノー'],
+  [/バイブレーション|vibration/i, 'バイブレーション'],
+  [/トップウォーター|topwater|ペンシルベイト|ポッパー/i, 'トップウォーター'],
+  [/ワーム|worm/i, 'ワーム'],
+  [/プラグ|plug/i, 'プラグ'],
+];
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+function timestamp(): string {
+  return new Date().toISOString();
+}
+
+function log(msg: string): void {
+  console.log(`[${timestamp()}] [phat-lab] ${msg}`);
+}
+
+function stripHtml(html: string): string {
+  return html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#(\d+);/g, (_m, code) => String.fromCharCode(parseInt(code)))
+    .replace(/[ \t]+/g, ' ')
+    .trim();
+}
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function makeAbsolute(href: string, base: string = SITE_BASE): string {
+  if (!href) return '';
+  if (href.startsWith('http://') || href.startsWith('https://')) return href;
+  if (href.startsWith('//')) return 'https:' + href;
+  if (href.startsWith('/')) return base + href;
+  return base + '/' + href;
+}
+
+function detectType(name: string, description: string): string {
+  const combined = `${name} ${description}`;
+  for (const [pattern, typeName] of TYPE_KEYWORDS) {
+    if (pattern.test(combined)) return typeName;
+  }
+  return 'ビッグベイト';
+}
+
+function parsePrice(text: string): number {
+  if (!text) return 0;
+  const cleaned = text.replace(/\s+/g, '');
+
+  const taxInclMatch = cleaned.match(/税込[^\d]*([\d,]+)/);
+  if (taxInclMatch) return parseInt(taxInclMatch[1].replace(/,/g, ''), 10);
+
+  const priceWithTaxMatch = cleaned.match(/([\d,]+)円[（(]税込/);
+  if (priceWithTaxMatch) return parseInt(priceWithTaxMatch[1].replace(/,/g, ''), 10);
+
+  const taxExclMatch = cleaned.match(/([\d,]+)円[（(]税(?:別|抜)/);
+  if (taxExclMatch) return Math.round(parseInt(taxExclMatch[1].replace(/,/g, ''), 10) * 1.1);
+
+  const yenMatch = cleaned.match(/[¥￥]([\d,]+)/);
+  if (yenMatch) return parseInt(yenMatch[1].replace(/,/g, ''), 10);
+
+  const plainMatch = cleaned.match(/([\d,]+)円/);
+  if (plainMatch) return parseInt(plainMatch[1].replace(/,/g, ''), 10);
+
+  return 0;
+}
+
+function parseWeights(text: string): number[] {
+  if (!text) return [];
+  const weights: number[] = [];
+  const normalized = text
+    .replace(/０/g, '0').replace(/１/g, '1').replace(/２/g, '2')
+    .replace(/３/g, '3').replace(/４/g, '4').replace(/５/g, '5')
+    .replace(/６/g, '6').replace(/７/g, '7').replace(/８/g, '8')
+    .replace(/９/g, '9').replace(/ｇ/g, 'g');
+
+  let match: RegExpExecArray | null;
+  const re = /([\d.]+)\s*g/gi;
+  while ((match = re.exec(normalized)) !== null) {
+    const w = parseFloat(match[1]);
+    if (w > 0 && w < 10000) weights.push(Math.round(w * 10) / 10);
+  }
+
+  // Also try oz-based weights (common for big baits)
+  const ozRe = /([\d.]+)\s*oz/gi;
+  while ((match = ozRe.exec(normalized)) !== null) {
+    const oz = parseFloat(match[1]);
+    if (oz > 0 && oz < 100) weights.push(Math.round(oz * 28.35 * 10) / 10);
+  }
+
+  return Array.from(new Set(weights)).sort((a, b) => a - b);
+}
+
+function parseLength(text: string): number | null {
+  if (!text) return null;
+  const mmMatch = text.match(/([\d.]+)\s*mm/i);
+  if (mmMatch) {
+    const len = parseFloat(mmMatch[1]);
+    if (len > 0 && len < 5000) return Math.round(len);
+  }
+  const cmMatch = text.match(/([\d.]+)\s*cm/i);
+  if (cmMatch) {
+    const mm = Math.round(parseFloat(cmMatch[1]) * 10);
+    if (mm > 0 && mm < 5000) return mm;
+  }
+  return null;
+}
+
+function deriveTargetFish(name: string, description: string): string[] {
+  const combined = `${name} ${description}`;
+  const fish: string[] = [];
+
+  if (/バス|ブラックバス|ラージ|スモール/i.test(combined)) fish.push('ブラックバス');
+  if (/ナマズ/i.test(combined)) fish.push('ナマズ');
+  if (/ライギョ|雷魚/i.test(combined)) fish.push('ライギョ');
+  if (/シーバス/i.test(combined)) fish.push('シーバス');
+
+  return fish.length > 0 ? fish : DEFAULT_TARGET_FISH;
+}
+
+function parseTableRows(tableHtml: string): string[][] {
+  const rows: string[][] = [];
+  const trMatches = tableHtml.match(/<tr[\s\S]*?<\/tr>/gi) || [];
+  for (const tr of trMatches) {
+    const cells: string[] = [];
+    const cellMatches = tr.match(/<(?:th|td)[^>]*>([\s\S]*?)<\/(?:th|td)>/gi) || [];
+    for (const cell of cellMatches) {
+      cells.push(stripHtml(cell));
+    }
+    if (cells.length > 0) rows.push(cells);
+  }
+  return rows;
+}
+
+// ---------------------------------------------------------------------------
+// Main scraper
+// ---------------------------------------------------------------------------
+
+export const scrapePhatLabPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  log(`Starting scrape: ${url}`);
+
+  // Determine base URL from the actual URL
+  const urlBase = url.includes('phat-lab.com') ? 'https://phat-lab.com' : SITE_BASE;
+
+  const res = await fetch(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      'Accept': 'text/html,application/xhtml+xml',
+      'Accept-Language': 'ja,en;q=0.9',
+    },
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+  const html = await res.text();
+
+  // --- Product name ---
+  let name = '';
+  const entryTitleMatch = html.match(/<h1[^>]*class=["'][^"']*entry-title[^"']*["'][^>]*>([\s\S]*?)<\/h1>/i);
+  if (entryTitleMatch) name = stripHtml(entryTitleMatch[1]).trim();
+  if (!name) {
+    const h1Match = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+    if (h1Match) name = stripHtml(h1Match[1]).trim();
+  }
+  if (!name) {
+    const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+    if (titleMatch) name = stripHtml(titleMatch[1]).replace(/\s*[|｜–—].*$/, '').trim();
+  }
+  if (!name) {
+    const ogMatch = html.match(/<meta\s+property=["']og:title["']\s+content=["']([^"']+)["']/i);
+    if (ogMatch) name = stripHtml(ogMatch[1]).replace(/\s*[|｜–—].*$/, '').trim();
+  }
+  if (!name) name = 'Unknown';
+  log(`Product name: ${name}`);
+
+  // --- Slug from URL ---
+  let slug = '';
+  try {
+    const urlObj = new URL(url);
+    const segments = urlObj.pathname.split('/').filter(Boolean);
+    // Skip common path prefixes like 'product', 'products', 'item'
+    const productIdx = segments.findIndex(s => /^(?:product|products|item|items)$/i.test(s));
+    if (productIdx >= 0 && segments[productIdx + 1]) {
+      slug = segments[productIdx + 1].toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/^-+|-+$/g, '');
+    } else {
+      slug = (segments[segments.length - 1] || '').toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/^-+|-+$/g, '');
+    }
+  } catch { /* ignore */ }
+  if (!slug) slug = slugify(name);
+  log(`Slug: ${slug}`);
+
+  // --- Main image ---
+  let mainImage = '';
+  const ogImageMatch = html.match(/<meta\s+(?:property|name)=["']og:image["']\s+content=["']([^"']+)["']/i)
+    || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:image["']/i);
+  if (ogImageMatch) mainImage = ogImageMatch[1];
+  if (!mainImage) {
+    const wpImgMatch = html.match(/<img[^>]+class=["'][^"']*wp-post-image[^"']*["'][^>]+src=["']([^"']+)["']/i);
+    if (wpImgMatch) mainImage = wpImgMatch[1];
+  }
+  if (!mainImage) {
+    const contentImgMatch = html.match(/(?:entry-content|product|main)[\s\S]*?<img[^>]+src=["']([^"']+)["']/i);
+    if (contentImgMatch) mainImage = contentImgMatch[1];
+  }
+  mainImage = makeAbsolute(mainImage, urlBase);
+  log(`Main image: ${mainImage}`);
+
+  // --- Description ---
+  let description = '';
+  const entryContentMatch = html.match(/<div[^>]*class=["'][^"']*entry-content[^"']*["'][^>]*>([\s\S]*?)<\/div>\s*(?:<footer|<div[^>]*class=["'][^"']*(?:under-entry|sns-share|post-share))/i)
+    || html.match(/<div[^>]*class=["'][^"']*entry-content[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+  if (entryContentMatch) {
+    const pMatches = entryContentMatch[1].match(/<p[^>]*>([\s\S]*?)<\/p>/gi) || [];
+    for (const p of pMatches) {
+      const text = stripHtml(p).trim();
+      if (text.length > 30 && !/spec|スペック|カラー|color|価格|price|重量/i.test(text.substring(0, 30))) {
+        description = text.replace(/\s+/g, ' ').substring(0, 500);
+        break;
+      }
+    }
+  }
+  if (!description) {
+    const metaDescMatch = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i);
+    if (metaDescMatch && metaDescMatch[1].length > 20) {
+      description = stripHtml(metaDescMatch[1]).substring(0, 500);
+    }
+  }
+  log(`Description: ${description.substring(0, 80)}...`);
+
+  // --- Spec table / spec text ---
+  let price = 0;
+  let weights: number[] = [];
+  let length: number | null = null;
+  let specText = '';
+
+  const tableMatches = html.match(/<table[\s\S]*?<\/table>/gi) || [];
+  for (const tableHtml of tableMatches) {
+    const tableText = stripHtml(tableHtml);
+    if (/重量|ウエイト|weight|全長|length|サイズ|size|価格|price|円/i.test(tableText)) {
+      specText += ' ' + tableText;
+      const rows = parseTableRows(tableHtml);
+
+      for (const cells of rows) {
+        if (cells.length >= 2) {
+          const label = cells[0];
+          const value = cells[1];
+
+          if (/重量|ウエイト|weight/i.test(label)) {
+            weights = weights.concat(parseWeights(value));
+          }
+          if (/全長|length|サイズ|レングス|size/i.test(label) && length === null) {
+            length = parseLength(value);
+          }
+          if (/価格|price|円/i.test(label) && price === 0) {
+            price = parsePrice(value);
+          }
+        }
+      }
+
+      if (rows.length >= 2) {
+        const headers = rows[0].map(h => h.toLowerCase());
+        const weightIdx = headers.findIndex(h => /重量|ウエイト|weight/i.test(h));
+        const lengthIdx = headers.findIndex(h => /全長|length|サイズ|size/i.test(h));
+        const priceIdx = headers.findIndex(h => /価格|price|円/i.test(h));
+
+        if (weightIdx >= 0 || priceIdx >= 0) {
+          for (let r = 1; r < rows.length; r++) {
+            if (weightIdx >= 0 && rows[r][weightIdx]) {
+              weights = weights.concat(parseWeights(rows[r][weightIdx]));
+            }
+            if (lengthIdx >= 0 && length === null && rows[r][lengthIdx]) {
+              length = parseLength(rows[r][lengthIdx]);
+            }
+            if (priceIdx >= 0 && price === 0 && rows[r][priceIdx]) {
+              price = parsePrice(rows[r][priceIdx]);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Fallback: also check dl/dt/dd spec lists (common in custom themes)
+  if (weights.length === 0 || price === 0) {
+    const dlMatches = html.match(/<dl[\s\S]*?<\/dl>/gi) || [];
+    for (const dl of dlMatches) {
+      const dtDdPairs = Array.from(dl.matchAll(/<dt[^>]*>([\s\S]*?)<\/dt>\s*<dd[^>]*>([\s\S]*?)<\/dd>/gi));
+      for (const [, dtHtml, ddHtml] of dtDdPairs) {
+        const label = stripHtml(dtHtml);
+        const value = stripHtml(ddHtml);
+        if (/重量|ウエイト|weight/i.test(label) && weights.length === 0) {
+          weights = weights.concat(parseWeights(value));
+        }
+        if (/全長|length|サイズ/i.test(label) && length === null) {
+          length = parseLength(value);
+        }
+        if (/価格|price|円/i.test(label) && price === 0) {
+          price = parsePrice(value);
+        }
+      }
+    }
+  }
+
+  if (weights.length === 0) weights = parseWeights(specText || stripHtml(html));
+  if (length === null) length = parseLength(specText || stripHtml(html));
+  if (price === 0) price = parsePrice(specText || stripHtml(html));
+
+  weights = Array.from(new Set(weights)).sort((a, b) => a - b);
+  log(`Weights: [${weights.join(', ')}], Length: ${length}mm, Price: ${price}`);
+
+  // --- Colors ---
+  const colors: ScrapedColor[] = [];
+  const seenColors = new Set<string>();
+
+  // Gallery
+  const galleryMatch = html.match(/wp-block-gallery[\s\S]*?<\/(?:figure|div)>/i);
+  if (galleryMatch) {
+    const figureMatches = galleryMatch[0].match(/<figure[^>]*>[\s\S]*?<\/figure>/gi) || [];
+    for (const fig of figureMatches) {
+      const imgMatch = fig.match(/<img[^>]+(?:data-src|src)=["']([^"']+)["']/i);
+      const captionMatch = fig.match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/i);
+      if (imgMatch && captionMatch) {
+        const colorName = stripHtml(captionMatch[1]).trim();
+        if (colorName && !seenColors.has(colorName)) {
+          seenColors.add(colorName);
+          colors.push({ name: colorName, imageUrl: makeAbsolute(imgMatch[1], urlBase) });
+        }
+      }
+    }
+  }
+
+  if (colors.length === 0) {
+    const figMatches = html.match(/<figure[^>]*>[\s\S]*?<\/figure>/gi) || [];
+    for (const fig of figMatches) {
+      const imgMatch = fig.match(/<img[^>]+(?:data-src|src)=["']([^"']+)["']/i);
+      const captionMatch = fig.match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/i);
+      if (imgMatch && captionMatch) {
+        const colorName = stripHtml(captionMatch[1]).trim();
+        if (colorName && colorName.length < 50 && !seenColors.has(colorName) &&
+            !/spec|スペック|price|価格|重量|weight/i.test(colorName)) {
+          seenColors.add(colorName);
+          colors.push({ name: colorName, imageUrl: makeAbsolute(imgMatch[1], urlBase) });
+        }
+      }
+    }
+  }
+
+  if (colors.length === 0) {
+    const colorImgMatches = html.match(/<img[^>]+src=["'][^"']*(?:color|col_|カラー)[^"']*["'][^>]*>/gi) || [];
+    for (const imgTag of colorImgMatches) {
+      const srcMatch = imgTag.match(/src=["']([^"']+)["']/i);
+      const altMatch = imgTag.match(/alt=["']([^"']+)["']/i);
+      if (srcMatch && altMatch) {
+        const colorName = altMatch[1].trim();
+        if (colorName && !seenColors.has(colorName)) {
+          seenColors.add(colorName);
+          colors.push({ name: colorName, imageUrl: makeAbsolute(srcMatch[1], urlBase) });
+        }
+      }
+    }
+  }
+
+  log(`Colors: ${colors.length}`);
+
+  const type = detectType(name, description);
+  log(`Type: ${type}`);
+
+  const target_fish = deriveTargetFish(name, description);
+  log(`Target fish: [${target_fish.join(', ')}]`);
+
+  const result: ScrapedLure = {
+    name,
+    name_kana: '',
+    slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type,
+    target_fish,
+    description,
+    price,
+    colors,
+    weights,
+    length,
+    mainImage,
+    sourceUrl: url,
+  };
+
+  log(`Done: ${name} | type=${type} | colors=${colors.length} | weights=[${weights.join(',')}] | length=${length}mm | price=${price}`);
+  return result;
+};
