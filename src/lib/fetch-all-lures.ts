@@ -14,6 +14,7 @@ export async function fetchAllLures() {
     const { data, error } = await supabase
       .from('lures')
       .select('*')
+      .order('id', { ascending: true })
       .range(from, from + pageSize - 1);
 
     if (error) {
