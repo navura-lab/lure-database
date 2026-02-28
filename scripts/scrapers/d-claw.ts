@@ -16,6 +16,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -626,7 +627,75 @@ async function main() {
   log('========================================');
 }
 
-main().catch(err => {
-  logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
-  process.exit(1);
-});
+// ---------------------------------------------------------------------------
+// Modular ScraperFunction export
+// ---------------------------------------------------------------------------
+
+export const scrapeDClawPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  const html = await fetchPage(url);
+
+  // Try to match against known product definitions by page filename
+  const pageFile = url.split('/').pop() || '';
+  const productDef = PRODUCTS.find(p => p.page === pageFile);
+
+  const specRows = parseSpecTables(html);
+  const colorImages = parseColorImages(html);
+  const description = parseDescription(html);
+  const mainImageUrl = parseMainImage(html);
+
+  // Product name: from definition or from HTML
+  let name = productDef?.name || '';
+  if (!name) {
+    // Try to extract from <h2> or <title>
+    const h2Match = html.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
+    if (h2Match) name = stripTags(h2Match[1]);
+    if (!name) {
+      const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+      if (titleMatch) name = stripTags(titleMatch[1]).replace(/\s*[-|]\s*D-Claw.*$/i, '').trim();
+    }
+  }
+
+  const slug = productDef?.slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const type = productDef?.type || 'ダイビングペンシル';
+  const targetFish = productDef?.targetFish || ['マグロ', 'ヒラマサ', 'カンパチ', 'GT'];
+
+  // Unique colors from spec rows
+  const uniqueColorNames = [...new Set(specRows.map(r => r.colorName))];
+  // Build color list — try to match color names to color images by index
+  const colors = uniqueColorNames.map((colorName, idx) => ({
+    name: colorName,
+    imageUrl: idx < colorImages.length ? colorImages[idx].url : '',
+  }));
+
+  // Weights and price
+  const weights = [...new Set(specRows.map(r => r.weight).filter((w): w is number => w !== null))];
+  const price = specRows.length > 0 && specRows[0].price > 0 ? Math.round(specRows[0].price * 1.1) : 0;
+  const lengths = specRows.map(r => r.length).filter((l): l is number => l !== null);
+  const length = lengths.length > 0 ? lengths[0] : null;
+
+  return {
+    name,
+    name_kana: '',
+    slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type,
+    target_fish: targetFish,
+    description,
+    price,
+    colors,
+    weights,
+    length,
+    mainImage: mainImageUrl || '',
+    sourceUrl: url,
+  };
+};
+
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/d-claw');
+if (isDirectRun) {
+  main().catch(err => {
+    logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  });
+}

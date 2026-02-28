@@ -15,6 +15,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -510,7 +511,48 @@ async function main(): Promise<void> {
   log(`========================================`);
 }
 
-main().catch(e => {
-  logError(`Fatal: ${e}`);
-  process.exit(1);
-});
+// ---------------------------------------------------------------------------
+// Modular ScraperFunction export
+// ---------------------------------------------------------------------------
+
+export const scrapeDeepLinerPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  const html = await fetchPage(url);
+
+  const name = parseProductName(html);
+  if (!name) throw new Error(`[deep-liner] Could not extract product name from ${url}`);
+
+  const description = parseDescription(html) || parseCharacteristics(html);
+  const weights = parseWeights(html);
+  const mainImageUrl = parseMainImage(html);
+  const actionTypes = parseActionTypes(html);
+
+  // Extract slug from URL path: /jig/{slug}.html
+  const slugMatch = url.match(/\/jig\/([^/.]+)\.html/);
+  const slug = slugMatch ? slugMatch[1] : name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  return {
+    name,
+    name_kana: '',
+    slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type: 'メタルジグ',
+    target_fish: ['オフショア'],
+    description: actionTypes ? `${description} ${actionTypes}`.trim() : description,
+    price: 0,
+    colors: [], // Deep Liner has no color data in HTML
+    weights,
+    length: null,
+    mainImage: mainImageUrl || '',
+    sourceUrl: url,
+  };
+};
+
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/deep-liner');
+if (isDirectRun) {
+  main().catch(e => {
+    logError(`Fatal: ${e}`);
+    process.exit(1);
+  });
+}

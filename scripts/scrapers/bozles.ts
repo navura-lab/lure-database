@@ -14,6 +14,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -768,7 +769,77 @@ async function main(): Promise<void> {
   log(`========================================`);
 }
 
-main().catch(e => {
-  logError(`Fatal: ${e}`);
-  process.exit(1);
-});
+// ---------------------------------------------------------------------------
+// Modular ScraperFunction export
+// ---------------------------------------------------------------------------
+
+export const scrapeBozlesPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  const html = await fetchPage(url);
+
+  let bootstrap: Record<string, unknown>;
+  try {
+    bootstrap = extractBootstrapState(html);
+  } catch (e) {
+    throw new Error(`[bozles] Failed to extract bootstrap state from ${url}: ${e}`);
+  }
+
+  const cells = getCells(bootstrap);
+
+  // Product name
+  const name = parseProductName(cells, bootstrap);
+  if (!name) throw new Error(`[bozles] Could not extract product name from ${url}`);
+
+  // Description
+  const description = parseDescription(cells);
+
+  // Main image
+  const mainImageUrl = parseMainImage(cells);
+
+  // Specs (weight/price)
+  const specCell = findCellByType(cells, 'spec');
+  const specs = specCell ? parseSpecsFromCell(specCell) : [];
+
+  // Colors
+  const colorCell = findCellByType(cells, 'color');
+  const rawColors = colorCell ? parseColorsFromCell(colorCell) : [];
+
+  // Convert to ScrapedLure format
+  const colors = rawColors.map(c => ({ name: c.name, imageUrl: c.imageUrl }));
+  const weights = [...new Set(specs.map(s => s.weight).filter((w): w is number => w !== null))];
+  const price = specs.length > 0 ? specs[0].price : 0;
+  const lengths = specs.map(s => s.length).filter((l): l is number => l !== null);
+  const length = lengths.length > 0 ? lengths[0] : null;
+
+  // Determine slug from URL route
+  const routeMatch = url.match(/\/page-(\d+)/);
+  const route = routeMatch ? `page-${routeMatch[1]}` : '';
+  const pageDef = LURE_PAGES.find(p => p.route === route);
+  const slug = pageDef?.slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const type = pageDef?.type || 'メタルジグ';
+
+  return {
+    name,
+    name_kana: '',
+    slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type,
+    target_fish: ['オフショア'],
+    description,
+    price,
+    colors,
+    weights,
+    length,
+    mainImage: mainImageUrl || '',
+    sourceUrl: url,
+  };
+};
+
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/bozles');
+if (isDirectRun) {
+  main().catch(e => {
+    logError(`Fatal: ${e}`);
+    process.exit(1);
+  });
+}

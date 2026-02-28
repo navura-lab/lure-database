@@ -14,6 +14,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure } from './types.js';
 
 // ===========================================================================
 // Constants
@@ -845,7 +846,65 @@ async function main(): Promise<void> {
   log(`========================================`);
 }
 
-main().catch(e => {
-  logError(`Fatal: ${e}`);
-  process.exit(1);
-});
+// ---------------------------------------------------------------------------
+// Modular ScraperFunction export
+// ---------------------------------------------------------------------------
+
+export const scrapeCarpenterPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  const html = await fetchPage(url);
+
+  // Try to match against known product definitions by URL
+  const productDef = PRODUCTS.find(p => url.includes(p.pageUrl.replace(SITE_BASE, '').replace('https://www.carpenter.ne.jp', '')));
+
+  // Extract specs from the page HTML (inline mode for individual pages)
+  const variants = extractSpecsFromInline(html);
+
+  // Extract main image and description from the page
+  const mainImageUrl = extractMainImageUrl(html, url);
+  const description = extractDescription(html);
+
+  // Parse product name from HTML
+  let name = '';
+  // Try <title> tag
+  const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  if (titleMatch) {
+    name = stripTags(titleMatch[1]).replace(/\s*[-|]\s*Carpenter.*$/i, '').trim();
+  }
+  // Use product def name if available
+  if (productDef) name = productDef.name;
+
+  const nameKana = productDef?.nameKana || '';
+  const slug = productDef?.slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const type = productDef?.type || 'ペンシル';
+  const targetFish = productDef?.targetFish || ['GT', 'マグロ', 'ヒラマサ'];
+
+  const weights = variants.map(v => v.weight);
+  const length = variants.length > 0 ? variants[0].length : null;
+  const price = 0; // Carpenter does not list prices
+
+  return {
+    name,
+    name_kana: nameKana,
+    slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type,
+    target_fish: targetFish,
+    description,
+    price,
+    colors: [], // Carpenter has no individual color data
+    weights,
+    length: length && length > 0 ? length : null,
+    mainImage: mainImageUrl || '',
+    sourceUrl: url,
+  };
+};
+
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/carpenter');
+if (isDirectRun) {
+  main().catch(e => {
+    logError(`Fatal: ${e}`);
+    process.exit(1);
+  });
+}

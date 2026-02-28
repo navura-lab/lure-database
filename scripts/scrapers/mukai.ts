@@ -13,6 +13,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure, ScrapedColor as ScrapedColorType } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -444,6 +445,127 @@ function scrapePost(post: WPPost): ScrapedProduct | null {
 }
 
 // ---------------------------------------------------------------------------
+// Exported ScraperFunction — fetches a single product page by URL
+// ---------------------------------------------------------------------------
+
+export const scrapeMukaiPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  // Try to extract post slug or ID from the URL
+  // URLs like: https://www.mukai-fishing.jp/xxxx/ or https://www.mukai-fishing.jp/?p=1234
+  const postIdMatch = url.match(/[?&]p=(\d+)/);
+  let apiPost: WPPost | null = null;
+
+  if (postIdMatch) {
+    // Fetch via WP REST API using post ID
+    const apiUrl = `${API_BASE}/posts/${postIdMatch[1]}?_fields=id,title,content,link,slug,categories`;
+    const res = await fetch(apiUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+    });
+    if (res.ok) {
+      apiPost = await res.json() as WPPost;
+    }
+  }
+
+  if (!apiPost) {
+    // Try slug-based API lookup
+    // Extract slug from URL: https://www.mukai-fishing.jp/SLUG/ or /archives/1234
+    const pathMatch = url.match(/mukai-fishing\.jp\/([^/?#]+)\/?$/);
+    if (pathMatch && pathMatch[1] !== 'archives') {
+      const apiUrl = `${API_BASE}/posts?slug=${encodeURIComponent(pathMatch[1])}&_fields=id,title,content,link,slug,categories`;
+      const res = await fetch(apiUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+      });
+      if (res.ok) {
+        const posts = await res.json() as WPPost[];
+        if (posts.length > 0) apiPost = posts[0];
+      }
+    }
+  }
+
+  if (!apiPost) {
+    // Fallback: fetch HTML page directly and parse
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+    });
+    if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+    const fullHtml = await res.text();
+
+    // Extract title
+    const titleMatch = fullHtml.match(/<h1[^>]*class="[^"]*entry-title[^"]*"[^>]*>([\s\S]*?)<\/h1>/i)
+      || fullHtml.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+    const name = titleMatch ? stripTags(titleMatch[1]).replace(/\s*[|–—].*$/, '').trim() : 'Unknown';
+
+    // Extract content area
+    const contentMatch = fullHtml.match(/<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*?)<\/div>\s*(?:<footer|<nav|<div[^>]*class="[^"]*(?:post-share|entry-footer))/i)
+      || fullHtml.match(/<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*)/i);
+    const contentHtml = contentMatch ? contentMatch[1] : fullHtml;
+
+    // Try to extract post ID from page for slug generation
+    const pageIdMatch = fullHtml.match(/class="[^"]*post-(\d+)[^"]*"/);
+    const postId = pageIdMatch ? parseInt(pageIdMatch[1]) : 0;
+
+    const slug = generateSlug(name, postId);
+    const description = extractDescription(contentHtml);
+    const { weight, length, price, weights } = extractSpecs(contentHtml);
+    const colors = extractColorsFromTable(contentHtml);
+    const mainImageUrl = extractMainImage(contentHtml);
+
+    const typedColors: ScrapedColorType[] = colors.map(c => ({
+      name: c.name,
+      imageUrl: c.imageUrl || '',
+    }));
+
+    return {
+      name,
+      name_kana: '',
+      slug,
+      manufacturer: MANUFACTURER,
+      manufacturer_slug: MANUFACTURER_SLUG,
+      type: 'トラウトルアー',
+      target_fish: ['トラウト'],
+      description,
+      price: price || 0,
+      colors: typedColors,
+      weights: weights.length > 0 ? weights : (weight ? [weight] : []),
+      length,
+      mainImage: mainImageUrl || '',
+      sourceUrl: url,
+    };
+  }
+
+  // We have API data — use existing scrapePost logic
+  const product = scrapePost(apiPost);
+  if (!product) {
+    throw new Error(`Could not parse product from API data for ${url}`);
+  }
+
+  const typedColors: ScrapedColorType[] = product.colors.map(c => ({
+    name: c.name,
+    imageUrl: c.imageUrl || '',
+  }));
+
+  const weights = product.weights.length > 0
+    ? product.weights
+    : (product.weight ? [product.weight] : []);
+
+  return {
+    name: product.name,
+    name_kana: '',
+    slug: product.slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type: product.type,
+    target_fish: ['トラウト'],
+    description: product.description,
+    price: product.price || 0,
+    colors: typedColors,
+    weights,
+    length: product.length,
+    mainImage: product.mainImageUrl || '',
+    sourceUrl: url,
+  };
+};
+
+// ---------------------------------------------------------------------------
 // Main pipeline
 // ---------------------------------------------------------------------------
 
@@ -649,7 +771,11 @@ async function main(): Promise<void> {
   log(`========================================`);
 }
 
-main().catch(e => {
-  logError(`Fatal: ${e}`);
-  process.exit(1);
-});
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/mukai');
+if (isDirectRun) {
+  main().catch(e => {
+    logError(`Fatal: ${e}`);
+    process.exit(1);
+  });
+}

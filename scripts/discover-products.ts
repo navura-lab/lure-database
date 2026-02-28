@@ -4109,6 +4109,1408 @@ var MADNESS_EXCLUDED_SLUGS = [
   'bakuru-formula',    // 集魚剤
 ];
 
+// ---------------------------------------------------------------------------
+// Forest — static HTML (forestjp.com)
+// Category pages: /products/area-lure/ and /products/native-lure/
+// ---------------------------------------------------------------------------
+
+async function discoverForest(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+
+  var categories = [
+    'https://forestjp.com/products/area-lure/',
+    'https://forestjp.com/products/native-lure/',
+  ];
+
+  for (var ci = 0; ci < categories.length; ci++) {
+    var catUrl = categories[ci];
+    log('[forest] Fetching category: ' + catUrl);
+    var res = await fetch(catUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+    });
+    if (!res.ok) { log('[forest] HTTP ' + res.status + ' for ' + catUrl); continue; }
+    var html = await res.text();
+
+    // Product links: <a href="https://forestjp.com/products/{area-lure|native-lure}/{slug}/" title="PRODUCT_NAME">
+    var linkPattern = /<a\s+href="(https?:\/\/forestjp\.com\/products\/(?:area-lure|native-lure)\/[^"]+)"\s+title="([^"]+)"/gi;
+    var match;
+    while ((match = linkPattern.exec(html)) !== null) {
+      var href = match[1];
+      var pName = match[2].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&#(\d+);/g, function(_m: string, code: string) { return String.fromCharCode(parseInt(code)); }).trim();
+      if (!href.endsWith('/')) href += '/';
+      if (seen.has(href)) continue;
+      seen.add(href);
+      results.push({ url: href, name: pName });
+    }
+
+    await sleep(500);
+  }
+
+  log('[forest] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// HMKL — static HTML (hmklnet.com, Shift_JIS)
+// Product listing at /products/, individual pages at /products/pickup/{name}/
+// ---------------------------------------------------------------------------
+
+async function discoverHmkl(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+  var SKIP_PAGES = ['blankmodel', 'material', 'shoporiginal', '2021lb'];
+
+  var listUrl = 'http://www.hmklnet.com/products/';
+  log('[hmkl] Fetching products listing: ' + listUrl);
+  var res = await fetch(listUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[hmkl] HTTP ' + res.status);
+  var buffer = Buffer.from(await res.arrayBuffer());
+  var decoder = new TextDecoder('shift_jis');
+  var html = decoder.decode(buffer);
+
+  // Extract all href="pickup/XXX" links
+  var linkPattern = /href="pickup\/([^"]+)"/gi;
+  var match;
+  while ((match = linkPattern.exec(html)) !== null) {
+    var pickupName = match[1].replace(/\/$/, '').replace(/\/index\.html?$/, '');
+    if (SKIP_PAGES.indexOf(pickupName.toLowerCase()) !== -1) continue;
+    if (seen.has(pickupName)) continue;
+    seen.add(pickupName);
+
+    var productUrl = 'http://www.hmklnet.com/products/pickup/' + pickupName + '/';
+    var displayName = pickupName.replace(/\+/g, ' ');
+    results.push({ url: productUrl, name: displayName });
+  }
+
+  log('[hmkl] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// HOTS — hardcoded product URLs from PRODUCTS constant
+// ---------------------------------------------------------------------------
+
+async function discoverHots(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var HOTS_PRODUCTS = [
+    { name: 'NS JIG', page: 'lure-ns-jig.html' },
+    { name: 'KALCHI SUPER LONG JIG', page: 'lure-Kalchi-jig.html' },
+    { name: 'KEITAN JIG', page: 'lure-keitan.html' },
+    { name: 'Drift tune', page: 'lure-drift-tune.html' },
+    { name: 'DEBUTAN JIG', page: 'lure-debutan.html' },
+    { name: 'KEITAN JIG STD.', page: 'lure-keitan-std.html' },
+    { name: 'KEITAN JIG Aluminum', page: 'lure-keitan-jig-alumi.html' },
+    { name: 'KS JIG', page: 'lure-ks-jig.html' },
+    { name: 'Otoko JIG', page: 'lure-otoko-jig.html' },
+    { name: 'R2 JIG', page: 'lure-r2-jig.html' },
+    { name: 'Y2 JIG', page: 'lure-y2-jig.html' },
+    { name: 'Conker', page: 'lure-conker.html' },
+    { name: 'CHIBITAN', page: 'lure-chibitan.html' },
+    { name: 'Skill Gamma', page: 'lure-skill-gamma.html' },
+    { name: 'SLASH BLADE', page: 'lure-slash-blade.html' },
+    { name: 'Bigfin', page: 'lure-big-fin.html' },
+    { name: 'KEIKO OCEAN BULL', page: 'lure-keiko-bull.html' },
+    { name: 'KEIKO OCEAN GATARO', page: 'lure-keiko-gataro.html' },
+    { name: 'KEIKO OCEAN ATTUMA', page: 'lure-keiko-attuma.html' },
+    { name: 'KEIKO OCEAN CHUGAYU', page: 'lure-keiko-chugayu.html' },
+    { name: 'KEIKO OCEAN', page: 'lure-keiko-ocean.html' },
+    { name: 'KEIKO OCEAN POPPER Rv.', page: 'lure-keiko-popper.html' },
+    { name: 'IGOSSO', page: 'lure-igosso.html' },
+    { name: 'Tide Bait.Sardine', page: 'lure-tidebait.html' },
+    { name: 'Chug & MiniChag', page: 'lure-chug-mini.html' },
+  ];
+
+  var results: Array<{ url: string; name: string }> = [];
+  for (var i = 0; i < HOTS_PRODUCTS.length; i++) {
+    results.push({
+      url: 'https://hots.co.jp/' + HOTS_PRODUCTS[i].page,
+      name: HOTS_PRODUCTS[i].name,
+    });
+  }
+
+  log('[hots] Discovered ' + results.length + ' products (hardcoded)');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// JADO (邪道) — hardcoded product URLs from PRODUCTS constant
+// All products on single page: https://ja-do.jp/products
+// ---------------------------------------------------------------------------
+
+async function discoverJado(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  // All JADO products are on one page, with per-product tabs.
+  // The scraper uses the page URL for all products.
+  var JADO_PRODUCTS = [
+    { name: '乱牙65', slug: 'ranga-65' },
+    { name: '乱牙75', slug: 'ranga-75' },
+    { name: 'ERDA零イノベーター', slug: 'erda-zero-innovator' },
+    { name: 'ERDA零999', slug: 'erda-zero-999' },
+    { name: 'ERDA GARURU 132F', slug: 'erda-garuru-132f' },
+    { name: 'ERDA TEUFEL 125F', slug: 'erda-teufel-125f' },
+    { name: 'ERDA86', slug: 'erda-86' },
+    { name: '冷音', slug: 'rein' },
+    { name: '冷斬', slug: 'rezan' },
+    { name: 'Envy', slug: 'envy' },
+    { name: 'Yore Yore', slug: 'yore-yore' },
+  ];
+
+  var results: Array<{ url: string; name: string }> = [];
+  for (var i = 0; i < JADO_PRODUCTS.length; i++) {
+    results.push({
+      url: 'https://ja-do.jp/products',
+      name: JADO_PRODUCTS[i].name,
+    });
+  }
+
+  log('[ja-do] Discovered ' + results.length + ' products (hardcoded)');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// MC Works — static HTML (mcworks.jp)
+// Category pages at /products/prodyct_category/{slug} (note typo in real URL)
+// ---------------------------------------------------------------------------
+
+async function discoverMcWorks(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+
+  var categorySlugs = [
+    'killer-jig', 'gutter-jig', 'bunchin', 'guttup', 'catup', 'gravel', 'tarmac',
+  ];
+
+  for (var ci = 0; ci < categorySlugs.length; ci++) {
+    var catUrl = 'https://www.mcworks.jp/products/prodyct_category/' + categorySlugs[ci];
+    log('[mc-works] Fetching category: ' + categorySlugs[ci]);
+    try {
+      var res = await fetch(catUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+      });
+      if (!res.ok) { log('[mc-works] HTTP ' + res.status + ' for ' + catUrl); continue; }
+      var html = await res.text();
+
+      // Product links: <a ... href="https://www.mcworks.jp/products/{id}"><h3 class="content-title"><span>{name}</h3>
+      var linkRegex = /<a[^>]+href="(https?:\/\/www\.mcworks\.jp\/products\/(\d+))"[^>]*>\s*<h3\s+class="content-title">(?:<span>)?([^<]+)/gi;
+      var match;
+      while ((match = linkRegex.exec(html)) !== null) {
+        var href = match[1];
+        var pName = match[3].trim();
+        if (seen.has(href)) continue;
+        seen.add(href);
+        results.push({ url: href, name: pName });
+      }
+
+      await sleep(300);
+    } catch (err) {
+      log('[mc-works] Category fetch failed (' + categorySlugs[ci] + '): ' + (err instanceof Error ? err.message : err));
+    }
+  }
+
+  log('[mc-works] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// MUKAI — WordPress REST API (mukai-fishing.jp)
+// Posts with category=4 (lure products)
+// ---------------------------------------------------------------------------
+
+async function discoverMukai(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var pageNum = 1;
+
+  log('[mukai] Fetching lure posts from WP REST API (categories=4)...');
+
+  while (true) {
+    var apiUrl = 'https://www.mukai-fishing.jp/wp-json/wp/v2/posts?categories=4&per_page=100&page=' + pageNum + '&_fields=id,title,link,slug';
+    var res = await fetch(apiUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+    });
+    if (!res.ok) break;
+    var posts: Array<{ id: number; link: string; title: { rendered: string }; slug: string }> = await res.json();
+    if (posts.length === 0) break;
+
+    for (var i = 0; i < posts.length; i++) {
+      var p = posts[i];
+      var pName = p.title.rendered
+        .replace(/&#\d+;/g, function(m: string) { return String.fromCharCode(parseInt(m.slice(2, -1))); })
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .trim();
+      results.push({ url: p.link, name: pName });
+    }
+
+    log('[mukai] Page ' + pageNum + ': ' + posts.length + ' posts, ' + results.length + ' total');
+    if (posts.length < 100) break;
+    pageNum++;
+    await sleep(300);
+  }
+
+  log('[mukai] Discovered ' + results.length + ' lure products via WP REST API');
+  return results;
+}
+
+var MUKAI_SKIP_POST_IDS = [
+  2750, 2651, 2443, 2240, 2061, 1849, 318, 264, 203,
+];
+
+// ---------------------------------------------------------------------------
+// Nature Boys — WordPress REST API (e-natureboys.com)
+// Pages with categories 6 (IRON JIG) and 35 (LURE)
+// ---------------------------------------------------------------------------
+
+async function discoverNatureBoys(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var seenIds = new Set<number>();
+  var categories = [6, 35]; // 6=IRON JIG, 35=LURE
+  var SKIP_TITLES_NB = ['REUSE JIG', 'IRONWILL', 'IRONHOOK', 'IRONFLICK', 'IRONRANGE', 'IRONCAT', 'NCO REACTOR', 'SPINNING KNOTTER'];
+
+  log('[nature-boys] Fetching pages from WP REST API...');
+
+  for (var ci = 0; ci < categories.length; ci++) {
+    var catId = categories[ci];
+    var apiUrl = 'https://www.e-natureboys.com/wp-json/wp/v2/pages?categories=' + catId + '&per_page=100&_fields=id,slug,title,link,categories';
+    log('[nature-boys] Fetching category ' + catId + ': ' + apiUrl);
+
+    var res = await fetch(apiUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+    });
+    if (!res.ok) { log('[nature-boys] HTTP ' + res.status + ' for category ' + catId); continue; }
+    var pages: Array<{ id: number; slug: string; title: { rendered: string }; link: string; categories: number[] }> = await res.json();
+
+    for (var i = 0; i < pages.length; i++) {
+      var pg = pages[i];
+      if (seenIds.has(pg.id)) continue;
+      seenIds.add(pg.id);
+
+      // Skip accessories/rods
+      var titleText = pg.title.rendered.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').trim().toUpperCase();
+      var skip = false;
+      for (var si = 0; si < SKIP_TITLES_NB.length; si++) {
+        if (titleText.indexOf(SKIP_TITLES_NB[si]) !== -1) { skip = true; break; }
+      }
+      if (skip) continue;
+
+      var pName = pg.title.rendered
+        .replace(/&#\d+;/g, function(m: string) { return String.fromCharCode(parseInt(m.slice(2, -1))); })
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .trim();
+      results.push({ url: pg.link, name: pName });
+    }
+
+    await sleep(300);
+  }
+
+  log('[nature-boys] Discovered ' + results.length + ' products via WP REST API');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// NORTH CRAFT — static HTML (rapala.co.jp/cn10/)
+// Product links from top page lure section
+// ---------------------------------------------------------------------------
+
+async function discoverNorthCraft(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+
+  var topUrl = 'https://rapala.co.jp/cn10/nrothcraft_top.html';
+  log('[north-craft] Fetching top page: ' + topUrl);
+  var res = await fetch(topUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[north-craft] HTTP ' + res.status);
+  var html = await res.text();
+
+  // Extract lure section (between northcraft_lure and northcraft_cap)
+  var parts1 = html.split(/id\s*=\s*["']northcraft_lure["']/i);
+  var lureSection = (parts1.length > 1 ? parts1[1] : '');
+  var parts2 = lureSection.split(/id\s*=\s*["']northcraft_cap["']/i);
+  lureSection = parts2[0] || '';
+
+  // Match all .html links in the lure section
+  var linkPattern = /href\s*=\s*["']([^"']+\.html)["']/gi;
+  var match;
+  while ((match = linkPattern.exec(lureSection)) !== null) {
+    var href = match[1];
+    if (href.indexOf('nrothcraft_top') !== -1) continue;
+    if (href.indexOf('nc_') !== -1) continue;
+    if (href.indexOf('javascript') !== -1) continue;
+    if (href.indexOf('index.html') !== -1) continue;
+    if (seen.has(href)) continue;
+    seen.add(href);
+
+    // Resolve relative URL
+    var fullUrl;
+    if (href.indexOf('http') === 0) {
+      fullUrl = href;
+    } else {
+      var clean = href.replace(/^\.\.\/cn10\//, '').replace(/^\.\.\//, '').replace(/^cn10\//, '');
+      fullUrl = 'https://rapala.co.jp/cn10/' + clean;
+    }
+
+    // Extract name from filename
+    var fname = fullUrl.split('/').pop() || '';
+    var pName = fname.replace('.html', '').toUpperCase();
+
+    results.push({ url: fullUrl, name: pName });
+  }
+
+  log('[north-craft] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// Valkein — static HTML (valkein.jp)
+// Category pages: /products/spoons/, /products/hardbaits/, /products/metalvibe/
+// ---------------------------------------------------------------------------
+
+async function discoverValkein(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+
+  var categories = [
+    'https://valkein.jp/products/spoons/',
+    'https://valkein.jp/products/hardbaits/',
+    'https://valkein.jp/products/metalvibe/',
+  ];
+
+  for (var ci = 0; ci < categories.length; ci++) {
+    var catUrl = categories[ci];
+    log('[valkein] Fetching category: ' + catUrl);
+    var res = await fetch(catUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+    });
+    if (!res.ok) { log('[valkein] HTTP ' + res.status + ' for ' + catUrl); continue; }
+    var html = await res.text();
+
+    // Product links: <a href="https://valkein.jp/products/{category}/{slug}/">
+    // with product name in nearby text/heading
+    // Pattern: <a href="URL"><img ... /><h3>NAME</h3> or similar
+    var linkPattern = /<a\s+href="(https?:\/\/valkein\.jp\/products\/(?:spoons|hardbaits|metalvibe)\/[^"]+\/?)"[^>]*>[\s\S]*?<(?:h[23]|p|span)[^>]*>([^<]+)/gi;
+    var match;
+    while ((match = linkPattern.exec(html)) !== null) {
+      var href = match[1];
+      if (!href.endsWith('/')) href += '/';
+      if (seen.has(href)) continue;
+      seen.add(href);
+
+      var pName = match[2].replace(/&amp;/g, '&').replace(/&#(\d+);/g, function(_m: string, code: string) { return String.fromCharCode(parseInt(code)); }).trim();
+      if (pName) results.push({ url: href, name: pName });
+    }
+
+    // Fallback: simpler pattern for product links
+    var simpleLinkPattern = /<a\s+href="(https?:\/\/valkein\.jp\/products\/(?:spoons|hardbaits|metalvibe)\/[^"]+\/?)"[^>]*>/gi;
+    while ((match = simpleLinkPattern.exec(html)) !== null) {
+      var href2 = match[1];
+      if (!href2.endsWith('/')) href2 += '/';
+      if (seen.has(href2)) continue;
+      seen.add(href2);
+
+      // Extract name from slug
+      var slugMatch = href2.match(/\/products\/(?:spoons|hardbaits|metalvibe)\/([^/]+)\/?$/);
+      var slug = slugMatch ? slugMatch[1] : '';
+      var slugName = slug.replace(/-/g, ' ').replace(/\b\w/g, function(c: string) { return c.toUpperCase(); });
+      results.push({ url: href2, name: slugName });
+    }
+
+    await sleep(500);
+  }
+
+  log('[valkein] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- beat (&beat) ----
+// beat-jig.com — WordPress 6.5, WP REST API
+// CPT: product-item, ~25 metal jigs + rods/accessories to skip
+// Fetch-only, no Playwright
+
+var BEAT_SKIP_SLUGS = new Set([
+  'propagateblx', 'propagateblxboth58', 'propagatetypes',
+  'silversword', 'goose',
+]);
+
+var BEAT_SKIP_TITLE_KEYWORDS = [
+  'プロパゲート', 'シルバーソード', 'グース', 'サテル',
+];
+
+async function discoverBeat(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var seenSlugs = new Set<string>();
+  var page2 = 1;
+  var totalPages = 1;
+
+  log('[beat] Fetching products from WP REST API (product-item)...');
+
+  while (page2 <= totalPages) {
+    var apiUrl = 'https://beat-jig.com/wp-json/wp/v2/product-item?per_page=100&_embed&page=' + page2;
+    var res = await fetch(apiUrl, { headers: { 'Accept': 'application/json' } });
+    if (!res.ok) {
+      log('[beat] API error on page ' + page2 + ': ' + res.status);
+      break;
+    }
+
+    if (page2 === 1) {
+      var totalPagesHeader = res.headers.get('X-WP-TotalPages');
+      if (totalPagesHeader) totalPages = parseInt(totalPagesHeader, 10);
+      log('[beat] Total pages: ' + totalPages);
+    }
+
+    var posts: Array<{ id: number; slug: string; link: string; title: { rendered: string } }> = await res.json();
+
+    for (var bi = 0; bi < posts.length; bi++) {
+      var post = posts[bi];
+      var postSlug = post.slug;
+      var postName = post.title.rendered.replace(/<[^>]+>/g, '').trim();
+
+      if (seenSlugs.has(postSlug)) continue;
+      seenSlugs.add(postSlug);
+
+      if (BEAT_SKIP_SLUGS.has(postSlug)) continue;
+
+      var skipBeat = false;
+      for (var bk = 0; bk < BEAT_SKIP_TITLE_KEYWORDS.length; bk++) {
+        if (postName.indexOf(BEAT_SKIP_TITLE_KEYWORDS[bk]) !== -1) { skipBeat = true; break; }
+      }
+      if (skipBeat) continue;
+
+      results.push({ url: post.link, name: postName });
+    }
+
+    page2++;
+    if (page2 <= totalPages) await sleep(300);
+  }
+
+  log('[beat] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- BOREAS ----
+// flashpointonlineshop.com — Shopify JSON API
+// Fetch-only, no Playwright
+
+var BOREAS_EXCLUDE_HANDLES = new Set([
+  'anostsinker', 'anostsinkertg', 'anostsinkerftb', 'anosttube',
+]);
+
+var BOREAS_EXCLUDE_TYPES_LOWER = ['cap', 'hat', 't-shirt', 'tee', 'apparel', 'sticker', 'wear', 'sinker'];
+var BOREAS_EXCLUDE_TITLE_LOWER = ['キャップ', 'tシャツ', 'ステッカー', 'sinker', 'シンカー', 'tube', 'チューブ', 'デニム'];
+
+async function discoverBoreas(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var shopBase = 'https://flashpointonlineshop.com';
+
+  log('[boreas] Fetching Shopify products.json...');
+  var res = await fetch(shopBase + '/products.json?limit=250', {
+    headers: { 'Accept': 'application/json' },
+  });
+  if (!res.ok) throw new Error('[boreas] HTTP ' + res.status);
+  var data: { products: Array<{ handle: string; title: string; product_type: string }> } = await res.json();
+
+  for (var pi2 = 0; pi2 < data.products.length; pi2++) {
+    var sp = data.products[pi2];
+    if (BOREAS_EXCLUDE_HANDLES.has(sp.handle)) continue;
+
+    var titleLower = sp.title.toLowerCase();
+    var typeLower = (sp.product_type || '').toLowerCase();
+
+    var skipBoreas = false;
+    for (var ti = 0; ti < BOREAS_EXCLUDE_TYPES_LOWER.length; ti++) {
+      if (typeLower.indexOf(BOREAS_EXCLUDE_TYPES_LOWER[ti]) !== -1) { skipBoreas = true; break; }
+    }
+    if (!skipBoreas) {
+      for (var ti2 = 0; ti2 < BOREAS_EXCLUDE_TITLE_LOWER.length; ti2++) {
+        if (titleLower.indexOf(BOREAS_EXCLUDE_TITLE_LOWER[ti2]) !== -1) { skipBoreas = true; break; }
+      }
+    }
+    if (skipBoreas) continue;
+
+    results.push({
+      url: shopBase + '/products/' + sp.handle,
+      name: sp.title,
+    });
+  }
+
+  log('[boreas] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- BOZLES (ボーズレス) ----
+// bozles.com — Square Online SPA, hardcoded product list
+// Fetch-only, no Playwright
+
+var BOZLES_LURE_PAGES = [
+  { route: 'page-1', slug: 'tg-taiko-hideyoshi', name: 'TG太閤ヒデヨシ' },
+  { route: 'page-2', slug: 'tg-keiji', name: 'TG太閤ケイジ' },
+  { route: 'page-3', slug: 'tg-ieyasu', name: 'TGイエヤス' },
+  { route: 'page-4', slug: 'tg-ranmaru', name: 'TGランマル' },
+  { route: 'page-5', slug: 'tg-nobunaga', name: 'TGノブナガ' },
+  { route: 'page-6', slug: 'tg-nobunaga-neo', name: 'TGノブナガNeo' },
+  { route: 'page-7', slug: 'tg-drop-k', name: 'TG DROP-K' },
+  { route: 'page-8', slug: 'tg-hattori', name: 'TGハットリ' },
+  { route: 'page-9', slug: 'gou', name: '剛' },
+  { route: 'page-10', slug: 'nobunaga-light', name: 'ノブナガライト' },
+  { route: 'page-11', slug: 'yukimura', name: 'ユキムラ' },
+  { route: 'page-13', slug: 'toukichirou-lead', name: 'トウキチロウ鉛' },
+  { route: 'page-18', slug: 'kurama-tengu', name: '鞍馬天狗' },
+  { route: 'page-19', slug: 'yukimura-slim', name: 'ユキムラスリム' },
+];
+
+async function discoverBozles(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var siteBase = 'https://www.bozles.com';
+
+  for (var bzi = 0; bzi < BOZLES_LURE_PAGES.length; bzi++) {
+    var bp = BOZLES_LURE_PAGES[bzi];
+    results.push({
+      url: siteBase + '/' + bp.route,
+      name: bp.name,
+    });
+  }
+
+  log('[bozles] Discovered ' + results.length + ' products (hardcoded)');
+  return results;
+}
+
+// ---- Carpenter ----
+// carpenter.ne.jp — 100% static HTML, hardcoded product list
+// Fetch-only, no Playwright
+
+var CARPENTER_PRODUCTS = [
+  { name: 'Blue Fish', pageUrl: 'product.index-lure-blue.fish/product.index-lure-blue.fish.html' },
+  { name: 'Gamma', pageUrl: 'product.index-lure-gamma-n/product.index-lure-gamma-n.html' },
+  { name: 'Gamma Super-L', pageUrl: 'product.index-lure-gamma-super-l/product.index-lure-gamma-super-l.html' },
+  { name: 'Gamma-L', pageUrl: 'product.index-lure-gamma-l/product.index-lure-gamma-l.html' },
+  { name: 'Gamma-H', pageUrl: 'product.index-lure-gamma-h/product.index-lure-gamma-h.html' },
+  { name: 'Maihime', pageUrl: 'p-l-maihime/p-l-maihime.html' },
+  { name: 'Gen-ei', pageUrl: 'p-l-genei/p-l-genei.html' },
+  { name: 'Strike Eagle', pageUrl: 'p-l-strike.eagle/p-l-strike.eagle.html' },
+  { name: 'Carpenter Hayabusa', pageUrl: 'p-l-hayabusa/p-l-hayabusa.html' },
+  { name: 'Mini Eel', pageUrl: 'p-l-mini.eel/p-l-mini.eel.html' },
+  { name: 'Utahime', pageUrl: 'p-l-utahime/p-l-utahime.html' },
+  { name: 'BC Popper', pageUrl: 'p-l-bcp/p-l-bcp.html' },
+  { name: 'Damsel Original', pageUrl: 'p-l-ds90g-o/p-l-ds90g-o.html' },
+  { name: 'Damsel', pageUrl: 'p-l-damsel/p-l-damsel.html' },
+  { name: 'Pandora', pageUrl: 'product.index-lure-pandora/product.index-lure-pandora.html' },
+  { name: 'Zeus', pageUrl: 'product.index-lure-zeus/product.index-lure-zeus.html' },
+  { name: 'Metal Jig 1501', pageUrl: 'product.index-jig-1501a-150g/product.index-jig-1501a-150g.html' },
+  { name: 'Metal Jig 1505', pageUrl: 'product.index-jig-1505a-150g/product.index-jig-1505a-150g.html' },
+  { name: 'Metal Jig 1506', pageUrl: 'product.index-jig-1506a-150g/product.index-jig-1506a-150g.html' },
+  { name: 'Metal Jig 1510', pageUrl: 'product.index-jig-1510a-150g/product.index-jig-1510a-150g.html' },
+  { name: 'Metal Jig 1515', pageUrl: 'product.index-jig-1515a-150g/product.index-jig-1515a-150g.html' },
+];
+
+async function discoverCarpenter(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var siteBase = 'http://www.carpenter.ne.jp';
+
+  for (var ci = 0; ci < CARPENTER_PRODUCTS.length; ci++) {
+    var cp = CARPENTER_PRODUCTS[ci];
+    results.push({
+      url: siteBase + '/' + cp.pageUrl,
+      name: cp.name,
+    });
+  }
+
+  log('[carpenter] Discovered ' + results.length + ' products (hardcoded)');
+  return results;
+}
+
+// ---- CB ONE ----
+// cb-one.co.jp — WordPress, WP REST API
+// /wp-json/wp/v2/products?per_page=100
+// Fetch-only, no Playwright
+
+var CB_ONE_SKIP_SLUGS = new Set([
+  'standuptuna', 'progress', 'enfinity',  // rods
+  'ssr', 'diverdown', 'braver', 'hrm',     // rods
+  'hook', 'metal-parts', 'gear',            // goods
+]);
+
+async function discoverCbOne(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var siteBase = 'https://cb-one.co.jp';
+
+  log('[cb-one] Fetching products from WP REST API...');
+  var apiUrl = siteBase + '/wp-json/wp/v2/products?per_page=100';
+  var res = await fetch(apiUrl, {
+    headers: { 'Accept': 'application/json', 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[cb-one] HTTP ' + res.status);
+
+  var CASTING_PLUG_CAT = 23;
+  var METAL_JIG_CAT = 24;
+
+  var posts: Array<{ slug: string; link: string; title: { rendered: string }; 'products-category': number[] }> = await res.json();
+
+  for (var cbi = 0; cbi < posts.length; cbi++) {
+    var cbp = posts[cbi];
+    if (CB_ONE_SKIP_SLUGS.has(cbp.slug)) continue;
+
+    var cats = cbp['products-category'] || [];
+    if (!cats.includes(CASTING_PLUG_CAT) && !cats.includes(METAL_JIG_CAT)) continue;
+
+    var cbName = cbp.title.rendered.replace(/<[^>]+>/g, '').trim();
+    var cbUrl = cbp.link || (siteBase + '/products/' + cbp.slug + '/');
+
+    results.push({ url: cbUrl, name: cbName });
+  }
+
+  log('[cb-one] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- Crazy Ocean ----
+// crazy-ocean.com — WordPress, WP REST API
+// CPT: itemlist, categories for lure subcategories
+// Fetch-only, no Playwright
+
+var CRAZY_OCEAN_LURE_CATEGORY_IDS = [364, 368, 367, 402, 366, 369];
+
+var CRAZY_OCEAN_SKIP_PATTERNS = [
+  /スペアネクタイ/,
+  /絡め手フック/,
+  /替えフック/,
+  /シンカー(?!.*エギ)/,
+  /アシスト/,
+];
+
+async function discoverCrazyOcean(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var seenIds = new Set<string>();
+
+  log('[crazy-ocean] Fetching products from WP REST API (itemlist)...');
+
+  for (var catIdx = 0; catIdx < CRAZY_OCEAN_LURE_CATEGORY_IDS.length; catIdx++) {
+    var catId = CRAZY_OCEAN_LURE_CATEGORY_IDS[catIdx];
+    var coPage = 1;
+    var coTotalPages = 1;
+
+    while (coPage <= coTotalPages) {
+      var coApiUrl = 'https://crazy-ocean.com/wp-json/wp/v2/itemlist?per_page=100&_embed&itemlist_category=' + catId + '&page=' + coPage;
+      var coRes = await fetch(coApiUrl, { headers: { 'Accept': 'application/json' } });
+      if (!coRes.ok) {
+        if (coRes.status === 400) break; // No items in this category
+        log('[crazy-ocean] API error cat=' + catId + ' page=' + coPage + ': ' + coRes.status);
+        break;
+      }
+
+      if (coPage === 1) {
+        var coTotalPagesHeader = coRes.headers.get('X-WP-TotalPages');
+        if (coTotalPagesHeader) coTotalPages = parseInt(coTotalPagesHeader, 10);
+      }
+
+      var coPosts: Array<{ id: number; slug: string; link: string; title: { rendered: string } }> = await coRes.json();
+
+      for (var coi = 0; coi < coPosts.length; coi++) {
+        var coPost = coPosts[coi];
+        var coId = String(coPost.id);
+        if (seenIds.has(coId)) continue;
+        seenIds.add(coId);
+
+        var coName = coPost.title.rendered.replace(/<[^>]+>/g, '').trim();
+
+        // Skip accessories/hooks
+        var skipCo = false;
+        for (var ski = 0; ski < CRAZY_OCEAN_SKIP_PATTERNS.length; ski++) {
+          if (CRAZY_OCEAN_SKIP_PATTERNS[ski].test(coName)) { skipCo = true; break; }
+        }
+        if (skipCo) continue;
+
+        results.push({ url: coPost.link, name: coName });
+      }
+
+      coPage++;
+      if (coPage <= coTotalPages) await sleep(300);
+    }
+
+    await sleep(200);
+  }
+
+  log('[crazy-ocean] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- D-Claw ----
+// d-claw.jp — 100% static HTML, hardcoded product list
+// Fetch-only, no Playwright
+
+var DCLAW_PRODUCTS = [
+  { name: 'Beacon NEO 200', page: 'offshore_beaconneo200.html' },
+  { name: "SWIMMING PENCIL D'abs230", page: 'offshore_dabs230.html' },
+  { name: 'MARINO300 SLIM', page: 'offshore_marino300slim.html' },
+  { name: 'MARINO250 SLIM', page: 'offshore_marino250slim.html' },
+  { name: 'MARINO200 SLIM', page: 'offshore_marino200slim.html' },
+  { name: 'MARINO280 MESSAMAGNUM', page: 'offshore_marino280mm.html' },
+  { name: 'MARINO230 MAGNUM', page: 'offshore_marino230.html' },
+  { name: 'MARINO210', page: 'offshore_marino210.html' },
+  { name: 'MARINO180', page: 'offshore_marino180.html' },
+  { name: 'MARINO160', page: 'offshore_marino160.html' },
+  { name: 'Bubbles250GT', page: 'offshore_bubbles250gt.html' },
+  { name: 'Bubbles250', page: 'offshore_bubbles250.html' },
+  { name: 'Bubbles215', page: 'offshore_bubbles215.html' },
+  { name: 'Bubbles190', page: 'offshore_bubbles190.html' },
+  { name: 'Bubbles160', page: 'offshore_bubbles160.html' },
+  { name: 'Beacon210', page: 'offshore_beacon210.html' },
+  { name: 'Beacon180', page: 'offshore_beacon180.html' },
+  { name: 'Beacon180 HIRAMASA TUNE', page: 'offshore_beacon180hiramasatune.html' },
+  { name: 'Beacon140', page: 'offshore_beacon140.html' },
+  { name: 'Beacon120', page: 'offshore_beacon120.html' },
+  { name: '円舞 Type-K', page: 'offshore_enbu_typek.html' },
+  { name: '水面CHOP!-TG', page: 'offshore_suimenchop_tg.html' },
+  { name: 'GOKUUSU 泳', page: 'offshore_gokuusu_swim.html' },
+  { name: 'GOKUUSU 跳', page: 'offshore_gokuusu_tobi.html' },
+];
+
+async function discoverDClaw(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var siteBase = 'https://d-claw.jp';
+
+  for (var dci = 0; dci < DCLAW_PRODUCTS.length; dci++) {
+    var dp = DCLAW_PRODUCTS[dci];
+    results.push({
+      url: siteBase + '/' + dp.page,
+      name: dp.name,
+    });
+  }
+
+  log('[d-claw] Discovered ' + results.length + ' products (hardcoded)');
+  return results;
+}
+
+// ---- Deep Liner ----
+// deepliner.com — static HTML listing at /item.html
+// Discovers jig links matching jig/{slug}.html
+// Fetch-only, no Playwright
+
+var DEEPLINER_BROKEN_SLUGS = new Set(['mega_spindle']);
+
+async function discoverDeepliner(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var siteBase = 'https://www.deepliner.com';
+
+  log('[deepliner] Fetching item listing page...');
+  var res = await fetch(siteBase + '/item.html', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[deepliner] HTTP ' + res.status);
+  var html = await res.text();
+
+  // Find all links to jig pages: href="jig/{slug}.html"
+  var jigLinkRegex = /<a\s+href="(jig\/([^"]+)\.html)"[^>]*>/gi;
+  var jigMatch: RegExpExecArray | null;
+  var seenSlugs = new Set<string>();
+
+  while ((jigMatch = jigLinkRegex.exec(html)) !== null) {
+    var relPath = jigMatch[1];
+    var dlSlug = jigMatch[2];
+
+    if (DEEPLINER_BROKEN_SLUGS.has(dlSlug)) continue;
+    if (seenSlugs.has(dlSlug)) continue;
+    seenSlugs.add(dlSlug);
+
+    // Convert slug to a name (e.g. "slowskip_vb" -> "Slowskip Vb")
+    var dlName = dlSlug
+      .replace(/_/g, ' ')
+      .replace(/\b\w/g, function(c: string) { return c.toUpperCase(); });
+
+    results.push({
+      url: siteBase + '/' + relPath,
+      name: dlName,
+    });
+  }
+
+  log('[deepliner] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- DRT (Division Rebel Tackles) ----
+// divisionrebeltackles.com — WordPress custom theme
+// Multiple category pages: /products/bait/, /products/soft-bait/, /products/jig/
+// Fetch-only, no Playwright
+
+var DRT_CATEGORY_PAGES = [
+  'https://www.divisionrebeltackles.com/products/bait/',
+  'https://www.divisionrebeltackles.com/products/soft-bait/',
+  'https://www.divisionrebeltackles.com/products/jig/',
+];
+
+async function discoverDrt(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var seenUrls = new Set<string>();
+
+  for (var drtCi = 0; drtCi < DRT_CATEGORY_PAGES.length; drtCi++) {
+    var catUrl = DRT_CATEGORY_PAGES[drtCi];
+    log('[drt] Fetching category: ' + catUrl);
+
+    var drtRes = await fetch(catUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+    });
+    if (!drtRes.ok) {
+      log('[drt] HTTP ' + drtRes.status + ' for ' + catUrl);
+      continue;
+    }
+    var drtHtml = await drtRes.text();
+
+    // Product links: href="https://www.divisionrebeltackles.com/products/(bait|soft-bait|jig)/NNNN/"
+    var drtLinkRegex = /<a[^>]*href="(https:\/\/www\.divisionrebeltackles\.com\/products\/(?:bait|soft-bait|jig)\/\d+\/)"[^>]*>([\s\S]*?)<\/a>/gi;
+    var drtMatch: RegExpExecArray | null;
+
+    while ((drtMatch = drtLinkRegex.exec(drtHtml)) !== null) {
+      var drtUrl = drtMatch[1];
+      if (seenUrls.has(drtUrl)) continue;
+      seenUrls.add(drtUrl);
+
+      // Extract name from link content (strip tags) or img alt
+      var linkContent = drtMatch[2];
+      var drtName = linkContent.replace(/<[^>]+>/g, '').trim();
+      if (!drtName || drtName.length < 2) {
+        var altMatch = linkContent.match(/alt="([^"]+)"/i);
+        if (altMatch) drtName = altMatch[1];
+      }
+      if (!drtName || drtName.length < 2) {
+        var idMatch = drtUrl.match(/\/(\d+)\/$/);
+        drtName = 'Product ' + (idMatch ? idMatch[1] : 'unknown');
+      }
+
+      results.push({ url: drtUrl, name: drtName });
+    }
+
+    await sleep(500);
+  }
+
+  log('[drt] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- Flash Union ----
+// flash-union.jp — custom PHP site, listing at /product/
+// Product links: {slug}.php with <img alt="Japanese Name">
+// Fetch-only, no Playwright
+
+var FLASH_UNION_SKIP_SLUGS = new Set([
+  'covercontacthook', 'tg_finesse_rattler',
+  'cutting_sticker', 'flat_brim_cap', 'mesh_cap_type_a', 'long_t_01',
+]);
+
+async function discoverFlashUnion(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var siteBase = 'https://www.flash-union.jp';
+  var seenSlugs = new Set<string>();
+
+  log('[flash-union] Fetching product listing page...');
+  var fuRes = await fetch(siteBase + '/product/', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+  });
+  if (!fuRes.ok) throw new Error('[flash-union] HTTP ' + fuRes.status);
+  var fuHtml = await fuRes.text();
+
+  // Find main content section (starts at first <h2> for "Hard Lures")
+  var mainStart = fuHtml.search(/<h2[^>]*>\s*Hard Lures\s*<\/h2>/i);
+  if (mainStart === -1) {
+    log('[flash-union] Could not find main listing section, scanning whole page');
+    mainStart = 0;
+  }
+
+  // Find sidebar boundary
+  var sidebarStart = fuHtml.indexOf('list-group-item', mainStart);
+  var mainSection = sidebarStart > 0 ? fuHtml.substring(mainStart, sidebarStart) : fuHtml.substring(mainStart);
+
+  // Skip non-lure categories
+  var fuParts = mainSection.split(/<h2[^>]*>/i);
+  var fuCurrentSkip = false;
+
+  for (var fuPi = 0; fuPi < fuParts.length; fuPi++) {
+    var fuPart = fuParts[fuPi];
+    var headingEnd = fuPart.indexOf('</h2>');
+    if (headingEnd > 0) {
+      var heading = fuPart.substring(0, headingEnd).toLowerCase().trim();
+      fuCurrentSkip = heading.indexOf('accessor') !== -1 || heading.indexOf('apparel') !== -1;
+    }
+    if (fuCurrentSkip) continue;
+
+    // Product links: <a href="slug.php"><img ... alt="Japanese Name" ...>
+    var fuLinkRegex = /<a\s+href="([a-z0-9_]+)\.php"[^>]*>\s*<img[^>]*alt="([^"]*)"[^>]*>/gi;
+    var fuMatch: RegExpExecArray | null;
+
+    while ((fuMatch = fuLinkRegex.exec(fuPart)) !== null) {
+      var phpSlug = fuMatch[1];
+      if (seenSlugs.has(phpSlug)) continue;
+      if (FLASH_UNION_SKIP_SLUGS.has(phpSlug)) continue;
+      seenSlugs.add(phpSlug);
+
+      var fuName = fuMatch[2].trim() || phpSlug.replace(/_/g, ' ');
+
+      results.push({
+        url: siteBase + '/product/' + phpSlug + '.php',
+        name: fuName,
+      });
+    }
+  }
+
+  log('[flash-union] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- BREADEN ----
+// breaden.net — Static HTML
+// Product listing at /product/Lure/lure.html
+// Fetch-only, no Playwright
+
+async function discoverBreaden(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var siteBase = 'https://breaden.net';
+
+  log('[breaden] Fetching product listing page...');
+  var res = await fetch(siteBase + '/product/Lure/lure.html', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[breaden] HTTP ' + res.status);
+  var html = await res.text();
+
+  var linkRegex = /<a\s+href="([^"]+\.html)"[^>]*>([^<]+)/gi;
+  var match: RegExpExecArray | null;
+  var seenUrls = new Set<string>();
+
+  while ((match = linkRegex.exec(html)) !== null) {
+    var href = match[1];
+    var linkName = match[2].trim();
+    if (!linkName) continue;
+    // Skip the listing page itself and non-product links
+    if (href === 'lure.html' || href.indexOf('/') !== -1 && !href.startsWith('http')) continue;
+
+    var fullUrl: string;
+    if (href.startsWith('http')) {
+      fullUrl = href;
+    } else {
+      fullUrl = siteBase + '/product/Lure/' + href;
+    }
+
+    if (seenUrls.has(fullUrl)) continue;
+    seenUrls.add(fullUrl);
+
+    results.push({ url: fullUrl, name: linkName });
+  }
+
+  log('[breaden] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- DRANCKRAZY ----
+// dranckrazy.com — WooCommerce
+// Product listing at /shop/ (paginated)
+// Fetch-only, no Playwright
+
+async function discoverDranckrazy(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var siteBase = 'https://dranckrazy.com';
+  var seenUrls = new Set<string>();
+  var pageNum = 1;
+
+  log('[dranckrazy] Fetching WooCommerce product pages...');
+
+  while (true) {
+    var listUrl = pageNum === 1
+      ? siteBase + '/shop/'
+      : siteBase + '/shop/page/' + pageNum + '/';
+
+    var res = await fetch(listUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+    });
+    if (!res.ok) break;
+    var html = await res.text();
+
+    var productRegex = /<a\s+href="(https?:\/\/dranckrazy\.com\/product\/[^"]+\/)"[^>]*class="[^"]*woocommerce-LoopProduct-link[^"]*"[^>]*>/gi;
+    var match2: RegExpExecArray | null;
+    var foundOnPage = 0;
+
+    while ((match2 = productRegex.exec(html)) !== null) {
+      var productUrl = match2[1];
+      if (seenUrls.has(productUrl)) continue;
+      seenUrls.add(productUrl);
+      foundOnPage++;
+
+      // Extract name from the slug
+      var slugMatch = productUrl.match(/\/product\/([^/]+)\/?$/);
+      var productName = slugMatch
+        ? decodeURIComponent(slugMatch[1]).replace(/-/g, ' ')
+        : '';
+
+      results.push({ url: productUrl, name: productName });
+    }
+
+    // Also try a more general product link pattern
+    if (foundOnPage === 0) {
+      var altRegex = /<a\s+href="(https?:\/\/dranckrazy\.com\/product\/[^"]+\/)"[^>]*>/gi;
+      var altMatch: RegExpExecArray | null;
+
+      while ((altMatch = altRegex.exec(html)) !== null) {
+        var altUrl = altMatch[1];
+        if (seenUrls.has(altUrl)) continue;
+        seenUrls.add(altUrl);
+        foundOnPage++;
+
+        var altSlugMatch = altUrl.match(/\/product\/([^/]+)\/?$/);
+        var altName = altSlugMatch
+          ? decodeURIComponent(altSlugMatch[1]).replace(/-/g, ' ')
+          : '';
+
+        results.push({ url: altUrl, name: altName });
+      }
+    }
+
+    if (foundOnPage === 0) break;
+
+    // Check for next page link
+    if (html.indexOf('/shop/page/' + (pageNum + 1)) === -1) break;
+    pageNum++;
+  }
+
+  log('[dranckrazy] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- HARIMITSU (ハリミツ) ----
+// harimitsu.co.jp — WordPress
+// Product categories under /category/item/
+// Paginated (20 per page)
+// Fetch-only, no Playwright
+
+var HARIMITSU_CATEGORY_PAGES = [
+  'https://harimitsu.co.jp/category/item/itemgenre/sumizoku/',
+];
+
+async function discoverHarimitsu(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var seenUrls = new Set<string>();
+
+  log('[harimitsu] Fetching product category pages...');
+
+  for (var ci = 0; ci < HARIMITSU_CATEGORY_PAGES.length; ci++) {
+    var catBase = HARIMITSU_CATEGORY_PAGES[ci];
+    var pageNum = 1;
+
+    while (true) {
+      var listUrl = pageNum === 1
+        ? catBase
+        : catBase + 'page/' + pageNum + '/';
+
+      var res = await fetch(listUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+      });
+      if (!res.ok) break;
+      var html = await res.text();
+
+      var linkRegex = /<a\s+href="(https?:\/\/harimitsu\.co\.jp\/(\d+)\/)"[^>]*>/gi;
+      var match3: RegExpExecArray | null;
+      var foundOnPage = 0;
+
+      while ((match3 = linkRegex.exec(html)) !== null) {
+        var productUrl = match3[1];
+        if (seenUrls.has(productUrl)) continue;
+        seenUrls.add(productUrl);
+        foundOnPage++;
+
+        results.push({ url: productUrl, name: '' });
+      }
+
+      // Also extract product names from article titles
+      var titleRegex = /<a\s+href="(https?:\/\/harimitsu\.co\.jp\/\d+\/)"[^>]*>\s*(?:<[^>]+>\s*)*([^<]+)/gi;
+      var titleMatch: RegExpExecArray | null;
+
+      while ((titleMatch = titleRegex.exec(html)) !== null) {
+        var titleUrl = titleMatch[1];
+        var titleName = titleMatch[2].trim();
+        if (!titleName) continue;
+
+        // Update existing entry with name
+        for (var ri = 0; ri < results.length; ri++) {
+          if (results[ri].url === titleUrl && !results[ri].name) {
+            results[ri].name = titleName;
+            break;
+          }
+        }
+      }
+
+      if (foundOnPage === 0) break;
+      if (html.indexOf('page/' + (pageNum + 1)) === -1) break;
+      pageNum++;
+    }
+  }
+
+  log('[harimitsu] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- HAYABUSA (ハヤブサ) ----
+// hayabusa.co.jp — WordPress, WP REST API
+// CPT: products, per_page=100
+// Fetch-only, no Playwright
+
+async function discoverHayabusa(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var pageNum = 1;
+
+  log('[hayabusa] Fetching products from WP REST API...');
+
+  while (true) {
+    var apiUrl = 'https://www.hayabusa.co.jp/hayabusa/wp-json/wp/v2/products?per_page=100&page=' + pageNum;
+    var res = await fetch(apiUrl, {
+      headers: { 'Accept': 'application/json', 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+    });
+    if (!res.ok) break;
+    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
+    if (posts.length === 0) break;
+
+    for (var pi = 0; pi < posts.length; pi++) {
+      var p = posts[pi];
+      var hayaName = p.title.rendered
+        .replace(/&#\d+;/g, function(m: string) { return String.fromCharCode(parseInt(m.slice(2, -1))); })
+        .replace(/<[^>]+>/g, '')
+        .trim();
+
+      results.push({ url: p.link, name: hayaName });
+    }
+
+    if (posts.length < 100) break;
+    pageNum++;
+  }
+
+  log('[hayabusa] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- LONGIN ----
+// longin.jp — Static HTML
+// Product listing at /products.html
+// Fetch-only, no Playwright
+
+async function discoverLongin(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var siteBase = 'https://www.longin.jp';
+
+  log('[longin] Fetching product listing page...');
+  var res = await fetch(siteBase + '/products.html', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[longin] HTTP ' + res.status);
+  var html = await res.text();
+
+  var linkRegex = /<a\s+href="(products_[^"]+\.html)"[^>]*>([^<]*)/gi;
+  var match4: RegExpExecArray | null;
+  var seenUrls = new Set<string>();
+
+  while ((match4 = linkRegex.exec(html)) !== null) {
+    var href = match4[1];
+    var linkName = match4[2].trim();
+
+    var fullUrl = siteBase + '/' + href;
+    if (seenUrls.has(fullUrl)) continue;
+    seenUrls.add(fullUrl);
+
+    // If name not in the link text, derive from filename
+    if (!linkName) {
+      linkName = href
+        .replace('products_', '')
+        .replace('.html', '')
+        .replace(/_/g, ' ');
+    }
+
+    results.push({ url: fullUrl, name: linkName });
+  }
+
+  log('[longin] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- SEAFLOOR CONTROL (シーフロアコントロール) ----
+// seafloor-control.com — WordPress
+// Product listing at /ja/items/
+// Fetch-only, no Playwright
+
+async function discoverSeafloorControl(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var siteBase = 'https://seafloor-control.com';
+  var seenUrls = new Set<string>();
+
+  log('[seafloor-control] Fetching product listing page...');
+  var res = await fetch(siteBase + '/ja/items/', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[seafloor-control] HTTP ' + res.status);
+  var html = await res.text();
+
+  // Match product links under /ja/items/{slug}/
+  var linkRegex = /<a\s+href="((?:https?:\/\/seafloor-control\.com)?\/ja\/items\/([^"/]+)\/)"[^>]*>/gi;
+  var match5: RegExpExecArray | null;
+
+  while ((match5 = linkRegex.exec(html)) !== null) {
+    var href = match5[1];
+    var slug = match5[2];
+
+    var fullUrl = href.startsWith('http') ? href : siteBase + href;
+    if (seenUrls.has(fullUrl)) continue;
+    seenUrls.add(fullUrl);
+
+    // Derive name from slug
+    var sfName = decodeURIComponent(slug)
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, function(c: string) { return c.toUpperCase(); });
+
+    results.push({ url: fullUrl, name: sfName });
+  }
+
+  // Also try to extract names from title/heading elements near the links
+  var titleRegex = /<a\s+href="(?:https?:\/\/seafloor-control\.com)?\/ja\/items\/([^"/]+)\/"[^>]*>\s*(?:<[^>]+>\s*)*([^<]+)/gi;
+  var titleMatch2: RegExpExecArray | null;
+
+  while ((titleMatch2 = titleRegex.exec(html)) !== null) {
+    var tSlug = titleMatch2[1];
+    var tName = titleMatch2[2].trim();
+    if (!tName) continue;
+
+    var tUrl = siteBase + '/ja/items/' + tSlug + '/';
+    for (var ri2 = 0; ri2 < results.length; ri2++) {
+      if (results[ri2].url === tUrl && results[ri2].name !== tName) {
+        // Prefer extracted text name over slug-derived name
+        if (tName.length > 1) {
+          results[ri2].name = tName;
+        }
+        break;
+      }
+    }
+  }
+
+  log('[seafloor-control] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- XESTA ----
+// xesta.jp — WordPress
+// Multiple category pages
+// Fetch-only, no Playwright
+
+var XESTA_CATEGORY_PAGES = [
+  'https://xesta.jp/xesta-shore-jigging',
+  'https://xesta.jp/xesta-light-game',
+  'https://xesta.jp/xesta-offshore',
+  'https://xesta.jp/xesta-squid-game',
+];
+
+async function discoverXesta(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var seenUrls = new Set<string>();
+
+  log('[xesta] Fetching category pages...');
+
+  for (var ci2 = 0; ci2 < XESTA_CATEGORY_PAGES.length; ci2++) {
+    var catUrl = XESTA_CATEGORY_PAGES[ci2];
+
+    var res = await fetch(catUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+    });
+    if (!res.ok) {
+      log('[xesta] HTTP ' + res.status + ' for ' + catUrl + ', skipping');
+      continue;
+    }
+    var html = await res.text();
+
+    // Match product links: href="https://xesta.jp/{slug}/" or href="https://xesta.jp/products/metaljig/{slug}/"
+    var linkRegex = /<a\s+href="(https?:\/\/xesta\.jp\/(?:products\/[^"]*\/)?([^"/]+)\/)"[^>]*>([^<]*)/gi;
+    var match6: RegExpExecArray | null;
+
+    while ((match6 = linkRegex.exec(html)) !== null) {
+      var productUrl = match6[1];
+      var slug2 = match6[2];
+      var linkName = match6[3].trim();
+
+      // Skip category pages and non-product pages
+      if (slug2 === 'xesta-shore-jigging' || slug2 === 'xesta-light-game' ||
+          slug2 === 'xesta-offshore' || slug2 === 'xesta-squid-game' ||
+          slug2 === 'wp-content' || slug2 === 'wp-admin' ||
+          slug2 === 'contact' || slug2 === 'company' || slug2 === 'news') continue;
+
+      if (seenUrls.has(productUrl)) continue;
+      seenUrls.add(productUrl);
+
+      if (!linkName) {
+        linkName = decodeURIComponent(slug2).replace(/-/g, ' ');
+      }
+
+      results.push({ url: productUrl, name: linkName });
+    }
+  }
+
+  log('[xesta] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---- ZEAKE (ジーク) ----
+// zeake.jp — WordPress/Cocoon
+// Product listing at /product/
+// Fetch-only, no Playwright
+
+async function discoverZeake(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  var results: Array<{ url: string; name: string }> = [];
+  var siteBase = 'https://zeake.jp';
+  var seenUrls = new Set<string>();
+
+  log('[zeake] Fetching product listing page...');
+  var res = await fetch(siteBase + '/product/', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[zeake] HTTP ' + res.status);
+  var html = await res.text();
+
+  // Match product links: href="https://zeake.jp/items/{slug}/"
+  var linkRegex = /<a\s+href="((?:https?:\/\/zeake\.jp)?\/items\/([^"/]+)\/)"[^>]*>/gi;
+  var match7: RegExpExecArray | null;
+
+  while ((match7 = linkRegex.exec(html)) !== null) {
+    var href = match7[1];
+    var slug3 = match7[2];
+
+    var fullUrl = href.startsWith('http') ? href : siteBase + href;
+    if (seenUrls.has(fullUrl)) continue;
+    seenUrls.add(fullUrl);
+
+    var zName = decodeURIComponent(slug3)
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, function(c: string) { return c.toUpperCase(); });
+
+    results.push({ url: fullUrl, name: zName });
+  }
+
+  // Also try to extract product names from heading/title elements
+  var titleRegex = /<a\s+href="(?:https?:\/\/zeake\.jp)?\/items\/([^"/]+)\/"[^>]*>\s*(?:<[^>]+>\s*)*([^<]+)/gi;
+  var titleMatch3: RegExpExecArray | null;
+
+  while ((titleMatch3 = titleRegex.exec(html)) !== null) {
+    var tSlug2 = titleMatch3[1];
+    var tName2 = titleMatch3[2].trim();
+    if (!tName2) continue;
+
+    var tUrl2 = siteBase + '/items/' + tSlug2 + '/';
+    for (var ri3 = 0; ri3 < results.length; ri3++) {
+      if (results[ri3].url === tUrl2 && tName2.length > 1) {
+        results[ri3].name = tName2;
+        break;
+      }
+    }
+  }
+
+  log('[zeake] Discovered ' + results.length + ' products');
+  return results;
+}
+
 const MANUFACTURERS: ManufacturerConfig[] = [
   {
     slug: 'blueblue',
@@ -4580,6 +5982,235 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // Product pages: /products/{category}/{slug}
     // シーバス・バス向け。ワーム含む。
     // "ワームもルアーやろ？" — worms are included.
+  },
+  {
+    slug: 'forest',
+    name: 'Forest',
+    discover: discoverForest,
+    excludedNameKeywords: [],
+    // forestjp.com — WordPress (MH Magazine theme), fetch-only
+    // Category pages: /products/area-lure/, /products/native-lure/
+    // トラウト用スプーン・プラグメーカー
+  },
+  {
+    slug: 'hmkl',
+    name: 'HMKL',
+    discover: discoverHmkl,
+    excludedNameKeywords: [],
+    // hmklnet.com — static HTML (Shift_JIS), fetch-only
+    // Product listing: /products/, individual pages: /products/pickup/{name}/
+    // トラウト・バス用ハンドメイドルアー
+  },
+  {
+    slug: 'hots',
+    name: 'HOTS',
+    discover: discoverHots,
+    excludedNameKeywords: [],
+    // hots.co.jp — static HTML (jQuery+Bootstrap), fetch-only
+    // Product pages: /lure-{name}.html
+    // オフショアジギング・キャスティング専門
+  },
+  {
+    slug: 'ja-do',
+    name: 'JADO',
+    discover: discoverJado,
+    excludedNameKeywords: [],
+    // ja-do.jp — WordPress + Elementor, single page (/products)
+    // All products on toggle accordion panels
+    // シーバス用ルアーメーカー
+  },
+  {
+    slug: 'mc-works',
+    name: 'MC Works',
+    discover: discoverMcWorks,
+    excludedNameKeywords: [],
+    // mcworks.jp — WordPress, fetch-only
+    // Category pages: /products/prodyct_category/{slug} (typo in URL is real)
+    // オフショアジギング専門メタルジグ
+  },
+  {
+    slug: 'mukai',
+    name: 'MUKAI',
+    discover: discoverMukai,
+    excludedNameKeywords: [],
+    // mukai-fishing.jp — WordPress REST API (posts, categories=4)
+    // Product pages: /{slug}/
+    // エリアトラウト用スプーン・クランク・ミノー
+  },
+  {
+    slug: 'nature-boys',
+    name: 'Nature Boys',
+    discover: discoverNatureBoys,
+    excludedNameKeywords: [],
+    // e-natureboys.com — WordPress REST API (pages, categories 6,35)
+    // Product pages: /{slug}/
+    // オフショアジギング用メタルジグ・プラグ
+  },
+  {
+    slug: 'north-craft',
+    name: 'NORTH CRAFT',
+    discover: discoverNorthCraft,
+    excludedNameKeywords: [],
+    // rapala.co.jp/cn10/ — static HTML (BiND CMS), fetch-only
+    // Product pages: /cn10/{name}.html
+    // シーバス・ヒラスズキ用ミノー
+  },
+  {
+    slug: 'valkein',
+    name: 'Valkein',
+    discover: discoverValkein,
+    excludedNameKeywords: [],
+    // valkein.jp — WordPress, fetch-only
+    // Category pages: /products/spoons/, /products/hardbaits/, /products/metalvibe/
+    // エリアトラウト用スプーン・プラグ
+  },
+  {
+    slug: 'beat',
+    name: 'beat',
+    discover: discoverBeat,
+    excludedNameKeywords: BEAT_SKIP_TITLE_KEYWORDS,
+    // beat-jig.com — WordPress, WP REST API, fetch-only
+    // CPT: product-item, メタルジグ専門
+  },
+  {
+    slug: 'boreas',
+    name: 'BOREAS',
+    discover: discoverBoreas,
+    excludedNameKeywords: BOREAS_EXCLUDE_TITLE_LOWER,
+    // flashpointonlineshop.com — Shopify JSON API, fetch-only
+    // バス用ワーム・ラバージグ中心
+  },
+  {
+    slug: 'bozles',
+    name: 'BOZLES',
+    discover: discoverBozles,
+    excludedNameKeywords: [],
+    // bozles.com — Square Online SPA, hardcoded product list
+    // TGメタルジグ専門（ジギング・タイラバ）
+  },
+  {
+    slug: 'carpenter',
+    name: 'Carpenter',
+    discover: discoverCarpenter,
+    excludedNameKeywords: [],
+    // carpenter.ne.jp — static HTML, hardcoded product list
+    // オフショアキャスティング用プラグ・メタルジグ
+  },
+  {
+    slug: 'cb-one',
+    name: 'CB ONE',
+    discover: discoverCbOne,
+    excludedNameKeywords: [],
+    excludedUrlSlugs: Array.from(CB_ONE_SKIP_SLUGS),
+    // cb-one.co.jp — WordPress, WP REST API, fetch-only
+    // キャスティングプラグ・メタルジグ
+  },
+  {
+    slug: 'crazy-ocean',
+    name: 'CRAZY OCEAN',
+    discover: discoverCrazyOcean,
+    excludedNameKeywords: ['スペアネクタイ', '絡め手フック', '替えフック', 'アシスト'],
+    // crazy-ocean.com — WordPress, WP REST API, fetch-only
+    // CPT: itemlist, メタルジグ・エギ・タイラバ・ワーム
+  },
+  {
+    slug: 'd-claw',
+    name: 'D-Claw',
+    discover: discoverDClaw,
+    excludedNameKeywords: [],
+    // d-claw.jp — static HTML, hardcoded product list
+    // オフショアキャスティング用ダイビングペンシル・ポッパー・メタルジグ
+  },
+  {
+    slug: 'deepliner',
+    name: 'Deep Liner',
+    discover: discoverDeepliner,
+    excludedNameKeywords: [],
+    excludedUrlSlugs: Array.from(DEEPLINER_BROKEN_SLUGS),
+    // deepliner.com — static HTML, item.html listing
+    // スロージギング用メタルジグ専門
+  },
+  {
+    slug: 'drt',
+    name: 'DRT',
+    discover: discoverDrt,
+    excludedNameKeywords: [],
+    // divisionrebeltackles.com — WordPress, fetch-only
+    // Category pages: /products/bait/, /products/soft-bait/, /products/jig/
+    // ビッグベイト・ワーム・ラバージグ
+  },
+  {
+    slug: 'flash-union',
+    name: 'Flash Union',
+    discover: discoverFlashUnion,
+    excludedNameKeywords: [],
+    excludedUrlSlugs: Array.from(FLASH_UNION_SKIP_SLUGS),
+    // flash-union.jp — custom PHP, fetch-only
+    // Product listing at /product/, バス用ハード・ソフトルアー
+  },
+  {
+    slug: 'breaden',
+    name: 'BREADEN',
+    discover: discoverBreaden,
+    excludedNameKeywords: [],
+    // breaden.net — Static HTML, fetch-only
+    // ライトゲーム系ルアー（メバル・アジ・チヌ）
+  },
+  {
+    slug: 'dranckrazy',
+    name: 'DRANCKRAZY',
+    discover: discoverDranckrazy,
+    excludedNameKeywords: [],
+    // dranckrazy.com — WooCommerce, fetch-only
+    // ハンドメイドルアー
+  },
+  {
+    slug: 'harimitsu',
+    name: 'HARIMITSU',
+    discover: discoverHarimitsu,
+    excludedNameKeywords: [],
+    // harimitsu.co.jp — WordPress, fetch-only
+    // エギ・墨族シリーズ
+  },
+  {
+    slug: 'hayabusa',
+    name: 'Hayabusa',
+    discover: discoverHayabusa,
+    excludedNameKeywords: [],
+    // hayabusa.co.jp — WordPress, WP REST API, fetch-only
+    // メタルジグ・仕掛け・ジグヘッド
+  },
+  {
+    slug: 'longin',
+    name: 'LONGIN',
+    discover: discoverLongin,
+    excludedNameKeywords: [],
+    // longin.jp — Static HTML, fetch-only
+    // シーバス・青物用ミノー・シンペン
+  },
+  {
+    slug: 'seafloor-control',
+    name: 'SEAFLOOR CONTROL',
+    discover: discoverSeafloorControl,
+    excludedNameKeywords: [],
+    // seafloor-control.com — WordPress, fetch-only
+    // スロージギング用メタルジグ
+  },
+  {
+    slug: 'xesta',
+    name: 'XESTA',
+    discover: discoverXesta,
+    excludedNameKeywords: [],
+    // xesta.jp — WordPress, fetch-only
+    // ショアジギング・ライトゲーム・オフショア・エギ
+  },
+  {
+    slug: 'zeake',
+    name: 'ZEAKE',
+    discover: discoverZeake,
+    excludedNameKeywords: [],
+    // zeake.jp — WordPress/Cocoon, fetch-only
+    // メタルジグ・ブレードジグ
   },
 ];
 

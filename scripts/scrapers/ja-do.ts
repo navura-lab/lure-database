@@ -17,6 +17,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -804,7 +805,81 @@ async function main() {
   log('========================================');
 }
 
-main().catch(err => {
-  logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
-  process.exit(1);
-});
+// ---------------------------------------------------------------------------
+// Modular ScraperFunction export
+// ---------------------------------------------------------------------------
+
+export const scrapeJaDoPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  // ja-do has all products on a single page; URL may include a fragment #tabId
+  const urlObj = new URL(url);
+  const fragment = urlObj.hash ? urlObj.hash.replace('#', '') : '';
+  const pageUrl = urlObj.origin + urlObj.pathname;
+
+  const fullHtml = await fetchPage(pageUrl);
+
+  // Find the matching product definition by tabId (from fragment) or URL search param
+  let matchedProduct: typeof PRODUCTS[number] | undefined;
+  if (fragment) {
+    matchedProduct = PRODUCTS.find(p => p.tabId === fragment);
+  }
+  // If no fragment match, try the first product as fallback
+  if (!matchedProduct) {
+    matchedProduct = PRODUCTS[0];
+  }
+
+  const panelHtml = extractPanelHtml(fullHtml, matchedProduct.tabId);
+  if (!panelHtml) {
+    throw new Error(`[ja-do] Panel not found for tabId=${matchedProduct.tabId}`);
+  }
+
+  const scraped = scrapeProduct(matchedProduct, panelHtml);
+
+  // Build colors in ScrapedLure format
+  const colors = scraped.colors.map(c => ({
+    name: c.colorName,
+    imageUrl: c.imageUrl || '',
+  }));
+
+  // Determine weight/length/price
+  let weight: number | null = scraped.weight;
+  let length: number | null = scraped.length;
+  let price = scraped.price;
+  const weights: number[] = [];
+
+  if (scraped.variants && scraped.variants.length > 0) {
+    for (const v of scraped.variants) {
+      if (!weights.includes(v.weight)) weights.push(v.weight);
+    }
+    weight = scraped.variants[0].weight;
+    length = scraped.variants[0].length;
+    price = scraped.variants[0].price;
+  } else if (weight !== null) {
+    weights.push(weight);
+  }
+
+  return {
+    name: scraped.name,
+    name_kana: '',
+    slug: scraped.slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type: scraped.type,
+    target_fish: scraped.targetFish,
+    description: scraped.description,
+    price,
+    colors,
+    weights,
+    length,
+    mainImage: scraped.mainImageUrl || '',
+    sourceUrl: url,
+  };
+};
+
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/ja-do');
+if (isDirectRun) {
+  main().catch(err => {
+    logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  });
+}

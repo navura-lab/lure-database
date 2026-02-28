@@ -16,6 +16,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -831,7 +832,67 @@ async function main() {
   log('========================================');
 }
 
-main().catch(err => {
-  logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
-  process.exit(1);
-});
+// ---------------------------------------------------------------------------
+// Modular ScraperFunction export
+// ---------------------------------------------------------------------------
+
+export const scrapeHotsPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  const html = await fetchPage(url);
+
+  // Try to match against known product definitions by page filename
+  const pageFile = url.split('/').pop() || '';
+  const productDef = PRODUCTS.find(p => p.page === pageFile);
+
+  const weightSpecs = parseWeightSpecs(html);
+  const colorChart = parseColorChart(html);
+  const description = parseDescription(html);
+  const mainImageUrl = parseMainImage(html);
+
+  // Product name: from definition or from HTML
+  let name = productDef?.name || '';
+  if (!name) {
+    // Try extracting from <h2> in the clm03 section
+    const h2Match = html.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
+    if (h2Match) name = stripTags(h2Match[1]);
+    if (!name) {
+      const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+      if (titleMatch) name = stripTags(titleMatch[1]).replace(/\s*[-|]\s*HOTS.*$/i, '').trim();
+    }
+  }
+
+  const slug = productDef?.slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const type = productDef?.type || 'メタルジグ';
+  const targetFish = productDef?.targetFish || ['マグロ', 'ヒラマサ', 'カンパチ', 'ブリ'];
+
+  const colors = colorChart.map(c => ({ name: c.name, imageUrl: c.imageUrl }));
+  const weights = weightSpecs.map(s => s.weight);
+  const price = weightSpecs.length > 0 ? Math.round(weightSpecs[0].price * 1.1) : 0;
+  const lengths = weightSpecs.map(s => s.length).filter((l): l is number => l !== null);
+  const length = lengths.length > 0 ? lengths[0] : null;
+
+  return {
+    name,
+    name_kana: '',
+    slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type,
+    target_fish: targetFish,
+    description,
+    price,
+    colors,
+    weights,
+    length,
+    mainImage: mainImageUrl || '',
+    sourceUrl: url,
+  };
+};
+
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/hots');
+if (isDirectRun) {
+  main().catch(err => {
+    logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  });
+}

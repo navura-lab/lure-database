@@ -5,6 +5,7 @@
 // Spec data in custom div grid, colors in data-* attributes
 // ~54 lure products across spoons, hardbaits, metalvibe
 
+import type { ScraperFunction, ScrapedLure } from './types.js';
 import sharp from 'sharp';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import {
@@ -430,6 +431,75 @@ async function scrapeProductPage(link: ProductLink): Promise<ScrapedProduct> {
 }
 
 // ---------------------------------------------------------------------------
+// Exported ScraperFunction for pipeline integration
+// ---------------------------------------------------------------------------
+
+export const scrapeValkeinPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  // Derive slug and category from URL
+  // URL format: https://valkein.jp/products/{category}/{slug}/
+  const pathMatch = url.match(/\/products\/([^/]+)\/([^/]+)\/?$/);
+  const category = pathMatch ? pathMatch[1] : 'spoons';
+  const slug = pathMatch ? pathMatch[2] : 'unknown';
+
+  // Map category to default type
+  const categoryTypeMap: Record<string, string> = {
+    'spoons': 'スプーン',
+    'hardbaits': 'クランクベイト',
+    'metalvibe': 'メタルバイブレーション',
+  };
+  const defaultType = categoryTypeMap[category] || 'スプーン';
+
+  const link: ProductLink = {
+    name: slug,
+    url,
+    slug,
+    defaultType,
+    category,
+  };
+
+  const scraped = await scrapeProductPage(link);
+
+  // Collect unique weights from specRows
+  const weights = scraped.specRows
+    .map(r => r.weight)
+    .filter((w): w is number => w !== null);
+
+  // Use first row's length
+  const length = scraped.specRows.length > 0 ? scraped.specRows[0].length : null;
+
+  // Use max price
+  const price = scraped.specRows.length > 0
+    ? Math.max(...scraped.specRows.map(r => r.price).filter(p => p > 0), 0)
+    : 0;
+
+  // Convert colors
+  const colors = scraped.colors.map(c => ({
+    name: c.name,
+    imageUrl: c.imageUrl,
+  }));
+
+  // Main image: first color image or empty
+  const mainImage = colors.length > 0 ? colors[0].imageUrl : '';
+
+  return {
+    name: scraped.name,
+    name_kana: scraped.japaneseName || '',
+    slug: scraped.slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type: scraped.lureType,
+    target_fish: ['トラウト'],
+    description: scraped.description,
+    price,
+    colors,
+    weights,
+    length,
+    mainImage,
+    sourceUrl: url,
+  };
+};
+
+// ---------------------------------------------------------------------------
 // Main pipeline
 // ---------------------------------------------------------------------------
 
@@ -580,7 +650,11 @@ async function main(): Promise<void> {
   log('========================================');
 }
 
-main().catch(err => {
-  logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
-  process.exit(1);
-});
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/valkein');
+if (isDirectRun) {
+  main().catch(err => {
+    logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  });
+}

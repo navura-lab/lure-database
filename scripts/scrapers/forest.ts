@@ -6,6 +6,7 @@
 // Weights: "ウエイト：1.4g" or "ウエイト：1.6g・2.5ｇ・3.8g"
 // Single product image per page (no per-color images)
 
+import type { ScraperFunction, ScrapedLure } from './types.js';
 import sharp from 'sharp';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import {
@@ -486,6 +487,58 @@ async function scrapeProductPage(link: ProductLink): Promise<ScrapedProduct | nu
 }
 
 // ---------------------------------------------------------------------------
+// Exported ScraperFunction for pipeline integration
+// ---------------------------------------------------------------------------
+
+export const scrapeForestPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  // Derive slug and category from URL
+  // URL format: https://forestjp.com/products/{area-lure|native-lure}/{slug}/
+  const slugMatch = url.match(/\/products\/(area-lure|native-lure)\/([^/]+)\/?$/);
+  const category = slugMatch ? slugMatch[1] : 'area-lure';
+  const rawSlug = slugMatch ? slugMatch[2] : 'unknown';
+  const slug = decodeSlug(rawSlug);
+
+  const link: ProductLink = {
+    name: slug,
+    url,
+    slug,
+    defaultType: 'スプーン',
+    category,
+  };
+
+  const scraped = await scrapeProductPage(link);
+  if (!scraped) {
+    throw new Error(`Failed to scrape product at ${url}`);
+  }
+
+  // Forest colors are just string names with a shared product image
+  // Convert to ScrapedColor format: all colors share the same imageUrl
+  const colors = scraped.colors.map(name => ({
+    name,
+    imageUrl: scraped.imageUrl || '',
+  }));
+
+  const mainImage = scraped.imageUrl || '';
+
+  return {
+    name: scraped.name,
+    name_kana: '',
+    slug: scraped.slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type: scraped.lureType,
+    target_fish: ['トラウト'],
+    description: scraped.description,
+    price: scraped.price,
+    colors,
+    weights: scraped.weights,
+    length: scraped.length,
+    mainImage,
+    sourceUrl: url,
+  };
+};
+
+// ---------------------------------------------------------------------------
 // Main pipeline
 // ---------------------------------------------------------------------------
 
@@ -629,7 +682,11 @@ async function main(): Promise<void> {
   log('========================================');
 }
 
-main().catch(err => {
-  logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
-  process.exit(1);
-});
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/forest');
+if (isDirectRun) {
+  main().catch(err => {
+    logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  });
+}

@@ -16,6 +16,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -661,7 +662,54 @@ async function main() {
   log('========================================');
 }
 
-main().catch(err => {
-  logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
-  process.exit(1);
-});
+// ---------------------------------------------------------------------------
+// Modular ScraperFunction export
+// ---------------------------------------------------------------------------
+
+export const scrapeMcWorksPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  const html = await fetchPage(url);
+
+  // Parse product name from page
+  const nameMatch = html.match(/<h2\s+class="page-title"><span>([^<]+)<\/span><\/h2>/i);
+  const name = nameMatch ? nameMatch[1].trim() : '';
+  if (!name) throw new Error(`[mc-works] Could not extract product name from ${url}`);
+
+  const description = parseDescription(html);
+  const colors = parseColors(html);
+  const weightPrices = parseWeightPrices(html);
+  const mainImageUrl = parseMainImage(html);
+  const productImages = parseProductImages(html);
+  const slug = slugify(name);
+  const type = getProductType(name);
+  const targetFish = getTargetFish(name);
+
+  const scrapedColors = colors.map(c => ({ name: c, imageUrl: '' }));
+  const weights = weightPrices.map(wp => wp.weight);
+  const price = weightPrices.length > 0 ? weightPrices[0].priceTaxIncl : 0;
+
+  return {
+    name,
+    name_kana: '',
+    slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type,
+    target_fish: targetFish,
+    description,
+    price,
+    colors: scrapedColors,
+    weights,
+    length: null,
+    mainImage: mainImageUrl || (productImages.length > 0 ? productImages[0] : ''),
+    sourceUrl: url,
+  };
+};
+
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/mc-works');
+if (isDirectRun) {
+  main().catch(err => {
+    logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  });
+}

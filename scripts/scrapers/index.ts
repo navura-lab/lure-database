@@ -60,6 +60,35 @@ import { scrapeNoikePage } from './noike.js';
 import { scrapeBaitBreathPage } from './baitbreath.js';
 import { scrapePalmsPage } from './palms.js';
 import { scrapeMadnessPage } from './madness.js';
+// --- Formerly standalone scrapers (converted 2026-02-28) ---
+import { scrapeBeatPage } from './beat.js';
+import { scrapeBoreasPage } from './boreas.js';
+import { scrapeBozlesPage } from './bozles.js';
+import { scrapeCarpenterPage } from './carpenter.js';
+import { scrapeCbOnePage } from './cb-one.js';
+import { scrapeCrazyOceanPage } from './crazy-ocean.js';
+import { scrapeDClawPage } from './d-claw.js';
+import { scrapeDeepLinerPage } from './deep-liner.js';
+import { scrapeDrtPage } from './drt.js';
+import { scrapeFlashUnionPage } from './flash-union.js';
+import { scrapeForestPage } from './forest.js';
+import { scrapeHmklPage } from './hmkl.js';
+import { scrapeHotsPage } from './hots.js';
+import { scrapeJaDoPage } from './ja-do.js';
+import { scrapeMcWorksPage } from './mc-works.js';
+import { scrapeMukaiPage } from './mukai.js';
+import { scrapeNatureBoysPage } from './nature-boys.js';
+import { scrapeNorthCraftPage } from './north-craft.js';
+import { scrapeValkeinPage } from './valkein.js';
+// --- New modular scrapers (Phase 2, 2026-02-28) ---
+import { scrapeBreadenPage } from './breaden.js';
+import { scrapeDranckrazyPage } from './dranckrazy.js';
+import { scrapeHarimitsuPage } from './harimitsu.js';
+import { scrapeHayabusaPage } from './hayabusa.js';
+import { scrapeLonginPage } from './longin.js';
+import { scrapeSeafloorControlPage } from './seafloor-control.js';
+import { scrapeXestaPage } from './xesta.js';
+import { scrapeZeakePage } from './zeake.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -118,6 +147,35 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   baitbreath: scrapeBaitBreathPage,
   palms: scrapePalmsPage,
   madness: scrapeMadnessPage,
+  // --- Formerly standalone scrapers (converted 2026-02-28) ---
+  beat: scrapeBeatPage,
+  boreas: scrapeBoreasPage,
+  bozles: scrapeBozlesPage,
+  carpenter: scrapeCarpenterPage,
+  'cb-one': scrapeCbOnePage,
+  'crazy-ocean': scrapeCrazyOceanPage,
+  'd-claw': scrapeDClawPage,
+  deepliner: scrapeDeepLinerPage,
+  drt: scrapeDrtPage,
+  'flash-union': scrapeFlashUnionPage,
+  forest: scrapeForestPage,
+  hmkl: scrapeHmklPage,
+  hots: scrapeHotsPage,
+  'ja-do': scrapeJaDoPage,
+  'mc-works': scrapeMcWorksPage,
+  mukai: scrapeMukaiPage,
+  'nature-boys': scrapeNatureBoysPage,
+  'north-craft': scrapeNorthCraftPage,
+  valkein: scrapeValkeinPage,
+  // --- New modular scrapers (Phase 2, 2026-02-28) ---
+  breaden: scrapeBreadenPage,
+  dranckrazy: scrapeDranckrazyPage,
+  harimitsu: scrapeHarimitsuPage,
+  hayabusa: scrapeHayabusaPage,
+  longin: scrapeLonginPage,
+  'seafloor-control': scrapeSeafloorControlPage,
+  xesta: scrapeXestaPage,
+  zeake: scrapeZeakePage,
 };
 
 /**

@@ -17,6 +17,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure, ScrapedColor as ScrapedColorType } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -831,6 +832,150 @@ function scrapeProduct(page: WPPage): ScrapedProduct {
 }
 
 // ---------------------------------------------------------------------------
+// Exported ScraperFunction — fetches a single product page by URL
+// ---------------------------------------------------------------------------
+
+export const scrapeNatureBoysPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  // Try to get page data from WP REST API
+  // URL patterns: https://www.e-natureboys.com/XXX/ or /?page_id=123 or /?p=123
+  const pageIdMatch = url.match(/[?&](?:page_id|p)=(\d+)/);
+  let wpPage: WPPage | null = null;
+
+  if (pageIdMatch) {
+    // Fetch by page ID
+    const apiUrl = `${API_BASE}/pages/${pageIdMatch[1]}?_fields=id,slug,title,content,link,categories`;
+    try {
+      const res = await fetch(apiUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+      });
+      if (res.ok) {
+        wpPage = await res.json() as WPPage;
+      }
+    } catch { /* fall through */ }
+  }
+
+  if (!wpPage) {
+    // Try to extract slug from URL path: /slug/ or /parent/slug/
+    const pathMatch = url.replace(/\/$/, '').match(/\/([^/?#]+)$/);
+    if (pathMatch) {
+      const slug = pathMatch[1];
+      const apiUrl = `${API_BASE}/pages?slug=${encodeURIComponent(slug)}&_fields=id,slug,title,content,link,categories`;
+      try {
+        const res = await fetch(apiUrl, {
+          headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+        });
+        if (res.ok) {
+          const pages = await res.json() as WPPage[];
+          if (pages.length > 0) wpPage = pages[0];
+        }
+      } catch { /* fall through */ }
+    }
+  }
+
+  if (wpPage) {
+    // Use existing parsing logic
+    const scraped = scrapeProduct(wpPage);
+
+    const colors: ScrapedColorType[] = scraped.colors.map(c => ({
+      name: c,
+      imageUrl: '',
+    }));
+
+    // Map color images if available
+    for (const ci of scraped.colorImages) {
+      if (ci.colorName) {
+        const existing = colors.find(c => c.name === ci.colorName);
+        if (existing) {
+          existing.imageUrl = ci.url.startsWith('http') ? ci.url : `${SITE_BASE}${ci.url}`;
+        }
+      }
+    }
+
+    const weights = scraped.weightPrices.map(wp => wp.weight);
+    const price = scraped.weightPrices.length > 0 && scraped.weightPrices[0].price > 0
+      ? Math.round(scraped.weightPrices[0].price * 1.1) // tax-inclusive
+      : 0;
+    const length = scraped.weightPrices.find(wp => wp.length !== null)?.length ?? null;
+
+    return {
+      name: scraped.name,
+      name_kana: '',
+      slug: scraped.slug,
+      manufacturer: MANUFACTURER,
+      manufacturer_slug: MANUFACTURER_SLUG,
+      type: scraped.type,
+      target_fish: scraped.targetFish,
+      description: scraped.description,
+      price,
+      colors,
+      weights,
+      length,
+      mainImage: scraped.mainImageUrl || '',
+      sourceUrl: url,
+    };
+  }
+
+  // Fallback: fetch HTML page directly and parse
+  const res = await fetch(url, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+  });
+  if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+  const fullHtml = await res.text();
+
+  // Extract title from <h1> or <title>
+  const titleMatch = fullHtml.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)
+    || fullHtml.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  const rawTitle = titleMatch ? stripTags(titleMatch[1]).replace(/\s*[|–—].*$/, '').trim() : 'Unknown';
+  const name = cleanProductName(rawTitle);
+
+  // Extract content area
+  const contentMatch = fullHtml.match(/<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*?)<\/div>\s*(?:<footer|<nav|<div[^>]*class="[^"]*(?:post-share|entry-footer))/i)
+    || fullHtml.match(/<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*)/i);
+  const contentHtml = contentMatch ? contentMatch[1] : fullHtml;
+
+  // Extract slug from URL
+  const urlSlugMatch = url.replace(/\/$/, '').match(/\/([^/?#]+)$/);
+  const wpSlug = urlSlugMatch ? urlSlugMatch[1] : '';
+  const slug = makeSlug(wpSlug, rawTitle);
+
+  // Determine type from page content (check for category clues)
+  const type = determineType(rawTitle, []);
+  const targetFish = determineTargetFish(type);
+  const description = parseDescription(contentHtml);
+  const parsedColors = parseColors(contentHtml);
+  const weightPrices = parseWeightPrices(contentHtml);
+  const mainImageUrl = parseMainImage(contentHtml);
+
+  const colors: ScrapedColorType[] = parsedColors.map(c => ({
+    name: c,
+    imageUrl: '',
+  }));
+
+  const weights = weightPrices.map(wp => wp.weight);
+  const price = weightPrices.length > 0 && weightPrices[0].price > 0
+    ? Math.round(weightPrices[0].price * 1.1)
+    : 0;
+  const length = weightPrices.find(wp => wp.length !== null)?.length ?? null;
+
+  return {
+    name,
+    name_kana: '',
+    slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type,
+    target_fish: targetFish,
+    description,
+    price,
+    colors,
+    weights,
+    length,
+    mainImage: mainImageUrl || '',
+    sourceUrl: url,
+  };
+};
+
+// ---------------------------------------------------------------------------
 // Main pipeline
 // ---------------------------------------------------------------------------
 
@@ -1034,7 +1179,11 @@ async function main() {
   log('========================================');
 }
 
-main().catch(err => {
-  logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
-  process.exit(1);
-});
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/nature-boys');
+if (isDirectRun) {
+  main().catch(err => {
+    logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  });
+}

@@ -4,6 +4,7 @@
 // Two spec table formats: casting plugs (6-col) and metal jigs (3-col)
 // Color images in spider sliders: named (BAZOO_maiwashi.png) or numbered (MB1-1.png)
 
+import type { ScraperFunction, ScrapedLure } from './types.js';
 import sharp from 'sharp';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import {
@@ -424,6 +425,67 @@ async function scrapeProduct(link: ProductLink): Promise<ScrapedProduct | null> 
 }
 
 // ---------------------------------------------------------------------------
+// Exported ScraperFunction for pipeline integration
+// ---------------------------------------------------------------------------
+
+export const scrapeCbOnePage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  // Derive slug from URL: https://cb-one.co.jp/products/{slug}/
+  const slugMatch = url.match(/\/products\/([^/]+)\/?$/);
+  const slug = slugMatch ? slugMatch[1] : 'unknown';
+
+  // Default to casting-plug; pipeline only sends lure URLs
+  const link: ProductLink = {
+    slug,
+    url,
+    category: 'casting-plug',
+  };
+
+  const product = await scrapeProduct(link);
+  if (!product) {
+    throw new Error(`Failed to scrape product at ${url}`);
+  }
+
+  // Collect unique weights from specs
+  const weights = product.specs
+    .map(s => s.weight)
+    .filter((w): w is number => w !== null);
+
+  // Use first spec's length, or null
+  const length = product.specs.length > 0 ? product.specs[0].length : null;
+
+  // Use max price from specs
+  const price = product.specs.length > 0
+    ? Math.max(...product.specs.map(s => s.price).filter(p => p > 0), 0)
+    : 0;
+
+  // Convert colors
+  const colors = product.colors.map(c => ({
+    name: c.name,
+    imageUrl: c.imageUrl,
+  }));
+
+  // Main image
+  const mainImage = product.mainImageUrl || (colors.length > 0 ? colors[0].imageUrl : '');
+
+  return {
+    name: product.name,
+    name_kana: '',
+    slug: product.slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type: product.lureType,
+    target_fish: product.targetFish,
+    description: product.description,
+    price,
+    colors,
+    weights,
+    length,
+    mainImage,
+    sourceUrl: url,
+  };
+};
+
+// ---------------------------------------------------------------------------
 // Main pipeline
 // ---------------------------------------------------------------------------
 
@@ -622,7 +684,11 @@ async function main(): Promise<void> {
   log(`========================================`);
 }
 
-main().catch(e => {
-  logError(`Fatal: ${e}`);
-  process.exit(1);
-});
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/cb-one');
+if (isDirectRun) {
+  main().catch(e => {
+    logError(`Fatal: ${e}`);
+    process.exit(1);
+  });
+}

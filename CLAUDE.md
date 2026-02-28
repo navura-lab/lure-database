@@ -81,16 +81,18 @@ Supabase JS Client は `src/lib/supabase.ts`。
 ## 新メーカー追加時のルール
 
 **メーカー追加を指示されたら、Runbookの「新メーカー追加 完全チェックリスト」に従え。**
-完了条件9項目をすべて満たすまで「完了」と報告するな:
+完了条件11項目をすべて満たすまで「完了」と報告するな:
 1. スクレイパーが動く（テスト済み）
-2. 全商品がSupabaseに登録されている（未処理0、エラー0）
-3. discover-products.ts に追加済み（--dry-run で新規0件）
-4. Runbookが更新されている
-5. **⚠️ Obsidianが更新されている（過去に何度も忘れている。Phase 5で必ずやれ。Phase 6でも再確認せよ）**
+2. **⚠️ ScraperFunction をexportし、`scripts/scrapers/index.ts` の SCRAPER_REGISTRY に登録済み（スタンドアロン禁止）**
+3. 全商品がSupabaseに登録されている（未処理0、エラー0）
+4. discover-products.ts に追加済み（--dry-run で新規0件）
+5. **`npx tsx scripts/check-pipeline-coverage.ts` でカバレッジ100%（差分0件）**
+6. Runbookが更新されている
+7. **⚠️ Obsidianが更新されている（過去に何度も忘れている。Phase 5で必ずやれ。Phase 6でも再確認せよ）**
    - 対象: `/Users/user/clawd/obsidian/10_プロジェクト/ルアーDB 自動更新システム設計.md`
    - 方法: `cat > "..." << 'OBSIDIAN_EOF' ... OBSIDIAN_EOF`（execで書き込み）
    - 確認: `head -3 "..."` で最終更新日が今日+今回のメーカー名であること
-6. Gitコミット済み（working tree clean）
-7. テスト用スクリプトが _deprecated/ に移動済み
-8. **`git push origin main` 済み（⚠️ pushしないとサイトに反映されない）**
-9. **サイトに新メーカーの商品が表示されている（デプロイ反映確認）**
+8. Gitコミット済み（working tree clean）
+9. テスト用スクリプトが _deprecated/ に移動済み
+10. **`git push origin main` 済み（⚠️ pushしないとサイトに反映されない）**
+11. **サイトに新メーカーの商品が表示されている（デプロイ反映確認）**

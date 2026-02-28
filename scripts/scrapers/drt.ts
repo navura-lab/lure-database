@@ -3,6 +3,7 @@
 // fetch-only, no Playwright needed
 // Scrapes bait, soft-bait, and jig categories
 
+import type { ScraperFunction, ScrapedLure } from './types.js';
 import sharp from 'sharp';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import {
@@ -411,6 +412,51 @@ async function scrapeProductPage(link: ProductLink): Promise<ScrapedProduct> {
 }
 
 // ---------------------------------------------------------------------------
+// Exported ScraperFunction for pipeline integration
+// ---------------------------------------------------------------------------
+
+export const scrapeDrtPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  // Determine default type from URL path
+  let defaultType = 'ビッグベイト';
+  if (url.includes('/soft-bait/')) defaultType = 'ワーム';
+  else if (url.includes('/jig/')) defaultType = 'ラバージグ';
+
+  const link: ProductLink = {
+    name: 'Unknown',
+    url,
+    defaultType,
+  };
+
+  const scraped = await scrapeProductPage(link);
+
+  // Convert colors
+  const colors = scraped.colors.map(c => ({
+    name: c.name,
+    imageUrl: c.imageUrl,
+  }));
+
+  // Main image: first color image or empty
+  const mainImage = colors.length > 0 ? colors[0].imageUrl : '';
+
+  return {
+    name: scraped.name,
+    name_kana: '',
+    slug: scraped.slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type: scraped.type,
+    target_fish: ['ブラックバス'],
+    description: scraped.description,
+    price: scraped.price,
+    colors,
+    weights: scraped.weights,
+    length: scraped.length,
+    mainImage,
+    sourceUrl: url,
+  };
+};
+
+// ---------------------------------------------------------------------------
 // Main pipeline
 // ---------------------------------------------------------------------------
 
@@ -549,7 +595,11 @@ async function main(): Promise<void> {
   log('========================================');
 }
 
-main().catch(err => {
-  logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
-  process.exit(1);
-});
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/drt');
+if (isDirectRun) {
+  main().catch(err => {
+    logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  });
+}

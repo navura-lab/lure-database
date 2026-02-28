@@ -12,6 +12,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure, ScrapedColor as ScrapedColorType } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -385,6 +386,55 @@ function scrapeProduct(p: ShopifyProduct): ScrapedProduct {
 }
 
 // ---------------------------------------------------------------------------
+// Exported ScraperFunction — fetches a single product by URL via Shopify JSON API
+// ---------------------------------------------------------------------------
+
+export const scrapeBoreasPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  // Extract product handle from URL: https://flashpointonlineshop.com/products/HANDLE
+  const handleMatch = url.match(/\/products\/([^/?#]+)/);
+  if (!handleMatch) throw new Error(`Cannot extract product handle from URL: ${url}`);
+  const handle = handleMatch[1];
+
+  // Fetch single product via Shopify JSON API
+  const jsonUrl = `${SHOP_BASE}/products/${handle}.json`;
+  const res = await fetch(jsonUrl);
+  if (!res.ok) throw new Error(`Shopify API error ${res.status}: ${jsonUrl}`);
+  const data = await res.json() as { product: ShopifyProduct };
+  const p = data.product;
+
+  // Reuse existing scrapeProduct logic
+  const scraped = scrapeProduct(p);
+
+  // Build ScrapedColor[] for the types interface
+  const colors: ScrapedColorType[] = scraped.colors.map(c => ({
+    name: c.name,
+    imageUrl: c.imageUrl || '',
+  }));
+
+  // Build weights array
+  const weights: number[] = scraped.weights.length > 0
+    ? scraped.weights
+    : (scraped.weight ? [scraped.weight] : []);
+
+  return {
+    name: scraped.name,
+    name_kana: '',
+    slug: scraped.slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type: scraped.type,
+    target_fish: ['ブラックバス'],
+    description: scraped.description,
+    price: scraped.price,
+    colors,
+    weights,
+    length: scraped.length,
+    mainImage: scraped.mainImage || '',
+    sourceUrl: url,
+  };
+};
+
+// ---------------------------------------------------------------------------
 // Main pipeline
 // ---------------------------------------------------------------------------
 
@@ -526,7 +576,11 @@ async function main(): Promise<void> {
   log('========================================');
 }
 
-main().catch(err => {
-  logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
-  process.exit(1);
-});
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/boreas');
+if (isDirectRun) {
+  main().catch(err => {
+    logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  });
+}

@@ -21,6 +21,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure, ScrapedColor as ScrapedColorType } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -487,6 +488,136 @@ function scrapeProduct(product: WPProduct): ScrapedProduct {
 }
 
 // ---------------------------------------------------------------------------
+// Exported ScraperFunction — fetches a single product page by URL
+// ---------------------------------------------------------------------------
+
+export const scrapeCrazyOceanPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  // Try to extract post ID from URL query param: ?post_type=itemlist&p=12345
+  const postIdMatch = url.match(/[?&]p=(\d+)/);
+  let apiData: WPProduct | null = null;
+
+  if (postIdMatch) {
+    // Fetch via WP REST API using post ID
+    const apiUrl = `${API_BASE}/${postIdMatch[1]}?_embed`;
+    const res = await fetch(apiUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+    });
+    if (res.ok) {
+      apiData = await res.json() as WPProduct;
+    }
+  }
+
+  if (!apiData) {
+    // Try to extract slug from pretty URL: /itemlist/xxx/
+    const slugMatch = url.match(/\/itemlist\/([^/]+)/);
+    if (slugMatch) {
+      const apiUrl = `${API_BASE}?slug=${encodeURIComponent(slugMatch[1])}&_embed`;
+      const res = await fetch(apiUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+      });
+      if (res.ok) {
+        const items = await res.json() as WPProduct[];
+        if (items.length > 0) apiData = items[0];
+      }
+    }
+  }
+
+  if (!apiData) {
+    // Fallback: fetch the HTML page directly and parse it
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+    });
+    if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+    const html = await res.text();
+
+    // Extract title
+    const titleMatch = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)
+      || html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+    const name = titleMatch ? stripTags(titleMatch[1]).replace(/\s*[|–—].*$/, '').trim() : 'Unknown';
+    const slug = slugify(name);
+
+    // Extract content area
+    const contentMatch = html.match(/<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*?)<\/div>\s*(?:<footer|<nav|<div[^>]*class="[^"]*(?:post-share|entry-footer))/i)
+      || html.match(/<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*)/i);
+    const contentHtml = contentMatch ? contentMatch[1] : html;
+
+    const description = parseDescription(contentHtml);
+    const specRows = parseSpecTables(contentHtml);
+    const { type, targetFish } = classifyProduct(name, []);
+
+    // Extract featured image from og:image
+    const ogMatch = html.match(/<meta[^>]+property="og:image"[^>]+content="([^"]+)"/i);
+    const mainImage = ogMatch ? ogMatch[1] : '';
+
+    // Collect unique colors and weights
+    const colorSet = new Map<string, ScrapedColorType>();
+    const weightSet = new Set<number>();
+    let price = 0;
+    let length: number | null = null;
+    for (const row of specRows) {
+      if (row.colorName && !colorSet.has(row.colorName)) {
+        colorSet.set(row.colorName, { name: row.colorName, imageUrl: '' });
+      }
+      if (row.weight !== null) weightSet.add(row.weight);
+      if (row.price > 0 && price === 0) price = Math.round(row.price * 1.1);
+      if (row.length !== null && length === null) length = row.length;
+    }
+
+    return {
+      name,
+      name_kana: '',
+      slug,
+      manufacturer: MANUFACTURER,
+      manufacturer_slug: MANUFACTURER_SLUG,
+      type,
+      target_fish: targetFish,
+      description,
+      price,
+      colors: [...colorSet.values()],
+      weights: [...weightSet],
+      length,
+      mainImage,
+      sourceUrl: url,
+    };
+  }
+
+  // We have API data — use existing parsing functions
+  const product = scrapeProduct(apiData);
+  const { type, targetFish } = classifyProduct(product.name, product.categoryIds);
+
+  // Collect unique colors and weights from specRows
+  const colorSet = new Map<string, ScrapedColorType>();
+  const weightSet = new Set<number>();
+  let price = 0;
+  let length: number | null = null;
+  for (const row of product.specRows) {
+    if (row.colorName && !colorSet.has(row.colorName)) {
+      colorSet.set(row.colorName, { name: row.colorName, imageUrl: '' });
+    }
+    if (row.weight !== null) weightSet.add(row.weight);
+    if (row.price > 0 && price === 0) price = Math.round(row.price * 1.1);
+    if (row.length !== null && length === null) length = row.length;
+  }
+
+  return {
+    name: product.name,
+    name_kana: '',
+    slug: product.slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type,
+    target_fish: targetFish,
+    description: product.description,
+    price,
+    colors: [...colorSet.values()],
+    weights: [...weightSet],
+    length,
+    mainImage: product.featuredImageUrl || '',
+    sourceUrl: url,
+  };
+};
+
+// ---------------------------------------------------------------------------
 // Main pipeline
 // ---------------------------------------------------------------------------
 
@@ -677,7 +808,11 @@ async function main(): Promise<void> {
   log(`========================================`);
 }
 
-main().catch(e => {
-  logError(`Fatal: ${e}`);
-  process.exit(1);
-});
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/crazy-ocean');
+if (isDirectRun) {
+  main().catch(e => {
+    logError(`Fatal: ${e}`);
+    process.exit(1);
+  });
+}

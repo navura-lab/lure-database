@@ -4,6 +4,7 @@
 // Spec data in <div id="spec_part"> table, colors in <div id="color_part"> li elements
 // Per-color images uploaded to R2 (similar to Valkein pattern)
 
+import type { ScraperFunction, ScrapedLure } from './types.js';
 import sharp from 'sharp';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import {
@@ -597,6 +598,58 @@ async function scrapeProductPage(link: ProductLink): Promise<ScrapedProduct | nu
 }
 
 // ---------------------------------------------------------------------------
+// Exported ScraperFunction for pipeline integration
+// ---------------------------------------------------------------------------
+
+export const scrapeHmklPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  // Derive pickup name from URL
+  // URL format: http://www.hmklnet.com/products/pickup/{NAME}/
+  const pickupMatch = url.match(/\/products\/pickup\/([^/]+)\/?$/);
+  const pickupName = pickupMatch ? pickupMatch[1] : 'unknown';
+  const slug = makeSlug(pickupName);
+
+  const link: ProductLink = {
+    name: pickupName,
+    url,
+    slug,
+  };
+
+  const scraped = await scrapeProductPage(link);
+  if (!scraped) {
+    throw new Error(`Failed to scrape product at ${url}`);
+  }
+
+  // Convert colors
+  const colors = scraped.colors.map(c => ({
+    name: c.name,
+    imageUrl: c.imageUrl,
+  }));
+
+  // Main image: first color image or empty
+  const mainImage = colors.length > 0 ? colors[0].imageUrl : '';
+
+  // Single weight per product
+  const weights = scraped.weight !== null ? [scraped.weight] : [];
+
+  return {
+    name: scraped.name,
+    name_kana: '',
+    slug: scraped.slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type: scraped.lureType,
+    target_fish: scraped.targetFish,
+    description: scraped.description,
+    price: scraped.price,
+    colors,
+    weights,
+    length: scraped.length,
+    mainImage,
+    sourceUrl: url,
+  };
+};
+
+// ---------------------------------------------------------------------------
 // Main pipeline
 // ---------------------------------------------------------------------------
 
@@ -739,7 +792,11 @@ async function main(): Promise<void> {
   log('========================================');
 }
 
-main().catch(err => {
-  logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
-  process.exit(1);
-});
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/hmkl');
+if (isDirectRun) {
+  main().catch(err => {
+    logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  });
+}

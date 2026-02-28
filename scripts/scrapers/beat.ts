@@ -16,6 +16,7 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID, AIRTABLE_MAKER_TABLE_ID,
   IMAGE_WIDTH,
 } from '../config.js';
+import type { ScraperFunction, ScrapedLure } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -354,6 +355,75 @@ function scrapeProduct(product: WPProduct): ScrapedProduct {
 }
 
 // ---------------------------------------------------------------------------
+// Exported ScraperFunction — fetches a single product page by URL
+// ---------------------------------------------------------------------------
+
+export const scrapeBeatPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  // Fetch the product page HTML
+  const res = await fetch(url, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+  });
+  if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+  const html = await res.text();
+
+  // Extract title from <title> tag or <h1>
+  const titleMatch = html.match(/<h1[^>]*class="[^"]*entry-title[^"]*"[^>]*>([\s\S]*?)<\/h1>/i)
+    || html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  const rawTitle = titleMatch ? stripTags(titleMatch[1]).replace(/\s*[|–—].*$/, '').trim() : '';
+  const name = rawTitle || 'Unknown';
+
+  // Extract slug from URL: https://beat-jig.com/product-item/xxx/
+  const slugMatch = url.match(/\/product-item\/([^/]+)/);
+  const slug = slugMatch ? slugMatch[1] : name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+  // Extract content area (entry-content)
+  const contentMatch = html.match(/<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*?)<\/div>\s*(?:<footer|<div[^>]*class="[^"]*post-share)/i)
+    || html.match(/<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
+  const contentHtml = contentMatch ? contentMatch[1] : html;
+
+  // Parse using existing helpers
+  const description = parseDescription(contentHtml);
+  const specRows = parseSpecTable(contentHtml);
+  const colorGridImageUrl = parseColorGridImage(contentHtml);
+
+  // Extract featured image from og:image or first content image
+  const ogImageMatch = html.match(/<meta[^>]+property="og:image"[^>]+content="([^"]+)"/i);
+  const featuredImageUrl = ogImageMatch ? ogImageMatch[1] : null;
+
+  // Build weights and price
+  const weights = specRows.map(r => r.weight);
+  const price = specRows.length > 0 && specRows[0].price > 0
+    ? Math.round(specRows[0].price * 1.1) // tax-inclusive
+    : 0;
+  const length = specRows.find(r => r.length !== null)?.length ?? null;
+
+  // Main image: prefer featured image, then color grid
+  const mainImage = featuredImageUrl || colorGridImageUrl || '';
+
+  // beat products use a single color grid — no per-color data available
+  const colors = colorGridImageUrl
+    ? [{ name: 'スタンダード', imageUrl: colorGridImageUrl }]
+    : [];
+
+  return {
+    name,
+    name_kana: '',
+    slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type: 'メタルジグ',
+    target_fish: TARGET_FISH,
+    description,
+    price,
+    colors,
+    weights,
+    length,
+    mainImage,
+    sourceUrl: url,
+  };
+};
+
+// ---------------------------------------------------------------------------
 // Main pipeline
 // ---------------------------------------------------------------------------
 
@@ -552,7 +622,11 @@ async function main(): Promise<void> {
   log(`========================================`);
 }
 
-main().catch(e => {
-  logError(`Fatal: ${e}`);
-  process.exit(1);
-});
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/beat');
+if (isDirectRun) {
+  main().catch(e => {
+    logError(`Fatal: ${e}`);
+    process.exit(1);
+  });
+}

@@ -3,6 +3,7 @@
 // fetch-only, no Playwright needed
 // Auto-discovers products from top page → new products picked up on re-run
 
+import type { ScraperFunction, ScrapedLure } from './types.js';
 import sharp from 'sharp';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import {
@@ -384,6 +385,51 @@ async function fetchEshopPrice(shopUrl: string): Promise<number> {
 }
 
 // ---------------------------------------------------------------------------
+// Exported ScraperFunction for pipeline integration
+// ---------------------------------------------------------------------------
+
+export const scrapeNorthCraftPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
+  const scraped = await scrapeProductPage(url);
+
+  // Collect unique weights from specs
+  const weights = [...new Set(scraped.specs.map(s => s.weight))];
+
+  // Use first spec's length, or null
+  const length = scraped.specs.length > 0 ? scraped.specs[0].length : null;
+
+  // Use max price from specs
+  const price = scraped.specs.length > 0
+    ? Math.max(...scraped.specs.map(s => s.price).filter(p => p > 0), 0)
+    : 0;
+
+  // Convert colors: use code as name, imageUrl as-is
+  const colors = scraped.colors.map(c => ({
+    name: c.code,
+    imageUrl: c.imageUrl,
+  }));
+
+  // Main image: first color image or empty
+  const mainImage = colors.length > 0 ? colors[0].imageUrl : '';
+
+  return {
+    name: scraped.name,
+    name_kana: '',
+    slug: scraped.slug,
+    manufacturer: MANUFACTURER,
+    manufacturer_slug: MANUFACTURER_SLUG,
+    type: 'ミノー',
+    target_fish: ['シーバス'],
+    description: scraped.description,
+    price,
+    colors,
+    weights,
+    length,
+    mainImage,
+    sourceUrl: url,
+  };
+};
+
+// ---------------------------------------------------------------------------
 // Main pipeline
 // ---------------------------------------------------------------------------
 
@@ -538,7 +584,11 @@ async function main(): Promise<void> {
   log('========================================');
 }
 
-main().catch(err => {
-  logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
-  process.exit(1);
-});
+// Only run main() when this file is executed directly, not when imported
+const isDirectRun = process.argv[1]?.includes('/scrapers/north-craft');
+if (isDirectRun) {
+  main().catch(err => {
+    logError(`Unhandled: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  });
+}
