@@ -381,6 +381,12 @@ async function processRecord(
 
     log(`Scraped: ${scraped.name}, ${scraped.colors.length} colors, ${scraped.weights.length} weights, price: ${scraped.price}`);
 
+    // Fallback: if no colors were extracted, create a default entry using mainImage
+    if (scraped.colors.length === 0) {
+      log(`No colors extracted — creating default color entry`);
+      scraped.colors = [{ name: '(default)', imageUrl: scraped.mainImage || '' }];
+    }
+
     // Process and upload color images to R2
     const colorImageMap = new Map<string, string>(); // colorName -> r2 public URL
 
@@ -456,6 +462,14 @@ async function processRecord(
     }
 
     log(`Inserted ${rowsInserted} rows for ${scraped.name}`);
+
+    // If 0 rows inserted, mark as error (scraper likely returned insufficient data)
+    if (rowsInserted === 0) {
+      const msg = `0行挿入: ${scraped.colors.length}色 x ${weights.length}ウェイト (全て既存 or 挿入失敗)`;
+      logError(msg);
+      await updateAirtableStatus(recordId, 'エラー', msg);
+      return { recordId, lureName, status: 'error', message: msg, colorsProcessed: scraped.colors.length, colorsWithImage: colorImageMap.size, rowsInserted: 0 };
+    }
 
     // Update Airtable to 登録完了
     await updateAirtableStatus(recordId, '登録完了', `${scraped.colors.length}色 x ${weights.length}ウェイト = ${rowsInserted}行挿入`);
