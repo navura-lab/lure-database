@@ -5788,6 +5788,8 @@ async function discoverJazz(_page: Page): Promise<Array<{ url: string; name: str
     var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
     if (posts.length === 0) break;
     for (var p of posts) {
+      // Only include product pages (under /product/), skip blog posts (/blog/..., etc.)
+      if (!/\/product\//.test(p.link)) continue;
       results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
     }
     if (posts.length < 100) break;
@@ -6077,6 +6079,9 @@ async function discoverSouls(_page: Page): Promise<Array<{ url: string; name: st
     var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
     if (posts.length === 0) break;
     for (var p of posts) {
+      // Skip blog posts (date-based URLs like /2026/02/10/...) — only keep /products/ pages
+      if (/\/\d{4}\/\d{2}\/\d{2}\//.test(p.link)) continue;
+      if (!/\/products\//.test(p.link)) continue;
       if (seenUrls.has(p.link)) continue;
       seenUrls.add(p.link);
       results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
@@ -6147,6 +6152,9 @@ async function discoverViva(_page: Page): Promise<Array<{ url: string; name: str
     var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
     if (posts.length === 0) break;
     for (var p of posts) {
+      // Only include product pages (under /viva/), skip blog posts (/blog/..., etc.)
+      if (/\/blog\//.test(p.link)) continue;
+      if (!/\/viva\//.test(p.link)) continue;
       results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
     }
     if (posts.length < 100) break;
@@ -6188,6 +6196,9 @@ async function discoverZeroDragon(_page: Page): Promise<Array<{ url: string; nam
   var siteBase = 'https://zero-dragon.com';
   var seenUrls = new Set<string>();
 
+  // Rod model patterns: EJ632, EJ5113HP, ESJ633, SH753, UMV-, ZL- etc.
+  var rodPattern = /\b(EJ\d|ESJ\d|SH\d|UMV|ZL\d)/i;
+
   log('[zero-dragon] Fetching product listing pages...');
 
   // Shop-Pro typically has a product list page, paginated
@@ -6213,6 +6224,8 @@ async function discoverZeroDragon(_page: Page): Promise<Array<{ url: string; nam
       if (seenUrls.has(fullUrl)) continue;
       seenUrls.add(fullUrl);
       if (!linkName) linkName = 'Product ' + pid;
+      // Skip rod products (model numbers like EJ632, ESJ633, SH753, UMV, ZL)
+      if (rodPattern.test(linkName)) continue;
       results.push({ url: fullUrl, name: linkName });
       foundOnPage++;
     }
