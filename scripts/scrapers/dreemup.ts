@@ -1,9 +1,9 @@
 // scripts/scrapers/dreemup.ts
-// DreemUp (dreemup.jp) product page scraper
+// DreemUp (dreem-up.com) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: WordPress
-// Product URL pattern: https://dreemup.jp/{slug}/
+// Product URL pattern: https://dreem-up.com/{slug}/
 // Types: ミノー, シンキングペンシル, etc.
 // Target fish: シーバス
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'DreemUp';
 const MANUFACTURER_SLUG = 'dreemup';
-const SITE_BASE = 'https://dreemup.jp';
+const SITE_BASE = 'https://dreem-up.com';
 const DEFAULT_TARGET_FISH = ['シーバス'];
 
 // ---------------------------------------------------------------------------

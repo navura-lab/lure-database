@@ -1,9 +1,9 @@
 // scripts/scrapers/damiki.ts
-// DAMIKI JAPAN (damiki.co.jp) product page scraper
+// DAMIKI JAPAN (damiki-japan.com) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: WordPress
-// Product URL pattern: https://damiki.co.jp/products/{slug}/
+// Product URL pattern: https://damiki-japan.com/products/{slug}/
 // Types: various (ワーム, クランク, スピナーベイト, etc.)
 // Target fish: ブラックバス
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'DAMIKI JAPAN';
 const MANUFACTURER_SLUG = 'damiki';
-const SITE_BASE = 'https://damiki.co.jp';
+const SITE_BASE = 'https://damiki-japan.com';
 const DEFAULT_TARGET_FISH = ['ブラックバス'];
 
 // ---------------------------------------------------------------------------

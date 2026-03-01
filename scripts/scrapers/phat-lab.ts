@@ -1,9 +1,9 @@
 // scripts/scrapers/phat-lab.ts
-// PHAT LAB (phatlab.net / phat-lab.com) product page scraper
+// PHAT LAB (phatlab.jp / phat-lab.com) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: Custom / possibly WordPress
-// Product URL pattern: https://phatlab.net/{product-slug}/ or https://phat-lab.com/...
+// Product URL pattern: https://phatlab.jp/{product-slug}/ or https://phat-lab.com/...
 // Types: ビッグベイト
 // Target fish: ブラックバス
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'PHAT LAB';
 const MANUFACTURER_SLUG = 'phat-lab';
-const SITE_BASE = 'https://phatlab.net';
+const SITE_BASE = 'https://phatlab.jp';
 const DEFAULT_TARGET_FISH = ['ブラックバス'];
 
 // ---------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 // scripts/scrapers/th-tackle.ts
-// TH tackle (th-tackle.com) product page scraper
+// TH tackle (t-hamada.com) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: WordPress or static (site may be intermittently available)
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'TH tackle';
 const MANUFACTURER_SLUG = 'th-tackle';
-const SITE_BASE = 'https://th-tackle.com';
+const SITE_BASE = 'https://t-hamada.com';
 const DEFAULT_TARGET_FISH = ['ブラックバス'];
 
 // ---------------------------------------------------------------------------

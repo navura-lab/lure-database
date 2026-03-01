@@ -1,9 +1,9 @@
 // scripts/scrapers/attic.ts
-// ATTIC (atticlure.com) product page scraper
+// ATTIC (attic.ne.jp) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: Static HTML
-// Product URL pattern: https://www.atticlure.com/{slug}.html
+// Product URL pattern: https://www.attic.ne.jp/{slug}.html
 // Types: ミノー, シンキングペンシル, etc.
 // Target fish: シーバス
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'ATTIC';
 const MANUFACTURER_SLUG = 'attic';
-const SITE_BASE = 'https://www.atticlure.com';
+const SITE_BASE = 'https://www.attic.ne.jp';
 const DEFAULT_TARGET_FISH = ['シーバス'];
 
 // ---------------------------------------------------------------------------

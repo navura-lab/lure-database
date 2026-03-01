@@ -1,9 +1,9 @@
 // scripts/scrapers/grassroots.ts
-// GRASS ROOTS (grassroots-fishing.com) product page scraper
+// GRASS ROOTS (grassroots-kms.com) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: Static/WordPress
-// Product URL pattern: https://grassroots-fishing.com/products/{slug}/ or similar
+// Product URL pattern: https://grassroots-kms.com/products/{slug}/ or similar
 // Types: メタルジグ, etc.
 // Target fish: 青物
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'GRASS ROOTS';
 const MANUFACTURER_SLUG = 'grassroots';
-const SITE_BASE = 'https://grassroots-fishing.com';
+const SITE_BASE = 'https://grassroots-kms.com';
 const DEFAULT_TARGET_FISH = ['青物'];
 
 // ---------------------------------------------------------------------------

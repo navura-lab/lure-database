@@ -1,9 +1,9 @@
 // scripts/scrapers/god-hands.ts
-// GOD HANDS (god-hands.com) product page scraper
+// GOD HANDS (god-hands.jp) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: Static/WordPress
-// Product URL pattern: https://god-hands.com/products/{slug}/
+// Product URL pattern: https://god-hands.jp/products/{slug}/
 // Types: スプーン, クランク, etc.
 // Target fish: トラウト
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'GOD HANDS';
 const MANUFACTURER_SLUG = 'god-hands';
-const SITE_BASE = 'https://god-hands.com';
+const SITE_BASE = 'https://god-hands.jp';
 const DEFAULT_TARGET_FISH = ['トラウト'];
 
 // ---------------------------------------------------------------------------

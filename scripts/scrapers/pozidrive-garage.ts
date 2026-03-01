@@ -1,9 +1,9 @@
 // scripts/scrapers/pozidrive-garage.ts
-// POZIDRIVE GARAGE (pozidrive-garage.com) product page scraper
+// POZIDRIVE GARAGE (pdg.co.jp) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: WordPress
-// Product URL pattern: https://pozidrive-garage.com/{product-slug}/
+// Product URL pattern: https://pdg.co.jp/{product-slug}/
 // Types: ミノー, シンキングペンシル
 // Target fish: シーバス
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'POZIDRIVE GARAGE';
 const MANUFACTURER_SLUG = 'pozidrive-garage';
-const SITE_BASE = 'https://pozidrive-garage.com';
+const SITE_BASE = 'https://pdg.co.jp';
 const DEFAULT_TARGET_FISH = ['シーバス'];
 
 // ---------------------------------------------------------------------------

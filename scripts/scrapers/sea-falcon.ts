@@ -1,9 +1,9 @@
 // scripts/scrapers/sea-falcon.ts
-// SEA FALCON (sea-falcon.com) product page scraper
+// SEA FALCON (seafalcon.jp) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: WordPress
-// Product URL pattern: https://sea-falcon.com/{product-slug}/
+// Product URL pattern: https://seafalcon.jp/{product-slug}/
 // Types: メタルジグ
 // Target fish: 青物 (ブリ, ヒラマサ, カンパチ, マグロ)
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'SEA FALCON';
 const MANUFACTURER_SLUG = 'sea-falcon';
-const SITE_BASE = 'https://sea-falcon.com';
+const SITE_BASE = 'https://seafalcon.jp';
 const DEFAULT_TARGET_FISH = ['ブリ', 'ヒラマサ', 'カンパチ', 'マグロ'];
 
 // ---------------------------------------------------------------------------

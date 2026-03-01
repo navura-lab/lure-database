@@ -1,9 +1,9 @@
 // scripts/scrapers/pickup.ts
-// PICKUP (pickup-co.jp) product page scraper
+// PICKUP (pickup-m.jp) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: WordPress
-// Product URL pattern: https://www.pickup-co.jp/{product-slug}/
+// Product URL pattern: https://pickup-m.jp/{product-slug}/
 // Types: メタルジグ
 // Target fish: 青物 (ブリ, ヒラマサ, カンパチ)
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'PICKUP';
 const MANUFACTURER_SLUG = 'pickup';
-const SITE_BASE = 'https://www.pickup-co.jp';
+const SITE_BASE = 'https://pickup-m.jp';
 const DEFAULT_TARGET_FISH = ['ブリ', 'ヒラマサ', 'カンパチ'];
 
 // ---------------------------------------------------------------------------

@@ -1,9 +1,9 @@
 // scripts/scrapers/mibro.ts
-// Mibro (mibro.info) product page scraper
+// Mibro (mibro.jp) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
-// Site: WordPress
-// Product URL pattern: https://mibro.info/{product-slug}/
+// Site: Wix (corporate site)
+// Product URL pattern: https://mibro.jp/{product-slug}/
 // Types: various (バス用ルアー全般)
 // Target fish: ブラックバス
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'Mibro';
 const MANUFACTURER_SLUG = 'mibro';
-const SITE_BASE = 'https://mibro.info';
+const SITE_BASE = 'https://mibro.jp';
 const DEFAULT_TARGET_FISH = ['ブラックバス'];
 
 // ---------------------------------------------------------------------------

@@ -5512,37 +5512,49 @@ async function discoverZeake(_page: Page): Promise<Array<{ url: string; name: st
 }
 
 // ---- ATTIC ----
-// atticlure.com — static HTML
-// Product URLs: https://www.atticlure.com/{slug}.html
+// attic.ne.jp — static HTML
+// Product URLs: https://www.attic.ne.jp/{slug}.html
 // Fetch-only, no Playwright
 
 async function discoverAttic(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var siteBase = 'https://www.atticlure.com';
+  var siteBase = 'https://www.attic.ne.jp';
   var seenUrls = new Set<string>();
 
-  log('[attic] Fetching product listing page...');
-  var res = await fetch(siteBase + '/', {
-    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
-  });
-  if (!res.ok) throw new Error('[attic] HTTP ' + res.status);
-  var html = await res.text();
+  // The /products/ page is paginated — fetch up to 10 pages
+  for (var pageNum = 1; pageNum <= 10; pageNum++) {
+    var pageUrl = pageNum === 1 ? siteBase + '/products/' : siteBase + '/products/page/' + pageNum + '/';
+    log('[attic] Fetching product page ' + pageNum + '...');
+    var res = await fetch(pageUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+    });
+    if (!res.ok) break; // No more pages
+    var html = await res.text();
 
-  // Match product links: href="xxx.html" (product pages)
-  var linkRegex = /<a\s+[^>]*href="([^"]+\.html)"[^>]*>([^<]*)/gi;
-  var match: RegExpExecArray | null;
+    // Match product links: /products/{slug}/
+    var linkRegex = /<a\s+[^>]*href="((?:https?:\/\/(?:www\.)?attic\.ne\.jp)?\/products\/[^"]+)"[^>]*>([^<]*)/gi;
+    var match: RegExpExecArray | null;
+    var foundOnPage = 0;
 
-  while ((match = linkRegex.exec(html)) !== null) {
-    var href = match[1];
-    var linkName = match[2].trim();
-    if (!href || /index|company|contact|news|blog|about|access|privacy|sitemap/i.test(href)) continue;
-    var fullUrl = href.startsWith('http') ? href : siteBase + '/' + href.replace(/^\.\//, '');
-    if (seenUrls.has(fullUrl)) continue;
-    seenUrls.add(fullUrl);
-    if (!linkName) {
-      linkName = href.replace(/\.html$/, '').replace(/-/g, ' ');
+    while ((match = linkRegex.exec(html)) !== null) {
+      var href = match[1];
+      var linkName = match[2].trim();
+      // Skip the /products/ index and pagination links
+      if (/\/products\/?$/.test(href)) continue;
+      if (/\/products\/page\//.test(href)) continue;
+      var fullUrl = href.startsWith('http') ? href : siteBase + href;
+      // Normalize trailing slash
+      fullUrl = fullUrl.replace(/\/$/, '') + '/';
+      if (seenUrls.has(fullUrl)) continue;
+      seenUrls.add(fullUrl);
+      if (!linkName) {
+        linkName = href.replace(/.*\/products\//, '').replace(/\/$/, '').replace(/-/g, ' ');
+      }
+      results.push({ url: fullUrl, name: linkName });
+      foundOnPage++;
     }
-    results.push({ url: fullUrl, name: linkName });
+
+    if (foundOnPage === 0) break;
   }
 
   log('[attic] Discovered ' + results.length + ' products');
@@ -5550,15 +5562,15 @@ async function discoverAttic(_page: Page): Promise<Array<{ url: string; name: st
 }
 
 // ---- DAMIKI JAPAN ----
-// damiki.co.jp — WordPress
-// Product URLs: https://damiki.co.jp/products/{slug}/
+// damiki-japan.com — WordPress
+// Product URLs: https://damiki-japan.com/products/{slug}/
 // WP REST API or fetch, no Playwright
 
 async function discoverDamiki(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
   var pageNum = 1;
   while (true) {
-    var res = await fetch('https://damiki.co.jp/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
+    var res = await fetch('https://damiki-japan.com/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
     if (!res.ok) break;
     var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
     if (posts.length === 0) break;
@@ -5573,77 +5585,106 @@ async function discoverDamiki(_page: Page): Promise<Array<{ url: string; name: s
 }
 
 // ---- DreemUp ----
-// dreemup.jp — WordPress
-// Product URLs: https://dreemup.jp/{slug}/
+// dreem-up.com — WordPress
+// Product URLs: https://dreem-up.com/{slug}/
 // WP REST API or fetch, no Playwright
 
 async function discoverDreemup(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var pageNum = 1;
-  while (true) {
-    var res = await fetch('https://dreemup.jp/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
+  var seenUrls = new Set<string>();
+
+  // DreemUp uses WP custom post types:
+  // - "service" endpoint = items (soft lures, hard lures, jig heads, gears) at /item/
+  // - "company" endpoint = rods at /rod/
+  // The "posts" endpoint only returns blog articles, not products
+  var endpoints = [
+    'https://dreem-up.com/wp-json/wp/v2/service?per_page=100',
+    'https://dreem-up.com/wp-json/wp/v2/company?per_page=100',
+  ];
+
+  for (var endpoint of endpoints) {
+    var pageNum = 1;
+    while (true) {
+      var url = endpoint + '&page=' + pageNum;
+      log('[dreemup] Fetching ' + url);
+      var res = await fetch(url);
+      if (!res.ok) break;
+      var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
+      if (posts.length === 0) break;
+      for (var p of posts) {
+        if (seenUrls.has(p.link)) continue;
+        seenUrls.add(p.link);
+        results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
+      }
+      if (posts.length < 100) break;
+      pageNum++;
     }
-    if (posts.length < 100) break;
-    pageNum++;
   }
+
   log('[dreemup] Discovered ' + results.length + ' products');
   return results;
 }
 
 // ---- GOD HANDS ----
-// god-hands.com — static/WordPress
-// Product URLs: https://god-hands.com/products/{slug}/
+// god-hands.jp — static/WordPress
+// Product URLs: https://god-hands.jp/products/{slug}/
 // Fetch listing page, no Playwright
 
-async function discoverGodHands(_page: Page): Promise<Array<{ url: string; name: string }>> {
+async function discoverGodHands(page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var siteBase = 'https://god-hands.com';
+  var siteBase = 'https://god-hands.jp';
   var seenUrls = new Set<string>();
 
-  log('[god-hands] Fetching product pages...');
+  log('[god-hands] Site uses STUDIO.design SPA — using Playwright...');
 
-  // Try WP REST API first
-  var pageNum = 1;
-  var usedWpApi = false;
-  while (true) {
-    var res = await fetch(siteBase + '/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    usedWpApi = true;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      if (seenUrls.has(p.link)) continue;
-      seenUrls.add(p.link);
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
-    }
-    if (posts.length < 100) break;
-    pageNum++;
-  }
+  // The site is built with STUDIO.design (Nuxt/Vue SPA), no WP API.
+  // Sitemap lists pages: /, /1, /1-2, /1-3, /1-5, /1-6, /1-7, /1-8, /1-10, /2
+  // We need Playwright to render the SPA and extract product information.
+  try {
+    await page.goto(siteBase + '/', { waitUntil: 'networkidle', timeout: 30000 });
+    await page.waitForTimeout(3000);
 
-  // Fallback: fetch product listing page
-  if (!usedWpApi) {
-    var listRes = await fetch(siteBase + '/products/', {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+    // Extract all internal links and text content
+    var links = await page.evaluate(function() {
+      var anchors = document.querySelectorAll('a[href]');
+      var found: Array<{ url: string; name: string }> = [];
+      for (var i = 0; i < anchors.length; i++) {
+        var a = anchors[i] as HTMLAnchorElement;
+        var href = a.href;
+        if (href && href.includes('god-hands.jp') && !href.includes('#') &&
+            !href.includes('privacy') && href !== 'https://god-hands.jp/') {
+          var name = (a.textContent || '').trim().split('\n')[0].trim().substring(0, 100);
+          if (name) found.push({ url: href, name: name });
+        }
+      }
+      return found;
     });
-    if (listRes.ok) {
-      var html = await listRes.text();
-      var linkRegex = /<a\s+[^>]*href="((?:https?:\/\/god-hands\.com)?\/products\/[^"]+)"[^>]*>([^<]*)/gi;
-      var match: RegExpExecArray | null;
-      while ((match = linkRegex.exec(html)) !== null) {
-        var href = match[1];
-        var linkName = match[2].trim();
-        var fullUrl = href.startsWith('http') ? href : siteBase + href;
-        if (seenUrls.has(fullUrl)) continue;
-        seenUrls.add(fullUrl);
-        if (!linkName) linkName = href.replace(/.*\/([^/]+)\/?$/, '$1').replace(/-/g, ' ');
-        results.push({ url: fullUrl, name: linkName });
+
+    for (var link of links) {
+      if (!seenUrls.has(link.url)) {
+        seenUrls.add(link.url);
+        results.push(link);
       }
     }
+
+    // Also visit numbered pages from sitemap to find product content
+    var sitemapPages = ['/1', '/1-2', '/1-3', '/1-5', '/1-6', '/1-7', '/1-8', '/1-10', '/2'];
+    for (var sp of sitemapPages) {
+      try {
+        await page.goto(siteBase + sp, { waitUntil: 'networkidle', timeout: 15000 });
+        await page.waitForTimeout(2000);
+        var pageTitle = await page.title();
+        var pageUrl = siteBase + sp;
+        if (pageTitle && !seenUrls.has(pageUrl) && !/GOD HANDS|privacy/i.test(pageTitle)) {
+          seenUrls.add(pageUrl);
+          results.push({ url: pageUrl, name: pageTitle.replace(/\s*[|–-]\s*GOD HANDS.*$/i, '').trim() || 'Product ' + sp });
+        }
+      } catch (_e) {
+        // skip pages that fail to load
+      }
+    }
+  } catch (err) {
+    log('[god-hands] Playwright discovery error: ' + (err instanceof Error ? err.message : String(err)));
   }
 
   log('[god-hands] Discovered ' + results.length + ' products');
@@ -5651,53 +5692,58 @@ async function discoverGodHands(_page: Page): Promise<Array<{ url: string; name:
 }
 
 // ---- GRASS ROOTS ----
-// grassroots-fishing.com — static/WordPress
+// grassroots-kms.com — static/WordPress
 // Fetch-only, no Playwright
 
 async function discoverGrassroots(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var siteBase = 'https://grassroots-fishing.com';
+  var siteBase = 'https://grassroots-kms.com';
   var seenUrls = new Set<string>();
 
-  log('[grassroots] Fetching product pages...');
+  log('[grassroots] Fetching product listing page...');
 
-  // Try WP REST API first
-  var pageNum = 1;
-  var usedWpApi = false;
-  while (true) {
-    var res = await fetch(siteBase + '/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    usedWpApi = true;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      if (seenUrls.has(p.link)) continue;
-      seenUrls.add(p.link);
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
-    }
-    if (posts.length < 100) break;
-    pageNum++;
-  }
+  // Products are on static HTML pages under /product/
+  var res = await fetch(siteBase + '/product/', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[grassroots] HTTP ' + res.status);
+  var html = await res.text();
 
-  // Fallback: fetch listing page
-  if (!usedWpApi) {
-    var listRes = await fetch(siteBase + '/', {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
-    });
-    if (listRes.ok) {
-      var html = await listRes.text();
-      var linkRegex = /<a\s+[^>]*href="((?:https?:\/\/grassroots-fishing\.com)?\/[^"]*products[^"]*)"[^>]*>([^<]*)/gi;
-      var match: RegExpExecArray | null;
-      while ((match = linkRegex.exec(html)) !== null) {
-        var href = match[1];
-        var linkName = match[2].trim();
-        var fullUrl = href.startsWith('http') ? href : siteBase + href;
-        if (seenUrls.has(fullUrl)) continue;
-        seenUrls.add(fullUrl);
-        if (!linkName) linkName = href.replace(/.*\/([^/]+)\/?$/, '$1').replace(/-/g, ' ');
-        results.push({ url: fullUrl, name: linkName });
-      }
+  // The HTML structure uses <li><a href="..."><img alt="..."><p>Name</p></a></li>
+  // Split HTML by </a> boundaries and extract content AFTER the <a> tag
+  var blocks = html.split('</a>');
+  for (var block of blocks) {
+    var hrefMatch = /<a\s+[^>]*href="((?:https?:\/\/(?:www\.)?grassroots-kms\.com)?\/product\/[^"]+\.html)"[^>]*>/.exec(block);
+    if (!hrefMatch) continue;
+    var href = hrefMatch[1];
+    var fullUrl = href.startsWith('http') ? href : siteBase + href;
+    if (seenUrls.has(fullUrl)) continue;
+    seenUrls.add(fullUrl);
+
+    // Get only content AFTER the <a> opening tag
+    var afterAnchor = block.slice(hrefMatch.index + hrefMatch[0].length);
+
+    // Prefer name from <p> tag (image alt texts are often duplicated/wrong)
+    var linkName = '';
+    var pMatch = /<p[^>]*>■?([^<]+)/i.exec(afterAnchor);
+    if (pMatch) {
+      linkName = pMatch[1].replace(/^■\s*/, '').trim();
     }
+    // Try h4 tag
+    if (!linkName) {
+      var h4Match = /<h[2-4][^>]*>■?([^<]+)/i.exec(afterAnchor);
+      if (h4Match) linkName = h4Match[1].replace(/^■\s*/, '').trim();
+    }
+    // Try img alt
+    if (!linkName) {
+      var altMatch = /<img[^>]*alt="■?([^"]+)"[^>]*>/i.exec(afterAnchor);
+      if (altMatch) linkName = altMatch[1].replace(/^■\s*/, '').trim();
+    }
+    // Last fallback: slug from URL
+    if (!linkName) {
+      linkName = href.replace(/.*\/product\//, '').replace(/\.html$/, '').replace(/[-_]/g, ' ');
+    }
+    results.push({ url: fullUrl, name: linkName });
   }
 
   log('[grassroots] Discovered ' + results.length + ' products');
@@ -5781,103 +5827,235 @@ async function discoverIvyLine(_page: Page): Promise<Array<{ url: string; name: 
 
 async function discoverJazz(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var pageNum = 1;
-  while (true) {
-    var res = await fetch('https://www.jazz-lure.com/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      // Only include product pages (under /product/), skip blog posts (/blog/..., etc.)
-      if (!/\/product\//.test(p.link)) continue;
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
-    }
-    if (posts.length < 100) break;
-    pageNum++;
+  var siteBase = 'https://www.jazz-lure.com';
+  var seenUrls = new Set<string>();
+
+  log('[jazz] Fetching product listing page...');
+  var res = await fetch(siteBase + '/product/', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[jazz] HTTP ' + res.status);
+  var html = await res.text();
+
+  var linkRegex = /<a\s+[^>]*href="((?:https?:\/\/www\.jazz-lure\.com)?\/product\/[^"]+)"[^>]*>([^<]*)/gi;
+  var match: RegExpExecArray | null;
+
+  while ((match = linkRegex.exec(html)) !== null) {
+    var href = match[1];
+    var linkName = match[2].trim();
+    if (href === '/product/' || href === siteBase + '/product/') continue;
+    var fullUrl = href.startsWith('http') ? href : siteBase + href;
+    if (seenUrls.has(fullUrl)) continue;
+    seenUrls.add(fullUrl);
+    if (!linkName) linkName = href.replace(/.*\/([^/]+)\/?$/, '$1').replace(/[-_]/g, ' ');
+    results.push({ url: fullUrl, name: linkName });
   }
+
   log('[jazz] Discovered ' + results.length + ' products');
   return results;
 }
 
 // ---- Jungle Gym ----
-// jungle-gym-world.com — WordPress
-// Product URLs: https://jungle-gym-world.com/{product-slug}/
+// junglegym-world.net — WordPress
+// Product URLs: https://junglegym-world.net/{product-slug}/
 // WP REST API, no Playwright
 
 async function discoverJungleGym(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var pageNum = 1;
-  while (true) {
-    var res = await fetch('https://jungle-gym-world.com/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
+  var siteBase = 'https://junglegym-world.net';
+  var seenUrls = new Set<string>();
+
+  // Products are in sub-category pages: /category/item/itemgenre/{type}/
+  var subcategories = [
+    '/category/item/itemgenre/lurewarm/',
+    '/category/item/itemgenre/jighead/',
+    '/category/item/itemgenre/hook/',
+    '/category/item/itemgenre/sinker/',
+    '/category/item/itemgenre/parts/',
+    '/category/item/itemgenre/goods/',
+  ];
+
+  for (var subcat of subcategories) {
+    log('[jungle-gym] Fetching ' + subcat);
+    var res = await fetch(siteBase + subcat, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+    });
+    if (!res.ok) {
+      log('[jungle-gym] Failed to fetch ' + subcat + ': HTTP ' + res.status);
+      continue;
     }
-    if (posts.length < 100) break;
-    pageNum++;
+    var html = await res.text();
+
+    // Match product links: https://junglegym-world.net/NNNN/ (numeric post ID pages)
+    var linkRegex = /<a\s+[^>]*href="(https?:\/\/junglegym-world\.net\/\d+\/)"[^>]*>([^<]*)/gi;
+    var match: RegExpExecArray | null;
+
+    while ((match = linkRegex.exec(html)) !== null) {
+      var href = match[1];
+      var linkName = match[2].trim();
+      if (seenUrls.has(href)) continue;
+      seenUrls.add(href);
+      if (linkName && linkName.length > 1) {
+        results.push({ url: href, name: linkName });
+      }
+    }
   }
+
+  // Filter out items without useful names
+  results = results.filter(function(r) { return r.name && r.name.length > 1; });
+
   log('[jungle-gym] Discovered ' + results.length + ' products');
   return results;
 }
 
 // ---- Mibro ----
-// mibro.info — WordPress
-// Product URLs: https://mibro.info/{product-slug}/
-// WP REST API, no Playwright
+// mibro.jp — Wix site (NOT WordPress)
+// Product URLs: dynamic (Wix SPA, requires Playwright)
+// Playwright-based discovery — navigates to the site and extracts product links
 
-async function discoverMibro(_page: Page): Promise<Array<{ url: string; name: string }>> {
+async function discoverMibro(page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var pageNum = 1;
-  while (true) {
-    var res = await fetch('https://mibro.info/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
+  var seen = new Set<string>();
+  try {
+    // Wix site — SPA that requires full JS rendering
+    await page.goto('https://www.mibro.jp/', { waitUntil: 'networkidle', timeout: 45000 });
+    await page.waitForTimeout(5000);
+
+    // First, log navigation items for debugging
+    try {
+      var navLinks = await page.evaluate(function() {
+        var all = document.querySelectorAll('a[href], [role="link"], [data-testid*="link"]');
+        var navItems: string[] = [];
+        for (var i = 0; i < all.length; i++) {
+          var text = (all[i].textContent || '').trim().toLowerCase();
+          navItems.push(text + ' -> ' + ((all[i] as HTMLAnchorElement).href || ''));
+        }
+        return navItems;
+      });
+      log('[mibro] Found nav items: ' + navLinks.slice(0, 10).join(', '));
+    } catch (_e) { /* ignore */ }
+
+    // Extract all internal links
+    var links = await page.evaluate(function() {
+      var anchors = document.querySelectorAll('a[href]');
+      var found: Array<{ url: string; name: string }> = [];
+      for (var i = 0; i < anchors.length; i++) {
+        var a = anchors[i] as HTMLAnchorElement;
+        var href = a.href;
+        if (href && href.includes('mibro.jp') && !href.includes('#') &&
+            href !== 'https://www.mibro.jp/' && href !== 'https://mibro.jp/') {
+          var name = (a.textContent || '').trim().split('\n')[0].trim().substring(0, 100);
+          if (name) found.push({ url: href, name: name });
+        }
+      }
+      return found;
+    });
+    for (var link of links) {
+      if (!seen.has(link.url)) {
+        seen.add(link.url);
+        results.push(link);
+      }
     }
-    if (posts.length < 100) break;
-    pageNum++;
+
+    // If we found very few links, try scrolling down to trigger lazy loading
+    if (results.length < 5) {
+      log('[mibro] Few links found, scrolling to load more content...');
+      for (var scrollIdx = 0; scrollIdx < 5; scrollIdx++) {
+        await page.evaluate('window.scrollBy(0, window.innerHeight)');
+        await page.waitForTimeout(2000);
+      }
+      // Re-extract links after scrolling
+      var moreLinks = await page.evaluate(function() {
+        var anchors = document.querySelectorAll('a[href]');
+        var found: Array<{ url: string; name: string }> = [];
+        for (var i = 0; i < anchors.length; i++) {
+          var a = anchors[i] as HTMLAnchorElement;
+          var href = a.href;
+          if (href && href.includes('mibro.jp') && !href.includes('#') &&
+              href !== 'https://www.mibro.jp/' && href !== 'https://mibro.jp/') {
+            var name = (a.textContent || '').trim().split('\n')[0].trim().substring(0, 100);
+            if (name) found.push({ url: href, name: name });
+          }
+        }
+        return found;
+      });
+      for (var mLink of moreLinks) {
+        if (!seen.has(mLink.url)) {
+          seen.add(mLink.url);
+          results.push(mLink);
+        }
+      }
+    }
+  } catch (err) {
+    log('[mibro] Playwright discovery error: ' + (err instanceof Error ? err.message : String(err)));
   }
   log('[mibro] Discovered ' + results.length + ' products');
   return results;
 }
 
 // ---- O.bass Live ----
-// obasslive.net — WordPress
-// Product URLs: https://obasslive.net/{product-slug}/
+// obasslive.com — WordPress
+// Product URLs: https://obasslive.com/{product-slug}/
 // WP REST API, no Playwright
 
 async function discoverObasslive(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var pageNum = 1;
-  while (true) {
-    var res = await fetch('https://obasslive.net/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
+  var siteBase = 'https://obasslive.com';
+  var seenUrls = new Set<string>();
+
+  log('[obasslive] Fetching main page for product links...');
+  var res = await fetch(siteBase + '/', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[obasslive] HTTP ' + res.status);
+  var html = await res.text();
+
+  // Links are relative: hardbait/winbee/, softbaiat/i-f-ankar-3/, martline/big-mofu/
+  // Match relative or absolute product links for hardbait, softbaiat, martline categories
+  var linkRegex = /<a\s+[^>]*href="((?:https?:\/\/obasslive\.com\/)?(?:\/)?(?:hardbait|softbaiat|martline)\/[^"]+)"[^>]*>([^<]*)/gi;
+  var match: RegExpExecArray | null;
+
+  while ((match = linkRegex.exec(html)) !== null) {
+    var href = match[1];
+    var linkName = match[2].trim();
+    // Normalize to absolute URL
+    var fullUrl: string;
+    if (href.startsWith('http')) {
+      fullUrl = href;
+    } else if (href.startsWith('/')) {
+      fullUrl = siteBase + href;
+    } else {
+      fullUrl = siteBase + '/' + href;
     }
-    if (posts.length < 100) break;
-    pageNum++;
+    // Skip category index pages and non-product URLs
+    var path = fullUrl.replace(siteBase, '');
+    if (/^\/(hardbait|softbaiat|martline)\/?$/.test(path)) continue;
+    // Skip deep nested paths (e.g., /hardbait/winbee/hello/index.html)
+    if (/\.(html|php|asp)/.test(path)) continue;
+    // Normalize URL
+    fullUrl = fullUrl.replace(/\/$/, '');
+    if (seenUrls.has(fullUrl)) continue;
+    seenUrls.add(fullUrl);
+    if (!linkName) {
+      linkName = fullUrl.replace(/.*\/([^/]+)$/, '$1').replace(/-/g, ' ');
+    }
+    results.push({ url: fullUrl + '/', name: linkName });
   }
+
   log('[obasslive] Discovered ' + results.length + ' products');
   return results;
 }
 
 // ---- PHAT LAB ----
-// phatlab.net — custom/WordPress
-// Product URLs: https://phatlab.net/{product-slug}/
+// phatlab.jp — custom/WordPress
+// Product URLs: https://phatlab.jp/{product-slug}/
 // WP REST API or fetch, no Playwright
 
 async function discoverPhatLab(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
   var pageNum = 1;
   while (true) {
-    var res = await fetch('https://phatlab.net/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
+    var res = await fetch('https://phatlab.jp/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
     if (!res.ok) break;
     var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
     if (posts.length === 0) break;
@@ -5892,59 +6070,96 @@ async function discoverPhatLab(_page: Page): Promise<Array<{ url: string; name: 
 }
 
 // ---- PICKUP ----
-// pickup-co.jp — WordPress
-// Product URLs: https://www.pickup-co.jp/{product-slug}/
-// WP REST API, no Playwright
+// pickup-m.jp — WordPress (WP REST API returns 401, use sitemap instead)
+// Product URLs: https://pickup-m.jp/product/{id}/
+// Sitemap-based discovery, no Playwright
 
 async function discoverPickup(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var pageNum = 1;
-  while (true) {
-    var res = await fetch('https://www.pickup-co.jp/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
-    }
-    if (posts.length < 100) break;
-    pageNum++;
+  var sitemapRes = await fetch('https://pickup-m.jp/product-sitemap.xml', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!sitemapRes.ok) {
+    log('[pickup] Sitemap fetch failed: HTTP ' + sitemapRes.status);
+    return results;
+  }
+  var xml = await sitemapRes.text();
+  var locRegex = /<loc>(https:\/\/pickup-m\.jp\/product\/[^<]+)<\/loc>/g;
+  var match: RegExpExecArray | null;
+  while ((match = locRegex.exec(xml)) !== null) {
+    var url = match[1];
+    // Skip the listing page itself
+    if (url === 'https://pickup-m.jp/product/' || url === 'https://pickup-m.jp/product') continue;
+    results.push({ url: url, name: url.replace(/.*\/product\/([^/]+)\/?$/, '$1').replace(/-/g, ' ') });
   }
   log('[pickup] Discovered ' + results.length + ' products');
   return results;
 }
 
 // ---- POZIDRIVE GARAGE ----
-// pozidrive-garage.com — WordPress
+// pdg.co.jp — WordPress
 // WP REST API, no Playwright
 
 async function discoverPozidriveGarage(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var pageNum = 1;
-  while (true) {
-    var res = await fetch('https://pozidrive-garage.com/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
+  var siteBase = 'https://pdg.co.jp';
+  var seenUrls = new Set<string>();
+
+  log('[pozidrive-garage] Fetching product listing page...');
+
+  // WP REST API only returns the default "Hello world!" post.
+  // Products are on the /product/ page with links to /product/{slug}/
+  var res = await fetch(siteBase + '/product/', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[pozidrive-garage] HTTP ' + res.status);
+  var html = await res.text();
+
+  // Match product links: /product/{slug}/
+  var linkRegex = /<a\s+[^>]*href="((?:https?:\/\/pdg\.co\.jp)?\/product\/[^"]+\/)"[^>]*>([^<]*)/gi;
+  var match: RegExpExecArray | null;
+
+  while ((match = linkRegex.exec(html)) !== null) {
+    var href = match[1];
+    var linkName = match[2].trim();
+    // Skip the /product/ index page itself
+    if (/\/product\/?$/.test(href)) continue;
+    var fullUrl = href.startsWith('http') ? href : siteBase + href;
+    if (seenUrls.has(fullUrl)) continue;
+    seenUrls.add(fullUrl);
+    if (!linkName) {
+      linkName = href.replace(/.*\/product\//, '').replace(/\/$/, '').replace(/-/g, ' ').toUpperCase();
     }
-    if (posts.length < 100) break;
-    pageNum++;
+    results.push({ url: fullUrl, name: linkName });
   }
+
+  // Also try image alt text for better product names
+  var imgRegex = /<a\s+[^>]*href="((?:https?:\/\/pdg\.co\.jp)?\/product\/[^"]+\/)"[^>]*>[\s\S]*?<img[^>]*alt="([^"]+)"[^>]*>/gi;
+  while ((match = imgRegex.exec(html)) !== null) {
+    var href2 = match[1];
+    var altName = match[2].trim();
+    var fullUrl2 = href2.startsWith('http') ? href2 : siteBase + href2;
+    if (altName && altName.length > 1) {
+      var existing = results.find(function(r) { return r.url === fullUrl2; });
+      if (existing && (!existing.name || existing.name.length < 2)) {
+        existing.name = altName;
+      }
+    }
+  }
+
   log('[pozidrive-garage] Discovered ' + results.length + ' products');
   return results;
 }
 
 // ---- SEA FALCON ----
-// sea-falcon.com — WordPress
+// seafalcon.jp — WordPress
 // WP REST API, no Playwright
 
 async function discoverSeaFalcon(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
   var pageNum = 1;
   while (true) {
-    var res = await fetch('https://sea-falcon.com/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
+    var res = await fetch('https://seafalcon.jp/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
     if (!res.ok) break;
     var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
     if (posts.length === 0) break;
@@ -5975,19 +6190,17 @@ async function discoverShout(_page: Page): Promise<Array<{ url: string; name: st
   if (!res.ok) throw new Error('[shout] HTTP ' + res.status);
   var html = await res.text();
 
-  // Match product links
-  var linkRegex = /<a\s+[^>]*href="((?:https?:\/\/shout-net\.com)?\/products\/[^"]+)"[^>]*>([^<]*)/gi;
+  // Product links use /item/{id}/ pattern
+  var linkRegex = /<a\s+[^>]*href="((?:https?:\/\/shout-net\.com)?\/item\/[^"]+)"[^>]*>([^<]*)/gi;
   var match: RegExpExecArray | null;
 
   while ((match = linkRegex.exec(html)) !== null) {
     var href = match[1];
     var linkName = match[2].trim();
-    // Skip the listing page itself
-    if (href === '/products/' || href === siteBase + '/products/') continue;
     var fullUrl = href.startsWith('http') ? href : siteBase + href;
     if (seenUrls.has(fullUrl)) continue;
     seenUrls.add(fullUrl);
-    if (!linkName) linkName = href.replace(/.*\/([^/]+)\/?$/, '$1').replace(/-/g, ' ').replace(/\.html$/, '');
+    if (!linkName) linkName = 'Product ' + href.replace(/\D/g, '');
     results.push({ url: fullUrl, name: linkName });
   }
 
@@ -6041,20 +6254,65 @@ async function discoverSignal(_page: Page): Promise<Array<{ url: string; name: s
 // skagitwebshop.com — Shopify
 // Shopify products.json API, no Playwright
 
-async function discoverSkagit(_page: Page): Promise<Array<{ url: string; name: string }>> {
+async function discoverSkagit(page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var page = 1;
-  while (true) {
-    var res = await fetch('https://skagitwebshop.com/products.json?limit=250&page=' + page);
-    if (!res.ok) break;
-    var data: any = await res.json();
-    if (!data.products || data.products.length === 0) break;
-    for (var p of data.products) {
-      results.push({ url: 'https://skagitwebshop.com/products/' + p.handle, name: p.title });
+  var siteBase = 'https://skagitwebshop.com';
+  var seenUrls = new Set<string>();
+
+  log('[skagit] STORES.jp site blocks non-browser requests — using Playwright...');
+
+  try {
+    // STORES.jp uses Cloudflare protection, must use Playwright
+    await page.goto(siteBase + '/?all_items=true', { waitUntil: 'domcontentloaded', timeout: 45000 });
+    // Wait for items to render
+    await page.waitForTimeout(5000);
+
+    var pageNum = 1;
+    while (pageNum <= 10) {
+      var html = await page.content();
+
+      // Extract product links and names using evaluate for better SPA support
+      var pageLinks = await page.evaluate(function() {
+        var items: Array<{ url: string; name: string }> = [];
+        // Look for item links
+        var links = document.querySelectorAll('a[href*="/items/"]');
+        for (var i = 0; i < links.length; i++) {
+          var a = links[i] as HTMLAnchorElement;
+          var href = a.href;
+          // Get name from nearby text content
+          var nameEl = a.querySelector('[class*="item-name"], [class*="ItemName"], p, h3, h4, span');
+          var name = nameEl ? (nameEl.textContent || '').trim() : (a.textContent || '').trim().split('\n')[0].trim();
+          if (href && name && name.length > 1) {
+            items.push({ url: href, name: name.substring(0, 100) });
+          }
+        }
+        return items;
+      });
+
+      var foundOnPage = 0;
+      for (var link of pageLinks) {
+        if (!seenUrls.has(link.url)) {
+          seenUrls.add(link.url);
+          results.push(link);
+          foundOnPage++;
+        }
+      }
+
+      if (foundOnPage === 0) break;
+      pageNum++;
+
+      // Navigate to next page
+      try {
+        await page.goto(siteBase + '/?all_items=true&page=' + (pageNum), { waitUntil: 'domcontentloaded', timeout: 30000 });
+        await page.waitForTimeout(3000);
+      } catch (_e) {
+        break;
+      }
     }
-    if (data.products.length < 250) break;
-    page++;
+  } catch (err) {
+    log('[skagit] Playwright discovery error: ' + (err instanceof Error ? err.message : String(err)));
   }
+
   log('[skagit] Discovered ' + results.length + ' products');
   return results;
 }
@@ -6067,48 +6325,29 @@ async function discoverSkagit(_page: Page): Promise<Array<{ url: string; name: s
 async function discoverSouls(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
   var siteBase = 'https://souls.jp';
-  var seenUrls = new Set<string>();
+  var seenNames = new Set<string>();
 
-  // Try WP REST API first
-  var pageNum = 1;
-  var usedWpApi = false;
-  while (true) {
-    var res = await fetch(siteBase + '/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    usedWpApi = true;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      // Skip blog posts (date-based URLs like /2026/02/10/...) — only keep /products/ pages
-      if (/\/\d{4}\/\d{2}\/\d{2}\//.test(p.link)) continue;
-      if (!/\/products\//.test(p.link)) continue;
-      if (seenUrls.has(p.link)) continue;
-      seenUrls.add(p.link);
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
-    }
-    if (posts.length < 100) break;
-    pageNum++;
-  }
+  var categories = ['/products/salt-lure/', '/products/trout-lure/'];
 
-  // Fallback: fetch product listing page
-  if (!usedWpApi) {
-    log('[souls] WP REST API unavailable, fetching listing page...');
-    var listRes = await fetch(siteBase + '/products/trout-lure/', {
+  for (var cat of categories) {
+    log('[souls] Fetching category page: ' + cat);
+    var res = await fetch(siteBase + cat, {
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
     });
-    if (listRes.ok) {
-      var html = await listRes.text();
-      var linkRegex = /<a\s+[^>]*href="((?:https?:\/\/souls\.jp)?\/products\/[^"]+)"[^>]*>([^<]*)/gi;
-      var match: RegExpExecArray | null;
-      while ((match = linkRegex.exec(html)) !== null) {
-        var href = match[1];
-        var linkName = match[2].trim();
-        var fullUrl = href.startsWith('http') ? href : siteBase + href;
-        if (seenUrls.has(fullUrl)) continue;
-        seenUrls.add(fullUrl);
-        if (!linkName) linkName = href.replace(/.*\/([^/]+)\/?$/, '$1').replace(/-/g, ' ');
-        results.push({ url: fullUrl, name: linkName });
-      }
+    if (!res.ok) {
+      log('[souls] Failed to fetch ' + cat + ': HTTP ' + res.status);
+      continue;
+    }
+    var html = await res.text();
+
+    // Products are in slider blocks with <p class="pd-slide-ttl">ProductName</p>
+    var titleRegex = /<p\s+class="pd-slide-ttl">([^<]+)<\/p>/gi;
+    var match: RegExpExecArray | null;
+    while ((match = titleRegex.exec(html)) !== null) {
+      var name = match[1].trim();
+      if (name.length < 2 || seenNames.has(name)) continue;
+      seenNames.add(name);
+      results.push({ url: siteBase + cat, name: name });
     }
   }
 
@@ -6117,14 +6356,14 @@ async function discoverSouls(_page: Page): Promise<Array<{ url: string; name: st
 }
 
 // ---- TH tackle ----
-// th-tackle.com — WordPress
+// t-hamada.com — WordPress
 // WP REST API or fetch, no Playwright
 
 async function discoverThTackle(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
   var pageNum = 1;
   while (true) {
-    var res = await fetch('https://th-tackle.com/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
+    var res = await fetch('https://t-hamada.com/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
     if (!res.ok) break;
     var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
     if (posts.length === 0) break;
@@ -6146,15 +6385,19 @@ async function discoverThTackle(_page: Page): Promise<Array<{ url: string; name:
 async function discoverViva(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
   var pageNum = 1;
+  var seenUrls = new Set<string>();
   while (true) {
-    var res = await fetch('https://vivanet.co.jp/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
+    var res = await fetch('https://vivanet.co.jp/wp-json/wp/v2/pages?per_page=100&page=' + pageNum);
     if (!res.ok) break;
     var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
     if (posts.length === 0) break;
     for (var p of posts) {
-      // Only include product pages (under /viva/), skip blog posts (/blog/..., etc.)
-      if (/\/blog\//.test(p.link)) continue;
-      if (!/\/viva\//.test(p.link)) continue;
+      // Only include product pages under /viva/ or /aquawave/
+      if (!/\/(viva|aquawave)\//.test(p.link)) continue;
+      // Skip category/archive pages (no slug after brand prefix)
+      if (/\/(viva|aquawave)\/?$/.test(p.link)) continue;
+      if (seenUrls.has(p.link)) continue;
+      seenUrls.add(p.link);
       results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
     }
     if (posts.length < 100) break;
@@ -6170,18 +6413,30 @@ async function discoverViva(_page: Page): Promise<Array<{ url: string; name: str
 
 async function discoverYarie(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var results: Array<{ url: string; name: string }> = [];
-  var pageNum = 1;
-  while (true) {
-    var res = await fetch('https://www.etanba.co.jp/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
-    }
-    if (posts.length < 100) break;
-    pageNum++;
+  var siteBase = 'https://www.etanba.co.jp';
+  var seenUrls = new Set<string>();
+
+  log('[yarie] Fetching item listing page...');
+  var res = await fetch(siteBase + '/item.html', {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
+  });
+  if (!res.ok) throw new Error('[yarie] HTTP ' + res.status);
+  var html = await res.text();
+
+  // Match product links: href="NNN.html" or href="NNNxx.html" (product code pages)
+  var linkRegex = /<a\s+[^>]*href="(\d+\w*\.html)"[^>]*>([^<]*)/gi;
+  var match: RegExpExecArray | null;
+
+  while ((match = linkRegex.exec(html)) !== null) {
+    var href = match[1];
+    var linkName = match[2].trim();
+    var fullUrl = siteBase + '/' + href;
+    if (seenUrls.has(fullUrl)) continue;
+    seenUrls.add(fullUrl);
+    if (!linkName) linkName = 'Yarie No.' + href.replace(/\.html$/, '');
+    results.push({ url: fullUrl, name: linkName });
   }
+
   log('[yarie] Discovered ' + results.length + ' products');
   return results;
 }
@@ -6945,7 +7200,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'ATTIC',
     discover: discoverAttic,
     excludedNameKeywords: [],
-    // atticlure.com — static HTML, fetch-only
+    // attic.ne.jp — static HTML, fetch-only
     // シーバスルアー
   },
   {
@@ -6953,7 +7208,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'DAMIKI JAPAN',
     discover: discoverDamiki,
     excludedNameKeywords: [],
-    // damiki.co.jp — WordPress, WP REST API
+    // damiki-japan.com — WordPress, WP REST API
     // バス用ルアー
   },
   {
@@ -6961,7 +7216,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'DreemUp',
     discover: discoverDreemup,
     excludedNameKeywords: [],
-    // dreemup.jp — WordPress, WP REST API
+    // dreem-up.com — WordPress, WP REST API
     // シーバス・ライトゲーム
   },
   {
@@ -6969,7 +7224,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'GOD HANDS',
     discover: discoverGodHands,
     excludedNameKeywords: [],
-    // god-hands.com — static/WordPress, fetch-only
+    // god-hands.jp — static/WordPress, fetch-only
     // トラウト用スプーン・プラグ
   },
   {
@@ -6977,7 +7232,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'GRASS ROOTS',
     discover: discoverGrassroots,
     excludedNameKeywords: [],
-    // grassroots-fishing.com — static/WordPress, fetch-only
+    // grassroots-kms.com — static/WordPress, fetch-only
     // メタルジグ・オフショアルアー
   },
   {
@@ -7009,7 +7264,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'Jungle Gym',
     discover: discoverJungleGym,
     excludedNameKeywords: [],
-    // jungle-gym-world.com — WordPress, WP REST API
+    // junglegym-world.net — WordPress, WP REST API
     // アジ・メバル用ジグヘッド
   },
   {
@@ -7017,7 +7272,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'Mibro',
     discover: discoverMibro,
     excludedNameKeywords: [],
-    // mibro.info — WordPress, WP REST API
+    // mibro.jp — Wix site, Playwright-based discovery
     // バス用ルアー全般
   },
   {
@@ -7025,7 +7280,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'O.bass Live',
     discover: discoverObasslive,
     excludedNameKeywords: [],
-    // obasslive.net — WordPress, WP REST API
+    // obasslive.com — WordPress, WP REST API
     // バス用ルアー全般
   },
   {
@@ -7033,7 +7288,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'PHAT LAB',
     discover: discoverPhatLab,
     excludedNameKeywords: [],
-    // phatlab.net — custom/WordPress, WP REST API
+    // phatlab.jp — custom/WordPress, WP REST API
     // ビッグベイト
   },
   {
@@ -7041,21 +7296,21 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'PICKUP',
     discover: discoverPickup,
     excludedNameKeywords: [],
-    // pickup-co.jp — WordPress, WP REST API
+    // pickup-m.jp — WordPress, sitemap-based discovery
   },
   {
     slug: 'pozidrive-garage',
     name: 'POZIDRIVE GARAGE',
     discover: discoverPozidriveGarage,
     excludedNameKeywords: [],
-    // pozidrive-garage.com — WordPress, WP REST API
+    // pdg.co.jp — WordPress, WP REST API
   },
   {
     slug: 'sea-falcon',
     name: 'SEA FALCON',
     discover: discoverSeaFalcon,
     excludedNameKeywords: [],
-    // sea-falcon.com — WordPress, WP REST API
+    // seafalcon.jp — WordPress, WP REST API
     // メタルジグ・オフショアルアー
   },
   {
@@ -7095,7 +7350,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     name: 'TH tackle',
     discover: discoverThTackle,
     excludedNameKeywords: [],
-    // th-tackle.com — WordPress, WP REST API
+    // t-hamada.com — WordPress, WP REST API
     // バス用ビッグベイト
   },
   {

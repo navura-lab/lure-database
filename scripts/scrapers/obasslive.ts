@@ -1,9 +1,9 @@
 // scripts/scrapers/obasslive.ts
-// O.bass Live (obasslive.net) product page scraper
+// O.bass Live (obasslive.com) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: WordPress
-// Product URL pattern: https://obasslive.net/{product-slug}/
+// Product URL pattern: https://obasslive.com/{product-slug}/
 // Types: various (バス用ルアー全般)
 // Target fish: ブラックバス
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'O.bass Live';
 const MANUFACTURER_SLUG = 'obasslive';
-const SITE_BASE = 'https://obasslive.net';
+const SITE_BASE = 'https://obasslive.com';
 const DEFAULT_TARGET_FISH = ['ブラックバス'];
 
 // ---------------------------------------------------------------------------

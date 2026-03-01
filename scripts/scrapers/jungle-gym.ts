@@ -1,9 +1,9 @@
 // scripts/scrapers/jungle-gym.ts
-// Jungle Gym (jungle-gym-world.com) product page scraper
+// Jungle Gym (junglegym-world.net) product page scraper
 // Fetch-only — no Playwright or cheerio needed.
 //
 // Site: WordPress
-// Product URL pattern: https://jungle-gym-world.com/{product-slug}/
+// Product URL pattern: https://junglegym-world.net/{product-slug}/
 // Types: ジグヘッド
 // Target fish: アジ, メバル
 
@@ -15,7 +15,7 @@ import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
 const MANUFACTURER = 'Jungle Gym';
 const MANUFACTURER_SLUG = 'jungle-gym';
-const SITE_BASE = 'https://jungle-gym-world.com';
+const SITE_BASE = 'https://junglegym-world.net';
 const DEFAULT_TARGET_FISH = ['アジ', 'メバル'];
 
 // ---------------------------------------------------------------------------
