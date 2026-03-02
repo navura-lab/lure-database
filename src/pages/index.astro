@@ -13,6 +13,18 @@ const manufacturers = [...new Set(series.map(s => s.manufacturer))].sort();
 const types = [...new Set(series.map(s => s.type))].sort();
 const targetFish = [...new Set(series.flatMap(s => s.target_fish))].sort();
 
+// メーカー一覧（名前+slug+シリーズ数）— 内部リンク用
+const manufacturerMap = new Map<string, { name: string; slug: string; count: number }>();
+for (const s of series) {
+  const existing = manufacturerMap.get(s.manufacturer_slug);
+  if (existing) {
+    existing.count++;
+  } else {
+    manufacturerMap.set(s.manufacturer_slug, { name: s.manufacturer, slug: s.manufacturer_slug, count: 1 });
+  }
+}
+const manufacturerList = [...manufacturerMap.values()].sort((a, b) => b.count - a.count);
+
 const thirtyDaysAgo = new Date();
 thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 const newThreshold = thirtyDaysAgo.toISOString();
@@ -48,6 +60,19 @@ const apiToken = import.meta.env.LDB_API_TOKEN || '';
   </section>
 
   <FilterBar manufacturers={manufacturers} types={types} targetFish={targetFish} />
+
+  <!-- メーカー一覧（内部リンク強化） -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
+    <h2 class="text-sm font-semibold text-text-tertiary uppercase tracking-wider mb-3">メーカー一覧（{manufacturerList.length}社）</h2>
+    <div class="flex flex-wrap gap-1.5">
+      {manufacturerList.map(m => (
+        <a href={`/${m.slug}/`} class="inline-flex items-center gap-1 px-2.5 py-1 bg-white text-gray-700 rounded-full text-xs border border-gray-200 hover:border-primary hover:text-primary transition-colors">
+          {m.name}
+          <span class="text-gray-400">{m.count}</span>
+        </a>
+      ))}
+    </div>
+  </section>
 
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <p id="results-count" class="text-sm text-text-secondary mb-6">
