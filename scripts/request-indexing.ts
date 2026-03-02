@@ -1,0 +1,360 @@
+#!/usr/bin/env npx tsx
+/**
+ * Google Indexing API + URL Inspection バッチスクリプト
+ *
+ * 1. 全メーカーページ + トップページの URL検査 (Inspection API)
+ * 2. 未インデックスページに Indexing API で URL_UPDATED 通知
+ *
+ * Usage:
+ *   npx tsx scripts/request-indexing.ts                    # URL検査のみ (dry-run)
+ *   npx tsx scripts/request-indexing.ts --submit           # 未インデックスURLをIndexing APIに送信
+ *   npx tsx scripts/request-indexing.ts --submit --all     # 全URLをIndexing APIに送信（再送信）
+ *   npx tsx scripts/request-indexing.ts --inspect-only     # URL検査だけ実行
+ */
+
+import 'dotenv/config';
+import fs from 'fs';
+import path from 'path';
+import { createClient } from '@supabase/supabase-js';
+
+// ─── Config ───────────────────────────────────────────
+
+const CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
+const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
+const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN!;
+const QUOTA_PROJECT = process.env.GOOGLE_QUOTA_PROJECT || 'plucky-mile-486802-j6';
+const SITE_URL = process.env.GSC_SITE_URL || 'https://www.lure-db.com/';
+
+const DO_SUBMIT = process.argv.includes('--submit');
+const DO_ALL = process.argv.includes('--all');
+const INSPECT_ONLY = process.argv.includes('--inspect-only');
+
+const LOG_DIR = path.join(import.meta.dirname, '..', 'logs');
+const DATA_DIR = path.join(LOG_DIR, 'seo-data');
+
+// ─── Helper ───────────────────────────────────────────
+
+function log(msg: string) { console.log(`[${new Date().toISOString()}] ${msg}`); }
+
+async function getAccessToken(): Promise<string> {
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      refresh_token: REFRESH_TOKEN,
+      grant_type: 'refresh_token',
+    }),
+  });
+  const data = await res.json() as any;
+  if (!data.access_token) throw new Error(`Token error: ${JSON.stringify(data)}`);
+  return data.access_token;
+}
+
+function headers(token: string) {
+  return {
+    'Authorization': `Bearer ${token}`,
+    'x-goog-user-project': QUOTA_PROJECT,
+    'Content-Type': 'application/json',
+  };
+}
+
+function sleep(ms: number) { return new Promise(r => setTimeout(r, ms)); }
+
+// ─── API: URL Inspection ─────────────────────────────
+
+interface InspectionResult {
+  url: string;
+  verdict: string;           // PASS, NEUTRAL, FAIL, VERDICT_UNSPECIFIED
+  coverageState: string;     // e.g., "Submitted and indexed", "Discovered - currently not indexed"
+  crawledAs: string;
+  lastCrawlTime?: string;
+  indexingState?: string;
+  robotsTxtState?: string;
+  error?: string;
+}
+
+async function inspectUrl(token: string, url: string): Promise<InspectionResult> {
+  try {
+    const res = await fetch(
+      'https://searchconsole.googleapis.com/v1/urlInspection/index:inspect',
+      {
+        method: 'POST',
+        headers: headers(token),
+        body: JSON.stringify({ inspectionUrl: url, siteUrl: SITE_URL }),
+      },
+    );
+
+    if (!res.ok) {
+      const errText = await res.text();
+      return { url, verdict: 'ERROR', coverageState: `HTTP ${res.status}`, crawledAs: '', error: errText };
+    }
+
+    const data = await res.json() as any;
+    const r = data.inspectionResult;
+    const idx = r?.indexStatusResult;
+
+    return {
+      url,
+      verdict: idx?.verdict || 'UNKNOWN',
+      coverageState: idx?.coverageState || '',
+      crawledAs: idx?.crawledAs || '',
+      lastCrawlTime: idx?.lastCrawlTime,
+      indexingState: idx?.indexingState,
+      robotsTxtState: idx?.robotsTxtState,
+    };
+  } catch (e: any) {
+    return { url, verdict: 'ERROR', coverageState: e.message, crawledAs: '', error: e.message };
+  }
+}
+
+// ─── API: Indexing API ───────────────────────────────
+
+interface IndexingResult {
+  url: string;
+  success: boolean;
+  notifyTime?: string;
+  error?: string;
+}
+
+async function requestIndexing(token: string, url: string): Promise<IndexingResult> {
+  try {
+    const res = await fetch(
+      'https://indexing.googleapis.com/v3/urlNotifications:publish',
+      {
+        method: 'POST',
+        headers: headers(token),
+        body: JSON.stringify({
+          url: url,
+          type: 'URL_UPDATED',
+        }),
+      },
+    );
+
+    const data = await res.json() as any;
+
+    if (!res.ok) {
+      return {
+        url,
+        success: false,
+        error: data.error?.message || `HTTP ${res.status}: ${JSON.stringify(data)}`,
+      };
+    }
+
+    return {
+      url,
+      success: true,
+      notifyTime: data.urlNotificationMetadata?.latestUpdate?.notifyTime,
+    };
+  } catch (e: any) {
+    return { url, success: false, error: e.message };
+  }
+}
+
+// ─── Main ─────────────────────────────────────────────
+
+async function main() {
+  log('=== Indexing Request Script Start ===');
+
+  if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
+    log('ERROR: Google credentials not found in .env');
+    process.exit(1);
+  }
+
+  // 1. メーカーslug一覧取得
+  log('Fetching manufacturer slugs from Supabase...');
+  const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+  const allSlugs = new Set<string>();
+  let from = 0;
+  const pageSize = 1000;
+
+  while (true) {
+    const { data, error } = await sb
+      .from('lures')
+      .select('manufacturer_slug')
+      .range(from, from + pageSize - 1);
+
+    if (error) { log(`Supabase error: ${JSON.stringify(error)}`); break; }
+    if (!data || data.length === 0) break;
+    for (const r of data) allSlugs.add(r.manufacturer_slug);
+    if (data.length < pageSize) break;
+    from += pageSize;
+  }
+
+  const slugs = [...allSlugs].sort();
+  log(`Found ${slugs.length} manufacturers`);
+
+  // 2. URLリスト構築
+  const urls = [
+    SITE_URL,                       // トップページ
+    ...slugs.map(s => `${SITE_URL}${s}/`),  // メーカーページ
+  ];
+  log(`Total URLs to check: ${urls.length}`);
+
+  // 3. Access Token取得
+  const token = await getAccessToken();
+  log('Access token obtained');
+
+  // 4. URL Inspection (バッチ)
+  log('--- URL Inspection Start ---');
+  const inspectionResults: InspectionResult[] = [];
+
+  for (let i = 0; i < urls.length; i++) {
+    const url = urls[i];
+    const shortUrl = url.replace(SITE_URL, '/');
+    process.stdout.write(`  [${i + 1}/${urls.length}] ${shortUrl} ... `);
+
+    const result = await inspectUrl(token, url);
+    inspectionResults.push(result);
+
+    const emoji = result.verdict === 'PASS' ? '✅' :
+                  result.verdict === 'NEUTRAL' ? '⚠️' :
+                  result.verdict === 'ERROR' ? '💥' : '❌';
+    console.log(`${emoji} ${result.verdict} (${result.coverageState})`);
+
+    // Rate limit: URL Inspection API = 600/min だが安全マージン
+    await sleep(500);
+  }
+
+  // 5. 結果サマリー
+  const passed = inspectionResults.filter(r => r.verdict === 'PASS');
+  const neutral = inspectionResults.filter(r => r.verdict === 'NEUTRAL');
+  const failed = inspectionResults.filter(r => r.verdict === 'FAIL');
+  const errors = inspectionResults.filter(r => r.verdict === 'ERROR');
+
+  log('');
+  log('=== URL Inspection Summary ===');
+  log(`✅ Indexed (PASS):     ${passed.length}`);
+  log(`⚠️ Not indexed (NEUTRAL): ${neutral.length}`);
+  log(`❌ Failed (FAIL):      ${failed.length}`);
+  log(`💥 Error:              ${errors.length}`);
+  log('');
+
+  if (neutral.length > 0) {
+    log('--- Not Indexed URLs ---');
+    for (const r of neutral) {
+      log(`  ⚠️ ${r.url.replace(SITE_URL, '/')} — ${r.coverageState}`);
+    }
+    log('');
+  }
+
+  if (failed.length > 0) {
+    log('--- Failed URLs ---');
+    for (const r of failed) {
+      log(`  ❌ ${r.url.replace(SITE_URL, '/')} — ${r.coverageState}`);
+    }
+    log('');
+  }
+
+  if (errors.length > 0) {
+    log('--- Error URLs ---');
+    for (const r of errors) {
+      log(`  💥 ${r.url.replace(SITE_URL, '/')} — ${r.error}`);
+    }
+    log('');
+  }
+
+  // 6. 結果をJSONに保存
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  const inspectionFile = path.join(DATA_DIR, `inspection-${new Date().toISOString().split('T')[0]}.json`);
+  fs.writeFileSync(inspectionFile, JSON.stringify({
+    date: new Date().toISOString(),
+    totalUrls: urls.length,
+    summary: {
+      pass: passed.length,
+      neutral: neutral.length,
+      fail: failed.length,
+      error: errors.length,
+    },
+    results: inspectionResults,
+  }, null, 2));
+  log(`Inspection results saved: ${inspectionFile}`);
+
+  if (INSPECT_ONLY) {
+    log('--inspect-only mode, skipping Indexing API');
+    log('=== Done ===');
+    return;
+  }
+
+  // 7. Indexing API送信
+  const urlsToSubmit = DO_ALL
+    ? urls
+    : [...neutral, ...failed].map(r => r.url);
+
+  if (urlsToSubmit.length === 0) {
+    log('No URLs to submit for indexing (all already indexed!)');
+    log('=== Done ===');
+    return;
+  }
+
+  if (!DO_SUBMIT) {
+    log(`--- Dry Run: ${urlsToSubmit.length} URLs would be submitted ---`);
+    for (const url of urlsToSubmit) {
+      log(`  📤 ${typeof url === 'string' ? url.replace(SITE_URL, '/') : url}`);
+    }
+    log('');
+    log('Run with --submit to actually send Indexing API requests');
+    log('=== Done ===');
+    return;
+  }
+
+  log(`--- Indexing API: Submitting ${urlsToSubmit.length} URLs ---`);
+  const indexingResults: IndexingResult[] = [];
+
+  for (let i = 0; i < urlsToSubmit.length; i++) {
+    const url = typeof urlsToSubmit[i] === 'string' ? urlsToSubmit[i] : (urlsToSubmit[i] as any);
+    const shortUrl = url.replace(SITE_URL, '/');
+    process.stdout.write(`  [${i + 1}/${urlsToSubmit.length}] ${shortUrl} ... `);
+
+    const result = await requestIndexing(token, url);
+    indexingResults.push(result);
+
+    if (result.success) {
+      console.log(`✅ Submitted (${result.notifyTime})`);
+    } else {
+      console.log(`❌ Failed: ${result.error}`);
+    }
+
+    // Indexing API = 200/day なので慎重に
+    await sleep(1000);
+  }
+
+  // 8. Indexing結果サマリー
+  const submitted = indexingResults.filter(r => r.success);
+  const submitFailed = indexingResults.filter(r => !r.success);
+
+  log('');
+  log('=== Indexing API Summary ===');
+  log(`✅ Submitted: ${submitted.length}`);
+  log(`❌ Failed:    ${submitFailed.length}`);
+
+  if (submitFailed.length > 0) {
+    log('');
+    log('--- Failed Submissions ---');
+    for (const r of submitFailed) {
+      log(`  ❌ ${r.url.replace(SITE_URL, '/')} — ${r.error}`);
+    }
+  }
+
+  // 9. Indexing結果を保存
+  const indexingFile = path.join(DATA_DIR, `indexing-${new Date().toISOString().split('T')[0]}.json`);
+  fs.writeFileSync(indexingFile, JSON.stringify({
+    date: new Date().toISOString(),
+    totalSubmitted: urlsToSubmit.length,
+    summary: {
+      success: submitted.length,
+      failed: submitFailed.length,
+    },
+    results: indexingResults,
+  }, null, 2));
+  log(`Indexing results saved: ${indexingFile}`);
+
+  log('=== Done ===');
+}
+
+main().catch(e => {
+  log(`FATAL: ${e.message}`);
+  console.error(e);
+  process.exit(1);
+});
