@@ -2,14 +2,23 @@
 /**
  * Google Indexing API + URL Inspection バッチスクリプト
  *
- * 1. 全メーカーページ + トップページの URL検査 (Inspection API)
- * 2. 未インデックスページに Indexing API で URL_UPDATED 通知
+ * ■ メーカーページモード（デフォルト）
+ *   1. 全メーカーページ + トップページの URL検査 (Inspection API)
+ *   2. 未インデックスページに Indexing API で URL_UPDATED 通知
+ *
+ * ■ ルアーページモード (--lures)
+ *   全ルアーページを直接 Indexing API に送信（検査スキップ）
+ *   --offset / --limit でバッチ制御（API上限 200/日）
  *
  * Usage:
- *   npx tsx scripts/request-indexing.ts                    # URL検査のみ (dry-run)
- *   npx tsx scripts/request-indexing.ts --submit           # 未インデックスURLをIndexing APIに送信
- *   npx tsx scripts/request-indexing.ts --submit --all     # 全URLをIndexing APIに送信（再送信）
- *   npx tsx scripts/request-indexing.ts --inspect-only     # URL検査だけ実行
+ *   npx tsx scripts/request-indexing.ts                        # メーカーページURL検査のみ (dry-run)
+ *   npx tsx scripts/request-indexing.ts --submit               # 未インデックスURLをIndexing APIに送信
+ *   npx tsx scripts/request-indexing.ts --submit --all         # 全URLをIndexing APIに送信（再送信）
+ *   npx tsx scripts/request-indexing.ts --inspect-only         # URL検査だけ実行
+ *   npx tsx scripts/request-indexing.ts --lures                # ルアーページ一覧表示 (dry-run)
+ *   npx tsx scripts/request-indexing.ts --lures --submit       # ルアーページ200件をIndexing APIに送信
+ *   npx tsx scripts/request-indexing.ts --lures --submit --offset 200  # 201件目から200件
+ *   npx tsx scripts/request-indexing.ts --lures --submit --offset 400 --limit 100  # 401件目から100件
  */
 
 import 'dotenv/config';
@@ -28,6 +37,16 @@ const SITE_URL = process.env.GSC_SITE_URL || 'https://www.lure-db.com/';
 const DO_SUBMIT = process.argv.includes('--submit');
 const DO_ALL = process.argv.includes('--all');
 const INSPECT_ONLY = process.argv.includes('--inspect-only');
+const LURE_MODE = process.argv.includes('--lures');
+
+function getArgValue(flag: string, defaultValue: number): number {
+  const idx = process.argv.indexOf(flag);
+  if (idx === -1 || idx + 1 >= process.argv.length) return defaultValue;
+  return parseInt(process.argv[idx + 1], 10) || defaultValue;
+}
+
+const OFFSET = getArgValue('--offset', 0);
+const LIMIT = getArgValue('--limit', 200);
 
 const LOG_DIR = path.join(import.meta.dirname, '..', 'logs');
 const DATA_DIR = path.join(LOG_DIR, 'seo-data');
@@ -61,6 +80,54 @@ function headers(token: string) {
 }
 
 function sleep(ms: number) { return new Promise(r => setTimeout(r, ms)); }
+
+// ─── Supabase: URL一覧取得 ──────────────────────────
+
+async function fetchManufacturerSlugs(sb: any): Promise<string[]> {
+  const allSlugs = new Set<string>();
+  let from = 0;
+  const pageSize = 1000;
+
+  while (true) {
+    const { data, error } = await sb
+      .from('lures')
+      .select('manufacturer_slug')
+      .range(from, from + pageSize - 1);
+
+    if (error) { log(`Supabase error: ${JSON.stringify(error)}`); break; }
+    if (!data || data.length === 0) break;
+    for (const r of data) allSlugs.add(r.manufacturer_slug);
+    if (data.length < pageSize) break;
+    from += pageSize;
+  }
+
+  return [...allSlugs].sort();
+}
+
+async function fetchLureUrls(sb: any): Promise<string[]> {
+  const allPaths = new Set<string>();
+  let from = 0;
+  const pageSize = 1000;
+
+  while (true) {
+    const { data, error } = await sb
+      .from('lures')
+      .select('slug,manufacturer_slug')
+      .range(from, from + pageSize - 1);
+
+    if (error) { log(`Supabase error: ${JSON.stringify(error)}`); break; }
+    if (!data || data.length === 0) break;
+    for (const r of data) {
+      if (r.slug && r.manufacturer_slug) {
+        allPaths.add(`${r.manufacturer_slug}/${r.slug}`);
+      }
+    }
+    if (data.length < pageSize) break;
+    from += pageSize;
+  }
+
+  return [...allPaths].sort().map(p => `${SITE_URL}${p}/`);
+}
 
 // ─── API: URL Inspection ─────────────────────────────
 
@@ -152,9 +219,139 @@ async function requestIndexing(token: string, url: string): Promise<IndexingResu
   }
 }
 
-// ─── Main ─────────────────────────────────────────────
+// ─── Indexing API バッチ送信 ─────────────────────────
 
-async function main() {
+async function submitBatch(token: string, urls: string[], label: string): Promise<IndexingResult[]> {
+  log(`--- Indexing API: Submitting ${urls.length} ${label} URLs ---`);
+  const results: IndexingResult[] = [];
+  let consecutiveQuotaErrors = 0;
+
+  for (let i = 0; i < urls.length; i++) {
+    const url = urls[i];
+    const shortUrl = url.replace(SITE_URL, '/');
+    process.stdout.write(`  [${i + 1}/${urls.length}] ${shortUrl} ... `);
+
+    const result = await requestIndexing(token, url);
+    results.push(result);
+
+    if (result.success) {
+      console.log(`✅ Submitted (${result.notifyTime})`);
+      consecutiveQuotaErrors = 0;
+    } else {
+      console.log(`❌ Failed: ${result.error}`);
+      // クォータ超過を検知して早期停止
+      if (result.error?.includes('Quota exceeded')) {
+        consecutiveQuotaErrors++;
+        if (consecutiveQuotaErrors >= 3) {
+          log('');
+          log('⚠️ Quota exceeded 3 times in a row — stopping early');
+          log(`   Successfully submitted: ${results.filter(r => r.success).length} URLs`);
+          break;
+        }
+      }
+    }
+
+    // Indexing API = 200/day なので慎重に
+    await sleep(1000);
+  }
+
+  const submitted = results.filter(r => r.success);
+  const submitFailed = results.filter(r => !r.success);
+
+  log('');
+  log(`=== Indexing API Summary (${label}) ===`);
+  log(`✅ Submitted: ${submitted.length}`);
+  log(`❌ Failed:    ${submitFailed.length}`);
+
+  if (submitFailed.length > 0) {
+    log('');
+    log('--- Failed Submissions ---');
+    for (const r of submitFailed) {
+      log(`  ❌ ${r.url.replace(SITE_URL, '/')} — ${r.error}`);
+    }
+  }
+
+  return results;
+}
+
+// ─── Main: ルアーページモード ─────────────────────────
+
+async function mainLures() {
+  log('=== Indexing Request Script Start (LURE MODE) ===');
+
+  if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
+    log('ERROR: Google credentials not found in .env');
+    process.exit(1);
+  }
+
+  // 1. 全ルアーURL取得
+  log('Fetching all lure URLs from Supabase...');
+  const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+  const allUrls = await fetchLureUrls(sb);
+  log(`Total lure pages: ${allUrls.length}`);
+
+  // 2. offset/limitでスライス
+  const batchUrls = allUrls.slice(OFFSET, OFFSET + LIMIT);
+  log(`Batch: offset=${OFFSET}, limit=${LIMIT} → ${batchUrls.length} URLs`);
+
+  if (batchUrls.length === 0) {
+    log('No URLs in this range. All done!');
+    return;
+  }
+
+  // 3. dry-run表示
+  if (!DO_SUBMIT) {
+    log('');
+    log(`--- Dry Run: ${batchUrls.length} URLs would be submitted ---`);
+    log(`  First: ${batchUrls[0].replace(SITE_URL, '/')}`);
+    log(`  Last:  ${batchUrls[batchUrls.length - 1].replace(SITE_URL, '/')}`);
+    log('');
+    log(`Next batch: --lures --submit --offset ${OFFSET + LIMIT}`);
+    log('Run with --submit to actually send Indexing API requests');
+    return;
+  }
+
+  // 4. Access Token取得 + 送信
+  const token = await getAccessToken();
+  log('Access token obtained');
+
+  const results = await submitBatch(token, batchUrls, 'lures');
+
+  // 5. 結果を保存
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  const indexingFile = path.join(DATA_DIR, `indexing-lures-${new Date().toISOString().split('T')[0]}-offset${OFFSET}.json`);
+  fs.writeFileSync(indexingFile, JSON.stringify({
+    date: new Date().toISOString(),
+    mode: 'lures',
+    offset: OFFSET,
+    limit: LIMIT,
+    totalLurePages: allUrls.length,
+    batchSize: batchUrls.length,
+    summary: {
+      success: results.filter(r => r.success).length,
+      failed: results.filter(r => !r.success).length,
+    },
+    results,
+  }, null, 2));
+  log(`Results saved: ${indexingFile}`);
+
+  // 6. 次バッチの案内
+  const nextOffset = OFFSET + LIMIT;
+  if (nextOffset < allUrls.length) {
+    log('');
+    log(`📋 Next batch: npx tsx scripts/request-indexing.ts --lures --submit --offset ${nextOffset}`);
+    log(`   Remaining: ${allUrls.length - nextOffset} URLs`);
+  } else {
+    log('');
+    log('🎉 All lure pages have been submitted!');
+  }
+
+  log('=== Done ===');
+}
+
+// ─── Main: メーカーページモード（既存） ─────────────────
+
+async function mainMakers() {
   log('=== Indexing Request Script Start ===');
 
   if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
@@ -165,24 +362,7 @@ async function main() {
   // 1. メーカーslug一覧取得
   log('Fetching manufacturer slugs from Supabase...');
   const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
-  const allSlugs = new Set<string>();
-  let from = 0;
-  const pageSize = 1000;
-
-  while (true) {
-    const { data, error } = await sb
-      .from('lures')
-      .select('manufacturer_slug')
-      .range(from, from + pageSize - 1);
-
-    if (error) { log(`Supabase error: ${JSON.stringify(error)}`); break; }
-    if (!data || data.length === 0) break;
-    for (const r of data) allSlugs.add(r.manufacturer_slug);
-    if (data.length < pageSize) break;
-    from += pageSize;
-  }
-
-  const slugs = [...allSlugs].sort();
+  const slugs = await fetchManufacturerSlugs(sb);
   log(`Found ${slugs.length} manufacturers`);
 
   // 2. URLリスト構築
@@ -299,52 +479,16 @@ async function main() {
     return;
   }
 
-  log(`--- Indexing API: Submitting ${urlsToSubmit.length} URLs ---`);
-  const indexingResults: IndexingResult[] = [];
+  const indexingResults = await submitBatch(token, urlsToSubmit, 'makers');
 
-  for (let i = 0; i < urlsToSubmit.length; i++) {
-    const url = typeof urlsToSubmit[i] === 'string' ? urlsToSubmit[i] : (urlsToSubmit[i] as any);
-    const shortUrl = url.replace(SITE_URL, '/');
-    process.stdout.write(`  [${i + 1}/${urlsToSubmit.length}] ${shortUrl} ... `);
-
-    const result = await requestIndexing(token, url);
-    indexingResults.push(result);
-
-    if (result.success) {
-      console.log(`✅ Submitted (${result.notifyTime})`);
-    } else {
-      console.log(`❌ Failed: ${result.error}`);
-    }
-
-    // Indexing API = 200/day なので慎重に
-    await sleep(1000);
-  }
-
-  // 8. Indexing結果サマリー
-  const submitted = indexingResults.filter(r => r.success);
-  const submitFailed = indexingResults.filter(r => !r.success);
-
-  log('');
-  log('=== Indexing API Summary ===');
-  log(`✅ Submitted: ${submitted.length}`);
-  log(`❌ Failed:    ${submitFailed.length}`);
-
-  if (submitFailed.length > 0) {
-    log('');
-    log('--- Failed Submissions ---');
-    for (const r of submitFailed) {
-      log(`  ❌ ${r.url.replace(SITE_URL, '/')} — ${r.error}`);
-    }
-  }
-
-  // 9. Indexing結果を保存
+  // 8. Indexing結果を保存
   const indexingFile = path.join(DATA_DIR, `indexing-${new Date().toISOString().split('T')[0]}.json`);
   fs.writeFileSync(indexingFile, JSON.stringify({
     date: new Date().toISOString(),
     totalSubmitted: urlsToSubmit.length,
     summary: {
-      success: submitted.length,
-      failed: submitFailed.length,
+      success: indexingResults.filter(r => r.success).length,
+      failed: indexingResults.filter(r => !r.success).length,
     },
     results: indexingResults,
   }, null, 2));
@@ -353,7 +497,10 @@ async function main() {
   log('=== Done ===');
 }
 
-main().catch(e => {
+// ─── Entry Point ──────────────────────────────────────
+
+const mainFn = LURE_MODE ? mainLures : mainMakers;
+mainFn().catch(e => {
   log(`FATAL: ${e.message}`);
   console.error(e);
   process.exit(1);
