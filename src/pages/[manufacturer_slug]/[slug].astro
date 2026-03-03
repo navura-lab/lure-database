@@ -110,27 +110,51 @@ if (hasPrice) specParts.push(`価格は${priceDisplay}`);
 const specsSummary = `${series.name}は${specParts.join('、')}。全${series.color_count}カラーをラインナップ${series.target_fish.length > 0 ? `し、${series.target_fish.slice(0, 5).join('・')}などをターゲットとする` : ''}。`;
 
 // --- SEO: JSON-LD Product schema ---
+// 画像配列: メイン画像 + カラー画像（最大8枚）
+const productImages: string[] = [];
+if (series.representative_image) productImages.push(series.representative_image);
+for (const color of series.colors) {
+  if (color.images && color.images.length > 0) {
+    productImages.push(color.images[0]);
+  }
+  if (productImages.length >= 9) break;
+}
+const uniqueImages = [...new Set(productImages)];
+
+// offers: 単一価格→Offer、価格レンジ→AggregateOffer
+const offersLd = hasPrice
+  ? series.price_range.min === series.price_range.max
+    ? {
+        '@type': 'Offer',
+        priceCurrency: 'JPY',
+        price: series.price_range.min,
+        availability: 'https://schema.org/InStock',
+        url: `https://www.lure-db.com/${series.manufacturer_slug}/${series.slug}/`,
+      }
+    : {
+        '@type': 'AggregateOffer',
+        priceCurrency: 'JPY',
+        lowPrice: series.price_range.min,
+        highPrice: series.price_range.max,
+        offerCount: series.color_count,
+        availability: 'https://schema.org/InStock',
+      }
+  : undefined;
+
 const jsonLd: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'Product',
-  name: series.name,
-  description: series.description || `${series.manufacturer} ${series.name} - ${series.type}`,
+  name: `${series.manufacturer} ${series.name}`,
+  description: series.description || `${series.manufacturer}の${series.type}「${series.name}」。${specs}。`,
   brand: {
     '@type': 'Brand',
     name: series.manufacturer,
   },
   category: series.type,
+  sku: `${series.manufacturer_slug}-${series.slug}`,
   url: `https://www.lure-db.com/${series.manufacturer_slug}/${series.slug}/`,
-  ...(series.representative_image ? { image: series.representative_image } : {}),
-  ...(hasPrice ? {
-    offers: {
-      '@type': 'AggregateOffer',
-      priceCurrency: 'JPY',
-      lowPrice: series.price_range.min,
-      highPrice: series.price_range.max,
-      offerCount: series.color_count,
-    },
-  } : {}),
+  ...(uniqueImages.length > 0 ? { image: uniqueImages } : {}),
+  ...(offersLd ? { offers: offersLd } : {}),
   additionalProperty: [
     ...(series.weight_range.min ? [{
       '@type': 'PropertyValue',
@@ -146,6 +170,11 @@ const jsonLd: Record<string, unknown> = {
       '@type': 'PropertyValue',
       name: '潜行深度',
       value: series.diving_depth,
+    }] : []),
+    ...(series.action_type ? [{
+      '@type': 'PropertyValue',
+      name: 'アクション',
+      value: series.action_type,
     }] : []),
   ],
 };
