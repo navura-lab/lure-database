@@ -1,0 +1,243 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LureCard from '../../../components/LureCard.astro';
+import { fetchAllLures } from '../../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../../lib/group-lures';
+import { TYPE_SLUG_MAP, TYPE_NAME_MAP, getFishSlug } from '../../../lib/category-slugs';
+import type { LureSeries } from '../../../lib/types';
+
+export async function getStaticPaths() {
+  const lures = await fetchAllLures();
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  // タイプ別にグルーピング
+  const typeMap = new Map<string, LureSeries[]>();
+  for (const s of allSeries) {
+    if (!s.type) continue;
+    const existing = typeMap.get(s.type) || [];
+    existing.push(s);
+    typeMap.set(s.type, existing);
+  }
+
+  return [...typeMap.entries()].map(([typeName, series]) => {
+    const slug = TYPE_SLUG_MAP[typeName] ?? encodeURIComponent(typeName);
+    return {
+      params: { type_slug: slug },
+      props: { typeName, series },
+    };
+  });
+}
+
+const { typeName, series } = Astro.props as {
+  typeName: string;
+  series: LureSeries[];
+};
+
+const typeSlug = Astro.params.type_slug;
+
+// ─── 集計 ───
+
+const totalColors = series.reduce((sum, s) => sum + s.color_count, 0);
+
+// メーカー別シリーズ数
+const makerCounts = new Map<string, { name: string; slug: string; count: number }>();
+for (const s of series) {
+  const existing = makerCounts.get(s.manufacturer_slug);
+  if (existing) {
+    existing.count++;
+  } else {
+    makerCounts.set(s.manufacturer_slug, { name: s.manufacturer, slug: s.manufacturer_slug, count: 1 });
+  }
+}
+const makerBreakdown = [...makerCounts.values()].sort((a, b) => b.count - a.count);
+
+// 対象魚集計
+const fishCounts = new Map<string, number>();
+for (const s of series) {
+  for (const fish of s.target_fish) {
+    fishCounts.set(fish, (fishCounts.get(fish) || 0) + 1);
+  }
+}
+const allTargetFish = [...fishCounts.entries()]
+  .sort((a, b) => b[1] - a[1])
+  .map(([fish]) => fish)
+  .slice(0, 15);
+
+// 価格帯
+const prices = series
+  .flatMap(s => [s.price_range.min, s.price_range.max])
+  .filter(p => p > 0);
+const priceRange = prices.length > 0
+  ? { min: Math.min(...prices), max: Math.max(...prices) }
+  : null;
+
+// 重量帯
+const weights = series
+  .flatMap(s => [s.weight_range.min, s.weight_range.max])
+  .filter((w): w is number => w != null && w > 0);
+const weightRange = weights.length > 0
+  ? { min: Math.min(...weights), max: Math.max(...weights) }
+  : null;
+
+// 全長帯
+const lengths = series
+  .flatMap(s => [s.length_range.min, s.length_range.max])
+  .filter((l): l is number => l != null && l > 0);
+const lengthRange = lengths.length > 0
+  ? { min: Math.min(...lengths), max: Math.max(...lengths) }
+  : null;
+
+// ─── SEO ───
+
+const topMakers = makerBreakdown.slice(0, 3).map(m => m.name).join('・');
+const topFish = allTargetFish.slice(0, 3).join('・');
+const priceText = priceRange ? `価格¥${priceRange.min.toLocaleString()}〜¥${priceRange.max.toLocaleString()}` : '';
+
+const pageDescription = [
+  `${typeName}のルアー${series.length}シリーズ・${totalColors}カラーを掲載。`,
+  topMakers ? `${topMakers}等${makerBreakdown.length}メーカーが展開。` : '',
+  topFish ? `${topFish}向け。` : '',
+  priceText ? `${priceText}。` : '',
+].filter(Boolean).join('');
+
+// 概要テキスト
+const summaryParts: string[] = [];
+summaryParts.push(`${typeName}は${makerBreakdown.length}メーカーから${series.length}シリーズ・${totalColors}カラーが登録されている`);
+if (topMakers) {
+  summaryParts.push(`${topMakers}など人気メーカーがラインナップ`);
+}
+if (allTargetFish.length > 0) {
+  const fishNames = allTargetFish.slice(0, 5).join('・');
+  summaryParts.push(`主なターゲットは${fishNames}`);
+}
+if (priceRange) {
+  summaryParts.push(`価格帯は¥${priceRange.min.toLocaleString()}〜¥${priceRange.max.toLocaleString()}`);
+}
+const summaryText = summaryParts.join('。') + '。';
+
+// スペック
+const specItems: { label: string; value: string }[] = [];
+specItems.push({ label: 'シリーズ数', value: `${series.length}` });
+specItems.push({ label: 'カラー数', value: `${totalColors}色` });
+if (priceRange) {
+  specItems.push({ label: '価格帯', value: `¥${priceRange.min.toLocaleString()} 〜 ¥${priceRange.max.toLocaleString()}` });
+}
+if (weightRange) {
+  specItems.push({ label: '重さ', value: `${weightRange.min}g 〜 ${weightRange.max}g` });
+}
+if (lengthRange) {
+  specItems.push({ label: '全長', value: `${lengthRange.min}mm 〜 ${lengthRange.max}mm` });
+}
+
+// JSON-LD
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${typeName}のルアー一覧`,
+  url: `https://www.lure-db.com/type/${typeSlug}/`,
+  description: pageDescription,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: series.length,
+    itemListElement: series.slice(0, 50).map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.lure-db.com/${s.manufacturer_slug}/${s.slug}/`,
+      name: `${s.manufacturer} ${s.name}`,
+    })),
+  },
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
+    { '@type': 'ListItem', position: 2, name: 'ルアータイプ', item: 'https://www.lure-db.com/type/' },
+    { '@type': 'ListItem', position: 3, name: typeName, item: `https://www.lure-db.com/type/${typeSlug}/` },
+  ],
+};
+
+const jsonLd = [collectionLd, breadcrumbLd] as unknown as Record<string, unknown>;
+---
+
+<BaseLayout title={`${typeName}のルアー一覧 - ルアーDB`} description={pageDescription} canonicalPath={`/type/${typeSlug}/`} jsonLd={jsonLd}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-secondary mb-8">
+      <a href="/" class="hover:text-primary transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <a href="/type/" class="hover:text-primary transition-colors">ルアータイプ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{typeName}</span>
+    </nav>
+
+    <!-- ヘッダー -->
+    <div class="mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">{typeName}</h1>
+      <p class="text-sm text-text-secondary mt-1">
+        {series.length}シリーズ・{totalColors}カラー
+      </p>
+    </div>
+
+    <!-- 概要セクション -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+
+      <p class="text-sm text-gray-700 leading-relaxed mb-5">
+        {summaryText}
+      </p>
+
+      <!-- スペックサマリー -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-5">
+        {specItems.map(item => (
+          <div>
+            <p class="text-xs text-text-tertiary">{item.label}</p>
+            <p class="text-sm font-semibold text-gray-900">{item.value}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- メーカー一覧 -->
+      {makerBreakdown.length > 0 && (
+        <div class="mb-5">
+          <h2 class="text-xs font-semibold text-text-tertiary uppercase tracking-wider mb-2">取り扱いメーカー</h2>
+          <div class="flex flex-wrap gap-2">
+            {makerBreakdown.map(m => (
+              <a href={`/${m.slug}/`} class="inline-flex items-center gap-1 px-3 py-1 bg-sky-50 text-sky-700 rounded-full text-xs font-medium border border-sky-100 hover:bg-sky-100 transition-colors">
+                {m.name}
+                <span class="text-sky-400">{m.count}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- 対象魚タグ -->
+      {allTargetFish.length > 0 && (
+        <div>
+          <h2 class="text-xs font-semibold text-text-tertiary uppercase tracking-wider mb-2">対象魚</h2>
+          <div class="flex flex-wrap gap-1.5">
+            {allTargetFish.map(fish => (
+              <a href={`/fish/${getFishSlug(fish)}/`} class="px-2.5 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+                {fish}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+    </div>
+
+    <!-- シリーズ見出し -->
+    <h2 class="text-lg font-bold text-gray-900 mb-4">全{series.length}シリーズ</h2>
+
+    <!-- 商品グリッド -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      {series.map((s, i) => (
+        <LureCard series={s} isNew={false} priority={i < 4} />
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

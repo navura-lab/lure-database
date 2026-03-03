@@ -8,7 +8,7 @@ const currentPath = Astro.url.pathname;
       <a href="/" class="flex items-center gap-2 text-gray-900 hover:text-primary transition-colors">
         <span class="text-xl font-bold tracking-tight">ルアーDB</span>
       </a>
-      <nav class="flex items-center gap-6 text-sm">
+      <nav class="flex items-center gap-4 sm:gap-6 text-sm">
         <a
           href="/"
           class:list={[
@@ -16,7 +16,25 @@ const currentPath = Astro.url.pathname;
             currentPath === '/' ? 'text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900'
           ]}
         >
-          ルアー検索
+          検索
+        </a>
+        <a
+          href="/type/"
+          class:list={[
+            'transition-colors',
+            currentPath.startsWith('/type') ? 'text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900'
+          ]}
+        >
+          タイプ
+        </a>
+        <a
+          href="/fish/"
+          class:list={[
+            'transition-colors',
+            currentPath.startsWith('/fish') ? 'text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900'
+          ]}
+        >
+          対象魚
         </a>
       </nav>
     </div>

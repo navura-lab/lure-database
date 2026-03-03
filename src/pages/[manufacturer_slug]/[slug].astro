@@ -2,9 +2,11 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Badge from '../../components/Badge.astro';
 import Placeholder from '../../components/Placeholder.astro';
+import LureCard from '../../components/LureCard.astro';
 
 import { fetchAllLures } from '../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../lib/group-lures';
+import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -12,13 +14,47 @@ export async function getStaticPaths() {
 
   const allSeries = groupLuresBySeries(lures ?? []);
 
-  return allSeries.map(series => ({
-    params: { manufacturer_slug: series.manufacturer_slug, slug: series.slug },
-    props: { series },
-  }));
+  // タイプ別・メーカー別のインデックスを構築
+  const byType = new Map<string, LureSeries[]>();
+  const byMaker = new Map<string, LureSeries[]>();
+  for (const s of allSeries) {
+    if (s.type) {
+      const arr = byType.get(s.type) || [];
+      arr.push(s);
+      byType.set(s.type, arr);
+    }
+    const makerArr = byMaker.get(s.manufacturer_slug) || [];
+    makerArr.push(s);
+    byMaker.set(s.manufacturer_slug, makerArr);
+  }
+
+  return allSeries.map(series => {
+    // 同タイプの関連ルアー（自分除外、最大4件）
+    const sameTypeSeries = (byType.get(series.type) || [])
+      .filter(s => s.slug !== series.slug);
+    const relatedByType = sameTypeSeries
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 4);
+
+    // 同メーカーの関連ルアー（自分・タイプ重複除外、最大4件）
+    const typeSet = new Set(relatedByType.map(s => s.slug));
+    const relatedByMaker = (byMaker.get(series.manufacturer_slug) || [])
+      .filter(s => s.slug !== series.slug && !typeSet.has(s.slug))
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 4);
+
+    return {
+      params: { manufacturer_slug: series.manufacturer_slug, slug: series.slug },
+      props: { series, relatedByType, relatedByMaker },
+    };
+  });
 }
 
-const { series } = Astro.props as { series: LureSeries };
+const { series, relatedByType, relatedByMaker } = Astro.props as {
+  series: LureSeries;
+  relatedByType: LureSeries[];
+  relatedByMaker: LureSeries[];
+};
 
 const hasLimited = series.colors.some(c => c.is_limited);
 
@@ -170,7 +206,10 @@ const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unkno
           {series.representative_image ? (
             <img
               src={series.representative_image}
-              alt={series.name}
+              alt={`${series.manufacturer} ${series.name} ${series.type}`}
+              width="600"
+              height="600"
+              decoding="async"
               class="w-full h-full object-scale-down p-6"
             />
           ) : (
@@ -189,7 +228,9 @@ const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unkno
         </h1>
 
         <div class="flex flex-wrap gap-2 mb-6">
-          <Badge label={series.type} variant="type" />
+          <a href={`/type/${getTypeSlug(series.type)}/`}>
+            <Badge label={series.type} variant="type" />
+          </a>
           {hasLimited && <Badge label="限定あり" variant="limited" />}
         </div>
 
@@ -271,8 +312,11 @@ const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unkno
               {color.images && color.images.length > 0 ? (
                 <img
                   src={color.images[0]}
-                  alt={color.color_name}
+                  alt={`${series.name} ${color.color_name}`}
                   loading="lazy"
+                  decoding="async"
+                  width="400"
+                  height="400"
                   class="w-full h-full object-scale-down p-3"
                 />
               ) : (
@@ -324,9 +368,47 @@ const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unkno
         <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}で狙える魚種</h2>
         <div class="flex flex-wrap gap-2">
           {series.target_fish.map(fish => (
-            <span class="px-3 py-1.5 bg-gray-50 text-gray-700 rounded-full text-sm border border-gray-100">
+            <a href={`/fish/${getFishSlug(fish)}/`} class="px-3 py-1.5 bg-gray-50 text-gray-700 rounded-full text-sm border border-gray-100 hover:bg-gray-100 transition-colors">
               {fish}
-            </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 関連ルアー: 同タイプ -->
+    {relatedByType.length > 0 && (
+      <section class="mb-12">
+        <div class="flex items-baseline justify-between mb-4">
+          <h2 class="text-xl font-bold text-gray-900">
+            おすすめの{series.type}
+          </h2>
+          <a href={`/type/${getTypeSlug(series.type)}/`} class="text-sm text-primary hover:text-primary/80 transition-colors">
+            {series.type}をもっと見る →
+          </a>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {relatedByType.map(s => (
+            <LureCard series={s} isNew={false} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 関連ルアー: 同メーカー -->
+    {relatedByMaker.length > 0 && (
+      <section class="mb-12">
+        <div class="flex items-baseline justify-between mb-4">
+          <h2 class="text-xl font-bold text-gray-900">
+            {series.manufacturer}のその他のルアー
+          </h2>
+          <a href={`/${series.manufacturer_slug}/`} class="text-sm text-primary hover:text-primary/80 transition-colors">
+            {series.manufacturer}をもっと見る →
+          </a>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {relatedByMaker.map(s => (
+            <LureCard series={s} isNew={false} />
           ))}
         </div>
       </section>

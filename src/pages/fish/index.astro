@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import { getFishSlug } from '../../lib/category-slugs';
+
+const lures = await fetchAllLures();
+const allSeries = groupLuresBySeries(lures ?? []);
+
+// 対象魚別に集計
+const fishStats = new Map<string, { count: number; colors: number }>();
+for (const s of allSeries) {
+  for (const fish of s.target_fish) {
+    const existing = fishStats.get(fish);
+    if (existing) {
+      existing.count++;
+      existing.colors += s.color_count;
+    } else {
+      fishStats.set(fish, { count: 1, colors: s.color_count });
+    }
+  }
+}
+
+const fishList = [...fishStats.entries()]
+  .map(([name, stats]) => ({ name, slug: getFishSlug(name), ...stats }))
+  .sort((a, b) => b.count - a.count);
+
+const totalFish = fishList.length;
+
+const pageDescription = `ルアーの対象魚${totalFish}種を掲載。ブラックバス、シーバス、青物、トラウト等、魚種別にルアーを検索。`;
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
+    { '@type': 'ListItem', position: 2, name: '対象魚', item: 'https://www.lure-db.com/fish/' },
+  ],
+};
+
+const jsonLd = breadcrumbLd as unknown as Record<string, unknown>;
+---
+
+<BaseLayout title="対象魚別ルアー一覧 - ルアーDB" description={pageDescription} canonicalPath="/fish/" jsonLd={jsonLd}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-secondary mb-8">
+      <a href="/" class="hover:text-primary transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">対象魚</span>
+    </nav>
+
+    <div class="mb-8">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">対象魚別ルアー一覧</h1>
+      <p class="text-sm text-text-secondary mt-1">
+        {totalFish}種の対象魚
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      {fishList.map(f => (
+        <a href={`/fish/${f.slug}/`} class="group block bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 hover:shadow-card-hover hover:scale-[1.01]">
+          <div class="p-5">
+            <h2 class="text-base font-bold text-gray-900 group-hover:text-primary transition-colors mb-2">
+              {f.name}
+            </h2>
+            <div class="flex items-center gap-3 text-xs text-text-secondary">
+              <span>{f.count}シリーズ</span>
+              <span>{f.colors}カラー</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>
