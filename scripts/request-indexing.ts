@@ -10,6 +10,10 @@
  *   全ルアーページを直接 Indexing API に送信（検査スキップ）
  *   --offset / --limit でバッチ制御（API上限 200/日）
  *
+ * ■ カテゴリページモード (--categories)
+ *   /type/[slug]/ + /fish/[slug]/ + 各一覧ページを Indexing API に送信
+ *   category-slugs.ts からURL一覧を自動構築（125件程度）
+ *
  * Usage:
  *   npx tsx scripts/request-indexing.ts                        # メーカーページURL検査のみ (dry-run)
  *   npx tsx scripts/request-indexing.ts --submit               # 未インデックスURLをIndexing APIに送信
@@ -19,12 +23,15 @@
  *   npx tsx scripts/request-indexing.ts --lures --submit       # ルアーページ200件をIndexing APIに送信
  *   npx tsx scripts/request-indexing.ts --lures --submit --offset 200  # 201件目から200件
  *   npx tsx scripts/request-indexing.ts --lures --submit --offset 400 --limit 100  # 401件目から100件
+ *   npx tsx scripts/request-indexing.ts --categories           # カテゴリページ一覧表示 (dry-run)
+ *   npx tsx scripts/request-indexing.ts --categories --submit  # カテゴリ全件をIndexing APIに送信
  */
 
 import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
+import { TYPE_SLUG_MAP, FISH_SLUG_MAP } from '../src/lib/category-slugs.js';
 
 // ─── Config ───────────────────────────────────────────
 
@@ -38,6 +45,7 @@ const DO_SUBMIT = process.argv.includes('--submit');
 const DO_ALL = process.argv.includes('--all');
 const INSPECT_ONLY = process.argv.includes('--inspect-only');
 const LURE_MODE = process.argv.includes('--lures');
+const CATEGORY_MODE = process.argv.includes('--categories');
 
 function getArgValue(flag: string, defaultValue: number): number {
   const idx = process.argv.indexOf(flag);
@@ -497,9 +505,67 @@ async function mainMakers() {
   log('=== Done ===');
 }
 
+// ─── Main: カテゴリページモード ─────────────────────────
+
+async function mainCategories() {
+  log('=== Indexing Request Script Start (CATEGORY MODE) ===');
+
+  if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
+    log('ERROR: Google credentials not found in .env');
+    process.exit(1);
+  }
+
+  // 1. カテゴリURL一覧構築
+  const urls: string[] = [
+    `${SITE_URL}type/`,   // タイプ一覧
+    `${SITE_URL}fish/`,   // 対象魚一覧
+    ...Object.values(TYPE_SLUG_MAP).map(s => `${SITE_URL}type/${s}/`),
+    ...Object.values(FISH_SLUG_MAP).map(s => `${SITE_URL}fish/${s}/`),
+  ];
+
+  // 重複排除（同じslugが2つのキーに割り当たっている場合）
+  const uniqueUrls = [...new Set(urls)].sort();
+  log(`Total category pages: ${uniqueUrls.length} (${Object.keys(TYPE_SLUG_MAP).length} types + ${Object.keys(FISH_SLUG_MAP).length} fish + 2 index pages)`);
+
+  // 2. dry-run表示
+  if (!DO_SUBMIT) {
+    log('');
+    log(`--- Dry Run: ${uniqueUrls.length} URLs would be submitted ---`);
+    for (const url of uniqueUrls) {
+      log(`  📤 ${url.replace(SITE_URL, '/')}`);
+    }
+    log('');
+    log('Run with --categories --submit to actually send Indexing API requests');
+    return;
+  }
+
+  // 3. Access Token取得 + 送信
+  const token = await getAccessToken();
+  log('Access token obtained');
+
+  const results = await submitBatch(token, uniqueUrls, 'categories');
+
+  // 4. 結果を保存
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  const indexingFile = path.join(DATA_DIR, `indexing-categories-${new Date().toISOString().split('T')[0]}.json`);
+  fs.writeFileSync(indexingFile, JSON.stringify({
+    date: new Date().toISOString(),
+    mode: 'categories',
+    totalCategoryPages: uniqueUrls.length,
+    summary: {
+      success: results.filter(r => r.success).length,
+      failed: results.filter(r => !r.success).length,
+    },
+    results,
+  }, null, 2));
+  log(`Results saved: ${indexingFile}`);
+
+  log('=== Done ===');
+}
+
 // ─── Entry Point ──────────────────────────────────────
 
-const mainFn = LURE_MODE ? mainLures : mainMakers;
+const mainFn = CATEGORY_MODE ? mainCategories : LURE_MODE ? mainLures : mainMakers;
 mainFn().catch(e => {
   log(`FATAL: ${e.message}`);
   console.error(e);
