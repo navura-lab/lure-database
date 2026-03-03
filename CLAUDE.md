@@ -77,6 +77,29 @@ Supabase JS Client は `src/lib/supabase.ts`。
 ### 過去の実績
 
 - DAIWA全367商品: 2026-02-20にSonnet×7並列で完了（平均145文字、エラー0件）
+- DAIWA以外全92メーカー1,404商品: 2026-03-03にSonnet×7並列×4ラウンドで完了
+
+## ⚠️ リライト必須ルール（2026-03-03〜）
+
+**パイプライン実行後、リライトなしでのデプロイは禁止。**
+
+### ルール
+1. パイプラインで新商品をSupabaseに登録した後、**必ず説明文リライトを実施してからデプロイする**
+2. description が250文字を超える商品 = 未リライト。0件でなければデプロイ不可
+3. リライトはClaude Codeセッション内でSonnetサブエージェントを使い実行する
+4. リライト結果は `scripts/_rewritten-all-YYYY-MM-DD.json` にバックアップする
+
+### パイプライン実行後の手順
+```
+1. npx tsx scripts/pipeline.ts --limit N  （スクレイプ＆DB登録）
+2. 説明文リライト実行（Sonnetサブエージェント並列）
+3. npx tsx scripts/_write-rewritten-to-supabase.ts  （DB書き戻し）
+4. git push origin main  （デプロイ）
+```
+
+### 新メーカー追加時
+新メーカー追加チェックリストの完了条件に以下を追加:
+- **全商品の説明文がリライト済み（description 250文字以下）**
 
 ## 新メーカー追加時のルール
 
