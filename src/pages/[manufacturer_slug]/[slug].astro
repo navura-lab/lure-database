@@ -57,7 +57,21 @@ const specs = [
   lengthDisplay ? `全長${lengthDisplay}` : null,
   `${series.color_count}カラー`,
 ].filter(Boolean).join('・');
-const pageDescription = `${series.manufacturer} ${series.name}（${specs}）のスペック・カラーバリエーション・価格情報。${series.description ? series.description.substring(0, 80) : ''}`;
+
+// meta description: リライト済みdescriptionがあればフル活用（150-250文字=meta descriptionに最適）
+const pageDescription = series.description
+  ? `${series.manufacturer} ${series.name}｜${series.description}`
+  : `${series.manufacturer} ${series.name}（${specs}）のスペック・カラーバリエーション・価格情報を網羅。ルアーDB`;
+
+// --- SEO: 自然言語スペック要約（ページ内表示用）---
+const specParts: string[] = [];
+specParts.push(`${series.manufacturer}が展開する${series.type}`);
+if (weightDisplay) specParts.push(`重さ${weightDisplay}`);
+if (lengthDisplay) specParts.push(`全長${lengthDisplay}`);
+if (series.diving_depth) specParts.push(`潜行深度${series.diving_depth}`);
+if (series.action_type) specParts.push(`${series.action_type}タイプ`);
+if (hasPrice) specParts.push(`価格は${priceDisplay}`);
+const specsSummary = `${series.name}は${specParts.join('、')}。全${series.color_count}カラーをラインナップ${series.target_fish.length > 0 ? `し、${series.target_fish.slice(0, 5).join('・')}などをターゲットとする` : ''}。`;
 
 // --- SEO: JSON-LD Product schema ---
 const jsonLd: Record<string, unknown> = {
@@ -227,17 +241,27 @@ const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unkno
 
         <!-- 説明 -->
         {series.description && (
-          <p class="text-sm text-text-secondary leading-relaxed">
+          <p class="text-gray-700 leading-relaxed">
             {series.description}
           </p>
         )}
       </div>
     </div>
 
+    <!-- 商品概要セクション -->
+    <section class="mb-12">
+      <h2 class="text-xl font-bold text-gray-900 mb-3">{series.name}の特徴・スペック</h2>
+      <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        <p class="text-sm text-gray-600 leading-relaxed">
+          {specsSummary}
+        </p>
+      </div>
+    </section>
+
     <!-- カラーバリエーション -->
     <section class="mb-12">
       <div class="flex items-baseline gap-3 mb-6">
-        <h2 class="text-xl font-bold text-gray-900">カラーバリエーション</h2>
+        <h2 class="text-xl font-bold text-gray-900">{series.name}のカラーバリエーション</h2>
         <span class="text-sm text-text-secondary">{series.color_count}色</span>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -281,7 +305,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unkno
     <!-- 公式動画 -->
     {embedUrl && (
       <section class="mb-12">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">公式動画</h2>
+        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}の公式動画</h2>
         <div class="aspect-video rounded-xl overflow-hidden border border-gray-100">
           <iframe
             src={embedUrl}
@@ -297,7 +321,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unkno
     <!-- 対象魚 -->
     {series.target_fish.length > 0 && (
       <section class="mb-12">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">対象魚</h2>
+        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}で狙える魚種</h2>
         <div class="flex flex-wrap gap-2">
           {series.target_fish.map(fish => (
             <span class="px-3 py-1.5 bg-gray-50 text-gray-700 rounded-full text-sm border border-gray-100">
@@ -307,6 +331,17 @@ const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unkno
         </div>
       </section>
     )}
+
+    <!-- メーカーページへのナビゲーション -->
+    <div class="border-t border-gray-100 pt-6 mb-4">
+      <a
+        href={`/${series.manufacturer_slug}/`}
+        class="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
+      >
+        <span>←</span>
+        <span>{series.manufacturer}のルアー一覧を見る</span>
+      </a>
+    </div>
 
   </div>
 </BaseLayout>
