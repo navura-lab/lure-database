@@ -8,22 +8,29 @@ interface Props {
   description?: string;
   canonicalPath?: string;
   ogImage?: string;
+  ogType?: 'website' | 'product';
+  noindex?: boolean;
   jsonLd?: Record<string, unknown>;
 }
 
 const SITE_URL = 'https://www.lure-db.com';
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
 
 const {
   title,
   description = '釣り人のためのルアーデータベース',
   canonicalPath,
   ogImage,
+  ogType = 'website',
+  noindex = false,
   jsonLd,
 } = Astro.props;
 
 const canonicalUrl = canonicalPath
   ? `${SITE_URL}${canonicalPath}`
   : `${SITE_URL}${Astro.url.pathname}`;
+
+const resolvedOgImage = ogImage || DEFAULT_OG_IMAGE;
 ---
 
 <!doctype html>
@@ -32,7 +39,10 @@ const canonicalUrl = canonicalPath
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    {noindex
+      ? <meta name="robots" content="noindex, nofollow" />
+      : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    }
     <meta name="google-site-verification" content="D7Q80KgtUENvvxm2yGZ2xlpOjgCHHvRkMzonRL_bFS8" />
     <link rel="dns-prefetch" href="https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev" />
     <link rel="preconnect" href="https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev" crossorigin />
@@ -41,18 +51,28 @@ const canonicalUrl = canonicalPath
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="ルアーDB" />
     <meta property="og:locale" content="ja_JP" />
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <meta name="twitter:image" content={resolvedOgImage} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'ルアーDB',
+      url: 'https://www.lure-db.com',
+      logo: 'https://www.lure-db.com/favicon.svg',
+      description: '釣り人のためのルアーデータベース。国内主要メーカーのルアーを網羅的に掲載。',
+    })} />
     <!-- Google Analytics — deferred to avoid blocking render -->
     <script>
       window.dataLayer = window.dataLayer || [];

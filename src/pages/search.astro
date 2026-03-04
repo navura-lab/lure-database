@@ -27,6 +27,7 @@ const breadcrumbLd = {
   title="ルアー検索 - ルアーDB"
   description={`国内主要メーカーのルアーを検索。${series.length}シリーズ・${lures?.length ?? 0}カラー登録。`}
   canonicalPath="/search/"
+  noindex={true}
   jsonLd={breadcrumbLd as unknown as Record<string, unknown>}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
@@ -168,7 +169,7 @@ const breadcrumbLd = {
       : '';
 
     const imgHtml = d.representative_image
-      ? `<img src="${escHtml(d.representative_image)}" alt="${escHtml(d.name)}" loading="lazy" width="500" height="375" class="w-full h-full object-scale-down p-3">`
+      ? `<img src="${escHtml(d.representative_image)}" alt="${escHtml(d.manufacturer)} ${escHtml(d.name)} ${escHtml(d.type)}" loading="lazy" width="500" height="375" class="w-full h-full object-scale-down p-3">`
       : `<div class="placeholder-lure-bg w-full h-full flex items-center justify-center"><span class="text-xs text-sky-400">${escHtml(d.type)}</span></div>`;
 
     const badges = [

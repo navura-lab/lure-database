@@ -214,6 +214,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unkno
   description={pageDescription}
   canonicalPath={`/${series.manufacturer_slug}/${series.slug}/`}
   ogImage={series.representative_image || undefined}
+  ogType="product"
   jsonLd={combinedJsonLd}
 >
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

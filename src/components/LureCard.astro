@@ -38,7 +38,7 @@ const filterData = JSON.stringify({
       {series.representative_image ? (
         <img
           src={series.representative_image}
-          alt={series.name}
+          alt={`${series.manufacturer} ${series.name} ${series.type}`}
           loading={priority ? "eager" : "lazy"}
           fetchpriority={priority ? "high" : undefined}
           width="500"
