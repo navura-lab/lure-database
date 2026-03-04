@@ -22,6 +22,7 @@ import {
   IMAGE_WIDTH,
 } from './config.js';
 import { getScraper, getRegisteredManufacturers, type ScrapedLure } from './scrapers/index.js';
+import { normalizeType } from './lib/normalize-type.js';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -378,6 +379,9 @@ async function processRecord(
     // Override manufacturer info from Airtable (more reliable)
     scraped.manufacturer = manufacturerName;
     scraped.manufacturer_slug = manufacturerSlug;
+
+    // Normalize type to canonical 33 types (prevents scraper drift)
+    scraped.type = normalizeType(scraped.type);
 
     log(`Scraped: ${scraped.name}, ${scraped.colors.length} colors, ${scraped.weights.length} weights, price: ${scraped.price}`);
 
