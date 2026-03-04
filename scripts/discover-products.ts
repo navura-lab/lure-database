@@ -7070,14 +7070,15 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     // beat-jig.com — WordPress, WP REST API, fetch-only
     // CPT: product-item, メタルジグ専門
   },
-  {
-    slug: 'boreas',
-    name: 'BOREAS',
-    discover: discoverBoreas,
-    excludedNameKeywords: BOREAS_EXCLUDE_TITLE_LOWER,
-    // flashpointonlineshop.com — Shopify JSON API, fetch-only
-    // バス用ワーム・ラバージグ中心
-  },
+  // DISABLED: scraper targets flashpointonlineshop.com (retail shop), not BOREAS official site.
+  // Other brands' products (GANCRAFT, DRT, ELEMENTS, etc.) were scraped as BOREAS.
+  // {
+  //   slug: 'boreas',
+  //   name: 'BOREAS',
+  //   discover: discoverBoreas,
+  //   excludedNameKeywords: BOREAS_EXCLUDE_TITLE_LOWER,
+  //   // flashpointonlineshop.com — Shopify JSON API, fetch-only
+  // },
   {
     slug: 'bozles',
     name: 'BOZLES',

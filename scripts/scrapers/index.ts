@@ -62,7 +62,7 @@ import { scrapePalmsPage } from './palms.js';
 import { scrapeMadnessPage } from './madness.js';
 // --- Formerly standalone scrapers (converted 2026-02-28) ---
 import { scrapeBeatPage } from './beat.js';
-import { scrapeBoreasPage } from './boreas.js';
+// import { scrapeBoreasPage } from './boreas.js'; // DISABLED: scraper targets retail shop, not official site
 import { scrapeBozlesPage } from './bozles.js';
 import { scrapeCarpenterPage } from './carpenter.js';
 import { scrapeCbOnePage } from './cb-one.js';
@@ -174,7 +174,7 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   madness: scrapeMadnessPage,
   // --- Formerly standalone scrapers (converted 2026-02-28) ---
   beat: scrapeBeatPage,
-  boreas: scrapeBoreasPage,
+  // boreas: scrapeBoreasPage, // DISABLED: scraper targets retail shop, not official site
   bozles: scrapeBozlesPage,
   carpenter: scrapeCarpenterPage,
   'cb-one': scrapeCbOnePage,
