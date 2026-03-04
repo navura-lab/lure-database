@@ -3255,7 +3255,7 @@ async function discoverEngine(_page: Page): Promise<Array<{ url: string; name: s
 
 var HIDEUP_EXCLUDED_SLUGS = [
   'rod_recommendation', 'macca', 'Red_macca', 'macca_red_signature', // Rods
-  'cblm', 'amistopper', 'HU-3010NDM', 'HU-3020NDDM', 'HU-3043NDD', // Tools
+  'cblm', 'amistopper', 'HU-3010NDM', 'HU-3020NDDM', 'HU-3043NDD', 'HU-CaluRuba50hook', // Tools & hooks
   'RCMF2019', 'RCMF', 'RCMF_Fishing_Tee_2020', 'RCMF_parka_2020', 'RCMF_parka_2021', // RCMF merch
   'mesh_cap_stream_logo', 'hu-slc', 'mesh-cap', 'knitcap', // Apparel
   'hood_neck_warmer', 'hood_neck_warmer_sweat', 'facecover2020', 'facecover', // Apparel
@@ -6524,13 +6524,13 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'daiwa',
     name: 'DAIWA',
     discover: discoverDaiwa,
-    excludedNameKeywords: ['ワーム', 'WORM', 'ソフトルアー', 'SOFT LURE', 'フック', 'HOOK', '替えフック'],
+    excludedNameKeywords: ['ワーム', 'WORM', 'ソフトルアー', 'SOFT LURE', 'フック', 'HOOK', '替えフック', 'シンカー', '接続パーツ'],
   },
   {
     slug: 'shimano',
     name: 'SHIMANO',
     discover: discoverShimano,
-    excludedNameKeywords: ['ワーム', 'WORM', 'ソフトルアー', 'SOFT LURE', 'パーツ', 'PARTS'],
+    excludedNameKeywords: ['ワーム', 'WORM', 'ソフトルアー', 'SOFT LURE', 'パーツ', 'PARTS', 'チューニングフック', 'スペアフック'],
     requiresHeadedBrowser: true,
   },
   {
@@ -6629,7 +6629,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'zipbaits',
     name: 'ZIPBAITS',
     discover: discoverZipbaits,
-    excludedNameKeywords: [],  // ルアー専業のため除外不要
+    excludedNameKeywords: ['フッ素コートフック'],  // フック商品を除外
   },
   {
     slug: 'smith',
@@ -6642,7 +6642,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'tiemco',
     name: 'TIEMCO',
     discover: discoverTiemco,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['シンカー'],
     // Category-based filtering (rods, accessories, apparel) is handled in discoverTiemco() itself.
   },
   {
@@ -6706,7 +6706,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'issei',
     name: 'issei',
     discover: discoverIssei,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['シンカー'],
     // issei sitemaps contain only lure/soft bait products (green_cray_fish + umitaro CPTs).
     // No filtering needed — rods/accessories are separate CPTs not in these sitemaps.
   },
@@ -6730,7 +6730,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'majorcraft',
     name: 'Major Craft',
     discover: discoverMajorcraft,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['シンカー', '替えフック', 'カスタムセット', 'カスタムネクタイ'],
     // Major Craft /lure/ page lists all lure products (jigs, plugs, soft baits, etc.).
     // Hook/blade/jig-head/rig products are lure accessories and SHOULD be included.
     // No URL-level or name-level filtering needed.
@@ -6743,6 +6743,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
       'フック', 'HOOK', 'スナップ', 'リーダー', 'ライン',
       'ロッド', 'リール', 'バッグ', 'ケース', 'グローブ',
       'ギャフ', 'タモ', 'ネット', 'ツール', 'プライヤー',
+      'シンカー',
     ],
     // YAMASHITA has 8 category pages with pagination (12 items/page).
     // Some categories (other) may include non-lure accessories.
@@ -6840,7 +6841,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'geecrack',
     name: 'GEECRACK',
     discover: discoverGeecrack,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['SINKER', 'シンカー'],
     // www.geecrack.com — Custom PHP (Xserver), no REST API
     // 10 lure categories: bass(hard_lure, soft_lure, wire_bait, jig) + saltwater(ika, aji, aomono, tai, seabass, rockfish)
     // Excluded categories: rod, sinker_hook, accessories (not scraped)
@@ -7029,7 +7030,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'mukai',
     name: 'MUKAI',
     discover: discoverMukai,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['SpangHook', 'フック'],
     // mukai-fishing.jp — WordPress REST API (posts, categories=4)
     // Product pages: /{slug}/
     // エリアトラウト用スプーン・クランク・ミノー
@@ -7157,7 +7158,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'dranckrazy',
     name: 'DRANCKRAZY',
     discover: discoverDranckrazy,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['DK CAP', 'メジャー'],
     // dranckrazy.com — WooCommerce, fetch-only
     // ハンドメイドルアー
   },
@@ -7173,7 +7174,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'hayabusa',
     name: 'Hayabusa',
     discover: discoverHayabusa,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['シンカー', 'スペアフック', 'フックセット'],
     // hayabusa.co.jp — WordPress, WP REST API, fetch-only
     // メタルジグ・仕掛け・ジグヘッド
   },
@@ -7181,7 +7182,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'longin',
     name: 'LONGIN',
     discover: discoverLongin,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['POUCH', 'ポーチ'],
     // longin.jp — Static HTML, fetch-only
     // シーバス・青物用ミノー・シンペン
   },
@@ -7197,7 +7198,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'xesta',
     name: 'XESTA',
     discover: discoverXesta,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['ASSIST HOOK', 'XESTA LINE'],
     // xesta.jp — WordPress, fetch-only
     // ショアジギング・ライトゲーム・オフショア・エギ
   },
@@ -7229,7 +7230,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'dreemup',
     name: 'DreemUp',
     discover: discoverDreemup,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['TACKLE BAG', 'STICKER', 'ステッカー'],
     // dreem-up.com — WordPress, WP REST API
     // シーバス・ライトゲーム
   },
@@ -7245,7 +7246,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'grassroots',
     name: 'GRASS ROOTS',
     discover: discoverGrassroots,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['BASS RODS', 'バスロッド', 'CAPキャップ'],
     // grassroots-kms.com — static/WordPress, fetch-only
     // メタルジグ・オフショアルアー
   },
@@ -7253,7 +7254,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'itocraft',
     name: 'ITO.CRAFT',
     discover: discoverItocraft,
-    excludedNameKeywords: [],
+    excludedNameKeywords: ['LANDING NET', 'ランディングネット'],
     // itocraft.com — static/WordPress, fetch-only
     // トラウト用ミノー・スプーン
   },
@@ -7309,7 +7310,10 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'pickup',
     name: 'PICKUP',
     discover: discoverPickup,
-    excludedNameKeywords: [],
+    excludedNameKeywords: [
+      'Tシャツ', 'シャツ', 'ポーチ', 'バッグ', 'マスク',
+      'グローブ', 'ホルダー', 'メジャー', 'キャップ', 'ベスト',
+    ],
     // pickup-m.jp — WordPress, sitemap-based discovery
   },
   {
@@ -7371,7 +7375,10 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'viva',
     name: 'VIVA',
     discover: discoverViva,
-    excludedNameKeywords: [],
+    excludedNameKeywords: [
+      'フック', 'HOOK', 'シンカー', 'SINKER',
+      'バッグ', 'BAG', 'グローブ', 'GLOVE',
+    ],
     // vivanet.co.jp — WordPress, WP REST API
     // バス・ソルト用ルアー
   },
