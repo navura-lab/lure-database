@@ -107,7 +107,19 @@ export async function scrapeBaitBreathPage(url: string): Promise<ScrapedLure> {
   });
   if (!res.ok) throw new Error('[baitbreath] HTTP ' + res.status + ' for ' + url);
 
-  var html = await res.text();
+  // BAIT BREATH site has mixed encoding: some pages are UTF-8, some are Shift_JIS.
+  // Detect charset from HTML meta tag and decode accordingly.
+  var rawBytes = new Uint8Array(await res.arrayBuffer());
+  var html: string;
+
+  // Quick peek at first 2KB to detect charset
+  var headerText = new TextDecoder('ascii', { fatal: false }).decode(rawBytes.slice(0, 2048));
+  if (/charset=Shift_JIS/i.test(headerText) || /charset=shift_jis/i.test(headerText)) {
+    html = new TextDecoder('shift_jis', { fatal: false }).decode(rawBytes);
+    console.log('[baitbreath] Detected Shift_JIS encoding for ' + url);
+  } else {
+    html = new TextDecoder('utf-8', { fatal: false }).decode(rawBytes);
+  }
 
   // -- Product name from <title>
   var name = '';
@@ -321,16 +333,15 @@ export async function scrapeBaitBreathPage(url: string): Promise<ScrapedLure> {
       }
     }
 
-    // Pair images with names
-    var pairLen = Math.min(swatchImgs.length, nameTexts.length);
-    for (var pi = 0; pi < pairLen; pi++) {
-      colors.push({ name: nameTexts[pi], imageUrl: swatchImgs[pi] });
+    // Pair color names with mainImage (NOT swatch images, which are tiny 130x58px thumbnails)
+    for (var pi = 0; pi < nameTexts.length; pi++) {
+      colors.push({ name: nameTexts[pi], imageUrl: mainImage });
     }
-    // Extra images without names
-    for (var ei = pairLen; ei < swatchImgs.length; ei++) {
+    // If more swatches than names, add unnamed colors with mainImage
+    for (var ei = nameTexts.length; ei < swatchImgs.length; ei++) {
       colors.push({
         name: 'カラー' + String(colors.length + 1).padStart(2, '0'),
-        imageUrl: swatchImgs[ei],
+        imageUrl: mainImage,
       });
     }
 
