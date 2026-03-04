@@ -23,16 +23,18 @@ const DEFAULT_TARGET_FISH = ['シーバス'];
 // ---------------------------------------------------------------------------
 
 const TYPE_KEYWORDS: [RegExp, string][] = [
+  [/メタルバイブ|metal\s*vib/i, 'メタルバイブ'],
+  [/メタルジグ|metal\s*jig/i, 'メタルジグ'],
   [/ミノー|minnow/i, 'ミノー'],
   [/シンキングペンシル|シンペン|sinking\s*pencil/i, 'シンキングペンシル'],
   [/ペンシル|pencil/i, 'ペンシルベイト'],
   [/ポッパー|popper/i, 'ポッパー'],
-  [/バイブレーション|vibration/i, 'バイブレーション'],
-  [/メタルジグ|metal\s*jig|ジグ/i, 'メタルジグ'],
-  [/メタルバイブ|metal\s*vib/i, 'メタルバイブ'],
-  [/ワーム|worm/i, 'ワーム'],
-  [/ジグヘッド|jig\s*head/i, 'ジグヘッド'],
+  [/バイブレーション|vibration|バイブラ|vib\b/i, 'バイブレーション'],
+  [/シャッド|shad\b/i, 'シャッド'],
+  [/ジグヘッド|jig\s*head|[-\s]head\b/i, 'ジグヘッド'],
+  [/ワーム|worm|ピンテール|シャッドテール|グラブ|ストレート系/i, 'ワーム'],
   [/クランク|crank/i, 'クランクベイト'],
+  [/スピンテール|spin\s*tail/i, 'スピンテール'],
   [/プラグ|plug/i, 'プラグ'],
 ];
 
@@ -84,7 +86,7 @@ function detectType(name: string, description: string): string {
   for (const [pattern, typeName] of TYPE_KEYWORDS) {
     if (pattern.test(combined)) return typeName;
   }
-  return 'ミノー';
+  return 'ルアー';
 }
 
 function parsePrice(text: string): number {

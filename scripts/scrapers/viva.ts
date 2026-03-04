@@ -184,22 +184,32 @@ export const scrapeVivaPage: ScraperFunction = async (url: string): Promise<Scra
   const html = await res.text();
 
   // --- Product name ---
+  // VIVA's <h1> contains marketing catchphrases, NOT the product name.
+  // The real product name is in <div class="item_spec"><h3> or <title>.
   let name = '';
-  // VIVA uses h3 for product name or image alt for logo
-  const h1Match = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
-  if (h1Match) name = stripHtml(h1Match[1]).trim();
-  if (!name) {
-    const h2Match = html.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
-    if (h2Match) name = stripHtml(h2Match[1]).trim();
-  }
-  if (!name) {
-    const h3Match = html.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i);
-    if (h3Match) name = stripHtml(h3Match[1]).trim();
-  }
+
+  // Primary: <div class="item_spec"><h3> — the real product name
+  const itemSpecH3 = html.match(/<div[^>]*class=["'][^"']*item_spec[^"']*["'][^>]*>[\s\S]*?<h3[^>]*>([\s\S]*?)<\/h3>/i);
+  if (itemSpecH3) name = stripHtml(itemSpecH3[1]).trim();
+
+  // Fallback 1: <title> tag, stripping " | Vivanet" suffix
   if (!name) {
     const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
     if (titleMatch) name = stripHtml(titleMatch[1]).replace(/\s*[|｜–—].*$/, '').replace(/\s*Viva.*$/i, '').trim();
   }
+
+  // Fallback 2: last breadcrumb <li class="notranslate">
+  if (!name) {
+    const breadcrumbs = html.match(/<li[^>]*class=["'][^"']*notranslate[^"']*["'][^>]*>([\s\S]*?)<\/li>/gi) || [];
+    if (breadcrumbs.length > 0) {
+      const lastCrumb = stripHtml(breadcrumbs[breadcrumbs.length - 1]).trim();
+      if (lastCrumb && lastCrumb !== 'TOP' && lastCrumb !== 'VIVA' && lastCrumb !== 'AquaWave') {
+        name = lastCrumb;
+      }
+    }
+  }
+
+  // Fallback 3: og:title
   if (!name) {
     const ogMatch = html.match(/<meta\s+property=["']og:title["']\s+content=["']([^"']+)["']/i);
     if (ogMatch) name = stripHtml(ogMatch[1]).replace(/\s*[|｜–—].*$/, '').trim();
