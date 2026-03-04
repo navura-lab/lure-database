@@ -42,6 +42,7 @@ export const GET: APIRoute = async ({ request, url }) => {
   const type = url.searchParams.get('type') || '';
   const targetFish = url.searchParams.get('targetFish') || '';
   const search = url.searchParams.get('search') || '';
+  const sort = url.searchParams.get('sort') || '';  // 'random' for shuffle
 
   try {
     // --- Build Supabase query ---
@@ -138,11 +139,20 @@ export const GET: APIRoute = async ({ request, url }) => {
       });
     }
 
-    // Sort by created_at (newest first, approximated by is_new flag + name)
-    allCards.sort((a, b) => {
-      if (a.is_new !== b.is_new) return a.is_new ? -1 : 1;
-      return a.name.localeCompare(b.name);
-    });
+    // Sort
+    if (sort === 'random') {
+      // Fisher-Yates shuffle
+      for (let i = allCards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
+      }
+    } else {
+      // Default: newest first
+      allCards.sort((a, b) => {
+        if (a.is_new !== b.is_new) return a.is_new ? -1 : 1;
+        return a.name.localeCompare(b.name);
+      });
+    }
 
     // --- Paginate ---
     const total = allCards.length;
