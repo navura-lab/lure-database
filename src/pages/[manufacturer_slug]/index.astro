@@ -25,15 +25,43 @@ export async function getStaticPaths() {
     }
   }
 
-  return [...manufacturerMap.entries()].map(([slug, data]) => ({
-    params: { manufacturer_slug: slug },
-    props: { manufacturer: data.manufacturer, series: data.series },
-  }));
+  // 各メーカーの対象魚・タイプを集計（関連メーカー算出用）
+  const manufacturerProfiles = new Map<string, { fish: Set<string>; types: Set<string>; name: string; count: number }>();
+  for (const [slug, data] of manufacturerMap) {
+    const fish = new Set<string>();
+    const types = new Set<string>();
+    for (const s of data.series) {
+      if (s.type) types.add(s.type);
+      for (const f of s.target_fish) fish.add(f);
+    }
+    manufacturerProfiles.set(slug, { fish, types, name: data.manufacturer, count: data.series.length });
+  }
+
+  return [...manufacturerMap.entries()].map(([slug, data]) => {
+    // 関連メーカー: 対象魚・タイプの重複度でスコアリング
+    const profile = manufacturerProfiles.get(slug)!;
+    const scored: { slug: string; name: string; count: number; score: number }[] = [];
+    for (const [otherSlug, otherProfile] of manufacturerProfiles) {
+      if (otherSlug === slug) continue;
+      let score = 0;
+      for (const f of profile.fish) { if (otherProfile.fish.has(f)) score += 2; }
+      for (const t of profile.types) { if (otherProfile.types.has(t)) score += 1; }
+      if (score > 0) scored.push({ slug: otherSlug, name: otherProfile.name, count: otherProfile.count, score });
+    }
+    scored.sort((a, b) => b.score - a.score || b.count - a.count);
+    const relatedManufacturers = scored.slice(0, 8).map(({ slug, name, count }) => ({ slug, name, count }));
+
+    return {
+      params: { manufacturer_slug: slug },
+      props: { manufacturer: data.manufacturer, series: data.series, relatedManufacturers },
+    };
+  });
 }
 
-const { manufacturer, series } = Astro.props as {
+const { manufacturer, series, relatedManufacturers } = Astro.props as {
   manufacturer: string;
   series: LureSeries[];
+  relatedManufacturers: { slug: string; name: string; count: number }[];
 };
 
 const manufacturerSlug = Astro.params.manufacturer_slug;
@@ -170,9 +198,18 @@ if (lengthRange) {
   specItems.push({ label: '全長', value: `${lengthRange.min}mm 〜 ${lengthRange.max}mm` });
 }
 specItems.push({ label: 'カラー数', value: `${totalColors}色` });
+
+// ─── SEO: title タグ（キーワードリッチ化）───
+
+const topTypeNames = typeBreakdown.slice(0, 2).map(t => t.type).join('・');
+const titleParts = [
+  `${manufacturer}のルアー${series.length}シリーズ一覧`,
+  topTypeNames ? `${topTypeNames}等` : '',
+];
+const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - ルアーDB';
 ---
 
-<BaseLayout title={`${manufacturer}のルアー一覧 - ルアーDB`} description={pageDescription} canonicalPath={`/${manufacturerSlug}/`} jsonLd={jsonLd}>
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/${manufacturerSlug}/`} jsonLd={jsonLd}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- パンくず -->
@@ -248,6 +285,24 @@ specItems.push({ label: 'カラー数', value: `${totalColors}色` });
         <LureCard series={s} isNew={false} />
       ))}
     </div>
+
+    <!-- 関連メーカー（内部リンク相互強化） -->
+    {relatedManufacturers.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連メーカー</h2>
+        <p class="text-sm text-text-secondary mb-4">
+          {manufacturer}と同じ対象魚・ルアータイプを扱うメーカー
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {relatedManufacturers.map(m => (
+            <a href={`/${m.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-primary hover:text-primary transition-colors">
+              {m.name}
+              <span class="text-xs text-gray-400">{m.count}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
 
   </div>
 </BaseLayout>
