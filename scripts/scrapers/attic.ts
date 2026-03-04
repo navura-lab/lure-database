@@ -219,17 +219,22 @@ export const scrapeAtticPage: ScraperFunction = async (url: string): Promise<Scr
   log(`Slug: ${slug}`);
 
   // --- Main image ---
+  // Priority: og:image > first image inside post_content (skip logo_image)
   let mainImage = '';
   const ogImageMatch = html.match(/<meta\s+(?:property|name)=["']og:image["']\s+content=["']([^"']+)["']/i)
     || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:image["']/i);
   if (ogImageMatch) mainImage = ogImageMatch[1];
   if (!mainImage) {
-    const imgMatch = html.match(/<img[^>]+src=["']([^"']+(?:product|lure|main)[^"']*)["']/i);
-    if (imgMatch) mainImage = imgMatch[1];
-  }
-  if (!mainImage) {
-    const firstImgMatch = html.match(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png|webp))["']/i);
-    if (firstImgMatch) mainImage = firstImgMatch[1];
+    // Look for first real product image inside post_content, excluding logos
+    const contentMatch = html.match(/<div\s+class="post_content[^"]*">([\s\S]*?)<\/article>/i);
+    if (contentMatch) {
+      const contentImgs = contentMatch[1].match(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png|webp)[^"']*)["'][^>]*>/gi) || [];
+      for (const imgTag of contentImgs) {
+        if (/class="[^"]*logo_image/i.test(imgTag)) continue;
+        const srcM = imgTag.match(/src=["']([^"']+)["']/i);
+        if (srcM) { mainImage = srcM[1]; break; }
+      }
+    }
   }
   mainImage = makeAbsolute(mainImage);
   log(`Main image: ${mainImage}`);
@@ -242,10 +247,15 @@ export const scrapeAtticPage: ScraperFunction = async (url: string): Promise<Scr
     description = stripHtml(metaDescMatch[1]).substring(0, 500);
   }
   if (!description) {
-    const pMatches = html.match(/<p[^>]*>([\s\S]*?)<\/p>/gi) || [];
+    // Look for <p> inside post_content, skip buttons/links-only paragraphs
+    const contentBlock = html.match(/<div\s+class="post_content[^"]*">([\s\S]*?)<\/article>/i);
+    const searchHtml = contentBlock ? contentBlock[1] : html;
+    const pMatches = searchHtml.match(/<p[^>]*>([\s\S]*?)<\/p>/gi) || [];
     for (const p of pMatches) {
       const text = stripHtml(p).trim();
-      if (text.length > 30 && !/spec|スペック|カラー|color|価格|price|重量/i.test(text.substring(0, 30))) {
+      if (text.length > 30
+        && !/spec|スペック|カラー|color|価格|price|重量/i.test(text.substring(0, 30))
+        && !/ONLINE\s*SHOP|購入/i.test(text.substring(0, 30))) {
         description = text.substring(0, 500);
         break;
       }
@@ -309,51 +319,57 @@ export const scrapeAtticPage: ScraperFunction = async (url: string): Promise<Scr
   log(`Weights: [${weights.join(', ')}], Length: ${length}mm, Price: ${price}`);
 
   // --- Colors ---
+  // ATTIC site uses <table><caption>COLOR</caption> with <th> for color names.
+  // There are NO color-specific images — just text names in the table.
+  // Each color gets the mainImage as its shared product image.
   const colors: ScrapedColor[] = [];
   const seenColors = new Set<string>();
 
-  // Pattern 1: figures with figcaption
-  const figureMatches = html.match(/<figure[^>]*>[\s\S]*?<\/figure>/gi) || [];
-  for (const fig of figureMatches) {
-    const imgMatch = fig.match(/<img[^>]+src=["']([^"']+)["']/i);
-    const captionMatch = fig.match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/i);
-    if (imgMatch && captionMatch) {
-      const colorName = stripHtml(captionMatch[1]).trim();
-      if (colorName && colorName.length < 50 && !seenColors.has(colorName)) {
-        seenColors.add(colorName);
-        colors.push({ name: colorName, imageUrl: makeAbsolute(imgMatch[1]) });
-      }
-    }
-  }
-
-  // Pattern 2: images with color/col in src + alt text
-  if (colors.length === 0) {
-    const colorImgMatches = html.match(/<img[^>]+(?:src|alt)=["'][^"']*(?:color|col_|カラー)[^"']*["'][^>]*>/gi) || [];
-    for (const imgTag of colorImgMatches) {
-      const srcMatch = imgTag.match(/src=["']([^"']+)["']/i);
-      const altMatch = imgTag.match(/alt=["']([^"']+)["']/i);
-      if (srcMatch && altMatch) {
-        const colorName = altMatch[1].trim();
-        if (colorName && !seenColors.has(colorName)) {
-          seenColors.add(colorName);
-          colors.push({ name: colorName, imageUrl: makeAbsolute(srcMatch[1]) });
+  // Primary: Extract from COLOR table (<caption>COLOR</caption> → <th> cells)
+  for (const tableHtml of tableMatches) {
+    if (/<caption[^>]*>\s*COLOR\s*<\/caption>/i.test(tableHtml)) {
+      const rows = parseTableRows(tableHtml);
+      for (const cells of rows) {
+        if (cells.length >= 1) {
+          let colorName = cells[0].trim();
+          // Remove JAN prefix/number patterns if in first cell
+          if (/^JAN/i.test(colorName)) continue;
+          // Clean up "#1 アユ" → "アユ", remove "(2023年新色)" etc.
+          colorName = colorName
+            .replace(/^\s*#?\d+\s*/, '')
+            .replace(/[\r\n]+/g, ' ')
+            .replace(/\s*[（(]\d{4}年[^)）]*[)）]\s*/g, '')
+            .replace(/\s*[（(]新色[)）]\s*/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+          if (colorName && colorName.length < 50 && !seenColors.has(colorName)) {
+            seenColors.add(colorName);
+            colors.push({ name: colorName, imageUrl: mainImage });
+          }
         }
       }
     }
   }
 
-  // Pattern 3: thumbnail images with alt text (common on static sites)
+  // Fallback: Look for カラー row in SPEC table that lists color names
   if (colors.length === 0) {
-    const imgMatches = html.match(/<img[^>]+alt=["']([^"']+)["'][^>]+src=["']([^"']+)["'][^>]*>/gi) || [];
-    const imgMatchesAlt = html.match(/<img[^>]+src=["']([^"']+)["'][^>]+alt=["']([^"']+)["'][^>]*>/gi) || [];
-    for (const imgTag of [...imgMatches, ...imgMatchesAlt]) {
-      const srcMatch = imgTag.match(/src=["']([^"']+)["']/i);
-      const altMatch = imgTag.match(/alt=["']([^"']+)["']/i);
-      if (srcMatch && altMatch && altMatch[1].length < 40 && altMatch[1].length > 1) {
-        const colorName = altMatch[1].trim();
-        if (colorName && !seenColors.has(colorName) && !/logo|banner|header|nav|icon/i.test(srcMatch[1])) {
-          seenColors.add(colorName);
-          colors.push({ name: colorName, imageUrl: makeAbsolute(srcMatch[1]) });
+    for (const tableHtml of tableMatches) {
+      if (/<caption[^>]*>\s*SPEC\s*<\/caption>/i.test(tableHtml)) {
+        const rows = parseTableRows(tableHtml);
+        for (const cells of rows) {
+          if (cells.length >= 2 && /カラー|color/i.test(cells[0])) {
+            // Sometimes lists color names separated by / or 、
+            const colorText = cells[1];
+            if (/[/、・]/.test(colorText)) {
+              const names = colorText.split(/[/、・]/).map(s => s.trim()).filter(s => s.length > 0 && s.length < 50);
+              for (const cn of names) {
+                if (!seenColors.has(cn)) {
+                  seenColors.add(cn);
+                  colors.push({ name: cn, imageUrl: mainImage });
+                }
+              }
+            }
+          }
         }
       }
     }
