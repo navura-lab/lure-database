@@ -22,20 +22,26 @@ import type { ScrapedColor, ScrapedLure } from './types.js';
 // ---------------------------------------------------------------------------
 
 var NAME_TYPE_MAP: [RegExp, string][] = [
+  // ─── 具体名パターン（優先度高）───
+  [/ICHIRIN|ｲﾁﾘﾝ|イチリン/i, 'ミノー'],         // DSTYLE小型プラグ
+  [/DBLOW\s*SHAD|ディーブロー/i, 'ミノー'],       // シャッドプラグ
+  [/\bTN\b.*TypeD|ティーエヌ/i, 'バイブレーション'], // TN TypeD = リップレスクランク
+  [/FLEX.?ROLER|フレックス.*ローラー/i, 'スイムベイト'], // ジョイントスイムベイト
+  // ─── 汎用パターン ───
   [/スピナーベイト|spiker|spinner/i, 'スピナーベイト'],
   [/バズベイト|buzzbait/i, 'バズベイト'],
   [/チャターベイト|chatter/i, 'チャターベイト'],
   [/クランク|crank/i, 'クランクベイト'],
-  [/ミノー|minnow/i, 'ルアー'],
+  [/ミノー|minnow|シャッド|shad/i, 'ミノー'],
   [/バイブ|vibe|vibra/i, 'バイブレーション'],
   [/ジグ|jig/i, 'ラバージグ'],
   [/フロッグ|frog/i, 'フロッグ'],
-  [/スイムベイト|swimbait/i, 'ルアー'],
-  [/ブレード|blade/i, 'ルアー'],
-  [/ポッパー|popper/i, 'ルアー'],
-  [/トップウォーター|topwater/i, 'ルアー'],
-  [/プロップ|prop/i, 'ルアー'],
-  [/ペンシル|pencil/i, 'ルアー'],
+  [/スイムベイト|swimbait/i, 'スイムベイト'],
+  [/ブレード|d-blade/i, 'スピンテール'],
+  [/ポッパー|popper/i, 'ポッパー'],
+  [/トップウォーター|topwater/i, 'トップウォーター'],
+  [/プロップ|prop/i, 'プロップベイト'],
+  [/ペンシル|pencil/i, 'ペンシルベイト'],
 ];
 
 function detectType(name: string, slug: string): string {
