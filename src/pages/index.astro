@@ -1,58 +1,60 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import FilterBar from '../components/FilterBar.astro';
+import SearchHero from '../components/SearchHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CategoryTile from '../components/CategoryTile.astro';
 import LureCard from '../components/LureCard.astro';
 import { fetchAllLures } from '../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../lib/category-slugs';
 
 const lures = await fetchAllLures();
-
 const series = groupLuresBySeries(lures ?? []);
+const totalColors = lures?.length ?? 0;
 
-const manufacturers = [...new Set(series.map(s => s.manufacturer))].sort();
-const types = [...new Set(series.map(s => s.type))].sort();
-const targetFish = [...new Set(series.flatMap(s => s.target_fish))].sort();
-
-// メーカー一覧（名前+slug+シリーズ数）— 内部リンク用
-const manufacturerMap = new Map<string, { name: string; slug: string; count: number }>();
-for (const s of series) {
-  const existing = manufacturerMap.get(s.manufacturer_slug);
-  if (existing) {
-    existing.count++;
-  } else {
-    manufacturerMap.set(s.manufacturer_slug, { name: s.manufacturer, slug: s.manufacturer_slug, count: 1 });
-  }
-}
-const manufacturerList = [...manufacturerMap.values()].sort((a, b) => b.count - a.count);
-
-// ルアータイプ一覧（シリーズ数順、上位20件）
+// ─── ルアータイプ集計（上位9件）───
 const typeMap = new Map<string, number>();
 for (const s of series) {
   if (s.type) typeMap.set(s.type, (typeMap.get(s.type) || 0) + 1);
 }
 const topTypes = [...typeMap.entries()]
   .sort((a, b) => b[1] - a[1])
-  .slice(0, 20)
+  .slice(0, 9)
   .map(([name, count]) => ({ name, slug: getTypeSlug(name), count }));
+const remainingTypeCount = typeMap.size - topTypes.length;
 
-// 対象魚一覧（シリーズ数順、上位15件）
+// ─── メーカー集計（上位9件）───
+const mfrMap = new Map<string, { name: string; slug: string; count: number }>();
+for (const s of series) {
+  const e = mfrMap.get(s.manufacturer_slug);
+  if (e) e.count++;
+  else mfrMap.set(s.manufacturer_slug, { name: s.manufacturer, slug: s.manufacturer_slug, count: 1 });
+}
+const topMakers = [...mfrMap.values()]
+  .sort((a, b) => b.count - a.count)
+  .slice(0, 9);
+const remainingMakerCount = mfrMap.size - topMakers.length;
+
+// ─── 対象魚集計（上位9件）───
 const fishMap = new Map<string, number>();
 for (const s of series) {
-  for (const fish of s.target_fish) {
-    fishMap.set(fish, (fishMap.get(fish) || 0) + 1);
-  }
+  for (const f of s.target_fish) fishMap.set(f, (fishMap.get(f) || 0) + 1);
 }
 const topFish = [...fishMap.entries()]
   .sort((a, b) => b[1] - a[1])
-  .slice(0, 15)
+  .slice(0, 9)
   .map(([name, count]) => ({ name, slug: getFishSlug(name), count }));
+const remainingFishCount = fishMap.size - topFish.length;
 
+// ─── 新着ルアー（直近30日、最大10件）───
 const thirtyDaysAgo = new Date();
 thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 const newThreshold = thirtyDaysAgo.toISOString();
+const newArrivals = series
+  .filter(s => s.created_at > newThreshold)
+  .slice(0, 10);
 
-// JSON-LD: WebSite schema
+// ─── JSON-LD: WebSite schema ───
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -61,359 +63,75 @@ const jsonLd = {
   description: '釣り人のためのルアーデータベース。国内主要メーカーのルアーを網羅的に掲載。',
   inLanguage: 'ja',
 };
-
-// Progressive rendering: SSR first batch only (no JSON blob!)
-const INITIAL_COUNT = 32;
-const initialSeries = series.slice(0, INITIAL_COUNT);
-
-// API token — embedded for client-side API calls
-const apiToken = import.meta.env.LDB_API_TOKEN || '';
 ---
 
-<BaseLayout title="ルアーDB - ルアーデータベース" description={`国内主要メーカーのルアーを網羅的に掲載。${series.length}シリーズ・${lures?.length ?? 0}カラー登録。`} canonicalPath="/" jsonLd={jsonLd}>
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
-    <div class="flex items-end justify-between">
-      <div>
-        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">ルアーデータベース</h1>
-        <p class="text-sm text-text-secondary mt-1">
-          {series.length}シリーズ・{lures?.length ?? 0}カラー登録
-        </p>
-      </div>
-    </div>
-  </section>
+<BaseLayout
+  title="ルアーDB - ルアーデータベース"
+  description={`国内主要メーカーのルアーを網羅的に掲載。${series.length}シリーズ・${totalColors.toLocaleString()}カラー登録。`}
+  canonicalPath="/"
+  jsonLd={jsonLd}
+>
+  <!-- 検索ヒーロー -->
+  <SearchHero seriesCount={series.length} colorCount={totalColors} />
 
-  <FilterBar manufacturers={manufacturers} types={types} targetFish={targetFish} />
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8 sm:space-y-10">
 
-  <!-- カテゴリナビゲーション -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2 space-y-5">
-
-    <!-- メーカー一覧 -->
+    <!-- ルアータイプから探す -->
     <section>
-      <div class="flex items-baseline gap-2 mb-3">
-        <h2 class="text-sm font-semibold text-text-tertiary uppercase tracking-wider">メーカー一覧</h2>
-        <span class="text-xs text-gray-400">{manufacturerList.length}社</span>
-      </div>
-      <div class="flex flex-wrap gap-1.5">
-        {manufacturerList.map(m => (
-          <a href={`/${m.slug}/`} class="inline-flex items-center gap-1 px-2.5 py-1 bg-white text-gray-700 rounded-full text-xs border border-gray-200 hover:border-primary hover:text-primary transition-colors">
-            {m.name}
-            <span class="text-gray-400">{m.count}</span>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- ルアータイプ一覧 -->
-    <section>
-      <div class="flex items-baseline gap-2 mb-3">
-        <h2 class="text-sm font-semibold text-text-tertiary uppercase tracking-wider">ルアータイプ</h2>
-        <a href="/type/" class="text-xs text-primary hover:text-primary/80 transition-colors">すべて見る →</a>
-      </div>
-      <div class="flex flex-wrap gap-1.5">
+      <SectionHeading title="ルアータイプから探す" href="/type/" />
+      <div class="grid grid-cols-5 lg:grid-cols-10 gap-1.5 sm:gap-3">
         {topTypes.map(t => (
-          <a href={`/type/${t.slug}/`} class="inline-flex items-center gap-1 px-2.5 py-1 bg-white text-sky-700 rounded-full text-xs border border-sky-200 hover:border-primary hover:bg-sky-50 transition-colors">
-            {t.name}
-            <span class="text-sky-400">{t.count}</span>
-          </a>
+          <CategoryTile label={t.name} href={`/type/${t.slug}/`} count={t.count} variant="type" />
         ))}
+        <CategoryTile label="その他" href="/type/" count={remainingTypeCount} variant="more" />
       </div>
     </section>
 
-    <!-- 対象魚一覧 -->
+    <!-- メーカーから探す -->
     <section>
-      <div class="flex items-baseline gap-2 mb-3">
-        <h2 class="text-sm font-semibold text-text-tertiary uppercase tracking-wider">対象魚</h2>
-        <a href="/fish/" class="text-xs text-primary hover:text-primary/80 transition-colors">すべて見る →</a>
-      </div>
-      <div class="flex flex-wrap gap-1.5">
-        {topFish.map(f => (
-          <a href={`/fish/${f.slug}/`} class="inline-flex items-center gap-1 px-2.5 py-1 bg-white text-gray-700 rounded-full text-xs border border-gray-200 hover:border-primary hover:text-primary transition-colors">
-            {f.name}
-            <span class="text-gray-400">{f.count}</span>
-          </a>
+      <SectionHeading title="メーカーから探す" href="/maker/" />
+      <div class="grid grid-cols-5 lg:grid-cols-10 gap-1.5 sm:gap-3">
+        {topMakers.map(m => (
+          <CategoryTile label={m.name} href={`/${m.slug}/`} count={m.count} variant="maker" />
         ))}
+        <CategoryTile label="その他" href="/maker/" count={remainingMakerCount} variant="more" />
       </div>
     </section>
+
+    <!-- 対象魚から探す -->
+    <section>
+      <SectionHeading title="対象魚から探す" href="/fish/" />
+      <div class="grid grid-cols-5 lg:grid-cols-10 gap-1.5 sm:gap-3">
+        {topFish.map(f => (
+          <CategoryTile label={f.name} href={`/fish/${f.slug}/`} count={f.count} variant="fish" />
+        ))}
+        <CategoryTile label="その他" href="/fish/" count={remainingFishCount} variant="more" />
+      </div>
+    </section>
+
+    <!-- 新着ルアー -->
+    {newArrivals.length > 0 && (
+      <section>
+        <SectionHeading title="新着ルアー" href="/search/" />
+        <div class="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory scrollbar-hide">
+          {newArrivals.map((s, i) => (
+            <div class="snap-start shrink-0 w-56 sm:w-64">
+              <LureCard series={s} isNew={true} priority={i < 4} />
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
 
   </div>
-
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <p id="results-count" class="text-sm text-text-secondary mb-6">
-      {series.length}件のシリーズ
-    </p>
-
-    <div id="lure-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-      {initialSeries.map((s, i) => (
-        <LureCard series={s} isNew={s.created_at > newThreshold} priority={i < 8} />
-      ))}
-    </div>
-
-    <!-- Loading spinner for API calls -->
-    <div id="load-spinner" class="hidden py-8 text-center">
-      <div class="inline-block h-6 w-6 animate-spin rounded-full border-2 border-sky-500 border-t-transparent"></div>
-    </div>
-
-    <!-- Sentinel for infinite scroll -->
-    <div id="load-more-sentinel" class="h-4"></div>
-
-    <div id="no-results" class="hidden text-center py-16">
-      <p class="text-text-secondary">条件に一致するルアーが見つかりません</p>
-      <button data-filter-reset class="mt-4 text-primary text-sm font-medium hover:underline">
-        フィルターをリセット
-      </button>
-    </div>
-  </section>
-
-  <!-- API token (rotates every deploy) -->
-  <script define:vars={{ apiToken }}>
-    window.__LDB_T = apiToken;
-  </script>
 </BaseLayout>
 
-<script>
-  const grid = document.getElementById('lure-grid')!;
-  const countDisplay = document.getElementById('results-count')!;
-  const noResults = document.getElementById('no-results')!;
-  const sentinel = document.getElementById('load-more-sentinel')!;
-  const spinner = document.getElementById('load-spinner')!;
-  const manufacturerSelect = document.querySelector<HTMLSelectElement>('[data-filter-manufacturer]')!;
-  const typeSelect = document.querySelector<HTMLSelectElement>('[data-filter-type]')!;
-  const targetFishSelect = document.querySelector<HTMLSelectElement>('[data-filter-targetfish]')!;
-  const searchInput = document.querySelector<HTMLInputElement>('[data-filter-search]')!;
-  const clearBtn = document.querySelector<HTMLButtonElement>('[data-filter-clear]')!;
-  const resetBtn = document.querySelector<HTMLButtonElement>('[data-filter-reset]');
-
-  // Get API token embedded by server
-  const TOKEN = (window as any).__LDB_T || '';
-
-  interface CardData {
-    slug: string;
-    name: string;
-    manufacturer: string;
-    manufacturer_slug: string;
-    type: string;
-    target_fish: string[];
-    representative_image: string | null;
-    color_count: number;
-    price_min: number;
-    price_max: number;
-    is_new: boolean;
-    has_limited: boolean;
+<style>
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-
-  interface CatalogResponse {
-    items: CardData[];
-    total: number;
-    page: number;
-    hasMore: boolean;
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
-
-  const BATCH_SIZE = 32;
-  // SSR rendered the first page (page 0), so next API call starts at page 1
-  let currentPage = 1;
-  let hasMore = true;
-  let isLoading = false;
-  let isFiltering = false;
-  let totalCount = 0;
-  let filterDebounceTimer: ReturnType<typeof setTimeout> | null = null;
-
-  // --- API fetch helper ---
-  async function fetchCatalog(params: Record<string, string | number>): Promise<CatalogResponse | null> {
-    const qs = new URLSearchParams();
-    for (const [k, v] of Object.entries(params)) {
-      if (v !== '' && v !== 0) qs.set(k, String(v));
-    }
-    try {
-      const res = await fetch(`/api/catalog?${qs.toString()}`, {
-        headers: {
-          'X-LDB-Token': TOKEN,
-          'Accept': 'application/json',
-        },
-      });
-      if (!res.ok) return null;
-      return await res.json();
-    } catch {
-      return null;
-    }
-  }
-
-  // --- Card HTML renderer ---
-  function cardHtml(d: CardData): string {
-    const hasPrice = d.price_max > 0;
-    const priceDisplay = hasPrice
-      ? d.price_min === d.price_max
-        ? `¥${d.price_min.toLocaleString()}`
-        : `¥${d.price_min.toLocaleString()} - ¥${d.price_max.toLocaleString()}`
-      : '';
-
-    const imgHtml = d.representative_image
-      ? `<img src="${escHtml(d.representative_image)}" alt="${escHtml(d.name)}" loading="lazy" width="500" height="375" class="w-full h-full object-scale-down p-3">`
-      : `<div class="placeholder-lure-bg w-full h-full flex items-center justify-center"><span class="text-xs text-sky-400">${escHtml(d.type)}</span></div>`;
-
-    const badges = [
-      d.is_new ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-amber-50 text-amber-700 border-amber-200">新着</span>` : '',
-      d.has_limited ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-purple-50 text-purple-700 border-purple-200">限定</span>` : '',
-    ].filter(Boolean).join('');
-
-    return `<a href="/${escHtml(d.manufacturer_slug)}/${escHtml(d.slug)}/" class="group block">
-      <div class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 group-hover:shadow-card-hover group-hover:scale-[1.01]">
-        <div class="aspect-[4/3] relative overflow-hidden bg-white">
-          ${imgHtml}
-          <div class="absolute top-2 right-2 flex flex-col gap-1">${badges}</div>
-        </div>
-        <div class="p-4">
-          <p class="text-xs text-text-secondary tracking-wider uppercase mb-1">${escHtml(d.manufacturer)}</p>
-          <h3 class="text-base font-bold text-gray-900 mb-1.5 group-hover:text-primary transition-colors">${escHtml(d.name)}</h3>
-          <div class="flex items-center gap-1.5 text-xs text-text-secondary mb-3">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-sky-50 text-sky-700 border-sky-200">${escHtml(d.type)}</span>
-            <span>${d.color_count}カラー</span>
-          </div>
-          ${priceDisplay ? `<p class="text-sm font-bold text-gray-900">${priceDisplay}</p>` : ''}
-        </div>
-      </div>
-    </a>`;
-  }
-
-  function escHtml(s: string): string {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  function appendCards(items: CardData[]) {
-    const fragment = document.createDocumentFragment();
-    const div = document.createElement('div');
-    for (const d of items) {
-      div.innerHTML = cardHtml(d);
-      const el = div.firstElementChild;
-      if (el) fragment.appendChild(el);
-    }
-    grid.appendChild(fragment);
-  }
-
-  // --- Infinite scroll: load next page ---
-  async function loadMoreCards() {
-    if (isFiltering || isLoading || !hasMore) return;
-    isLoading = true;
-    spinner.classList.remove('hidden');
-
-    const data = await fetchCatalog({ page: currentPage, limit: BATCH_SIZE });
-
-    spinner.classList.add('hidden');
-    isLoading = false;
-
-    if (!data) return;
-
-    appendCards(data.items);
-    currentPage++;
-    hasMore = data.hasMore;
-    totalCount = data.total;
-
-    if (!hasMore) {
-      sentinel.style.display = 'none';
-    }
-  }
-
-  // IntersectionObserver for infinite scroll
-  const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      loadMoreCards();
-    }
-  }, { rootMargin: '400px' });
-  observer.observe(sentinel);
-
-  // --- Filter logic — calls API with server-side filtering ---
-  async function applyFilters() {
-    const mfr = manufacturerSelect.value;
-    const type = typeSelect.value;
-    const fish = targetFishSelect.value;
-    const query = searchInput.value.trim();
-    const hasFilter = !!(mfr || type || fish || query);
-
-    if (!hasFilter) {
-      if (isFiltering) {
-        // Reset to normal pagination mode — reload from scratch
-        isFiltering = false;
-        grid.innerHTML = '';
-        spinner.classList.remove('hidden');
-
-        // Re-fetch page 0 (SSR cards are gone after filter cleared)
-        const data = await fetchCatalog({ page: 0, limit: BATCH_SIZE });
-        spinner.classList.add('hidden');
-
-        if (data) {
-          appendCards(data.items);
-          currentPage = 1;
-          hasMore = data.hasMore;
-          totalCount = data.total;
-          countDisplay.textContent = `${data.total}件のシリーズ`;
-        }
-
-        sentinel.style.display = '';
-        observer.observe(sentinel);
-      }
-      grid.classList.remove('hidden');
-      noResults.classList.add('hidden');
-      clearBtn.classList.add('hidden');
-      return;
-    }
-
-    // Filter mode — fetch all matching from API (page 0, larger limit)
-    isFiltering = true;
-    observer.unobserve(sentinel);
-    sentinel.style.display = 'none';
-
-    grid.innerHTML = '';
-    spinner.classList.remove('hidden');
-
-    // Fetch filtered results — use larger limit for filter results
-    // API fetches all matching server-side and paginates, so we request generously
-    let allItems: CardData[] = [];
-    let page = 0;
-    let more = true;
-
-    while (more) {
-      const data = await fetchCatalog({
-        page,
-        limit: BATCH_SIZE,
-        ...(mfr && { manufacturer: mfr }),
-        ...(type && { type }),
-        ...(fish && { targetFish: fish }),
-        ...(query && { search: query }),
-      });
-      if (!data) break;
-      allItems = allItems.concat(data.items);
-      totalCount = data.total;
-      more = data.hasMore;
-      page++;
-    }
-
-    spinner.classList.add('hidden');
-
-    appendCards(allItems);
-
-    countDisplay.textContent = `${allItems.length}件のシリーズ`;
-    grid.classList.toggle('hidden', allItems.length === 0);
-    noResults.classList.toggle('hidden', allItems.length > 0);
-    clearBtn.classList.remove('hidden');
-  }
-
-  function resetFilters() {
-    manufacturerSelect.value = '';
-    typeSelect.value = '';
-    targetFishSelect.value = '';
-    searchInput.value = '';
-    applyFilters();
-  }
-
-  // Debounced filter for text input
-  function debouncedApplyFilters() {
-    if (filterDebounceTimer) clearTimeout(filterDebounceTimer);
-    filterDebounceTimer = setTimeout(applyFilters, 300);
-  }
-
-  [manufacturerSelect, typeSelect, targetFishSelect].forEach(el =>
-    el.addEventListener('change', applyFilters)
-  );
-  searchInput.addEventListener('input', debouncedApplyFilters);
-  clearBtn.addEventListener('click', resetFilters);
-  resetBtn?.addEventListener('click', resetFilters);
-</script>
+</style>

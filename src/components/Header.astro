@@ -8,12 +8,12 @@ const currentPath = Astro.url.pathname;
       <a href="/" class="flex items-center gap-2 text-gray-900 hover:text-primary transition-colors">
         <span class="text-xl font-bold tracking-tight">ルアーDB</span>
       </a>
-      <nav class="flex items-center gap-4 sm:gap-6 text-sm">
+      <nav class="flex items-center gap-2 sm:gap-5 text-sm">
         <a
-          href="/"
+          href="/search/"
           class:list={[
             'transition-colors',
-            currentPath === '/' ? 'text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900'
+            currentPath.startsWith('/search') ? 'text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900'
           ]}
         >
           検索
@@ -26,6 +26,15 @@ const currentPath = Astro.url.pathname;
           ]}
         >
           タイプ
+        </a>
+        <a
+          href="/maker/"
+          class:list={[
+            'transition-colors',
+            currentPath.startsWith('/maker') ? 'text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900'
+          ]}
+        >
+          メーカー
         </a>
         <a
           href="/fish/"

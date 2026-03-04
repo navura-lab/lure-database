@@ -1,0 +1,15 @@
+---
+interface Props {
+  title: string;
+  href: string;
+}
+
+const { title, href } = Astro.props;
+---
+
+<div class="flex items-baseline justify-between mb-3 sm:mb-4">
+  <h2 class="text-base sm:text-lg font-bold text-gray-900">{title}</h2>
+  <a href={href} class="text-xs sm:text-sm text-primary hover:text-primary/80 transition-colors">
+    すべて見る →
+  </a>
+</div>

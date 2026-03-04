@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/Badge.astro';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../lib/group-lures';
+
+const lures = await fetchAllLures();
+const allSeries = groupLuresBySeries(lures ?? []);
+
+// メーカー別に集計
+const makerStats = new Map<string, {
+  name: string;
+  slug: string;
+  seriesCount: number;
+  colorCount: number;
+  topTypes: { name: string; count: number }[];
+  image: string | null;
+}>();
+
+for (const s of allSeries) {
+  const existing = makerStats.get(s.manufacturer_slug);
+  if (existing) {
+    existing.seriesCount++;
+    existing.colorCount += s.color_count;
+    if (!existing.image && s.representative_image) existing.image = s.representative_image;
+  } else {
+    makerStats.set(s.manufacturer_slug, {
+      name: s.manufacturer,
+      slug: s.manufacturer_slug,
+      seriesCount: 1,
+      colorCount: s.color_count,
+      topTypes: [],
+      image: s.representative_image,
+    });
+  }
+}
+
+// 各メーカーの上位3タイプを算出
+for (const [slug, stats] of makerStats) {
+  const typeCount = new Map<string, number>();
+  for (const s of allSeries) {
+    if (s.manufacturer_slug === slug && s.type) {
+      typeCount.set(s.type, (typeCount.get(s.type) || 0) + 1);
+    }
+  }
+  stats.topTypes = [...typeCount.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([name, count]) => ({ name, count }));
+}
+
+const makerList = [...makerStats.values()].sort((a, b) => b.seriesCount - a.seriesCount);
+const totalSeries = makerList.reduce((sum, m) => sum + m.seriesCount, 0);
+const totalColors = makerList.reduce((sum, m) => sum + m.colorCount, 0);
+
+const pageDescription = `国内主要${makerList.length}メーカーのルアーを掲載。DAIWA、SHIMANO、JACKALL等、全${totalSeries}シリーズ・${totalColors}カラー。`;
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
+    { '@type': 'ListItem', position: 2, name: 'メーカー一覧', item: 'https://www.lure-db.com/maker/' },
+  ],
+};
+---
+
+<BaseLayout
+  title="ルアーメーカー一覧 - ルアーDB"
+  description={pageDescription}
+  canonicalPath="/maker/"
+  jsonLd={breadcrumbLd as unknown as Record<string, unknown>}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-secondary mb-8">
+      <a href="/" class="hover:text-primary transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">メーカー一覧</span>
+    </nav>
+
+    <div class="mb-8">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">メーカー一覧</h1>
+      <p class="text-sm text-text-secondary mt-1">
+        {makerList.length}メーカー・{totalSeries}シリーズ
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      {makerList.map(m => (
+        <a
+          href={`/${m.slug}/`}
+          class="group block bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 hover:shadow-card-hover hover:scale-[1.01]"
+        >
+          <div class="p-4 sm:p-5">
+            <h2 class="text-sm sm:text-base font-bold text-gray-900 group-hover:text-primary transition-colors mb-2">
+              {m.name}
+            </h2>
+            <div class="flex items-center gap-3 text-xs text-text-secondary mb-3">
+              <span>{m.seriesCount}シリーズ</span>
+              <span>{m.colorCount}カラー</span>
+            </div>
+            {m.topTypes.length > 0 && (
+              <div class="flex flex-wrap gap-1">
+                {m.topTypes.map(t => (
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-sky-50 text-sky-700 border border-sky-200">
+                    {t.name}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>
