@@ -6805,10 +6805,22 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'dstyle',
     name: 'DSTYLE',
     discover: discoverDstyle,
-    excludedNameKeywords: [],
+    excludedNameKeywords: [
+      // アパレル
+      'Hoodie', 'T-Shirts', 'Tシャツ', 'Gaiter', 'Sun Mask', 'Cap', 'キャップ',
+      'Beanie', 'ネックウォーマー',
+      // バッグ・ケース
+      'Backpack', 'Bag', 'Pouch', 'Wallet', 'BAKKAN', 'バッカン', 'Padded Case',
+      // 小物・アクセサリー
+      'Carabiner', 'Pin On Reel', 'Sticker', 'Measure', 'メジャー', 'Decal',
+      'Bottle Holder', 'Tip Protector', 'Cooler',
+      // スペアパーツ
+      'スペアテール',
+    ],
     // dstyle-lure.co.jp — WordPress custom theme, custom post type "products"
     // /products/ lists all: soft-lure(59), hard-lure(13), jackalldstyle(11), jigs(8)
-    // Exclude: rod(6), accessory(41). ~91 lure products.
+    // Exclude: rod(6), accessory(41). ~92 lure products.
+    // Non-lure items (apparel/bags/accessories) cleaned 2026-03-04: 33 slugs / 75 rows deleted.
     // All products are bass lures. "ワームもルアーやろ？"
   },
   {
