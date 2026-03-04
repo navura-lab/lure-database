@@ -184,23 +184,25 @@ export const scrapeYariePage: ScraperFunction = async (url: string): Promise<Scr
     },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-  const html = await res.text();
+  // Site uses Shift_JIS encoding — must decode manually
+  const buffer = Buffer.from(await res.arrayBuffer());
+  const html = new TextDecoder('shift_jis').decode(buffer);
 
   // --- Product name ---
+  // Yarie uses Homepage Builder — product name is in <H2> (various sub-element patterns)
+  // H1 is always the generic site title "釣具メーカーヤリエのホームページです" — skip it
   let name = '';
-  const h1Match = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
-  if (h1Match) name = stripHtml(h1Match[1]).trim();
-  if (!name) {
-    const h2Match = html.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
-    if (h2Match) name = stripHtml(h2Match[1]).trim();
+  const h2Match = html.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
+  if (h2Match) {
+    name = stripHtml(h2Match[1])
+      .replace(/^[★☆●◆■\s　]+/, '')          // Remove decorative chars at start
+      .replace(/^NO\.\d+\w*[\s　]*/i, '')     // Remove product number prefix (NO.713, NO.665 etc.)
+      .replace(/\s+/g, ' ')
+      .trim();
   }
   if (!name) {
     const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-    if (titleMatch) name = stripHtml(titleMatch[1]).replace(/\s*[|｜–—].*$/, '').replace(/\s*Yarie.*$/i, '').replace(/\s*YARIE.*$/i, '').trim();
-  }
-  if (!name) {
-    const ogMatch = html.match(/<meta\s+property=["']og:title["']\s+content=["']([^"']+)["']/i);
-    if (ogMatch) name = stripHtml(ogMatch[1]).replace(/\s*[|｜–—].*$/, '').trim();
+    if (titleMatch) name = stripHtml(titleMatch[1]).replace(/\s*[|｜–—].*$/, '').replace(/.*ヤリエ[ー−]*/i, '').trim();
   }
   if (!name) name = 'Unknown';
   log(`Product name: ${name}`);

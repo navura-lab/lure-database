@@ -6421,7 +6421,9 @@ async function discoverYarie(_page: Page): Promise<Array<{ url: string; name: st
     headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
   });
   if (!res.ok) throw new Error('[yarie] HTTP ' + res.status);
-  var html = await res.text();
+  // Site uses Shift_JIS encoding
+  var buffer = Buffer.from(await res.arrayBuffer());
+  var html = new TextDecoder('shift_jis').decode(buffer);
 
   // Match product links: href="NNN.html" or href="NNNxx.html" (product code pages)
   var linkRegex = /<a\s+[^>]*href="(\d+\w*\.html)"[^>]*>([^<]*)/gi;
@@ -7365,8 +7367,8 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     slug: 'yarie',
     name: 'Yarie',
     discover: discoverYarie,
-    excludedNameKeywords: [],
-    // etanba.co.jp — WordPress, WP REST API
+    excludedNameKeywords: ['フォーセップ', 'プライヤー', 'スナップリング', 'フック', 'アクセサリー', 'シンカー', 'ライン'],
+    // etanba.co.jp — Shift_JIS static HTML (Homepage Builder)
     // トラウト用スプーン
   },
   {
