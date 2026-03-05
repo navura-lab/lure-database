@@ -7,20 +7,28 @@ import LureCard from '../components/LureCard.astro';
 import { fetchAllLures } from '../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../lib/category-slugs';
+import makerLogos from '../data/maker-logos.json';
 
 const lures = await fetchAllLures();
 const series = groupLuresBySeries(lures ?? []);
 const totalColors = lures?.length ?? 0;
 
 // ─── ルアータイプ集計（上位9件）───
-const typeMap = new Map<string, number>();
+const typeMap = new Map<string, { count: number; image: string | null }>();
 for (const s of series) {
-  if (s.type) typeMap.set(s.type, (typeMap.get(s.type) || 0) + 1);
+  if (!s.type) continue;
+  const existing = typeMap.get(s.type);
+  if (existing) {
+    existing.count++;
+    if (!existing.image && s.representative_image) existing.image = s.representative_image;
+  } else {
+    typeMap.set(s.type, { count: 1, image: s.representative_image });
+  }
 }
 const topTypes = [...typeMap.entries()]
-  .sort((a, b) => b[1] - a[1])
+  .sort((a, b) => b[1].count - a[1].count)
   .slice(0, 9)
-  .map(([name, count]) => ({ name, slug: getTypeSlug(name), count }));
+  .map(([name, { count, image }]) => ({ name, slug: getTypeSlug(name), count, image }));
 const remainingTypeCount = typeMap.size - topTypes.length;
 
 // ─── メーカー集計（上位9件）───
@@ -92,7 +100,7 @@ const jsonLd = {
       <SectionHeading title="ルアータイプから探す" href="/type/" />
       <div class="grid grid-cols-5 lg:grid-cols-10 gap-1.5 sm:gap-3">
         {topTypes.map(t => (
-          <CategoryTile label={t.name} href={`/type/${t.slug}/`} count={t.count} variant="type" />
+          <CategoryTile label={t.name} href={`/type/${t.slug}/`} count={t.count} variant="type" imageSrc={t.image || undefined} />
         ))}
         <CategoryTile label="その他" href="/type/" count={remainingTypeCount} variant="more" />
       </div>
@@ -103,7 +111,7 @@ const jsonLd = {
       <SectionHeading title="メーカーから探す" href="/maker/" />
       <div class="grid grid-cols-5 lg:grid-cols-10 gap-1.5 sm:gap-3">
         {topMakers.map(m => (
-          <CategoryTile label={m.name} href={`/${m.slug}/`} count={m.count} variant="maker" />
+          <CategoryTile label={m.name} href={`/${m.slug}/`} count={m.count} variant="maker" imageSrc={(makerLogos as Record<string, string>)[m.slug] || undefined} />
         ))}
         <CategoryTile label="その他" href="/maker/" count={remainingMakerCount} variant="more" />
       </div>
@@ -114,7 +122,7 @@ const jsonLd = {
       <SectionHeading title="対象魚から探す" href="/fish/" />
       <div class="grid grid-cols-5 lg:grid-cols-10 gap-1.5 sm:gap-3">
         {topFish.map(f => (
-          <CategoryTile label={f.name} href={`/fish/${f.slug}/`} count={f.count} variant="fish" />
+          <CategoryTile label={f.name} href={`/fish/${f.slug}/`} count={f.count} variant="fish" imageSrc={`/icons/fish/${f.slug}.svg`} />
         ))}
         <CategoryTile label="その他" href="/fish/" count={remainingFishCount} variant="more" />
       </div>
