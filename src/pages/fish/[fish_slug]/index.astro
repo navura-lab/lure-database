@@ -21,18 +21,52 @@ export async function getStaticPaths() {
     }
   }
 
+  // 各対象魚のルアータイプ・メーカープロファイル（関連魚種算出用）
+  const fishProfiles = new Map<string, { types: Set<string>; makers: Set<string>; count: number }>();
+  for (const [name, seriesList] of fishMap) {
+    const types = new Set<string>();
+    const makers = new Set<string>();
+    for (const s of seriesList) {
+      if (s.type) types.add(s.type);
+      makers.add(s.manufacturer_slug);
+    }
+    fishProfiles.set(name, { types, makers, count: seriesList.length });
+  }
+
   return [...fishMap.entries()].map(([fishName, series]) => {
     const slug = FISH_SLUG_MAP[fishName] ?? encodeURIComponent(fishName);
+
+    // 関連魚種: ルアータイプ・メーカーの重複度でスコアリング
+    const profile = fishProfiles.get(fishName)!;
+    const scored: { name: string; slug: string; count: number; score: number }[] = [];
+    for (const [otherName, otherProfile] of fishProfiles) {
+      if (otherName === fishName) continue;
+      let score = 0;
+      for (const t of profile.types) { if (otherProfile.types.has(t)) score += 2; }
+      for (const m of profile.makers) { if (otherProfile.makers.has(m)) score += 1; }
+      if (score > 0) {
+        scored.push({
+          name: otherName,
+          slug: FISH_SLUG_MAP[otherName] ?? encodeURIComponent(otherName),
+          count: otherProfile.count,
+          score,
+        });
+      }
+    }
+    scored.sort((a, b) => b.score - a.score || b.count - a.count);
+    const relatedFish = scored.slice(0, 8).map(({ name, slug, count }) => ({ name, slug, count }));
+
     return {
       params: { fish_slug: slug },
-      props: { fishName, series },
+      props: { fishName, series, relatedFish },
     };
   });
 }
 
-const { fishName, series } = Astro.props as {
+const { fishName, series, relatedFish } = Astro.props as {
   fishName: string;
   series: LureSeries[];
+  relatedFish: { name: string; slug: string; count: number }[];
 };
 
 const fishSlug = Astro.params.fish_slug as string;
@@ -159,7 +193,7 @@ const breadcrumbLd = {
 const jsonLd = [collectionLd, breadcrumbLd] as unknown as Record<string, unknown>;
 ---
 
-<BaseLayout title={`${fishName}向けルアー一覧 - ルアーDB`} description={pageDescription} canonicalPath={`/fish/${fishSlug}/`} jsonLd={jsonLd}>
+<BaseLayout title={`${fishName}向けルアー${series.length}シリーズ一覧${topTypes ? ` | ${topTypes}等` : ''} - ルアーDB`} description={pageDescription} canonicalPath={`/fish/${fishSlug}/`} jsonLd={jsonLd}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- パンくず -->
@@ -243,6 +277,24 @@ const jsonLd = [collectionLd, breadcrumbLd] as unknown as Record<string, unknown
         <LureCard series={s} isNew={false} priority={i < 4} />
       ))}
     </div>
+
+    <!-- 関連対象魚 -->
+    {relatedFish.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連する対象魚</h2>
+        <p class="text-sm text-text-secondary mb-4">
+          {fishName}と同じルアータイプ・メーカーで狙える魚種
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {relatedFish.map(f => (
+            <a href={`/fish/${f.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-primary hover:text-primary transition-colors">
+              {f.name}
+              <span class="text-xs text-gray-400">{f.count}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
 
   </div>
 </BaseLayout>

@@ -27,7 +27,11 @@ const fishList = [...fishStats.entries()]
 
 const totalFish = fishList.length;
 
-const pageDescription = `ルアーの対象魚${totalFish}種を掲載。ブラックバス、シーバス、青物、トラウト等、魚種別にルアーを検索。`;
+const topFishNames = fishList.slice(0, 5).map(f => f.name).join('・');
+const totalSeriesCount = allSeries.length;
+const pageDescription = `ルアーの対象魚${totalFish}種を掲載。${topFishNames}等、魚種別にルアーを検索・比較。全${totalSeriesCount}シリーズ対応。`;
+
+const pageTitle = `対象魚別ルアー一覧${totalFish}種 - ${topFishNames}等 - ルアーDB`;
 
 const breadcrumbLd = {
   '@context': 'https://schema.org',
@@ -38,10 +42,30 @@ const breadcrumbLd = {
   ],
 };
 
-const jsonLd = breadcrumbLd as unknown as Record<string, unknown>;
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: '対象魚別ルアー一覧',
+  url: 'https://www.lure-db.com/fish/',
+  description: pageDescription,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: fishList.length,
+    itemListElement: fishList.map((f, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.lure-db.com/fish/${f.slug}/`,
+      name: f.name,
+    })),
+  },
+};
+
+const jsonLd = [breadcrumbLd, collectionLd] as unknown as Record<string, unknown>;
+
+const introText = `${topFishNames}など${totalFish}種の対象魚別にルアーを分類して一覧表示。狙いたいターゲットから最適なルアーを探せる。各魚種ページではおすすめのルアータイプやシリーズを一覧で比較できる。`;
 ---
 
-<BaseLayout title="対象魚別ルアー一覧 - ルアーDB" description={pageDescription} canonicalPath="/fish/" jsonLd={jsonLd}>
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath="/fish/" jsonLd={jsonLd}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <nav class="text-sm text-text-secondary mb-8">
@@ -54,6 +78,9 @@ const jsonLd = breadcrumbLd as unknown as Record<string, unknown>;
       <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">対象魚別ルアー一覧</h1>
       <p class="text-sm text-text-secondary mt-1">
         {totalFish}種の対象魚
+      </p>
+      <p class="text-sm text-gray-600 leading-relaxed mt-3 max-w-3xl">
+        {introText}
       </p>
     </div>
 

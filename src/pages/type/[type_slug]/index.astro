@@ -20,18 +20,49 @@ export async function getStaticPaths() {
     typeMap.set(s.type, existing);
   }
 
+  // 各タイプの対象魚プロファイルを計算（関連タイプ算出用）
+  const typeProfiles = new Map<string, { fish: Set<string>; count: number }>();
+  for (const [name, seriesList] of typeMap) {
+    const fish = new Set<string>();
+    for (const s of seriesList) {
+      for (const f of s.target_fish) fish.add(f);
+    }
+    typeProfiles.set(name, { fish, count: seriesList.length });
+  }
+
   return [...typeMap.entries()].map(([typeName, series]) => {
     const slug = TYPE_SLUG_MAP[typeName] ?? encodeURIComponent(typeName);
+
+    // 関連タイプ: 対象魚の重複度でスコアリング
+    const profile = typeProfiles.get(typeName)!;
+    const scored: { name: string; slug: string; count: number; score: number }[] = [];
+    for (const [otherName, otherProfile] of typeProfiles) {
+      if (otherName === typeName) continue;
+      let score = 0;
+      for (const f of profile.fish) { if (otherProfile.fish.has(f)) score++; }
+      if (score > 0) {
+        scored.push({
+          name: otherName,
+          slug: TYPE_SLUG_MAP[otherName] ?? encodeURIComponent(otherName),
+          count: otherProfile.count,
+          score,
+        });
+      }
+    }
+    scored.sort((a, b) => b.score - a.score || b.count - a.count);
+    const relatedTypes = scored.slice(0, 8).map(({ name, slug, count }) => ({ name, slug, count }));
+
     return {
       params: { type_slug: slug },
-      props: { typeName, series },
+      props: { typeName, series, relatedTypes },
     };
   });
 }
 
-const { typeName, series } = Astro.props as {
+const { typeName, series, relatedTypes } = Astro.props as {
   typeName: string;
   series: LureSeries[];
+  relatedTypes: { name: string; slug: string; count: number }[];
 };
 
 const typeSlug = Astro.params.type_slug as string;
@@ -163,7 +194,7 @@ const breadcrumbLd = {
 const jsonLd = [collectionLd, breadcrumbLd] as unknown as Record<string, unknown>;
 ---
 
-<BaseLayout title={`${typeName}のルアー一覧 - ルアーDB`} description={pageDescription} canonicalPath={`/type/${typeSlug}/`} jsonLd={jsonLd}>
+<BaseLayout title={`${typeName}のルアー${series.length}シリーズ一覧${topMakers ? ` | ${topMakers}等` : ''} - ルアーDB`} description={pageDescription} canonicalPath={`/type/${typeSlug}/`} jsonLd={jsonLd}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- パンくず -->
@@ -246,6 +277,24 @@ const jsonLd = [collectionLd, breadcrumbLd] as unknown as Record<string, unknown
         <LureCard series={s} isNew={false} priority={i < 4} />
       ))}
     </div>
+
+    <!-- 関連ルアータイプ -->
+    {relatedTypes.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連ルアータイプ</h2>
+        <p class="text-sm text-text-secondary mb-4">
+          {typeName}と同じ対象魚を狙えるルアータイプ
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {relatedTypes.map(t => (
+            <a href={`/type/${t.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-primary hover:text-primary transition-colors">
+              {t.name}
+              <span class="text-xs text-gray-400">{t.count}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
 
   </div>
 </BaseLayout>

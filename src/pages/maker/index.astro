@@ -53,7 +53,10 @@ const makerList = [...makerStats.values()].sort((a, b) => b.seriesCount - a.seri
 const totalSeries = makerList.reduce((sum, m) => sum + m.seriesCount, 0);
 const totalColors = makerList.reduce((sum, m) => sum + m.colorCount, 0);
 
-const pageDescription = `国内主要${makerList.length}メーカーのルアーを掲載。DAIWA、SHIMANO、JACKALL等、全${totalSeries}シリーズ・${totalColors}カラー。`;
+const topMakerNames = makerList.slice(0, 5).map(m => m.name).join('、');
+const pageDescription = `国内主要${makerList.length}メーカーのルアーを掲載。${topMakerNames}等、全${totalSeries}シリーズ・${totalColors.toLocaleString()}カラー。メーカー別にルアーを検索・比較。`;
+
+const pageTitle = `ルアーメーカー一覧${makerList.length}社 - ${topMakerNames}等 - ルアーDB`;
 
 const breadcrumbLd = {
   '@context': 'https://schema.org',
@@ -63,13 +66,35 @@ const breadcrumbLd = {
     { '@type': 'ListItem', position: 2, name: 'メーカー一覧', item: 'https://www.lure-db.com/maker/' },
   ],
 };
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `ルアーメーカー一覧`,
+  url: 'https://www.lure-db.com/maker/',
+  description: pageDescription,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: makerList.length,
+    itemListElement: makerList.map((m, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.lure-db.com/${m.slug}/`,
+      name: m.name,
+    })),
+  },
+};
+
+const jsonLd = [breadcrumbLd, collectionLd] as unknown as Record<string, unknown>;
+
+const introText = `国内${makerList.length}メーカーのルアーをシリーズ数順で一覧表示。DAIWA・SHIMANO・JACKALLをはじめ、${totalSeries}シリーズ・${totalColors.toLocaleString()}カラーを網羅。各メーカーの得意ジャンルや製品ラインナップを比較して、あなたにぴったりのルアーを見つけよう。`;
 ---
 
 <BaseLayout
-  title="ルアーメーカー一覧 - ルアーDB"
+  title={pageTitle}
   description={pageDescription}
   canonicalPath="/maker/"
-  jsonLd={breadcrumbLd as unknown as Record<string, unknown>}
+  jsonLd={jsonLd}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
@@ -83,6 +108,9 @@ const breadcrumbLd = {
       <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">メーカー一覧</h1>
       <p class="text-sm text-text-secondary mt-1">
         {makerList.length}メーカー・{totalSeries}シリーズ
+      </p>
+      <p class="text-sm text-gray-600 leading-relaxed mt-3 max-w-3xl">
+        {introText}
       </p>
     </div>
 
