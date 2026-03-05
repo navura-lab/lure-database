@@ -98,14 +98,15 @@ const lengthDisplay = (() => {
   return `${series.length_range.min} ~ ${series.length_range.max}mm`;
 })();
 
-function getYouTubeEmbedUrl(url: string): string | null {
+function getYouTubeId(url: string): string | null {
   const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
-  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+  return match ? match[1] : null;
 }
 
-const embedUrl = series.official_video_url
-  ? getYouTubeEmbedUrl(series.official_video_url)
+const youtubeId = series.official_video_url
+  ? getYouTubeId(series.official_video_url)
   : null;
+const embedUrl = youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : null;
 
 // --- SEO: Description ---
 const specs = [
@@ -232,12 +233,66 @@ const breadcrumbLd = {
   ],
 };
 
+// FAQ schema for featured snippets
+const faqEntries: { '@type': string; name: string; acceptedAnswer: { '@type': string; text: string } }[] = [];
+
+// Q1: スペック情報
+if (series.type) {
+  const answer = [
+    `${series.name}は${series.manufacturer}が製造する${series.type}です。`,
+    weightDisplay ? `重量は${weightDisplay}、` : '',
+    lengthDisplay ? `全長は${lengthDisplay}、` : '',
+    series.diving_depth ? `潜行深度は${series.diving_depth}、` : '',
+    `全${series.color_count}カラーがラインナップされています。`,
+  ].filter(Boolean).join('');
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${series.name}のスペックは？`,
+    acceptedAnswer: { '@type': 'Answer', text: answer },
+  });
+}
+
+// Q2: 価格情報
+if (hasPrice) {
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${series.name}の価格は？`,
+    acceptedAnswer: { '@type': 'Answer', text: `${series.name}の価格は${priceDisplay}（税込）です。` },
+  });
+}
+
+// Q3: 対象魚
+if (series.target_fish.length > 0) {
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${series.name}で釣れる魚は？`,
+    acceptedAnswer: { '@type': 'Answer', text: `${series.name}は${series.target_fish.join('、')}などをターゲットにしたルアーです。` },
+  });
+}
+
+const faqLd = faqEntries.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqEntries,
+} : null;
+
+// VideoObject schema for YouTube embeds
+const videoLd = youtubeId ? {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: `${series.manufacturer} ${series.name} 公式動画`,
+  description: series.description || `${series.manufacturer}の${series.type}「${series.name}」の紹介動画。`,
+  thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
+  embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
+  uploadDate: series.created_at,
+} : null;
+
 // Combine JSON-LD as array
-const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unknown>;
+const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(videoLd ? [videoLd] : [])] as unknown as Record<string, unknown>;
 ---
 
 <BaseLayout
-  title={`${series.name}（${series.manufacturer}）- ルアーDB`}
+  title={`${series.name}${series.type ? ` ${series.type}` : ''}（${series.manufacturer}）- ルアーDB`}
   description={pageDescription}
   canonicalPath={`/${series.manufacturer_slug}/${series.slug}/`}
   ogImage={series.representative_image || undefined}
