@@ -4,6 +4,7 @@ import LureCard from '../../components/LureCard.astro';
 import { fetchAllLures } from '../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
+import { manufacturerDescriptions } from '../../data/manufacturer-descriptions';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -64,7 +65,8 @@ const { manufacturer, series, relatedManufacturers } = Astro.props as {
   relatedManufacturers: { slug: string; name: string; count: number }[];
 };
 
-const manufacturerSlug = Astro.params.manufacturer_slug;
+const manufacturerSlug = Astro.params.manufacturer_slug as string;
+const editorialText = manufacturerDescriptions[manufacturerSlug] ?? '';
 
 // ─── 集計データの算出 ───
 
@@ -239,9 +241,15 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - ルアーDB';
     <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
 
       <!-- ① 概要テキスト -->
-      <p class="text-sm text-gray-700 leading-relaxed mb-5">
+      <p class="text-sm text-gray-700 leading-relaxed mb-4">
         {summaryText}
       </p>
+
+      {editorialText && (
+        <p class="text-sm text-gray-600 leading-relaxed mb-5 border-l-2 border-slate-200 pl-4">
+          {editorialText}
+        </p>
+      )}
 
       <!-- ② カテゴリ別シリーズ数 -->
       {typeBreakdown.length > 0 && (
