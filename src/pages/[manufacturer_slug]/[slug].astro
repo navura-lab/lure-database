@@ -119,7 +119,7 @@ const specs = [
 // meta description: リライト済みdescriptionがあればフル活用（150-250文字=meta descriptionに最適）
 const pageDescription = series.description
   ? `${series.manufacturer} ${series.name}｜${series.description}`
-  : `${series.manufacturer} ${series.name}（${specs}）のスペック・カラーバリエーション・価格情報を網羅。ルアーDB`;
+  : `${series.manufacturer} ${series.name}（${specs}）のスペック・カラーバリエーション・価格情報を網羅。CAST/LOG`;
 
 // --- SEO: 自然言語スペック要約（ページ内表示用）---
 const specParts: string[] = [];
@@ -292,7 +292,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
 ---
 
 <BaseLayout
-  title={`${series.name}${series.type ? ` ${series.type}` : ''}（${series.manufacturer}）- ルアーDB`}
+  title={`${series.name}${series.type ? ` ${series.type}` : ''}（${series.manufacturer}）- CAST/LOG`}
   description={pageDescription}
   canonicalPath={`/${series.manufacturer_slug}/${series.slug}/`}
   ogImage={series.representative_image || undefined}
@@ -302,10 +302,10 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- パンくず -->
-    <nav class="text-sm text-text-secondary mb-8">
-      <a href="/" class="hover:text-primary transition-colors">トップ</a>
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
       <span class="mx-2">/</span>
-      <a href={`/${series.manufacturer_slug}/`} class="hover:text-primary transition-colors">{series.manufacturer}</a>
+      <a href={`/${series.manufacturer_slug}/`} class="hover:text-accent transition-colors">{series.manufacturer}</a>
       <span class="mx-2">/</span>
       <span class="text-gray-900">{series.name}</span>
     </nav>
@@ -332,7 +332,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
 
       <!-- 情報 -->
       <div class="md:w-1/2">
-        <p class="text-sm text-text-secondary tracking-wider uppercase mb-1">
+        <p class="text-sm text-text-mid tracking-wider uppercase mb-1">
           {series.manufacturer}
         </p>
         <h1 class="text-3xl font-bold text-gray-900 mb-3">
@@ -350,36 +350,36 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
         <div class="grid grid-cols-2 gap-x-6 gap-y-3 text-sm mb-6">
           {weightDisplay && (
             <div>
-              <p class="text-text-tertiary">重さ</p>
+              <p class="text-text-dim">重さ</p>
               <p class="font-medium">{weightDisplay}</p>
             </div>
           )}
           {lengthDisplay && (
             <div>
-              <p class="text-text-tertiary">長さ</p>
+              <p class="text-text-dim">長さ</p>
               <p class="font-medium">{lengthDisplay}</p>
             </div>
           )}
           {series.diving_depth && (
             <div>
-              <p class="text-text-tertiary">潜行深度</p>
+              <p class="text-text-dim">潜行深度</p>
               <p class="font-medium">{series.diving_depth}</p>
             </div>
           )}
           {series.action_type && (
             <div>
-              <p class="text-text-tertiary">アクション</p>
+              <p class="text-text-dim">アクション</p>
               <p class="font-medium">{series.action_type}</p>
             </div>
           )}
           {series.release_year && (
             <div>
-              <p class="text-text-tertiary">発売年</p>
+              <p class="text-text-dim">発売年</p>
               <p class="font-medium">{series.release_year}年</p>
             </div>
           )}
           <div>
-            <p class="text-text-tertiary">カラー数</p>
+            <p class="text-text-dim">カラー数</p>
             <p class="font-medium">{series.color_count}色</p>
           </div>
         </div>
@@ -387,7 +387,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
         <!-- 価格 -->
         {priceDisplay && (
           <div class="border-t border-gray-100 pt-4 mb-6">
-            <p class="text-text-tertiary text-sm">価格</p>
+            <p class="text-text-dim text-sm">価格</p>
             <p class="text-2xl font-bold text-gray-900">{priceDisplay}</p>
           </div>
         )}
@@ -415,12 +415,12 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
     <section class="mb-12">
       <div class="flex items-baseline gap-3 mb-6">
         <h2 class="text-xl font-bold text-gray-900">{series.name}のカラーバリエーション</h2>
-        <span class="text-sm text-text-secondary">{series.color_count}色</span>
+        <span class="text-sm text-text-mid">{series.color_count}色</span>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {series.colors.map(color => (
           <div class="group">
-            <div class="aspect-square rounded-xl overflow-hidden border border-gray-100 bg-white mb-2 transition-all duration-200 group-hover:border-primary group-hover:shadow-card-hover">
+            <div class="aspect-square rounded-xl overflow-hidden border border-gray-100 bg-white mb-2 transition-all duration-200 group-hover:border-accent group-hover:shadow-card-hover">
               {color.images && color.images.length > 0 ? (
                 <img
                   src={color.images[0]}
@@ -495,7 +495,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
           <h2 class="text-xl font-bold text-gray-900">
             {series.target_fish[0]}狙いにおすすめ
           </h2>
-          <a href={`/fish/${getFishSlug(series.target_fish[0])}/`} class="text-sm text-primary hover:text-primary/80 transition-colors">
+          <a href={`/fish/${getFishSlug(series.target_fish[0])}/`} class="text-sm text-accent hover:text-accent-dark transition-colors">
             {series.target_fish[0]}向けルアーをもっと見る →
           </a>
         </div>
@@ -514,7 +514,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
           <h2 class="text-xl font-bold text-gray-900">
             おすすめの{series.type}
           </h2>
-          <a href={`/type/${getTypeSlug(series.type)}/`} class="text-sm text-primary hover:text-primary/80 transition-colors">
+          <a href={`/type/${getTypeSlug(series.type)}/`} class="text-sm text-accent hover:text-accent-dark transition-colors">
             {series.type}をもっと見る →
           </a>
         </div>
@@ -533,7 +533,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
           <h2 class="text-xl font-bold text-gray-900">
             {series.manufacturer}のその他のルアー
           </h2>
-          <a href={`/${series.manufacturer_slug}/`} class="text-sm text-primary hover:text-primary/80 transition-colors">
+          <a href={`/${series.manufacturer_slug}/`} class="text-sm text-accent hover:text-accent-dark transition-colors">
             {series.manufacturer}をもっと見る →
           </a>
         </div>
@@ -549,7 +549,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
     <div class="border-t border-gray-100 pt-6 mb-4">
       <a
         href={`/${series.manufacturer_slug}/`}
-        class="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
+        class="inline-flex items-center gap-1.5 text-sm text-accent hover:text-accent-dark transition-colors font-medium"
       >
         <span>←</span>
         <span>{series.manufacturer}のルアー一覧を見る</span>

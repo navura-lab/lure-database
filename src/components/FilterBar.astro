@@ -16,7 +16,7 @@ const { manufacturers, types, targetFish } = Astro.props;
         <select
           id="filter-manufacturer"
           data-filter-manufacturer
-          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
         >
           <option value="">メーカー</option>
           {manufacturers.map(m => (
@@ -29,7 +29,7 @@ const { manufacturers, types, targetFish } = Astro.props;
         <select
           id="filter-type"
           data-filter-type
-          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
         >
           <option value="">種類</option>
           {types.map(t => (
@@ -42,7 +42,7 @@ const { manufacturers, types, targetFish } = Astro.props;
         <select
           id="filter-targetfish"
           data-filter-targetfish
-          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
         >
           <option value="">対象魚</option>
           {targetFish.map(f => (
@@ -57,7 +57,7 @@ const { manufacturers, types, targetFish } = Astro.props;
           type="text"
           data-filter-search
           placeholder="ルアー名で検索..."
-          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 placeholder:text-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 placeholder:text-gray-400 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
         />
         <button
           data-filter-clear

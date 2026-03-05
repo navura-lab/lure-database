@@ -29,7 +29,7 @@ const { color } = Astro.props;
       {color.color_name}
     </p>
     {(color.weight || color.length) && (
-      <p class="text-xs text-text-secondary mt-0.5">
+      <p class="text-xs text-text-mid mt-0.5">
         {color.length && <span>{color.length}mm</span>}
         {color.length && color.weight && <span class="mx-1">/</span>}
         {color.weight && <span>{color.weight}g</span>}

@@ -7,34 +7,16 @@ interface Props {
 const { seriesCount, colorCount } = Astro.props;
 ---
 
-<section class="bg-gradient-to-b from-sky-50/80 to-white border-b border-gray-100">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 text-center">
-    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-      ルアーデータベース
+<section class="bg-surface border-b border-border">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
+    <h1 class="font-mono text-[36px] font-bold tracking-[2px] text-text mb-2">
+      CAST<span class="text-accent">/</span>LOG
     </h1>
-    <p class="text-sm text-text-secondary mb-6">
-      {seriesCount.toLocaleString()}シリーズ・{colorCount.toLocaleString()}カラー登録
+    <p class="font-mono text-[13px] text-text-dim tracking-[2px] mb-4">
+      Cast it. Log it. Prove it.
     </p>
-
-    <form id="search-form" class="relative max-w-xl mx-auto" action="/search/" method="get">
-      <div class="flex items-center bg-white rounded-full border border-gray-200 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
-        <svg class="w-5 h-5 text-gray-400 ml-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-        <input
-          type="text"
-          name="q"
-          placeholder="ルアー名・メーカー名で検索..."
-          class="w-full py-3 px-3 text-sm bg-transparent outline-none text-gray-900 placeholder:text-gray-400"
-          autocomplete="off"
-        />
-        <button
-          type="submit"
-          class="shrink-0 bg-primary text-white text-sm font-medium px-5 py-2.5 rounded-full mr-1 hover:bg-primary/90 transition-colors"
-        >
-          検索
-        </button>
-      </div>
-    </form>
+    <p class="font-mono text-[11px] text-text-faint">
+      {seriesCount.toLocaleString()} series · {colorCount.toLocaleString()} colors
+    </p>
   </div>
 </section>

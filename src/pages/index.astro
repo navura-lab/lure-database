@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SearchHero from '../components/SearchHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import CategoryTile from '../components/CategoryTile.astro';
+import PortalSearch from '../components/PortalSearch.astro';
 import LureCard from '../components/LureCard.astro';
 import { fetchAllLures } from '../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../lib/group-lures';
@@ -69,7 +69,7 @@ const apiToken = import.meta.env.LDB_API_TOKEN || '';
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'ルアーDB',
+  name: 'CAST/LOG',
   url: 'https://www.lure-db.com',
   description: '釣り人のためのルアーデータベース。国内主要メーカーのルアーを網羅的に掲載。',
   inLanguage: 'ja',
@@ -85,53 +85,33 @@ const jsonLd = {
 ---
 
 <BaseLayout
-  title={`ルアーDB - ${series.length}シリーズ・${totalColors.toLocaleString()}カラーのルアーデータベース`}
+  title={`CAST/LOG - ${series.length}シリーズ・${totalColors.toLocaleString()}カラーのルアーデータベース`}
   description={`国内${mfrMap.size}メーカーのルアーを網羅的に掲載。${series.length}シリーズ・${totalColors.toLocaleString()}カラー登録。ミノー、クランク、ワームなどタイプ別、メーカー別、対象魚別に検索可能。`}
   canonicalPath="/"
   jsonLd={jsonLd}
 >
-  <!-- 検索ヒーロー -->
+  <!-- ブランドヒーロー -->
   <SearchHero seriesCount={series.length} colorCount={totalColors} />
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8 sm:space-y-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
 
-    <!-- ルアータイプから探す -->
+    <!-- ポータル検索 -->
     <section>
-      <SectionHeading title="ルアータイプから探す" href="/type/" />
-      <div class="grid grid-cols-5 lg:grid-cols-10 gap-1.5 sm:gap-3">
-        {topTypes.map(t => (
-          <CategoryTile label={t.name} href={`/type/${t.slug}/`} count={t.count} variant="type" imageSrc={t.image || undefined} />
-        ))}
-        <CategoryTile label="その他" href="/type/" count={remainingTypeCount} variant="more" />
-      </div>
-    </section>
-
-    <!-- メーカーから探す -->
-    <section>
-      <SectionHeading title="メーカーから探す" href="/maker/" />
-      <div class="grid grid-cols-5 lg:grid-cols-10 gap-1.5 sm:gap-3">
-        {topMakers.map(m => (
-          <CategoryTile label={m.name} href={`/${m.slug}/`} count={m.count} variant="maker" imageSrc={(makerLogos as Record<string, string>)[m.slug] || undefined} />
-        ))}
-        <CategoryTile label="その他" href="/maker/" count={remainingMakerCount} variant="more" />
-      </div>
-    </section>
-
-    <!-- 対象魚から探す -->
-    <section>
-      <SectionHeading title="対象魚から探す" href="/fish/" />
-      <div class="grid grid-cols-5 lg:grid-cols-10 gap-1.5 sm:gap-3">
-        {topFish.map(f => (
-          <CategoryTile label={f.name} href={`/fish/${f.slug}/`} count={f.count} variant="fish" imageSrc={`/icons/fish/${f.slug}.svg`} />
-        ))}
-        <CategoryTile label="その他" href="/fish/" count={remainingFishCount} variant="more" />
-      </div>
+      <PortalSearch
+        types={topTypes}
+        makers={topMakers}
+        fish={topFish}
+        remainingTypeCount={remainingTypeCount}
+        remainingMakerCount={remainingMakerCount}
+        remainingFishCount={remainingFishCount}
+        makerLogos={makerLogos as Record<string, string>}
+      />
     </section>
 
     <!-- 新着ルアー -->
     {newArrivals.length > 0 && (
       <section>
-        <SectionHeading title="新着ルアー" href="/search/" />
+        <SectionHeading title="新着ルアー" href="/search/" slashLabel="NEW ARRIVALS" />
         <div class="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory scrollbar-hide">
           {newArrivals.map((s, i) => (
             <div class="snap-start shrink-0 w-56 sm:w-64">
@@ -142,25 +122,28 @@ const jsonLd = {
       </section>
     )}
 
-    <!-- ランダムで探す -->
+    <!-- ルアーを発見する -->
     <section>
-      <div class="flex items-baseline justify-between mb-3 sm:mb-4">
-        <h2 class="text-base sm:text-lg font-bold text-gray-900">ランダムで探す</h2>
+      <div class="flex items-end justify-between mb-4">
+        <div>
+          <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">/DISCOVER</p>
+          <h2 class="text-[18px] font-bold text-text">ルアーを発見する</h2>
+        </div>
         <button
           id="shuffle-btn"
-          class="inline-flex items-center gap-1.5 text-xs sm:text-sm text-primary hover:text-primary/80 transition-colors"
+          class="inline-flex items-center gap-2 font-mono text-[11px] font-bold text-text-dim tracking-[1px] px-4 py-2 border border-border rounded transition-all duration-[0.15s] hover:border-accent hover:text-text"
         >
           <svg class="w-4 h-4" id="shuffle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
-          シャッフル
+          SHUFFLE
         </button>
       </div>
       <div id="random-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         <!-- Client-side rendered -->
       </div>
       <div id="random-spinner" class="py-8 text-center">
-        <div class="inline-block h-5 w-5 animate-spin rounded-full border-2 border-sky-500 border-t-transparent"></div>
+        <div class="inline-block h-5 w-5 animate-spin rounded-full border-2 border-accent border-t-transparent"></div>
       </div>
     </section>
 
@@ -216,7 +199,7 @@ const jsonLd = {
 
     const img = d.representative_image
       ? `<img src="${esc(d.representative_image)}" alt="${esc(d.manufacturer)} ${esc(d.name)} ${esc(d.type)}" loading="lazy" width="500" height="375" class="w-full h-full object-scale-down p-3">`
-      : `<div class="placeholder-lure-bg w-full h-full flex items-center justify-center"><span class="text-xs text-sky-400">${esc(d.type)}</span></div>`;
+      : `<div class="placeholder-lure-bg w-full h-full flex items-center justify-center"><span class="font-mono text-[9px] text-text-dim">${esc(d.type)}</span></div>`;
 
     const badges = [
       d.is_new ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-amber-50 text-amber-700 border-amber-200">新着</span>` : '',
@@ -224,19 +207,19 @@ const jsonLd = {
     ].filter(Boolean).join('');
 
     return `<a href="/${esc(d.manufacturer_slug)}/${esc(d.slug)}/" class="group block">
-      <div class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 group-hover:shadow-card-hover group-hover:scale-[1.01]">
+      <div class="bg-white rounded-lg border border-border-light overflow-hidden shadow-card transition-all duration-[0.15s] group-hover:shadow-card-hover group-hover:scale-[1.01] group-hover:border-accent">
         <div class="aspect-[4/3] relative overflow-hidden bg-white">
           ${img}
           <div class="absolute top-2 right-2 flex flex-col gap-1">${badges}</div>
         </div>
         <div class="p-4">
-          <p class="text-xs text-text-secondary tracking-wider uppercase mb-1">${esc(d.manufacturer)}</p>
-          <h3 class="text-base font-bold text-gray-900 mb-1.5 group-hover:text-primary transition-colors">${esc(d.name)}</h3>
-          <div class="flex items-center gap-1.5 text-xs text-text-secondary mb-3">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-sky-50 text-sky-700 border-sky-200">${esc(d.type)}</span>
-            <span>${d.color_count}カラー</span>
+          <p class="font-mono text-[10px] text-text-dim tracking-wider uppercase mb-1">${esc(d.manufacturer)}</p>
+          <h3 class="text-[14px] font-bold text-text mb-1.5 group-hover:text-accent transition-colors duration-[0.15s]">${esc(d.name)}</h3>
+          <div class="flex items-center gap-1.5 text-[11px] text-text-dim mb-3">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-medium border bg-accent-bg text-accent border-accent">${esc(d.type)}</span>
+            <span class="font-mono">${d.color_count}カラー</span>
           </div>
-          ${price ? `<p class="text-sm font-bold text-gray-900">${price}</p>` : ''}
+          ${price ? `<p class="font-mono text-[13px] font-bold text-text">${price}</p>` : ''}
         </div>
       </div>
     </a>`;
@@ -263,7 +246,7 @@ const jsonLd = {
       }
       grid.appendChild(fragment);
     } catch {
-      grid.innerHTML = '<p class="text-sm text-text-secondary col-span-full text-center py-4">読み込みに失敗しました</p>';
+      grid.innerHTML = '<p class="font-mono text-[13px] text-text-dim col-span-full text-center py-4">読み込みに失敗しました</p>';
     } finally {
       spinner.classList.add('hidden');
       shuffleIcon.classList.remove('animate-spin');

@@ -52,7 +52,7 @@ const resolvedOgImage = ogImage || DEFAULT_OG_IMAGE;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content={ogType} />
-    <meta property="og:site_name" content="ルアーDB" />
+    <meta property="og:site_name" content="CAST/LOG" />
     <meta property="og:locale" content="ja_JP" />
     <meta property="og:image" content={resolvedOgImage} />
     <meta property="og:image:width" content="1200" />
@@ -69,7 +69,7 @@ const resolvedOgImage = ogImage || DEFAULT_OG_IMAGE;
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'ルアーDB',
+      name: 'CAST/LOG',
       url: 'https://www.lure-db.com',
       logo: 'https://www.lure-db.com/favicon.svg',
       description: '釣り人のためのルアーデータベース。国内主要メーカーのルアーを網羅的に掲載。',
@@ -89,7 +89,7 @@ const resolvedOgImage = ogImage || DEFAULT_OG_IMAGE;
     </script>
     <title>{title}</title>
   </head>
-  <body class="bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+  <body class="bg-bg text-text font-sans min-h-screen flex flex-col">
     <Header />
     <main class="flex-1">
       <slot />

@@ -1,8 +1,39 @@
-# Lure Database - Claude Code 指示書
+# CAST/LOG - Claude Code 指示書
 
 ## プロジェクト概要
-Astro + Supabase + Tailwind CSS のルアー（釣り用品）データベースサイト。
+**CAST/LOG** — Astro + Supabase + Tailwind CSS のルアーデータベースサイト。
 Vercelにデプロイ。SSG（Static Site Generation）。
+- 表示名: CAST/LOG（スラッシュは常にAccent Green）
+- テキスト/URL: castlog（小文字、スラッシュなし）
+- ドメイン: lure-db.com
+- タグライン JP: 一投を、資産にする。
+- タグライン EN: Cast it. Log it. Prove it.
+
+## デザインシステム (CAST/LOG)
+
+### カラー（CSS変数必須、ハードコード禁止）
+- accent: #00C78A（使用面積≤5%: ロゴスラッシュ、CTA、セクションラベル、ホバーボーダー）
+- bg: #FFFFFF / surface: #F7F7F7 / border: #E0E0E0
+- text: #1A1A1A / text-mid: #555555 / text-dim: #999999 / text-faint: #CCCCCC
+- 詳細: Obsidian `10_プロジェクト/CASTLOG/color-system.md`
+
+### フォント
+- **Mono** (JetBrains Mono): 数値、日付、セクションラベル、ブランド名、ボタン、メタデータ、ナビリンク
+- **Sans** (Noto Sans JP): 本文、説明文、見出し（日本語）
+
+### スペーシング
+- 8pxグリッド必須（許容値: 4/8/12/16/24/32/48/64/80px）
+- 詳細: Obsidian `10_プロジェクト/CASTLOG/spacing-and-layout.md`
+
+### コンポーネント規定
+- border-radius: カード8px、ボタン4px、アバターのみ50%
+- hover: 全て0.15s ease、scale max 1.01
+- shadow: `0 4px 24px rgba(0,0,0,0.06)`、ナビはborder-bottomのみ（shadow禁止）
+
+### 禁止事項
+- グラデーション、rgba新色、font-weight<400、border-radius:50%（アバター以外）
+- hover>0.3s、!important（reset除く）、8pxグリッド違反、ハードコードカラー
+- 禁止ワード: 爆釣、激アツ、マスト、ヤバい、間違いなし、神ルアー
 
 ## 技術スタック
 - Astro (SSG)

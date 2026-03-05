@@ -2,14 +2,20 @@
 interface Props {
   title: string;
   href: string;
+  slashLabel?: string;
 }
 
-const { title, href } = Astro.props;
+const { title, href, slashLabel } = Astro.props;
 ---
 
-<div class="flex items-baseline justify-between mb-3 sm:mb-4">
-  <h2 class="text-base sm:text-lg font-bold text-gray-900">{title}</h2>
-  <a href={href} class="text-xs sm:text-sm text-primary hover:text-primary/80 transition-colors">
-    すべて見る →
+<div class="flex items-end justify-between mb-4">
+  <div>
+    {slashLabel && (
+      <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">/{slashLabel}</p>
+    )}
+    <h2 class="text-[18px] font-bold text-text">{title}</h2>
+  </div>
+  <a href={href} class="font-mono text-[11px] text-text-dim hover:text-text tracking-[1px] transition-colors duration-[0.15s]">
+    view all →
   </a>
 </div>

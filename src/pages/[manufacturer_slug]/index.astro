@@ -254,17 +254,17 @@ const titleParts = [
   `${manufacturer}のルアー${series.length}シリーズ一覧`,
   topTypeNames ? `${topTypeNames}等` : '',
 ];
-const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - ルアーDB';
+const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/${manufacturerSlug}/`} jsonLd={jsonLd}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- パンくず -->
-    <nav class="text-sm text-text-secondary mb-8">
-      <a href="/" class="hover:text-primary transition-colors">トップ</a>
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
       <span class="mx-2">/</span>
-      <a href="/maker/" class="hover:text-primary transition-colors">メーカー一覧</a>
+      <a href="/maker/" class="hover:text-accent transition-colors">メーカー一覧</a>
       <span class="mx-2">/</span>
       <span class="text-gray-900">{manufacturer}</span>
     </nav>
@@ -272,7 +272,7 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - ルアーDB';
     <!-- ヘッダー -->
     <div class="mb-6">
       <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">{manufacturer}</h1>
-      <p class="text-sm text-text-secondary mt-1">
+      <p class="text-sm text-text-mid mt-1">
         {series.length}シリーズ・{totalColors}カラー
       </p>
     </div>
@@ -294,12 +294,12 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - ルアーDB';
       <!-- ② カテゴリ別シリーズ数 -->
       {typeBreakdown.length > 0 && (
         <div class="mb-5">
-          <h2 class="text-xs font-semibold text-text-tertiary uppercase tracking-wider mb-2">ルアータイプ</h2>
+          <h2 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-2">ルアータイプ</h2>
           <div class="flex flex-wrap gap-2">
             {typeBreakdown.map(t => (
-              <a href={`/type/${getTypeSlug(t.type)}/`} class="inline-flex items-center gap-1 px-3 py-1 bg-sky-50 text-sky-700 rounded-full text-xs font-medium border border-sky-100 hover:bg-sky-100 transition-colors">
+              <a href={`/type/${getTypeSlug(t.type)}/`} class="inline-flex items-center gap-1 px-3 py-1 bg-accent-bg text-accent rounded-full text-xs font-medium border border-accent-bg hover:bg-accent-bg transition-colors">
                 {t.type}
-                <span class="text-sky-400">{t.count}</span>
+                <span class="text-accent">{t.count}</span>
               </a>
             ))}
           </div>
@@ -310,7 +310,7 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - ルアーDB';
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5">
         {specItems.map(item => (
           <div>
-            <p class="text-xs text-text-tertiary">{item.label}</p>
+            <p class="text-xs text-text-dim">{item.label}</p>
             <p class="text-sm font-semibold text-gray-900">{item.value}</p>
           </div>
         ))}
@@ -319,7 +319,7 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - ルアーDB';
       <!-- ④ 対象魚タグ -->
       {allTargetFish.length > 0 && (
         <div>
-          <h2 class="text-xs font-semibold text-text-tertiary uppercase tracking-wider mb-2">対象魚</h2>
+          <h2 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-2">対象魚</h2>
           <div class="flex flex-wrap gap-1.5">
             {allTargetFish.map(fish => (
               <a href={`/fish/${getFishSlug(fish)}/`} class="px-2.5 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
@@ -346,12 +346,12 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - ルアーDB';
     {relatedManufacturers.length > 0 && (
       <section class="mt-12 pt-8 border-t border-gray-100">
         <h2 class="text-lg font-bold text-gray-900 mb-4">関連メーカー</h2>
-        <p class="text-sm text-text-secondary mb-4">
+        <p class="text-sm text-text-mid mb-4">
           {manufacturer}と同じ対象魚・ルアータイプを扱うメーカー
         </p>
         <div class="flex flex-wrap gap-2">
           {relatedManufacturers.map(m => (
-            <a href={`/${m.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-primary hover:text-primary transition-colors">
+            <a href={`/${m.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
               {m.name}
               <span class="text-xs text-gray-400">{m.count}</span>
             </a>

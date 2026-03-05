@@ -10,21 +10,21 @@ interface Props {
 const { label, href, count, variant = 'type', imageSrc } = Astro.props;
 
 const bgColors: Record<string, string> = {
-  type: 'bg-sky-50 hover:bg-sky-100 border-sky-100',
+  type: 'bg-accent-bg hover:bg-accent-bg border-accent-bg',
   maker: 'bg-slate-50 hover:bg-slate-100 border-slate-100',
   fish: 'bg-emerald-50 hover:bg-emerald-100 border-emerald-100',
   more: 'bg-gray-50 hover:bg-gray-100 border-gray-200',
 };
 
 const iconColors: Record<string, string> = {
-  type: 'bg-sky-100',
+  type: 'bg-accent-bg',
   maker: 'bg-slate-100',
   fish: 'bg-emerald-100',
   more: 'bg-gray-100',
 };
 
 const textColors: Record<string, string> = {
-  type: 'text-sky-800',
+  type: 'text-accent',
   maker: 'text-slate-800',
   fish: 'text-emerald-800',
   more: 'text-gray-500',

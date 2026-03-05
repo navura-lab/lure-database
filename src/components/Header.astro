@@ -2,48 +2,48 @@
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+<header class="sticky top-0 z-50 bg-white/[0.94] backdrop-blur-xl border-b border-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-14">
-      <a href="/" class="flex items-center gap-2 text-gray-900 hover:text-primary transition-colors">
-        <span class="text-xl font-bold tracking-tight">ルアーDB</span>
+      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+        <span class="font-mono text-[20px] font-bold tracking-[2px]">CAST<span class="text-accent">/</span>LOG</span>
       </a>
-      <nav class="flex items-center gap-2 sm:gap-5 text-sm">
+      <nav class="flex items-center gap-3 sm:gap-5 font-mono text-[11px] tracking-[1.5px] uppercase">
         <a
           href="/search/"
           class:list={[
-            'transition-colors',
-            currentPath.startsWith('/search') ? 'text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900'
+            'transition-colors duration-[0.15s]',
+            currentPath.startsWith('/search') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
           ]}
         >
-          検索
+          SEARCH
         </a>
         <a
           href="/type/"
           class:list={[
-            'transition-colors',
-            currentPath.startsWith('/type') ? 'text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900'
+            'transition-colors duration-[0.15s]',
+            currentPath.startsWith('/type') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
           ]}
         >
-          タイプ
+          TYPE
         </a>
         <a
           href="/maker/"
           class:list={[
-            'transition-colors',
-            currentPath.startsWith('/maker') ? 'text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900'
+            'transition-colors duration-[0.15s]',
+            currentPath.startsWith('/maker') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
           ]}
         >
-          メーカー
+          MAKER
         </a>
         <a
           href="/fish/"
           class:list={[
-            'transition-colors',
-            currentPath.startsWith('/fish') ? 'text-gray-900 font-medium' : 'text-gray-500 hover:text-gray-900'
+            'transition-colors duration-[0.15s]',
+            currentPath.startsWith('/fish') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
           ]}
         >
-          対象魚
+          SPECIES
         </a>
       </nav>
     </div>

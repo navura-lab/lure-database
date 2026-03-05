@@ -1,0 +1,210 @@
+---
+interface TypeItem {
+  name: string;
+  slug: string;
+  count: number;
+  image: string | null;
+}
+
+interface MakerItem {
+  name: string;
+  slug: string;
+  count: number;
+}
+
+interface FishItem {
+  name: string;
+  slug: string;
+  count: number;
+}
+
+interface Props {
+  types: TypeItem[];
+  makers: MakerItem[];
+  fish: FishItem[];
+  remainingTypeCount: number;
+  remainingMakerCount: number;
+  remainingFishCount: number;
+  makerLogos: Record<string, string>;
+}
+
+const { types, makers, fish, remainingTypeCount, remainingMakerCount, remainingFishCount, makerLogos } = Astro.props;
+---
+
+<div class="max-w-[960px] mx-auto border border-border rounded-xl overflow-hidden bg-bg">
+  <!-- タブ行 -->
+  <div class="flex border-b border-border px-4" role="tablist">
+    <button
+      role="tab"
+      aria-selected="true"
+      data-tab="type"
+      class="portal-tab portal-tab--active px-4 py-3.5 font-mono text-[13px] font-bold border-b-2 border-accent text-text transition-colors duration-[0.15s]"
+    >
+      /TYPE
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      data-tab="species"
+      class="portal-tab px-4 py-3.5 font-mono text-[13px] font-bold border-b-2 border-transparent text-text-dim transition-colors duration-[0.15s]"
+    >
+      /SPECIES
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      data-tab="maker"
+      class="portal-tab px-4 py-3.5 font-mono text-[13px] font-bold border-b-2 border-transparent text-text-dim transition-colors duration-[0.15s]"
+    >
+      /MAKER
+    </button>
+  </div>
+
+  <!-- タブコンテンツ: TYPE -->
+  <div data-panel="type" class="portal-panel p-4">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      {types.map(t => (
+        <a
+          href={`/type/${t.slug}/`}
+          class="flex flex-col items-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
+        >
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden flex items-center justify-center mb-2 bg-elevated">
+            {t.image ? (
+              <img src={t.image} alt={t.name} class="w-8 h-8 sm:w-10 sm:h-10 object-contain" loading="lazy" />
+            ) : (
+              <span class="font-mono text-[9px] text-text-dim">{t.slug}</span>
+            )}
+          </div>
+          <span class="text-[14px] font-bold text-text">{t.name}</span>
+          <span class="font-mono text-[11px] text-text-dim mt-1">{t.count.toLocaleString()}</span>
+        </a>
+      ))}
+      <a
+        href="/type/"
+        class="flex flex-col items-center justify-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
+      >
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-2 bg-elevated">
+          <svg class="w-5 h-5 text-text-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01" />
+          </svg>
+        </div>
+        <span class="text-[14px] font-bold text-text-dim">more</span>
+        <span class="font-mono text-[11px] text-text-faint mt-1">+{remainingTypeCount}</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- タブコンテンツ: SPECIES -->
+  <div data-panel="species" class="portal-panel p-4 hidden">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      {fish.map(f => (
+        <a
+          href={`/fish/${f.slug}/`}
+          class="flex flex-col items-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
+        >
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden flex items-center justify-center mb-2 bg-elevated">
+            <img src={`/icons/fish/${f.slug}.svg`} alt={f.name} class="w-6 h-6 sm:w-8 sm:h-8 object-contain" loading="lazy" />
+          </div>
+          <span class="text-[14px] font-bold text-text">{f.name}</span>
+          <span class="font-mono text-[11px] text-text-dim mt-1">{f.count.toLocaleString()}</span>
+        </a>
+      ))}
+      <a
+        href="/fish/"
+        class="flex flex-col items-center justify-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
+      >
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-2 bg-elevated">
+          <svg class="w-5 h-5 text-text-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01" />
+          </svg>
+        </div>
+        <span class="text-[14px] font-bold text-text-dim">more</span>
+        <span class="font-mono text-[11px] text-text-faint mt-1">+{remainingFishCount}</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- タブコンテンツ: MAKER -->
+  <div data-panel="maker" class="portal-panel p-4 hidden">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      {makers.map(m => (
+        <a
+          href={`/${m.slug}/`}
+          class="flex flex-col items-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
+        >
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden flex items-center justify-center mb-2 bg-elevated">
+            {makerLogos[m.slug] ? (
+              <img src={makerLogos[m.slug]} alt={m.name} class="w-8 h-8 sm:w-10 sm:h-10 object-contain" loading="lazy" />
+            ) : (
+              <span class="font-mono text-[9px] text-text-dim font-bold">{m.name.slice(0, 3)}</span>
+            )}
+          </div>
+          <span class="text-[14px] font-bold text-text">{m.name}</span>
+          <span class="font-mono text-[11px] text-text-dim mt-1">{m.count.toLocaleString()}</span>
+        </a>
+      ))}
+      <a
+        href="/maker/"
+        class="flex flex-col items-center justify-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
+      >
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-2 bg-elevated">
+          <svg class="w-5 h-5 text-text-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01" />
+          </svg>
+        </div>
+        <span class="text-[14px] font-bold text-text-dim">more</span>
+        <span class="font-mono text-[11px] text-text-faint mt-1">+{remainingMakerCount}</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- 検索バー行 -->
+  <div class="border-t border-border px-4 py-3 flex gap-2">
+    <form action="/search/" method="get" class="flex gap-2 w-full">
+      <div class="relative flex-1">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          type="text"
+          name="q"
+          placeholder="フリーワードで検索..."
+          class="w-full pl-10 pr-4 py-2.5 border border-border rounded text-[14px] focus:border-accent focus:outline-none transition-colors duration-[0.15s]"
+        />
+      </div>
+      <button
+        type="submit"
+        class="bg-accent text-white font-mono font-bold text-[13px] px-6 py-2.5 rounded tracking-[1px] hover:bg-accent-dark transition-colors duration-[0.15s]"
+      >
+        SEARCH
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.portal-tab');
+  const panels = document.querySelectorAll<HTMLDivElement>('.portal-panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+
+      // タブの切り替え
+      tabs.forEach(t => {
+        const isActive = t.dataset.tab === target;
+        t.classList.toggle('portal-tab--active', isActive);
+        t.classList.toggle('border-accent', isActive);
+        t.classList.toggle('text-text', isActive);
+        t.classList.toggle('border-transparent', !isActive);
+        t.classList.toggle('text-text-dim', !isActive);
+        t.setAttribute('aria-selected', String(isActive));
+      });
+
+      // パネルの切り替え
+      panels.forEach(p => {
+        p.classList.toggle('hidden', p.dataset.panel !== target);
+      });
+    });
+  });
+</script>

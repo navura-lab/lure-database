@@ -24,15 +24,15 @@ const breadcrumbLd = {
 ---
 
 <BaseLayout
-  title="ルアー検索 - ルアーDB"
+  title="ルアー検索 - CAST/LOG"
   description={`国内主要メーカーのルアーを検索。${series.length}シリーズ・${lures?.length ?? 0}カラー登録。`}
   canonicalPath="/search/"
   noindex={true}
   jsonLd={breadcrumbLd as unknown as Record<string, unknown>}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
-    <nav class="text-sm text-text-secondary mb-4">
-      <a href="/" class="hover:text-primary transition-colors">トップ</a>
+    <nav class="text-sm text-text-mid mb-4">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
       <span class="mx-2">/</span>
       <span class="text-gray-900">検索</span>
     </nav>
@@ -42,20 +42,20 @@ const breadcrumbLd = {
   <FilterBar manufacturers={manufacturers} types={types} targetFish={targetFish} />
 
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <p id="results-count" class="text-sm text-text-secondary mb-6"></p>
+    <p id="results-count" class="text-sm text-text-mid mb-6"></p>
 
     <div id="lure-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
     </div>
 
     <div id="load-spinner" class="py-8 text-center">
-      <div class="inline-block h-6 w-6 animate-spin rounded-full border-2 border-sky-500 border-t-transparent"></div>
+      <div class="inline-block h-6 w-6 animate-spin rounded-full border-2 border-accent border-t-transparent"></div>
     </div>
 
     <div id="load-more-sentinel" class="h-4"></div>
 
     <div id="no-results" class="hidden text-center py-16">
-      <p class="text-text-secondary">条件に一致するルアーが見つかりません</p>
-      <button data-filter-reset class="mt-4 text-primary text-sm font-medium hover:underline">
+      <p class="text-text-mid">条件に一致するルアーが見つかりません</p>
+      <button data-filter-reset class="mt-4 text-accent text-sm font-medium hover:underline">
         フィルターをリセット
       </button>
     </div>
@@ -170,7 +170,7 @@ const breadcrumbLd = {
 
     const imgHtml = d.representative_image
       ? `<img src="${escHtml(d.representative_image)}" alt="${escHtml(d.manufacturer)} ${escHtml(d.name)} ${escHtml(d.type)}" loading="lazy" width="500" height="375" class="w-full h-full object-scale-down p-3">`
-      : `<div class="placeholder-lure-bg w-full h-full flex items-center justify-center"><span class="text-xs text-sky-400">${escHtml(d.type)}</span></div>`;
+      : `<div class="placeholder-lure-bg w-full h-full flex items-center justify-center"><span class="text-xs text-accent">${escHtml(d.type)}</span></div>`;
 
     const badges = [
       d.is_new ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-amber-50 text-amber-700 border-amber-200">新着</span>` : '',
@@ -184,10 +184,10 @@ const breadcrumbLd = {
           <div class="absolute top-2 right-2 flex flex-col gap-1">${badges}</div>
         </div>
         <div class="p-4">
-          <p class="text-xs text-text-secondary tracking-wider uppercase mb-1">${escHtml(d.manufacturer)}</p>
-          <h3 class="text-base font-bold text-gray-900 mb-1.5 group-hover:text-primary transition-colors">${escHtml(d.name)}</h3>
-          <div class="flex items-center gap-1.5 text-xs text-text-secondary mb-3">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-sky-50 text-sky-700 border-sky-200">${escHtml(d.type)}</span>
+          <p class="text-xs text-text-mid tracking-wider uppercase mb-1">${escHtml(d.manufacturer)}</p>
+          <h3 class="text-base font-bold text-gray-900 mb-1.5 group-hover:text-accent transition-colors">${escHtml(d.name)}</h3>
+          <div class="flex items-center gap-1.5 text-xs text-text-mid mb-3">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-accent-bg text-accent border-accent">${escHtml(d.type)}</span>
             <span>${d.color_count}カラー</span>
           </div>
           ${priceDisplay ? `<p class="text-sm font-bold text-gray-900">${priceDisplay}</p>` : ''}

@@ -1,22 +1,49 @@
 @import "tailwindcss";
 @import "@fontsource-variable/noto-sans-jp";
+@import "@fontsource-variable/jetbrains-mono";
 
 @theme {
-  --color-primary: #0ea5e9;
-  --color-primary-light: #e0f2fe;
-  --color-accent-new: #f59e0b;
-  --color-accent-limited: #8b5cf6;
-  --color-surface: #ffffff;
-  --color-surface-hover: #f9fafb;
-  --color-border: #f3f4f6;
-  --color-text-primary: #111827;
-  --color-text-secondary: #6b7280;
-  --color-text-tertiary: #9ca3af;
+  /* ── Base ── */
+  --color-bg:           #FFFFFF;
+  --color-surface:      #F7F7F7;
+  --color-elevated:     #EEEEEE;
+  --color-border:       #E0E0E0;
+  --color-border-light: #F0F0F0;
 
-  --font-sans: 'Noto Sans JP Variable', 'Noto Sans JP', system-ui, -apple-system, sans-serif;
+  /* ── Accent (使用面積 ≤5%) ── */
+  --color-accent:       #00C78A;
+  --color-accent-dark:  #00A572;
+  --color-accent-bg:    #E8FBF3;
 
-  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04);
-  --shadow-card-hover: 0 4px 12px 0 rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.04);
+  /* ── Text ── */
+  --color-text:         #1A1A1A;
+  --color-text-mid:     #555555;
+  --color-text-dim:     #999999;
+  --color-text-faint:   #CCCCCC;
+
+  /* ── Functional ── */
+  --color-success:      #00C78A;
+  --color-error:        #E53E3E;
+  --color-warning:      #D69E2E;
+  --color-info:         #3182CE;
+
+  /* ── Badge ── */
+  --color-new:          #f59e0b;
+  --color-limited:      #8b5cf6;
+
+  /* ── Dark Section (CTA/Footer用) ── */
+  --color-dark:         #111111;
+  --color-dark-surface: #1A1A1A;
+  --color-dark-text:    #EEEEEE;
+  --color-dark-dim:     #666666;
+
+  /* ── Fonts ── */
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+  --font-sans: 'Noto Sans JP Variable', 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+
+  /* ── Shadows ── */
+  --shadow-card:       0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 4px 24px rgba(0, 0, 0, 0.1);
 }
 
 html {
@@ -26,5 +53,5 @@ html {
 }
 
 .placeholder-lure-bg {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdf4 100%);
+  background: var(--color-surface);
 }
