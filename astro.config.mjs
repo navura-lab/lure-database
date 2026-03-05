@@ -10,7 +10,12 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   adapter: vercel(),
-  integrations: [sitemap()],
+  integrations: [sitemap({
+    changefreq: 'weekly',
+    priority: 0.7,
+    lastmod: new Date(),
+    filter: (page) => !page.includes('/search/') && !page.includes('/trap/'),
+  })],
   vite: {
     plugins: [tailwindcss()]
   }
