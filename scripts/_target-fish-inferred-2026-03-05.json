@@ -1,0 +1,8706 @@
+[
+  {
+    "slug": "zvsv1ka",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン レイジーファシャッド",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "jz4hubt",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン スイッチヒッター DH",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "b13af5o",
+    "manufacturer_slug": "daiwa",
+    "name": "ショアラインシャイナーZ バーティス R レーザーインパクト",
+    "type": "ミノー",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "5j5777l",
+    "manufacturer_slug": "daiwa",
+    "name": "サムライ メタルビート",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "ekrz1kp",
+    "manufacturer_slug": "daiwa",
+    "name": "メバルハンター",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "55qvohp",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙 中井蟲CURLY 7",
+    "type": "ワーム",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "5xqionw",
+    "manufacturer_slug": "daiwa",
+    "name": "ふく弐",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "ds0e32p",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン SBロデムRアッパー/スペアボディ",
+    "type": "ジグヘッド",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "p6eqtem",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン シャロ－ル",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "17jqko1",
+    "manufacturer_slug": "daiwa",
+    "name": "リベラリストミノー",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "tzsq73b",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダスイカメタルドロッパーTypeSQ S（シンキング）",
+    "type": "スッテ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "dkalube",
+    "manufacturer_slug": "daiwa",
+    "name": "ロックローバー MV",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "pfpygsw",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス　ダートLC",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "du5dyjs",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 ビームスティック極み",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "rnfg2fp",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ ジャイブチョッパー",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "l4lvfa5",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ TBジグII アデル",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "マグロ"
+    ]
+  },
+  {
+    "slug": "4qxl0by",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティポップ",
+    "type": "ポッパー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "huz2stf",
+    "manufacturer_slug": "daiwa",
+    "name": "TGベイト",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "hcrej51",
+    "manufacturer_slug": "daiwa",
+    "name": "ちびふくシャッド弐 / ふくシャッド弐",
+    "type": "スイムベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "tc7tk5j",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ルミオン",
+    "type": "スプーン",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "5ebepm8",
+    "manufacturer_slug": "daiwa",
+    "name": "MMジグ3",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "cv25n5v",
+    "manufacturer_slug": "daiwa",
+    "name": "フラットジャンキー ロデム R シャッド スペアボディ",
+    "type": "スイムベイト",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "p9llvi3",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズイグラ",
+    "type": "スピナーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "7bfwhz1",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバークリーク スピナーSS",
+    "type": "スピナー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "sgvsmcq",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 ふうか",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "ccoud49",
+    "manufacturer_slug": "daiwa",
+    "name": "ドラウンシケーダ REV/ Jr",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "1nn14l6",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズクランポ",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "ztwius8",
+    "manufacturer_slug": "daiwa",
+    "name": "アーモンド",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vss3rqr",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 つゆかぜ レーザーインパクト",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "eq5p9d0",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダスイカメタルドロッパーTypeSQ F RV",
+    "type": "スッテ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "v2p2hkc",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ダブルクラッチ 45F1 tuned by HMKL",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "q70g90z",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバーウルフ ラフトリック",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "9lzvemk",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン スイッチヒッタースリム",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "o832lqc",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン シーバスロデム フラット",
+    "type": "ジグヘッド",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "0w4ilk8",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン シーバスロデムRブレード TG",
+    "type": "ジグヘッド",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "2tdklep",
+    "manufacturer_slug": "daiwa",
+    "name": "フォールベイト TG",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "k63keze",
+    "manufacturer_slug": "daiwa",
+    "name": "ティアドロスピン",
+    "type": "スピンテール",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "3galji6",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ ダブルクラッチ",
+    "type": "シャッド",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "xzzfqd9",
+    "manufacturer_slug": "daiwa",
+    "name": "ドクターミノーIIジョイント",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "f8nofya",
+    "manufacturer_slug": "daiwa",
+    "name": "T.D.ハイパークランク",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "crf2z6w",
+    "manufacturer_slug": "daiwa",
+    "name": "鱒ノ芋虫",
+    "type": "クランクベイト",
+    "target_fish": [
+      "トラウト",
+      "青物"
+    ]
+  },
+  {
+    "slug": "2tg85hj",
+    "manufacturer_slug": "daiwa",
+    "name": "TGベイト SLJ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "rfexxwu",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙ベイラバーフリー β TG ヘッド",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "kth66pg",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン リアルスティールTG",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "rfyr1k6",
+    "manufacturer_slug": "daiwa",
+    "name": "カシューナッツ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "fik7l68",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ガルバスリム",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "バス"
+    ]
+  },
+  {
+    "slug": "nei2tu6",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙シリコンネクタイ ３D やり過ぎカーリー",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "4rdniio",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 夜霧 レーザーインパクト",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "ugs6moo",
+    "manufacturer_slug": "daiwa",
+    "name": "フラットジャンキー ロデム R シャッド",
+    "type": "その他",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "659tcuk",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 ふらり",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "8o6exan",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 稚美ロール",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "j8nnuqm",
+    "manufacturer_slug": "daiwa",
+    "name": "T.D.バイブレーション",
+    "type": "バイブレーション",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "j4uj7ye",
+    "manufacturer_slug": "daiwa",
+    "name": "HRFホグ",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "9rgfjxe",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙替えユニット β SS ゆるふわダンサー",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "8nfbqcv",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス ボート II（ノーマルバージョン）",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "rrksq6q",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバーウルフ アーバンクローラー",
+    "type": "ワーム",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "5jlxsvx",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ フレックスフットボール",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "knrwoj2",
+    "manufacturer_slug": "daiwa",
+    "name": "キッケルカーリー",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "m3vo1t9",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙替えユニット β SS",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "knhs658",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン キャロット 72S",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "nzr4pel",
+    "manufacturer_slug": "daiwa",
+    "name": "アユイングミノーフラット",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "mdsdv4y",
+    "manufacturer_slug": "daiwa",
+    "name": "アユイングミノー SF DR",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "qvk5i47",
+    "manufacturer_slug": "daiwa",
+    "name": "鏡牙ジグ セミロング-QH",
+    "type": "メタルジグ",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "z4ua8qy",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙シリコンネクタイシングルカーリー R",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "man10jf",
+    "manufacturer_slug": "daiwa",
+    "name": "ショアラインシャイナーZ セットアッパー フルバック レーザーインパクト",
+    "type": "ミノー",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "9nozpei",
+    "manufacturer_slug": "daiwa",
+    "name": "アジハンターワーム シラス",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "qu68qjg",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバークリークミノー",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト",
+      "青物"
+    ]
+  },
+  {
+    "slug": "yky3mpe",
+    "manufacturer_slug": "daiwa",
+    "name": "アユイングミノー レーザーインパクト",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "c6ifd5a",
+    "manufacturer_slug": "daiwa",
+    "name": "リアルブレードTG",
+    "type": "ブレードベイト",
+    "target_fish": [
+      "青物",
+      "マグロ"
+    ]
+  },
+  {
+    "slug": "btadfuy",
+    "manufacturer_slug": "daiwa",
+    "name": "アユイングジョイント 110S/110S レーザーインパクト",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "2de0vaw",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ KYジグII アデル",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "ktkkkzc",
+    "manufacturer_slug": "daiwa",
+    "name": "鏡牙ジグ セミロング",
+    "type": "メタルジグ",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "f1pwuoe",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ FKジグ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "93rf0lx",
+    "manufacturer_slug": "daiwa",
+    "name": "鱒ノ筒／鱒ノ筒Jr.",
+    "type": "スプーン",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "46q7d5g",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン スイッチヒッター レーザーインパクト",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "grmtbxe",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 つゆかぜ",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "igffo4a",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ソラリアストロング レーザーインパクト",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "f1rr331",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズクアッドフォーゼ",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "iijne50",
+    "manufacturer_slug": "daiwa",
+    "name": "デカピーナッツ II",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "igyamz9",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズプロップ",
+    "type": "プロップベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "62ez8tl",
+    "manufacturer_slug": "daiwa",
+    "name": "サムライジグR スローフォール",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "2wkka73",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガFKジグSLJ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "p84ie5s",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン スイッチヒッター",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "jns3ciz",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ マダージグ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "マグロ"
+    ]
+  },
+  {
+    "slug": "7hahbqb",
+    "manufacturer_slug": "daiwa",
+    "name": "フラットジャンキー ダックフィンシャッド",
+    "type": "ワーム",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "ppn2kic",
+    "manufacturer_slug": "daiwa",
+    "name": "DR.ミノー2",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "udjznwz",
+    "manufacturer_slug": "daiwa",
+    "name": "ギルネード",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "bdqbu6a",
+    "manufacturer_slug": "daiwa",
+    "name": "サムライ太刀 ケミバイブ",
+    "type": "バイブレーション",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "5qutxkl",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ ポッパー",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "kft0vxv",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人ブレーキンビーム",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "aumx57n",
+    "manufacturer_slug": "daiwa",
+    "name": "鮃狂（フラットジャンキー）ヒラメタルR",
+    "type": "メタルジグ",
+    "target_fish": [
+      "ヒラメ・マゴチ"
+    ]
+  },
+  {
+    "slug": "sv3zyrf",
+    "manufacturer_slug": "daiwa",
+    "name": "アユイング ミノー SS",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "k8l7qrq",
+    "manufacturer_slug": "daiwa",
+    "name": "リアルオキアミワーム タフ",
+    "type": "ワーム",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "g6pqtb4",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 アジングビームFAT",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "ur9wp0g",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ ペンシル",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "jkscns8",
+    "manufacturer_slug": "daiwa",
+    "name": "ちびふく零 / ふく零 / だいふく零",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "u2rumzj",
+    "manufacturer_slug": "daiwa",
+    "name": "アジハンターワーム リング",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "08xfe1f",
+    "manufacturer_slug": "daiwa",
+    "name": "チヌーク激アツ",
+    "type": "スプーン",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "2f7g773",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガSLジグSD（スーパーディープ）",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "32nyoud",
+    "manufacturer_slug": "daiwa",
+    "name": "鱒もろこし",
+    "type": "スプーン",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "lgpmh7y",
+    "manufacturer_slug": "daiwa",
+    "name": "サワラッシュ",
+    "type": "ミノー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "woa1hsx",
+    "manufacturer_slug": "daiwa",
+    "name": "ふく平",
+    "type": "クランクベイト",
+    "target_fish": [
+      "青物",
+      "ナマズ"
+    ]
+  },
+  {
+    "slug": "eyhck5w",
+    "manufacturer_slug": "daiwa",
+    "name": "DRスティックR",
+    "type": "ワーム",
+    "target_fish": [
+      "青物",
+      "マグロ"
+    ]
+  },
+  {
+    "slug": "m4bx7oh",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ダブルクラッチ 60SS tuned by HMKL",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "ye7ge2n",
+    "manufacturer_slug": "daiwa",
+    "name": "鱒ノつぼみ",
+    "type": "スプーン",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "kbhdeh7",
+    "manufacturer_slug": "daiwa",
+    "name": "鱒の小枝 スクリュー",
+    "type": "スプーン",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "hqsffxb",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバークリークミノースローフォールカスタム",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "mpc95tm",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙替えユニット β SS お試しネクタイパック",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "winy2fc",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ フロッサー",
+    "type": "ポッパー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "c5tymn2",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズバズベイト",
+    "type": "バズベイト",
+    "target_fish": [
+      "バス"
+    ]
+  },
+  {
+    "slug": "9nz56uf",
+    "manufacturer_slug": "daiwa",
+    "name": "鱒ノ小枝／鱒ノ小枝Jr.",
+    "type": "スプーン",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "rbyn161",
+    "manufacturer_slug": "daiwa",
+    "name": "TGベイトスリム",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "5mv0zpo",
+    "manufacturer_slug": "daiwa",
+    "name": "フラットジャンキー ロデムR4ブレード",
+    "type": "その他",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "1o1f5os",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙 ブレードブレーカー玉神",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "g03ofog",
+    "manufacturer_slug": "daiwa",
+    "name": "サムライジグR スピン",
+    "type": "スピンテール",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "r0wra3a",
+    "manufacturer_slug": "daiwa",
+    "name": "ブレットン",
+    "type": "スピナー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "m3ga1db",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ カドラー",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "jfssqky",
+    "manufacturer_slug": "daiwa",
+    "name": "チヌーク S",
+    "type": "スプーン",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "rcyz8mv",
+    "manufacturer_slug": "daiwa",
+    "name": "ショアラインシャイナーZ セットアッパー S",
+    "type": "ミノー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "8mvsequ",
+    "manufacturer_slug": "daiwa",
+    "name": "TGベイト神掛",
+    "type": "メタルジグ",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "uplgl13",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ アプナスジョイント",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "l5x2irh",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ シャッド",
+    "type": "シャッド",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "c89a5as",
+    "manufacturer_slug": "daiwa",
+    "name": "BHミニジグ",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス",
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "sj573io",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズバンクハッカークロー",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "qzffxct",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン グルービン",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "klyvy59",
+    "manufacturer_slug": "daiwa",
+    "name": "ＳＷバイブジグＲ",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "jj9q18c",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ ブラーモ",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "wp91bik",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ダブルクラッチ 45S tuned by HMKL",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "j2ewoax",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ アスロック",
+    "type": "スピナーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "teuc0l0",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 プリズナー",
+    "type": "メタルジグ",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "3o26jos",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダスイカメタルドロッパーTypeSQ",
+    "type": "スッテ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "bbvhd3w",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙 ブレードブレーカー玉神ヘッド",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "b9n4wwa",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン スライ",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "tem1r2s",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ダブルクラッチ 60F1 tuned by HMKL",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "7zftf5f",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン モンスターヒッター",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "78zpy9q",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙接続パーツβ",
+    "type": "その他",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "wjpkclo",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 下弦",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "zu6b9rp",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙ブレードブレーカーTG玉神ヘッド",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "d7dln7k",
+    "manufacturer_slug": "daiwa",
+    "name": "クルセイダー",
+    "type": "スプーン",
+    "target_fish": [
+      "トラウト",
+      "青物"
+    ]
+  },
+  {
+    "slug": "egvun2s",
+    "manufacturer_slug": "daiwa",
+    "name": "ミドルゲーム ドラミングシャッド",
+    "type": "ワーム",
+    "target_fish": [
+      "メバル",
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "pnfju4w",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ　スカイフィン",
+    "type": "ミノー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "nmoyr33",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 稚美魚42",
+    "type": "スイムベイト",
+    "target_fish": [
+      "メバル",
+      "青物"
+    ]
+  },
+  {
+    "slug": "6z5bbzk",
+    "manufacturer_slug": "daiwa",
+    "name": "グレートマダク",
+    "type": "その他",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "r6ub6ah",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ミドルアッパーシャッド",
+    "type": "ワーム",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "3t9y7v0",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ソラリアストロング",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "c6t8gkr",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ディーザ",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "dx8s76a",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 澪示威SOLID",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "np7jv8j",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ソラリア",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "j41ybby",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙シリコンネクタイパデシャ",
+    "type": "その他",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "xm9ratg",
+    "manufacturer_slug": "daiwa",
+    "name": "ふく式",
+    "type": "その他",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "6qyjwyh",
+    "manufacturer_slug": "daiwa",
+    "name": "ふく鯰/だいふく鯰",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ナマズ"
+    ]
+  },
+  {
+    "slug": "m97fqdg",
+    "manufacturer_slug": "daiwa",
+    "name": "フラットジャンキー ヒラメタル Ｚ ブレード",
+    "type": "ブレードベイト",
+    "target_fish": [
+      "ヒラメ・マゴチ"
+    ]
+  },
+  {
+    "slug": "ot1zvei",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ワブクラスリム",
+    "type": "クランクベイト",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "cuvwz7e",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダスオモリグエギ",
+    "type": "エギ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "rqtme0g",
+    "manufacturer_slug": "daiwa",
+    "name": "サムライジグR SB",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "uwjv711",
+    "manufacturer_slug": "daiwa",
+    "name": "鏡牙ジグ ベーシック",
+    "type": "メタルジグ",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "c3bsecb",
+    "manufacturer_slug": "daiwa",
+    "name": "メバルハンターワーム シャッド",
+    "type": "ワーム",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "jjoiu5n",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 ピンビーム",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "bk75iut",
+    "manufacturer_slug": "daiwa",
+    "name": "シーバスハンターシンペンＺ",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "0bc2r04",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 稚美シャッド",
+    "type": "シャッド",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "nkxtbyc",
+    "manufacturer_slug": "daiwa",
+    "name": "ワブクラ30DR C&R カスタム",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "uzvycfp",
+    "manufacturer_slug": "daiwa",
+    "name": "MGリトルスピン",
+    "type": "スピンテール",
+    "target_fish": [
+      "メバル",
+      "青物"
+    ]
+  },
+  {
+    "slug": "96a3pji",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 アジングビーム 極み",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "prfzlni",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン トリックアッパー R",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "g8sfxvm",
+    "manufacturer_slug": "daiwa",
+    "name": "Dr.ミノー ジョイント 月下美人カスタム",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "22geo8v",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙テクニカーリー",
+    "type": "その他",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "ur2vxxm",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 小鉄",
+    "type": "メタルジグ",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "2mxzejr",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズクランク",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "pj6atca",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙ブレードブレーカーTG玉神",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "y0qay1s",
+    "manufacturer_slug": "daiwa",
+    "name": "BHカバージグ",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "v7571wo",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ フレックスジグ",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "5123nof",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 源五郎Z",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "xravjer",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ パワーフィネスジグ",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "thtjj6t",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス アモラスジョイント",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "kd0usy8",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 夜霧Z",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "430p4ym",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ スターリングフィッシュ",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "tghykxg",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン モンスタースライダー レーザーインパクト",
+    "type": "ビッグベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "wsviveo",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 上弦",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "6lhsgjh",
+    "manufacturer_slug": "daiwa",
+    "name": "カマスハンターシャッド",
+    "type": "スイムベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "rhowa6t",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ ポップクラッカー",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "iy9nlnr",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティポップ シルバーウルフカスタム",
+    "type": "ポッパー",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "lm2lwk5",
+    "manufacturer_slug": "daiwa",
+    "name": "MADAQ（マダク）",
+    "type": "その他",
+    "target_fish": [
+      "アオリイカ"
+    ]
+  },
+  {
+    "slug": "hx7679m",
+    "manufacturer_slug": "daiwa",
+    "name": "ふく魚／ちびふく魚",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "847n8se",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス イカメタルドロッパー ジョイント",
+    "type": "エギ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "fbg0ifa",
+    "manufacturer_slug": "daiwa",
+    "name": "FKジグTG タチウオ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "ulwmmkl",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ パワーフィネスジグ TYPEカバー",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "1y0dwcv",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン レイジーファシャッド レーザーインパクト",
+    "type": "シャッド",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "4gwzosd",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ FKジグ TG",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "efhx7ig",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 アジング澪示威SOLID",
+    "type": "その他",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "7iw8z27",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 宵カブラ",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ",
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "qeirw28",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙替えユニットβ SS 中井チューン",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "eqm75ws",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ダブルクラッチ 60SHF tuned by HMKL",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "mlwabw1",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 しらすJ",
+    "type": "スイムベイト",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "ir3ru5r",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ ラフライド ヒラマサチューン",
+    "type": "ポッパー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "kv60wxt",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ミニエント レーザーインパクト",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "8be6uz1",
+    "manufacturer_slug": "daiwa",
+    "name": "鏡牙ジグ ベーシック-QH",
+    "type": "メタルジグ",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "8ljbzol",
+    "manufacturer_slug": "daiwa",
+    "name": "タイニースティーズクランク",
+    "type": "クランクベイト",
+    "target_fish": [
+      "マダイ",
+      "ブラックバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "jdgg3tm",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ ツインバズ",
+    "type": "バズベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "i9wqiap",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ カバーチャター",
+    "type": "チャターベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "hi65fyu",
+    "manufacturer_slug": "daiwa",
+    "name": "オーバードライブ レーザーインパクト",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "hji1vmc",
+    "manufacturer_slug": "daiwa",
+    "name": "OBAMARIG SS",
+    "type": "その他",
+    "target_fish": [
+      "シーバス",
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "lzjgdqq",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ニョロクレイジー S/SS",
+    "type": "ワーム",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "pw85qxj",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン クロスカウンター",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "eopcilx",
+    "manufacturer_slug": "daiwa",
+    "name": "ショアラインシャイナーZ セットアッパー S-DR",
+    "type": "ミノー",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "keimt41",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバーウルフ アーバンホグ",
+    "type": "ワーム",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "hrrx9qs",
+    "manufacturer_slug": "daiwa",
+    "name": "ショアラインシャイナーZ セットアッパー レーザーインパクト",
+    "type": "ミノー",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "ykzknhr",
+    "manufacturer_slug": "daiwa",
+    "name": "BHメタルバイブ",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "v62ag37",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人ソードビーム",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "hfkkbn3",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ リバクラ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "cmx0ilq",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ リアルスラッガー",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "xsmfqd3",
+    "manufacturer_slug": "daiwa",
+    "name": "リッキーグラブ",
+    "type": "ワーム",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "iwztp8a",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙 シリコンネクタイ",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "8kg3ks5",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ73チョッパー",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "dzed8x7",
+    "manufacturer_slug": "daiwa",
+    "name": "鱒ノ種",
+    "type": "スプーン",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "ngsehzo",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙替えユニット β SS 玉神チューン",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "x7a5d6g",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 ムーブビーム",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "j59lrk3",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙ベイラバーフリーβ",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "xet47ds",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダスメタルスッテ",
+    "type": "スッテ",
+    "target_fish": [
+      "アオリイカ"
+    ]
+  },
+  {
+    "slug": "awagln4",
+    "manufacturer_slug": "daiwa",
+    "name": "タイニーピーナッツ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "kdqc8dj",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ フィネスストレート",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "op4em6r",
+    "manufacturer_slug": "daiwa",
+    "name": "ピーナッツ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "7uxxqju",
+    "manufacturer_slug": "daiwa",
+    "name": "オーバードライブ",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "ヒラメ",
+      "青物"
+    ]
+  },
+  {
+    "slug": "eiei06q",
+    "manufacturer_slug": "daiwa",
+    "name": "TGベイトタチウオ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "c36utz8",
+    "manufacturer_slug": "daiwa",
+    "name": "サムライ デッドビート",
+    "type": "スピンテール",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "vjkt5ct",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ミドルアッパー",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "wbxo53u",
+    "manufacturer_slug": "daiwa",
+    "name": "エビングスティック",
+    "type": "ワーム",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "2uwujzf",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 ビビビーム",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "m7203cv",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス ボート II RV（ラトルバージョン）",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "0ia3b6l",
+    "manufacturer_slug": "daiwa",
+    "name": "ショアラインシャイナーZ バーティス R",
+    "type": "ミノー",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "8vnfemh",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙 フレアリーフ",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "xfqzdca",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズネコストレートロング",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "ke3oy13",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン セイルアッパー",
+    "type": "スイムベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "pchvei9",
+    "manufacturer_slug": "daiwa",
+    "name": "ムーブホグ",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "t55k352",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ガルバ レーザーインパクト",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "31msoii",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ アトラ",
+    "type": "スプーン",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "hcizpc6",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン バリアール",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "b1dbwz3",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン シーバスロデム フラット スペアボディ",
+    "type": "ジグヘッド",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "74d36vu",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン リアルスティール",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "bguc4bu",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙ベイラバーフリーβヘッド",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "5u6410f",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ イヴ激アツ 2.5",
+    "type": "スプーン",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "pmzghcu",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ステップダート",
+    "type": "スプーン",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "3za9co7",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 S字威",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "07ajbax",
+    "manufacturer_slug": "daiwa",
+    "name": "ドラウンドラゴンフライ",
+    "type": "トップウォーター",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "nzk2oqu",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス フォールLC ラトル",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "rr8e0og",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 デュアルビーム",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "9lk9x90",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン シーバスロデムRブレード",
+    "type": "スピンテール",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "ekakev3",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ワブクラ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "トラウト",
+      "青物"
+    ]
+  },
+  {
+    "slug": "ndrt1ch",
+    "manufacturer_slug": "daiwa",
+    "name": "レーザーチヌークS",
+    "type": "スプーン",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "oisgcus",
+    "manufacturer_slug": "daiwa",
+    "name": "ラトリンチューブキックス",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "102g2em",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダスドロッパーエギ",
+    "type": "スッテ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "j3qhl9w",
+    "manufacturer_slug": "daiwa",
+    "name": "Dジャークベイト SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "q06v0wy",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ガルバストロング",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "バス"
+    ]
+  },
+  {
+    "slug": "qiivwge",
+    "manufacturer_slug": "daiwa",
+    "name": "ムーブベイト",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "6686sr6",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙ワーム 玉神ターボシングルカーリー",
+    "type": "ワーム",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "hpjupun",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙シリコンネクタイ・ツインカーリーR",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "9mo3wu3",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン モンスターウェイク",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "shs6qg0",
+    "manufacturer_slug": "daiwa",
+    "name": "鱒ノ小魚",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "g37fonx",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ガルバ",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "lrr5es2",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバークリークミノージョイント",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "5yab6p7",
+    "manufacturer_slug": "daiwa",
+    "name": "ガストネード",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "7fhsfgj",
+    "manufacturer_slug": "daiwa",
+    "name": "電動ゲーム KYジグ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "ly3bbev",
+    "manufacturer_slug": "daiwa",
+    "name": "ジャグジグ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "ヒラメ",
+      "青物"
+    ]
+  },
+  {
+    "slug": "st35v1t",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ スピナーベイト",
+    "type": "スピナーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "ahsnwur",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ スターリングシャッド",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "4zpn4vq",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ サイレントシャッド",
+    "type": "シャッド",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "9vgjhad",
+    "manufacturer_slug": "daiwa",
+    "name": "BHマルチジグ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "qms79ob",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス フォールLC ラトル typeS",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "c6ycsto",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズクロー",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "g4670m4",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 澪示威R",
+    "type": "バイブレーション",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "7fjmqhp",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ アプナスバグ",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "srqakv4",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ソルトペンシル-F レーザーインパクト",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "ovl56jo",
+    "manufacturer_slug": "daiwa",
+    "name": "SilverCreek スピナー",
+    "type": "スピナー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "ys0d9gt",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダスドロッパーソフト",
+    "type": "スッテ",
+    "target_fish": [
+      "アオリイカ"
+    ]
+  },
+  {
+    "slug": "oon6tnr",
+    "manufacturer_slug": "daiwa",
+    "name": "ドクターミノー ジョイント 5F プレッソチューン",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "ezi3lu5",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバーウルフ アーバンシュリンプ",
+    "type": "ワーム",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "jmul9ur",
+    "manufacturer_slug": "daiwa",
+    "name": "HRFシャッド",
+    "type": "ワーム",
+    "target_fish": [
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "wv7p446",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ CVジグ SLJ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "eyxd06w",
+    "manufacturer_slug": "daiwa",
+    "name": "アユイングミノー SF",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "hlx847f",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ FKジグ TG SLJ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "q066gaz",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス ボート II / ボート II RV 3.5-50",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "gkr0u0h",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバークリークミノーダートカスタム",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "jju8dmq",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン バーストアッパー",
+    "type": "トップウォーター",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "3yuktyu",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ヒソカ",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "frrij0o",
+    "manufacturer_slug": "daiwa",
+    "name": "ふく壱 / ちびふく壱",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "awjmzsd",
+    "manufacturer_slug": "daiwa",
+    "name": "リッキーシャッド",
+    "type": "スイムベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "zevhz2q",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 夕凪",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "mmwjc24",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン スライ スリム",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "3ir6zsw",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダスアモラスジョイント タイプS",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ",
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "u4amr1h",
+    "manufacturer_slug": "daiwa",
+    "name": "クルセイダー 激アツソルト",
+    "type": "スプーン",
+    "target_fish": [
+      "ブラックバス",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "2pwfls7",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙ベイラバーフリーβスターターキット",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "80lcrll",
+    "manufacturer_slug": "daiwa",
+    "name": "ドリフトフリッカー レーザーインパクト",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "g15g2h1",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス シャイン LC レーザーインパクト",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "c2ldspq",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙替えユニット β SS パデシャ極厚",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "xkx6xs1",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン スイッチヒッター DH レーザーインパクト",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "qdhm7hg",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ワブクラJr.",
+    "type": "クランクベイト",
+    "target_fish": [
+      "トラウト",
+      "青物"
+    ]
+  },
+  {
+    "slug": "877r5an",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙 中井ノレソレ",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "5wm88gd",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバーウルフ アーバンツイスター",
+    "type": "ワーム",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "fxet76n",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 稚美ダート",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "zgq727b",
+    "manufacturer_slug": "daiwa",
+    "name": "ミドルゲーム ドラミングクロー",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "f2os8lc",
+    "manufacturer_slug": "daiwa",
+    "name": "HRFカーリー",
+    "type": "ワーム",
+    "target_fish": [
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "dm15uj5",
+    "manufacturer_slug": "daiwa",
+    "name": "ショアラインシャイナーZ バーティス R F-SSR",
+    "type": "ミノー",
+    "target_fish": [
+      "青物",
+      "シーバス",
+      "マグロ"
+    ]
+  },
+  {
+    "slug": "492iiez",
+    "manufacturer_slug": "daiwa",
+    "name": "ハゼクラ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "シーバス",
+      "青物",
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "eejvq2z",
+    "manufacturer_slug": "daiwa",
+    "name": "TGベイトスリムSLJ（スーパーライトジギング）",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "4ghgmep",
+    "manufacturer_slug": "daiwa",
+    "name": "サムライ ショアラバフリー",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ",
+      "青物",
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "1z37cyy",
+    "manufacturer_slug": "daiwa",
+    "name": "ショアラインシャイナーZ セットアッパー ランカーハンター S-DR",
+    "type": "ミノー",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "39q0wjh",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバーウルフ ラフダイバー",
+    "type": "ダイビングペンシル",
+    "target_fish": [
+      "マダイ",
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "xsu4cdw",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ムーバー",
+    "type": "クランクベイト",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "tytbnsb",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ミニエント",
+    "type": "シャッド",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "wsd3t4m",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス ボートジョイント",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "hbypfu9",
+    "manufacturer_slug": "daiwa",
+    "name": "ブラインドボルト",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "seyt18z",
+    "manufacturer_slug": "daiwa",
+    "name": "TGベイト BLJ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "ヒラメ",
+      "青物"
+    ]
+  },
+  {
+    "slug": "y5p21ht",
+    "manufacturer_slug": "daiwa",
+    "name": "Dr.ミノーII エリアチューン",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "tqceuix",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ポッピンバグ / ラトリンポッピンバグ",
+    "type": "ポッパー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "un3mqns",
+    "manufacturer_slug": "daiwa",
+    "name": "ショアラインシャイナーZ セットアッパー フルバック 125S-DR",
+    "type": "ミノー",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "to79cof",
+    "manufacturer_slug": "daiwa",
+    "name": "シュリンピード／シュリンピードJr.",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "70pqn7r",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ クレードアーティス",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "wgcrdwp",
+    "manufacturer_slug": "daiwa",
+    "name": "ダブルクラッチF1 C&R カスタム",
+    "type": "シャッド",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "bfmbm30",
+    "manufacturer_slug": "daiwa",
+    "name": "ワイルドピーナッツ / タイニーワイルドピーナッツ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "マダイ",
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "0v9v9ys",
+    "manufacturer_slug": "daiwa",
+    "name": "ソルティガ スイムチョッパー",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "n6j6a1o",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ メガポッピンバグ",
+    "type": "ポッパー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "727h64y",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン モンスタースライダー",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "541rb1y",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズメタルバイブスリム",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "acnbnh1",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人シラスビーム",
+    "type": "ワーム",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "dn1ujnn",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ　ネコファット",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "xweuuha",
+    "manufacturer_slug": "daiwa",
+    "name": "クルセイダー激アツ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "epecxf5",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 ビームスティック",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "dqhh6hw",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ソルトバイブ",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "wh7rvi3",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙ベイラバーフリーβラバーアソートパック",
+    "type": "その他",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "2a2z2da",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ダブルクラッチ 48F tuned by HMKL",
+    "type": "シャッド",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "pik1mfy",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ダブルクラッチ 75SS tuned by HMKL",
+    "type": "シャッド",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "6sui3nh",
+    "manufacturer_slug": "daiwa",
+    "name": "Dジャークベイト",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "yjk435e",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ベリーロール",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "mv4zgrs",
+    "manufacturer_slug": "daiwa",
+    "name": "サゴシーＺ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "hvs82b5",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 ビームフィッシュ",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "u59ekke",
+    "manufacturer_slug": "daiwa",
+    "name": "プレッソ ラトリンウェイクバグ",
+    "type": "ポッパー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "qkiu67x",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン メトム",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "yqp2suq",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズネコストレート",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "1iim8a8",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 ビビビーム 極み",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "ngcno8l",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ ホグ",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "gpx0ya5",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ベイソールミノー",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "s1fj3g5",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダスダートLC TypeS",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "my587jf",
+    "manufacturer_slug": "daiwa",
+    "name": "ハンクルミノー -スティーズカスタム-",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "2imiacl",
+    "manufacturer_slug": "daiwa",
+    "name": "鏡牙ジグRF（リアフォール）",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "aemcdlp",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバークリークミノーダイビングカスタム",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "eh26tat",
+    "manufacturer_slug": "daiwa",
+    "name": "シルバークリークミノーTG",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト",
+      "青物"
+    ]
+  },
+  {
+    "slug": "45ou1lk",
+    "manufacturer_slug": "daiwa",
+    "name": "T.D.ミノー",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "4tuuyak",
+    "manufacturer_slug": "daiwa",
+    "name": "アンバージグ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "ozfsa7g",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ スプーン",
+    "type": "スプーン",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "2llvo49",
+    "manufacturer_slug": "daiwa",
+    "name": "BHジグスピナー",
+    "type": "メタルジグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "j6c1mhn",
+    "manufacturer_slug": "daiwa",
+    "name": "グリムジグ セミロング",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "svjtdvc",
+    "manufacturer_slug": "daiwa",
+    "name": "ショアラインシャイナーZ バーティス 80S",
+    "type": "ミノー",
+    "target_fish": [
+      "青物",
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "zvra0dc",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙替えユニットβ SS 大鯛チューン",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "ko5iwy8",
+    "manufacturer_slug": "daiwa",
+    "name": "バンクフラッター",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vzmo961",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダスシャインLC TypeS",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "901mnts",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 澪示威60S",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "we674ps",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン クロスウェイク",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "s0nwnqs",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン クロスウェイクR",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "o06r5mk",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙替えユニット β SS やり過ぎカーリー3本針",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "y5stmof",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙タイジギアシスト フロントツイン / リアシングル",
+    "type": "その他",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "fxo43ai",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙 カットスカート",
+    "type": "その他",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "42kub4n",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズスクエア",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "uu8cpk3",
+    "manufacturer_slug": "daiwa",
+    "name": "キッケルウォーカー/キッケルウォーカー BIG",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "3toapj3",
+    "manufacturer_slug": "daiwa",
+    "name": "スティーズ スターリングツイン",
+    "type": "スイムベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "qp0nzpo",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダスボート RV（ラトルバージョン）",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "xkl73xr",
+    "manufacturer_slug": "daiwa",
+    "name": "アユイングジョイント",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "mw9dk8k",
+    "manufacturer_slug": "daiwa",
+    "name": "カマスハンターミノー",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "7c5pl9f",
+    "manufacturer_slug": "daiwa",
+    "name": "サムライジグR",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "l700xej",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 アジングビーム バチコンカスタム ストロング",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "dc3kvy6",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙カレントブレイカートリニティβ",
+    "type": "タイラバ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "apxvytg",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙 中井蟲",
+    "type": "ワーム",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "88yvsgp",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙 タコマラカスベイト",
+    "type": "その他",
+    "target_fish": [
+      "タコ"
+    ]
+  },
+  {
+    "slug": "h5ky4ug",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 アジングビーム バチコンカスタム",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "dhniz0o",
+    "manufacturer_slug": "daiwa",
+    "name": "紅牙カレントブレイカートリニティβヘッド",
+    "type": "タイラバ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "o68hfwf",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス イカメタルスッテ TG",
+    "type": "スッテ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "5sq1gqp",
+    "manufacturer_slug": "daiwa",
+    "name": "鮃狂（フラットジャンキー）ヒラメタルZ II",
+    "type": "メタルジグ",
+    "target_fish": [
+      "ヒラメ・マゴチ"
+    ]
+  },
+  {
+    "slug": "a2mroil",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 アジングビーム",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "zcdica6",
+    "manufacturer_slug": "daiwa",
+    "name": "モアザン ガルバストロング レーザーインパクト",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "バス"
+    ]
+  },
+  {
+    "slug": "416b0gt",
+    "manufacturer_slug": "daiwa",
+    "name": "月下美人 アジングビーム バチコンカスタム MID",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "04g3hlp",
+    "manufacturer_slug": "daiwa",
+    "name": "シーバスハンター バイブZ",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "k8kgy6u",
+    "manufacturer_slug": "daiwa",
+    "name": "エメラルダス イカメタルリグ SS",
+    "type": "スッテ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "slaphog",
+    "manufacturer_slug": "megabass",
+    "name": "SLAPHOG 3.5inch",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vibration-x_ultra",
+    "manufacturer_slug": "megabass",
+    "name": "VIBRATION-X ULTRA",
+    "type": "バイブレーション",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "slash_beat_back_slider",
+    "manufacturer_slug": "megabass",
+    "name": "SLASH BEAT BACK SLIDER",
+    "type": "メタルジグ",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "griffon_bf_sr-x",
+    "manufacturer_slug": "megabass",
+    "name": "GRIFFON Bait Finesse SR-X",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "kirinji_90",
+    "manufacturer_slug": "megabass",
+    "name": "KIRINJI 90",
+    "type": "トップウォーター",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "onimaru",
+    "manufacturer_slug": "megabass",
+    "name": "ONIMARU",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "シーバス",
+      "青物",
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "hazedong_shad_sw",
+    "manufacturer_slug": "megabass",
+    "name": "HAZEDONG SHAD SW",
+    "type": "スイムベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "tk-twister",
+    "manufacturer_slug": "megabass",
+    "name": "TK TWISTER",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "karashi_sw",
+    "manufacturer_slug": "megabass",
+    "name": "KARASHI SW",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "x-nanahan",
+    "manufacturer_slug": "megabass",
+    "name": "X-NANAHAN",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "marine_gang_cookai120",
+    "manufacturer_slug": "megabass",
+    "name": "MARINE GANG Cookai 120",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "ixi_blowly",
+    "manufacturer_slug": "megabass",
+    "name": "IxI BLOWLY",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "fuwabug",
+    "manufacturer_slug": "megabass",
+    "name": "FUWABUG",
+    "type": "ワーム",
+    "target_fish": [
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "megadog",
+    "manufacturer_slug": "megabass",
+    "name": "MEGADOG",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "sonicside",
+    "manufacturer_slug": "megabass",
+    "name": "SonicSide",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "shading-x_r_62",
+    "manufacturer_slug": "megabass",
+    "name": "SHADING-X R 62",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "uoze_swimmer",
+    "manufacturer_slug": "megabass",
+    "name": "UOZE SWIMMER",
+    "type": "スピナーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "x-plose_double-scratch",
+    "manufacturer_slug": "megabass",
+    "name": "X-PLOSE DOUBLE SCRATCH",
+    "type": "プロップベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "live-x_model1",
+    "manufacturer_slug": "megabass",
+    "name": "LIVE-X MODEL1",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "suwitch",
+    "manufacturer_slug": "megabass",
+    "name": "SuWITCH",
+    "type": "スイムベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vibration-x_smatra",
+    "manufacturer_slug": "megabass",
+    "name": "VIBRATION-X SMATRA",
+    "type": "バイブレーション",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "flapslap_sw_lbo",
+    "manufacturer_slug": "megabass",
+    "name": "FLAPSLAP SW LBO",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "deep-six",
+    "manufacturer_slug": "megabass",
+    "name": "DEEP-SIX",
+    "type": "クランクベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "kagelou100f",
+    "manufacturer_slug": "megabass",
+    "name": "KAGELOU 100F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "cookai_slim_120",
+    "manufacturer_slug": "megabass",
+    "name": "Cookai SLIM 120",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "big-m20",
+    "manufacturer_slug": "megabass",
+    "name": "BIG-M 2.0",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "makijig-drop",
+    "manufacturer_slug": "megabass",
+    "name": "MAKI JIG DROP",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "vibration-x_nano",
+    "manufacturer_slug": "megabass",
+    "name": "VIBRATION-X NANO",
+    "type": "バイブレーション",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "ixi-shad_type-3",
+    "manufacturer_slug": "megabass",
+    "name": "I x I SHAD TYPE-3",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "shading-x_r_55",
+    "manufacturer_slug": "megabass",
+    "name": "SHADING-X R 55",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "slash_beat",
+    "manufacturer_slug": "megabass",
+    "name": "SLASH BEAT",
+    "type": "メタルジグ",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "nano_siglett",
+    "manufacturer_slug": "megabass",
+    "name": "NANO SIGLETT",
+    "type": "i字系",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "x-48-acrobat",
+    "manufacturer_slug": "megabass",
+    "name": "X-48 ACROBAT",
+    "type": "ミノー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "taco-le",
+    "manufacturer_slug": "megabass",
+    "name": "TACO-LE",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "kagelou124",
+    "manufacturer_slug": "megabass",
+    "name": "KAGELOU 124F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "vision_oneten-jr-sw",
+    "manufacturer_slug": "megabass",
+    "name": "VISION ONETEN Jr. SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "i-slide187r_sw",
+    "manufacturer_slug": "megabass",
+    "name": "i-SLIDE 187R SW",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "bottle-shrimp",
+    "manufacturer_slug": "megabass",
+    "name": "BOTTLE SHRIMP",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "dog-x-quick-walker-2",
+    "manufacturer_slug": "megabass",
+    "name": "DOG-X QUICK WALKER",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "bottle_shrimp_sw",
+    "manufacturer_slug": "megabass",
+    "name": "BOTTLE SHRIMP SW",
+    "type": "ワーム",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "x-80jr-sw",
+    "manufacturer_slug": "megabass",
+    "name": "X-80Jr. SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "vision-oneten-plus1-sw",
+    "manufacturer_slug": "megabass",
+    "name": "VISION ONETEN +1 SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "hazedong-shad-3inch",
+    "manufacturer_slug": "megabass",
+    "name": "HAZEDONG SHAD 3inch",
+    "type": "ワーム",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "over_rev_crank",
+    "manufacturer_slug": "megabass",
+    "name": "ORC(OVER REV CRANK)",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "konosirus_shad",
+    "manufacturer_slug": "megabass",
+    "name": "KONOSIRUS SHAD",
+    "type": "ビッグベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "x-80-trick-darter",
+    "manufacturer_slug": "megabass",
+    "name": "X-80 TRICK DARTER",
+    "type": "シャッド",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "x-80magnum_sr",
+    "manufacturer_slug": "megabass",
+    "name": "X-80 MAGNUM SR",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "dog-x-jr-coayu-2",
+    "manufacturer_slug": "megabass",
+    "name": "DOG-X Jr.COAYU",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "鮎"
+    ]
+  },
+  {
+    "slug": "baby-popx-2",
+    "manufacturer_slug": "megabass",
+    "name": "BABY POPX",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "scream-x",
+    "manufacturer_slug": "megabass",
+    "name": "SCREAM-X",
+    "type": "プロップベイト",
+    "target_fish": [
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "garuda",
+    "manufacturer_slug": "megabass",
+    "name": "GARUDA",
+    "type": "ビッグベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "kirinji_120",
+    "manufacturer_slug": "megabass",
+    "name": "KIRINJI 120",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "zonk_sinpen_77",
+    "manufacturer_slug": "megabass",
+    "name": "ZONK SINPEN 77",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "taco-le_blade",
+    "manufacturer_slug": "megabass",
+    "name": "TACO-LE BLADE",
+    "type": "その他",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "fat_beagle",
+    "manufacturer_slug": "megabass",
+    "name": "FAT BEAGLE",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "orc_burning_shad",
+    "manufacturer_slug": "megabass",
+    "name": "ORC BURNING SHAD",
+    "type": "シャッド",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "oneten_r_plus3",
+    "manufacturer_slug": "megabass",
+    "name": "ONETEN R+3",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "sleeper_craw",
+    "manufacturer_slug": "megabass",
+    "name": "SLEEPER CRAW",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "batra-x",
+    "manufacturer_slug": "megabass",
+    "name": "BATRA-X",
+    "type": "フロッグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "flapslap",
+    "manufacturer_slug": "megabass",
+    "name": "FLAPSLAP",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "deep-x200_lbo",
+    "manufacturer_slug": "megabass",
+    "name": "DEEP-X200 LBO",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "i-jack",
+    "manufacturer_slug": "megabass",
+    "name": "i-JACK",
+    "type": "トップウォーター",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "taco-le_shake",
+    "manufacturer_slug": "megabass",
+    "name": "TACO-LE シェイク",
+    "type": "その他",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "big_gabot",
+    "manufacturer_slug": "megabass",
+    "name": "BIG GABOT",
+    "type": "フロッグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "kirinji_70",
+    "manufacturer_slug": "megabass",
+    "name": "KIRINJI 70",
+    "type": "トップウォーター",
+    "target_fish": [
+      "シーバス",
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "robin_blade",
+    "manufacturer_slug": "megabass",
+    "name": "ROBIN BLADE",
+    "type": "チャターベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "spark-shad",
+    "manufacturer_slug": "megabass",
+    "name": "SPARK SHAD",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "magdraft_hasu_raver",
+    "manufacturer_slug": "megabass",
+    "name": "MAGDRAFT 鰣 HASU RAVER(S)",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "makinotane",
+    "manufacturer_slug": "megabass",
+    "name": "MAKINOTANE",
+    "type": "その他",
+    "target_fish": [
+      "シーバス",
+      "ヒラメ",
+      "青物",
+      "マダイ",
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "beetle-x_hc",
+    "manufacturer_slug": "megabass",
+    "name": "BEETLE-X HOVER CRAWL",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "i-slide_187r",
+    "manufacturer_slug": "megabass",
+    "name": "i-SLIDE 187R",
+    "type": "ビッグベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vatissa_93f",
+    "manufacturer_slug": "megabass",
+    "name": "VATISSA 93F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "kagelou155f",
+    "manufacturer_slug": "megabass",
+    "name": "KAGELOU 155F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "kanata",
+    "manufacturer_slug": "megabass",
+    "name": "KANATA",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "taco-le-soft",
+    "manufacturer_slug": "megabass",
+    "name": "TACO-LE Soft",
+    "type": "その他",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "grand_siglett",
+    "manufacturer_slug": "megabass",
+    "name": "GRAND SIGLETT",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "i-wing_fry",
+    "manufacturer_slug": "megabass",
+    "name": "i-WING FRY",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "yagot",
+    "manufacturer_slug": "megabass",
+    "name": "YAGOT 3.5inch",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "onimaru_sawara_tune",
+    "manufacturer_slug": "megabass",
+    "name": "ONIMARU SAWARA TUNE",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "シーバス",
+      "青物",
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "genma85s",
+    "manufacturer_slug": "megabass",
+    "name": "GENMA85S",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "gabarin",
+    "manufacturer_slug": "megabass",
+    "name": "GABARIN",
+    "type": "フロッグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vatalion",
+    "manufacturer_slug": "megabass",
+    "name": "VATALION",
+    "type": "バイブレーション",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "x-80jr-fw",
+    "manufacturer_slug": "megabass",
+    "name": "X-80Jr.",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "dog-x_diamante",
+    "manufacturer_slug": "megabass",
+    "name": "DOG-X DIAMANTE",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "cookai_slim_140",
+    "manufacturer_slug": "megabass",
+    "name": "Cookai SLIM 140",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "griffon_bf_mr-x",
+    "manufacturer_slug": "megabass",
+    "name": "GRIFFON Bait Finesse MR-X",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "hadara_trap",
+    "manufacturer_slug": "megabass",
+    "name": "HADARA TRAP",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "sv-3",
+    "manufacturer_slug": "megabass",
+    "name": "SV-3",
+    "type": "スピナーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "hadara-trap70",
+    "manufacturer_slug": "megabass",
+    "name": "HADARA TRAP 70",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "makippa_50g_60g",
+    "manufacturer_slug": "megabass",
+    "name": "MAKIPPA 50g/60g",
+    "type": "スピンテール",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "maki-jig-volt",
+    "manufacturer_slug": "megabass",
+    "name": "MAKI JIG VOLT",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物",
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "oneten_r_hi-float",
+    "manufacturer_slug": "megabass",
+    "name": "ONETEN R Hi-FLOAT",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "ito_shiner_ssr",
+    "manufacturer_slug": "megabass",
+    "name": "ITO SHINER SSR",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "dog-x-speed-slide-2",
+    "manufacturer_slug": "megabass",
+    "name": "DOG-X SPEED SLIDE",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "x-52-acrobat",
+    "manufacturer_slug": "megabass",
+    "name": "X-52 ACROBAT",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "i-slide_265_r",
+    "manufacturer_slug": "megabass",
+    "name": "i-SLIDE 265 R",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "hazedong",
+    "manufacturer_slug": "megabass",
+    "name": "HAZEDONG",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "popping-duck",
+    "manufacturer_slug": "megabass",
+    "name": "POPPING DUCK",
+    "type": "ポッパー",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "x-80-magnum",
+    "manufacturer_slug": "megabass",
+    "name": "X-80 MAGNUM",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "makippa_sawara_tune",
+    "manufacturer_slug": "megabass",
+    "name": "MAKIPPA SAWARA TUNE",
+    "type": "ブレードベイト",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "diving-flapslap",
+    "manufacturer_slug": "megabass",
+    "name": "DIVING FLAPSLAP",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "kagelou-md-98f",
+    "manufacturer_slug": "megabass",
+    "name": "KAGELOU MD 98F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "kemuri_curly",
+    "manufacturer_slug": "megabass",
+    "name": "KEMURI CURLY",
+    "type": "ワーム",
+    "target_fish": [
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "swing_hot",
+    "manufacturer_slug": "megabass",
+    "name": "SWING HOT",
+    "type": "ポッパー",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "vision-oneten-magnum",
+    "manufacturer_slug": "megabass",
+    "name": "VISION ONETEN MAGNUM",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "scream-x_jr",
+    "manufacturer_slug": "megabass",
+    "name": "SCREAM-X Jr.",
+    "type": "プロップベイト",
+    "target_fish": [
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "ixi-shad_type-r",
+    "manufacturer_slug": "megabass",
+    "name": "I x I SHAD TYPE-R",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "genma110s",
+    "manufacturer_slug": "megabass",
+    "name": "GENMA110S",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "deep-x100_lbo",
+    "manufacturer_slug": "megabass",
+    "name": "DEEP-X100 LBO",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "popmax",
+    "manufacturer_slug": "megabass",
+    "name": "POPMAX",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "marine_gang_cookai140",
+    "manufacturer_slug": "megabass",
+    "name": "MARINE GANG Cookai 140",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "x-nanahan_plus1",
+    "manufacturer_slug": "megabass",
+    "name": "X-NANAHAN+1",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "deep-x300",
+    "manufacturer_slug": "megabass",
+    "name": "DEEP-X300",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "big-m40",
+    "manufacturer_slug": "megabass",
+    "name": "BIG-M 4.0",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "propdarter_106",
+    "manufacturer_slug": "megabass",
+    "name": "PROPDARTER 106",
+    "type": "プロップベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "makippa_ffs",
+    "manufacturer_slug": "megabass",
+    "name": "MAKIPPA FFS",
+    "type": "ブレードベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "metal-x-wavingrider",
+    "manufacturer_slug": "megabass",
+    "name": "METAL-X WAVINGRIDER",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "ヒラメ",
+      "青物"
+    ]
+  },
+  {
+    "slug": "vision_oneten_max_lbo",
+    "manufacturer_slug": "megabass",
+    "name": "VISION ONETEN MAX LBO",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vision-oneten-plus-1",
+    "manufacturer_slug": "megabass",
+    "name": "VISION ONETEN +1",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vision_oneten_sr",
+    "manufacturer_slug": "megabass",
+    "name": "VISION ONETEN SR",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "xpod-2",
+    "manufacturer_slug": "megabass",
+    "name": "XPOD",
+    "type": "トップウォーター",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "oneten_r_plus3_hi-float",
+    "manufacturer_slug": "megabass",
+    "name": "ONETEN R+3 Hi-FLOAT",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "dog-x_jr_coayu_sw",
+    "manufacturer_slug": "megabass",
+    "name": "DOG-X Jr. SW",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "oneten_max_lbo_sw",
+    "manufacturer_slug": "megabass",
+    "name": "ONETEN MAX LBO SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "i-wing135",
+    "manufacturer_slug": "megabass",
+    "name": "i-WING 135",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "kagelou_md_156f",
+    "manufacturer_slug": "megabass",
+    "name": "KAGELOU MD 156F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "cookai_bring_130",
+    "manufacturer_slug": "megabass",
+    "name": "Cookai BRING 130",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "metal-x",
+    "manufacturer_slug": "megabass",
+    "name": "METAL-X",
+    "type": "メタルジグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "oneten_r",
+    "manufacturer_slug": "megabass",
+    "name": "ONETEN R",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "konosirus_swimmer",
+    "manufacturer_slug": "megabass",
+    "name": "KONOSIRUS SWIMMER",
+    "type": "ビッグベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "rock_hog",
+    "manufacturer_slug": "megabass",
+    "name": "ROCK HOG",
+    "type": "ワーム",
+    "target_fish": [
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "oneten_r_plus1",
+    "manufacturer_slug": "megabass",
+    "name": "ONETEN R+1",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vision_oneten_plus1_jr",
+    "manufacturer_slug": "megabass",
+    "name": "VISION ONETEN+1 Jr.",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "oneten_r_plus2",
+    "manufacturer_slug": "megabass",
+    "name": "ONETEN R+2",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "magdraft_ayu_twitcher",
+    "manufacturer_slug": "megabass",
+    "name": "MAGDRAFT 鮎 AYU TWITCHER(S)",
+    "type": "スイムベイト",
+    "target_fish": [
+      "鮎"
+    ]
+  },
+  {
+    "slug": "oneten_lbo_sw",
+    "manufacturer_slug": "megabass",
+    "name": "ONETEN LBO SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "karashi_spinner",
+    "manufacturer_slug": "megabass",
+    "name": "KARASHI SPINNER",
+    "type": "プロップベイト",
+    "target_fish": [
+      "バス"
+    ]
+  },
+  {
+    "slug": "giant-dog-x-sw",
+    "manufacturer_slug": "megabass",
+    "name": "GIANT DOG-X SW",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "vibration-x_vatalion_sw-2",
+    "manufacturer_slug": "megabass",
+    "name": "VIBRATION-X VATALION SW",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "jamaica_boa_super_metal",
+    "manufacturer_slug": "megabass",
+    "name": "JAMAICA BOA SUPER METAL",
+    "type": "バズベイト",
+    "target_fish": [
+      "バス"
+    ]
+  },
+  {
+    "slug": "x-80beat-sw",
+    "manufacturer_slug": "megabass",
+    "name": "X-80BEAT SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "x-blazar_sw",
+    "manufacturer_slug": "megabass",
+    "name": "X-BLAZAR SW",
+    "type": "スピンテール",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "x-nanahan_plus1_sw",
+    "manufacturer_slug": "megabass",
+    "name": "X-NANAHAN+1 SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "jamaica_boa_jr_super_metal",
+    "manufacturer_slug": "megabass",
+    "name": "JAMAICA BOA Jr. SUPER METAL",
+    "type": "バズベイト",
+    "target_fish": [
+      "バス"
+    ]
+  },
+  {
+    "slug": "kanata-sw",
+    "manufacturer_slug": "megabass",
+    "name": "KANATA SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "vatalion_sw",
+    "manufacturer_slug": "megabass",
+    "name": "VATALION SW",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "mpw_megadog",
+    "manufacturer_slug": "megabass",
+    "name": "MPW MEGADOG",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "kanata_plus1_sw",
+    "manufacturer_slug": "megabass",
+    "name": "KANATA +1 SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "x-nanahan_sw",
+    "manufacturer_slug": "megabass",
+    "name": "X-NANAHAN SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "magdraft_ayu_twitcher-sf",
+    "manufacturer_slug": "megabass",
+    "name": "MAGDRAFT 鮎 AYU TWITCHER(SF)",
+    "type": "スイムベイト",
+    "target_fish": [
+      "鮎"
+    ]
+  },
+  {
+    "slug": "level-swimmer",
+    "manufacturer_slug": "megabass",
+    "name": "LEVEL SWIMMER",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "zonk-120",
+    "manufacturer_slug": "megabass",
+    "name": "ZONK 120",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "vision-oneten",
+    "manufacturer_slug": "megabass",
+    "name": "VISION ONETEN",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "anthrax",
+    "manufacturer_slug": "megabass",
+    "name": "ANTHRAX",
+    "type": "トップウォーター",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "flapslap_lbo",
+    "manufacturer_slug": "megabass",
+    "name": "FLAPSLAP LBO",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "husky",
+    "manufacturer_slug": "megabass",
+    "name": "HUSKY",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "cutvib55_hw",
+    "manufacturer_slug": "megabass",
+    "name": "CUTVIB 55 HEAVY WEIGHT",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "beagle",
+    "manufacturer_slug": "megabass",
+    "name": "BEAGLE",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "ixi-shad-tx",
+    "manufacturer_slug": "megabass",
+    "name": "IxI SHAD TX",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "kanata_plus1",
+    "manufacturer_slug": "megabass",
+    "name": "KANATA +1",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "x-80magnum_plus1",
+    "manufacturer_slug": "megabass",
+    "name": "X-80 MAGNUM+1",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "big-m75",
+    "manufacturer_slug": "megabass",
+    "name": "BIG-M 7.5",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "live-x-revenge",
+    "manufacturer_slug": "megabass",
+    "name": "LIVE-X REVENGE",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "i-wing_triple_fry",
+    "manufacturer_slug": "megabass",
+    "name": "i-WING TRIPLE FRY",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "siglett-2",
+    "manufacturer_slug": "megabass",
+    "name": "SIGLETT",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "giant-dog-x-2",
+    "manufacturer_slug": "megabass",
+    "name": "GIANT DOG-X",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vibration-x_vatalion",
+    "manufacturer_slug": "megabass",
+    "name": "VIBRATION-X VATALION",
+    "type": "バイブレーション",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "pd_i-loud",
+    "manufacturer_slug": "megabass",
+    "name": "PROP DARTER i-LOUD",
+    "type": "プロップベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "sr-x_griffon",
+    "manufacturer_slug": "megabass",
+    "name": "SR-X GRIFFON",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "tournament_crawler",
+    "manufacturer_slug": "megabass",
+    "name": "TOURNAMENT CRAWLER",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "dark_sleeper",
+    "manufacturer_slug": "megabass",
+    "name": "DARK SLEEPER",
+    "type": "スイムベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "live-x-leviathan",
+    "manufacturer_slug": "megabass",
+    "name": "LIVE-X LEVIATHAN",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "mag-draft",
+    "manufacturer_slug": "megabass",
+    "name": "MAGDRAFT",
+    "type": "スイムベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "x-nanahan_plus2",
+    "manufacturer_slug": "megabass",
+    "name": "X-NANAHAN+2",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "deep-x150",
+    "manufacturer_slug": "megabass",
+    "name": "DEEP-X150",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "sokoppa",
+    "manufacturer_slug": "megabass",
+    "name": "SOKOPPA",
+    "type": "ブレードベイト",
+    "target_fish": [
+      "ヒラメ",
+      "クロダイ",
+      "ハタ"
+    ]
+  },
+  {
+    "slug": "vision-95",
+    "manufacturer_slug": "megabass",
+    "name": "VISION 95",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "gabarin_jr",
+    "manufacturer_slug": "megabass",
+    "name": "GABARIN Jr.",
+    "type": "フロッグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vibration-x_dyna",
+    "manufacturer_slug": "megabass",
+    "name": "VIBRATION-X DYNA",
+    "type": "バイブレーション",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "makippa",
+    "manufacturer_slug": "megabass",
+    "name": "MAKIPPA",
+    "type": "ブレードベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "super-z_z3",
+    "manufacturer_slug": "megabass",
+    "name": "SUPER-Z Z3",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "x-plose_slow-swimmer",
+    "manufacturer_slug": "megabass",
+    "name": "X-PLOSE SLOW SWIMMER",
+    "type": "プロップベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "marine_gang_cookai90",
+    "manufacturer_slug": "megabass",
+    "name": "MARINE GANG Cookai 90",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "tiny_siglett",
+    "manufacturer_slug": "megabass",
+    "name": "TINY SIGLETT",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "mpw_kirinji_90",
+    "manufacturer_slug": "megabass",
+    "name": "MPW KIRINJI 90",
+    "type": "スピナーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "shading-x_r_75",
+    "manufacturer_slug": "megabass",
+    "name": "SHADING-X R 75",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "s-crank",
+    "manufacturer_slug": "megabass",
+    "name": "S-CRANK 1.5 / 1.2",
+    "type": "クランクベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "megadog180",
+    "manufacturer_slug": "megabass",
+    "name": "MEGADOG 180",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "hadara_vib",
+    "manufacturer_slug": "megabass",
+    "name": "HADARA VIB",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "homura_86",
+    "manufacturer_slug": "megabass",
+    "name": "HOMURA 86",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "gorham147f_sw",
+    "manufacturer_slug": "megabass",
+    "name": "GORHAM 147F SW",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "mag-draft_freestyle",
+    "manufacturer_slug": "megabass",
+    "name": "MAGDRAFT FREESTYLE",
+    "type": "スイムベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "gorham_147f",
+    "manufacturer_slug": "megabass",
+    "name": "GORHAM 147F",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "scream-x-orca",
+    "manufacturer_slug": "megabass",
+    "name": "SCREAM-X Orca",
+    "type": "プロップベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "terrier",
+    "manufacturer_slug": "megabass",
+    "name": "TERRIER",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "vatalion190",
+    "manufacturer_slug": "megabass",
+    "name": "VATALION190",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "sleeper-gill",
+    "manufacturer_slug": "megabass",
+    "name": "SLEEPER GILL",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "collie",
+    "manufacturer_slug": "megabass",
+    "name": "COLLIE",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "biran70",
+    "manufacturer_slug": "megabass",
+    "name": "BIRAN 70",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "ixi_furious_05",
+    "manufacturer_slug": "megabass",
+    "name": "IxI FURIOUS 0.5",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vatissa_115f",
+    "manufacturer_slug": "megabass",
+    "name": "VATISSA 115F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "prop-darter-80-2",
+    "manufacturer_slug": "megabass",
+    "name": "PROPDARTER 80",
+    "type": "プロップベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "lates",
+    "manufacturer_slug": "megabass",
+    "name": "LATES FeedingWoofer",
+    "type": "i字系",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "vibration-x_dyna_response",
+    "manufacturer_slug": "megabass",
+    "name": "VIBRATION-X DYNA RESPONSE",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "x-crew",
+    "manufacturer_slug": "megabass",
+    "name": "X-CREW",
+    "type": "スピンテール",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "popx",
+    "manufacturer_slug": "megabass",
+    "name": "POPX",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "megadog-x",
+    "manufacturer_slug": "megabass",
+    "name": "MEGADOG-X",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "anthrax100",
+    "manufacturer_slug": "megabass",
+    "name": "ANTHRAX 100",
+    "type": "トップウォーター",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "dr_choro",
+    "manufacturer_slug": "megabass",
+    "name": "Dr.CHORO",
+    "type": "ワーム",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "xpod-jr-2",
+    "manufacturer_slug": "megabass",
+    "name": "XPOD Jr.",
+    "type": "トップウォーター",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vision-oneten-jr",
+    "manufacturer_slug": "megabass",
+    "name": "VISION ONETEN Jr.",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "ixi_furious_15",
+    "manufacturer_slug": "megabass",
+    "name": "IxI FURIOUS 1.5",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "taco-le_rubber",
+    "manufacturer_slug": "megabass",
+    "name": "TACO-LE RUBBER",
+    "type": "その他",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "tiny_xlayer",
+    "manufacturer_slug": "megabass",
+    "name": "TINY XLAYER",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "karashi_ig",
+    "manufacturer_slug": "megabass",
+    "name": "KARASHI IG",
+    "type": "i字系",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "super-z_z2",
+    "manufacturer_slug": "megabass",
+    "name": "SUPER-Z Z2",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "mr-x_griffon",
+    "manufacturer_slug": "megabass",
+    "name": "MR-X GRIFFON",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "bottom_slash_plus_shad",
+    "manufacturer_slug": "megabass",
+    "name": "BOTTOM SLASH PLUS SHAD",
+    "type": "シャッド",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "halibut90",
+    "manufacturer_slug": "megabass",
+    "name": "HALIBUT90",
+    "type": "ミノー",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "x-blazar",
+    "manufacturer_slug": "megabass",
+    "name": "X-BLAZAR",
+    "type": "バイブレーション",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "x-70",
+    "manufacturer_slug": "megabass",
+    "name": "X-70",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "x-80sw_lbo",
+    "manufacturer_slug": "megabass",
+    "name": "X-80SW LBO",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "x-80sw_lbo_shallow",
+    "manufacturer_slug": "megabass",
+    "name": "X-80SW LBO Shallow",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "knuckle_ld",
+    "manufacturer_slug": "megabass",
+    "name": "The KNUCKLE LD",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "super-z_z1",
+    "manufacturer_slug": "megabass",
+    "name": "SUPER-Z Z1",
+    "type": "バイブレーション",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "ito-shiner",
+    "manufacturer_slug": "megabass",
+    "name": "ITO SHINER",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "taco-le_flasher",
+    "manufacturer_slug": "megabass",
+    "name": "TACO-LE FLASHER",
+    "type": "その他",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "kagelou_md_125f",
+    "manufacturer_slug": "megabass",
+    "name": "KAGELOU MD 125F",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vision_oneten_lbo",
+    "manufacturer_slug": "megabass",
+    "name": "VISION ONETEN LBO",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "haze-st",
+    "manufacturer_slug": "megabass",
+    "name": "HAZE-ST 3.4inch",
+    "type": "ワーム",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "vision_oneten_plus2_jr",
+    "manufacturer_slug": "megabass",
+    "name": "VISION ONETEN+2 Jr.",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "sazanka_140f",
+    "manufacturer_slug": "megabass",
+    "name": "SAZANKA 140F",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "karashi_80",
+    "manufacturer_slug": "megabass",
+    "name": "KARASHI 80",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "dog-x_quick_walker_sw",
+    "manufacturer_slug": "megabass",
+    "name": "DOG-X QUICK WALKER SW",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "karashi",
+    "manufacturer_slug": "megabass",
+    "name": "KARASHI",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "mpw_pops",
+    "manufacturer_slug": "megabass",
+    "name": "MPW POPS",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "spine-x_190f",
+    "manufacturer_slug": "megabass",
+    "name": "SPINE-X 190F",
+    "type": "スイムベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "i-brake",
+    "manufacturer_slug": "megabass",
+    "name": "i-BRAKE",
+    "type": "スイムベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "karashi_80_sw_dartwitcher",
+    "manufacturer_slug": "megabass",
+    "name": "KARASHI 80 SW DarTwitcher",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "karashi80_sw",
+    "manufacturer_slug": "megabass",
+    "name": "KARASHI 80 SW",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "makippa_spinner",
+    "manufacturer_slug": "megabass",
+    "name": "MAKIPPA SPINNER",
+    "type": "ブレードベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "x-nanahan_plus2_sw",
+    "manufacturer_slug": "megabass",
+    "name": "X-NANAHAN+2 SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "dog-x_diamante_sw",
+    "manufacturer_slug": "megabass",
+    "name": "DOG-X DIAMANTE SW",
+    "type": "トップウォーター",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "x-80sw",
+    "manufacturer_slug": "megabass",
+    "name": "X-80SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "margay_sw",
+    "manufacturer_slug": "megabass",
+    "name": "MARGAY SW",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "lbroller",
+    "manufacturer_slug": "evergreen",
+    "name": "LBローラー",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "lastace168",
+    "manufacturer_slug": "evergreen",
+    "name": "ラストエース168",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "jackhammersb",
+    "manufacturer_slug": "evergreen",
+    "name": "ジャックハンマーSB",
+    "type": "チャターベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "streamrogue",
+    "manufacturer_slug": "evergreen",
+    "name": "ストリームローグ",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "jetbeater30",
+    "manufacturer_slug": "evergreen",
+    "name": "ジェットビーター30",
+    "type": "スピナー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "dzone",
+    "manufacturer_slug": "evergreen",
+    "name": "Dゾーン",
+    "type": "スピナーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "vfry",
+    "manufacturer_slug": "evergreen",
+    "name": "Vフライ",
+    "type": "バズベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "stabil",
+    "manufacturer_slug": "evergreen",
+    "name": "スタビル",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "gimlet",
+    "manufacturer_slug": "evergreen",
+    "name": "ギムレット",
+    "type": "ジグヘッド",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "wideseeker",
+    "manufacturer_slug": "evergreen",
+    "name": "ワイドシーカー",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "avenger90s",
+    "manufacturer_slug": "evergreen",
+    "name": "アベンジャー90S",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "bulkygimlet",
+    "manufacturer_slug": "evergreen",
+    "name": "NEWバルキーギムレット",
+    "type": "ジグヘッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "lastace128s",
+    "manufacturer_slug": "evergreen",
+    "name": "ラストエースS(シンキング)",
+    "type": "i字系",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "corsair65",
+    "manufacturer_slug": "evergreen",
+    "name": "コルセア65",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "honesty",
+    "manufacturer_slug": "evergreen",
+    "name": "オネスティ",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "corsair85",
+    "manufacturer_slug": "evergreen",
+    "name": "コルセア85",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "combatcrank180",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットクランク180",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "covercreeper",
+    "manufacturer_slug": "evergreen",
+    "name": "カバークリーパー",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "avenger125f",
+    "manufacturer_slug": "evergreen",
+    "name": "アベンジャー125F",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "wakemagic",
+    "manufacturer_slug": "evergreen",
+    "name": "ウェイクマジック",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "littlemax",
+    "manufacturer_slug": "evergreen",
+    "name": "リトルマックス",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "piccolo",
+    "manufacturer_slug": "evergreen",
+    "name": "ピッコロ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "corsairdrifttune",
+    "manufacturer_slug": "evergreen",
+    "name": "コルセア ドリフトチューン",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "dragginbancho",
+    "manufacturer_slug": "evergreen",
+    "name": "ドラッギン番長",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "lastace75",
+    "manufacturer_slug": "evergreen",
+    "name": "ラストエース",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "metalbancho",
+    "manufacturer_slug": "evergreen",
+    "name": "メタル番長",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "dottail",
+    "manufacturer_slug": "evergreen",
+    "name": "ドットテール",
+    "type": "ワーム",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "ddxover",
+    "manufacturer_slug": "evergreen",
+    "name": "DDエックスオーバー",
+    "type": "クランクベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "bruco50",
+    "manufacturer_slug": "evergreen",
+    "name": "NEWブルーコ50",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "nelmezzo50fs",
+    "manufacturer_slug": "evergreen",
+    "name": "ネルメッツォ50FS",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "wildhunchsr",
+    "manufacturer_slug": "evergreen",
+    "name": "ワイルドハンチSR",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "honesty125f",
+    "manufacturer_slug": "evergreen",
+    "name": "オネスティ125F",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "c4leech",
+    "manufacturer_slug": "evergreen",
+    "name": "C-4リーチ",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "rufen",
+    "manufacturer_slug": "evergreen",
+    "name": "ルーフェン",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "sidestep",
+    "manufacturer_slug": "evergreen",
+    "name": "サイドステップ",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "streamdemon170j",
+    "manufacturer_slug": "evergreen",
+    "name": "ストリームデーモン170J",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "trueround94",
+    "manufacturer_slug": "evergreen",
+    "name": "トゥルーラウンド94",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "swimmingtrooper",
+    "manufacturer_slug": "evergreen",
+    "name": "スイミングトゥルーパー",
+    "type": "スイムベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "esflatfloating",
+    "manufacturer_slug": "evergreen",
+    "name": "エスフラット フローティング",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "littlemaxtgmuscle",
+    "manufacturer_slug": "evergreen",
+    "name": "リトルマックスTGマッスル",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "dzonetg",
+    "manufacturer_slug": "evergreen",
+    "name": "DゾーンTG",
+    "type": "スピナーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "jackhammerbabyjack",
+    "manufacturer_slug": "evergreen",
+    "name": "ジャックハンマー ベイビージャック",
+    "type": "チャターベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "streamdemon140",
+    "manufacturer_slug": "evergreen",
+    "name": "ストリームデーモン140",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "junglewalker",
+    "manufacturer_slug": "evergreen",
+    "name": "ジャングルウォーカー",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "javelinejet",
+    "manufacturer_slug": "evergreen",
+    "name": "ジャベリンジェット",
+    "type": "メタルジグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "egibanchotypexs",
+    "manufacturer_slug": "evergreen",
+    "name": "エギ番長XS エクストラスローシンキング",
+    "type": "エギ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "egibanchonormal",
+    "manufacturer_slug": "evergreen",
+    "name": "エギ番長 ノーマルシンキング",
+    "type": "エギ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "egibanchofuneikasp",
+    "manufacturer_slug": "evergreen",
+    "name": "エギ番長 船イカSP",
+    "type": "エギ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "kickerfrogjr",
+    "manufacturer_slug": "evergreen",
+    "name": "キッカーフロッグJr",
+    "type": "フロッグ",
+    "target_fish": [
+      "バス"
+    ]
+  },
+  {
+    "slug": "egibanchotypexd",
+    "manufacturer_slug": "evergreen",
+    "name": "エギ番長XD エクストラファストシンキング",
+    "type": "エギ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "egibanchotyped",
+    "manufacturer_slug": "evergreen",
+    "name": "エギ番長D ファストシンキング",
+    "type": "エギ",
+    "target_fish": [
+      "イカ"
+    ]
+  },
+  {
+    "slug": "kickerfrog",
+    "manufacturer_slug": "evergreen",
+    "name": "キッカーフロッグ",
+    "type": "フロッグ",
+    "target_fish": [
+      "バス"
+    ]
+  },
+  {
+    "slug": "golddigger600",
+    "manufacturer_slug": "evergreen",
+    "name": "ゴールドディガー600",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "gransearcher55",
+    "manufacturer_slug": "evergreen",
+    "name": "グランサーチャー55",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "streamdemon",
+    "manufacturer_slug": "evergreen",
+    "name": "ストリームデーモン",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "sculpin",
+    "manufacturer_slug": "evergreen",
+    "name": "スカルピン",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "zeruch",
+    "manufacturer_slug": "evergreen",
+    "name": "ゼルク",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "wolfram",
+    "manufacturer_slug": "evergreen",
+    "name": "ウルフラム",
+    "type": "メタルジグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "trueround115f",
+    "manufacturer_slug": "evergreen",
+    "name": "トゥルーラウンド115F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "faith",
+    "manufacturer_slug": "evergreen",
+    "name": "フェイス",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "gransearcher",
+    "manufacturer_slug": "evergreen",
+    "name": "グランサーチャー",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "streamdemon180",
+    "manufacturer_slug": "evergreen",
+    "name": "ストリームデーモン180",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "killerbug23",
+    "manufacturer_slug": "evergreen",
+    "name": "キラーバグ23",
+    "type": "その他",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "bullpointshad",
+    "manufacturer_slug": "evergreen",
+    "name": "NEWブルポイントシャッド",
+    "type": "スイムベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "showerblows777",
+    "manufacturer_slug": "evergreen",
+    "name": "シャワーブローズ77.7",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "capricekid",
+    "manufacturer_slug": "evergreen",
+    "name": "カプリスキッド",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "capriceedge",
+    "manufacturer_slug": "evergreen",
+    "name": "カプリスエッジ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "xover",
+    "manufacturer_slug": "evergreen",
+    "name": "エックスオーバー",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "littlemaxheavyweighttune",
+    "manufacturer_slug": "evergreen",
+    "name": "リトルマックスヘビーウエイトチューンモデル",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "jjminnow",
+    "manufacturer_slug": "evergreen",
+    "name": "J×Jミノー",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト",
+      "青物"
+    ]
+  },
+  {
+    "slug": "royalflashjr",
+    "manufacturer_slug": "evergreen",
+    "name": "ロイヤルフラッシュJr.",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "rattleinwildhunch",
+    "manufacturer_slug": "evergreen",
+    "name": "ラトルインワイルドハンチ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "combatcrank60",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットクランク60",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "showerblowsbigmama",
+    "manufacturer_slug": "evergreen",
+    "name": "シャワーブローズビッグママ",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "gezzy",
+    "manufacturer_slug": "evergreen",
+    "name": "ゲジー",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "javeline",
+    "manufacturer_slug": "evergreen",
+    "name": "ジャベリン",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "zeta",
+    "manufacturer_slug": "evergreen",
+    "name": "ジータ",
+    "type": "バイブレーション",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "wigglla40",
+    "manufacturer_slug": "evergreen",
+    "name": "ウィグラ40",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "general110f",
+    "manufacturer_slug": "evergreen",
+    "name": "ジェネラル110F",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "namu",
+    "manufacturer_slug": "evergreen",
+    "name": "NEWナム",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "ottercrawler",
+    "manufacturer_slug": "evergreen",
+    "name": "オッタークローラー",
+    "type": "クローラーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "metalmaster",
+    "manufacturer_slug": "evergreen",
+    "name": "メタルマスター",
+    "type": "スプーン",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "castingjigsiliconerubber",
+    "manufacturer_slug": "evergreen",
+    "name": "キャスティングジグ シリコンラバーモデル",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "satoujig",
+    "manufacturer_slug": "evergreen",
+    "name": "サトウジグ",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "propmagic95",
+    "manufacturer_slug": "evergreen",
+    "name": "プロップマジック95",
+    "type": "プロップベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "streamseeker",
+    "manufacturer_slug": "evergreen",
+    "name": "ストリームシーカー",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "reactionfootball",
+    "manufacturer_slug": "evergreen",
+    "name": "モード リアクションフットボール",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "showerblows",
+    "manufacturer_slug": "evergreen",
+    "name": "シャワーブローズ",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "shallowhawg",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットクランクシャローホグ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "chamjig",
+    "manufacturer_slug": "evergreen",
+    "name": "チャムジグ",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "jackhammertg",
+    "manufacturer_slug": "evergreen",
+    "name": "ジャックハンマーTG",
+    "type": "チャターベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "combatcrank320",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットクランク320",
+    "type": "クランクベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "bankshadmid",
+    "manufacturer_slug": "evergreen",
+    "name": "バンクシャッドMID",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "gizmo",
+    "manufacturer_slug": "evergreen",
+    "name": "ギズモ",
+    "type": "チャターベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "belcanto",
+    "manufacturer_slug": "evergreen",
+    "name": "ベルカント",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "bubbletornado",
+    "manufacturer_slug": "evergreen",
+    "name": "バブルトルネード",
+    "type": "バズベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "ironmarvie109",
+    "manufacturer_slug": "evergreen",
+    "name": "アイアンマービー109",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "showerblowssoftshell",
+    "manufacturer_slug": "evergreen",
+    "name": "シャワーブローズ ソフトシェル",
+    "type": "フロッグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "jastine",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットペンシルジャスティーン",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "propmagic75",
+    "manufacturer_slug": "evergreen",
+    "name": "プロップマジック75",
+    "type": "プロップベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "piccolodiveshalllow",
+    "manufacturer_slug": "evergreen",
+    "name": "ピッコロ ダイブシャロー",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "esdrivefloatingmodel",
+    "manufacturer_slug": "evergreen",
+    "name": "エスドライブ(フローティングモデル)",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス",
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "ironmarvie",
+    "manufacturer_slug": "evergreen",
+    "name": "アイアンマービー",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "dzonefry",
+    "manufacturer_slug": "evergreen",
+    "name": "Dゾーンフライ",
+    "type": "スピナーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "junglewalkermini",
+    "manufacturer_slug": "evergreen",
+    "name": "ジャングルウォーカー ミニ",
+    "type": "スピナーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "flatforce",
+    "manufacturer_slug": "evergreen",
+    "name": "フラットフォース",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "combatcranktc60",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットクランクTC-60",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "flopclaw",
+    "manufacturer_slug": "evergreen",
+    "name": "フラップクロー",
+    "type": "ワーム",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "capriceneo",
+    "manufacturer_slug": "evergreen",
+    "name": "カプリスネオ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "metalbanchoslim",
+    "manufacturer_slug": "evergreen",
+    "name": "メタル番長スリム",
+    "type": "スッテ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "streamrogue135",
+    "manufacturer_slug": "evergreen",
+    "name": "ストリームローグ135",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "wildhunch",
+    "manufacturer_slug": "evergreen",
+    "name": "ワイルドハンチ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "amazon",
+    "manufacturer_slug": "evergreen",
+    "name": "アマゾン",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "grassripper",
+    "manufacturer_slug": "evergreen",
+    "name": "グラスリッパー",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "c4shrimp",
+    "manufacturer_slug": "evergreen",
+    "name": "C-4シュリンプ",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "esdrive",
+    "manufacturer_slug": "evergreen",
+    "name": "エスドライブ",
+    "type": "ビッグベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "ironmarvie55",
+    "manufacturer_slug": "evergreen",
+    "name": "アイアンマービー55",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "royalflash",
+    "manufacturer_slug": "evergreen",
+    "name": "ロイヤルフラッシュ",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "sidestepsf",
+    "manufacturer_slug": "evergreen",
+    "name": "サイドステップSF",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "craft",
+    "manufacturer_slug": "evergreen",
+    "name": "クラフト",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "wildhunch8footer",
+    "manufacturer_slug": "evergreen",
+    "name": "ワイルドハンチ8フッター",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "driftbancho",
+    "manufacturer_slug": "evergreen",
+    "name": "ドリフト番長 ノーマルシンキング",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "lastace140swim",
+    "manufacturer_slug": "evergreen",
+    "name": "ラストエース140スイム",
+    "type": "スイムベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "combatcrank400",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットクランク400",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "corsair50",
+    "manufacturer_slug": "evergreen",
+    "name": "コルセア50",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "fluttergizmo",
+    "manufacturer_slug": "evergreen",
+    "name": "NEWフラッターギズモ",
+    "type": "バイブレーション",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "marvie90",
+    "manufacturer_slug": "evergreen",
+    "name": "マービー90",
+    "type": "ポッパー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "dzonepowerblade",
+    "manufacturer_slug": "evergreen",
+    "name": "Dゾーンパワーブレード",
+    "type": "スピナーベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "jackhammer",
+    "manufacturer_slug": "evergreen",
+    "name": "ジャックハンマー",
+    "type": "チャターベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "justine115seabasscolor",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットペンシルジャスティーン115(シーバスカラー)",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "spincraft",
+    "manufacturer_slug": "evergreen",
+    "name": "スピンクラフト",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "justine115",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットペンシルジャスティーン115",
+    "type": "トップウォーター",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "breamslide",
+    "manufacturer_slug": "evergreen",
+    "name": "ブリムスライド",
+    "type": "ビッグベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "seadriverattlinbone",
+    "manufacturer_slug": "evergreen",
+    "name": "シードライブラトリンボーン",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "clutchhitter",
+    "manufacturer_slug": "evergreen",
+    "name": "クラッチヒッター",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "footballjigsiliconerubber",
+    "manufacturer_slug": "evergreen",
+    "name": "フットボールジグ シリコンラバーモデル",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "combatcrank120",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットクランク120",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "showerblowsshorty",
+    "manufacturer_slug": "evergreen",
+    "name": "シャワーブローズショーティー",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "combatrat",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットラット",
+    "type": "フロッグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "tgblow",
+    "manufacturer_slug": "evergreen",
+    "name": "TGブロー",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "onesbug",
+    "manufacturer_slug": "evergreen",
+    "name": "ワンズバグ",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "zeruchpetit",
+    "manufacturer_slug": "evergreen",
+    "name": "ゼルク プティ",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "seadrive",
+    "manufacturer_slug": "evergreen",
+    "name": "シードライブ",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "marvie50",
+    "manufacturer_slug": "evergreen",
+    "name": "マービー50",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "lastace80f",
+    "manufacturer_slug": "evergreen",
+    "name": "ラストエースF(フローティング)",
+    "type": "i字系",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "popperfrog",
+    "manufacturer_slug": "evergreen",
+    "name": "ポッパーフロッグ",
+    "type": "フロッグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "loudbuzz",
+    "manufacturer_slug": "evergreen",
+    "name": "ラウドバズ",
+    "type": "バズベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "timberflash",
+    "manufacturer_slug": "evergreen",
+    "name": "ティンバーフラッシュ",
+    "type": "ビッグベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "bankshad",
+    "manufacturer_slug": "evergreen",
+    "name": "バンクシャッド",
+    "type": "シャッド",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "combatcrank480",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットクランク480",
+    "type": "クランクベイト",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "truespinjig",
+    "manufacturer_slug": "evergreen",
+    "name": "トゥルースピンジグ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "marvie70",
+    "manufacturer_slug": "evergreen",
+    "name": "マービー70",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "faith87",
+    "manufacturer_slug": "evergreen",
+    "name": "フェイス87",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "combatcrank250",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットクランク250",
+    "type": "クランクベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "c4jig",
+    "manufacturer_slug": "evergreen",
+    "name": "C-4ジグ",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "irjig",
+    "manufacturer_slug": "evergreen",
+    "name": "IRジグ",
+    "type": "ラバージグ",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "showerblowsbigmamaseabasscolor",
+    "manufacturer_slug": "evergreen",
+    "name": "シャワーブローズビッグママ(シーバスカラー)",
+    "type": "ポッパー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "ironmarvie40",
+    "manufacturer_slug": "evergreen",
+    "name": "アイアンマービー40",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "justineseabasscolor",
+    "manufacturer_slug": "evergreen",
+    "name": "コンバットペンシルジャスティーン(シーバスカラー)",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "spearhead-ryuki-m-aire",
+    "manufacturer_slug": "duo",
+    "name": "SPEARHEAD RYUKI M-AIRE",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "tetra-works-totoshad",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS TOTOSHAD",
+    "type": "シャッド",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "tetra-works-spin",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS SPIN",
+    "type": "スピンテール",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "realis-fangstick-150",
+    "manufacturer_slug": "duo",
+    "name": "REALIS FANGSTICK  150",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "bay-ruf-br-chatter-fish-set",
+    "manufacturer_slug": "duo",
+    "name": "Bay RUF BR CHATTER FISH SET",
+    "type": "チャターベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "duo-130",
+    "manufacturer_slug": "duo",
+    "name": "擬鮎",
+    "type": "その他",
+    "target_fish": [
+      "鮎"
+    ]
+  },
+  {
+    "slug": "bay-ruf-manic-75",
+    "manufacturer_slug": "duo",
+    "name": "Bay RUF MANIC 75",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "realis-fangshad-140sr",
+    "manufacturer_slug": "duo",
+    "name": "REALIS FANGSHAD 140SR",
+    "type": "ビッグベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "tetra-works-uber",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS UBER",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "tetra-works-grapper",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS GRAPPER",
+    "type": "ワーム",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "tetra-works-movvy",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS MOVVY",
+    "type": "ワーム",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "tetra-works-kurakura-floating",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS KURAKURA floating",
+    "type": "クランクベイト",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "deprive-deprive",
+    "manufacturer_slug": "duo",
+    "name": "DEPRIVE DEPRIVE",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "spearhead-ryuki-vib",
+    "manufacturer_slug": "duo",
+    "name": "SPEARHEAD RYUKI VIB",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "duod-3",
+    "manufacturer_slug": "duo",
+    "name": "DUO×D-3 真福蝉",
+    "type": "トップウォーター",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "beach-walker-limber-95s",
+    "manufacturer_slug": "duo",
+    "name": "Beach Walker Limber 95S",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "bay-ruf-br-chatter-shad-set",
+    "manufacturer_slug": "duo",
+    "name": "Bay RUF BR CHATTER SHAD SET",
+    "type": "チャターベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "rough-trail-makiflat-155f",
+    "manufacturer_slug": "duo",
+    "name": "ROUGH TRAIL MAKIFLAT 155F",
+    "type": "ビッグベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "beach-walker-axcion-95s",
+    "manufacturer_slug": "duo",
+    "name": "Beach Walker Axcion 95S",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "rough-trail-borapen-245f",
+    "manufacturer_slug": "duo",
+    "name": "ROUGH TRAIL BORAPEN 245F",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "beach-walker-jumgo-shad-set",
+    "manufacturer_slug": "duo",
+    "name": "Beach Walker Jumgo Shad Set",
+    "type": "ジグヘッド",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "beach-walker-wedge-95s",
+    "manufacturer_slug": "duo",
+    "name": "Beach Walker Wedge 95S",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "realis-fangpop-105",
+    "manufacturer_slug": "duo",
+    "name": "REALIS FANGPOP 105",
+    "type": "ポッパー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "deep-feat-87drf",
+    "manufacturer_slug": "duo",
+    "name": "DEEP FEAT 87DRF",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "rough-trail-fumble-230f",
+    "manufacturer_slug": "duo",
+    "name": "ROUGH TRAIL FUMBLE 230F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "tetra-works-totofat-35f",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS TOTOFAT 35F",
+    "type": "ミノー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "drag-metal-force-force",
+    "manufacturer_slug": "duo",
+    "name": "Drag Metal Force Force",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "spearhead-ryuki-quattro-70s",
+    "manufacturer_slug": "duo",
+    "name": "SPEARHEAD RYUKI QUATTRO 70S",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "tide-minnow-75-sprint-trout",
+    "manufacturer_slug": "duo",
+    "name": "Tide Minnow 75 SPRINT TROUT",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "rough-trail-kono-flat-160f",
+    "manufacturer_slug": "duo",
+    "name": "ROUGH TRAIL KONO FLAT 160F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "beach-walker-flipper-32",
+    "manufacturer_slug": "duo",
+    "name": "Beach Walker Flipper 32",
+    "type": "スピンテール",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "tetra-works-bokeboke",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS BOKEBOKE",
+    "type": "ワーム",
+    "target_fish": [
+      "シーバス",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "duo-149",
+    "manufacturer_slug": "duo",
+    "name": "流鮎 DEEP",
+    "type": "ミノー",
+    "target_fish": [
+      "鮎"
+    ]
+  },
+  {
+    "slug": "realis-fangripper-110",
+    "manufacturer_slug": "duo",
+    "name": "REALIS FANGRIPPER 110",
+    "type": "ミノー",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "metal-garage-plate-vib-plate-vib",
+    "manufacturer_slug": "duo",
+    "name": "Metal Garage PLATE-VIB PLATE-VIB",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス",
+      "ヒラメ",
+      "青物"
+    ]
+  },
+  {
+    "slug": "duo-118",
+    "manufacturer_slug": "duo",
+    "name": "鬼鱒 正影 90F",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "realis-fangjaw-110",
+    "manufacturer_slug": "duo",
+    "name": "REALIS FANGJAW 110",
+    "type": "ミノー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "beach-walker-guado-130s",
+    "manufacturer_slug": "duo",
+    "name": "Beach Walker Guado 130S",
+    "type": "ミノー",
+    "target_fish": [
+      "ヒラメ",
+      "青物"
+    ]
+  },
+  {
+    "slug": "spearhead-ryuki-sw-limited-45s50s60s",
+    "manufacturer_slug": "duo",
+    "name": "SPEARHEAD RYUKI SW LIMITED 45S/50S/60S",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "realis-rozante-77sp-sw-limited",
+    "manufacturer_slug": "duo",
+    "name": "REALIS ROZANTE 77SP SW LIMITED",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "duo-119",
+    "manufacturer_slug": "duo",
+    "name": "鬼鱒 神楽 55F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "realis-jerkbait-sw-limited-100drs",
+    "manufacturer_slug": "duo",
+    "name": "REALIS JERKBAIT SW LIMITED 100DRS",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "tetra-works-tetrajig",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS TETRAJIG",
+    "type": "メタルジグ",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "tetra-works-pocopoco",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS POCOPOCO",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "drag-metal-tg-madai",
+    "manufacturer_slug": "duo",
+    "name": "Drag Metal TG MADAI",
+    "type": "メタルジグ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "bay-ruf-seek-128s-slight",
+    "manufacturer_slug": "duo",
+    "name": "Bay RUF Seek 128S SLIGHT",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "press-bait-kamuy-110",
+    "manufacturer_slug": "duo",
+    "name": "Press Bait KAMUY 110",
+    "type": "ミノー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "drag-metal-tg-heavy",
+    "manufacturer_slug": "duo",
+    "name": "Drag Metal TG Heavy",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "realis-fangbait-80dr",
+    "manufacturer_slug": "duo",
+    "name": "REALIS FANGBAIT 80DR",
+    "type": "ミノー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "rough-trail-malice-130",
+    "manufacturer_slug": "duo",
+    "name": "ROUGH TRAIL MALICE 130",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "drag-metal-slj",
+    "manufacturer_slug": "duo",
+    "name": "Drag Metal SLJ",
+    "type": "メタルジグ",
+    "target_fish": [
+      "ヒラメ",
+      "青物",
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "beach-walker-120md",
+    "manufacturer_slug": "duo",
+    "name": "Beach Walker 120MD",
+    "type": "ミノー",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "beachwalker-changer-105s",
+    "manufacturer_slug": "duo",
+    "name": "BeachWalker Changer 105S",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "tetra-works-yurameki",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS YURAMEKI",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "rough-trail-lightning-190f",
+    "manufacturer_slug": "duo",
+    "name": "ROUGH TRAIL 青政LIGHTNING 190F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "spearhead-ryuki-spin",
+    "manufacturer_slug": "duo",
+    "name": "SPEARHEAD RYUKI SPIN",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "tetra-works-furafura",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS FURAFURA",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "bay-ruf-reprush-62f",
+    "manufacturer_slug": "duo",
+    "name": "Bay RUF Reprush 62F",
+    "type": "ミノー",
+    "target_fish": [
+      "マダイ",
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "rough-trail-bubbly-135f",
+    "manufacturer_slug": "duo",
+    "name": "ROUGH TRAIL BUBBLY 135F",
+    "type": "ミノー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "press-bait-85",
+    "manufacturer_slug": "duo",
+    "name": "Press Bait 85",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "beach-walker-fulcrum-95s",
+    "manufacturer_slug": "duo",
+    "name": "Beach Walker Fulcrum 95S",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "tide-minnow-slim-120",
+    "manufacturer_slug": "duo",
+    "name": "Tide Minnow Slim 120",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "tetra-works-totoslim-50s",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS TOTOSLIM 50S",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "terrif-dc-dc-7-bullet",
+    "manufacturer_slug": "duo",
+    "name": "TERRIF DC DC-7 BULLET",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "bay-ruf-tide-vib-60",
+    "manufacturer_slug": "duo",
+    "name": "Bay RUF Tide Vib 60",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "tetra-works-ikakko-ikakko",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS IKAKKO IKAKKO",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "bay-ruf-sv-80-sv-80",
+    "manufacturer_slug": "duo",
+    "name": "Bay RUF SV-80ベイルーフ SV-80",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "bay-ruf-seek-85hw-m-aire",
+    "manufacturer_slug": "duo",
+    "name": "Bay RUF Seek 85HW M-AIRE",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "tide-minnow-ghost-150f",
+    "manufacturer_slug": "duo",
+    "name": "Tide Minnow GHOST  150F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "spearhead-caldera-rockback",
+    "manufacturer_slug": "duo",
+    "name": "SPEARHEAD CALDERA RockBack",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "tetra-works-yurapen",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS YURAPEN",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "メバル",
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "rough-trail-bluedrive-195s",
+    "manufacturer_slug": "duo",
+    "name": "ROUGH TRAIL BLUEDRIVE 195S",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "realis-clawtrap-5-5",
+    "manufacturer_slug": "duo",
+    "name": "REALIS CLAWTRAP 5″レアリス ファング クロートラップ5\"",
+    "type": "ワーム",
+    "target_fish": [
+      "ブラックバス"
+    ]
+  },
+  {
+    "slug": "duo-171",
+    "manufacturer_slug": "duo",
+    "name": "烏賊枕 スッテ 90",
+    "type": "スッテ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "beach-walker-haul-fish-set",
+    "manufacturer_slug": "duo",
+    "name": "Beach Walker Haul Fish Set",
+    "type": "スイムベイト",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "spearhead-ryuki-spinner-35",
+    "manufacturer_slug": "duo",
+    "name": "SPEARHEAD RYUKI SPINNER 3.5",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "duo-172",
+    "manufacturer_slug": "duo",
+    "name": "烏賊枕",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ",
+      "イカ"
+    ]
+  },
+  {
+    "slug": "tetraworks-bivi",
+    "manufacturer_slug": "duo",
+    "name": "TETRAWORKS BIVI",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル",
+      "青物"
+    ]
+  },
+  {
+    "slug": "rough-trail-blazin-70",
+    "manufacturer_slug": "duo",
+    "name": "ROUGH TRAIL BLAZIN 70",
+    "type": "ミノー",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "rough-trail-blazin-85-hokkaido",
+    "manufacturer_slug": "duo",
+    "name": "ROUGH TRAIL BLAZIN 85 Hokkaido",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "realis-popper-64-chinu",
+    "manufacturer_slug": "duo",
+    "name": "REALIS POPPER 64 CHINU",
+    "type": "ポッパー",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "duo-148",
+    "manufacturer_slug": "duo",
+    "name": "流鮎 VIB",
+    "type": "バイブレーション",
+    "target_fish": [
+      "鮎"
+    ]
+  },
+  {
+    "slug": "realis-spin-sw-limited",
+    "manufacturer_slug": "duo",
+    "name": "REALIS SPIN SW LIMITED",
+    "type": "スピンテール",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "realis-pencil-sw-limited-65-chinu",
+    "manufacturer_slug": "duo",
+    "name": "REALIS PENCIL SW LIMITED 65 CHINU",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "クロダイ"
+    ]
+  },
+  {
+    "slug": "realis-shad-62dr-sp-sw-limited",
+    "manufacturer_slug": "duo",
+    "name": "REALIS SHAD 62DR SP SW LIMITED",
+    "type": "シャッド",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "tetra-works-chop",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS Chop",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "drag-metal-cast-cast",
+    "manufacturer_slug": "duo",
+    "name": "Drag Metal Cast Cast",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "tetraworks-jam",
+    "manufacturer_slug": "duo",
+    "name": "TETRAWORKS Jam",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "tetra-works-deliy",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS Deliy",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "tetraworks-fuse",
+    "manufacturer_slug": "duo",
+    "name": "TETRAWORKS Fuse",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "tide-minnow-sprat-100sf",
+    "manufacturer_slug": "duo",
+    "name": "Tide Minnow SPRAT 100SF",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "tide-minnow-75-sprint",
+    "manufacturer_slug": "duo",
+    "name": "Tide Minnow 75 SPRINT",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "トラウト",
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "spearhead-ryuki-dart30s",
+    "manufacturer_slug": "duo",
+    "name": "SPEARHEAD RYUKI DART30S",
+    "type": "ミノー",
+    "target_fish": [
+      "トラウト"
+    ]
+  },
+  {
+    "slug": "tetra-works-burny-burny",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS Burny Burny",
+    "type": "ワーム",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "beachwalker-135md",
+    "manufacturer_slug": "duo",
+    "name": "BeachWalker 135MD",
+    "type": "ミノー",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "bay-ruf-bulk-95f",
+    "manufacturer_slug": "duo",
+    "name": "Bay RUF BULK  95F",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "tide-minnow-lance-110s",
+    "manufacturer_slug": "duo",
+    "name": "Tide Minnow LANCE 110S",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "tide-minnow-specter-135-ssr",
+    "manufacturer_slug": "duo",
+    "name": "Tide Minnow SPECTER 135 SSR",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "tetra-works-toto-42s",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS TOTO 42S",
+    "type": "ミノー",
+    "target_fish": [
+      "メバル"
+    ]
+  },
+  {
+    "slug": "beach-walker-vict-105s",
+    "manufacturer_slug": "duo",
+    "name": "Beach Walker Vict 105S",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "drag-metal-refall",
+    "manufacturer_slug": "duo",
+    "name": "Drag Metal Refall",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "metal-garage-plate-vib-long",
+    "manufacturer_slug": "duo",
+    "name": "Metal Garage PLATE-VIB LONG",
+    "type": "バイブレーション",
+    "target_fish": [
+      "タチウオ"
+    ]
+  },
+  {
+    "slug": "press-bait-metal-kamuy-z35",
+    "manufacturer_slug": "duo",
+    "name": "Press Bait METAL KAMUY Z35",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "tetra-works-pipin",
+    "manufacturer_slug": "duo",
+    "name": "TETRA WORKS Pipin",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "metal-garage-plate-jig-plate-jig",
+    "manufacturer_slug": "duo",
+    "name": "Metal Garage PLATE-JIG PLATE-JIG",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "ヒラメ",
+      "青物"
+    ]
+  },
+  {
+    "slug": "bay-ruf-br-fish-fish",
+    "manufacturer_slug": "duo",
+    "name": "Bay RUF BR FISH FISH",
+    "type": "ワーム",
+    "target_fish": [
+      "アジ"
+    ]
+  },
+  {
+    "slug": "duod-3-clabor",
+    "manufacturer_slug": "duo",
+    "name": "DUO×D-3 CLABOR",
+    "type": "クランクベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "duo-129",
+    "manufacturer_slug": "duo",
+    "name": "流鮎 110F",
+    "type": "その他",
+    "target_fish": [
+      "鮎"
+    ]
+  },
+  {
+    "slug": "metal-adict-type03-16g20g30g40g60g",
+    "manufacturer_slug": "littlejack",
+    "name": "METAL ADICT type03　16g/20g/30g/40g/60g",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "sayoris-182",
+    "manufacturer_slug": "littlejack",
+    "name": "SAYORIS 182",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "ignited-tail-fusion",
+    "manufacturer_slug": "littlejack",
+    "name": "IGNITED TAIL FUSION",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "amezaiku-jp",
+    "manufacturer_slug": "littlejack",
+    "name": "AMEZAIKU JP",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "genuine-shape-jig-heads",
+    "manufacturer_slug": "littlejack",
+    "name": "Genuine Shape Jig Heads",
+    "type": "ジグヘッド",
+    "target_fish": [
+      "青物",
+      "シーバス",
+      "ヒラメ・マゴチ",
+      "ロックフィッシュ",
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "micro-adict-15g20g",
+    "manufacturer_slug": "littlejack",
+    "name": "MICRO ADICT 1.5g/2.0g",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "micro-adict-asymmetry-30g50g",
+    "manufacturer_slug": "littlejack",
+    "name": "MICRO ADICT AsymmetrY 3.0g/5.0g",
+    "type": "メタルジグ",
+    "target_fish": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  {
+    "slug": "onliest",
+    "manufacturer_slug": "littlejack",
+    "name": "ONLIEST",
+    "type": "メタルジグ",
+    "target_fish": [
+      "ヒラメ・マゴチ",
+      "ロックフィッシュ",
+      "アオリイカ",
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "forma-heads",
+    "manufacturer_slug": "littlejack",
+    "name": "FORMA HEADS",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "青物",
+      "ロックフィッシュ"
+    ]
+  },
+  {
+    "slug": "more-keen-01",
+    "manufacturer_slug": "littlejack",
+    "name": "MORE KEEN-01",
+    "type": "メタルバイブ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "metal-adict-06",
+    "manufacturer_slug": "littlejack",
+    "name": "METAL ADICT 06",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "シーバス",
+      "ヒラメ・マゴチ"
+    ]
+  },
+  {
+    "slug": "micro-forma-adict",
+    "manufacturer_slug": "littlejack",
+    "name": "MICRO FORMA ADICT",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "gorgon-125188",
+    "manufacturer_slug": "littlejack",
+    "name": "GORGON 125/188",
+    "type": "ビッグベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "bilhouette",
+    "manufacturer_slug": "littlejack",
+    "name": "BILHOUETTE",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "onliest-slow",
+    "manufacturer_slug": "littlejack",
+    "name": "ONLIEST SLOW",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "gorgon-custom-125188",
+    "manufacturer_slug": "littlejack",
+    "name": "GORGON CUSTOM 125/188",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス"
+    ]
+  },
+  {
+    "slug": "zeigos",
+    "manufacturer_slug": "littlejack",
+    "name": "ZEIGOS",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "mulletino",
+    "manufacturer_slug": "littlejack",
+    "name": "Mulletino -マレッチノ-",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス",
+      "ヒラメ"
+    ]
+  },
+  {
+    "slug": "panicking-survivor",
+    "manufacturer_slug": "littlejack",
+    "name": "Panicking Survivor",
+    "type": "その他",
+    "target_fish": [
+      "青物",
+      "マグロ"
+    ]
+  },
+  {
+    "slug": "forma-stick",
+    "manufacturer_slug": "littlejack",
+    "name": "FORMA STICK",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "青物",
+      "シーバス",
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "metal-adict-typezero-20g30g40g60g80g",
+    "manufacturer_slug": "littlejack",
+    "name": "METAL ADICT typeZERO 20g/30g/40g/60g/80g",
+    "type": "メタルジグ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "charikom",
+    "manufacturer_slug": "littlejack",
+    "name": "CHARIKOM",
+    "type": "バイブレーション",
+    "target_fish": [
+      "青物",
+      "シーバス",
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "huggos",
+    "manufacturer_slug": "littlejack",
+    "name": "HUGGOS　-ハグゴス-",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ"
+    ]
+  },
+  {
+    "slug": "hanebix-blade-tune-2503835",
+    "manufacturer_slug": "littlejack",
+    "name": "HANEBIX BLADE TUNE-25&#038;35",
+    "type": "スピナー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "forma-cute",
+    "manufacturer_slug": "littlejack",
+    "name": "FORMA CUTE",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "metal-adict-type01-60g80g",
+    "manufacturer_slug": "littlejack",
+    "name": "METAL ADICT type01　60g/80g",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "24-sayoris",
+    "manufacturer_slug": "littlejack",
+    "name": "24 SAYORIS",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "hanebix-squid",
+    "manufacturer_slug": "littlejack",
+    "name": "HanebiX SQUID",
+    "type": "エギ",
+    "target_fish": [
+      "アオリイカ"
+    ]
+  },
+  {
+    "slug": "forma-spoon",
+    "manufacturer_slug": "littlejack",
+    "name": "Forma Spoon",
+    "type": "スプーン",
+    "target_fish": [
+      "ロックフィッシュ"
+    ]
+  },
+  {
+    "slug": "metal-adict-05",
+    "manufacturer_slug": "littlejack",
+    "name": "METAL ADICT 05",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "gillary-01--01",
+    "manufacturer_slug": "littlejack",
+    "name": "Gillary-01 -ギラリー01-",
+    "type": "ジョイントベイト",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "forma-adict",
+    "manufacturer_slug": "littlejack",
+    "name": "FORMA ADICT",
+    "type": "バイブレーション",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "metal-adict-07",
+    "manufacturer_slug": "littlejack",
+    "name": "Metal Adict 07",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "metal-adict-type04-30g40g60g100g125g150g175g200g",
+    "manufacturer_slug": "littlejack",
+    "name": "METAL ADICT type04　30g/40g/60g/100g/125g/150g/175g/200g",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "micro-charikom",
+    "manufacturer_slug": "littlejack",
+    "name": "Micro Charikom",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "metal-adict-reborn02",
+    "manufacturer_slug": "littlejack",
+    "name": "Metal Adict-Reborn:02",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "ittaika",
+    "manufacturer_slug": "littlejack",
+    "name": "Ittaika",
+    "type": "メタルジグ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "modelism-zako",
+    "manufacturer_slug": "littlejack",
+    "name": "MODELISM ZAKO",
+    "type": "メタルジグ",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "forma-gross-90125",
+    "manufacturer_slug": "littlejack",
+    "name": "FORMA GROSS 90/125",
+    "type": "ミノー",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "morekeen-02",
+    "manufacturer_slug": "littlejack",
+    "name": "MoreKeen-02",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "butterfly-fishing-tool",
+    "manufacturer_slug": "littlejack",
+    "name": "BUTTERFLY FISHING TOOL",
+    "type": "その他",
+    "target_fish": [
+      "シーバス",
+      "青物"
+    ]
+  },
+  {
+    "slug": "ignited-blade",
+    "manufacturer_slug": "littlejack",
+    "name": "Ignited Blade",
+    "type": "スピンテール",
+    "target_fish": [
+      "青物",
+      "ロックフィッシュ"
+    ]
+  },
+  {
+    "slug": "metal-adict-typezero-5g7g10g",
+    "manufacturer_slug": "littlejack",
+    "name": "METAL ADICT typeZERO 5g/7g/10g",
+    "type": "スピンテール",
+    "target_fish": [
+      "青物",
+      "ロックフィッシュ",
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "segrock",
+    "manufacturer_slug": "littlejack",
+    "name": "Segrock",
+    "type": "スピンテール",
+    "target_fish": [
+      "ロックフィッシュ",
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "sayoris-z",
+    "manufacturer_slug": "littlejack",
+    "name": "SAYORIS-Z",
+    "type": "シンキングペンシル",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "ebinem",
+    "manufacturer_slug": "littlejack",
+    "name": "EBINEM",
+    "type": "タイラバ",
+    "target_fish": [
+      "マダイ"
+    ]
+  },
+  {
+    "slug": "shaking-heads",
+    "manufacturer_slug": "littlejack",
+    "name": "Shaking HeadS -シェイキングヘッズ-",
+    "type": "ペンシルベイト",
+    "target_fish": [
+      "青物"
+    ]
+  },
+  {
+    "slug": "metal-adict-type01-12g18g30g40g60g80g",
+    "manufacturer_slug": "littlejack",
+    "name": "METAL ADICT type01　12g/18g/30g/40g/60g/80g",
+    "type": "メタルジグ",
+    "target_fish": [
+      "青物",
+      "シーバス",
+      "ヒラメ・マゴチ",
+      "ロックフィッシュ"
+    ]
+  }
+]

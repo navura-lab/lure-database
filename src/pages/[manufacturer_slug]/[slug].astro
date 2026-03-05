@@ -14,9 +14,10 @@ export async function getStaticPaths() {
 
   const allSeries = groupLuresBySeries(lures ?? []);
 
-  // タイプ別・メーカー別のインデックスを構築
+  // タイプ別・メーカー別・魚種別のインデックスを構築
   const byType = new Map<string, LureSeries[]>();
   const byMaker = new Map<string, LureSeries[]>();
+  const byFish = new Map<string, LureSeries[]>();
   for (const s of allSeries) {
     if (s.type) {
       const arr = byType.get(s.type) || [];
@@ -26,34 +27,54 @@ export async function getStaticPaths() {
     const makerArr = byMaker.get(s.manufacturer_slug) || [];
     makerArr.push(s);
     byMaker.set(s.manufacturer_slug, makerArr);
+    for (const fish of s.target_fish) {
+      const fishArr = byFish.get(fish) || [];
+      fishArr.push(s);
+      byFish.set(fish, fishArr);
+    }
   }
 
+  // 決定的ソート: カラー数降順 → 名前昇順（一貫した内部リンク構造）
+  const deterministicSort = (a: LureSeries, b: LureSeries) =>
+    b.color_count - a.color_count || a.name.localeCompare(b.name);
+
   return allSeries.map(series => {
-    // 同タイプの関連ルアー（自分除外、最大4件）
-    const sameTypeSeries = (byType.get(series.type) || [])
-      .filter(s => s.slug !== series.slug);
-    const relatedByType = sameTypeSeries
-      .sort(() => Math.random() - 0.5)
+    // 同タイプの関連ルアー（自分除外、カラー数順、最大4件）
+    const relatedByType = (byType.get(series.type) || [])
+      .filter(s => !(s.slug === series.slug && s.manufacturer_slug === series.manufacturer_slug))
+      .sort(deterministicSort)
       .slice(0, 4);
 
     // 同メーカーの関連ルアー（自分・タイプ重複除外、最大4件）
-    const typeSet = new Set(relatedByType.map(s => s.slug));
+    const usedSlugs = new Set(relatedByType.map(s => `${s.manufacturer_slug}/${s.slug}`));
+    usedSlugs.add(`${series.manufacturer_slug}/${series.slug}`);
     const relatedByMaker = (byMaker.get(series.manufacturer_slug) || [])
-      .filter(s => s.slug !== series.slug && !typeSet.has(s.slug))
-      .sort(() => Math.random() - 0.5)
+      .filter(s => !usedSlugs.has(`${s.manufacturer_slug}/${s.slug}`))
+      .sort(deterministicSort)
       .slice(0, 4);
+
+    // 同ターゲット魚の関連ルアー（自分・既出除外、最大4件）
+    for (const s of relatedByMaker) usedSlugs.add(`${s.manufacturer_slug}/${s.slug}`);
+    const primaryFish = series.target_fish[0];
+    const relatedByFish = primaryFish
+      ? (byFish.get(primaryFish) || [])
+          .filter(s => !usedSlugs.has(`${s.manufacturer_slug}/${s.slug}`))
+          .sort(deterministicSort)
+          .slice(0, 4)
+      : [];
 
     return {
       params: { manufacturer_slug: series.manufacturer_slug, slug: series.slug },
-      props: { series, relatedByType, relatedByMaker },
+      props: { series, relatedByType, relatedByMaker, relatedByFish },
     };
   });
 }
 
-const { series, relatedByType, relatedByMaker } = Astro.props as {
+const { series, relatedByType, relatedByMaker, relatedByFish } = Astro.props as {
   series: LureSeries;
   relatedByType: LureSeries[];
   relatedByMaker: LureSeries[];
+  relatedByFish: LureSeries[];
 };
 
 const hasLimited = series.colors.some(c => c.is_limited);
@@ -407,6 +428,25 @@ const combinedJsonLd = [jsonLd, breadcrumbLd] as unknown as Record<string, unkno
             <a href={`/fish/${getFishSlug(fish)}/`} class="px-3 py-1.5 bg-gray-50 text-gray-700 rounded-full text-sm border border-gray-100 hover:bg-gray-100 transition-colors">
               {fish}
             </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 関連ルアー: 同ターゲット魚 -->
+    {relatedByFish.length > 0 && series.target_fish[0] && (
+      <section class="mb-12">
+        <div class="flex items-baseline justify-between mb-4">
+          <h2 class="text-xl font-bold text-gray-900">
+            {series.target_fish[0]}狙いにおすすめ
+          </h2>
+          <a href={`/fish/${getFishSlug(series.target_fish[0])}/`} class="text-sm text-primary hover:text-primary/80 transition-colors">
+            {series.target_fish[0]}向けルアーをもっと見る →
+          </a>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {relatedByFish.map(s => (
+            <LureCard series={s} isNew={false} />
           ))}
         </div>
       </section>
