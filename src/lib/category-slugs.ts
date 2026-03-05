@@ -83,6 +83,7 @@ export const FISH_SLUG_MAP: Record<string, string> = {
   'サケ': 'sake',
   'アイナメ': 'ainame',
   'タラ': 'cod',
+  'ハタ': 'hata',
 };
 
 // 逆引き: slug → 日本語名
