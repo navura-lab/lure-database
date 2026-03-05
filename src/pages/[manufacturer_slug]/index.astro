@@ -147,6 +147,46 @@ if (priceRange) {
 }
 const summaryText = summaryParts.join('。') + '。';
 
+// ─── FAQ JSON-LD（リッチスニペット用）───
+
+const faqItems: { q: string; a: string }[] = [];
+
+if (typeBreakdown.length > 0) {
+  const typeNames = typeBreakdown.slice(0, 5).map(t => `${t.type}（${t.count}シリーズ）`).join('、');
+  faqItems.push({
+    q: `${manufacturer}のルアーにはどんなタイプがある？`,
+    a: `${manufacturer}は${typeBreakdown.length}タイプのルアーを展開。${typeNames}などがラインナップされている。`,
+  });
+}
+
+if (allTargetFish.length > 0) {
+  const fishNames = allTargetFish.slice(0, 6).join('、');
+  faqItems.push({
+    q: `${manufacturer}のルアーで狙える魚種は？`,
+    a: `${manufacturer}のルアーは${fishNames}などをターゲットとしている。${series.length}シリーズから狙いたい魚種に合ったルアーを選べる。`,
+  });
+}
+
+if (priceRange) {
+  faqItems.push({
+    q: `${manufacturer}のルアーの価格帯は？`,
+    a: `${manufacturer}のルアーは¥${priceRange.min.toLocaleString()}〜¥${priceRange.max.toLocaleString()}の価格帯。${totalColors}カラーの豊富なバリエーションから選択できる。`,
+  });
+}
+
+const faqLd = faqItems.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+} : null;
+
 // ─── JSON-LD: CollectionPage + BreadcrumbList ───
 
 const collectionLd = {
@@ -192,7 +232,7 @@ const breadcrumbLd = {
   ],
 };
 
-const jsonLd = [collectionLd, breadcrumbLd] as unknown as Record<string, unknown>;
+const jsonLd = [collectionLd, breadcrumbLd, ...(faqLd ? [faqLd] : [])] as unknown as Record<string, unknown>;
 
 // スペックサマリー表示用
 const specItems: { label: string; value: string }[] = [];

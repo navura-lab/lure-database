@@ -161,6 +161,45 @@ if (weightRange) {
   specItems.push({ label: '重さ', value: `${weightRange.min}g 〜 ${weightRange.max}g` });
 }
 
+// FAQ JSON-LD
+const faqItems: { q: string; a: string }[] = [];
+
+if (typeBreakdown.length > 0) {
+  const typeNames = typeBreakdown.slice(0, 6).map(t => `${t.type}（${t.count}シリーズ）`).join('、');
+  faqItems.push({
+    q: `${fishName}向けルアーにはどんなタイプがある？`,
+    a: `${fishName}向けルアーは${typeBreakdown.length}タイプが登録されており、${typeNames}などがある。`,
+  });
+}
+
+if (priceRange) {
+  faqItems.push({
+    q: `${fishName}向けルアーの価格帯は？`,
+    a: `${fishName}向けルアーの価格帯は¥${priceRange.min.toLocaleString()}〜¥${priceRange.max.toLocaleString()}。${series.length}シリーズ・${totalColors}カラーから予算に合ったルアーを選べる。`,
+  });
+}
+
+if (makerBreakdown.length > 0) {
+  const makerNames = makerBreakdown.slice(0, 5).map(m => m.name).join('、');
+  faqItems.push({
+    q: `${fishName}向けルアーの人気メーカーは？`,
+    a: `${fishName}向けルアーを展開するメーカーは${makerBreakdown.length}社。${makerNames}などがシリーズ数上位に入る。`,
+  });
+}
+
+const faqLd = faqItems.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+} : null;
+
 // JSON-LD
 const collectionLd = {
   '@context': 'https://schema.org',
@@ -190,7 +229,7 @@ const breadcrumbLd = {
   ],
 };
 
-const jsonLd = [collectionLd, breadcrumbLd] as unknown as Record<string, unknown>;
+const jsonLd = [collectionLd, breadcrumbLd, ...(faqLd ? [faqLd] : [])] as unknown as Record<string, unknown>;
 ---
 
 <BaseLayout title={`${fishName}向けルアー${series.length}シリーズ一覧${topTypes ? ` | ${topTypes}等` : ''} - ルアーDB`} description={pageDescription} canonicalPath={`/fish/${fishSlug}/`} jsonLd={jsonLd}>

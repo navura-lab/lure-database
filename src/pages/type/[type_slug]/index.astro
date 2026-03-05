@@ -162,6 +162,52 @@ if (lengthRange) {
   specItems.push({ label: '全長', value: `${lengthRange.min}mm 〜 ${lengthRange.max}mm` });
 }
 
+// FAQ JSON-LD
+const faqItems: { q: string; a: string }[] = [];
+
+if (allTargetFish.length > 0) {
+  const fishNames = allTargetFish.slice(0, 6).join('、');
+  faqItems.push({
+    q: `${typeName}で狙える魚種は？`,
+    a: `${typeName}で狙える対象魚は${fishNames}など${allTargetFish.length > 6 ? allTargetFish.length + '種以上' : ''}。${series.length}シリーズから最適なルアーを選べる。`,
+  });
+}
+
+if (priceRange) {
+  faqItems.push({
+    q: `${typeName}の価格帯は？`,
+    a: `${typeName}の価格帯は¥${priceRange.min.toLocaleString()}〜¥${priceRange.max.toLocaleString()}。${series.length}シリーズ・${totalColors}カラーが登録されている。`,
+  });
+}
+
+if (makerBreakdown.length > 0) {
+  const makerNames = makerBreakdown.slice(0, 5).map(m => m.name).join('、');
+  faqItems.push({
+    q: `${typeName}の人気メーカーは？`,
+    a: `${typeName}を展開するメーカーは${makerBreakdown.length}社。${makerNames}がシリーズ数上位に入る。`,
+  });
+}
+
+if (weightRange) {
+  faqItems.push({
+    q: `${typeName}の重さの目安は？`,
+    a: `登録されている${typeName}の重量範囲は${weightRange.min}g〜${weightRange.max}g。ターゲットや使用するタックルに合わせて選ぼう。`,
+  });
+}
+
+const faqLd = faqItems.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+} : null;
+
 // JSON-LD
 const collectionLd = {
   '@context': 'https://schema.org',
@@ -191,7 +237,7 @@ const breadcrumbLd = {
   ],
 };
 
-const jsonLd = [collectionLd, breadcrumbLd] as unknown as Record<string, unknown>;
+const jsonLd = [collectionLd, breadcrumbLd, ...(faqLd ? [faqLd] : [])] as unknown as Record<string, unknown>;
 ---
 
 <BaseLayout title={`${typeName}のルアー${series.length}シリーズ一覧${topMakers ? ` | ${topMakers}等` : ''} - ルアーDB`} description={pageDescription} canonicalPath={`/type/${typeSlug}/`} jsonLd={jsonLd}>
