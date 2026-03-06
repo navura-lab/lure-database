@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LureCard from '../../components/LureCard.astro';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import type { LureSeries } from '../../lib/types';
+
+// データ取得・グルーピング
+const lures = await fetchAllLures();
+const allSeries = groupLuresBySeries(lures ?? []);
+
+// 最新30日以内のシリーズを抽出
+const now = new Date();
+const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+const newSeries = allSeries
+  .filter(s => new Date(s.created_at) >= thirtyDaysAgo)
+  .sort((a, b) => b.created_at.localeCompare(a.created_at));
+
+// 月別グルーピング（YYYY年M月 形式）
+const monthGroups = new Map<string, LureSeries[]>();
+for (const s of newSeries) {
+  const d = new Date(s.created_at);
+  const key = `${d.getFullYear()}年${d.getMonth() + 1}月`;
+  const existing = monthGroups.get(key) || [];
+  existing.push(s);
+  monthGroups.set(key, existing);
+}
+const monthEntries = [...monthGroups.entries()];
+
+// --- 集計 ---
+const totalColors = newSeries.reduce((sum, s) => sum + s.color_count, 0);
+
+// メーカー別
+const makerCounts = new Map<string, { name: string; slug: string; count: number }>();
+for (const s of newSeries) {
+  const existing = makerCounts.get(s.manufacturer_slug);
+  if (existing) {
+    existing.count++;
+  } else {
+    makerCounts.set(s.manufacturer_slug, { name: s.manufacturer, slug: s.manufacturer_slug, count: 1 });
+  }
+}
+const makerBreakdown = [...makerCounts.values()].sort((a, b) => b.count - a.count);
+
+// タイプ別
+const typeCounts = new Map<string, number>();
+for (const s of newSeries) {
+  if (s.type) typeCounts.set(s.type, (typeCounts.get(s.type) || 0) + 1);
+}
+const typeBreakdown = [...typeCounts.entries()]
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 10);
+
+// --- SEO ---
+const topMakers = makerBreakdown.slice(0, 3).map(m => m.name).join('・');
+const topTypes = typeBreakdown.slice(0, 3).map(([t]) => t).join('・');
+
+const pageTitle = `新製品ルアー一覧 | 最新${newSeries.length}シリーズ - CAST/LOG`;
+const pageDescription = [
+  `直近30日に追加された新製品ルアー${newSeries.length}シリーズ・${totalColors}カラーを掲載。`,
+  topMakers ? `${topMakers}等${makerBreakdown.length}メーカーの最新ルアーをチェック。` : '',
+  topTypes ? `${topTypes}など。` : '',
+].filter(Boolean).join('');
+
+// JSON-LD
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: '新製品ルアー一覧',
+  url: 'https://www.lure-db.com/new/',
+  description: pageDescription,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: newSeries.length,
+    itemListElement: newSeries.slice(0, 50).map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.lure-db.com/${s.manufacturer_slug}/${s.slug}/`,
+      name: `${s.manufacturer} ${s.name}`,
+    })),
+  },
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
+    { '@type': 'ListItem', position: 2, name: '新製品', item: 'https://www.lure-db.com/new/' },
+  ],
+};
+
+const jsonLd = [collectionLd, breadcrumbLd] as unknown as Record<string, unknown>;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath="/new/" jsonLd={jsonLd}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">新製品</span>
+    </nav>
+
+    <!-- ヘッダー -->
+    <div class="mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">新製品ルアー</h1>
+      <p class="text-sm text-text-mid mt-1 font-mono">
+        直近30日 / {newSeries.length}シリーズ・{totalColors}カラー
+      </p>
+    </div>
+
+    {newSeries.length > 0 ? (
+      <>
+        <!-- サマリー -->
+        <div class="bg-white rounded-lg border border-border p-5 sm:p-6 mb-8 shadow-card">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5">
+            <div>
+              <p class="text-xs text-text-dim font-mono">シリーズ数</p>
+              <p class="text-sm font-semibold text-text">{newSeries.length}</p>
+            </div>
+            <div>
+              <p class="text-xs text-text-dim font-mono">カラー数</p>
+              <p class="text-sm font-semibold text-text">{totalColors}色</p>
+            </div>
+            <div>
+              <p class="text-xs text-text-dim font-mono">メーカー数</p>
+              <p class="text-sm font-semibold text-text">{makerBreakdown.length}社</p>
+            </div>
+            <div>
+              <p class="text-xs text-text-dim font-mono">タイプ数</p>
+              <p class="text-sm font-semibold text-text">{typeCounts.size}種</p>
+            </div>
+          </div>
+
+          <!-- メーカー一覧 -->
+          {makerBreakdown.length > 0 && (
+            <div class="mb-5">
+              <h2 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-2 font-mono">メーカー</h2>
+              <div class="flex flex-wrap gap-2">
+                {makerBreakdown.map(m => (
+                  <a href={`/${m.slug}/`} class="inline-flex items-center gap-1 px-3 py-1 bg-accent-bg text-accent rounded-full text-xs font-medium border border-accent-bg hover:bg-accent-bg transition-colors">
+                    {m.name}
+                    <span class="text-accent">{m.count}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- タイプ一覧 -->
+          {typeBreakdown.length > 0 && (
+            <div>
+              <h2 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-2 font-mono">タイプ</h2>
+              <div class="flex flex-wrap gap-1.5">
+                {typeBreakdown.map(([typeName, count]) => (
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100">
+                    {typeName}
+                    <span class="text-text-dim">{count}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <!-- 月別セクション -->
+        {monthEntries.map(([month, seriesInMonth], monthIdx) => (
+          <section class:list={[monthIdx > 0 && 'mt-12 pt-8 border-t border-border']}>
+            <div class="flex items-baseline gap-3 mb-4">
+              <h2 class="text-lg font-bold text-text">{month}</h2>
+              <span class="text-sm text-text-mid font-mono">{seriesInMonth.length}シリーズ</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {seriesInMonth.map((s, i) => (
+                <LureCard series={s} isNew={true} priority={monthIdx === 0 && i < 4} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </>
+    ) : (
+      <div class="text-center py-16">
+        <p class="text-text-mid text-sm">直近30日以内の新製品はありません。</p>
+        <a href="/" class="inline-block mt-4 text-sm text-accent hover:underline">トップに戻る</a>
+      </div>
+    )}
+
+  </div>
+</BaseLayout>

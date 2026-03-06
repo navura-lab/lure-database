@@ -1,0 +1,322 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LureCard from '../../components/LureCard.astro';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import { TYPE_SLUG_MAP, TYPE_NAME_MAP, FISH_SLUG_MAP, FISH_NAME_MAP, getTypeSlug, getFishSlug } from '../../lib/category-slugs';
+import { rankingDescriptions } from '../../data/ranking-descriptions';
+import type { LureSeries } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const MIN_SERIES = 3;
+  const lures = await fetchAllLures();
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  // 魚種×タイプのクロス集計
+  const crossMap = new Map<string, { fishName: string; typeName: string; series: LureSeries[] }>();
+  for (const s of allSeries) {
+    if (!s.type) continue;
+    for (const fish of s.target_fish) {
+      const fishSlug = getFishSlug(fish);
+      const typeSlug = getTypeSlug(s.type);
+      const key = `${fishSlug}-${typeSlug}`;
+      const existing = crossMap.get(key);
+      if (existing) {
+        existing.series.push(s);
+      } else {
+        crossMap.set(key, { fishName: fish, typeName: s.type, series: [s] });
+      }
+    }
+  }
+
+  // 全ランキング一覧（関連ランキング算出用）
+  const allRankings = [...crossMap.entries()]
+    .filter(([_, v]) => v.series.length >= MIN_SERIES)
+    .map(([slug, v]) => ({ slug, fishName: v.fishName, typeName: v.typeName, count: v.series.length }));
+
+  return allRankings.map(({ slug, fishName, typeName }) => {
+    const data = crossMap.get(slug)!;
+
+    // ランキングスコア計算: カラー展開数 + ウェイト展開数 + 動画有無 + 画像品質
+    const rankedSeries = data.series
+      .map(s => {
+        const weightVariety = new Set(s.colors.flatMap(c => c.weights.map(w => w.weight))).size;
+        const score =
+          s.color_count * 3 +
+          weightVariety * 2 +
+          (s.official_video_url ? 5 : 0) +
+          (s.representative_image ? 2 : 0) +
+          (s.description ? 1 : 0);
+        return { ...s, score };
+      })
+      .sort((a, b) => b.score - a.score);
+
+    // 関連ランキング: 同じ魚種 or 同じタイプ
+    const related = allRankings
+      .filter(r => r.slug !== slug && (r.fishName === fishName || r.typeName === typeName))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 8);
+
+    return {
+      params: { slug },
+      props: { fishName, typeName, rankedSeries, related },
+    };
+  });
+}
+
+const { fishName, typeName, rankedSeries, related } = Astro.props as {
+  fishName: string;
+  typeName: string;
+  rankedSeries: (LureSeries & { score: number })[];
+  related: { slug: string; fishName: string; typeName: string; count: number }[];
+};
+
+const slug = Astro.params.slug as string;
+const editorialText = rankingDescriptions[slug] ?? '';
+
+// ─── 集計 ───
+
+const totalColors = rankedSeries.reduce((sum, s) => sum + s.color_count, 0);
+
+// メーカー別
+const makerCounts = new Map<string, { name: string; slug: string; count: number }>();
+for (const s of rankedSeries) {
+  const existing = makerCounts.get(s.manufacturer_slug);
+  if (existing) {
+    existing.count++;
+  } else {
+    makerCounts.set(s.manufacturer_slug, { name: s.manufacturer, slug: s.manufacturer_slug, count: 1 });
+  }
+}
+const makerBreakdown = [...makerCounts.values()].sort((a, b) => b.count - a.count);
+
+// 価格帯
+const prices = rankedSeries
+  .flatMap(s => [s.price_range.min, s.price_range.max])
+  .filter(p => p > 0);
+const priceRange = prices.length > 0
+  ? { min: Math.min(...prices), max: Math.max(...prices) }
+  : null;
+
+// 重量帯
+const weights = rankedSeries
+  .flatMap(s => [s.weight_range.min, s.weight_range.max])
+  .filter((w): w is number => w != null && w > 0);
+const weightRange = weights.length > 0
+  ? { min: Math.min(...weights), max: Math.max(...weights) }
+  : null;
+
+// ─── SEO ───
+
+const topMakers = makerBreakdown.slice(0, 3).map(m => m.name).join('・');
+const priceText = priceRange ? `¥${priceRange.min.toLocaleString()}〜¥${priceRange.max.toLocaleString()}` : '';
+
+const pageTitle = `${fishName}向け${typeName}おすすめ${rankedSeries.length}選${topMakers ? ` | ${topMakers}等` : ''} - CAST/LOG`;
+const pageDescription = [
+  `${fishName}向け${typeName}を${rankedSeries.length}シリーズ厳選。`,
+  topMakers ? `${topMakers}等${makerBreakdown.length}メーカーの${typeName}を掲載。` : '',
+  priceText ? `価格帯${priceText}。` : '',
+  `カラー展開数・ウェイトバリエーション・動画有無をもとに独自スコアでランキング。`,
+].filter(Boolean).join('');
+
+// 概要テキスト
+const summaryParts: string[] = [];
+summaryParts.push(`${fishName}向けの${typeName}は${makerBreakdown.length}メーカーから${rankedSeries.length}シリーズが登録されている`);
+if (topMakers) {
+  summaryParts.push(`${topMakers}がラインナップ上位`);
+}
+if (priceRange) {
+  summaryParts.push(`価格帯は${priceText}`);
+}
+summaryParts.push('カラー展開数・ウェイトバリエーション・公式動画の有無をもとに独自スコアで順位付けしている');
+const summaryText = summaryParts.join('。') + '。';
+
+// スペック
+const specItems: { label: string; value: string }[] = [];
+specItems.push({ label: 'シリーズ数', value: `${rankedSeries.length}` });
+specItems.push({ label: 'カラー数', value: `${totalColors}色` });
+specItems.push({ label: 'メーカー数', value: `${makerBreakdown.length}` });
+if (priceRange) {
+  specItems.push({ label: '価格帯', value: priceText });
+}
+if (weightRange) {
+  specItems.push({ label: '重さ', value: `${weightRange.min}g 〜 ${weightRange.max}g` });
+}
+
+// FAQ JSON-LD
+const faqItems: { q: string; a: string }[] = [];
+
+faqItems.push({
+  q: `${fishName}向け${typeName}のおすすめは？`,
+  a: `${fishName}向け${typeName}は${rankedSeries.length}シリーズが登録されている。カラー展開やウェイトバリエーション、公式動画の有無をもとにランキング。${rankedSeries[0] ? `${rankedSeries[0].manufacturer}の${rankedSeries[0].name}がスコア上位。` : ''}`,
+});
+
+if (priceRange) {
+  faqItems.push({
+    q: `${fishName}向け${typeName}の価格帯は？`,
+    a: `${fishName}向け${typeName}の価格帯は${priceText}。${rankedSeries.length}シリーズ・${totalColors}カラーから予算に合ったルアーを選べる。`,
+  });
+}
+
+if (makerBreakdown.length > 0) {
+  const makerNames = makerBreakdown.slice(0, 5).map(m => `${m.name}（${m.count}シリーズ）`).join('、');
+  faqItems.push({
+    q: `${fishName}向け${typeName}を展開するメーカーは？`,
+    a: `${fishName}向け${typeName}を展開するメーカーは${makerBreakdown.length}社。${makerNames}がシリーズ数上位。`,
+  });
+}
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const fishSlug = getFishSlug(fishName);
+const typeSlug = getTypeSlug(typeName);
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${fishName}向け${typeName}おすすめランキング`,
+  url: `https://www.lure-db.com/ranking/${slug}/`,
+  description: pageDescription,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: rankedSeries.length,
+    itemListElement: rankedSeries.slice(0, 50).map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.lure-db.com/${s.manufacturer_slug}/${s.slug}/`,
+      name: `${s.manufacturer} ${s.name}`,
+    })),
+  },
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
+    { '@type': 'ListItem', position: 2, name: 'ランキング', item: 'https://www.lure-db.com/ranking/' },
+    { '@type': 'ListItem', position: 3, name: `${fishName}×${typeName}`, item: `https://www.lure-db.com/ranking/${slug}/` },
+  ],
+};
+
+const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, unknown>;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/ranking/${slug}/`} jsonLd={jsonLd}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <a href="/ranking/" class="hover:text-accent transition-colors">ランキング</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{fishName}×{typeName}</span>
+    </nav>
+
+    <!-- ヘッダー -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">RANKING</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+        {fishName}向け{typeName}おすすめ{rankedSeries.length}選
+      </h1>
+      <p class="text-sm text-text-mid mt-1">
+        {rankedSeries.length}シリーズ・{totalColors}カラー
+      </p>
+    </div>
+
+    <!-- 概要セクション -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+
+      <p class="text-sm text-gray-700 leading-relaxed mb-4">
+        {summaryText}
+      </p>
+
+      {editorialText && (
+        <p class="text-sm text-gray-600 leading-relaxed mb-5 border-l-2 border-accent pl-4">
+          {editorialText}
+        </p>
+      )}
+
+      <!-- スペックサマリー -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-5">
+        {specItems.map(item => (
+          <div>
+            <p class="text-xs text-text-dim">{item.label}</p>
+            <p class="text-sm font-semibold text-gray-900">{item.value}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- メーカー一覧 -->
+      {makerBreakdown.length > 0 && (
+        <div class="mb-5">
+          <h2 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-2">取り扱いメーカー</h2>
+          <div class="flex flex-wrap gap-2">
+            {makerBreakdown.map(m => (
+              <a href={`/${m.slug}/`} class="inline-flex items-center gap-1 px-3 py-1 bg-accent-bg text-accent rounded-full text-xs font-medium border border-accent-bg hover:bg-accent-bg transition-colors">
+                {m.name}
+                <span class="text-accent">{m.count}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- カテゴリリンク -->
+      <div class="flex flex-wrap gap-2">
+        <a href={`/fish/${fishSlug}/`} class="px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+          {fishName}のルアー一覧
+        </a>
+        <a href={`/type/${typeSlug}/`} class="px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+          {typeName}のルアー一覧
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ランキング見出し -->
+    <h2 class="text-lg font-bold text-gray-900 mb-4">ランキング TOP {rankedSeries.length}</h2>
+
+    <!-- 商品グリッド（順位付き） -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      {rankedSeries.map((s, i) => (
+        <div class="relative">
+          {i < 3 && (
+            <div class={`absolute -top-2 -left-2 z-10 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${i === 0 ? 'bg-yellow-500' : i === 1 ? 'bg-gray-400' : 'bg-amber-700'}`}>
+              {i + 1}
+            </div>
+          )}
+          <LureCard series={s} isNew={false} priority={i < 4} />
+        </div>
+      ))}
+    </div>
+
+    <!-- 関連ランキング -->
+    {related.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連ランキング</h2>
+        <p class="text-sm text-text-mid mb-4">
+          {fishName}・{typeName}に関連するランキング
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {related.map(r => (
+            <a href={`/ranking/${r.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+              {r.fishName}×{r.typeName}
+              <span class="text-xs text-gray-400">{r.count}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>

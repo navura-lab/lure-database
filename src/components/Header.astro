@@ -10,13 +10,13 @@ const currentPath = Astro.url.pathname;
       </a>
       <nav class="flex items-center gap-3 sm:gap-5 font-mono text-[11px] tracking-[1.5px] uppercase">
         <a
-          href="/search/"
+          href="/maker/"
           class:list={[
             'transition-colors duration-[0.15s]',
-            currentPath.startsWith('/search') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
+            currentPath.startsWith('/maker') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
           ]}
         >
-          SEARCH
+          MAKER
         </a>
         <a
           href="/type/"
@@ -28,15 +28,6 @@ const currentPath = Astro.url.pathname;
           TYPE
         </a>
         <a
-          href="/maker/"
-          class:list={[
-            'transition-colors duration-[0.15s]',
-            currentPath.startsWith('/maker') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
-          ]}
-        >
-          MAKER
-        </a>
-        <a
           href="/fish/"
           class:list={[
             'transition-colors duration-[0.15s]',
@@ -44,6 +35,24 @@ const currentPath = Astro.url.pathname;
           ]}
         >
           SPECIES
+        </a>
+        <a
+          href="/ranking/"
+          class:list={[
+            'transition-colors duration-[0.15s]',
+            currentPath.startsWith('/ranking') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
+          ]}
+        >
+          RANKING
+        </a>
+        <a
+          href="/search/"
+          class:list={[
+            'transition-colors duration-[0.15s]',
+            currentPath.startsWith('/search') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
+          ]}
+        >
+          SEARCH
         </a>
       </nav>
     </div>

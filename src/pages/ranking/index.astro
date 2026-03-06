@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import { getTypeSlug, getFishSlug, FISH_NAME_MAP, TYPE_NAME_MAP } from '../../lib/category-slugs';
+
+const MIN_SERIES = 3;
+
+const lures = await fetchAllLures();
+const allSeries = groupLuresBySeries(lures ?? []);
+
+// 魚種×タイプのクロス集計
+type RankingEntry = {
+  slug: string;
+  fishName: string;
+  typeName: string;
+  count: number;
+  topMaker: string;
+};
+
+const crossMap = new Map<string, { fishName: string; typeName: string; count: number; makers: Map<string, number> }>();
+for (const s of allSeries) {
+  if (!s.type) continue;
+  for (const fish of s.target_fish) {
+    const fishSlug = getFishSlug(fish);
+    const typeSlug = getTypeSlug(s.type);
+    const key = `${fishSlug}-${typeSlug}`;
+    const existing = crossMap.get(key);
+    if (existing) {
+      existing.count++;
+      existing.makers.set(s.manufacturer, (existing.makers.get(s.manufacturer) || 0) + 1);
+    } else {
+      crossMap.set(key, { fishName: fish, typeName: s.type, count: 1, makers: new Map([[s.manufacturer, 1]]) });
+    }
+  }
+}
+
+const rankings: RankingEntry[] = [...crossMap.entries()]
+  .filter(([_, v]) => v.count >= MIN_SERIES)
+  .map(([slug, v]) => {
+    const topMaker = [...v.makers.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? '';
+    return { slug, fishName: v.fishName, typeName: v.typeName, count: v.count, topMaker };
+  })
+  .sort((a, b) => b.count - a.count);
+
+// 魚種別にグルーピング
+const fishGroups = new Map<string, RankingEntry[]>();
+for (const r of rankings) {
+  const existing = fishGroups.get(r.fishName) || [];
+  existing.push(r);
+  fishGroups.set(r.fishName, existing);
+}
+const sortedFishGroups = [...fishGroups.entries()]
+  .sort((a, b) => b[1].reduce((s, r) => s + r.count, 0) - a[1].reduce((s, r) => s + r.count, 0));
+
+const pageDescription = `${rankings.length}カテゴリのルアーランキングを掲載。対象魚×ルアータイプの組み合わせから、カラー展開数やスペックをもとに独自スコアでおすすめルアーを厳選。`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'ルアーランキング一覧',
+  url: 'https://www.lure-db.com/ranking/',
+  description: pageDescription,
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
+    { '@type': 'ListItem', position: 2, name: 'ランキング', item: 'https://www.lure-db.com/ranking/' },
+  ],
+};
+---
+
+<BaseLayout title={`ルアーランキング ${rankings.length}カテゴリ | 対象魚×タイプ別おすすめ - CAST/LOG`} description={pageDescription} canonicalPath="/ranking/" jsonLd={[jsonLd, breadcrumbLd] as unknown as Record<string, unknown>}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">ランキング</span>
+    </nav>
+
+    <!-- ヘッダー -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">RANKING</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">ルアーランキング</h1>
+      <p class="text-sm text-text-mid mt-1">
+        {rankings.length}カテゴリ・対象魚×ルアータイプ別
+      </p>
+    </div>
+
+    <!-- 概要 -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        対象魚とルアータイプの組み合わせごとに、カラー展開数・ウェイトバリエーション・公式動画の有無をもとに独自スコアでランキング。{sortedFishGroups.length}魚種にわたる{rankings.length}カテゴリのおすすめルアーを掲載している。
+      </p>
+    </div>
+
+    <!-- 魚種別ランキング一覧 -->
+    {sortedFishGroups.map(([fishName, entries]) => (
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <h2 class="text-lg font-bold text-gray-900">{fishName}</h2>
+          <a href={`/fish/${getFishSlug(fishName)}/`} class="text-xs text-text-mid hover:text-accent transition-colors">
+            全ルアー一覧 →
+          </a>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+          {entries.sort((a, b) => b.count - a.count).map(r => (
+            <a
+              href={`/ranking/${r.slug}/`}
+              class="flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all group"
+            >
+              <div>
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors">
+                  {r.typeName}
+                </p>
+                <p class="text-xs text-text-dim mt-0.5">
+                  {r.count}シリーズ・{r.topMaker}等
+                </p>
+              </div>
+              <span class="text-xs font-mono text-accent">{r.count}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+
+  </div>
+</BaseLayout>
