@@ -1,5 +1,14 @@
 ---
 const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/maker/', label: 'メーカー', prefix: '/maker' },
+  { href: '/type/', label: 'タイプ', prefix: '/type' },
+  { href: '/fish/', label: '対象魚', prefix: '/fish' },
+  { href: '/ranking/', label: 'ランキング', prefix: '/ranking' },
+  { href: '/guide/', label: 'ガイド', prefix: '/guide' },
+  { href: '/search/', label: '検索', prefix: '/search' },
+];
 ---
 
 <header class="sticky top-0 z-50 bg-white/[0.94] backdrop-blur-xl border-b border-border">
@@ -8,62 +17,73 @@ const currentPath = Astro.url.pathname;
       <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
         <span class="font-mono text-[20px] font-bold tracking-[2px]">CAST<span class="text-accent">/</span>LOG</span>
       </a>
-      <nav class="flex items-center gap-3 sm:gap-5 font-mono text-[11px] tracking-[1px]">
-        <a
-          href="/maker/"
-          class:list={[
-            'transition-colors duration-[0.15s]',
-            currentPath.startsWith('/maker') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
-          ]}
-        >
-          メーカー
-        </a>
-        <a
-          href="/type/"
-          class:list={[
-            'transition-colors duration-[0.15s]',
-            currentPath.startsWith('/type') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
-          ]}
-        >
-          タイプ
-        </a>
-        <a
-          href="/fish/"
-          class:list={[
-            'transition-colors duration-[0.15s]',
-            currentPath.startsWith('/fish') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
-          ]}
-        >
-          対象魚
-        </a>
-        <a
-          href="/ranking/"
-          class:list={[
-            'transition-colors duration-[0.15s]',
-            currentPath.startsWith('/ranking') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
-          ]}
-        >
-          ランキング
-        </a>
-        <a
-          href="/guide/"
-          class:list={[
-            'transition-colors duration-[0.15s]',
-            currentPath.startsWith('/guide') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
-          ]}
-        >
-          ガイド
-        </a>
-        <a
-          href="/search/"
-          class:list={[
-            'transition-colors duration-[0.15s]',
-            currentPath.startsWith('/search') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
-          ]}
-        >
-          検索
-        </a>
+
+      <!-- デスクトップナビ -->
+      <nav class="hidden sm:flex items-center gap-5 font-mono text-[11px] tracking-[1px]">
+        {navLinks.map(link => (
+          <a
+            href={link.href}
+            class:list={[
+              'transition-colors duration-[0.15s]',
+              currentPath.startsWith(link.prefix) ? 'text-text font-bold' : 'text-text-dim hover:text-text'
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
       </nav>
+
+      <!-- モバイルハンバーガーボタン -->
+      <button
+        id="mobile-menu-btn"
+        class="sm:hidden flex items-center justify-center w-10 h-10 -mr-2"
+        aria-label="メニューを開く"
+        aria-expanded="false"
+      >
+        <!-- ハンバーガーアイコン -->
+        <svg id="menu-icon-open" class="w-5 h-5 text-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <!-- 閉じるアイコン -->
+        <svg id="menu-icon-close" class="w-5 h-5 text-text hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
     </div>
   </div>
+
+  <!-- モバイルメニュー -->
+  <div id="mobile-menu" class="sm:hidden hidden border-t border-border bg-white">
+    <nav class="max-w-7xl mx-auto px-4 py-3 flex flex-col gap-1">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class:list={[
+            'font-mono text-[13px] tracking-[1px] px-3 py-2.5 rounded-lg transition-colors duration-[0.15s]',
+            currentPath.startsWith(link.prefix)
+              ? 'text-accent font-bold bg-accent-bg'
+              : 'text-text-mid hover:text-text hover:bg-surface'
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
 </header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const iconOpen = document.getElementById('menu-icon-open')!;
+  const iconClose = document.getElementById('menu-icon-close')!;
+
+  btn.addEventListener('click', () => {
+    const isOpen = !menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    iconOpen.classList.toggle('hidden');
+    iconClose.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    btn.setAttribute('aria-label', isOpen ? 'メニューを開く' : 'メニューを閉じる');
+  });
+</script>
