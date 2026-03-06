@@ -7,6 +7,7 @@ import LureCard from '../../components/LureCard.astro';
 import { fetchAllLures } from '../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
+import { guideArticles } from '../../data/guides';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -545,8 +546,53 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
       </section>
     )}
 
+    <!-- 関連ガイド記事 -->
+    {(() => {
+      const guides = guideArticles.filter(g =>
+        g.targetFish.some(f => series.target_fish.includes(f)) ||
+        g.targetTypes.includes(series.type)
+      );
+      return guides.length > 0 ? (
+        <section class="mb-12 pt-8 border-t border-gray-100">
+          <h2 class="text-xl font-bold text-gray-900 mb-4">関連ガイド記事</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {guides.map(guide => (
+              <a href={`/guide/${guide.slug}/`} class="group flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors">{guide.title.split('【')[0]}</p>
+                  <p class="text-xs text-text-dim mt-0.5">{guide.targetFish.join('・')}</p>
+                </div>
+                <span class="text-accent text-sm shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null;
+    })()}
+
+    <!-- SNSシェア -->
+    <div class="flex items-center gap-3 pt-6 border-t border-gray-100 mb-6">
+      <span class="text-xs text-text-dim font-mono">SHARE:</span>
+      <a
+        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${series.manufacturer} ${series.name} | CAST/LOG`)}&url=${encodeURIComponent(`https://www.lure-db.com/${series.manufacturer_slug}/${series.slug}/`)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-text-dim border border-border rounded hover:border-accent hover:text-accent transition-colors"
+      >
+        X(Twitter)
+      </a>
+      <a
+        href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(`https://www.lure-db.com/${series.manufacturer_slug}/${series.slug}/`)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-text-dim border border-border rounded hover:border-accent hover:text-accent transition-colors"
+      >
+        LINE
+      </a>
+    </div>
+
     <!-- メーカーページへのナビゲーション -->
-    <div class="border-t border-gray-100 pt-6 mb-4">
+    <div class="mb-4">
       <a
         href={`/${series.manufacturer_slug}/`}
         class="inline-flex items-center gap-1.5 text-sm text-accent hover:text-accent-dark transition-colors font-medium"

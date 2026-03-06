@@ -5,6 +5,7 @@ import { fetchAllLures } from '../../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../../lib/group-lures';
 import { TYPE_SLUG_MAP, TYPE_NAME_MAP, getFishSlug } from '../../../lib/category-slugs';
 import { typeDescriptions } from '../../../data/type-descriptions';
+import { guideArticles } from '../../../data/guides';
 import type { LureSeries } from '../../../lib/types';
 
 export async function getStaticPaths() {
@@ -238,6 +239,9 @@ const breadcrumbLd = {
 };
 
 const jsonLd = [collectionLd, breadcrumbLd, ...(faqLd ? [faqLd] : [])] as unknown as Record<string, unknown>;
+
+// 関連ガイド記事
+const relatedGuides = guideArticles.filter(g => g.targetTypes.includes(typeName));
 ---
 
 <BaseLayout title={`${typeName}のルアー${series.length}シリーズ一覧${topMakers ? ` | ${topMakers}等` : ''} - CAST/LOG`} description={pageDescription} canonicalPath={`/type/${typeSlug}/`} jsonLd={jsonLd}>
@@ -323,6 +327,24 @@ const jsonLd = [collectionLd, breadcrumbLd, ...(faqLd ? [faqLd] : [])] as unknow
         <LureCard series={s} isNew={false} priority={i < 4} />
       ))}
     </div>
+
+    <!-- 関連ガイド記事 -->
+    {relatedGuides.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">{typeName}の選び方ガイド</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {relatedGuides.map(guide => (
+            <a href={`/guide/${guide.slug}/`} class="group flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
+              <div>
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors">{guide.title.split('【')[0]}</p>
+                <p class="text-xs text-text-dim mt-0.5">{guide.targetFish.join('・')}</p>
+              </div>
+              <span class="text-accent text-sm shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
 
     <!-- 関連ルアータイプ -->
     {relatedTypes.length > 0 && (

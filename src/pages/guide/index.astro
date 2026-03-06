@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { guideArticles } from '../../data/guides';
+
+const pageTitle = 'ルアーガイド記事一覧 - CAST/LOG';
+const pageDescription = 'シーバス・バス釣り・アジングなど、魚種別のルアー選び方ガイドを掲載。データベースの実データに基づいたおすすめルアーと選び方のポイントを解説。';
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
+    { '@type': 'ListItem', position: 2, name: 'ガイド', item: 'https://www.lure-db.com/guide/' },
+  ],
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath="/guide/" jsonLd={breadcrumbLd as unknown as Record<string, unknown>}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">ガイド</span>
+    </nav>
+
+    <div class="mb-8">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-2">/GUIDE</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">ルアーガイド記事</h1>
+      <p class="text-sm text-text-mid mt-2">
+        データベースの実データに基づいた、魚種・釣り方別のルアー選びガイド。
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      {guideArticles.map(guide => (
+        <a href={`/guide/${guide.slug}/`} class="group block bg-white rounded-xl border border-gray-100 p-5 sm:p-6 shadow-card transition-all duration-200 hover:shadow-card-hover hover:border-accent">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h2 class="text-lg font-bold text-gray-900 group-hover:text-accent transition-colors mb-2">
+                {guide.title}
+              </h2>
+              <p class="text-sm text-gray-600 leading-relaxed mb-3">
+                {guide.description}
+              </p>
+              <div class="flex items-center gap-3 text-xs text-text-dim font-mono">
+                <time datetime={guide.updatedAt}>{guide.updatedAt}</time>
+                <span>{guide.targetFish.join('・')}</span>
+              </div>
+            </div>
+            <span class="text-accent text-lg shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

@@ -8,6 +8,7 @@ import { fetchAllLures } from '../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../lib/category-slugs';
 import makerLogos from '../data/maker-logos.json';
+import { guideArticles } from '../data/guides';
 
 const lures = await fetchAllLures();
 const series = groupLuresBySeries(lures ?? []);
@@ -174,12 +175,35 @@ const jsonLd = {
       </section>
     )}
 
+    <!-- ガイド記事 -->
+    {guideArticles.length > 0 && (
+      <section>
+        <SectionHeading title="ガイド記事" href="/guide/" slashLabel="GUIDE" />
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {guideArticles.map(guide => (
+            <a href={`/guide/${guide.slug}/`} class="group block bg-white rounded-lg border border-border-light p-4 hover:border-accent hover:shadow-sm transition-all duration-[0.15s]">
+              <h3 class="text-[14px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s] mb-2 line-clamp-2">
+                {guide.title}
+              </h3>
+              <p class="text-[12px] text-text-mid leading-relaxed line-clamp-2 mb-2">
+                {guide.description}
+              </p>
+              <div class="flex items-center gap-2 font-mono text-[10px] text-text-dim">
+                <time datetime={guide.updatedAt}>{guide.updatedAt}</time>
+                <span>{guide.targetFish.join('・')}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
     <!-- ルアーを発見する -->
     <section>
       <div class="flex items-end justify-between mb-4">
         <div>
           <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">/DISCOVER</p>
-          <h2 class="text-[18px] font-bold text-text">ルアーを発見する</h2>
+          <h2 class="text-[18px] font-bold text-text">ランダムで探す</h2>
         </div>
         <button
           id="shuffle-btn"
@@ -188,7 +212,7 @@ const jsonLd = {
           <svg class="w-4 h-4" id="shuffle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
-          SHUFFLE
+          シャッフル
         </button>
       </div>
       <div id="random-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">

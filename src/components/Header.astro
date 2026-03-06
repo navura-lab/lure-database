@@ -8,7 +8,7 @@ const currentPath = Astro.url.pathname;
       <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
         <span class="font-mono text-[20px] font-bold tracking-[2px]">CAST<span class="text-accent">/</span>LOG</span>
       </a>
-      <nav class="flex items-center gap-3 sm:gap-5 font-mono text-[11px] tracking-[1.5px] uppercase">
+      <nav class="flex items-center gap-3 sm:gap-5 font-mono text-[11px] tracking-[1px]">
         <a
           href="/maker/"
           class:list={[
@@ -16,7 +16,7 @@ const currentPath = Astro.url.pathname;
             currentPath.startsWith('/maker') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
           ]}
         >
-          MAKER
+          メーカー
         </a>
         <a
           href="/type/"
@@ -25,7 +25,7 @@ const currentPath = Astro.url.pathname;
             currentPath.startsWith('/type') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
           ]}
         >
-          TYPE
+          タイプ
         </a>
         <a
           href="/fish/"
@@ -34,7 +34,7 @@ const currentPath = Astro.url.pathname;
             currentPath.startsWith('/fish') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
           ]}
         >
-          SPECIES
+          対象魚
         </a>
         <a
           href="/ranking/"
@@ -43,7 +43,16 @@ const currentPath = Astro.url.pathname;
             currentPath.startsWith('/ranking') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
           ]}
         >
-          RANKING
+          ランキング
+        </a>
+        <a
+          href="/guide/"
+          class:list={[
+            'transition-colors duration-[0.15s]',
+            currentPath.startsWith('/guide') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
+          ]}
+        >
+          ガイド
         </a>
         <a
           href="/search/"
@@ -52,7 +61,7 @@ const currentPath = Astro.url.pathname;
             currentPath.startsWith('/search') ? 'text-text font-bold' : 'text-text-dim hover:text-text'
           ]}
         >
-          SEARCH
+          検索
         </a>
       </nav>
     </div>
