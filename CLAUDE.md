@@ -104,6 +104,35 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 - `npx tsx scripts/discover-products.ts --dry-run` — 新商品検知（テスト）
 - `npx tsx scripts/discover-products.ts --maker {slug} --dry-run` — 特定メーカーのみ
 
+## SEO自動化システム（2026-03-07〜）
+
+### 自動実行スケジュール（launchd）
+| ジョブ | スケジュール | スクリプト | 内容 |
+|--------|------------|-----------|------|
+| SEO日次監視 | 毎日 7:00 JST | `seo-monitor.ts` | GSCデータ収集、週次比較、ページ種別分析、アラート |
+| Indexing API送信 | 毎日 8:00 JST | `daily-indexing.ts` | 200件/日ずつ全ページのインデックス登録を自動送信 |
+| 週次レポート | 毎週月曜 9:00 JST | `weekly-seo-report.ts` | PDCA分析、クエリ成長/衰退、推奨アクション生成 |
+| パイプライン | 毎時 0:00-7:00 JST | `pipeline.ts` | スクレイプ&DB登録（1時間1件×8回） |
+| 新商品検知 | 毎週月曜 6:00 JST | `discover-products.ts` | 全メーカーの新商品URL検知 |
+
+### SEOスクリプト一覧
+| スクリプト | 用途 | 実行方法 |
+|-----------|------|---------|
+| `scripts/seo-monitor.ts` | 日次SEO監視（v2: ページ種別、週次比較、デバイス別） | `npx tsx scripts/seo-monitor.ts [--inspect] [--verbose]` |
+| `scripts/daily-indexing.ts` | Indexing API自動送信（200件/日、進捗追跡） | `npx tsx scripts/daily-indexing.ts [--dry-run]` |
+| `scripts/weekly-seo-report.ts` | 週次PDCAレポート（Markdown + JSON + Slack） | `npx tsx scripts/weekly-seo-report.ts [--verbose]` |
+| `scripts/request-indexing.ts` | 手動Indexing API（4モード） | `npx tsx scripts/request-indexing.ts [--submit]` |
+
+### データ保存先
+- 日次データ: `logs/seo-data/YYYY-MM-DD.json`
+- 週次レポート: `logs/seo-reports/weekly-YYYY-MM-DD.md` + `.json`
+- インデックス進捗: `logs/seo-data/indexing-progress.json`
+- launchdログ: `logs/launchd-*.log`
+
+### launchd plist
+全5ジョブ: `~/Library/LaunchAgents/com.fablus.lure-*.plist`
+全パス: `/Users/user/ウェブサイト/lure-database/` に統一済み
+
 ## 必読ドキュメント
 
 **作業前に必ず読め:**
