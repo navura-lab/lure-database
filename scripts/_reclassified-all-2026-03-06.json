@@ -1,0 +1,8403 @@
+[
+  {
+    "slug": "gecco",
+    "manufacturer_slug": "attic",
+    "new_type": "フロッグ",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "フロッグ",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "ハードタイプのウィードレスフロッグ。atticはバス・トラウト系メーカーで、説明文にも「Weedres Hard Frog」とあり対象はブラックバス。フロッグはバスが主対象。"
+  },
+  {
+    "slug": "straight-buzz-minnow",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス",
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「あらゆるフィッシュイーター」対応。atticはバス系ルアーも多く、ミノーとして複数魚種対応が妥当。名前にBuzzとあるがミノータイプ。シーバス・バス両対応。"
+  },
+  {
+    "slug": "usakura",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3gのエリアトラウト用シャロークランク。うさぎ耳型リップのトラウト専用クランクベイト。重量・説明文ともにトラウト（管理釣り場）向け。"
+  },
+  {
+    "slug": "pitcihn-crawler",
+    "manufacturer_slug": "attic",
+    "new_type": "クローラーベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クローラーベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "60g（1.5oz超）のデッドスロー特化クローラーベイト。この重量とクローラーベイトというカテゴリはバス専用。説明文も「タイトなポイントをネチネチ攻める」でバスフィッシング向け。"
+  },
+  {
+    "slug": "wild-rabbit",
+    "manufacturer_slug": "attic",
+    "new_type": "クローラーベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クローラーベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "40g（1.5ozクラス）のウェイクベイト。説明文に「遠くのBASSにも強烈にアピール」と明記。ブラックバス専用。"
+  },
+  {
+    "slug": "tasochin",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "2.5g・エリアフィッシング用シャロークランク。説明文に「エリアフィッシング用シャロークランク」と明記。トラウト（管理釣り場）専用。"
+  },
+  {
+    "slug": "poet5",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3g・最小シリーズのミノー。atticのPoetシリーズは説明文に「エリア」向けの記述があり、3gという重量と「そこにいる魚を全部釣りたい」という文脈からエリアトラウト向け。"
+  },
+  {
+    "slug": "a-flash",
+    "manufacturer_slug": "attic",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3g・説明文に「エリアトラウト界で注目を集めているスモールシンキングペンシル」と明記。トラウト（管理釣り場）専用。"
+  },
+  {
+    "slug": "poet11-kohoku-special",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "11g・「湖北Special」は琵琶湖バスフィッシング向けの特別仕様。ペンシルミノー形状でバスを対象とした湖北（琵琶湖北湖）向け限定品。"
+  },
+  {
+    "slug": "range-master-85sw",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス",
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "ヒラメ"
+    ],
+    "changed": true,
+    "reason": "SWモデルはシーバス・サーフフラット向け。old_target_fishの「ヒラメ」を「ヒラメ・マゴチ」に統一。"
+  },
+  {
+    "slug": "range-master-60fw",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）",
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "FWモデルは淡水向け。説明文に「渓流のトラウトや、ブラックバスなど」と明記。シーバスではなくトラウト・バス対象。"
+  },
+  {
+    "slug": "110fuzzy-90fuzzy",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "poet8-kohoku-special",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "湖北Specialシリーズはバスフィッシング向け（琵琶湖北湖）。フルハンドメイド受注品。"
+  },
+  {
+    "slug": "port97",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "4g・説明文に「池原ダム」でのバスフィッシング体験から生まれたルアーと明記。ハイスピードジャーク専用のバス向けミノー。"
+  },
+  {
+    "slug": "bottom-usachan-jig",
+    "manufacturer_slug": "attic",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "1.5g・ぼとむうさちゃんじぐはうさちゃんじぐシリーズのボトム用。エリアトラウト向けの超軽量ジグヘッド系（ラビットファー付き）。"
+  },
+  {
+    "slug": "poet7b",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3g・説明文に池原ダムでのバスフィッシング体験が明記。「B」はBASSの略。バス専用ミノー。"
+  },
+  {
+    "slug": "bottom-usachan-jig-gt-s",
+    "manufacturer_slug": "attic",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "1.5g・「ぼとむうさちゃんじぐ」にグローティンセルを追加したバリエーション。ラビットファー付きジグヘッドでエリアトラウト向け。typeもミノー→ジグヘッドに修正。"
+  },
+  {
+    "slug": "furifuri-usachan-jig",
+    "manufacturer_slug": "attic",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "1g・うさちゃんじぐシリーズのジグヘッド系。1〜2gの超軽量でエリアトラウト向け。typeもミノー→ジグヘッドに修正。"
+  },
+  {
+    "slug": "livig-bgr-jr",
+    "manufacturer_slug": "attic",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "48g・「Living B.G.R jr」のBGRはBass Giant Realの略と思われ、バス専用ジョイントベイト。説明文もバスフィッシング向けの文脈。"
+  },
+  {
+    "slug": "arcrank-mrc",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3g・説明文に「プレミアムエリアトラウトルアー」と明記。ARCRANKシリーズはエリアトラウト専用クランク。"
+  },
+  {
+    "slug": "usahuwa",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "2.8g・「うさくら」シリーズのSSS（スーパースローシンキング）モデル。うさくらはエリアトラウト用クランク。typeもミノー→クランクベイトに修正。"
+  },
+  {
+    "slug": "tasochin-r",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ブラックバス",
+      "ナマズ"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "30g・説明文に「バスは勿論、ナマズにも最適なトップウォーターシャロークランク」と明記。バス・ナマズ向け大型クランク。"
+  },
+  {
+    "slug": "onetenpop-kohoku-special",
+    "manufacturer_slug": "attic",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「ONE TEN POP」の名称からポッパーと判断。湖北Specialはバスフィッシング向け（琵琶湖北湖）。typeもミノー→ポッパーに修正。"
+  },
+  {
+    "slug": "footbee9532",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス",
+      "ヒラメ・マゴチ",
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物",
+      "ヒラメ"
+    ],
+    "changed": true,
+    "reason": "old_target_fishの「青物」「ヒラメ」を規定の表記「青物（ブリ、ヒラマサ、カンパチ等）」「ヒラメ・マゴチ」に統一。"
+  },
+  {
+    "slug": "water-edge",
+    "manufacturer_slug": "attic",
+    "new_type": "i字系",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "説明文に「i字形ルアー」と明記。typeをミノー→i字系に修正。"
+  },
+  {
+    "slug": "arcrank-slim",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3g・説明文に「スレたトラウトを誘います」と明記。エリアトラウト向けスリムクランク。"
+  },
+  {
+    "slug": "arcrank-src",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3.3g・説明文に「キレのあるアクションがトラウトを刺激」と明記。エリアトラウト向けニョロ系クランク。"
+  },
+  {
+    "slug": "footbee7522",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス",
+      "ヒラメ・マゴチ",
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物",
+      "ヒラメ"
+    ],
+    "changed": true,
+    "reason": "old_target_fishの「青物」「ヒラメ」を規定の表記「青物（ブリ、ヒラマサ、カンパチ等）」「ヒラメ・マゴチ」に統一。"
+  },
+  {
+    "slug": "ezcast-usachan-jig",
+    "manufacturer_slug": "attic",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "1g・うさちゃんじぐシリーズのイージーキャストモデル。ラビットファー付きジグヘッドでエリアトラウト向け超軽量設計。typeもミノー→ジグヘッドに修正。"
+  },
+  {
+    "slug": "lightreal-175j",
+    "manufacturer_slug": "attic",
+    "new_type": "ビッグベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "60g・175mmのビッグベイト。説明文に「ビッグベイトでハイスピードショートジャーク」と明記。バス向け大型ルアー。typeもミノー→ビッグベイトに修正。"
+  },
+  {
+    "slug": "bottom-usakura",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3.5g・うさくらシリーズのボトムモデル。説明文に「トラウトを誘惑し、水深1〜2mをトレース」と明記。エリアトラウト向け。typeもミノー→クランクベイトに修正。"
+  },
+  {
+    "slug": "arcrank-sr",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3.5g・説明文に「プレミアムエリアトラウトルアー」と明記。ARCRANKシリーズはエリアトラウト専用。"
+  },
+  {
+    "slug": "g-flash",
+    "manufacturer_slug": "attic",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3g・「G-FLASH」はA-FLASHと同シリーズのエリアトラウト向けスモールシンペン。重量・シリーズ・メーカー特性からトラウト（管理釣り場）向け。"
+  },
+  {
+    "slug": "superfi",
+    "manufacturer_slug": "attic",
+    "new_type": "クローラーベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "48g・説明文に「ハンドメイドウェイクベイト」と明記。ウェイクベイト（クローラーベイト）はバス専用。typeもミノー→クローラーベイトに修正。"
+  },
+  {
+    "slug": "arcrank-slim-fce",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "2.4g・ARCRANKシリーズのフルカーボンエディション。エリアトラウト向けスリムクランク。"
+  },
+  {
+    "slug": "straight-buzz-minnow-type3",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス",
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "37g・「あらゆるフィッシュイーター」対応の大型ミノー。atticのStrightBuzzMinnowシリーズはシーバス・バス両対応。"
+  },
+  {
+    "slug": "mid-waver",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "ヒラメ"
+    ],
+    "changed": true,
+    "reason": "19g・ノイジー系サーフェスクランク。リアブレードでノイジーアクションするバス向けトップウォータークランク。ヒラメではなくブラックバスが主対象。"
+  },
+  {
+    "slug": "takasu-minnow-150fuzzy",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "range-master-70sw",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "arcrank-mr",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3.5g・説明文に「プレミアムエリアトラウトルアー」と明記。ARCRANKシリーズはエリアトラウト専用クランク。"
+  },
+  {
+    "slug": "range-master-70fw",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）",
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "FWモデルは淡水向け。説明文に「渓流のトラウトや、ブラックバスなど」と明記。"
+  },
+  {
+    "slug": "mocomoco",
+    "manufacturer_slug": "attic",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ヒラメ"
+    ],
+    "changed": true,
+    "reason": "ジョイントダータープラグ「モコモコ」。ウェイキングやドッグウォークアクション系でバス向けサーフェスプラグ。ヒラメではなくブラックバス対象。"
+  },
+  {
+    "slug": "range-master-45fw",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）",
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "4g・FWモデルは淡水向け。説明文に「渓流のトラウトや、ブラックバスなど」と明記。"
+  },
+  {
+    "slug": "range-master-60sw",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "usachanjig-ex",
+    "manufacturer_slug": "attic",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "0.6g・うさちゃんじぐEXはラビットファーボリューム増のジグヘッドワーム系。超軽量でエリアトラウト向け。typeもミノー→ジグヘッドに修正。"
+  },
+  {
+    "slug": "range-master-45sw",
+    "manufacturer_slug": "attic",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "water-leaf-45",
+    "manufacturer_slug": "attic",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "バイブレーション",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "5g・スーパースローシンキングバイブレーション。重量・サイズ・スローリトリーブ特化の設計がエリアトラウト向け。"
+  },
+  {
+    "slug": "furifuri",
+    "manufacturer_slug": "attic",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3.5g・説明文に「BASSを」「ラビットファージョイントジグ」と明記。バス向けラビットファージョイントルアー。"
+  },
+  {
+    "slug": "waterleaf-65",
+    "manufacturer_slug": "attic",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "バイブレーション",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "12g・説明文に「グラブやワームのようにボトムバンピング」と記述。ボトムバンピング前提の設計はバスフィッシング向け。"
+  },
+  {
+    "slug": "bottom-usakura-haze",
+    "manufacturer_slug": "attic",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3.5g・「ぼとむうさくら」のハゼ専用カラー。ベースはエリアトラウト用クランクで、カラーバリエーション品。typeもミノー→クランクベイトに修正。対象魚はベースルアーのエリアトラウト向けとして分類。"
+  },
+  {
+    "slug": "annie175",
+    "manufacturer_slug": "attic",
+    "new_type": "ビッグベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ビッグベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "45g・175mmのビッグベイト。atticのビッグベイトはバス向け設計。説明文の「集魚力」「遠投性能」もバスフィッシングの文脈。"
+  },
+  {
+    "slug": "1395",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "トラップシャッドはpickup社のブレード系シャッドルアー。メタルジグではなくブレードベイトが正しいtype。target_fishの「ブリ、ヒラマサ、カンパチ」を規定表記「青物（ブリ、ヒラマサ、カンパチ等）」に統一。"
+  },
+  {
+    "slug": "1402",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "トラップシャッドはブレードベイト。target_fishも規定表記に統一。"
+  },
+  {
+    "slug": "1400",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "トラップシャッドはブレードベイト。target_fishも規定表記に統一。"
+  },
+  {
+    "slug": "1516",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツイントラップはpickup社のブレードベイト系。target_fishも規定表記に統一。"
+  },
+  {
+    "slug": "1723",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはpickup社のシンキングペンシル（シーバス向け）。「スラローム」系はシンキングペンシルで主にシーバス狙い。メタルジグ・青物の分類は誤り。"
+  },
+  {
+    "slug": "1791",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "スプーン",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "スモールトラップはpickup社のブレードベイト系。0.9〜3.6gの軽量設計でシーバス向けライトゲーム対応。スプーン・青物の分類は誤り。"
+  },
+  {
+    "slug": "2054",
+    "manufacturer_slug": "pickup",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツムジ110Fはpickup社のフローティングミノー（シーバス向け）。説明文の内容とメーカー特性からシーバスが主対象。青物の分類は誤り。"
+  },
+  {
+    "slug": "1978",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "アンダーアップ キプロ68はメタルジグ。target_fishを規定表記「青物（ブリ、ヒラマサ、カンパチ等）」に統一。"
+  },
+  {
+    "slug": "1612",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sクリアはpickup社のシンキングペンシル（シーバス向け）。スラロームアクション系はシンキングペンシルでシーバス狙い。"
+  },
+  {
+    "slug": "1977",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "アンダーアップ キプロ68はメタルジグ。target_fishを規定表記に統一。"
+  },
+  {
+    "slug": "1705",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sクリアはpickup社のシンキングペンシル（シーバス向け）。スラローム系はシンキングペンシルでシーバス対象。"
+  },
+  {
+    "slug": "1877",
+    "manufacturer_slug": "pickup",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ160Fはpickup社のフローティングミノー（シーバス向け）。7g・160mmのミノー。メタルジグ・青物の分類は誤り。"
+  },
+  {
+    "slug": "1504",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツイントラップはpickup社のブレードベイト系。target_fishも規定表記に統一。"
+  },
+  {
+    "slug": "1882",
+    "manufacturer_slug": "pickup",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ160Fはpickup社のフローティングミノー（シーバス向け）。メタルジグ・青物の分類は誤り。"
+  },
+  {
+    "slug": "1379",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはpickup社の小型シンキングペンシル（シーバス向け）。スラローム系はシンキングペンシル。"
+  },
+  {
+    "slug": "1809-2",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sボーンはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1692",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sクリアはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1598",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sクリアはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1512",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツイントラップはpickup社のブレードベイト系。target_fishも規定表記に統一。"
+  },
+  {
+    "slug": "1410",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "トラップシャッドはpickup社のブレードベイト系。target_fishも規定表記に統一。"
+  },
+  {
+    "slug": "1722",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1851",
+    "manufacturer_slug": "pickup",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ160Fはpickup社のフローティングミノー（シーバス向け）。typeも「その他」→「ミノー」に修正。"
+  },
+  {
+    "slug": "1371",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1758",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sクリアはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1793",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "スモールトラップはpickup社のブレードベイト系。0.9〜3.6gの軽量設計でシーバス向け。"
+  },
+  {
+    "slug": "1789",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "スモールトラップはpickup社のブレードベイト系。シーバス向けライトゲーム対応。"
+  },
+  {
+    "slug": "1338",
+    "manufacturer_slug": "pickup",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "サイドプレス160Fはpickup社のフローティングミノー（シーバス向け）。32g・160mmのシーバス向けビッグミノー。メタルジグ・青物の分類は誤り。"
+  },
+  {
+    "slug": "1968",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "アンダーアップ キプロ68はメタルジグ。target_fishを規定表記に統一。"
+  },
+  {
+    "slug": "1508",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツイントラップはpickup社のブレードベイト系。target_fishも規定表記に統一。"
+  },
+  {
+    "slug": "1365",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1961",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "アンダーアップ キプロ68はメタルジグ。target_fishを規定表記に統一。"
+  },
+  {
+    "slug": "1800",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1980",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "アンダーアップ キプロ68はメタルジグ。target_fishを規定表記に統一。"
+  },
+  {
+    "slug": "1383",
+    "manufacturer_slug": "pickup",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ120Fはpickup社のフローティングミノー（シーバス向け）。5g・120mmのミノー。メタルジグ・青物の分類は誤り。"
+  },
+  {
+    "slug": "1624",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sクリアはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1343",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "スリートラップはpickup社のブレードベイト系（トラップシリーズ）。target_fishも規定表記に統一。"
+  },
+  {
+    "slug": "1620",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sクリアはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1782",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "スモールトラップはpickup社のブレードベイト系。シーバス向けライトゲーム対応。"
+  },
+  {
+    "slug": "1703",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sクリアはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1773",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sクリアはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1510",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツイントラップはpickup社のブレードベイト系。target_fishも規定表記に統一。"
+  },
+  {
+    "slug": "1785",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "スモールトラップはpickup社のブレードベイト系。シーバス向けライトゲーム対応。"
+  },
+  {
+    "slug": "1330",
+    "manufacturer_slug": "pickup",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "サイドプレス160Fはpickup社のフローティングミノー（シーバス向け）。32g・160mmのシーバス向けビッグミノー。"
+  },
+  {
+    "slug": "1813",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sボーンはpickup社のシンキングペンシル（シーバス向け）。"
+  },
+  {
+    "slug": "1796",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "スモールトラップはpickup社のブレードベイト系。シーバス向けライトゲーム対応。"
+  },
+  {
+    "slug": "1416",
+    "manufacturer_slug": "pickup",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "スリートラップはpickup社のブレードベイト系（トラップシリーズ）。target_fishも規定表記に統一。"
+  },
+  {
+    "slug": "1536",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはpickup社のシンキングペンシル（シーバス向け）。イベント限定カラーのバリエーション品。"
+  },
+  {
+    "slug": "1392",
+    "manufacturer_slug": "pickup",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ120Fはpickup社のフローティングミノー（シーバス向け）。typeはミノーで正しいが、target_fishを青物からシーバスに修正。"
+  },
+  {
+    "slug": "1981",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "アンダーアップ キプロ68はメタルジグ。target_fishを規定表記に統一。"
+  },
+  {
+    "slug": "1525",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを個別魚種から統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1374",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正。typeは正しい（ワスプスラローム=シンキングペンシル）"
+  },
+  {
+    "slug": "1971",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1607",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル（S=シンキング、スラロームアクション）。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1725",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1590",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル（descriptionに「スラロームアクション」とあるがメタルジグと誤分類）。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1514",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1322",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ペンシルベイト",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正。typeは正しい（サイドプレス160F=フローティングペンシルベイト）"
+  },
+  {
+    "slug": "1376",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1868",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ160FはF=フローティング、160mm/7g。表層を泳ぐ大型ペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1704",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1531",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1767-2",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1702",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1369",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1386",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ120FはF=フローティングのペンシルベイト（pickup社のノガレシリーズは表層系フローティングプラグ）。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1777",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正。0.9〜3.6gの超軽量でも青物ターゲットとdescriptionに記述あり"
+  },
+  {
+    "slug": "1388",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ120FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "2057",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツムジ110FはF=フローティング、23g。pickup社の青物向けキャスティングプラグ=ペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1601",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1973",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "2034",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツムジ110FはF=フローティングのペンシルベイト（青物向けキャスティングプラグ）。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "2059",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツムジ110FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1798",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1806",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1760",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1916",
+    "manufacturer_slug": "pickup",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "「チェストライト」は照明器具。ルアーではないためDELETE"
+  },
+  {
+    "slug": "1622",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1351",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1765",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1340",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1534",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1353",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1627",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "2065",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツムジ110FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1787",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1638",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1707",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1640",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1476",
+    "manufacturer_slug": "pickup",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "「12オンス ヘビーウェイト フルジップパーカ」は衣類。ルアーではないためDELETE"
+  },
+  {
+    "slug": "1334",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "サイドプレス160FはF=フローティング、32g。pickup社の青物向けキャスティングプラグ=ペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1708",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1874",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ160FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1332",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "サイドプレス160FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1381",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1762",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1361",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1367",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1635",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1769",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1654",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1470",
+    "manufacturer_slug": "pickup",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "「12オンス ヘビーウェイトプルオーバーパーカ」は衣類。ルアーではないためDELETE"
+  },
+  {
+    "slug": "1709",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1630",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1529",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1802",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1355",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1724",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1336",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "サイドプレス160FはF=フローティング、32gのキャスティングプラグ=ペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "2062",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツムジ110FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1873",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ160FはF=フローティング、160mm/7gの大型ペンシルベイト（表層キャスティング）。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1804",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正。typeは正しい"
+  },
+  {
+    "slug": "2061",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツムジ110FはF=フローティングのペンシルベイト（シンキングペンシルと誤分類）。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1390",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ120FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "2063",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツムジ110FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1502",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1320",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "サイドプレス160FはF=フローティング、32gのキャスティングプラグ=ペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1349",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1404",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正。トラップシャッドはメタルジグ系でOK"
+  },
+  {
+    "slug": "1878",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ160FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1595",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1775",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1521",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1767",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1407",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正。トラップシャッドはメタルジグ系"
+  },
+  {
+    "slug": "1632",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム50Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1809",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1328",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "サイドプレス160FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1527",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1363",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1412",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "2056",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツムジ110FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1726",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1347",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1523",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1876",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ160FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "2064",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ツムジ110FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1345",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1609",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1397",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1318",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "サイドプレス160FはF=フローティングのペンシルベイト。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1414",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1603",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1881",
+    "manufacturer_slug": "pickup",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ノガレ160FはF=フローティングのペンシルベイト（7gで表層をスローに漂わせる）。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1706",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム68Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "1506",
+    "manufacturer_slug": "pickup",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "target_fishを統合カテゴリ「青物」へ修正"
+  },
+  {
+    "slug": "1614",
+    "manufacturer_slug": "pickup",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブリ",
+      "ヒラマサ",
+      "カンパチ"
+    ],
+    "changed": true,
+    "reason": "ワスプスラローム80Sはシンキングペンシル。target_fishも「青物」へ統合"
+  },
+  {
+    "slug": "kj125s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "mf43g",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ブレードベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "ov50f",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "sw125s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sw133f",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "zb120f",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sw88s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "k50s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "mf23g",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ブレードベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sf88f",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sw90f",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "ff95sh",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ヒラメ"
+    ],
+    "changed": true,
+    "reason": "「ヒラメ」は正式なtarget_fish値ではないため「ヒラメ・マゴチ」に修正"
+  },
+  {
+    "slug": "sz128s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sw145s43",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "dsd160",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ペンシルベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "mf35g",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「メタルフラッター」はフォール時にヒラヒラするフラッタリング系ブレードベイト。形状・アクションともにメタルジグではなくブレードベイトが正確"
+  },
+  {
+    "slug": "zb100s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "fm75sl",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "vm70s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「バイブラマレット」はバイブレーションルアー。説明文にも「強烈な振動と水押し」とあり、ミノーではなくバイブレーションが正しい"
+  },
+  {
+    "slug": "fm75s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "ct80s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sw85s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sw145s55",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "vj53s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "oj130f",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "hj40st2",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "k43s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "hj40st1",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sd65",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sz88s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "fs95f",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "fs115f",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "fs75s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "zb80s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "ff95s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ヒラメ"
+    ],
+    "changed": true,
+    "reason": "「ヒラメ」は正式なtarget_fish値ではないため「ヒラメ・マゴチ」に修正"
+  },
+  {
+    "slug": "zb120s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "oj150f",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "p33st1",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "zb60s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "vm60s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「バイブラマレット60S」はバイブレーションルアー。vm70sと同シリーズ、ミノーではなくバイブレーションが正確"
+  },
+  {
+    "slug": "pz-vn105f",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "cs60",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "ns117f",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "ss95s",
+    "manufacturer_slug": "pozidrive-garage",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「スキッドスライダー」はスライド系のシンキングペンシル。スライドアクションが主体でリップなし、シンキングペンシルが正確"
+  },
+  {
+    "slug": "bj-amt",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「爆釣ジグⅡ鯵メバチューン」はメタルジグ。ワームではなくケプラー素材のアシスト付きメタルジグ"
+  },
+  {
+    "slug": "logo-stecker",
+    "manufacturer_slug": "jazz",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "塩ビ製ブランドステッカー。ルアーではないためDBから削除すべき"
+  },
+  {
+    "slug": "gfm66",
+    "manufacturer_slug": "jazz",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bakuchojig2",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "アジ",
+      "メバル",
+      "青物"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「爆釣JIGⅡ」はメタルジグ。25g〜100gのジギング用メタルジグ、青物も対象"
+  },
+  {
+    "slug": "bk_30",
+    "manufacturer_slug": "jazz",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "ロックフィッシュ（カサゴ、アイナメ等）",
+      "メバル"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "メバル",
+      "ロックフィッシュ"
+    ],
+    "changed": true,
+    "reason": "「暴君30」は30mmのバイブレーション（説明文に明記）。typeをバイブレーション、target_fishのロックフィッシュを正式名称に修正"
+  },
+  {
+    "slug": "shuffle",
+    "manufacturer_slug": "jazz",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "トランプ柄グッズ（ハート、スペード、クローバー、ダイヤの4モデル）。ルアーではないためDBから削除すべき"
+  },
+  {
+    "slug": "sh_nonweightoffsethook",
+    "manufacturer_slug": "jazz",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「NonWeightOffsethook」はウェイトなしのオフセットフック単体。ルアーではなくフック（仕掛けパーツ）のためDBから削除すべき"
+  },
+  {
+    "slug": "bluegrass",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「BlueGrass」は28gのキャスティングジグ（メタルジグ）。説明文に「キャスティングジグならではの飛距離」とあり、28gはアジ・メバルではなく青物・シーバスが対象"
+  },
+  {
+    "slug": "bk_80",
+    "manufacturer_slug": "jazz",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「GF-暴君80」は暴君シリーズのシーバス対応モデル。暴君シリーズはバイブレーション系"
+  },
+  {
+    "slug": "basic",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物",
+      "ロックフィッシュ（カサゴ、アイナメ等）"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ロックフィッシュ",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "「爆釣JIG」は25g〜100gのメタルジグ。typeをメタルジグ、target_fishのロックフィッシュを正式名称に修正"
+  },
+  {
+    "slug": "hirabazz",
+    "manufacturer_slug": "jazz",
+    "new_type": "バズベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「ヒラバズ」は説明文に「バズベイトゲーム」と明記。バズベイトは通常バス用、アジ・メバルは不適切"
+  },
+  {
+    "slug": "bk_deka",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルバイブ",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「デカ暴君」は説明文に「バイブレーションプラグ」とある大型メタルバイブ。メタルジグではなくメタルバイブが正確。対象魚もアジ・メバルではなくシーバス・青物（ディープレンジ大型魚）"
+  },
+  {
+    "slug": "bk40",
+    "manufacturer_slug": "jazz",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "アジ",
+      "メバル",
+      "ロックフィッシュ（カサゴ、アイナメ等）"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル",
+      "ロックフィッシュ"
+    ],
+    "changed": true,
+    "reason": "「GF-暴君40」は暴君シリーズのバイブレーション。typeをバイブレーション、target_fishのロックフィッシュを正式名称に修正"
+  },
+  {
+    "slug": "strange",
+    "manufacturer_slug": "jazz",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "mebaru_tune",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "メバル"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "メバル"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sh_dx_r",
+    "manufacturer_slug": "jazz",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「尺HEAD DX mini R type」はジグヘッド（0.3g〜2.5gのリトリーブ型ジグヘッド）"
+  },
+  {
+    "slug": "bk_sb",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルバイブ",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「暴君SONIKBOOM」は暴君シリーズのハイスペックモデル。暴君シリーズはメタルバイブ"
+  },
+  {
+    "slug": "bk",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルバイブ",
+    "new_target_fish": [
+      "メバル",
+      "トラウト（管理釣り場・ネイティブ含む）",
+      "ブラックバス"
+    ],
+    "old_type": "メタルバイブ",
+    "old_target_fish": [
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「暴君」はtypeが正しい。説明文に「1/4oz・1/2ozはバス、2.5g・1/8ozはトラウトやメバル」と複数対象が明記されているためtarget_fishを拡張"
+  },
+  {
+    "slug": "sh_od",
+    "manufacturer_slug": "jazz",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「尺HEAD OD」はオフセットフック付きジグヘッド。ジグヘッドが正確"
+  },
+  {
+    "slug": "bj_f1",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「爆釣JIG F-1 ミッドシップ」は60g〜200gのオフショアジギング用メタルジグ。アジ・メバルではなく青物・シーバスが対象"
+  },
+  {
+    "slug": "strange-saltedition",
+    "manufacturer_slug": "jazz",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "ajing_tune",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "アジ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "アジ"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "beat12",
+    "manufacturer_slug": "jazz",
+    "new_type": "ビッグベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「Beat12」はフラットサイドの大型ルアー（20g）。説明文に「ビッグベイト」と明記。アジ・メバル向けではなくシーバス等のビッグベイトゲーム向け"
+  },
+  {
+    "slug": "hirabait",
+    "manufacturer_slug": "jazz",
+    "new_type": "スピンテール",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「ヒラベイト」はヒラベイト系スピンテールジグ。5gのライトゲーム用スピンテールが最も近い"
+  },
+  {
+    "slug": "sh_or",
+    "manufacturer_slug": "jazz",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「尺HEAD OR」はラウンドヘッド+オフセットフックのジグヘッド"
+  },
+  {
+    "slug": "semilong",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「爆釣JIGセミロング」は220mm・380gの大型メタルジグ。アジ・メバルではなくディープジギングの青物が対象"
+  },
+  {
+    "slug": "st1",
+    "manufacturer_slug": "jazz",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「ストラップ」はロッドストラップ（アクセサリー）。ルアーではないためDBから削除すべき"
+  },
+  {
+    "slug": "bj2_taijigi",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "マダイ",
+      "青物",
+      "シーバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「爆釣JIGⅡ鯛ジギチューン」はタイジギング専用メタルジグ。対象魚はマダイが主、青物・シーバスも可"
+  },
+  {
+    "slug": "shead-rtype",
+    "manufacturer_slug": "jazz",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「尺HEAD DX マイクロバーブ Rtype」はジグヘッド（0.3g〜5g）"
+  },
+  {
+    "slug": "dtype",
+    "manufacturer_slug": "jazz",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「尺HEAD DX マイクロバーブ D type」はダートアクション型ジグヘッド"
+  },
+  {
+    "slug": "new_sh_d_r",
+    "manufacturer_slug": "jazz",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "シーバス",
+      "ヒラメ・マゴチ",
+      "青物"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「NEW 尺ヘッド #1 Dtype Rtype」は7g・10gのジグヘッド。説明文に「ミドゲームでのシーバス・ヒラメ・ブリ」と対象魚が明記されており、アジ・メバルではない"
+  },
+  {
+    "slug": "shead-dx-btype-cp",
+    "manufacturer_slug": "jazz",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル",
+      "ロックフィッシュ（カサゴ、アイナメ等）"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「尺HEAD DX Btype カラーパッケージ」はボトム特化型ジグヘッド。根魚狙いのボトムゲームにも対応するためロックフィッシュを追加"
+  },
+  {
+    "slug": "bj_hirahira",
+    "manufacturer_slug": "jazz",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物",
+      "ヒラメ・マゴチ",
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「爆釣JIG Typeひらひら」はフラッタリング系メタルジグ（10g〜50g）。説明文に「ヒラメ・青物のみならずアジやメバル」と対象が明記"
+  },
+  {
+    "slug": "sh_dx_dmini",
+    "manufacturer_slug": "jazz",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「尺HEAD DX mini D type」はダート型ミニジグヘッド（1g〜2g）"
+  },
+  {
+    "slug": "lunker-head",
+    "manufacturer_slug": "jazz",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "シーバス",
+      "ロックフィッシュ（カサゴ、アイナメ等）"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「LUNKER HEAD」は7g〜16gのジグヘッド。説明文に「シーバスやロックフィッシュをメインターゲット」と明記"
+  },
+  {
+    "slug": "i-f-ankar-3",
+    "manufacturer_slug": "obasslive",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「I.F ANKAR 3」はソフトベイト（ワーム）。typeをワームに修正"
+  },
+  {
+    "slug": "i-f-ankar-3-7",
+    "manufacturer_slug": "obasslive",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「I.F ANKAR 3.7」は高比重ソフトベイト（ワーム）。typeをワームに修正"
+  },
+  {
+    "slug": "mtpencil",
+    "manufacturer_slug": "obasslive",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「MT PENCIL」はリップレスペンシルミノー。説明文に「バスのサーフェスフィッシングに特化したトップウォータールアー」とあり、ペンシルベイトが正確"
+  },
+  {
+    "slug": "evo-tuned",
+    "manufacturer_slug": "obasslive",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「EVO tuned」はMOLAMOLAシリーズのハードベイト（ワーミングバイブ）。バイブレーションが最も近い分類"
+  },
+  {
+    "slug": "winbee",
+    "manufacturer_slug": "obasslive",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「WINBEE」55mm・スローシンキングのバス用ハードベイト。リップなしスローシンキングの特性からシンキングペンシルが適切"
+  },
+  {
+    "slug": "molamola-doryu",
+    "manufacturer_slug": "obasslive",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「MOLAMOLA Doryu」はフルコンタクトワーミングバイブと説明文に明記。バイブレーションが正確"
+  },
+  {
+    "slug": "big-mofu",
+    "manufacturer_slug": "obasslive",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「BIG MOFU」はビッグワーミングバイブレーションベイトと説明文に明記。MOLAMOLAシリーズのバイブレーション"
+  },
+  {
+    "slug": "molamola-br",
+    "manufacturer_slug": "obasslive",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「MOLAMOLA BR」はフローティングワーミングバイブ（MOLAMOLAシリーズ）。バイブレーションが正確"
+  },
+  {
+    "slug": "molamola",
+    "manufacturer_slug": "obasslive",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「MOLAMOLA」はワーミングバイブレーションハードベイトと説明文に明記"
+  },
+  {
+    "slug": "vubble-vack",
+    "manufacturer_slug": "obasslive",
+    "new_type": "ビッグベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「VUBBLE VACK」は137mm・1ozのウェイクベイト。サブサーフェス攻略のビッグバス向けビッグベイトが適切"
+  },
+  {
+    "slug": "indy-stick-5inch",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「INDY STICK 5inch」はobassliveブランドのバス用スティックワーム。説明文に「対ビッグバス」と明記。シーバスではなくブラックバスが正しい"
+  },
+  {
+    "slug": "tamasaburo-worm",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "タコ"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "タコ"
+    ],
+    "changed": true,
+    "reason": "「玉三郎ワーム」は説明文に「タコエギワーム」と明記。エギ（タコ用）が正確"
+  },
+  {
+    "slug": "worm-claw",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "その他",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「ワームクロー」はワームをジグヘッドに固定するアクセサリーパーツ。ルアー本体ではなくジグヘッドでもないため「その他」が適切"
+  },
+  {
+    "slug": "su-san",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "hi-68s",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "hi-115s",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "40",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ロックフィッシュ"
+    ],
+    "changed": true,
+    "reason": "「ロックフィッシュキーパー40」はフィッシュキーパー（魚を生かしておく器具）。ルアーではないためDBから削除すべき"
+  },
+  {
+    "slug": "bb",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「BBオモリグスナップ」はBBサルカンとスナップのセット（仕掛けパーツ）。ルアーではないためDBから削除すべき"
+  },
+  {
+    "slug": "takoya-daijiro",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "タコ"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "タコ"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "teri-bull",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "rocketeer-accuraid",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "イカ（アオリイカ、ヤリイカ等）"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「Rocketeer ACCURAID 3.5号」はアオリイカ用エギ（3.5号サイズ）。シーバスではなくイカが正しい"
+  },
+  {
+    "slug": "jaco-bee",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "baydrive-swarp-head",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "giganoto-tg",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "タイラバ",
+    "new_target_fish": [
+      "マダイ"
+    ],
+    "old_type": "タイラバ",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「GIGANOTO TGラトル」はvalleyhillのGIGANOTOシリーズ（タイラバ）。対象魚はマダイであり、ブラックバスは誤り"
+  },
+  {
+    "slug": "dragon-q-metal-flat",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "タチウオ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "タチウオ"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "giiver",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "スピンテール",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "スピンテール",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "dp-180f",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ダイビングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ダイビングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "DP-180F〜240Fは65gの大型ダイビングペンシル。このサイズ・重量はヒラマサ・GTなど青物誘い出し専用で、シーバスには大きすぎる"
+  },
+  {
+    "slug": "deco-pop-slim-110f-hira-sp",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "air-deep-80s",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "giganoto",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "メタルバイブ",
+    "new_target_fish": [
+      "タチウオ"
+    ],
+    "old_type": "タイラバ",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「80m超の圧倒的飛距離・手元に響く強振動」はメタルバイブの特性。valleyhillのGIGANOTOはタチウオ専用メタルバイブで、タイラバでもバス用でもない"
+  },
+  {
+    "slug": "dragon-q-metal-tg",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "タチウオ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "Dragon Qシリーズはvalleyhillのタチウオ専用メタルジグライン。「マイクロベイトパターン&低活性対応」もタチウオゲームの文脈"
+  },
+  {
+    "slug": "indy-stick-7inch",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ペンシルベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「1oz・バーチカル/イレギュラーセッティング」はシーバス用大型シンキングペンシルの特徴。トップウォータータイプのペンシルベイトではなくシンキングペンシル"
+  },
+  {
+    "slug": "baydrive",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "ヒラメ",
+      "マゴチ"
+    ],
+    "changed": true,
+    "reason": "target_fishの表記を「ヒラメ・マゴチ」（統一フォーマット）に修正"
+  },
+  {
+    "slug": "blue-beak-tg",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "タイラバ",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「スライドアクション・スーパーライトジギング対応」はメタルジグの特性。タングステン製で飛距離重視のSLJ用メタルジグ。青物ターゲット"
+  },
+  {
+    "slug": "dragon-q-metal-bull",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "タチウオ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "Dragon Qシリーズはvalleyhillのタチウオ専用メタルジグライン"
+  },
+  {
+    "slug": "led",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "バズベイト",
+    "new_target_fish": [
+      "ナマズ"
+    ],
+    "old_type": "バズベイト",
+    "old_target_fish": [
+      "ナマズ"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "dc-180f",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ダイビングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ダイビングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "180〜220mmの大型ダイビングペンシル。dp-180fと同系列でヒラマサ・青物誘い出し用。シーバスには大型すぎる"
+  },
+  {
+    "slug": "kids-jaco-bee",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "JACO-BEEはvalleyhillのバス用エビ系ワームシリーズ。「現場に合わせたリグ」もバスフィッシングの文脈"
+  },
+  {
+    "slug": "bbbomber",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "プロップベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ペンシルベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「ペラ位置」の記述があり、ペラ（プロペラ）搭載のプロップベイト。28gで「水面直下を速く巻く」はプロップベイトの典型的使用法"
+  },
+  {
+    "slug": "bfreeze-gp100f",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "blue-beak",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "タイラバ",
+    "old_target_fish": [
+      "青物"
+    ],
+    "changed": true,
+    "reason": "「スライドアクション・フォールで喰わす・SLJ対応」はメタルジグの特性。タイラバではない。target_fishも正式表記に修正"
+  },
+  {
+    "slug": "gp-newt",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「デカバスを呼ぶ」と明記。GP NEWTはvalleyhillのバス用ニュートワーム"
+  },
+  {
+    "slug": "rerecurl",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「バスからの返信（アタリ）」と明記。バス用カーリーテールワーム"
+  },
+  {
+    "slug": "jaco-bee-q",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「ネコリグ完全対応」はバスフィッシングのリグ。JACO-BEEはバス用エビ系ワームシリーズ"
+  },
+  {
+    "slug": "devil-shaker",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "バイブレーション",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「タフレイク完全攻略」はリザーバー・レイク（湖）での釣りを指すバス釣り表現"
+  },
+  {
+    "slug": "dp-160s",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ダイビングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ダイビングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「キハダ、カツオ入り混じるナブラに！！」と明記。81gのシンキングダイビングペンシルで青物専用"
+  },
+  {
+    "slug": "dragon-q-metal-flat-quickpackage",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "タチウオ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ヒラメ",
+      "マゴチ"
+    ],
+    "changed": true,
+    "reason": "Dragon Qシリーズはタチウオ専用メタルジグライン。target_fishもタチウオに修正"
+  },
+  {
+    "slug": "boogie-back",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ペンシルベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "takoya",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "その他",
+    "new_target_fish": [
+      "タコ"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "タコ"
+    ],
+    "changed": true,
+    "reason": "「蛸家」シリーズはタコ専用仕掛け（タコエギ）。通常のイカエギとは別物。typeは「その他」（タコエギは一般的なエギとは異なる）が適切。target_fishはタコで正しい"
+  },
+  {
+    "slug": "w",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "チューブオープナーはルアーではなく釣具アクセサリー（ツール）。DBから削除すべき"
+  },
+  {
+    "slug": "decopen-110f",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "giganoto-light",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "メタルバイブ",
+    "new_target_fish": [
+      "タチウオ"
+    ],
+    "old_type": "タイラバ",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "GIGANOTOと同シリーズのライトモデル。メタルバイブ、タチウオターゲット"
+  },
+  {
+    "slug": "cyo-san",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bfreeze-gp65-dive",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "yarukinashi-stick-93",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "lv-150gp",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "メタルバイブ",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "メタルバイブ",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "air-deep-67s",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "gp-newt-35inch",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "GP NEWTシリーズはバス用ワーム。「新感覚リザード」もバスフィッシング用リザードワームを示す"
+  },
+  {
+    "slug": "beat-rider",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "バイブレーション",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「ロングノーズアイがウィード回避」はバスフィッシングのウィードエリア攻略。バス用バイブレーション"
+  },
+  {
+    "slug": "dragon-q-metal-axis",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "タチウオ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "Dragon Qシリーズはvalleyhillのタチウオ専用メタルジグライン"
+  },
+  {
+    "slug": "deco-cut",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "aji-ta",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "アジ"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "アジ"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bfreeze-gp100sp",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bfreeze-gp100lb-sp",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "chindon-tama",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "その他",
+    "new_target_fish": [
+      "タコ"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「蛸家」シリーズのタコエギ（ちんどん玉）。target_fishはタコが正しい"
+  },
+  {
+    "slug": "yaruki-stick-yarukiba-78",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ペンシルベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "説明文に「78mmシンキングペンシル」と明記。ペンシルベイトではなくシンキングペンシル"
+  },
+  {
+    "slug": "hd",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "アングラーバイスはタイイング用ツール。ルアーではない。DBから削除すべき"
+  },
+  {
+    "slug": "tamo-shaft-400-hrx-edition",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ロックフィッシュ"
+    ],
+    "changed": true,
+    "reason": "タモシャフトは玉の柄（ネットシャフト）。ルアーではなく釣具アクセサリー。DBから削除すべき"
+  },
+  {
+    "slug": "yaruki-stick",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "説明文に「93mmシンキングミノー・バスの捕食スイッチ・デカバス」と明記。バス用シンキングミノー"
+  },
+  {
+    "slug": "perle",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "4gの「ライトゲーム対応シンペン」。このウェイトとキャッチコピーはアジング・メバリング向け"
+  },
+  {
+    "slug": "decomasa-ii",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ダイビングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ダイビングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「誘い出しに完全対応するフローティング・ダイビングペンシル」。誘い出しはヒラマサ・青物ゲームの技法"
+  },
+  {
+    "slug": "jungle-rapper",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "takoya-koshiro",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "その他",
+    "new_target_fish": [
+      "タコ"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "タコ"
+    ],
+    "changed": true,
+    "reason": "「蛸家 小四郎」はタコ専用仕掛け（タコエギ）。通常エギ（イカ用）とは別カテゴリ"
+  },
+  {
+    "slug": "j-cluster",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「スイミングワームとのセッティングで威力を発揮」。ワームを装着するジグヘッド単体製品"
+  },
+  {
+    "slug": "squid-seeker-4-regular",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "イカ（アオリイカ、ヤリイカ等）"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "イカ"
+    ],
+    "changed": true,
+    "reason": "target_fishを正式表記「イカ（アオリイカ、ヤリイカ等）」に修正"
+  },
+  {
+    "slug": "jocarl",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "Jocarlはvalleyhillのバスフィッシングラインのカーリーテールワーム。シーバスではない"
+  },
+  {
+    "slug": "ni-san",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "dm-200f",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ダイビングペンシル",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ダイビングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "200mmのウッド製ダイビングペンシル。このサイズはヒラマサ・青物誘い出し専用"
+  },
+  {
+    "slug": "ebi-shad-3",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「オカッパリ遠投ゲームに完全対応させたヘビキャロ専用ワーム」。ヘビキャロはバスフィッシングの釣法"
+  },
+  {
+    "slug": "koebi-shad",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "シャッド",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "エビシャッドシリーズはバス用エビ系ソフトルアー（ワーム）。「シャッド」はハードルアーのカテゴリのため「ワーム」が正しい"
+  },
+  {
+    "slug": "ebi-straight",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「多様な使い方に対応・リングの効果を重視」はバス用ストレートワームの特徴"
+  },
+  {
+    "slug": "sleeker",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "squid-seeker-23-micros",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "イカ（アオリイカ、ヤリイカ等）"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "イカ"
+    ],
+    "changed": true,
+    "reason": "target_fishを正式表記「イカ（アオリイカ、ヤリイカ等）」に修正"
+  },
+  {
+    "slug": "ebi-tank-jr",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "EBI TANKシリーズはバス用エビ系ワーム。「スピニングでも扱いやすいサイズダウンモデル」もバス用の文脈"
+  },
+  {
+    "slug": "bevy-popper-gp",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "squid-seeker",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "イカ（アオリイカ、ヤリイカ等）"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "イカ"
+    ],
+    "changed": true,
+    "reason": "「大型ツツイカ」はケンサキイカ等のツツイカ類。target_fishを正式表記に修正"
+  },
+  {
+    "slug": "kids-jaco-bee-q",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "JACO-BEEシリーズはバス用エビ系ワーム。「シャッド系・エビ・ゴリ」カラーもバスフィッシング向け"
+  },
+  {
+    "slug": "dpss-210f",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "85gのウッド製スリムポッパー。このウェイトと「MADE IN JAPAN WOOD製」はオフショア青物誘い出し用"
+  },
+  {
+    "slug": "squid-seeker-minilin",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "イカ（アオリイカ、ヤリイカ等）"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "イカ"
+    ],
+    "changed": true,
+    "reason": "target_fishを正式表記「イカ（アオリイカ、ヤリイカ等）」に修正"
+  },
+  {
+    "slug": "valhalla-crank-ssr",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「バスの本能を揺さぶる・ハイウォブルアクションシャロークランク」と明記。バス用クランクベイト"
+  },
+  {
+    "slug": "gustsf-43gp",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "GUST SFはvalleyhillのバス用クランクベイト。シーバスクランクではない"
+  },
+  {
+    "slug": "tama",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "タイラバ",
+    "new_target_fish": [
+      "マダイ"
+    ],
+    "old_type": "タイラバ",
+    "old_target_fish": [
+      "マダイ"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "squid-seeker-metal",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "イカ（アオリイカ、ヤリイカ等）"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "イカ"
+    ],
+    "changed": true,
+    "reason": "target_fishを正式表記「イカ（アオリイカ、ヤリイカ等）」に修正"
+  },
+  {
+    "slug": "squid-seeker-micros-lighttune",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "イカ（アオリイカ、ヤリイカ等）"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "イカ"
+    ],
+    "changed": true,
+    "reason": "target_fishを正式表記「イカ（アオリイカ、ヤリイカ等）」に修正"
+  },
+  {
+    "slug": "aji-tate",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "アジ"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "アジ"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "ebi-tank",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「高比重マテリアル採用・ボトムを這いずりバスを魅了！」と明記。バス用エビ系ワーム"
+  },
+  {
+    "slug": "gottsuanminnow",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "headhunter-srv",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「カバー撃ち対応」はバスフィッシングのカバーゲーム用語。バス用ミノー"
+  },
+  {
+    "slug": "booster-blade-55",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "スピンテール",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スピンテール",
+    "old_target_fish": [
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「バスのチェイスをバイトに持ち込む」と明記。バス用スピンテール"
+  },
+  {
+    "slug": "baydrive-change-flat-38",
+    "manufacturer_slug": "valleyhill",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "ヒラメ",
+      "マゴチ"
+    ],
+    "changed": true,
+    "reason": "target_fishの表記を「ヒラメ・マゴチ」（統一フォーマット）に修正"
+  },
+  {
+    "slug": "aji-pinpin",
+    "manufacturer_slug": "viva",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "アジ"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "ブラックバス",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「アジピンピン」は名前からアジング用ワーム。AquaWave（ソルト）ブランドのアジ専用ワーム。weight 41gはパッケージ重量と思われる"
+  },
+  {
+    "slug": "aji-pinpin-old",
+    "manufacturer_slug": "viva",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "アジ"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "ブラックバス",
+      "メバル"
+    ],
+    "changed": true,
+    "reason": "「アジピンピン」旧モデル。アジング用ワーム"
+  },
+  {
+    "slug": "aoricks-tr",
+    "manufacturer_slug": "viva",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "イカ（アオリイカ、ヤリイカ等）"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「アオリクス」の名前通りアオリイカ用エギ。AquaWaveブランドのエギ。target_fishもイカに修正"
+  },
+  {
+    "slug": "aw-lock-head",
+    "manufacturer_slug": "viva",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「A.W. LOCK HEAD」はAquaWave（ソルトウォーター）ブランドの0.3g超軽量ジグヘッド。このウェイトはアジング・メバリング専用"
+  },
+  {
+    "slug": "aw-swim-head",
+    "manufacturer_slug": "viva",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「A.W. SWIM HEAD」はAquaWaveブランドの0.8g軽量スイムジグヘッド。アジング・メバリング用"
+  },
+  {
+    "slug": "ayulasic-shad110f",
+    "manufacturer_slug": "viva",
+    "new_type": "シャッド",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "シャッド",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "blade-magic75",
+    "manufacturer_slug": "viva",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ブレードベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "blade-magic90",
+    "manufacturer_slug": "viva",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ブレードベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "blade-magic90-heavy",
+    "manufacturer_slug": "viva",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ブレードベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bowflap-65s",
+    "manufacturer_slug": "viva",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bowflap-80s",
+    "manufacturer_slug": "viva",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bresbien",
+    "manufacturer_slug": "viva",
+    "new_type": "スピンテール",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スピンテール",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bresbien-60",
+    "manufacturer_slug": "viva",
+    "new_type": "スピナーベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スピナーベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "carurear",
+    "manufacturer_slug": "viva",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物（ブリ、ヒラマサ、カンパチ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "120gのメタルジグ。このウェイトはオフショアジギングでの青物専用。バスには使用不可能なサイズ・重量"
+  },
+  {
+    "slug": "swaycall-120f",
+    "manufacturer_slug": "viva",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "miyabis-45xd-test",
+    "manufacturer_slug": "viva",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ロックフィッシュ（カサゴ、アイナメ等）"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「ロック専用・ボトムトレーサー」と明記。ロックフィッシュ（カサゴ・アイナメ等）専用クランクベイト"
+  },
+  {
+    "slug": "tobunder-delude",
+    "manufacturer_slug": "viva",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "spark-head",
+    "manufacturer_slug": "viva",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「機能性ダートジグヘッド」5gはライトソルトゲーム向け。ダートジグヘッドはアジング・メバリングの定番"
+  },
+  {
+    "slug": "spark-slim-head",
+    "manufacturer_slug": "viva",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「軽い力でよく動く機能性ダートジグヘッド」。ダートジグヘッドはアジング・メバリング用"
+  },
+  {
+    "slug": "grown-wriggle-shad",
+    "manufacturer_slug": "viva",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "シャッド",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "「シャッド」はハードルアーのカテゴリ。Wriggle Shadはソフトルアー（ワーム）のシャッドテール系。typeは「ワーム」が正しい"
+  },
+  {
+    "slug": "hoghog-hog",
+    "manufacturer_slug": "viva",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "yawaraka-denguri-gaeru-namazusp",
+    "manufacturer_slug": "viva",
+    "new_type": "フロッグ",
+    "new_target_fish": [
+      "ブラックバス",
+      "ナマズ"
+    ],
+    "old_type": "フロッグ",
+    "old_target_fish": [
+      "ブラックバス",
+      "ナマズ"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "rolling-dancer",
+    "manufacturer_slug": "viva",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "バイブレーション",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "shallow-magic60",
+    "manufacturer_slug": "viva",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "rest108",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "kaiten",
+    "manufacturer_slug": "gancraft",
+    "new_type": "その他",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bigspider",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "ソフト素材の蜘蛛型ソフトベイト。ワームが正確"
+  },
+  {
+    "slug": "betty_all",
+    "manufacturer_slug": "gancraft",
+    "new_type": "スイムベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スイムベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "osa115",
+    "manufacturer_slug": "gancraft",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "184sw",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jointedclaw148",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jointedclaw-shift263",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ビッグベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "136gの対モンスターバス用超大型ジョイントルアー。ビッグベイトに分類"
+  },
+  {
+    "slug": "shape-s",
+    "manufacturer_slug": "gancraft",
+    "new_type": "スイムベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スイムベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "rest128sl",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jc303_shaku-one",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ビッグベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "263gのモンスタークラス超大型ジョイントルアー。ビッグベイトに分類"
+  },
+  {
+    "slug": "kaiten148",
+    "manufacturer_slug": "gancraft",
+    "new_type": "その他",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jointedclaw-shift183",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jyashin",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "target_fishが「アユ」となっているが、鮎はベイトフィッシュのイメージ元であり対象魚はブラックバス（鮎パターンのビッグバス狙い）"
+  },
+  {
+    "slug": "corehead2",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ラバージグ",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "パンチング・カバー撃ち専用の超ヘビージグヘッド。ラバージグが正確（ラバーが装着されたカバー撃ちジグ）"
+  },
+  {
+    "slug": "new_killersbait_mini2",
+    "manufacturer_slug": "gancraft",
+    "new_type": "スピナーベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スピナーベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "kabrata",
+    "manufacturer_slug": "gancraft",
+    "new_type": "チャターベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "チャターベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "shape-s4.0",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "betty59",
+    "manufacturer_slug": "gancraft",
+    "new_type": "スイムベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スイムベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "screwbait130",
+    "manufacturer_slug": "gancraft",
+    "new_type": "その他",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "スクリュー（回転）アクション系の独自ジャンルルアー。クランクベイトではなく「その他」が正確"
+  },
+  {
+    "slug": "bacra",
+    "manufacturer_slug": "gancraft",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jointed-claw-ratchet144-sw",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ビッグベイト",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "34gのジョインテッドクロー系SWモデル。ジョイントベイトが正確（ビッグベイトほどのサイズ・重量ではない）"
+  },
+  {
+    "slug": "bariki38",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bariki58",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bigspider_micro",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "フロッグ",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "ソフト素材の蜘蛛型マイクロルアー。フロッグではなくワームが正確"
+  },
+  {
+    "slug": "new_killersbait",
+    "manufacturer_slug": "gancraft",
+    "new_type": "スピナーベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スピナーベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jc_zepro",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jointedclaw-shift113",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bomb-slide",
+    "manufacturer_slug": "gancraft",
+    "new_type": "フロッグ",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "フロッグ",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "killers-bait-over",
+    "manufacturer_slug": "gancraft",
+    "new_type": "スピナーベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スピナーベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "bariki48",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スイムベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "シャッドテール形状のソフトベイト（ワーム素材）。スイムベイトではなくワームが正確"
+  },
+  {
+    "slug": "bacra_sr",
+    "manufacturer_slug": "gancraft",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "ayrton",
+    "manufacturer_slug": "gancraft",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "osa80",
+    "manufacturer_slug": "gancraft",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "screwbait110",
+    "manufacturer_slug": "gancraft",
+    "new_type": "その他",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "z-claw",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ペンシルベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "ayuja128_rest",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ビッグベイト",
+    "old_target_fish": [
+      "アユ"
+    ],
+    "changed": true,
+    "reason": "鮎邪RESTはジャークベイト型ビッグミノー。ビッグベイトよりミノーが適切。target_fishの「アユ」はベイトフィッシュのイメージ元で対象魚はブラックバス"
+  },
+  {
+    "slug": "killers_buzz_burst_jr",
+    "manufacturer_slug": "gancraft",
+    "new_type": "バズベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "バズベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "joicrawler",
+    "manufacturer_slug": "gancraft",
+    "new_type": "クローラーベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ビッグベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "ジョインテッドクローラーベイトと明記されているウィング付きトップウォーター。クローラーベイトが正確"
+  },
+  {
+    "slug": "s-caper-sw",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ペンシルベイト",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "ayrton_sr",
+    "manufacturer_slug": "gancraft",
+    "new_type": "クランクベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "クランクベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "s-caper",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ペンシルベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jointedclawratchet184",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ビッグベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "ジョインテッドクローラチェット184はS字系ジョイントベイト。ビッグベイトよりジョイントベイトが正確"
+  },
+  {
+    "slug": "deadslow",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "killers_buzz_bersut",
+    "manufacturer_slug": "gancraft",
+    "new_type": "バズベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "バズベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "corehead",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ラバージグ",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ラバージグ",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jointedclaw128",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jointedclaw70",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス",
+      "トラウト（管理釣り場・ネイティブ含む）",
+      "シーバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "説明文に「バス・トラウト・シーバスなど」と複数魚種が明記されている"
+  },
+  {
+    "slug": "s-song",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "jointedclaw_magnum",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ビッグベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "113gの超大型S字系、ロクマル・ナナマル専用モンスターバスルアー。ビッグベイトに分類"
+  },
+  {
+    "slug": "paradox155",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "shape-s2.5",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スイムベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "ジョイント構造のソフトベイト（2gの微波動系ワーム）。スイムベイトよりワームが正確"
+  },
+  {
+    "slug": "bariki68",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "スイムベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "シャッドテール形状のソフトベイト（ワーム素材）。スイムベイトよりワームが正確"
+  },
+  {
+    "slug": "jointedclaw178",
+    "manufacturer_slug": "gancraft",
+    "new_type": "ジョイントベイト",
+    "new_target_fish": [
+      "ブラックバス"
+    ],
+    "old_type": "ビッグベイト",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "ジョインテッドクロー178はS字系ジョイントベイトの代名詞。ビッグベイトよりジョイントベイトが正確"
+  },
+  {
+    "slug": "spinbit",
+    "manufacturer_slug": "blueblue",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "シーバス",
+      "青物",
+      "タチウオ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文にタチウオへの効果が明記されている"
+  },
+  {
+    "slug": "narage-65",
+    "manufacturer_slug": "blueblue",
+    "new_type": "バイブレーション",
+    "new_target_fish": [
+      "シーバス",
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "バイブレーション",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "ボトムデッドスロー特化のバイブレーション。説明文からシーバス・ヒラメ向け（青物よりボトム系対象）"
+  },
+  {
+    "slug": "gachpen-160",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ダイビングペンシル",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ダイビングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "spinbit-ⅱ",
+    "manufacturer_slug": "blueblue",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "スピンテール",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文に「次世代コンパクトメタルジグ」と明記。150gはスピンテールではなくメタルジグ"
+  },
+  {
+    "slug": "snecon-50s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "50mmのライトゲーム向けシンペン。説明文にアジ・メバルを誘うと明記"
+  },
+  {
+    "slug": "esnal",
+    "manufacturer_slug": "blueblue",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "ヒラマサをメインターゲットに開発されたロングジグ。青物専門"
+  },
+  {
+    "slug": "gachpen-200",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ダイビングペンシル",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ダイビングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "kumihon-deep-75s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シャッド",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シャッド",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "ピン撃ち特化のディープダイバーシャッド。説明文はシーバス（ストラクチャー撃ち）専用設計で青物は対象外"
+  },
+  {
+    "slug": "eguid-90f",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "マイクロベイトパターン・デッドスロー特化のリップレスフローティングミノー。シーバス専用で青物は対象外"
+  },
+  {
+    "slug": "jolty",
+    "manufacturer_slug": "blueblue",
+    "new_type": "スイムベイト",
+    "new_target_fish": [
+      "ヒラメ・マゴチ",
+      "シーバス"
+    ],
+    "old_type": "スイムベイト",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "サーフのヒラメ・マゴチ攻略の決定版として開発されたジグヘッド+ワームリグ。target_fishの修正が必要"
+  },
+  {
+    "slug": "scarnash-140f",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "gachisla-180hs",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "青物・GTなどの大型魚専用として開発。シーバスより青物・大型魚がメインターゲット"
+  },
+  {
+    "slug": "gachpen-130",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ダイビングペンシル",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ダイビングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "arvin-60s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス",
+      "メバル"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "PE0.3〜0.6号のライトゲームタックル向けシンペン。シーバス・メバルが対象（青物は対象外）"
+  },
+  {
+    "slug": "shalldus-14",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ブレードベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ブレードベイト",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "シャローゲーム特化の14gブレードベイト。説明文はシーバス専用（ナイトシーバスゲーム中心）"
+  },
+  {
+    "slug": "gachpop-tulipa",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "青物"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "マグロ・GT・青物など大型魚専用のスリムポッパー。シーバスより大型青物・GT・マグロがメイン"
+  },
+  {
+    "slug": "gabotz-150",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sea-ride-mini",
+    "manufacturer_slug": "blueblue",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "シーバス",
+      "青物",
+      "ロックフィッシュ（カサゴ、アイナメ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文に「近海の根魚から青物まで」と明記されており、ロックフィッシュも対象"
+  },
+  {
+    "slug": "003189",
+    "manufacturer_slug": "blueblue",
+    "new_type": "スイムベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "ワーム素材の水面攻略スイムベイト。スレた大型シーバス専用設計。typeはスイムベイトが適切"
+  },
+  {
+    "slug": "ninjari-ワーム-ss",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "ジグヘッドワームリグのワーム部品。typeはワームが適切。説明文はシーバス向けワインド特化（青物は対象外）"
+  },
+  {
+    "slug": "freed-125s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "サーフゲーム向けシンキングペンシル。説明文にヒラメ・マゴチ攻略と明記"
+  },
+  {
+    "slug": "snecon-220s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物"
+    ],
+    "old_type": "ダイビングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "145g・220mmのヘビーシンキングペンシル（説明文にも「シンキングペンシル」と明記）。マグロ・GT・ヒラマサなど大型魚専用でtypeはシンキングペンシル、target_fishは青物"
+  },
+  {
+    "slug": "snecon-180s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "kumihon-70s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シャッド",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シャッド",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "壁際・橋脚ピン撃ち特化のシャッド。シーバス専用設計で青物は対象外"
+  },
+  {
+    "slug": "kumihon-deep-75f",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シャッド",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シャッド",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "ゴロタ・牡蠣瀬ピン撃ち特化のフローティングシャッド。シーバス専用設計"
+  },
+  {
+    "slug": "gachisla-230hs",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "青物"
+    ],
+    "old_type": "ペンシルベイト",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "165gヘビーシンキングペンシル（説明文にも明記）。GT・青物・ヒラマサなど大型魚専用"
+  },
+  {
+    "slug": "gachpop-60",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "シーバス",
+      "チヌ・クロダイ"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文に「チヌのバイトも引き出す」「チヌトップ」と明記。チヌ・シーバス向けで青物は対象外"
+  },
+  {
+    "slug": "gabotz-65",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "シーバス",
+      "チヌ・クロダイ"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文にシーバスとチヌを誘うと明記。65mmサイズで青物より小型魚向け"
+  },
+  {
+    "slug": "003088",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ペンシルベイト",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ペンシルベイト",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "006052",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "forten-ミディアム",
+    "manufacturer_slug": "blueblue",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "シーバス",
+      "青物",
+      "タチウオ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文にタチウオへのアピール力が明記されている"
+  },
+  {
+    "slug": "konoyaro-180",
+    "manufacturer_slug": "blueblue",
+    "new_type": "スイムベイト",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ジョイントベイト",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "3分割スイムベイト。ジョイントベイトよりスイムベイトが正確（ソフトウォブル系スイムアクション）"
+  },
+  {
+    "slug": "ebicon-60s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "ロックフィッシュ（カサゴ、アイナメ等）"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "エビ型リップレスジャークベイト。説明文にカサゴ・ソイへのアプローチと明記。typeはミノー（リップレスジャークベイト）、target_fishはロックフィッシュが正確"
+  },
+  {
+    "slug": "blowin-！60s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス",
+      "メバル"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "60mmライトゲーム向けシンペン。説明文に「メバルをはじめライトゲームのターゲット全般」と明記"
+  },
+  {
+    "slug": "outstar-120s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "シャロー攻略のシーバス専用シンペン。沖のシーバスをピンポイントで仕留める一手と説明文に明記"
+  },
+  {
+    "slug": "blowin-！80s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス",
+      "メバル"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文に「食い渋るシーバスやメバルの食性を刺激」と明記。80mmの細身シルエットはメバルも対象"
+  },
+  {
+    "slug": "000771",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス",
+      "青物",
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "105mmジグミノー。説明文にサーフのヒラメ・マゴチへの対応も明記"
+  },
+  {
+    "slug": "metal-shalldus",
+    "manufacturer_slug": "blueblue",
+    "new_type": "スピンテール",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "スピンテール",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "005333",
+    "manufacturer_slug": "blueblue",
+    "new_type": "スピンテール",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ブレードベイト",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "タングステン素材のブレードジグ。高速フォール・ブレード回転の構造からスピンテールが正確"
+  },
+  {
+    "slug": "lazamin-90-hf",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "バチ抜け・ハクパターン特化のシーバス専用フローティングミノー。青物は対象外"
+  },
+  {
+    "slug": "snecon-90s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "inemun-60",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "チヌ・クロダイ",
+      "シーバス"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文に「クロダイトップウォータープラグ」「チニングトップゲーム特性に完全対応」と明記。チヌメインで青物は対象外"
+  },
+  {
+    "slug": "zepper-140-hf",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "sea-ride",
+    "manufacturer_slug": "blueblue",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "amicon-40s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "アジ",
+      "メバル",
+      "チヌ・クロダイ"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文に「アジ・メバル向けワインドダートシンキングプラグ」「アジングからメバリング・チニングまで」と明記"
+  },
+  {
+    "slug": "gabotz-120",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false,
+    "reason": ""
+  },
+  {
+    "slug": "zepper-40f",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "メバル"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文に「メバル・ライトゲーム向けフローティングミノー」と明記。2.5gの軽量ルアーでシーバス・青物は不適切"
+  },
+  {
+    "slug": "002537",
+    "manufacturer_slug": "blueblue",
+    "new_type": "スイムベイト",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "スイムベイト",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "ボラコン150はシーバス専用のウェイクタイプスイムベイト。青物ゲームへの言及なし"
+  },
+  {
+    "slug": "006026",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文に「シーバス用シンペンの新基準」と明記。ドリフト釣法はシーバス特有の釣り方"
+  },
+  {
+    "slug": "lazamin-90",
+    "manufacturer_slug": "blueblue",
+    "new_type": "i字系",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "i字系",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "8gのI字系ミノー。マイクロベイト・バチパターン専用でシーバス特化。青物は不適切"
+  },
+  {
+    "slug": "gachpop-100",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ポッパー",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ポッパー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "blowin-！165f-slim",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "freed-90s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "サーフ・磯・河川・港湾のシーバス用シンペン。青物への言及なし"
+  },
+  {
+    "slug": "aiser-100f",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文末「シーバ…」で終わるシーバス専用シャローランナー。13.5gで青物は不適切"
+  },
+  {
+    "slug": "aiser-125f",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "シーバス用フローティングミノーと明記。大型シーバスのバイト誘発に特化した設計"
+  },
+  {
+    "slug": "zepper-80s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文に「シンキングミノー」と明記。ウォブンロールアクションはミノーの特徴。港湾シーバス専用"
+  },
+  {
+    "slug": "tracy",
+    "manufacturer_slug": "blueblue",
+    "new_type": "メタルバイブ",
+    "new_target_fish": [
+      "シーバス",
+      "青物",
+      "チヌ・クロダイ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文に「メタルバイブ」「鉄板バイブ」と明記。リトリーブ系のメタルバイブ。チヌも実績あり"
+  },
+  {
+    "slug": "snecon-130s",
+    "manufacturer_slug": "blueblue",
+    "new_type": "シンキングペンシル",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "シンキングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "ランカーシーバス専用のS字系シンキングペンシル。ドリフト釣法はシーバス特有"
+  },
+  {
+    "slug": "aiser-160f",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "「ランカーシーバス専用設計」と明記されたシャローランナー。青物への言及なし"
+  },
+  {
+    "slug": "conifer",
+    "manufacturer_slug": "blueblue",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "中深海スロージギング専用。アラ・アカムツ・カンパチ狙い。シーバスは不適切"
+  },
+  {
+    "slug": "blowin-！140j",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "old_type": "ミノー",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "aiser-125-rerard",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ミノー",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "アイザー125Fのバリエーションでシャローランナーミノー。スローフローティング設計のシーバス専用"
+  },
+  {
+    "slug": "gachpen-swimmer-180",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ダイビングペンシル",
+    "new_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "old_type": "ダイビングペンシル",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "shalldus-20",
+    "manufacturer_slug": "blueblue",
+    "new_type": "スピンテール",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "スピンテール",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "18gの表層シャロー特化ルアー。夜間港湾シーバス〜サーフのシーバス専用。青物は不適切"
+  },
+  {
+    "slug": "shalldus-35",
+    "manufacturer_slug": "blueblue",
+    "new_type": "スピンテール",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "スピンテール",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "ヒラスズキのサラシ打ち専用として設計。シーバス（ヒラスズキ含む）特化"
+  },
+  {
+    "slug": "jolty-45-55",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "青物",
+      "タチウオ",
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "ボートゲーム用ヘビーウェイトジグヘッド。説明文に青物・タチウオ・フラットフィッシュと明記"
+  },
+  {
+    "slug": "zepper-140-ウェイクf",
+    "manufacturer_slug": "blueblue",
+    "new_type": "トップウォーター",
+    "new_target_fish": [
+      "シーバス"
+    ],
+    "old_type": "トップウォーター",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "落ち鮎・コノシロパターンのシーバス専用ウェイクベイト。35gで青物も可だが主用途はシーバス"
+  },
+  {
+    "slug": "ninjari-ワーム-s-m-l",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "タチウオ",
+      "シーバス"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "ワインド専用ワーム。説明文に「タチウオをはじめとするフィッシュイーター」と明記"
+  },
+  {
+    "slug": "jolty-mini",
+    "manufacturer_slug": "blueblue",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "ジグヘッド",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "説明文に「サーフのヒラメ狙いをメイン」と明記。フラットフィッシュ専用ジグヘッドワームシステム"
+  },
+  {
+    "slug": "tm",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "タイラバ",
+    "new_target_fish": [
+      "マダイ"
+    ],
+    "old_type": "タイラバ",
+    "old_target_fish": [
+      "マダイ"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "tmtg",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "タイラバ",
+    "new_target_fish": [
+      "マダイ"
+    ],
+    "old_type": "タイラバ",
+    "old_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "タングステンタイラバヘッド。タイラバの対象魚はマダイが基本"
+  },
+  {
+    "slug": "浜王ヘッド",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "浜王専用のジグヘッドパーツ。ルアー本体ではなく交換用ヘッドパーツのため削除対象"
+  },
+  {
+    "slug": "tadf-tenya-gs",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "テンヤ",
+    "new_target_fish": [
+      "タチウオ"
+    ],
+    "old_type": "テンヤ",
+    "old_target_fish": [
+      "タチウオ"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "jrsurf",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ヒラメ",
+      "マゴチ"
+    ],
+    "changed": true,
+    "reason": "target_fishの表記を統一。「ヒラメ」「マゴチ」を「ヒラメ・マゴチ」に統一"
+  },
+  {
+    "slug": "bkp-blade",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルバイブ",
+    "new_target_fish": [
+      "チヌ・クロダイ"
+    ],
+    "old_type": "ブレードベイト",
+    "old_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "「ブラックポーギー ちぬブレード」はチヌ専用の鉄板バイブ系ルアー。リフト＆フォールで使うメタルバイブ"
+  },
+  {
+    "slug": "jr",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "ラバージグ",
+    "old_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "changed": true,
+    "reason": "3〜7gのライトゲーム用ジグヘッドワーム。「ジグヘッドリグで使う」と説明。アジ・メバル向け"
+  },
+  {
+    "slug": "taco-ebi",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "タコ"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "タコ"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "maki-mic",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "maki-slw",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "jpb",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルバイブ",
+    "new_target_fish": [
+      "青物"
+    ],
+    "old_type": "ブレードベイト",
+    "old_target_fish": [
+      "青物"
+    ],
+    "changed": true,
+    "reason": "「鉄板系」ルアーと説明。ジグパラブレードは鉄板バイブ（メタルバイブ）カテゴリ"
+  },
+  {
+    "slug": "maki-jet",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "adw",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "pw",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "ワーム",
+    "new_target_fish": [
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "ワーム",
+    "old_target_fish": [
+      "ヒラメ",
+      "マゴチ"
+    ],
+    "changed": true,
+    "reason": "target_fishの表記を統一。「ヒラメ」「マゴチ」を「ヒラメ・マゴチ」に統一"
+  },
+  {
+    "slug": "fjlg",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "青物"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "jps-jet",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "beoem",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "イカ（アオリイカ、ヤリイカ等）"
+    ],
+    "old_type": "エギ",
+    "old_target_fish": [
+      "アオリイカ"
+    ],
+    "changed": true,
+    "reason": "target_fishの表記を統一形式に変更"
+  },
+  {
+    "slug": "jpedtg",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "hmo",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ヒラメ",
+      "マゴチ"
+    ],
+    "changed": true,
+    "reason": "target_fishの表記を統一。「ヒラメ」「マゴチ」を「ヒラメ・マゴチ」に統一"
+  },
+  {
+    "slug": "jrt",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "ラバージグ",
+    "new_target_fish": [
+      "ロックフィッシュ（カサゴ、アイナメ等）"
+    ],
+    "old_type": "ラバージグ",
+    "old_target_fish": [
+      "ロックフィッシュ"
+    ],
+    "changed": true,
+    "reason": "target_fishの表記を統一形式に変更"
+  },
+  {
+    "slug": "fjv",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "青物",
+      "シーバス"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "jpvtg",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物",
+      "マダイ",
+      "ロックフィッシュ（カサゴ、アイナメ等）"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "ロックフィッシュ"
+    ],
+    "changed": true,
+    "reason": "説明文に「青物、鯛、根魚にも効く」と明記。SLJ・マダイジギング対応の汎用ジグ"
+  },
+  {
+    "slug": "jpvik",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "青物"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "アオリイカ"
+    ],
+    "changed": true,
+    "reason": "「イカナゴ」はベイトフィッシュ名であり対象魚ではない。150gの縦型ジグは青物・底物ジギング向け"
+  },
+  {
+    "slug": "jpmsl",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "アジ",
+      "メバル"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "tjd_st-2",
+    "manufacturer_slug": "majorcraft",
+    "new_type": "メタルジグ",
+    "new_target_fish": [
+      "タチウオ"
+    ],
+    "old_type": "メタルジグ",
+    "old_target_fish": [
+      "タチウオ"
+    ],
+    "changed": false
+  },
+  {
+    "slug": "binbin-inchiku",
+    "manufacturer_slug": "jackall",
+    "new_type": "その他",
+    "new_target_fish": [
+      "青物",
+      "マダイ",
+      "ロックフィッシュ（カサゴ、アイナメ等）"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "青物"
+    ],
+    "changed": true,
+    "reason": "インチクは深場の根魚・マダイ・青物を狙う仕掛け型ルアー。200gは深場ジギング向け"
+  },
+  {
+    "slug": "ikanosuke-spare-worm",
+    "manufacturer_slug": "geecrack",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アオリイカ"
+    ],
+    "changed": true,
+    "reason": "オモリスッテ専用のスペアワーム（消耗パーツ）。ルアー本体ではないため削除対象"
+  },
+  {
+    "slug": "ugs6moo",
+    "manufacturer_slug": "daiwa",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ヒラメ"
+    ],
+    "changed": true,
+    "reason": "ジグヘッド+シャッドワームセット。フラットフィッシュ専用。ヒラメ・マゴチに修正"
+  },
+  {
+    "slug": "duo-130",
+    "manufacturer_slug": "duo",
+    "new_type": "その他",
+    "new_target_fish": [
+      "その他"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "鮎"
+    ],
+    "changed": true,
+    "reason": "友釣り用のリップレス鮎ルアー。対象魚「鮎」は使用可能なtarget_fish一覧に該当なし。「その他」で管理"
+  },
+  {
+    "slug": "a155f00000crfquqad",
+    "manufacturer_slug": "shimano",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "青物"
+    ],
+    "changed": true,
+    "reason": "メタルジグへの装着用コロラドブレード。ルアー本体ではなくカスタムパーツのため削除対象"
+  },
+  {
+    "slug": "5mv0zpo",
+    "manufacturer_slug": "daiwa",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "ヒラメ・マゴチ"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ヒラメ"
+    ],
+    "changed": true,
+    "reason": "ジグヘッド+ワーム+ブレードのサーフ専用セット。フラットフィッシュ（ヒラメ・マゴチ）向け"
+  },
+  {
+    "slug": "trout-btkswimmer2",
+    "manufacturer_slug": "smith",
+    "new_type": "その他",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "トラウト"
+    ],
+    "changed": true,
+    "reason": "ボトムを這わせる新ジャンルトラウトルアー。target_fishの表記を統一形式に変更"
+  },
+  {
+    "slug": "trout-btkswimmerarea",
+    "manufacturer_slug": "smith",
+    "new_type": "その他",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "トラウト"
+    ],
+    "changed": true,
+    "reason": "エリアフィッシング対応のボトムルアー。target_fishの表記を統一形式に変更"
+  },
+  {
+    "slug": "trout-btkswimmer35",
+    "manufacturer_slug": "smith",
+    "new_type": "その他",
+    "new_target_fish": [
+      "トラウト（管理釣り場・ネイティブ含む）"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "トラウト"
+    ],
+    "changed": true,
+    "reason": "深場・本流・湖対応のボトムノックスイマーサイズアップ版。target_fishの表記を統一形式に変更"
+  },
+  {
+    "slug": "78zpy9q",
+    "manufacturer_slug": "daiwa",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "マダイ"
+    ],
+    "changed": true,
+    "reason": "紅牙シリーズのリーダー接続パーツ。ルアーではなくタックルパーツのため削除対象"
+  },
+  {
+    "slug": "6z5bbzk",
+    "manufacturer_slug": "daiwa",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "タコ"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "「グレートマダク」はタコエギ。タコ専用ルアー。target_fishのシーバス・青物は完全な誤り"
+  },
+  {
+    "slug": "j41ybby",
+    "manufacturer_slug": "daiwa",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "マダイ"
+    ],
+    "changed": true,
+    "reason": "タイラバのシリコンネクタイパーツ。ルアー本体ではなく交換パーツのため削除対象"
+  },
+  {
+    "slug": "xm9ratg",
+    "manufacturer_slug": "daiwa",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "シーバス",
+      "青物"
+    ],
+    "changed": true,
+    "reason": "「ふく式」は仕掛け類（シンカー+フック構造の漁具）。ルアーではないため削除対象"
+  },
+  {
+    "slug": "taco-le_blade",
+    "manufacturer_slug": "megabass",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "タコーレ本体に装着するオプションブレードパーツ。ルアー本体ではなく削除対象"
+  },
+  {
+    "slug": "taco-le_shake",
+    "manufacturer_slug": "megabass",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "タコ"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "ブラックバス"
+    ],
+    "changed": true,
+    "reason": "タコ専用ルアー（タコエギ）。target_fishのブラックバスは完全な誤り。タコに修正"
+  },
+  {
+    "slug": "22geo8v",
+    "manufacturer_slug": "daiwa",
+    "new_type": "DELETE",
+    "new_target_fish": [],
+    "old_type": "その他",
+    "old_target_fish": [
+      "マダイ"
+    ],
+    "changed": true,
+    "reason": "タイラバのネクタイパーツ（消耗品）。ルアー本体ではなく削除対象"
+  },
+  {
+    "slug": "makinotane",
+    "manufacturer_slug": "megabass",
+    "new_type": "ジグヘッド",
+    "new_target_fish": [
+      "シーバス",
+      "ヒラメ・マゴチ",
+      "青物",
+      "マダイ",
+      "ロックフィッシュ（カサゴ、アイナメ等）"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "シーバス",
+      "ヒラメ",
+      "青物",
+      "マダイ",
+      "ハタ"
+    ],
+    "changed": true,
+    "reason": "フレアーベイト+ラバーテールのジグヘッド系万能ルアー。target_fish修正（ヒラメ・マゴチ統一、ハタ→ロックフィッシュ）"
+  },
+  {
+    "slug": "lm2lwk5",
+    "manufacturer_slug": "daiwa",
+    "new_type": "エギ",
+    "new_target_fish": [
+      "タコ"
+    ],
+    "old_type": "その他",
+    "old_target_fish": [
+      "アオリイカ"
+    ],
+    "changed": true,
+    "reason": "「MADAQ（マダク）」はDAIWAのタコエギ専用ルアー。target_fishのアオリイカは誤り、タコに修正"
+  }
+]
