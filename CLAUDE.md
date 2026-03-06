@@ -58,8 +58,43 @@ Supabase JS Client は `src/lib/supabase.ts`。
 
 ## 現在の構造
 - DB: `lures` テーブル。1行 = 1ルアー × 1カラー × 1ウェイト
-- URL: `/lure/[slug]` （slugはクライアントサイドでslugify(name)で生成）
-- グルーピング: `src/lib/group-lures.ts` で name ごとに集約
+- URL: `/{manufacturer_slug}/{slug}/`
+- グルーピング: `src/lib/group-lures.ts` で slug ごとに集約
+
+## ⚠️ slug正規化ルール（2026-03-06〜）
+
+**全slugは `lowercase-alphanumeric-dash` 形式。違反slugのデプロイは禁止。**
+
+### フォーマット
+- 許容文字: `[a-z0-9-]` のみ
+- アンダースコア `_` 禁止（ハイフン `-` に変換）
+- 大文字禁止（小文字に変換）
+- 日本語文字禁止（ローマ字に変換）
+- URLエンコード `%XX` 禁止（デコードして再正規化）
+- 最大80文字
+- 純粋数値slug禁止（商品名ベースにする）
+
+### 正規関数
+- `src/lib/slugify.ts` の `slugify()` が正規のslug生成関数
+- 新規スクレイパーは必ずこの関数を使え
+- wanakana でカタカナ・ひらがな→ローマ字変換
+
+### パイプライン実行後の確認
+```bash
+# 違反slugの検出
+npx tsx -e "
+import 'dotenv/config';
+import { createClient } from '@supabase/supabase-js';
+const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+const {data} = await sb.from('lures').select('manufacturer_slug, slug').order('manufacturer_slug');
+const seen = new Map();
+for (const r of data!) { const k = r.manufacturer_slug+'/'+r.slug; if (!seen.has(k)) seen.set(k,r); }
+const bad = [...seen.values()].filter(r => /[^a-z0-9-]/.test(r.slug) || /^\d+$/.test(r.slug));
+console.log('違反slug:', bad.length);
+bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
+"
+```
+違反が0件でなければ `npx tsx scripts/_normalize-slugs.ts` で修正
 
 ## コマンド
 - `npm run dev` — 開発サーバー (localhost:4321)
