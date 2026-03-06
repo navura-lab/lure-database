@@ -118,8 +118,53 @@ async function fetchAllLureUrls(): Promise<string[]> {
     makerSlugs.add(p.split('/')[0]);
   }
 
+  // 魚種・タイプ・ランキングページ用: 全対象魚・タイプスラグ取得
+  const fishSlugs = new Set<string>();
+  const typeSlugs = new Set<string>();
+  const rankingSlugs = new Set<string>();
+
+  // target_fish と type を取得してカテゴリページURL生成
+  let from2 = 0;
+  while (true) {
+    const { data, error } = await sb
+      .from('lures')
+      .select('target_fish,type')
+      .range(from2, from2 + pageSize - 1);
+    if (error || !data || data.length === 0) break;
+    for (const r of data) {
+      if (r.type) typeSlugs.add(r.type);
+      if (r.target_fish) {
+        const fish = Array.isArray(r.target_fish) ? r.target_fish : [];
+        for (const f of fish) fishSlugs.add(f as string);
+      }
+    }
+    if (data.length < pageSize) break;
+    from2 += pageSize;
+  }
+
+  // ビルド済みランキングスラグをファイルから取得
+  const fs2 = await import('fs');
+  const rankingDir = path.join(import.meta.dirname, '..', 'dist', 'client', 'ranking');
+  try {
+    const entries = fs2.readdirSync(rankingDir);
+    for (const e of entries) {
+      if (e !== 'index.html' && !e.includes('.')) rankingSlugs.add(e);
+    }
+  } catch {
+    log('Warning: dist/client/ranking/ not found, skipping ranking URLs');
+  }
+
   const urls = [
-    // メーカーページ（先に送信 = 優先度高）
+    // 固定ページ（優先度最高）
+    `${SITE_URL}`,
+    `${SITE_URL}ranking/`,
+    `${SITE_URL}new/`,
+    `${SITE_URL}fish/`,
+    `${SITE_URL}type/`,
+    `${SITE_URL}search/`,
+    // ランキングページ
+    ...[...rankingSlugs].sort().map(s => `${SITE_URL}ranking/${s}/`),
+    // メーカーページ
     ...[...makerSlugs].sort().map(s => `${SITE_URL}${s}/`),
     // ルアーページ
     ...[...allPaths].sort().map(p => `${SITE_URL}${p}/`),

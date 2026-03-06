@@ -54,6 +54,28 @@ const topFish = [...fishMap.entries()]
   .map(([name, count]) => ({ name, slug: getFishSlug(name), count }));
 const remainingFishCount = fishMap.size - topFish.length;
 
+// ─── ランキング集計（上位8件）───
+const crossMap = new Map<string, { fishName: string; typeName: string; count: number }>();
+for (const s of series) {
+  if (!s.type) continue;
+  for (const fish of s.target_fish) {
+    const fishSlug = getFishSlug(fish);
+    const typeSlug = getTypeSlug(s.type);
+    const key = `${fishSlug}-${typeSlug}`;
+    const existing = crossMap.get(key);
+    if (existing) {
+      existing.count++;
+    } else {
+      crossMap.set(key, { fishName: fish, typeName: s.type, count: 1 });
+    }
+  }
+}
+const topRankings = [...crossMap.entries()]
+  .filter(([_, v]) => v.count >= 3)
+  .sort((a, b) => b[1].count - a[1].count)
+  .slice(0, 8)
+  .map(([slug, v]) => ({ slug, fishName: v.fishName, typeName: v.typeName, count: v.count }));
+
 // ─── 新着ルアー（直近30日、最大10件）───
 const thirtyDaysAgo = new Date();
 thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
@@ -118,6 +140,36 @@ const jsonLd = {
               <LureCard series={s} isNew={true} priority={i < 4} />
             </div>
           ))}
+        </div>
+      </section>
+    )}
+
+    <!-- ランキング -->
+    {topRankings.length > 0 && (
+      <section>
+        <SectionHeading title="おすすめランキング" href="/ranking/" slashLabel="RANKING" />
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {topRankings.map(r => (
+            <a
+              href={`/ranking/${r.slug}/`}
+              class="flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-border-light hover:border-accent hover:shadow-sm transition-all duration-[0.15s] group"
+            >
+              <div>
+                <p class="text-[13px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s]">
+                  {r.fishName}×{r.typeName}
+                </p>
+                <p class="font-mono text-[11px] text-text-dim mt-0.5">
+                  {r.count}シリーズ
+                </p>
+              </div>
+              <span class="font-mono text-[11px] font-bold text-accent">{r.count}</span>
+            </a>
+          ))}
+        </div>
+        <div class="mt-3 text-right">
+          <a href="/ranking/" class="font-mono text-[11px] text-text-dim hover:text-accent tracking-[1px] transition-colors duration-[0.15s]">
+            全{crossMap.size}カテゴリを見る →
+          </a>
         </div>
       </section>
     )}
