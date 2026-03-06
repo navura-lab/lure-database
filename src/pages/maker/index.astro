@@ -54,9 +54,9 @@ const totalSeries = makerList.reduce((sum, m) => sum + m.seriesCount, 0);
 const totalColors = makerList.reduce((sum, m) => sum + m.colorCount, 0);
 
 const topMakerNames = makerList.slice(0, 5).map(m => m.name).join('、');
-const pageDescription = `国内主要${makerList.length}メーカーのルアーを掲載。${topMakerNames}等、全${totalSeries}シリーズ・${totalColors.toLocaleString()}カラー。メーカー別にルアーを検索・比較。`;
+const pageDescription = `ルアーメーカー${makerList.length}社の製品一覧。${topMakerNames}等、全${totalSeries}シリーズ・${totalColors.toLocaleString()}カラーを掲載。メーカー別にルアーのスペック・カラー・価格を比較。`;
 
-const pageTitle = `ルアーメーカー一覧${makerList.length}社 - ${topMakerNames}等 - CAST/LOG`;
+const pageTitle = `ルアーメーカー一覧 ${makerList.length}社 - ${topMakerNames}等 - CAST/LOG`;
 
 const breadcrumbLd = {
   '@context': 'https://schema.org',

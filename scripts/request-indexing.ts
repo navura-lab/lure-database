@@ -25,6 +25,8 @@
  *   npx tsx scripts/request-indexing.ts --lures --submit --offset 400 --limit 100  # 401件目から100件
  *   npx tsx scripts/request-indexing.ts --categories           # カテゴリページ一覧表示 (dry-run)
  *   npx tsx scripts/request-indexing.ts --categories --submit  # カテゴリ全件をIndexing APIに送信
+ *   npx tsx scripts/request-indexing.ts --pages                # ガイド・ランキング・新着ページ一覧 (dry-run)
+ *   npx tsx scripts/request-indexing.ts --pages --submit       # ガイド・ランキング・新着をIndexing APIに送信
  */
 
 import 'dotenv/config';
@@ -32,6 +34,7 @@ import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 import { TYPE_SLUG_MAP, FISH_SLUG_MAP } from '../src/lib/category-slugs.js';
+import { guideArticles } from '../src/data/guides.js';
 
 // ─── Config ───────────────────────────────────────────
 
@@ -46,6 +49,7 @@ const DO_ALL = process.argv.includes('--all');
 const INSPECT_ONLY = process.argv.includes('--inspect-only');
 const LURE_MODE = process.argv.includes('--lures');
 const CATEGORY_MODE = process.argv.includes('--categories');
+const PAGES_MODE = process.argv.includes('--pages');
 
 function getArgValue(flag: string, defaultValue: number): number {
   const idx = process.argv.indexOf(flag);
@@ -563,9 +567,80 @@ async function mainCategories() {
   log('=== Done ===');
 }
 
+// ─── Main: ガイド・ランキング・新着ページモード ──────────
+
+async function mainPages() {
+  log('=== Indexing Request Script Start (PAGES MODE) ===');
+
+  if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
+    log('ERROR: Google credentials not found in .env');
+    process.exit(1);
+  }
+
+  // 1. URL一覧構築
+  const urls: string[] = [
+    `${SITE_URL}maker/`,                       // メーカー一覧
+    `${SITE_URL}new/`,                          // 新着ページ
+    `${SITE_URL}guide/`,                        // ガイド一覧
+    `${SITE_URL}ranking/`,                      // ランキング一覧
+    // ガイド記事（全件）
+    ...guideArticles.map((g: any) => `${SITE_URL}guide/${g.slug}/`),
+  ];
+
+  // ランキングページ: ranking-descriptions.tsのキーから構築
+  // DBクロス集計と同等（エディトリアル付きページが優先対象）
+  try {
+    const { rankingDescriptions } = await import('../src/data/ranking-descriptions.js');
+    const rankingSlugs = Object.keys(rankingDescriptions);
+    urls.push(...rankingSlugs.map(s => `${SITE_URL}ranking/${s}/`));
+    log(`Ranking pages with editorial: ${rankingSlugs.length}`);
+  } catch {
+    log('Warning: ranking-descriptions not found, skipping ranking pages');
+  }
+
+  const uniqueUrls = [...new Set(urls)].sort();
+  log(`Total pages: ${uniqueUrls.length}`);
+
+  // 2. dry-run表示
+  if (!DO_SUBMIT) {
+    log('');
+    log(`--- Dry Run: ${uniqueUrls.length} URLs would be submitted ---`);
+    for (const url of uniqueUrls.slice(0, 30)) {
+      log(`  📤 ${url.replace(SITE_URL, '/')}`);
+    }
+    if (uniqueUrls.length > 30) log(`  ... and ${uniqueUrls.length - 30} more`);
+    log('');
+    log('Run with --pages --submit to actually send Indexing API requests');
+    return;
+  }
+
+  // 3. Access Token取得 + 送信
+  const token = await getAccessToken();
+  log('Access token obtained');
+
+  const results = await submitBatch(token, uniqueUrls, 'pages');
+
+  // 4. 結果を保存
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  const indexingFile = path.join(DATA_DIR, `indexing-pages-${new Date().toISOString().split('T')[0]}.json`);
+  fs.writeFileSync(indexingFile, JSON.stringify({
+    date: new Date().toISOString(),
+    mode: 'pages',
+    totalPages: uniqueUrls.length,
+    summary: {
+      success: results.filter(r => r.success).length,
+      failed: results.filter(r => !r.success).length,
+    },
+    results,
+  }, null, 2));
+  log(`Results saved: ${indexingFile}`);
+
+  log('=== Done ===');
+}
+
 // ─── Entry Point ──────────────────────────────────────
 
-const mainFn = CATEGORY_MODE ? mainCategories : LURE_MODE ? mainLures : mainMakers;
+const mainFn = PAGES_MODE ? mainPages : CATEGORY_MODE ? mainCategories : LURE_MODE ? mainLures : mainMakers;
 mainFn().catch(e => {
   log(`FATAL: ${e.message}`);
   console.error(e);

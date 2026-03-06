@@ -5,6 +5,7 @@ import { fetchAllLures } from '../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { manufacturerDescriptions } from '../../data/manufacturer-descriptions';
+import { guideArticles } from '../../data/guides';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -124,10 +125,11 @@ const topFish = allTargetFish.slice(0, 3).join('・');
 const priceText = priceRange ? `価格¥${priceRange.min.toLocaleString()}〜¥${priceRange.max.toLocaleString()}` : '';
 
 const pageDescription = [
-  `${manufacturer}のルアー${series.length}シリーズ・${totalColors}カラーを掲載。`,
+  `${manufacturer}のルアー一覧。${series.length}シリーズ・${totalColors}カラーを掲載。`,
   topTypes ? `${topTypes}等を展開。` : '',
   topFish ? `${topFish}向け。` : '',
   priceText ? `${priceText}。` : '',
+  'スペック・カラーバリエーション・価格を比較。',
 ].filter(Boolean).join('');
 
 // ─── SEO: 概要テキスト（ページ内表示用）───
@@ -192,7 +194,7 @@ const faqLd = faqItems.length > 0 ? {
 const collectionLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: `${manufacturer}のルアー一覧`,
+  name: `${manufacturer} ルアー一覧`,
   url: `https://www.lure-db.com/${manufacturerSlug}/`,
   description: pageDescription,
   mainEntity: {
@@ -234,6 +236,23 @@ const breadcrumbLd = {
 
 const jsonLd = [collectionLd, breadcrumbLd, ...(faqLd ? [faqLd] : [])] as unknown as Record<string, unknown>;
 
+// ─── 関連ガイド・ランキングリンク（内部リンク強化）───
+
+const relatedGuides = guideArticles.filter(g =>
+  g.targetFish.some(f => allTargetFish.includes(f))
+).slice(0, 4);
+
+// 魚種×タイプの組み合わせでランキングページURLを生成
+const relatedRankings: { slug: string; label: string }[] = [];
+const fishForRanking = allTargetFish.slice(0, 4);
+const typesForRanking = typeBreakdown.slice(0, 4);
+for (const fish of fishForRanking) {
+  for (const t of typesForRanking) {
+    const slug = `${getFishSlug(fish)}-${getTypeSlug(t.type)}`;
+    relatedRankings.push({ slug, label: `${fish}×${t.type}` });
+  }
+}
+
 // スペックサマリー表示用
 const specItems: { label: string; value: string }[] = [];
 if (priceRange) {
@@ -247,12 +266,12 @@ if (lengthRange) {
 }
 specItems.push({ label: 'カラー数', value: `${totalColors}色` });
 
-// ─── SEO: title タグ（キーワードリッチ化）───
+// ─── SEO: title タグ（「メーカー名 ルアー 一覧」パターン最適化）───
 
 const topTypeNames = typeBreakdown.slice(0, 2).map(t => t.type).join('・');
 const titleParts = [
-  `${manufacturer}のルアー${series.length}シリーズ一覧`,
-  topTypeNames ? `${topTypeNames}等` : '',
+  `${manufacturer} ルアー一覧 ${series.length}シリーズ`,
+  topTypeNames || '',
 ];
 const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
 ---
@@ -342,9 +361,40 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
       ))}
     </div>
 
+    <!-- 関連ガイド記事（内部リンク → ガイドページのインデックス促進） -->
+    {relatedGuides.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連ガイド</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {relatedGuides.map(g => (
+            <a href={`/guide/${g.slug}/`} class="flex items-center gap-3 px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
+              <div>
+                <p class="text-sm font-semibold text-gray-900">{g.title.split('【')[0]}</p>
+                <p class="text-xs text-text-dim mt-0.5">{g.targetFish.join('・')}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 関連カタログ（内部リンク → ランキングページのインデックス促進） -->
+    {relatedRankings.length > 0 && (
+      <section class="mt-8 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">カタログで探す</h2>
+        <div class="flex flex-wrap gap-2">
+          {relatedRankings.slice(0, 12).map(r => (
+            <a href={`/ranking/${r.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+              {r.label}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
     <!-- 関連メーカー（内部リンク相互強化） -->
     {relatedManufacturers.length > 0 && (
-      <section class="mt-12 pt-8 border-t border-gray-100">
+      <section class="mt-8 pt-8 border-t border-gray-100">
         <h2 class="text-lg font-bold text-gray-900 mb-4">関連メーカー</h2>
         <p class="text-sm text-text-mid mb-4">
           {manufacturer}と同じ対象魚・ルアータイプを扱うメーカー
