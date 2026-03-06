@@ -38,19 +38,10 @@ export async function getStaticPaths() {
   return allRankings.map(({ slug, fishName, typeName }) => {
     const data = crossMap.get(slug)!;
 
-    // ランキングスコア計算: カラー展開数 + ウェイト展開数 + 動画有無 + 画像品質
+    // カラー展開数順にソート（カタログ表示用）
     const rankedSeries = data.series
-      .map(s => {
-        const weightVariety = new Set(s.colors.flatMap(c => c.weights.map(w => w.weight))).size;
-        const score =
-          s.color_count * 3 +
-          weightVariety * 2 +
-          (s.official_video_url ? 5 : 0) +
-          (s.representative_image ? 2 : 0) +
-          (s.description ? 1 : 0);
-        return { ...s, score };
-      })
-      .sort((a, b) => b.score - a.score);
+      .map(s => ({ ...s, score: s.color_count }))
+      .sort((a, b) => b.color_count - a.color_count);
 
     // 関連ランキング: 同じ魚種 or 同じタイプ
     const related = allRankings
@@ -112,12 +103,11 @@ const weightRange = weights.length > 0
 const topMakers = makerBreakdown.slice(0, 3).map(m => m.name).join('・');
 const priceText = priceRange ? `¥${priceRange.min.toLocaleString()}〜¥${priceRange.max.toLocaleString()}` : '';
 
-const pageTitle = `${fishName}向け${typeName}おすすめ${rankedSeries.length}選${topMakers ? ` | ${topMakers}等` : ''} - CAST/LOG`;
+const pageTitle = `${fishName}向け${typeName}${rankedSeries.length}選${topMakers ? ` | ${topMakers}等` : ''} - CAST/LOG`;
 const pageDescription = [
-  `${fishName}向け${typeName}を${rankedSeries.length}シリーズ厳選。`,
-  topMakers ? `${topMakers}等${makerBreakdown.length}メーカーの${typeName}を掲載。` : '',
+  `${fishName}向け${typeName}を${rankedSeries.length}シリーズ掲載。`,
+  topMakers ? `${topMakers}等${makerBreakdown.length}メーカーの${typeName}を一覧表示。` : '',
   priceText ? `価格帯${priceText}。` : '',
-  `カラー展開数・ウェイトバリエーション・動画有無をもとに独自スコアでランキング。`,
 ].filter(Boolean).join('');
 
 // 概要テキスト
@@ -129,7 +119,7 @@ if (topMakers) {
 if (priceRange) {
   summaryParts.push(`価格帯は${priceText}`);
 }
-summaryParts.push('カラー展開数・ウェイトバリエーション・公式動画の有無をもとに独自スコアで順位付けしている');
+summaryParts.push('カラー展開数順に掲載している');
 const summaryText = summaryParts.join('。') + '。';
 
 // スペック
@@ -148,8 +138,8 @@ if (weightRange) {
 const faqItems: { q: string; a: string }[] = [];
 
 faqItems.push({
-  q: `${fishName}向け${typeName}のおすすめは？`,
-  a: `${fishName}向け${typeName}は${rankedSeries.length}シリーズが登録されている。カラー展開やウェイトバリエーション、公式動画の有無をもとにランキング。${rankedSeries[0] ? `${rankedSeries[0].manufacturer}の${rankedSeries[0].name}がスコア上位。` : ''}`,
+  q: `${fishName}向け${typeName}にはどんなルアーがある？`,
+  a: `${fishName}向け${typeName}は${rankedSeries.length}シリーズが登録されている。${rankedSeries[0] ? `${rankedSeries[0].manufacturer}の${rankedSeries[0].name}などがカラー展開数上位。` : ''}`,
 });
 
 if (priceRange) {
@@ -183,7 +173,7 @@ const typeSlug = getTypeSlug(typeName);
 const collectionLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: `${fishName}向け${typeName}おすすめランキング`,
+  name: `${fishName}向け${typeName}カタログ`,
   url: `https://www.lure-db.com/ranking/${slug}/`,
   description: pageDescription,
   mainEntity: {
@@ -203,7 +193,7 @@ const breadcrumbLd = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
-    { '@type': 'ListItem', position: 2, name: 'ランキング', item: 'https://www.lure-db.com/ranking/' },
+    { '@type': 'ListItem', position: 2, name: 'カタログ', item: 'https://www.lure-db.com/ranking/' },
     { '@type': 'ListItem', position: 3, name: `${fishName}×${typeName}`, item: `https://www.lure-db.com/ranking/${slug}/` },
   ],
 };
@@ -218,16 +208,16 @@ const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, 
     <nav class="text-sm text-text-mid mb-8">
       <a href="/" class="hover:text-accent transition-colors">トップ</a>
       <span class="mx-2">/</span>
-      <a href="/ranking/" class="hover:text-accent transition-colors">ランキング</a>
+      <a href="/ranking/" class="hover:text-accent transition-colors">カタログ</a>
       <span class="mx-2">/</span>
       <span class="text-gray-900">{fishName}×{typeName}</span>
     </nav>
 
     <!-- ヘッダー -->
     <div class="mb-6">
-      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">RANKING</p>
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">CATALOG</p>
       <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
-        {fishName}向け{typeName}おすすめ{rankedSeries.length}選
+        {fishName}向け{typeName}{rankedSeries.length}選
       </h1>
       <p class="text-sm text-text-mid mt-1">
         {rankedSeries.length}シリーズ・{totalColors}カラー
@@ -284,18 +274,13 @@ const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, 
 
     </div>
 
-    <!-- ランキング見出し -->
-    <h2 class="text-lg font-bold text-gray-900 mb-4">ランキング TOP {rankedSeries.length}</h2>
+    <!-- 登録ルアー一覧 -->
+    <h2 class="text-lg font-bold text-gray-900 mb-4">登録ルアー {rankedSeries.length}シリーズ</h2>
 
-    <!-- 商品グリッド（順位付き） -->
+    <!-- 商品グリッド -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
       {rankedSeries.map((s, i) => (
         <div class="relative">
-          {i < 3 && (
-            <div class={`absolute -top-2 -left-2 z-10 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${i === 0 ? 'bg-yellow-500' : i === 1 ? 'bg-gray-400' : 'bg-amber-700'}`}>
-              {i + 1}
-            </div>
-          )}
           <LureCard series={s} isNew={false} priority={i < 4} />
         </div>
       ))}
@@ -327,9 +312,9 @@ const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, 
     <!-- 関連ランキング -->
     {related.length > 0 && (
       <section class="mt-12 pt-8 border-t border-gray-100">
-        <h2 class="text-lg font-bold text-gray-900 mb-4">関連ランキング</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連カテゴリ</h2>
         <p class="text-sm text-text-mid mb-4">
-          {fishName}・{typeName}に関連するランキング
+          {fishName}・{typeName}に関連するカテゴリ
         </p>
         <div class="flex flex-wrap gap-2">
           {related.map(r => (

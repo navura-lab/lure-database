@@ -53,12 +53,12 @@ for (const r of rankings) {
 const sortedFishGroups = [...fishGroups.entries()]
   .sort((a, b) => b[1].reduce((s, r) => s + r.count, 0) - a[1].reduce((s, r) => s + r.count, 0));
 
-const pageDescription = `${rankings.length}カテゴリのルアーランキングを掲載。対象魚×ルアータイプの組み合わせから、カラー展開数やスペックをもとに独自スコアでおすすめルアーを厳選。`;
+const pageDescription = `${rankings.length}カテゴリのルアーカタログを掲載。対象魚×ルアータイプの組み合わせから、登録シリーズ数順にルアーを一覧表示。`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'ルアーランキング一覧',
+  name: 'ルアーカタログ一覧',
   url: 'https://www.lure-db.com/ranking/',
   description: pageDescription,
 };
@@ -68,25 +68,25 @@ const breadcrumbLd = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
-    { '@type': 'ListItem', position: 2, name: 'ランキング', item: 'https://www.lure-db.com/ranking/' },
+    { '@type': 'ListItem', position: 2, name: 'カタログ', item: 'https://www.lure-db.com/ranking/' },
   ],
 };
 ---
 
-<BaseLayout title={`ルアーランキング ${rankings.length}カテゴリ | 対象魚×タイプ別おすすめ - CAST/LOG`} description={pageDescription} canonicalPath="/ranking/" jsonLd={[jsonLd, breadcrumbLd] as unknown as Record<string, unknown>}>
+<BaseLayout title={`ルアーカタログ ${rankings.length}カテゴリ | 対象魚×タイプ別 - CAST/LOG`} description={pageDescription} canonicalPath="/ranking/" jsonLd={[jsonLd, breadcrumbLd] as unknown as Record<string, unknown>}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- パンくず -->
     <nav class="text-sm text-text-mid mb-8">
       <a href="/" class="hover:text-accent transition-colors">トップ</a>
       <span class="mx-2">/</span>
-      <span class="text-gray-900">ランキング</span>
+      <span class="text-gray-900">カタログ</span>
     </nav>
 
     <!-- ヘッダー -->
     <div class="mb-6">
-      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">RANKING</p>
-      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">ルアーランキング</h1>
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">CATALOG</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">ルアーカタログ</h1>
       <p class="text-sm text-text-mid mt-1">
         {rankings.length}カテゴリ・対象魚×ルアータイプ別
       </p>
@@ -95,7 +95,7 @@ const breadcrumbLd = {
     <!-- 概要 -->
     <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
       <p class="text-sm text-gray-700 leading-relaxed">
-        対象魚とルアータイプの組み合わせごとに、カラー展開数・ウェイトバリエーション・公式動画の有無をもとに独自スコアでランキング。{sortedFishGroups.length}魚種にわたる{rankings.length}カテゴリのおすすめルアーを掲載している。
+        対象魚とルアータイプの組み合わせごとに、データベース登録ルアーを一覧表示。{sortedFishGroups.length}魚種にわたる{rankings.length}カテゴリのルアーを掲載している。
       </p>
     </div>
 

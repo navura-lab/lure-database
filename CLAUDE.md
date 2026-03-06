@@ -35,6 +35,17 @@ Vercelにデプロイ。SSG（Static Site Generation）。
 - hover>0.3s、!important（reset除く）、8pxグリッド違反、ハードコードカラー
 - 禁止ワード: 爆釣、激アツ、マスト、ヤバい、間違いなし、神ルアー
 
+## ⚠️ 根拠のないコンテンツ禁止（2026-03-06〜）
+
+**実データに基づかないランキング・おすすめ・評価コンテンツの生成は絶対禁止。**
+
+### ルール
+1. 「おすすめ」「ランキング」「TOP N」「人気」等の順位付けは、実データ（売上、レビュー、専門家評価）がない限り生成しない
+2. DBのカラー数・バリエーション数でのスコアリングは「ランキング」として出すな（カタログ一覧としてなら可）
+3. 権威的な文体（「〜が最強」「間違いなく〜」）で根拠なしのコンテンツを書くな
+4. ユーザーに「これは根拠あるか？」と聞かれて「ある」と答えられないコンテンツは作るな
+5. 既存の根拠なしコンテンツを発見したら、ユーザーに報告せよ
+
 ## 技術スタック
 - Astro (SSG)
 - Supabase (PostgreSQL)
@@ -123,10 +134,24 @@ Supabase JS Client は `src/lib/supabase.ts`。
 ### パイプライン実行後の手順
 ```
 1. npx tsx scripts/pipeline.ts --limit N  （スクレイプ＆DB登録）
-2. 説明文リライト実行（Sonnetサブエージェント並列）
-3. npx tsx scripts/_write-rewritten-to-supabase.ts  （DB書き戻し）
-4. git push origin main  （デプロイ）
+2. type/target_fish 再分類（対象メーカーの新商品がある場合）
+3. 説明文リライト実行（Sonnetサブエージェント並列）
+4. npx tsx scripts/_write-rewritten-to-supabase.ts  （DB書き戻し）
+5. git push origin main  （デプロイ）
 ```
+
+## ⚠️ type/target_fish 再分類ルール（2026-03-06〜）
+
+**スクレイパーのフォールバック分類は精度が低い。以下のメーカーは再分類必須。**
+
+### 対象メーカー
+attic, pickup, pozidrive-garage, jazz, viva, obasslive, valleyhill, gancraft, blueblue, majorcraft
+
+### ルール
+1. 上記メーカーの新商品がパイプラインで登録された場合、**Sonnetサブエージェントで再分類してからデプロイする**
+2. type=その他 が不自然に多い場合も再分類の対象
+3. 再分類結果は `scripts/_reclassified-all-YYYY-MM-DD.json` にバックアップ
+4. 手順の詳細は Runbook「type/target_fish AI再分類」セクション参照
 
 ### 新メーカー追加時
 新メーカー追加チェックリストの完了条件に以下を追加:
