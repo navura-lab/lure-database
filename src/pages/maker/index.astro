@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Badge from '../../components/Badge.astro';
 import { fetchAllLures } from '../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../lib/group-lures';
 
@@ -49,13 +48,41 @@ for (const [slug, stats] of makerStats) {
     .map(([name, count]) => ({ name, count }));
 }
 
-const makerList = [...makerStats.values()].sort((a, b) => b.seriesCount - a.seriesCount);
+const makerList = [...makerStats.values()];
 const totalSeries = makerList.reduce((sum, m) => sum + m.seriesCount, 0);
 const totalColors = makerList.reduce((sum, m) => sum + m.colorCount, 0);
 
-const topMakerNames = makerList.slice(0, 5).map(m => m.name).join('、');
-const pageDescription = `ルアーメーカー${makerList.length}社の製品一覧。${topMakerNames}等、全${totalSeries}シリーズ・${totalColors.toLocaleString()}カラーを掲載。メーカー別にルアーのスペック・カラー・価格を比較。`;
+// アルファベット順でグルーピング
+function getGroupKey(name: string): string {
+  const first = name.charAt(0).toUpperCase();
+  if (/[A-Z]/.test(first)) return first;
+  if (/[0-9]/.test(first)) return '#';
+  return 'その他';
+}
 
+const sortedByName = [...makerList].sort((a, b) => {
+  const aKey = getGroupKey(a.name);
+  const bKey = getGroupKey(b.name);
+  if (aKey === bKey) return a.name.localeCompare(b.name, 'ja');
+  if (aKey === '#') return 1;
+  if (bKey === '#') return -1;
+  if (aKey === 'その他') return 1;
+  if (bKey === 'その他') return -1;
+  return aKey.localeCompare(bKey);
+});
+
+// グループ化
+const groups = new Map<string, typeof makerList>();
+for (const m of sortedByName) {
+  const key = getGroupKey(m.name);
+  if (!groups.has(key)) groups.set(key, []);
+  groups.get(key)!.push(m);
+}
+
+const groupKeys = [...groups.keys()];
+
+const topMakerNames = [...makerList].sort((a, b) => b.seriesCount - a.seriesCount).slice(0, 5).map(m => m.name).join('、');
+const pageDescription = `ルアーメーカー${makerList.length}社の製品一覧。${topMakerNames}等、全${totalSeries}シリーズ・${totalColors.toLocaleString()}カラーを掲載。メーカー別にルアーのスペック・カラー・価格を比較。`;
 const pageTitle = `ルアーメーカー一覧 ${makerList.length}社 - ${topMakerNames}等 - CAST/LOG`;
 
 const breadcrumbLd = {
@@ -76,7 +103,7 @@ const collectionLd = {
   mainEntity: {
     '@type': 'ItemList',
     numberOfItems: makerList.length,
-    itemListElement: makerList.map((m, i) => ({
+    itemListElement: sortedByName.map((m, i) => ({
       '@type': 'ListItem',
       position: i + 1,
       url: `https://www.lure-db.com/${m.slug}/`,
@@ -87,7 +114,17 @@ const collectionLd = {
 
 const jsonLd = [breadcrumbLd, collectionLd] as unknown as Record<string, unknown>;
 
-const introText = `国内${makerList.length}メーカーのルアーをシリーズ数順で一覧表示。DAIWA・SHIMANO・JACKALLをはじめ、${totalSeries}シリーズ・${totalColors.toLocaleString()}カラーを網羅。各メーカーの得意ジャンルや製品ラインナップを比較して、あなたにぴったりのルアーを見つけよう。`;
+const introText = `国内外${makerList.length}メーカーのルアーをアルファベット順で一覧表示。DAIWA・SHIMANO・JACKALLをはじめ、${totalSeries}シリーズ・${totalColors.toLocaleString()}カラーを網羅。`;
+
+// シリーズ数順のデータもJSON化しておく（クライアント切替用）
+const makerDataForClient = makerList.map(m => ({
+  name: m.name,
+  slug: m.slug,
+  seriesCount: m.seriesCount,
+  colorCount: m.colorCount,
+  topTypes: m.topTypes.map(t => t.name),
+  group: getGroupKey(m.name),
+}));
 ---
 
 <BaseLayout
@@ -104,43 +141,212 @@ const introText = `国内${makerList.length}メーカーのルアーをシリー
       <span class="text-gray-900">メーカー一覧</span>
     </nav>
 
-    <div class="mb-8">
+    <div class="mb-6">
       <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">メーカー一覧</h1>
-      <p class="text-sm text-text-mid mt-1">
-        {makerList.length}メーカー・{totalSeries}シリーズ
+      <p class="text-sm text-text-mid mt-1 font-mono">
+        {makerList.length} MAKERS / {totalSeries} SERIES
       </p>
       <p class="text-sm text-gray-600 leading-relaxed mt-3 max-w-3xl">
         {introText}
       </p>
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-      {makerList.map(m => (
-        <a
-          href={`/${m.slug}/`}
-          class="group block bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 hover:shadow-card-hover hover:scale-[1.01]"
+    <!-- ソート切替 + 検索 -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
+      <div class="flex gap-2">
+        <button
+          id="sort-alpha"
+          class="px-3 py-1.5 text-xs font-mono rounded border border-accent bg-accent text-white transition-colors"
+          data-active="true"
         >
-          <div class="p-4 sm:p-5">
-            <h2 class="text-sm sm:text-base font-bold text-gray-900 group-hover:text-accent transition-colors mb-2">
-              {m.name}
-            </h2>
-            <div class="flex items-center gap-3 text-xs text-text-mid mb-3">
-              <span>{m.seriesCount}シリーズ</span>
-              <span>{m.colorCount}カラー</span>
-            </div>
-            {m.topTypes.length > 0 && (
-              <div class="flex flex-wrap gap-1">
-                {m.topTypes.map(t => (
-                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-accent-bg text-accent border border-accent">
-                    {t.name}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
+          A-Z順
+        </button>
+        <button
+          id="sort-count"
+          class="px-3 py-1.5 text-xs font-mono rounded border border-border text-text-mid hover:border-accent hover:text-accent transition-colors"
+          data-active="false"
+        >
+          シリーズ数順
+        </button>
+      </div>
+      <div class="relative flex-1 max-w-xs">
+        <input
+          id="maker-search"
+          type="text"
+          placeholder="メーカー名を検索..."
+          class="w-full pl-8 pr-3 py-1.5 text-sm border border-border rounded focus:outline-none focus:border-accent transition-colors"
+        />
+        <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-text-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- ジャンプナビ -->
+    <div id="jump-nav" class="flex flex-wrap gap-1 mb-6 sticky top-14 bg-white/95 backdrop-blur-sm py-2 z-10 border-b border-border">
+      {groupKeys.map(key => (
+        <a
+          href={`#group-${key}`}
+          class="px-2 py-1 text-xs font-mono text-text-mid hover:text-accent hover:bg-accent/5 rounded transition-colors"
+          data-group-link={key}
+        >
+          {key}
+          <span class="text-text-faint ml-0.5">{groups.get(key)!.length}</span>
         </a>
       ))}
     </div>
 
+    <!-- グループ別メーカー一覧 -->
+    <div id="maker-list">
+      {groupKeys.map(key => {
+        const makers = groups.get(key)!;
+        return (
+          <section id={`group-${key}`} class="mb-8" data-group={key}>
+            <h2 class="text-lg font-bold text-gray-900 font-mono border-b-2 border-accent pb-1 mb-4">
+              {key}
+              <span class="text-sm font-normal text-text-dim ml-2">{makers.length}社</span>
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+              {makers.map(m => (
+                <a
+                  href={`/${m.slug}/`}
+                  class="maker-card group block bg-white rounded-lg border border-gray-100 overflow-hidden transition-all duration-150 hover:border-accent hover:scale-[1.01]"
+                  data-name={m.name.toLowerCase()}
+                  data-series={m.seriesCount}
+                  data-group={key}
+                >
+                  <div class="p-3 sm:p-4">
+                    <h3 class="text-sm sm:text-base font-bold text-gray-900 group-hover:text-accent transition-colors mb-1.5 leading-tight">
+                      {m.name}
+                    </h3>
+                    <div class="flex items-center gap-2 text-xs text-text-mid font-mono mb-2">
+                      <span>{m.seriesCount} series</span>
+                      <span class="text-text-faint">|</span>
+                      <span>{m.colorCount} colors</span>
+                    </div>
+                    {m.topTypes.length > 0 && (
+                      <div class="flex flex-wrap gap-1">
+                        {m.topTypes.map(t => (
+                          <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono text-text-mid bg-gray-50 border border-gray-100">
+                            {t.name}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
+
+    <!-- 検索結果なし -->
+    <div id="no-results" class="hidden text-center py-12 text-text-dim">
+      <p class="text-lg">該当するメーカーが見つかりません</p>
+    </div>
+
   </div>
+
+  <script define:vars={{ makerDataForClient }}>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sortAlpha = document.getElementById('sort-alpha');
+      const sortCount = document.getElementById('sort-count');
+      const searchInput = document.getElementById('maker-search');
+      const jumpNav = document.getElementById('jump-nav');
+      const makerListEl = document.getElementById('maker-list');
+      const noResults = document.getElementById('no-results');
+
+      // ソート切替
+      function setActiveSort(activeBtn, inactiveBtn) {
+        activeBtn.classList.add('bg-accent', 'text-white', 'border-accent');
+        activeBtn.classList.remove('text-text-mid', 'border-border');
+        activeBtn.dataset.active = 'true';
+        inactiveBtn.classList.remove('bg-accent', 'text-white', 'border-accent');
+        inactiveBtn.classList.add('text-text-mid', 'border-border');
+        inactiveBtn.dataset.active = 'false';
+      }
+
+      sortAlpha.addEventListener('click', () => {
+        if (sortAlpha.dataset.active === 'true') return;
+        setActiveSort(sortAlpha, sortCount);
+        jumpNav.style.display = '';
+        // グループ見出しを表示、各セクションの順序をリセット
+        document.querySelectorAll('[data-group]').forEach(el => {
+          if (el.tagName === 'SECTION') el.style.display = '';
+        });
+        reorderAlpha();
+      });
+
+      sortCount.addEventListener('click', () => {
+        if (sortCount.dataset.active === 'true') return;
+        setActiveSort(sortCount, sortAlpha);
+        jumpNav.style.display = 'none';
+        reorderByCount();
+      });
+
+      function reorderByCount() {
+        // グループセクションを非表示にし、カードをシリーズ数順で単一グリッドに配置
+        const sections = makerListEl.querySelectorAll('section');
+        sections.forEach(s => s.style.display = 'none');
+
+        // 既存のフラットコンテナがあれば削除
+        const existing = document.getElementById('flat-grid');
+        if (existing) existing.remove();
+
+        const allCards = [...document.querySelectorAll('.maker-card')];
+        allCards.sort((a, b) => parseInt(b.dataset.series) - parseInt(a.dataset.series));
+
+        const grid = document.createElement('div');
+        grid.id = 'flat-grid';
+        grid.className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3';
+        allCards.forEach(card => {
+          const clone = card.cloneNode(true);
+          clone.style.display = '';
+          grid.appendChild(clone);
+        });
+        makerListEl.appendChild(grid);
+        applySearch();
+      }
+
+      function reorderAlpha() {
+        const flatGrid = document.getElementById('flat-grid');
+        if (flatGrid) flatGrid.remove();
+        document.querySelectorAll('section[data-group]').forEach(s => s.style.display = '');
+        document.querySelectorAll('.maker-card').forEach(c => c.style.display = '');
+        applySearch();
+      }
+
+      // メーカー検索
+      let searchTimeout;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(applySearch, 150);
+      });
+
+      function applySearch() {
+        const query = searchInput.value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.maker-card');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+          const name = card.dataset.name || '';
+          const match = !query || name.includes(query);
+          card.style.display = match ? '' : 'none';
+          if (match) visibleCount++;
+        });
+
+        // グループ見出しの表示/非表示（アルファベット順のみ）
+        if (sortAlpha.dataset.active === 'true') {
+          document.querySelectorAll('section[data-group]').forEach(section => {
+            const visibleCards = section.querySelectorAll('.maker-card:not([style*="display: none"])');
+            section.style.display = visibleCards.length > 0 ? '' : 'none';
+          });
+        }
+
+        noResults.style.display = visibleCount === 0 ? '' : 'none';
+      }
+    });
+  </script>
 </BaseLayout>

@@ -99,9 +99,34 @@ const breadcrumbLd = {
       </p>
     </div>
 
+    <!-- 検索 + ジャンプナビ -->
+    <div class="flex flex-col gap-3 mb-6">
+      <div class="relative max-w-xs">
+        <input
+          id="catalog-search"
+          type="text"
+          placeholder="魚種やタイプで検索..."
+          class="w-full pl-8 pr-3 py-1.5 text-sm border border-border rounded focus:outline-none focus:border-accent transition-colors"
+        />
+        <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-text-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <div class="flex flex-wrap gap-1.5 sticky top-14 bg-white/95 backdrop-blur-sm py-2 z-10 border-b border-border" id="fish-jump-nav">
+        {sortedFishGroups.map(([fishName]) => (
+          <a
+            href={`#catalog-${getFishSlug(fishName)}`}
+            class="px-2 py-1 text-xs font-mono text-text-mid hover:text-accent hover:bg-accent/5 rounded transition-colors"
+          >
+            {fishName}
+          </a>
+        ))}
+      </div>
+    </div>
+
     <!-- 魚種別ランキング一覧 -->
     {sortedFishGroups.map(([fishName, entries]) => (
-      <section class="mb-10">
+      <section class="mb-10 catalog-section" id={`catalog-${getFishSlug(fishName)}`} data-fish={fishName.toLowerCase()}>
         <div class="flex items-center gap-3 mb-4">
           <h2 class="text-lg font-bold text-gray-900">{fishName}</h2>
           <a href={`/fish/${getFishSlug(fishName)}/`} class="text-xs text-text-mid hover:text-accent transition-colors">
@@ -112,7 +137,9 @@ const breadcrumbLd = {
           {entries.sort((a, b) => b.count - a.count).map(r => (
             <a
               href={`/ranking/${r.slug}/`}
-              class="flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all group"
+              class="catalog-card flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all group"
+              data-fish={fishName.toLowerCase()}
+              data-type={r.typeName.toLowerCase()}
             >
               <div>
                 <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors">
@@ -129,5 +156,49 @@ const breadcrumbLd = {
       </section>
     ))}
 
+    <!-- 検索結果なし -->
+    <div id="no-results" class="hidden text-center py-12 text-text-dim">
+      <p class="text-lg">該当するカテゴリが見つかりません</p>
+    </div>
+
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('catalog-search') as HTMLInputElement;
+      const noResults = document.getElementById('no-results')!;
+      const jumpNav = document.getElementById('fish-jump-nav')!;
+
+      let searchTimeout: ReturnType<typeof setTimeout>;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(applySearch, 150);
+      });
+
+      function applySearch() {
+        const query = searchInput.value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.catalog-card');
+        const sections = document.querySelectorAll('.catalog-section');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+          const el = card as HTMLElement;
+          const fish = el.dataset.fish || '';
+          const type = el.dataset.type || '';
+          const match = !query || fish.includes(query) || type.includes(query);
+          el.style.display = match ? '' : 'none';
+          if (match) visibleCount++;
+        });
+
+        // セクション表示/非表示
+        sections.forEach(section => {
+          const el = section as HTMLElement;
+          const visibleCards = el.querySelectorAll('.catalog-card:not([style*="display: none"])');
+          el.style.display = visibleCards.length > 0 ? '' : 'none';
+        });
+
+        noResults.style.display = visibleCount === 0 ? '' : 'none';
+      }
+    });
+  </script>
 </BaseLayout>
