@@ -9,6 +9,7 @@ import { groupLuresBySeries } from '../../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { guideArticles } from '../../data/guides';
 import { youtubeVideos } from '../../data/youtube-videos';
+import { typeDescriptions } from '../../data/type-descriptions';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -335,6 +336,29 @@ for (const rv of relatedVideos) {
   });
 }
 
+// --- SEO: 使い方セクション用テキスト生成（事実ベースのみ） ---
+const typeSlug = getTypeSlug(series.type);
+const typeDesc = typeDescriptions[typeSlug] || '';
+const usageTextParts: string[] = [];
+if (series.type && series.type !== 'その他') {
+  usageTextParts.push(`${series.name}は${series.manufacturer}の${series.type}。`);
+  if (typeDesc) usageTextParts.push(typeDesc);
+  if (series.action_type) usageTextParts.push(`アクションタイプは${series.action_type}。`);
+  if (series.diving_depth) usageTextParts.push(`潜行深度は${series.diving_depth}。`);
+  if (series.target_fish.length > 0) usageTextParts.push(`${series.target_fish.slice(0, 3).join('・')}をターゲットに使用できる。`);
+}
+const usageText = usageTextParts.join('');
+
+// --- SEO: インプレ動画フィルタ ---
+const impressionKeywords = ['インプレ', '実釣', 'レビュー', '使ってみた', '釣れた', '釣果', 'インプレッション'];
+const allVideosForLure = youtubeVideos[videoKey] || [];
+const impressionVideos = allVideosForLure.filter(v =>
+  impressionKeywords.some(kw => v.title.includes(kw))
+).slice(0, 3);
+
+// --- アフィリエイトリンク ---
+const rakutenAffiliateUrl = `https://af.moshimo.com/af/c/click?a_id=1181365&p_id=54&pc_id=54&pl_id=616&url=${encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${series.name}/`)}`;
+
 // Combine JSON-LD as array
 const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...videoLdItems] as unknown as Record<string, unknown>;
 ---
@@ -459,6 +483,38 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
       </div>
     </section>
 
+    <!-- 使い方・おすすめアクション -->
+    {usageText && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-3">{series.name}の使い方・アクション</h2>
+        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <p class="text-sm text-gray-600 leading-relaxed">{usageText}</p>
+          {(weightDisplay || series.diving_depth) && (
+            <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {weightDisplay && (
+                <div class="bg-gray-50 rounded-lg p-3 text-center">
+                  <p class="text-xs text-text-dim mb-1">ウェイト</p>
+                  <p class="text-sm font-mono font-medium">{weightDisplay}</p>
+                </div>
+              )}
+              {lengthDisplay && (
+                <div class="bg-gray-50 rounded-lg p-3 text-center">
+                  <p class="text-xs text-text-dim mb-1">レングス</p>
+                  <p class="text-sm font-mono font-medium">{lengthDisplay}</p>
+                </div>
+              )}
+              {series.diving_depth && (
+                <div class="bg-gray-50 rounded-lg p-3 text-center">
+                  <p class="text-xs text-text-dim mb-1">潜行深度</p>
+                  <p class="text-sm font-mono font-medium">{series.diving_depth}</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </section>
+    )}
+
     <!-- よくある質問（FAQ） -->
     {faqEntries.length > 0 && (
       <section class="mb-12">
@@ -526,6 +582,31 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
       </div>
     </section>
 
+    <!-- 購入・価格情報 -->
+    {hasPrice && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}の購入・価格情報</h2>
+        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <div class="flex items-baseline gap-3 mb-4">
+            <span class="text-sm text-text-dim">メーカー希望価格</span>
+            <span class="text-xl font-bold text-gray-900 font-mono">{priceDisplay}</span>
+            <span class="text-xs text-text-dim">（税込）</span>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a
+              href={rakutenAffiliateUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2 border border-border rounded font-mono text-sm hover:border-accent hover:text-accent transition-colors"
+            >
+              楽天市場で探す →
+            </a>
+          </div>
+          <p class="text-xs text-text-faint mt-3">※ 実際の販売価格は販売店により異なります。</p>
+        </div>
+      </section>
+    )}
+
     <!-- 公式動画 -->
     {embedUrl && (
       <section class="mb-12">
@@ -584,6 +665,48 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
       </section>
     )}
 
+    <!-- インプレ・口コミまとめ -->
+    {impressionVideos.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}のインプレ・口コミまとめ</h2>
+        <p class="text-sm text-text-mid mb-4">{series.name}に関するインプレ・実釣動画を{impressionVideos.length}件まとめました。</p>
+        <div class="space-y-3">
+          {impressionVideos.map(video => (
+            <a
+              href={`https://www.youtube.com/watch?v=${video.videoId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex gap-4 bg-white rounded-lg border border-gray-100 p-3 hover:border-accent hover:shadow-sm transition-all"
+            >
+              <div class="relative w-40 shrink-0 aspect-video rounded overflow-hidden bg-gray-100">
+                <img
+                  src={video.thumbnailUrl}
+                  alt={video.title}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover"
+                />
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+                    <svg class="w-3.5 h-3.5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-accent transition-colors">{video.title}</p>
+                <div class="flex items-center gap-2 mt-1.5">
+                  <span class="text-xs text-text-dim font-mono">{video.channelTitle}</span>
+                  <span class="text-xs text-text-faint">·</span>
+                  <span class="text-xs text-text-dim font-mono">{video.viewCount.toLocaleString()}回再生</span>
+                </div>
+                <span class="inline-block mt-1.5 text-xs text-text-faint font-mono">{video.publishedAt.split('T')[0]}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
     <!-- 対象魚 -->
     {series.target_fish.length > 0 && (
       <section class="mb-12">
@@ -633,6 +756,68 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
             <LureCard series={s} isNew={false} />
           ))}
         </div>
+      </section>
+    )}
+
+    <!-- 似たルアーの比較 -->
+    {relatedByType.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}と似たルアーの比較</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border border-gray-100 rounded-lg overflow-hidden">
+            <thead>
+              <tr class="bg-gray-50 text-left">
+                <th class="px-3 py-2 font-medium text-text-dim text-xs">ルアー名</th>
+                <th class="px-3 py-2 font-medium text-text-dim text-xs">メーカー</th>
+                <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">重量</th>
+                <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">全長</th>
+                <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">カラー数</th>
+                <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">価格</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* 自分自身を先頭行に表示 */}
+              <tr class="border-t border-gray-50 bg-accent/5">
+                <td class="px-3 py-2 font-medium text-gray-900">{series.name}</td>
+                <td class="px-3 py-2 text-text-mid font-mono text-xs">{series.manufacturer}</td>
+                <td class="px-3 py-2 text-right font-mono text-xs">{weightDisplay || '-'}</td>
+                <td class="px-3 py-2 text-right font-mono text-xs">{lengthDisplay || '-'}</td>
+                <td class="px-3 py-2 text-right font-mono text-xs">{series.color_count}</td>
+                <td class="px-3 py-2 text-right font-mono text-xs">{priceDisplay || '-'}</td>
+              </tr>
+              {relatedByType.slice(0, 5).map(s => {
+                const w = s.weight_range.min
+                  ? s.weight_range.min === s.weight_range.max
+                    ? `${s.weight_range.min}g`
+                    : `${s.weight_range.min}~${s.weight_range.max}g`
+                  : '-';
+                const l = s.length_range.min
+                  ? s.length_range.min === s.length_range.max
+                    ? `${s.length_range.min}mm`
+                    : `${s.length_range.min}~${s.length_range.max}mm`
+                  : '-';
+                const p = s.price_range.max > 0
+                  ? s.price_range.min === s.price_range.max
+                    ? `¥${s.price_range.min.toLocaleString()}`
+                    : `¥${s.price_range.min.toLocaleString()}~`
+                  : '-';
+                return (
+                  <tr class="border-t border-gray-50 hover:bg-gray-50 transition-colors">
+                    <td class="px-3 py-2">
+                      <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="text-accent hover:underline font-medium">{s.name}</a>
+                    </td>
+                    <td class="px-3 py-2 text-text-mid font-mono text-xs">{s.manufacturer}</td>
+                    <td class="px-3 py-2 text-right font-mono text-xs">{w}</td>
+                    <td class="px-3 py-2 text-right font-mono text-xs">{l}</td>
+                    <td class="px-3 py-2 text-right font-mono text-xs">{s.color_count}</td>
+                    <td class="px-3 py-2 text-right font-mono text-xs">{p}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-text-faint mt-2">※ 同タイプのルアーをスペックで比較。順序はカラー展開数順。</p>
       </section>
     )}
 
