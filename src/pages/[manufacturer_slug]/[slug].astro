@@ -109,6 +109,11 @@ const youtubeId = series.official_video_url
   : null;
 const embedUrl = youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : null;
 
+// --- SEO: Title ---
+// GSCクエリ分析: 「商品名」「メーカー名 商品名」「商品名 スペック/カラー/価格」パターンが多い
+// titleに「スペック・カラー・価格」を含めてCTR改善
+const pageTitle = `${series.name}（${series.manufacturer}）スペック・カラー・価格 | CAST/LOG`;
+
 // --- SEO: Description ---
 const specs = [
   series.type,
@@ -118,9 +123,10 @@ const specs = [
 ].filter(Boolean).join('・');
 
 // meta description: リライト済みdescriptionがあればフル活用（150-250文字=meta descriptionに最適）
+// 先頭に「メーカー名の商品名（タイプ）」を置き、スペック・カラー・価格キーワードを含める
 const pageDescription = series.description
-  ? `${series.manufacturer} ${series.name}｜${series.description}`
-  : `${series.manufacturer} ${series.name}（${specs}）のスペック・カラーバリエーション・価格情報を網羅。CAST/LOG`;
+  ? `${series.manufacturer}の${series.type}「${series.name}」｜${series.description}${series.color_count}カラー展開。`
+  : `${series.manufacturer}の${series.type}「${series.name}」（${specs}）のスペック・全${series.color_count}カラーバリエーション${hasPrice ? `・価格${priceDisplay}` : ''}を掲載。CAST/LOG`;
 
 // --- SEO: 自然言語スペック要約（ページ内表示用）---
 const specParts: string[] = [];
@@ -293,7 +299,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
 ---
 
 <BaseLayout
-  title={`${series.name}${series.type ? ` ${series.type}` : ''}（${series.manufacturer}）- CAST/LOG`}
+  title={pageTitle}
   description={pageDescription}
   canonicalPath={`/${series.manufacturer_slug}/${series.slug}/`}
   ogImage={series.representative_image || undefined}

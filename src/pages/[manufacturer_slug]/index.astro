@@ -125,11 +125,11 @@ const topFish = allTargetFish.slice(0, 3).join('・');
 const priceText = priceRange ? `価格¥${priceRange.min.toLocaleString()}〜¥${priceRange.max.toLocaleString()}` : '';
 
 const pageDescription = [
-  `${manufacturer}のルアー一覧。${series.length}シリーズ・${totalColors}カラーを掲載。`,
+  `${manufacturer}のルアー全${series.length}シリーズ・${totalColors}カラーを一覧で掲載。`,
   topTypes ? `${topTypes}等を展開。` : '',
-  topFish ? `${topFish}向け。` : '',
+  topFish ? `${topFish}向けルアーが充実。` : '',
   priceText ? `${priceText}。` : '',
-  'スペック・カラーバリエーション・価格を比較。',
+  '各モデルのスペック・カラーバリエーション・価格を比較できる。',
 ].filter(Boolean).join('');
 
 // ─── SEO: 概要テキスト（ページ内表示用）───

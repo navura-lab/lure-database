@@ -114,6 +114,7 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 | 週次レポート | 毎週月曜 9:00 JST | `weekly-seo-report.ts` | PDCA分析、クエリ成長/衰退、推奨アクション生成 |
 | パイプライン | 毎時 0:00-7:00 JST | `pipeline.ts` | スクレイプ&DB登録（1時間1件×8回） |
 | 新商品検知 | 毎週月曜 6:00 JST | `discover-products.ts` | 全メーカーの新商品URL検知 |
+| SEO機会発見 | 毎週月曜 10:00 JST | `seo-opportunity-finder.ts` | GSCデータからSEO改善機会を自動抽出 |
 
 ### SEOスクリプト一覧
 | スクリプト | 用途 | 実行方法 |
@@ -122,6 +123,7 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 | `scripts/daily-indexing.ts` | Indexing API自動送信（200件/日、進捗追跡） | `npx tsx scripts/daily-indexing.ts [--dry-run]` |
 | `scripts/weekly-seo-report.ts` | 週次PDCAレポート（Markdown + JSON + Slack） | `npx tsx scripts/weekly-seo-report.ts [--verbose]` |
 | `scripts/request-indexing.ts` | 手動Indexing API（4モード） | `npx tsx scripts/request-indexing.ts [--submit]` |
+| `scripts/seo-opportunity-finder.ts` | GSCデータからSEO改善機会を抽出 | `npx tsx scripts/seo-opportunity-finder.ts` |
 
 ### データ保存先
 - 日次データ: `logs/seo-data/YYYY-MM-DD.json`
