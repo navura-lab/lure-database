@@ -116,7 +116,7 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 | 新商品検知 | 毎週月曜 6:00 JST | `discover-products.ts` | 全メーカーの新商品URL検知 |
 | SEO機会発見 | 毎週月曜 10:00 JST | `seo-opportunity-finder.ts` | GSCデータからSEO改善機会を自動抽出 |
 
-### SEOスクリプト一覧
+### SEO・データ収集スクリプト一覧
 | スクリプト | 用途 | 実行方法 |
 |-----------|------|---------|
 | `scripts/seo-monitor.ts` | 日次SEO監視（v2: ページ種別、週次比較、デバイス別） | `npx tsx scripts/seo-monitor.ts [--inspect] [--verbose]` |
@@ -124,15 +124,27 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 | `scripts/weekly-seo-report.ts` | 週次PDCAレポート（Markdown + JSON + Slack） | `npx tsx scripts/weekly-seo-report.ts [--verbose]` |
 | `scripts/request-indexing.ts` | 手動Indexing API（4モード） | `npx tsx scripts/request-indexing.ts [--submit]` |
 | `scripts/seo-opportunity-finder.ts` | GSCデータからSEO改善機会を抽出 | `npx tsx scripts/seo-opportunity-finder.ts` |
+| `scripts/youtube-collector.ts` | YouTube動画収集（5件/ルアー、SEOスコア順） | `npx tsx scripts/youtube-collector.ts [--limit N] [--verbose]` |
+| `scripts/blog-impression-collector.ts` | ブログインプレ記事収集（CSE経由） | `npx tsx scripts/blog-impression-collector.ts [--limit N] [--verbose]` |
 
 ### データ保存先
 - 日次データ: `logs/seo-data/YYYY-MM-DD.json`
 - 週次レポート: `logs/seo-reports/weekly-YYYY-MM-DD.md` + `.json`
+- SEO機会分析: `logs/seo-data/opportunities-YYYY-MM-DD.json` + `.md`
 - インデックス進捗: `logs/seo-data/indexing-progress.json`
+- YouTube動画: `logs/youtube-data/youtube-YYYY-MM-DD.json`
+- インプレ記事: `logs/impression-data/impressions-YYYY-MM-DD.json`
 - launchdログ: `logs/launchd-*.log`
 
+### API資格情報（.envに全て保存済み）
+| API | 環境変数 | クォータ | 状態 |
+|-----|---------|---------|------|
+| YouTube Data API v3 | `YOUTUBE_API_KEY` | 10,000ユニット/日（~95ルアー） | ✅ 動作確認済み |
+| Google Custom Search | `GOOGLE_CSE_ID` + `GOOGLE_CSE_API_KEY` | 100クエリ/日 | ⚠️ GCPで有効化必要 |
+| もしもアフィリエイト | `MOSHIMO_AFFILIATE_ID=1181365` | - | ✅ 楽天提携済み |
+
 ### launchd plist
-全5ジョブ: `~/Library/LaunchAgents/com.fablus.lure-*.plist`
+全6ジョブ: `~/Library/LaunchAgents/com.fablus.lure-*.plist`
 全パス: `/Users/user/ウェブサイト/lure-database/` に統一済み
 
 ## 必読ドキュメント

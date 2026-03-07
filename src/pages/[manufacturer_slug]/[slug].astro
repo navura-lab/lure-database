@@ -8,6 +8,7 @@ import { fetchAllLures } from '../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { guideArticles } from '../../data/guides';
+import { youtubeVideos } from '../../data/youtube-videos';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -108,6 +109,13 @@ const youtubeId = series.official_video_url
   ? getYouTubeId(series.official_video_url)
   : null;
 const embedUrl = youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : null;
+
+// YouTube関連動画（youtube-collector.tsで収集済み）
+const videoKey = `${series.manufacturer_slug}/${series.slug}`;
+const relatedVideos = (youtubeVideos[videoKey] || [])
+  // 公式動画と重複しないようフィルタ
+  .filter(v => v.videoId !== youtubeId)
+  .slice(0, 3);
 
 // --- SEO: Title ---
 // GSCクエリ分析: 「商品名」「メーカー名 商品名」「商品名 スペック/カラー/価格」パターンが多い
@@ -277,25 +285,58 @@ if (series.target_fish.length > 0) {
   });
 }
 
+// Q4: カラーバリエーション
+if (series.color_count > 0) {
+  const sampleColors = series.colors.slice(0, 5).map(c => c.color_name).join('、');
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${series.name}のカラーバリエーションは？`,
+    acceptedAnswer: { '@type': 'Answer', text: `${series.name}は全${series.color_count}カラーを展開しています。${sampleColors}などがラインナップされています。` },
+  });
+}
+
+// Q5: 特徴・使い方（description がある場合）
+if (series.description) {
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${series.name}の特徴は？`,
+    acceptedAnswer: { '@type': 'Answer', text: series.description },
+  });
+}
+
 const faqLd = faqEntries.length > 0 ? {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: faqEntries,
 } : null;
 
-// VideoObject schema for YouTube embeds
-const videoLd = youtubeId ? {
-  '@context': 'https://schema.org',
-  '@type': 'VideoObject',
-  name: `${series.manufacturer} ${series.name} 公式動画`,
-  description: series.description || `${series.manufacturer}の${series.type}「${series.name}」の紹介動画。`,
-  thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
-  embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
-  uploadDate: series.created_at,
-} : null;
+// VideoObject schema for YouTube embeds（公式 + 関連動画）
+const videoLdItems: Record<string, unknown>[] = [];
+if (youtubeId) {
+  videoLdItems.push({
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: `${series.manufacturer} ${series.name} 公式動画`,
+    description: series.description || `${series.manufacturer}の${series.type}「${series.name}」の紹介動画。`,
+    thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
+    embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
+    uploadDate: series.created_at,
+  });
+}
+for (const rv of relatedVideos) {
+  videoLdItems.push({
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: rv.title,
+    description: `${series.name}に関する動画（${rv.channelTitle}）`,
+    thumbnailUrl: rv.thumbnailUrl,
+    embedUrl: `https://www.youtube.com/embed/${rv.videoId}`,
+    uploadDate: rv.publishedAt,
+  });
+}
 
 // Combine JSON-LD as array
-const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(videoLd ? [videoLd] : [])] as unknown as Record<string, unknown>;
+const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...videoLdItems] as unknown as Record<string, unknown>;
 ---
 
 <BaseLayout
@@ -418,6 +459,26 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
       </div>
     </section>
 
+    <!-- よくある質問（FAQ） -->
+    {faqEntries.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}のよくある質問</h2>
+        <div class="space-y-2">
+          {faqEntries.map((faq, i) => (
+            <details class="group bg-white rounded-lg border border-gray-100 overflow-hidden" open={i === 0}>
+              <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors">
+                <span class="text-sm font-semibold text-gray-900 pr-4">{faq.name}</span>
+                <svg class="w-4 h-4 text-text-dim shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="px-4 pb-3 text-sm text-gray-600 leading-relaxed border-t border-gray-50">
+                {faq.acceptedAnswer.text}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
     <!-- カラーバリエーション -->
     <section class="mb-12">
       <div class="flex items-baseline gap-3 mb-6">
@@ -477,6 +538,48 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...(vid
             allowfullscreen
             class="w-full h-full"
           ></iframe>
+        </div>
+      </section>
+    )}
+
+    <!-- 関連YouTube動画（youtube-collector.tsで収集） -->
+    {relatedVideos.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}の関連動画</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {relatedVideos.map(video => (
+            <a
+              href={`https://www.youtube.com/watch?v=${video.videoId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group block bg-white rounded-lg border border-gray-100 overflow-hidden hover:border-accent hover:shadow-card-hover transition-all duration-150"
+            >
+              <div class="relative aspect-video bg-gray-100">
+                <img
+                  src={video.thumbnailUrl}
+                  alt={video.title}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover"
+                />
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                    <svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="p-3">
+                <p class="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-accent transition-colors">{video.title}</p>
+                <div class="flex items-center gap-2 mt-1.5">
+                  <span class="text-xs text-text-dim font-mono">{video.channelTitle}</span>
+                  <span class="text-xs text-text-faint">·</span>
+                  <span class="text-xs text-text-dim font-mono">{video.viewCount.toLocaleString()}回再生</span>
+                </div>
+              </div>
+            </a>
+          ))}
         </div>
       </section>
     )}
