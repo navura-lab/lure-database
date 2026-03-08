@@ -31,7 +31,7 @@
 
 ---
 
-### USA — 133ブランド
+### USA — 126ブランド（V4: 同一サイト統合7件）
 
 #### A. コングロマリット系（PRADCO / Rapala VMC / Pure Fishing）
 
@@ -80,7 +80,7 @@
 | 36 | Wave Worms | 15 | M | https://www.waveworms.com/ | ソフトプラ |
 | 37 | Mizmo | 10 | M | https://mizmolures.com/ | ソフトプラ |
 | 38 | Berkley Gulp!/PowerBait | 80 | S | https://www.berkley-fishing.com/ | Pure Fishing。ソルト/フレッシュ |
-| 39 | NetBait | 30 | S | https://americanbaitworks.com/pages/netbait | American Baitworks |
+| 39 | American Baitworks | 55 | S | https://americanbaitworks.com/ | NetBait + Freedom Tackle + Scum Frog |
 | 40 | V&M Baits | 15 | M | https://www.vmbaits.com/ | ソフトプラ |
 | 41 | Kalin's | 15 | M | https://www.kalins.com/ | グラブ/チューブ |
 | 42 | Bass Assassin | 20 | M | https://www.bassassassin.com/ | ソルト/フレッシュ |
@@ -110,12 +110,10 @@
 
 | # | Brand | Est. | 難度 | URL | 備考 |
 |---|-------|------|------|-----|------|
-| 59 | Nichols Lures | 20 | M | https://thefishingfactory.com/ | The Fishing Factory |
+| 59 | The Fishing Factory | 40 | M | https://thefishingfactory.com/ | Nichols Lures + Dirty Jigs |
 | 60 | Picasso | 20 | S | https://www.picassooutdoors.com/ | US製ワイヤーベイト/A-rig |
-| 61 | Dirty Jigs | 20 | M | https://thefishingfactory.com/ | The Fishing Factory |
 | 62 | Jewel Bait | 30 | S | https://www.jewelbait.com/ | US製ジグ |
 | 63 | Stanley Jigs | 20 | S | https://www.stanleyjigs.com/ | ジグ/スピナーベイト |
-| 64 | Freedom Tackle | 15 | S | https://americanbaitworks.com/pages/freedom-tackle | American Baitworks |
 | 65 | Outkast Tackle | 10 | M | https://outkasttackle.com/ | ジグ |
 
 #### E. スプーン / スピナー専門
@@ -126,7 +124,7 @@
 | 67 | Acme Tackle | 15 | S | https://acmetackle.com/ | Kastmaster, Little Cleo |
 | 68 | Panther Martin | 15 | S | https://www.panthermartin.com/ | インラインスピナー |
 | 69 | Eppinger | 15 | S | https://www.eppinger.net/ | Dardevle (1906) |
-| 70 | Yakima Bait | 20 | S | https://www.yakimabait.com/ | Rooster Tail |
+| 70 | Yakima Bait | 35 | S | https://www.yakimabait.com/ | Rooster Tail + Worden's/Flatfish |
 | 71 | Thomas Lures | 10 | M | https://thomaslures.com/ | Buoyant スプーン |
 
 #### F. マスキー / パイク専門
@@ -182,11 +180,10 @@
 
 | # | Brand | Est. | 難度 | URL | 備考 |
 |---|-------|------|------|-----|------|
-| 106 | Leland's (Trout Magnet) | 15 | S | https://www.troutmagnet.com/ | 小型ソフトプラ |
+| 106 | Leland's (Trout Magnet) | 25 | S | https://www.troutmagnet.com/ | 小型ソフトプラ + Crappie Magnet |
 | 107 | Blakemore | 10 | M | https://www.blakemore-ttisales.com/ | Road Runner |
 | 108 | Southern Pro | 10 | M | https://www.southernpro.com/ | クラッピーチューブ |
 | 109 | Charlie Brewer | 10 | M | https://www.sliderbaits.com/ | Slider |
-| 110 | Crappie Magnet | 10 | M | https://www.troutmagnet.com/ | Leland's |
 
 #### J. アイスフィッシング専門
 
@@ -196,7 +193,6 @@
 | 112 | HT Enterprises | 10 | M | https://www.htent.com/ | アイスフィッシング |
 | 113 | Clam | 10 | M | https://www.clamoutdoors.com/ | アイスフィッシング |
 | 114 | K&E | 5 | M | https://www.kandebasstopper.com/ | アイスフィッシング |
-| 115 | Swedish Pimple | 10 | M | https://www.baydenoc.com/ | Bay de Noc。アイスジグ |
 
 #### K. ウォールアイ専門
 
@@ -204,13 +200,12 @@
 |---|-------|------|------|-----|------|
 | 116 | Moonshine Lures | 15 | M | https://moonshinelures.com/ | グロートローリング |
 | 117 | Reef Runner | 10 | M | https://www.reefrunner.com/ | ウォールアイクランク |
-| 118 | Bay de Noc | 10 | M | https://www.baydenoc.com/ | ウォールアイジグ |
+| 118 | Bay de Noc | 20 | M | https://www.baydenoc.com/ | ウォールアイジグ + Swedish Pimple |
 
 #### L. PNWサーモン / スチールヘッド
 
 | # | Brand | Est. | 難度 | URL | 備考 |
 |---|-------|------|------|-----|------|
-| 119 | Worden's | 15 | M | https://www.yakimabait.com/ | Yakima Bait。Rooster Tail/Flatfish |
 | 120 | Brad's | 10 | M | https://www.bradsfishing.com/ | サーモンプラグ |
 | 121 | Silver Horde | 15 | M | https://www.silverhorde.com/ | サーモンスプーン |
 | 122 | Pro-Troll | 10 | M | https://www.pro-troll.com/ | トローリング |
@@ -227,7 +222,6 @@
 
 | # | Brand | Est. | 難度 | URL | 備考 |
 |---|-------|------|------|-----|------|
-| 126 | Snag Proof / Scum Frog | 10 | S | https://americanbaitworks.com/pages/scum-frog | American Baitworks |
 | 127 | Gitzit | 5 | M | https://www.gitzit.com/ | チューブベイトの元祖 |
 | 128 | Bio Bait | 10 | S | https://biobaitdna.com/ | 生分解性ソフトプラ |
 | 129 | Biospawn | 10 | S | https://biospawn.com/ | バス |
@@ -267,7 +261,7 @@
 
 ---
 
-### Sweden — 8ブランド（Myranをノルウェーから移動、BFT/Eastfield/Swedish Pimple削除）
+### Sweden — 7ブランド（Fladen削除: フルラインタックル）
 
 | # | Brand | Est. | 難度 | URL | 備考 |
 |---|-------|------|------|-----|------|
@@ -277,10 +271,9 @@
 | 146 | Strike Pro | 30 | S | https://www.strikepro.com/ | 製造台湾 |
 | 147 | Wolfcreek | 10 | M | https://wolfcreeklures.com/ | ジャークベイト |
 | 148 | Gator | 10 | M | https://gatorsweden.com/ | パイク用ソフト |
-| 149 | Fladen | 10 | M | https://fladenfishing.se/en | フルライン |
 | 150 | Myran | 15 | M | https://myransweden.se/ | スピナー |
 
-**Sweden合計: 8ブランド**
+**Sweden合計: 7ブランド**
 
 ---
 
@@ -353,7 +346,7 @@
 
 ---
 
-### Italy — 7ブランド（DTDはCroatiaに移動）
+### Italy — 5ブランド（Colmic/Tubertini削除: マッチ釣り主体）
 
 | # | Brand | Est. | 難度 | URL | 備考 |
 |---|-------|------|------|-----|------|
@@ -362,10 +355,8 @@
 | 177 | ILBA | 15 | M | https://www.ilba.it/en/ | スピナー/スプーン(1960) |
 | 178 | Jatsui | 15 | S | https://www.jatsui.com/ | 地中海ソルト |
 | 179 | Rapture (Trabucco) | 30 | M | https://www.rapturelures.com/eng/ | ルアーブランド |
-| 180 | Colmic | 15 | M | https://www.colmic.it/en | イタリア大手 |
-| 181 | Tubertini | 10 | M | https://www.tubertini.it/en/ | イタリア |
 
-**Italy合計: 7ブランド**
+**Italy合計: 5ブランド**
 
 ---
 
@@ -514,19 +505,11 @@
 
 ---
 
-### Taiwan — 3ブランド
-
-| # | Brand | Est. | 難度 | URL | 備考 |
-|---|-------|------|------|-----|------|
-| 222 | Hearty Rise | 30 | M | https://www.heartyrise.cn/en/ | 1982年創業 |
-| 223 | Quapni | 20 | M | https://www.quapni.com/ | 精密部品→釣具 |
-| 224 | Okuma Lures | 10 | M | https://www.okumafishing.com/en/ | 台湾 |
-
-**Taiwan合計: 3ブランド**
+### Taiwan — 0ブランド（全削除: Hearty Rise=ロッド主体、Quapni=リール/アウトドア、Okuma=リール主体）
 
 ---
 
-### China — 12ブランド（Meredith削除）
+### China — 7ブランド（リール主体5社+PROBEROS削除）
 
 | # | Brand | Est. | 難度 | URL | 備考 |
 |---|-------|------|------|-----|------|
@@ -537,27 +520,21 @@
 | 229 | Tsurinoya | 30 | M | https://www.tsurinoya.com/en/ | ルアー/ロッド |
 | 230 | Hunthouse | 30 | M | http://www.hunthousecn.com/ | ハードベイト |
 | 231 | Goture | 20 | M | https://goture.com/ | フルライン |
-| 232 | SeaKnight | 20 | M | https://theseaknight.com/ | ルアー/リール |
-| 233 | KastKing | 15 | M | https://kastking.com/ | ルアー/リール |
-| 234 | Piscifun | 15 | M | https://www.piscifun.com/ | ルアー/リール |
-| 235 | Sougayilang | 15 | M | https://sougayilang.com/ | フルライン |
-| 236 | PROBEROS | 15 | M | https://proberosfishing.com/ | ルアー |
 
-**China合計: 12ブランド**
+**China合計: 7ブランド**
 ※ AliExpress専業ストアフロント/OEM専業はコンシューマーブランドではないため除外
 
 ---
 
-### Thailand — 4ブランド
+### Thailand — 3ブランド（BKK削除: フック主体）
 
 | # | Brand | Est. | 難度 | URL | 備考 |
 |---|-------|------|------|-----|------|
 | 237 | AN Lure | 20 | S | https://www.anlureinternational.com/en/ | ハンドメイド木製 |
 | 238 | Lures Factory | 20 | M | http://lfluresfactory.com/ | ハンドメイド量産 |
 | 239 | SiamSpoon | 10 | M | http://www.siamspoon.com/ | タイ |
-| 240 | BKK | 10 | M | https://bkkhooks.com/ | フック大手のルアーライン |
 
-**Thailand合計: 4ブランド**
+**Thailand合計: 3ブランド**
 
 ---
 
@@ -583,7 +560,7 @@
 
 ---
 
-### Australia — 18ブランド
+### Australia — 16ブランド（Rovex/Nitro削除: リール/ロッド主体）
 
 | # | Brand | Est. | 難度 | URL | 備考 |
 |---|-------|------|------|-----|------|
@@ -601,12 +578,10 @@
 | 256 | Atomic | 15 | S | https://atomictackle.com.au/ | 豪州 |
 | 257 | MMD | 10 | M | https://mmdfishing.com.au/ | 豪州 |
 | 258 | Wilson | 20 | S | http://www.wilsonfishing.com/ | 豪州大手 |
-| 259 | Rovex | 10 | M | https://www.jarviswalker.com.au/collections/rovex | Jarvis Walker |
-| 260 | Nitro | 10 | M | https://nitrorods.com.au/ | 豪州 |
 | 261 | Classic Lures | 15 | M | https://jmgillies.com.au/brands/classic-lures/ | JM Gillies |
 | 262 | Catch Fishing | 10 | M | https://www.catchfishing.pro/ | NZ拠点 |
 
-**Australia合計: 18ブランド**
+**Australia合計: 16ブランド**
 
 ---
 
@@ -629,7 +604,7 @@
 
 ---
 
-### Brazil — 12ブランド
+### Brazil — 11ブランド（Nelson Nakamura削除: Lucky Iscas/Maruri経由）
 
 | # | Brand | Est. | 難度 | URL | 備考 |
 |---|-------|------|------|-----|------|
@@ -640,13 +615,12 @@
 | 270 | Lucky Iscas | 15 | S | https://en.luckyiscasartificiais.com.br/ | トップウォーター |
 | 271 | Deconto | 15 | M | https://www.decontoiscas.com.br/ | ブラジル |
 | 272 | KV | 10 | M | https://www.kviscas.com.br/ | ブラジル |
-| 273 | Nelson Nakamura | 15 | M | https://nelsonnakamura.com.br/ | ブラジル |
 | 274 | Bad Line | 10 | M | https://iscasbadline.com.br/ | ブラジル |
 | 275 | Monster 3X | 15 | S | https://www.monster3x.com/ | ブラジル大手 |
 | 276 | Yara | 10 | M | https://www.iscasyara.com.br/ | ブラジル |
 | 277 | Nitro Fishing | 10 | M | https://nitroimports.com.br/nitro-fishing/ | ブラジル |
 
-**Brazil合計: 12ブランド**
+**Brazil合計: 11ブランド**
 
 ---
 
@@ -667,16 +641,16 @@
 | 地域 | 国数 | ブランド数 | 推定シリーズ追加 |
 |------|------|-----------|----------------|
 | 日本（登録済み） | 1 | 92 (既存) | 0 |
-| USA | 1 | 133 | ~4,800 |
+| USA | 1 | 126 | ~4,600 |
 | Canada | 1 | 6 | ~160 |
 | Finland | 1 | 4 | ~170 |
-| Sweden | 1 | 8 | ~115 |
+| Sweden | 1 | 7 | ~105 |
 | Denmark | 1 | 2 | ~130 |
 | France | 1 | 11 | ~310 |
 | Germany | 1 | 6 | ~120 |
 | Netherlands | 1 | 2 | ~50 |
 | UK | 1 | 3 | ~120 |
-| Italy | 1 | 7 | ~145 |
+| Italy | 1 | 5 | ~120 |
 | Croatia | 1 | 1 | ~20 |
 | Spain | 1 | 7 | ~100 |
 | Poland | 1 | 12 | ~240 |
@@ -690,17 +664,17 @@
 | Ukraine | 1 | 3 | ~50 |
 | Russia/CIS | 1 | 5 | ~85 |
 | South Korea | 1 | 3 | ~90 |
-| Taiwan | 1 | 3 | ~60 |
-| China | 1 | 12 | ~390 |
-| Thailand | 1 | 4 | ~60 |
+| Taiwan | 0 | 0 | 0 |
+| China | 1 | 7 | ~310 |
+| Thailand | 1 | 3 | ~50 |
 | Malaysia | 1 | 2 | ~120 |
 | Indonesia | 1 | 2 | ~60 |
-| Australia | 1 | 18 | ~335 |
+| Australia | 1 | 16 | ~315 |
 | New Zealand | 1 | 2 | ~40 |
 | Mexico | 1 | 1 | ~10 |
-| Brazil | 1 | 12 | ~220 |
+| Brazil | 1 | 11 | ~205 |
 | South Africa | 1 | 3 | ~40 |
-| **合計** | **35** | **280 (新規) + 92 (既存) = 372** | **~7,885** |
+| **合計** | **34** | **259 (新規) + 92 (既存) = 351** | **~7,355** |
 
 ---
 
@@ -708,10 +682,10 @@
 
 | 項目 | 現在 | 全Phase完了後 | 競合比較 |
 |------|------|-------------|---------|
-| メーカー数 | 92 | **~372** | TW: ~300ブランド |
-| シリーズ数 | 4,874 | **~12,759** | 世界最大級 |
-| 総レコード（カラー展開込） | 125,817 | **~350,000+** | ぶっちぎり |
-| 国数 | 1 | **35** | 唯一無二 |
+| メーカー数 | 92 | **~351** | TW: ~300ブランド |
+| シリーズ数 | 4,874 | **~12,229** | 世界最大級 |
+| 総レコード（カラー展開込） | 125,817 | **~330,000+** | ぶっちぎり |
+| 国数 | 1 | **34** | 唯一無二 |
 
 ※ ウェブサイトが検証済みの確立されたブランドのみ。ガレージショップ/AliExpress専業/架空ブランドは除外済み
 ※ 競合サイト（Tackle Warehouse, achigan.net等）は小売サイトであり、
