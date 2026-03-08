@@ -4,8 +4,9 @@
 //
 // Site: WordPress (Cormoran Products)
 // Product URL pattern: https://vivanet.co.jp/viva/{product-slug}/
-// Specs as inline text: "58mm / 12g / ¥1,700（税別）"
-// Color chart: <li><a><img><div>#code<br>name</div></a></li>
+// Specs: <div class="item_spec"><p>型番 : 55mm / 9.5g / ￥1,500（税別）</p></div>
+// Description: <div class="item_content"><p>...</p></div>
+// Color chart: <ul class="color_list popup-gallery"><li><a title="#11E<br>キンクロ"><img><p>#11E<br>キンクロ</p></a></li>
 // Types: various (クローラー, ポッパー, バイブ, ワーム, etc.)
 // Target fish: ブラックバス, ナマズ, トラウト
 
@@ -247,23 +248,40 @@ export const scrapeVivaPage: ScraperFunction = async (url: string): Promise<Scra
   log(`Main image: ${mainImage}`);
 
   // --- Description ---
+  // VIVA: 商品説明は <div class="item_content"> 直下の最初の <p> にある
+  // meta[name=description] はサイト全体の説明文なので使わない
   let description = '';
-  const metaDescMatch = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)
-    || html.match(/<meta\s+content=["']([^"']+)["']\s+name=["']description["']/i);
-  if (metaDescMatch && metaDescMatch[1].length > 20) {
-    description = stripHtml(metaDescMatch[1]).substring(0, 500);
-  }
-  if (!description) {
-    const pMatches = html.match(/<p[^>]*>([\s\S]*?)<\/p>/gi) || [];
-    for (const p of pMatches) {
-      const text = stripHtml(p).trim();
-      if (text.length > 30 && !/spec|スペック|カラー|copyright|TOPページ/i.test(text.substring(0, 30))) {
+  const itemContentMatch = html.match(/<div[^>]*class=["'][^"']*item_content[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+  if (itemContentMatch) {
+    // item_content内の最初の<p>を取得（feature_wrapやyoutube_wrapの前）
+    const firstP = itemContentMatch[1].match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+    if (firstP) {
+      const text = stripHtml(firstP[1]).trim();
+      if (text.length > 10 && !/バスフィッシング専門/.test(text)) {
         description = text.substring(0, 500);
-        break;
+      }
+    }
+  }
+  // Fallback: og:description（meta descriptionよりはマシ）
+  if (!description) {
+    const ogDescMatch = html.match(/<meta\s+(?:property|name)=["']og:description["']\s+content=["']([^"']+)["']/i)
+      || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:description["']/i);
+    if (ogDescMatch) {
+      const text = stripHtml(ogDescMatch[1]).trim();
+      if (text.length > 20 && !/バスフィッシング専門/.test(text)) {
+        description = text.substring(0, 500);
       }
     }
   }
   log(`Description: ${description.substring(0, 80)}...`);
+
+  // --- Official YouTube video ---
+  let officialVideoUrl = '';
+  const youtubeIframeMatch = html.match(/<iframe[^>]+src=["'](?:https?:)?\/\/(?:www\.)?youtube\.com\/embed\/([^"'?]+)/i);
+  if (youtubeIframeMatch) {
+    officialVideoUrl = `https://www.youtube.com/watch?v=${youtubeIframeMatch[1]}`;
+    log(`Official video: ${officialVideoUrl}`);
+  }
 
   // --- Specs: VIVA uses inline format "58mm / 12g / ¥1,700（税別）" ---
   const bodyText = stripHtml(html);
@@ -308,55 +326,60 @@ export const scrapeVivaPage: ScraperFunction = async (url: string): Promise<Scra
   weights = Array.from(new Set(weights)).sort((a, b) => a - b);
   log(`Weights: [${weights.join(', ')}], Length: ${length}mm, Price: ${price}`);
 
-  // --- Colors: VIVA uses <li><a><img><div>#code<br>name</div></a></li> ---
+  // --- Colors: VIVA uses <ul class="color_list popup-gallery"><li><a title="..."><img><p>...</p></a></li> ---
   const colors: ScrapedColor[] = [];
   const seenColors = new Set<string>();
 
-  // Pattern 1: <li> with img and div containing color code + name
-  const liMatches = html.match(/<li[^>]*>\s*<a[^>]*>[\s\S]*?<\/a>\s*<\/li>/gi) || [];
-  for (const li of liMatches) {
-    const imgMatch = li.match(/<img[^>]+src=["']([^"']+)["']/i);
-    // Color name in <div> with format: "#11E<br>キンクロ" or "#83<br>チャートバス"
-    const divMatch = li.match(/<div[^>]*>([\s\S]*?)<\/div>/i);
-    if (imgMatch && divMatch) {
-      const rawText = divMatch[1].replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').trim();
-      // Extract color name: "#11E キンクロ" -> "キンクロ" or keep full string
-      const colorName = rawText.replace(/^\s*#?\d+[A-Z]?\s*/i, '').trim() || rawText.trim();
-      if (colorName && colorName.length > 0 && !seenColors.has(colorName)) {
-        seenColors.add(colorName);
-        colors.push({ name: rawText.trim(), imageUrl: makeAbsolute(imgMatch[1]) });
-      }
+  // VIVAのカラーチャートは <ul class="color_list popup-gallery"> 内に格納
+  // 各カラー: <li><a href="フルサイズ画像URL" title="#11E<br>キンクロ"><img src="サムネイル"><p>#11E<br>キンクロ</p></a></li>
+  const colorListMatch = html.match(/<ul[^>]*class=["'][^"']*color_list[^"']*["'][^>]*>([\s\S]*?)<\/ul>/i);
+  if (colorListMatch) {
+    const colorListHtml = colorListMatch[1];
+    const liMatches = colorListHtml.match(/<li[^>]*>[\s\S]*?<\/li>/gi) || [];
+    for (const li of liMatches) {
+      // フルサイズ画像は <a href="..."> から取得
+      const aHrefMatch = li.match(/<a[^>]+href=["']([^"']+\.(?:jpg|jpeg|png|webp|gif)[^"']*)["']/i);
+      // サムネイル画像は <img src="..."> から取得
+      const imgMatch = li.match(/<img[^>]+src=["']([^"']+)["']/i);
+      // カラー名は <p> タグから取得（"#11E<br>キンクロ" 形式）
+      const pMatch = li.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+      // フォールバック: <a title="..."> から取得
+      const titleMatch = li.match(/<a[^>]+title=["']([^"']+)["']/i);
+
+      const rawColorText = pMatch ? pMatch[1] : (titleMatch ? titleMatch[1] : '');
+      if (!rawColorText) continue;
+
+      // <br> をスペースに変換してHTMLタグ除去
+      const colorText = rawColorText.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').trim();
+      if (!colorText || colorText.length === 0) continue;
+
+      // ナビゲーション要素やブランド名を除外
+      if (/Viva-net|ビバネット|AquaWave|コーモラン|CORMORAN|TOP|HOME|ホーム|お問い合わせ/i.test(colorText)) continue;
+      if (colorText.length > 80) continue; // 明らかに説明文が混入
+
+      if (seenColors.has(colorText)) continue;
+      seenColors.add(colorText);
+
+      // 画像URL: フルサイズ > サムネイル
+      const imageUrl = makeAbsolute(aHrefMatch ? aHrefMatch[1] : (imgMatch ? imgMatch[1] : ''));
+      colors.push({ name: colorText, imageUrl });
     }
   }
 
-  // Pattern 2: figure + figcaption
+  // Fallback: color_list が見つからない場合、<li><a><p>パターンを広めに検索
   if (colors.length === 0) {
-    const figureMatches = html.match(/<figure[^>]*>[\s\S]*?<\/figure>/gi) || [];
-    for (const fig of figureMatches) {
-      const imgMatch = fig.match(/<img[^>]+src=["']([^"']+)["']/i);
-      const captionMatch = fig.match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/i);
-      if (imgMatch && captionMatch) {
-        const colorName = stripHtml(captionMatch[1]).trim();
-        if (colorName && !seenColors.has(colorName)) {
-          seenColors.add(colorName);
-          colors.push({ name: colorName, imageUrl: makeAbsolute(imgMatch[1]) });
-        }
-      }
-    }
-  }
-
-  // Pattern 3: images with color/col in src with alt text
-  if (colors.length === 0) {
-    const colorImgMatches = html.match(/<img[^>]+(?:src=["'][^"']*(?:color|col_|カラー)[^"']*["']|alt=["'][^"']+["'])[^>]*>/gi) || [];
-    for (const imgTag of colorImgMatches) {
-      const srcMatch = imgTag.match(/src=["']([^"']+)["']/i);
-      const altMatch = imgTag.match(/alt=["']([^"']+)["']/i);
-      if (srcMatch && altMatch) {
-        const colorName = altMatch[1].trim();
-        if (colorName && !seenColors.has(colorName) && !/logo|banner|icon/i.test(colorName)) {
-          seenColors.add(colorName);
-          colors.push({ name: colorName, imageUrl: makeAbsolute(srcMatch[1]) });
-        }
+    const allLiMatches = html.match(/<li[^>]*>\s*<a[^>]*>[\s\S]*?<\/a>\s*<\/li>/gi) || [];
+    for (const li of allLiMatches) {
+      const imgMatch = li.match(/<img[^>]+src=["']([^"']+)["']/i);
+      const pMatch = li.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+      if (imgMatch && pMatch) {
+        const rawText = pMatch[1].replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').trim();
+        if (!rawText || rawText.length === 0 || rawText.length > 80) continue;
+        // サイトナビやブランド名を除外
+        if (/Viva|AquaWave|コーモラン|CORMORAN|TOP|HOME|Bass|Namazu|Trout|Hard\s*Bait|Soft\s*Bait|NEW/i.test(rawText)) continue;
+        if (seenColors.has(rawText)) continue;
+        seenColors.add(rawText);
+        colors.push({ name: rawText, imageUrl: makeAbsolute(imgMatch[1]) });
       }
     }
   }

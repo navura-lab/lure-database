@@ -1,0 +1,236 @@
+[
+  {
+    "slug": "aji-penpen",
+    "name": "Aji PenPen",
+    "type": "ワーム",
+    "target_fish": ["アジ", "メバル"]
+  },
+  {
+    "slug": "aji-pinpin",
+    "name": "Aji PinPin（アジピンピン）",
+    "type": "ワーム",
+    "target_fish": ["アジ", "メバル"]
+  },
+  {
+    "slug": "aji-pinpin-old",
+    "name": "Aji PinPin（アジピンピン）",
+    "type": "ワーム",
+    "target_fish": ["アジ", "メバル"]
+  },
+  {
+    "slug": "aoricks-tr",
+    "name": "Aoricks TR（アオリクスTR）",
+    "type": "エギ",
+    "target_fish": ["アオリイカ"]
+  },
+  {
+    "slug": "aw-shoulderbag",
+    "name": "A.W. SHOULDER BAG（A.W. ショルダーバッグ）",
+    "type": "ルアーアクセサリー",
+    "target_fish": []
+  },
+  {
+    "slug": "bowflap-65s",
+    "name": "BowFlap 65S（バウフラップ 65S）",
+    "type": "ペンシルベイト",
+    "target_fish": ["シーバス", "メバル"]
+  },
+  {
+    "slug": "bowflap-80s",
+    "name": "BowFlap 80S（バウフラップ 80S）",
+    "type": "ペンシルベイト",
+    "target_fish": ["シーバス", "メバル"]
+  },
+  {
+    "slug": "carurear",
+    "name": "CaruREAR（カルリア）",
+    "type": "メタルジグ",
+    "target_fish": ["青物", "シーバス"]
+  },
+  {
+    "slug": "datchak",
+    "name": "Datchak（ダッチャク）",
+    "type": "タイラバ",
+    "target_fish": ["マダイ"]
+  },
+  {
+    "slug": "datchak-head",
+    "name": "Datchak HEAD（ダッチャク・ヘッド）",
+    "type": "タイラバ",
+    "target_fish": ["マダイ"]
+  },
+  {
+    "slug": "datchak-hookunit",
+    "name": "Datchak HookUnit（ダッチャク・フックユニット）",
+    "type": "ルアーアクセサリー",
+    "target_fish": ["マダイ"]
+  },
+  {
+    "slug": "feather-hooks",
+    "name": "Feather Hooks（フェザーフック）",
+    "type": "ルアーアクセサリー",
+    "target_fish": []
+  },
+  {
+    "slug": "fune-tachiuo-tenya-akatsuki",
+    "name": "船タチウオテンヤ 暁（Fune Tachiuo TENYA AKATSUKI）",
+    "type": "テンヤ",
+    "target_fish": ["タチウオ"]
+  },
+  {
+    "slug": "hafu-a",
+    "name": "Hafu-a（ハフーア）",
+    "type": "ワーム",
+    "target_fish": ["ロックフィッシュ", "クロダイ"]
+  },
+  {
+    "slug": "hansude-glove",
+    "name": "半素手グローブ（HANSUDE GLOVE）",
+    "type": "ルアーアクセサリー",
+    "target_fish": []
+  },
+  {
+    "slug": "ko-denguri-gaeru-namazusp",
+    "name": "仔でんぐりガエル 鯰SP（KO DENGURI-GAERU NAMAZU SP）",
+    "type": "クローラーベイト",
+    "target_fish": ["ナマズ"]
+  },
+  {
+    "slug": "little-magic",
+    "name": "Little Magic（リトル・マジック）",
+    "type": "ペンシルベイト",
+    "target_fish": ["メバル", "アジ"]
+  },
+  {
+    "slug": "mama-namagaeru",
+    "name": "ママ生ガエル（MAMA NAMAGAERU）",
+    "type": "フロッグ",
+    "target_fish": ["ブラックバス"]
+  },
+  {
+    "slug": "metalmagic-spare-parts",
+    "name": "MetalMagic Spare Parts（メタルマジック ・スペアパーツ）",
+    "type": "ルアーアクセサリー",
+    "target_fish": []
+  },
+  {
+    "slug": "mf-flapper",
+    "name": "ＭF Flapper（MFフラッパー）",
+    "type": "フロッグ",
+    "target_fish": ["ブラックバス"]
+  },
+  {
+    "slug": "mid-magic",
+    "name": "Mid Magic（ミッドマジック）",
+    "type": "ミノー",
+    "target_fish": ["メバル", "シーバス"]
+  },
+  {
+    "slug": "muscle-bug",
+    "name": "Muscle BUG（マッスルバグ）",
+    "type": "ワーム",
+    "target_fish": ["アジ", "メバル"]
+  },
+  {
+    "slug": "namagaeru",
+    "name": "生ガエル（NAMAGAERU）",
+    "type": "フロッグ",
+    "target_fish": ["ブラックバス"]
+  },
+  {
+    "slug": "namazu-hooks",
+    "name": "ナマズ用ダブルフック（DOUBLE HOOK for NAMAZU）",
+    "type": "ルアーアクセサリー",
+    "target_fish": ["ナマズ"]
+  },
+  {
+    "slug": "nanban-head",
+    "name": "Nanban HEAD（ナンバンヘッド）",
+    "type": "ジグヘッド",
+    "target_fish": ["アジ", "メバル"]
+  },
+  {
+    "slug": "s-magic",
+    "name": "S Magic（エス・マジック）",
+    "type": "ペンシルベイト",
+    "target_fish": ["メバル", "アジ", "シーバス"]
+  },
+  {
+    "slug": "shallow-magic60",
+    "name": "Shallow Magic60（シャロー・マジック60）",
+    "type": "ミノー",
+    "target_fish": ["メバル", "シーバス"]
+  },
+  {
+    "slug": "shallow-magic80",
+    "name": "Shallow Magic80（シャロー・マジック80）",
+    "type": "ミノー",
+    "target_fish": ["メバル", "シーバス"]
+  },
+  {
+    "slug": "slide-bomber-shallow",
+    "name": "Slide Bomber Shallow （スライドボマー・シャロー）",
+    "type": "ペンシルベイト",
+    "target_fish": ["ブラックバス", "シーバス"]
+  },
+  {
+    "slug": "spark-assist-hook",
+    "name": "Spark ASSIST HOOK（スパーク・アシストフック）",
+    "type": "ルアーアクセサリー",
+    "target_fish": ["タチウオ"]
+  },
+  {
+    "slug": "spark-slim-head",
+    "name": "Spark Slim HEAD（スパークスリム・ヘッド）",
+    "type": "ジグヘッド",
+    "target_fish": ["タチウオ"]
+  },
+  {
+    "slug": "spark-slim-wind-starter-set",
+    "name": "Spark Slim WIND starter set（スパーク スリム ワインド・スターターセット）",
+    "type": "ルアーアクセサリー",
+    "target_fish": ["タチウオ"]
+  },
+  {
+    "slug": "spark-tenya-assist",
+    "name": "SparkTENYA ASSIST（スパークテンヤ・アシスト）",
+    "type": "ルアーアクセサリー",
+    "target_fish": ["タチウオ"]
+  },
+  {
+    "slug": "spark-tenya-assist-sabasp",
+    "name": "Spark TENYA ASSIST SABA SP（スパークテンヤ・アシスト 鯭SP）",
+    "type": "ルアーアクセサリー",
+    "target_fish": ["タチウオ"]
+  },
+  {
+    "slug": "spark55",
+    "name": "Spark55（スパーク55）",
+    "type": "ワーム",
+    "target_fish": ["メバル", "アジ"]
+  },
+  {
+    "slug": "tobunder-alboroto",
+    "name": "Tobunder ALBOROTO（飛ブンダー　アルボロート）",
+    "type": "ミノー",
+    "target_fish": ["シーバス", "青物"]
+  },
+  {
+    "slug": "tobunder-z",
+    "name": "Tobunder Z（飛ブンダーZ）",
+    "type": "ミノー",
+    "target_fish": ["シーバス", "青物"]
+  },
+  {
+    "slug": "viva-gill-35",
+    "name": "Viva Gill 3.5（ビバギル3.5）",
+    "type": "ワーム",
+    "target_fish": ["ブラックバス"]
+  },
+  {
+    "slug": "yawaraka-denguri-gaeru-namazusp",
+    "name": "やわらかでんぐりガエル 鯰SP　（YAWARAKA-DENGURI-GAERU NAMAZU SP）",
+    "type": "クローラーベイト",
+    "target_fish": ["ナマズ"]
+  }
+]
