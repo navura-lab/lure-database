@@ -99,21 +99,34 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 ## コマンド
 - `npm run dev` — 開発サーバー (localhost:4321)
 - `npm run build` — ビルド
-- `npx tsx scripts/pipeline.ts --limit 1` — パイプライン（1件処理）
-- `npx tsx scripts/pipeline.ts --limit 0` — パイプライン（全件処理）
-- `npx tsx scripts/discover-products.ts --dry-run` — 新商品検知（テスト）
+- `npx tsx scripts/pipeline.ts --region jp --limit 1` — JPパイプライン（1件）
+- `npx tsx scripts/pipeline.ts --region us --limit 0` — USパイプライン（全件）
+- `npx tsx scripts/pipeline.ts --limit 1` — 全リージョン（後方互換）
+- `npx tsx scripts/discover-products.ts --region us --dry-run` — US新商品検知（テスト）
+- `npx tsx scripts/discover-products.ts --region jp --dry-run` — JP新商品検知（テスト）
 - `npx tsx scripts/discover-products.ts --maker {slug} --dry-run` — 特定メーカーのみ
+- `npx tsx scripts/us-post-pipeline.ts` — US後処理状態チェック
+- `npx tsx scripts/rewrite-descriptions.ts --check` — 英語説明文チェック
+- `npx tsx scripts/rewrite-descriptions.ts --apply` — リライト結果をDB書き込み
 
 ## SEO自動化システム（2026-03-07〜）
 
 ### 自動実行スケジュール（launchd）
+
+**パイプライン・新商品検知（JP/US分離: 2026-03-08〜）**
+| ジョブ | スケジュール | スクリプト | 内容 |
+|--------|------------|-----------|------|
+| discover-us | 毎日 5:00 JST | `run-discover-us.sh` | US新商品検知（fetch-only, 30秒） |
+| discover-jp | 毎週月曜 6:00 JST | `run-discover-jp.sh` | JP新商品検知（Playwright使用） |
+| pipeline-jp | 毎時 0:00-7:00 JST | `run-pipeline-jp.sh` | JPスクレイプ&DB登録（毎時1件×8回） |
+| pipeline-us | 毎日 8:00 JST | `run-pipeline-us.sh` | USスクレイプ&DB登録（全件一括） |
+
+**SEO自動化**
 | ジョブ | スケジュール | スクリプト | 内容 |
 |--------|------------|-----------|------|
 | SEO日次監視 | 毎日 7:00 JST | `seo-monitor.ts` | GSCデータ収集、週次比較、ページ種別分析、アラート |
 | Indexing API送信 | 毎日 8:00 JST | `daily-indexing.ts` | 200件/日ずつ全ページのインデックス登録を自動送信 |
 | 週次レポート | 毎週月曜 9:00 JST | `weekly-seo-report.ts` | PDCA分析、クエリ成長/衰退、推奨アクション生成 |
-| パイプライン | 毎時 0:00-7:00 JST | `pipeline.ts` | スクレイプ&DB登録（1時間1件×8回） |
-| 新商品検知 | 毎週月曜 6:00 JST | `discover-products.ts` | 全メーカーの新商品URL検知 |
 | SEO機会発見 | 毎週月曜 10:00 JST | `seo-opportunity-finder.ts` | GSCデータからSEO改善機会を自動抽出 |
 
 ### SEO・データ収集スクリプト一覧
@@ -144,8 +157,27 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 | もしもアフィリエイト | `MOSHIMO_AFFILIATE_ID=1181365` | - | ✅ 楽天提携済み |
 
 ### launchd plist
-全6ジョブ: `~/Library/LaunchAgents/com.fablus.lure-*.plist`
+全10ジョブ: `~/Library/LaunchAgents/com.fablus.lure-*.plist`
 全パス: `/Users/user/ウェブサイト/lure-database/` に統一済み
+旧 `pipeline.plist` / `discover.plist` はunload済み（ファイルは残存、後方互換用）
+
+### JP/US パイプライン分離（2026-03-08〜）
+
+**USメーカーリスト**: `scripts/lib/regions.ts` で一元管理（strike-king, z-man, zoom）
+- `--region jp|us|all` で分岐（all = 後方互換、デフォルト）
+- US discover: fetch-only（Playwright不要、30秒完了）
+- US pipeline完了後の手動処理: `npx tsx scripts/us-post-pipeline.ts` で状態確認
+
+**US後処理フロー（Claude Codeセッション）:**
+```
+$ npx tsx scripts/us-post-pipeline.ts    ← 状態確認
+→ 「要リライト」なら:
+  $ npx tsx scripts/rewrite-descriptions.ts
+  → Sonnet並列リライト
+  $ npx tsx scripts/rewrite-descriptions.ts --apply
+→ 「要再分類」なら: Sonnet再分類
+$ git push origin main
+```
 
 ## 必読ドキュメント
 
@@ -158,46 +190,43 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 
 ## 説明文リライト手順（SEO対策）
 
-**「リライトして」「説明文を書き直して」等の指示を受けたら以下を実行する。**
+**パイプラインはメーカー公式の説明文をそのままDBに保存する。リライトはパイプライン完了後に一括実行する。**
 
-パイプラインはメーカー公式の説明文をそのままDBに保存する。
-リライトはClaude Codeセッション内でSonnetサブエージェントを使い、無料で実行する。
+### ⚠️ 効率化ルール（2026-03-08〜）
 
-### 手順
+1. **パイプライン実行中にリライトを始めるな**。完了後に1回で全量処理する
+2. **ポーリング禁止**: `logs/pipeline-last-run.json` の存在で完了を判定する
+3. **リライトスクリプトを使え**: 手動でバッチ分割・書き込みスクリプトを作るな
 
-1. **リライト対象を取得**: Supabaseから未リライト or 指定メーカーの説明文を取得
-   ```bash
-   # 例: DAIWAの未リライト商品（description が長文=元テキストの可能性大）
-   npx tsx -e "
-     import 'dotenv/config';
-     import { createClient } from '@supabase/supabase-js';
-     const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
-     const {data} = await sb.from('lures').select('slug,name,description').eq('manufacturer_slug','daiwa').gt('description','').limit(10);
-     // slug単位で重複排除
-     const unique = [...new Map(data!.map(r=>[r.slug,[r.slug,r.name,r.description]])).values()];
-     console.log(JSON.stringify(unique));
-   "
-   ```
+### 手順（一括スクリプト方式）
 
-2. **バッチ分割**: 10件ずつのJSONファイルに分割して `/tmp/` に保存
+```bash
+# 1. 対象確認（英語説明文の一覧）
+npx tsx scripts/rewrite-descriptions.ts --check
 
-3. **Sonnetサブエージェントで並列リライト**: Task tool で `model: "sonnet"` を指定
-   - リライトルール:
-     - 釣り人目線、臨場感のある常体（だ・である調）
-     - 150〜250文字
-     - メーカー説明の核心的な情報を維持
-     - SEOキーワード（ルアー種別、対象魚、釣り方）を自然に含める
-     - 「このルアーは〜」等の説明調は禁止
-     - 絵文字は使わない
+# 2. バッチファイル＆プロンプト生成
+npx tsx scripts/rewrite-descriptions.ts
 
-4. **Supabaseに書き戻し**: slug + manufacturer_slug でマッチして description を更新
+# 3. Sonnetサブエージェントで並列リライト
+#    各バッチのプロンプトは /tmp/rewrite-prompt-{N}.md に生成済み
+#    Task tool で model: "sonnet" を指定し、プロンプトファイルの内容を渡す
 
-5. **バックアップ**: リライト結果を `scripts/_xxx-rewritten-all.json` に保存
+# 4. 結果検証＆DB書き込み＆バックアップ
+npx tsx scripts/rewrite-descriptions.ts --apply
+```
+
+### プロンプトテンプレート
+- `scripts/prompts/rewrite-ja.md` — Sonnetへの指示書。文字数制約（150-250文字）を強調済み
+
+### パイプライン完了通知
+- `logs/pipeline-last-run.json` にサマリーが自動保存される
+- 内容: completedAt, successful, errors, rowsInserted, errorDetails
 
 ### 過去の実績
 
 - DAIWA全367商品: 2026-02-20にSonnet×7並列で完了（平均145文字、エラー0件）
 - DAIWA以外全92メーカー1,404商品: 2026-03-03にSonnet×7並列×4ラウンドで完了
+- US3ブランド（SK/Z-Man/Zoom）151+26件: 2026-03-08にSonnet並列で完了
 
 ## ⚠️ リライト必須ルール（2026-03-03〜）
 
@@ -223,7 +252,7 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 **スクレイパーのフォールバック分類は精度が低い。以下のメーカーは再分類必須。**
 
 ### 対象メーカー
-attic, pickup, pozidrive-garage, jazz, viva, obasslive, valleyhill, gancraft, blueblue, majorcraft
+attic, pickup, pozidrive-garage, jazz, viva, obasslive, valleyhill, gancraft, blueblue, majorcraft, z-man
 
 ### ルール
 1. 上記メーカーの新商品がパイプラインで登録された場合、**Sonnetサブエージェントで再分類してからデプロイする**

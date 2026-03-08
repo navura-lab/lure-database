@@ -23,6 +23,7 @@ import {
 } from './config.js';
 import { getScraper, getRegisteredManufacturers, type ScrapedLure } from './scrapers/index.js';
 import { normalizeType } from './lib/normalize-type.js';
+import { parseRegionArg, makeRegionFilter, type Region } from './lib/regions.js';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -508,9 +509,56 @@ function parseLimit(): number {
   const idx = process.argv.indexOf('--limit');
   if (idx !== -1 && process.argv[idx + 1]) {
     const n = parseInt(process.argv[idx + 1], 10);
-    if (!isNaN(n) && n > 0) return n;
+    if (!isNaN(n) && n >= 0) return n;
   }
   return 0; // 0 = 全件処理
+}
+
+/**
+ * 全未処理レコードのメーカーslugを事前解決し、regionでフィルタする。
+ * makerCacheも同時に温まるので、processRecord内の再fetchが不要になる。
+ */
+async function filterByRegion(
+  records: AirtableLureRecord[],
+  region: Region,
+): Promise<AirtableLureRecord[]> {
+  if (region === 'all') return records;
+
+  const regionFilter = makeRegionFilter(region);
+
+  // 全レコードのメーカーIDを収集し、一括キャッシュ
+  const uniqueMakerIds = new Set<string>();
+  for (const r of records) {
+    const ids = r.fields['メーカー'] || [];
+    if (ids.length > 0) uniqueMakerIds.add(ids[0]);
+  }
+
+  // メーカーレコードを事前fetch（キャッシュに乗る）
+  for (const id of uniqueMakerIds) {
+    if (!makerCache.has(id)) {
+      try {
+        await fetchMakerRecord(id);
+        await sleep(200); // Airtable rate limit
+      } catch (err) {
+        logError(`Failed to fetch maker ${id}: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    }
+  }
+
+  // regionでフィルタ
+  const filtered: AirtableLureRecord[] = [];
+  for (const r of records) {
+    const ids = r.fields['メーカー'] || [];
+    if (ids.length === 0) continue;
+    const maker = makerCache.get(ids[0]);
+    if (!maker) continue;
+    const slug = maker.fields['Slug'];
+    if (regionFilter(slug)) {
+      filtered.push(r);
+    }
+  }
+
+  return filtered;
 }
 
 // ---------------------------------------------------------------------------
@@ -518,8 +566,11 @@ function parseLimit(): number {
 // ---------------------------------------------------------------------------
 
 async function main(): Promise<void> {
+  const region = parseRegionArg();
+  const regionLabel = region === 'all' ? '' : ` [region: ${region}]`;
+
   log('========================================');
-  log('Lure Database Pipeline - Starting');
+  log(`Lure Database Pipeline - Starting${regionLabel}`);
   log('========================================');
 
   const startTime = Date.now();
@@ -534,9 +585,20 @@ async function main(): Promise<void> {
       return;
     }
 
+    // 1.5. Region filter（メーカーslugでJP/US分離）
+    const regionRecords = await filterByRegion(allRecords, region);
+    if (region !== 'all') {
+      log(`Region filter (${region}): ${allRecords.length} -> ${regionRecords.length} record(s)`);
+    }
+
+    if (regionRecords.length === 0) {
+      log(`No pending records for region=${region}. Exiting.`);
+      return;
+    }
+
     const limit = parseLimit();
-    const records = limit > 0 ? allRecords.slice(0, limit) : allRecords;
-    log(`Processing ${records.length} of ${allRecords.length} pending record(s)${limit > 0 ? ` (--limit ${limit})` : ''}`);
+    const records = limit > 0 ? regionRecords.slice(0, limit) : regionRecords;
+    log(`Processing ${records.length} of ${regionRecords.length} pending record(s)${limit > 0 ? ` (--limit ${limit})` : ''}${regionLabel}`);
 
     // 2. Process each record
     for (let i = 0; i < records.length; i++) {
@@ -605,6 +667,29 @@ async function main(): Promise<void> {
   } catch {
     // git not available or not a git repo — skip check silently
   }
+
+  // 6. 完了通知ファイル（Claude Codeセッション間の引き継ぎ用）
+  const summaryData = {
+    completedAt: new Date().toISOString(),
+    region,
+    totalRecords: results.length,
+    successful: results.filter(r => r.status === 'success').length,
+    errors: results.filter(r => r.status === 'error').length,
+    rowsInserted: results.reduce((sum, r) => sum + r.rowsInserted, 0),
+    elapsedSeconds: parseFloat(elapsed),
+    errorDetails: results.filter(r => r.status === 'error').map(r => ({
+      name: r.lureName,
+      message: r.message,
+    })),
+  };
+  const { writeFileSync } = await import('fs');
+  // region別のサマリファイル（allの場合は従来通り pipeline-last-run.json）
+  const summaryFilename = region === 'all'
+    ? 'pipeline-last-run.json'
+    : `pipeline-${region}-last-run.json`;
+  const summaryPath = new URL(`../logs/${summaryFilename}`, import.meta.url).pathname;
+  writeFileSync(summaryPath, JSON.stringify(summaryData, null, 2));
+  log(`Completion summary saved to ${summaryPath}`);
 
   log('Pipeline complete.');
 }

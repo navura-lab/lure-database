@@ -12,6 +12,7 @@
 
 import 'dotenv/config';
 import { chromium, type Browser, type Page } from 'playwright';
+import { parseRegionArg, isUSMaker } from './lib/regions.js';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -32,6 +33,9 @@ interface ManufacturerConfig {
   /** If true, launches a separate headed (headless: false) browser with custom UA.
    *  Required for sites with strict WAF (e.g. Shimano's Akamai). */
   requiresHeadedBrowser?: boolean;
+  /** If true, discover function uses fetch only (no Playwright page needed).
+   *  --region us 時にブラウザ起動をスキップする判定に使用。 */
+  fetchOnly?: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -7578,6 +7582,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
       'hook', 'weight', 'sinker', 'skirt', 'net', 'plier', 'cutter',
       'sunglasses', 'glasses', 'hat', 'shirt', 'gift card', 'line',
     ],
+    fetchOnly: true,
     // strikeking.com — Optimizely Commerce, sitemap XML, fetch-only
     // バス用ルアー全般（クランク・ワーム・ジグ・スピナーベイト・バズベイト）
   },
@@ -7589,6 +7594,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
       'hat', 'hoodie', 'shirt', 'tee', 'jersey', 'binder', 'rod',
       'hook', 'replacement', 'gift card',
     ],
+    fetchOnly: true,
     // zmanfishing.com — Shopify, sitemap XML, fetch-only
     // チャターベイト・ElaZtech ワーム・ジグヘッド
   },
@@ -7599,6 +7605,7 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     excludedNameKeywords: [
       'hoodie', 'shirt', 'decal', 'dye marker', 'apparel',
     ],
+    fetchOnly: true,
     // order.zoombait.com — WooCommerce, sitemap XML, fetch-only
     // ソフトプラスチックワーム専門
   },
@@ -7724,21 +7731,36 @@ function normalizeUrl(url: string): string {
 // ---------------------------------------------------------------------------
 
 async function main(): Promise<void> {
+  const region = parseRegionArg();
+  const regionLabel = region === 'all' ? '' : ` [region: ${region}]`;
+
   log('========================================');
-  log('Product Discovery - Starting');
+  log(`Product Discovery - Starting${regionLabel}`);
   log(`Mode: ${DRY_RUN ? 'DRY RUN (no writes)' : 'LIVE'}`);
   if (MAKER_FILTER) log(`Manufacturer filter: ${MAKER_FILTER}`);
+  if (region !== 'all') log(`Region: ${region}`);
   log('========================================');
 
   const startTime = Date.now();
 
   // Determine which manufacturers to process
-  const manufacturers = MAKER_FILTER
+  let manufacturers = MAKER_FILTER
     ? MANUFACTURERS.filter(m => m.slug === MAKER_FILTER)
     : MANUFACTURERS;
 
+  // --region でフィルタ（--maker との併用も可能）
+  if (region === 'jp') {
+    manufacturers = manufacturers.filter(m => !isUSMaker(m.slug));
+  } else if (region === 'us') {
+    manufacturers = manufacturers.filter(m => isUSMaker(m.slug));
+  }
+
   if (manufacturers.length === 0) {
-    logError(`Unknown manufacturer: ${MAKER_FILTER}. Available: ${MANUFACTURERS.map(m => m.slug).join(', ')}`);
+    if (MAKER_FILTER) {
+      logError(`Unknown manufacturer: ${MAKER_FILTER}. Available: ${MANUFACTURERS.map(m => m.slug).join(', ')}`);
+    } else {
+      logError(`No manufacturers for region=${region}`);
+    }
     process.exit(1);
   }
 
@@ -7759,9 +7781,18 @@ async function main(): Promise<void> {
   const existingUrls = await fetchExistingAirtableUrls();
 
   // 3. Launch browser and discover products for each manufacturer
-  log('Launching browser (headless)...');
-  const browser: Browser = await chromium.launch({ headless: true });
-  const page: Page = await browser.newPage();
+  // 全メーカーがfetchOnlyならブラウザ起動をスキップ（US discover は30秒で完了）
+  const needsBrowser = manufacturers.some(m => !m.fetchOnly);
+  let browser: Browser | null = null;
+  let page: Page | null = null;
+
+  if (needsBrowser) {
+    log('Launching browser (headless)...');
+    browser = await chromium.launch({ headless: true });
+    page = await browser.newPage();
+  } else {
+    log('All manufacturers are fetch-only — skipping browser launch');
+  }
 
   const allNewProducts: DiscoveredProduct[] = [];
   const summaryByMaker: Record<string, { discovered: number; new: number; skipped: number }> = {};
@@ -7794,8 +7825,11 @@ async function main(): Promise<void> {
             await headedBrowser.close();
             log(`[${mfg.slug}] Headed browser closed`);
           }
+        } else if (mfg.fetchOnly) {
+          // fetch-onlyメーカー: ダミーPageを渡す（実際は使われない）
+          discovered = await mfg.discover(null as unknown as Page);
         } else {
-          discovered = await mfg.discover(page);
+          discovered = await mfg.discover(page!);
         }
       } catch (err) {
         const errMsg = err instanceof Error ? err.message : String(err);
@@ -7853,8 +7887,10 @@ async function main(): Promise<void> {
       log(`[${mfg.slug}] ${uniqueProducts.size} on site, ${newProducts.length} new, ${skipped} excluded`);
     }
   } finally {
-    await browser.close();
-    log('Browser closed');
+    if (browser) {
+      await browser.close();
+      log('Browser closed');
+    }
   }
 
   // 4. Register new products
