@@ -353,8 +353,8 @@ export const scrapeVivaPage: ScraperFunction = async (url: string): Promise<Scra
       const colorText = rawColorText.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').trim();
       if (!colorText || colorText.length === 0) continue;
 
-      // ナビゲーション要素やブランド名を除外
-      if (/Viva-net|ビバネット|AquaWave|コーモラン|CORMORAN|TOP|HOME|ホーム|お問い合わせ/i.test(colorText)) continue;
+      // ナビゲーション要素・ブランド名・ECリンクを除外
+      if (/Viva-net|ビバネット|AquaWave|コーモラン|CORMORAN|TOP|HOME|ホーム|お問い合わせ|EC\s*shop|ショップ|カート|お買い物/i.test(colorText)) continue;
       if (colorText.length > 80) continue; // 明らかに説明文が混入
 
       if (seenColors.has(colorText)) continue;
