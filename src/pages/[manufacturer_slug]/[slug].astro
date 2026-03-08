@@ -9,6 +9,7 @@ import { groupLuresBySeries } from '../../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { guideArticles } from '../../data/guides';
 import { youtubeVideos } from '../../data/youtube-videos';
+import { lureUsageGuides } from '../../data/lure-usage-guides';
 import { typeDescriptions } from '../../data/type-descriptions';
 import type { LureSeries } from '../../lib/types';
 
@@ -336,18 +337,25 @@ for (const rv of relatedVideos) {
   });
 }
 
-// --- SEO: 使い方セクション用テキスト生成（事実ベースのみ） ---
+// --- SEO: 使い方セクション用テキスト生成（AIガイド優先、フォールバックはテンプレート） ---
+const guideKey = `${series.manufacturer_slug}/${series.slug}`;
+const aiGuide = lureUsageGuides[guideKey] || '';
 const typeSlug = getTypeSlug(series.type);
 const typeDesc = typeDescriptions[typeSlug] || '';
-const usageTextParts: string[] = [];
-if (series.type && series.type !== 'その他') {
+let usageText = '';
+if (aiGuide) {
+  // AI生成ガイドを優先
+  usageText = aiGuide;
+} else if (series.type && series.type !== 'その他') {
+  // フォールバック: テンプレート生成
+  const usageTextParts: string[] = [];
   usageTextParts.push(`${series.name}は${series.manufacturer}の${series.type}。`);
   if (typeDesc) usageTextParts.push(typeDesc);
   if (series.action_type) usageTextParts.push(`アクションタイプは${series.action_type}。`);
   if (series.diving_depth) usageTextParts.push(`潜行深度は${series.diving_depth}。`);
   if (series.target_fish.length > 0) usageTextParts.push(`${series.target_fish.slice(0, 3).join('・')}をターゲットに使用できる。`);
+  usageText = usageTextParts.join('');
 }
-const usageText = usageTextParts.join('');
 
 // --- SEO: インプレ動画フィルタ ---
 const impressionKeywords = ['インプレ', '実釣', 'レビュー', '使ってみた', '釣れた', '釣果', 'インプレッション'];
