@@ -22,10 +22,12 @@ import { toRomaji, isKana } from 'wanakana';
 function romanize(text: string): string {
   let result = '';
   let kanaBuffer = '';
+  let hadKana = false;
 
   for (const char of text) {
     if (isKana(char)) {
       kanaBuffer += char;
+      hadKana = true;
     } else {
       if (kanaBuffer) {
         const romaji = toRomaji(kanaBuffer);
@@ -45,14 +47,17 @@ function romanize(text: string): string {
     result += toRomaji(kanaBuffer);
   }
 
-  // 長音の簡略化
-  result = result
-    .replace(/oo/g, 'o')
-    .replace(/aa/g, 'a')
-    .replace(/uu/g, 'u')
-    .replace(/ii/g, 'i')
-    .replace(/ee/g, 'e')
-    .replace(/ou/g, 'o');
+  // 長音の簡略化（カナ文字が含まれていた場合のみ適用）
+  // 英語テキスト（Tour, Spoon, Voodoo 等）を誤変換しないため
+  if (hadKana) {
+    result = result
+      .replace(/oo/g, 'o')
+      .replace(/aa/g, 'a')
+      .replace(/uu/g, 'u')
+      .replace(/ii/g, 'i')
+      .replace(/ee/g, 'e')
+      .replace(/ou/g, 'o');
+  }
 
   return result;
 }

@@ -114,6 +114,10 @@ import { scrapePickupPage } from './pickup.js';
 import { scrapePozidriveGaragePage } from './pozidrive-garage.js';
 import { scrapeSeaFalconPage } from './sea-falcon.js';
 import { scrapeShoutPage } from './shout.js';
+// --- Global expansion scrapers (2026-03-08) ---
+import { scrapeStrikeKingPage } from './strike-king.js';
+import { scrapeZManPage } from './z-man.js';
+import { scrapeZoomPage } from './zoom.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -226,6 +230,10 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   'pozidrive-garage': scrapePozidriveGaragePage,
   'sea-falcon': scrapeSeaFalconPage,
   shout: scrapeShoutPage,
+  // --- Global expansion (2026-03-08) ---
+  'strike-king': scrapeStrikeKingPage,
+  'z-man': scrapeZManPage,
+  zoom: scrapeZoomPage,
 };
 
 /**

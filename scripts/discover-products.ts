@@ -6496,6 +6496,176 @@ async function discoverZeroDragon(_page: Page): Promise<Array<{ url: string; nam
   return results;
 }
 
+// ---------------------------------------------------------------------------
+// Strike King discovery (sitemap XML → /en/shop/{category}/{sku})
+// ---------------------------------------------------------------------------
+
+const STRIKEKING_LURE_CATEGORIES = [
+  'hard-baits', 'soft-baits', 'jigs--spoons', 'wire-baits', 'saltwater',
+  // terminal-tackle は除外（ジグヘッド・フック・シンカー混在、SKUベース名でフィルタ困難）
+];
+const STRIKEKING_EXCLUDED_NAME_PARTS = [
+  'hook', 'weight', 'sinker', 'skirt', 'net', 'plier', 'cutter', 'snap',
+  'sunglasses', 'glasses', 'hat', 'shirt', 'decal', 'gift card', 'line',
+];
+
+async function discoverStrikeKing(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[strike-king] Discovering products via commerce/sitemap.xml...');
+  var sitemapUrl = 'https://www.strikeking.com/commerce/sitemap.xml';
+  var resp = await fetch(sitemapUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+  });
+  if (!resp.ok) throw new Error('Failed to fetch Strike King sitemap: ' + resp.status);
+  var xml = await resp.text();
+
+  // /en/shop/{category}/{product} パターンのURLを抽出（4セグメント = 商品ページ）
+  var locRegex = /<loc>(https:\/\/www\.strikeking\.com\/en\/shop\/([^/]+)\/([^/<]+))<\/loc>/g;
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+  var match;
+
+  while ((match = locRegex.exec(xml)) !== null) {
+    var url = match[1];
+    var category = match[2];
+    var slug = match[3];
+    if (seen.has(url)) continue;
+    seen.add(url);
+
+    // カテゴリフィルタ
+    if (!STRIKEKING_LURE_CATEGORIES.includes(category)) continue;
+
+    // slugから仮名称（パイプラインでスクレイプ時に正式名取得）
+    var name = slug.replace(/-/g, ' ');
+
+    // 名前ベースの除外
+    var nameLower = name.toLowerCase();
+    var excluded = false;
+    for (var ni = 0; ni < STRIKEKING_EXCLUDED_NAME_PARTS.length; ni++) {
+      if (nameLower.indexOf(STRIKEKING_EXCLUDED_NAME_PARTS[ni]) >= 0) {
+        excluded = true;
+        break;
+      }
+    }
+    if (excluded) continue;
+
+    results.push({ url: url, name: name });
+  }
+
+  log('[strike-king] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// Z-Man discovery (Shopify sitemap XML)
+// ---------------------------------------------------------------------------
+
+const ZMAN_EXCLUDED_HANDLE_PATTERNS = [
+  /hatz/i, /hoodiez/i, /hoodie/i, /teez/i, /shirtz/i, /jerseyz/i,
+  /bait-binderz/i, /bait-blockz/i, /bait-lockerz/i,
+  /replacement/i, /-rod$/i, /-hooks?$/i, /worm-hook/i,
+  /gift-card/i, /e-gift/i,
+];
+
+async function discoverZMan(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[z-man] Discovering products via Shopify sitemap...');
+  // Shopify のサイトマップインデックスから products sitemap を取得
+  var sitemapIndexUrl = 'https://zmanfishing.com/sitemap.xml';
+  var indexResp = await fetch(sitemapIndexUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+  });
+  if (!indexResp.ok) throw new Error('Failed to fetch Z-Man sitemap index: ' + indexResp.status);
+  var indexXml = await indexResp.text();
+
+  // sitemap_products_1.xml のURLを見つける
+  var productSitemapMatch = indexXml.match(/<loc>(https:\/\/zmanfishing\.com\/sitemap_products_1[^<]*)<\/loc>/);
+  if (!productSitemapMatch) throw new Error('Z-Man product sitemap not found');
+  var productSitemapUrl = productSitemapMatch[1];
+
+  var resp = await fetch(productSitemapUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+  });
+  if (!resp.ok) throw new Error('Failed to fetch Z-Man product sitemap: ' + resp.status);
+  var xml = await resp.text();
+
+  var locRegex = /<loc>(https:\/\/zmanfishing\.com\/products\/([^<]+))<\/loc>/g;
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+  var match;
+
+  while ((match = locRegex.exec(xml)) !== null) {
+    var url = match[1];
+    var handle = match[2];
+    if (seen.has(url)) continue;
+    seen.add(url);
+
+    // 非ルアー商品を除外（アパレル・アクセサリ等）
+    var excluded = false;
+    for (var pi = 0; pi < ZMAN_EXCLUDED_HANDLE_PATTERNS.length; pi++) {
+      if (ZMAN_EXCLUDED_HANDLE_PATTERNS[pi].test(handle)) {
+        excluded = true;
+        break;
+      }
+    }
+    if (excluded) continue;
+
+    var name = handle.replace(/-/g, ' ');
+    results.push({ url: url, name: name });
+  }
+
+  log('[z-man] Discovered ' + results.length + ' products');
+  return results;
+}
+
+// ---------------------------------------------------------------------------
+// Zoom discovery (WordPress sitemap XML)
+// ---------------------------------------------------------------------------
+
+const ZOOM_EXCLUDED_SLUGS = ['pay', 'zoom-decals-2', 'zoom-bait-dye-marker'];
+const ZOOM_EXCLUDED_PATTERNS = [/hoodie/i, /shirt/i, /apparel/i, /hat/i, /cap/i, /decal/i];
+
+async function discoverZoom(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[zoom] Discovering products via WordPress sitemap...');
+  var sitemapUrl = 'https://order.zoombait.com/wp-sitemap-posts-product-1.xml';
+  var resp = await fetch(sitemapUrl, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+  });
+  if (!resp.ok) throw new Error('Failed to fetch Zoom sitemap: ' + resp.status);
+  var xml = await resp.text();
+
+  var locRegex = /<loc>(https:\/\/order\.zoombait\.com\/tackle\/([^<]+?)\/?\s*)<\/loc>/g;
+  var results: Array<{ url: string; name: string }> = [];
+  var seen = new Set<string>();
+  var match;
+
+  while ((match = locRegex.exec(xml)) !== null) {
+    var url = match[1].replace(/\s+$/, '');
+    // 末尾スラッシュを正規化
+    if (!url.endsWith('/')) url += '/';
+    var slug = match[2].replace(/\/$/, '');
+    if (seen.has(slug)) continue;
+    seen.add(slug);
+
+    // 固定除外
+    if (ZOOM_EXCLUDED_SLUGS.includes(slug)) continue;
+
+    // パターン除外
+    var excluded = false;
+    for (var pi = 0; pi < ZOOM_EXCLUDED_PATTERNS.length; pi++) {
+      if (ZOOM_EXCLUDED_PATTERNS[pi].test(slug)) {
+        excluded = true;
+        break;
+      }
+    }
+    if (excluded) continue;
+
+    var name = slug.replace(/-/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+    results.push({ url: url, name: name });
+  }
+
+  log('[zoom] Discovered ' + results.length + ' products');
+  return results;
+}
+
 const MANUFACTURERS: ManufacturerConfig[] = [
   {
     slug: 'blueblue',
@@ -7398,6 +7568,39 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     excludedNameKeywords: [],
     // zero-dragon.com — Shop-Pro, fetch-only
     // タイラバ・メタルジグ
+  },
+  // --- Global expansion (2026-03-08) ---
+  {
+    slug: 'strike-king',
+    name: 'Strike King',
+    discover: discoverStrikeKing,
+    excludedNameKeywords: [
+      'hook', 'weight', 'sinker', 'skirt', 'net', 'plier', 'cutter',
+      'sunglasses', 'glasses', 'hat', 'shirt', 'gift card', 'line',
+    ],
+    // strikeking.com — Optimizely Commerce, sitemap XML, fetch-only
+    // バス用ルアー全般（クランク・ワーム・ジグ・スピナーベイト・バズベイト）
+  },
+  {
+    slug: 'z-man',
+    name: 'Z-Man',
+    discover: discoverZMan,
+    excludedNameKeywords: [
+      'hat', 'hoodie', 'shirt', 'tee', 'jersey', 'binder', 'rod',
+      'hook', 'replacement', 'gift card',
+    ],
+    // zmanfishing.com — Shopify, sitemap XML, fetch-only
+    // チャターベイト・ElaZtech ワーム・ジグヘッド
+  },
+  {
+    slug: 'zoom',
+    name: 'Zoom',
+    discover: discoverZoom,
+    excludedNameKeywords: [
+      'hoodie', 'shirt', 'decal', 'dye marker', 'apparel',
+    ],
+    // order.zoombait.com — WooCommerce, sitemap XML, fetch-only
+    // ソフトプラスチックワーム専門
   },
 ];
 
