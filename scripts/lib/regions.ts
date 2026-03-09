@@ -6,6 +6,17 @@ export const US_MAKERS: ReadonlySet<string> = new Set([
   'strike-king',
   'z-man',
   'zoom',
+  // --- Shopify generic brands (2026-03-09) ---
+  '6th-sense',
+  'berkley-us',
+  'livetarget',
+  'lunkerhunt',
+  'missile-baits',
+  'spro',
+  'googan-baits',
+  'lunker-city',
+  'riot-baits',
+  'xzone-lures',
 ]);
 
 export type Region = 'jp' | 'us' | 'all';

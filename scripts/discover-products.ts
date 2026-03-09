@@ -13,6 +13,7 @@
 import 'dotenv/config';
 import { chromium, type Browser, type Page } from 'playwright';
 import { parseRegionArg, isUSMaker } from './lib/regions.js';
+import { createShopifyDiscover } from './scrapers/shopify-generic.js';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -6670,6 +6671,141 @@ async function discoverZoom(_page: Page): Promise<Array<{ url: string; name: str
   return results;
 }
 
+// ---------------------------------------------------------------------------
+// Shopify generic brand discover 関数 (2026-03-09)
+// ---------------------------------------------------------------------------
+
+const discover6thSense = createShopifyDiscover({
+  domain: '6thsensefishing.com',
+  slug: '6th-sense',
+  excludedHandlePatterns: [
+    /gift-card/i, /hat/i, /hoodie/i, /shirt/i, /tee/i, /jersey/i,
+    /decal/i, /sticker/i, /patch/i, /towel/i, /bag/i, /backpack/i,
+    /rod-/i, /reel-/i, /line-/i, /sunglasses/i, /gloves?/i,
+  ],
+});
+
+// Berkley-US: berkley-fishing.com（ライン・ロッド・リール・ツール混在）
+// sitemap は www. にリダイレクトされるので www. ドメインを使用
+const discoverBerkleyUS = createShopifyDiscover({
+  domain: 'www.berkley-fishing.com',
+  slug: 'berkley-us',
+  excludedHandlePatterns: [
+    // 非ルアー: ライン
+    /mono|braid|fluoro|nanofil|fireline|x5|x9|vanish|trilene|stren|spider/i,
+    // 非ルアー: ロッド・リール・アクセサリ
+    /rod-/i, /reel-/i, /rod$/i, /reel$/i, /spinning-/i, /casting-/i,
+    /plier/i, /scale/i, /gripper/i, /fillet/i, /knife/i, /tool/i,
+    /net-/i, /landing/i, /tackle-box/i, /tackle-bag/i, /bait-bucket/i,
+    // 非ルアー: アパレル・グッズ
+    /hat/i, /hoodie/i, /shirt/i, /jacket/i, /glove/i, /sunglasses/i,
+    /decal/i, /sticker/i, /gift-card/i, /towel/i,
+    // 非ルアー: フック・シンカー・小物
+    /hook(?!er)/i, /sinker/i, /weight(?!ed)/i, /swivel/i, /snap-/i, /leader/i,
+  ],
+});
+
+const discoverLiveTarget = createShopifyDiscover({
+  domain: 'livetargetlures.com',
+  slug: 'livetarget',
+  excludedHandlePatterns: [
+    /gift-card/i, /hat/i, /shirt/i, /apparel/i, /decal/i,
+  ],
+});
+
+const discoverLunkerhunt = createShopifyDiscover({
+  domain: 'lunkerhunt.com',
+  slug: 'lunkerhunt',
+  excludedHandlePatterns: [
+    /gift-card/i, /hat/i, /hoodie/i, /shirt/i, /apparel/i,
+    /rod-/i, /reel-/i, /tackle-/i, /line-/i,
+  ],
+});
+
+const discoverMissileBaits = createShopifyDiscover({
+  domain: 'www.missilebaits.store',
+  slug: 'missile-baits',
+  excludedHandlePatterns: [
+    /gift-card/i, /hat/i, /hoodie/i, /shirt/i, /jersey/i,
+    /decal/i, /sticker/i, /patch/i, /towel/i, /koozie/i,
+    /sunglasses/i, /bag/i, /backpack/i,
+  ],
+});
+
+// SPRO: マルチブランドストア。products.json APIを使ってvendorでフィルタ
+async function discoverSpro(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[spro] Discovering SPRO-branded products via products.json API...');
+  const results: Array<{ url: string; name: string }> = [];
+  const seen = new Set<string>();
+  let page = 1;
+
+  while (true) {
+    const apiUrl = `https://www.spro.com/products.json?limit=250&page=${page}`;
+    const resp = await fetch(apiUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+    });
+    if (!resp.ok) {
+      if (page === 1) throw new Error('Failed to fetch SPRO products.json: ' + resp.status);
+      break;
+    }
+    const json = await resp.json() as { products: Array<{ handle: string; title: string; vendor: string; product_type: string }> };
+    if (!json.products || json.products.length === 0) break;
+
+    for (const p of json.products) {
+      // SPROブランドのみ（他社ブランド除外）
+      if (!/spro/i.test(p.vendor)) continue;
+      const url = `https://www.spro.com/products/${p.handle}`;
+      if (seen.has(url)) continue;
+      seen.add(url);
+      // 非ルアー除外
+      const combined = `${p.handle} ${p.title} ${p.product_type}`.toLowerCase();
+      if (/hook|sinker|weight|tool|plier|net|bag|hat|shirt|apparel|gift|rod|reel|line|leader/i.test(combined)) continue;
+      results.push({ url, name: p.title || p.handle.replace(/-/g, ' ') });
+    }
+
+    page++;
+    if (page > 10) break; // 安全弁
+  }
+
+  log('[spro] Discovered ' + results.length + ' SPRO-branded products');
+  return results;
+}
+
+const discoverGooganBaits = createShopifyDiscover({
+  domain: 'googansquad.com',
+  slug: 'googan-baits',
+  excludedHandlePatterns: [
+    /gift-card/i, /hat/i, /hoodie/i, /shirt/i, /jersey/i,
+    /sunglasses/i, /bag/i, /backpack/i, /decal/i, /sticker/i,
+    /rod-/i, /reel-/i, /line-/i, /combo-/i,
+    /tackle-box/i, /plier/i,
+  ],
+});
+
+const discoverLunkerCity = createShopifyDiscover({
+  domain: 'lunkercity.com',
+  slug: 'lunker-city',
+  excludedHandlePatterns: [
+    /gift-card/i, /hat/i, /shirt/i, /apparel/i, /decal/i,
+  ],
+});
+
+const discoverRiotBaits = createShopifyDiscover({
+  domain: 'riotbaits.com',
+  slug: 'riot-baits',
+  excludedHandlePatterns: [
+    /gift-card/i, /hat/i, /shirt/i, /apparel/i, /decal/i, /sticker/i,
+  ],
+});
+
+const discoverXZone = createShopifyDiscover({
+  domain: 'xzonelures.com',
+  slug: 'xzone-lures',
+  excludedHandlePatterns: [
+    /gift-card/i, /hat/i, /shirt/i, /apparel/i, /decal/i, /sticker/i,
+  ],
+});
+
 const MANUFACTURERS: ManufacturerConfig[] = [
   {
     slug: 'blueblue',
@@ -7608,6 +7744,111 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     fetchOnly: true,
     // order.zoombait.com — WooCommerce, sitemap XML, fetch-only
     // ソフトプラスチックワーム専門
+  },
+  // --- Shopify generic brands (2026-03-09) ---
+  {
+    slug: '6th-sense',
+    name: '6th Sense',
+    discover: discover6thSense,
+    excludedNameKeywords: [
+      'hat', 'hoodie', 'shirt', 'jersey', 'sunglasses', 'decal',
+      'rod', 'reel', 'line', 'gift card', 'bag', 'backpack',
+    ],
+    fetchOnly: true,
+    // 6thsensefishing.com — Shopify, クランク・ワーム・スイムベイト
+  },
+  {
+    slug: 'berkley-us',
+    name: 'Berkley (US)',
+    discover: discoverBerkleyUS,
+    excludedNameKeywords: [
+      'line', 'mono', 'braid', 'fluoro', 'rod', 'reel', 'net',
+      'plier', 'fillet', 'knife', 'scale', 'gripper', 'hat',
+      'hoodie', 'shirt', 'sunglasses', 'gift card', 'hook', 'sinker',
+      'swivel', 'snap', 'leader', 'tackle box', 'bait bucket',
+    ],
+    fetchOnly: true,
+    // www.berkley-fishing.com — Shopify, PowerBait/Gulp!/ハードベイト
+    // ⚠️ 釣具全般を販売。ルアー以外はhandle + nameでフィルタ
+  },
+  {
+    slug: 'livetarget',
+    name: 'LiveTarget',
+    discover: discoverLiveTarget,
+    excludedNameKeywords: ['hat', 'shirt', 'apparel', 'gift card'],
+    fetchOnly: true,
+    // livetargetlures.com — Shopify, リアル系ハードベイト
+  },
+  {
+    slug: 'lunkerhunt',
+    name: 'Lunkerhunt',
+    discover: discoverLunkerhunt,
+    excludedNameKeywords: [
+      'hat', 'hoodie', 'shirt', 'rod', 'reel', 'line', 'gift card',
+    ],
+    fetchOnly: true,
+    // lunkerhunt.com — Shopify, フロッグ・スイムベイト・ワーム
+  },
+  {
+    slug: 'missile-baits',
+    name: 'Missile Baits',
+    discover: discoverMissileBaits,
+    excludedNameKeywords: [
+      'hat', 'hoodie', 'shirt', 'jersey', 'decal', 'sticker',
+      'koozie', 'sunglasses', 'gift card', 'bag',
+    ],
+    fetchOnly: true,
+    // www.missilebaits.store — Shopify, ソフトプラスチックベイト
+  },
+  {
+    slug: 'spro',
+    name: 'SPRO',
+    discover: discoverSpro,
+    excludedNameKeywords: [
+      'hook', 'sinker', 'weight', 'tool', 'plier', 'net',
+      'hat', 'shirt', 'bag', 'rod', 'reel', 'line', 'leader', 'gift card',
+    ],
+    fetchOnly: true,
+    // www.spro.com — Shopify, マルチブランドストア
+    // ⚠️ vendorフィルタで SPRO ブランドのみ取得
+  },
+  {
+    slug: 'googan-baits',
+    name: 'Googan Baits',
+    discover: discoverGooganBaits,
+    excludedNameKeywords: [
+      'hat', 'hoodie', 'shirt', 'jersey', 'sunglasses', 'decal',
+      'rod', 'reel', 'line', 'combo', 'tackle box', 'gift card',
+    ],
+    fetchOnly: true,
+    // googansquad.com — Shopify, バス用ソフトベイト主体
+  },
+  {
+    slug: 'lunker-city',
+    name: 'Lunker City',
+    discover: discoverLunkerCity,
+    excludedNameKeywords: ['hat', 'hoodie', 'shirt', 'apparel', 'gift card', 'beanie'],
+    fetchOnly: true,
+    // lunkercity.com — Shopify, ソフトプラスチックベイト（Slug-Go等）
+  },
+  {
+    slug: 'riot-baits',
+    name: 'Riot Baits',
+    discover: discoverRiotBaits,
+    excludedNameKeywords: ['hat', 'shirt', 'apparel', 'decal', 'sticker', 'gift card'],
+    fetchOnly: true,
+    // riotbaits.com — Shopify, ソフトプラスチックベイト
+  },
+  {
+    slug: 'xzone-lures',
+    name: 'X Zone Lures',
+    discover: discoverXZone,
+    excludedNameKeywords: [
+      'hat', 'hoodie', 'shirt', 'apparel', 'decal', 'sticker', 'gift card',
+      'toque', 'beanie', 'mask', 'sun mask', 'banner', 'hoo rag',
+    ],
+    fetchOnly: true,
+    // xzonelures.com — Shopify, ソフトプラスチックベイト（カナダ拠点）
   },
 ];
 

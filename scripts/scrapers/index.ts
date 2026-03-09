@@ -118,6 +118,19 @@ import { scrapeShoutPage } from './shout.js';
 import { scrapeStrikeKingPage } from './strike-king.js';
 import { scrapeZManPage } from './z-man.js';
 import { scrapeZoomPage } from './zoom.js';
+// --- Shopify generic brands (2026-03-09) ---
+import {
+  scrape6thSensePage,
+  scrapeBerkleyUSPage,
+  scrapeLiveTargetPage,
+  scrapeLunkerhuntPage,
+  scrapeMissileBaitsPage,
+  scrapeSproPage,
+  scrapeGooganBaitsPage,
+  scrapeLunkerCityPage,
+  scrapeRiotBaitsPage,
+  scrapeXZonePage,
+} from './shopify-brands.js';
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -234,6 +247,17 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   'strike-king': scrapeStrikeKingPage,
   'z-man': scrapeZManPage,
   zoom: scrapeZoomPage,
+  // --- Shopify generic brands (2026-03-09) ---
+  '6th-sense': scrape6thSensePage,
+  'berkley-us': scrapeBerkleyUSPage,
+  livetarget: scrapeLiveTargetPage,
+  lunkerhunt: scrapeLunkerhuntPage,
+  'missile-baits': scrapeMissileBaitsPage,
+  spro: scrapeSproPage,
+  'googan-baits': scrapeGooganBaitsPage,
+  'lunker-city': scrapeLunkerCityPage,
+  'riot-baits': scrapeRiotBaitsPage,
+  'xzone-lures': scrapeXZonePage,
 };
 
 /**

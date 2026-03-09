@@ -163,7 +163,7 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 
 ### JP/US パイプライン分離（2026-03-08〜）
 
-**USメーカーリスト**: `scripts/lib/regions.ts` で一元管理（strike-king, z-man, zoom）
+**USメーカーリスト**: `scripts/lib/regions.ts` で一元管理（strike-king, z-man, zoom, 6th-sense, berkley-us, livetarget, lunkerhunt, missile-baits, spro, googan-baits, lunker-city, riot-baits, xzone-lures = 13社）
 - `--region jp|us|all` で分岐（all = 後方互換、デフォルト）
 - US discover: fetch-only（Playwright不要、30秒完了）
 - US pipeline完了後の手動処理: `npx tsx scripts/us-post-pipeline.ts` で状態確認
@@ -227,6 +227,7 @@ npx tsx scripts/rewrite-descriptions.ts --apply
 - DAIWA全367商品: 2026-02-20にSonnet×7並列で完了（平均145文字、エラー0件）
 - DAIWA以外全92メーカー1,404商品: 2026-03-03にSonnet×7並列×4ラウンドで完了
 - US3ブランド（SK/Z-Man/Zoom）151+26件: 2026-03-08にSonnet並列で完了
+- US13ブランド既存分103件: 2026-03-09にSonnet×11並列で完了（99件適用、4件は非ルアー削除済み）
 
 ## ⚠️ リライト必須ルール（2026-03-03〜）
 

@@ -54,7 +54,10 @@
     { "source": "/type/spin-jig/", "destination": "/type/rubber-jig/", "permanent": true },
     { "source": "/type/chata-bait/", "destination": "/type/chatterbait/", "permanent": true },
     { "source": "/type/native-minnow/", "destination": "/type/minnow/", "permanent": true },
-    { "source": "/type/hook/", "destination": "/type/other/", "permanent": true }
+    { "source": "/type/hook/", "destination": "/type/other/", "permanent": true },
+    { "source": "/spro/response-76-medium-heavy-moderate-fast-spinning/", "destination": "/spro/", "permanent": true },
+    { "source": "/spro/team-6-76-medium-light-moderate-spinning/", "destination": "/spro/", "permanent": true },
+    { "source": "/spro/team-6-73-medium-heavy-moderate-casting/", "destination": "/spro/", "permanent": true }
   ],
   "headers": [
     {

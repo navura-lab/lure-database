@@ -6,6 +6,7 @@ import LureCard from '../../components/LureCard.astro';
 
 import { fetchAllLures } from '../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../lib/group-lures';
+import { computeCanonicalGroups } from '../../lib/canonical-groups';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { guideArticles } from '../../data/guides';
 import { youtubeVideos } from '../../data/youtube-videos';
@@ -38,6 +39,9 @@ export async function getStaticPaths() {
     }
   }
 
+  // カラーバリアント重複対策: 同一descriptionグループのcanonical URL計算
+  const canonicalGroups = computeCanonicalGroups(allSeries);
+
   // 決定的ソート: カラー数降順 → 名前昇順（一貫した内部リンク構造）
   const deterministicSort = (a: LureSeries, b: LureSeries) =>
     b.color_count - a.color_count || a.name.localeCompare(b.name);
@@ -67,18 +71,23 @@ export async function getStaticPaths() {
           .slice(0, 4)
       : [];
 
+    // canonicalGroupsに登録されていれば、そのページは別slugの正規ページを参照する
+    const pageKey = `${series.manufacturer_slug}/${series.slug}`;
+    const canonicalPathOverride = canonicalGroups.get(pageKey) || null;
+
     return {
       params: { manufacturer_slug: series.manufacturer_slug, slug: series.slug },
-      props: { series, relatedByType, relatedByMaker, relatedByFish },
+      props: { series, relatedByType, relatedByMaker, relatedByFish, canonicalPathOverride },
     };
   });
 }
 
-const { series, relatedByType, relatedByMaker, relatedByFish } = Astro.props as {
+const { series, relatedByType, relatedByMaker, relatedByFish, canonicalPathOverride } = Astro.props as {
   series: LureSeries;
   relatedByType: LureSeries[];
   relatedByMaker: LureSeries[];
   relatedByFish: LureSeries[];
+  canonicalPathOverride: string | null;
 };
 
 const hasLimited = series.colors.some(c => c.is_limited);
@@ -374,7 +383,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
-  canonicalPath={`/${series.manufacturer_slug}/${series.slug}/`}
+  canonicalPath={canonicalPathOverride || `/${series.manufacturer_slug}/${series.slug}/`}
   ogImage={series.representative_image || undefined}
   ogType="product"
   jsonLd={combinedJsonLd}

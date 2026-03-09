@@ -23,7 +23,8 @@ import {
 } from './config.js';
 import { getScraper, getRegisteredManufacturers, type ScrapedLure } from './scrapers/index.js';
 import { normalizeType } from './lib/normalize-type.js';
-import { parseRegionArg, makeRegionFilter, type Region } from './lib/regions.js';
+import { parseRegionArg, makeRegionFilter, isUSMaker, type Region } from './lib/regions.js';
+import { slugify } from '../src/lib/slugify.js';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -381,8 +382,24 @@ async function processRecord(
     scraped.manufacturer = manufacturerName;
     scraped.manufacturer_slug = manufacturerSlug;
 
+    // 非ルアー商品の除外（Shopifyブランドが返す '__non_lure__' を検出）
+    if (scraped.type === '__non_lure__') {
+      const msg = `非ルアー商品をスキップ: ${scraped.name} (${manufacturerSlug})`;
+      log(`⏭️ ${msg}`);
+      await updateAirtableStatus(recordId, 'エラー', msg);
+      return { recordId, lureName, status: 'error', message: msg, colorsProcessed: 0, colorsWithImage: 0, rowsInserted: 0 };
+    }
+
     // Normalize type to canonical 33 types (prevents scraper drift)
     scraped.type = normalizeType(scraped.type);
+
+    // USメーカーで type='その他' の場合はスキップ（非ルアー商品の可能性が高い）
+    if (scraped.type === 'その他' && isUSMaker(manufacturerSlug)) {
+      const msg = `USメーカーの未分類商品をスキップ: ${scraped.name} (type=その他)`;
+      log(`⏭️ ${msg}`);
+      await updateAirtableStatus(recordId, 'エラー', msg);
+      return { recordId, lureName, status: 'error', message: msg, colorsProcessed: 0, colorsWithImage: 0, rowsInserted: 0 };
+    }
 
     log(`Scraped: ${scraped.name}, ${scraped.colors.length} colors, ${scraped.weights.length} weights, price: ${scraped.price}`);
 
@@ -403,8 +420,11 @@ async function processRecord(
       }
 
       try {
-        const paddedIndex = String(i + 1).padStart(2, '0');
-        const r2Key = `${manufacturerSlug}/${scraped.slug}/${paddedIndex}.webp`;
+        // カラー名ベースのR2キー（Shopifyカラーバリアント統合で同一slugに
+        // 複数処理ラウンドが走っても上書きされない）
+        const colorSlug = slugify(color.name).substring(0, 40)
+          || String(i + 1).padStart(2, '0');
+        const r2Key = `${manufacturerSlug}/${scraped.slug}/${colorSlug}.webp`;
         const publicUrl = await processAndUploadImage(color.imageUrl, r2Key);
         colorImageMap.set(color.name, publicUrl);
       } catch (err) {
@@ -653,7 +673,7 @@ async function main(): Promise<void> {
   try {
     const { execSync } = await import('child_process');
     const unpushed = execSync('git log --oneline origin/main..HEAD 2>/dev/null', {
-      cwd: new URL('..', import.meta.url).pathname,
+      cwd: decodeURIComponent(new URL('..', import.meta.url).pathname),
       encoding: 'utf-8',
     }).trim();
     if (unpushed) {
@@ -687,7 +707,7 @@ async function main(): Promise<void> {
   const summaryFilename = region === 'all'
     ? 'pipeline-last-run.json'
     : `pipeline-${region}-last-run.json`;
-  const summaryPath = new URL(`../logs/${summaryFilename}`, import.meta.url).pathname;
+  const summaryPath = decodeURIComponent(new URL(`../logs/${summaryFilename}`, import.meta.url).pathname);
   writeFileSync(summaryPath, JSON.stringify(summaryData, null, 2));
   log(`Completion summary saved to ${summaryPath}`);
 
