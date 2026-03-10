@@ -29,5 +29,8 @@
     "tailwindcss": "^4.1.18",
     "tsx": "^4.21.0",
     "wanakana": "^5.3.1"
+  },
+  "devDependencies": {
+    "cheerio": "^1.2.0"
   }
 }

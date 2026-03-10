@@ -128,6 +128,7 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 | Indexing API送信 | 毎日 8:00 JST | `daily-indexing.ts` | 200件/日ずつ全ページのインデックス登録を自動送信 |
 | 週次レポート | 毎週月曜 9:00 JST | `weekly-seo-report.ts` | PDCA分析、クエリ成長/衰退、推奨アクション生成 |
 | SEO機会発見 | 毎週月曜 10:00 JST | `seo-opportunity-finder.ts` | GSCデータからSEO改善機会を自動抽出 |
+| ランク追跡 | 毎日 7:30 JST | `seo-rank-tracker.ts` | 全ページ×クエリの順位・機会スコア日次追跡 |
 
 ### SEO・データ収集スクリプト一覧
 | スクリプト | 用途 | 実行方法 |
@@ -139,6 +140,9 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 | `scripts/seo-opportunity-finder.ts` | GSCデータからSEO改善機会を抽出 | `npx tsx scripts/seo-opportunity-finder.ts` |
 | `scripts/youtube-collector.ts` | YouTube動画収集（5件/ルアー、SEOスコア順） | `npx tsx scripts/youtube-collector.ts [--limit N] [--verbose]` |
 | `scripts/blog-impression-collector.ts` | ブログインプレ記事収集（CSE経由） | `npx tsx scripts/blog-impression-collector.ts [--limit N] [--verbose]` |
+| `scripts/seo-rank-tracker.ts` | 日次ページ×クエリランキング追跡 | `npx tsx scripts/seo-rank-tracker.ts [--verbose] [--report]` |
+| `scripts/seo-competitor-analyzer.ts` | SERP競合構造分析 | `npx tsx scripts/seo-competitor-analyzer.ts [--page PATH] [--query Q] [--limit N]` |
+| `scripts/seo-content-optimizer.ts` | AI駆動title/description最適化 | `npx tsx scripts/seo-content-optimizer.ts [--page PATH] [--apply] [--dry-run]` |
 
 ### データ保存先
 - 日次データ: `logs/seo-data/YYYY-MM-DD.json`
@@ -147,6 +151,9 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 - インデックス進捗: `logs/seo-data/indexing-progress.json`
 - YouTube動画: `logs/youtube-data/youtube-YYYY-MM-DD.json`
 - インプレ記事: `logs/impression-data/impressions-YYYY-MM-DD.json`
+- ランキング追跡: `logs/seo-data/rankings/YYYY-MM-DD.json` + `trends.json` + `report-*.md`
+- 競合分析: `logs/seo-data/competitors/YYYY-MM-DD.json` + `.md`
+- コンテンツ最適化: `logs/seo-data/optimizations/YYYY-MM-DD.json` + `.md`
 - launchdログ: `logs/launchd-*.log`
 
 ### API資格情報（.envに全て保存済み）
@@ -157,7 +164,7 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 | もしもアフィリエイト | `MOSHIMO_AFFILIATE_ID=1181365` | - | ✅ 楽天提携済み |
 
 ### launchd plist
-全10ジョブ: `~/Library/LaunchAgents/com.fablus.lure-*.plist`
+全11ジョブ: `~/Library/LaunchAgents/com.fablus.lure-*.plist`
 全パス: `/Users/user/ウェブサイト/lure-database/` に統一済み
 旧 `pipeline.plist` / `discover.plist` はunload済み（ファイルは残存、後方互換用）
 
