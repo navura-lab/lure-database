@@ -21,4 +21,11 @@ echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Starting JP pipeline..." | tee -a "$LOGFI
 "$PROJECT_DIR/node_modules/.bin/tsx" scripts/pipeline.ts --region jp --limit 1 2>&1 | tee -a "$LOGFILE"
 EXIT_CODE=$?
 echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] JP pipeline finished (exit code: $EXIT_CODE)." | tee -a "$LOGFILE"
+
+# パイプライン成功時のみキャッシュ更新（ビルド時のSupabase egress削減）
+if [ $EXIT_CODE -eq 0 ]; then
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Updating lures cache..." | tee -a "$LOGFILE"
+  "$PROJECT_DIR/node_modules/.bin/tsx" scripts/dump-lures-cache.ts 2>&1 | tee -a "$LOGFILE" || true
+fi
+
 exit $EXIT_CODE
