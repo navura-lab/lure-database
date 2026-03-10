@@ -129,9 +129,25 @@ const relatedVideos = (youtubeVideos[videoKey] || [])
   .slice(0, 3);
 
 // --- SEO: Title ---
-// GSCクエリ分析: 「商品名」「メーカー名 商品名」「商品名 スペック/カラー/価格」パターンが多い
-// titleに「スペック・カラー・価格」を含めてCTR改善
-const pageTitle = `${series.name}（${series.manufacturer}）スペック・カラー・価格 | CAST/LOG`;
+// GSCクエリ分析: 「商品名」「メーカー名 商品名」「商品名 タイプ」パターンが多い
+// 例: 「ハグゴス」「リトルジャック ハグゴス」「ハグゴス エギ」
+// カタカナ名を先頭に配置し、typeも含めてCTR改善
+
+// 名前のSEO最適化: 「ENGLISH　-カタカナ-」→「カタカナ（ENGLISH）」に変換
+// それ以外はそのまま使用
+function optimizeTitleName(name: string): string {
+  // パターン: ENGLISH全角スペース-カタカナ- (例: HUGGOS　-ハグゴス-)
+  const match = name.match(/^([A-Za-z0-9\s.'-]+)[　\s]+[-ー]([^\x00-\x7F]+)[-ー]$/);
+  if (match) {
+    return `${match[2]}（${match[1].trim()}）`;
+  }
+  return name;
+}
+
+const seoName = optimizeTitleName(series.name);
+// type（エギ、ミノー等）をtitleに含めてロングテールクエリに対応
+const typeInTitle = series.type && !seoName.includes(series.type) ? ` ${series.type}` : '';
+const pageTitle = `${seoName} ${series.manufacturer}${typeInTitle}のスペック・カラー・価格 | CAST/LOG`;
 
 // --- SEO: Description ---
 const specs = [

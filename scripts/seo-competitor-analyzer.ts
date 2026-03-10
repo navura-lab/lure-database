@@ -175,15 +175,18 @@ async function extractPageMeta(url: string): Promise<PageMeta> {
     const bodyText = $('body').text().replace(/\s+/g, ' ').trim();
     meta.wordCount = bodyText.length; // 日本語なので文字数
 
-    // 構造化データ
+    // 構造化データ（配列JSON-LDにも対応）
     const schemas = $('script[type="application/ld+json"]');
     if (schemas.length > 0) {
       meta.hasSchema = true;
       schemas.each((_, el) => {
         try {
           const json = JSON.parse($(el).html() || '{}');
-          const type = json['@type'];
-          if (type) meta.schemaTypes.push(Array.isArray(type) ? type.join(',') : type);
+          const items = Array.isArray(json) ? json : [json];
+          for (const item of items) {
+            const type = item['@type'];
+            if (type) meta.schemaTypes.push(Array.isArray(type) ? type.join(',') : type);
+          }
         } catch {}
       });
     }
