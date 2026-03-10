@@ -47,28 +47,28 @@ export async function getStaticPaths() {
     b.color_count - a.color_count || a.name.localeCompare(b.name);
 
   return allSeries.map(series => {
-    // 同タイプの関連ルアー（自分除外、カラー数順、最大4件）
+    // 同タイプの関連ルアー（自分除外、カラー数順、最大6件）
     const relatedByType = (byType.get(series.type) || [])
       .filter(s => !(s.slug === series.slug && s.manufacturer_slug === series.manufacturer_slug))
       .sort(deterministicSort)
-      .slice(0, 4);
+      .slice(0, 6);
 
-    // 同メーカーの関連ルアー（自分・タイプ重複除外、最大4件）
+    // 同メーカーの関連ルアー（自分・タイプ重複除外、最大6件）
     const usedSlugs = new Set(relatedByType.map(s => `${s.manufacturer_slug}/${s.slug}`));
     usedSlugs.add(`${series.manufacturer_slug}/${series.slug}`);
     const relatedByMaker = (byMaker.get(series.manufacturer_slug) || [])
       .filter(s => !usedSlugs.has(`${s.manufacturer_slug}/${s.slug}`))
       .sort(deterministicSort)
-      .slice(0, 4);
+      .slice(0, 6);
 
-    // 同ターゲット魚の関連ルアー（自分・既出除外、最大4件）
+    // 同ターゲット魚の関連ルアー（自分・既出除外、最大6件）
     for (const s of relatedByMaker) usedSlugs.add(`${s.manufacturer_slug}/${s.slug}`);
     const primaryFish = series.target_fish[0];
     const relatedByFish = primaryFish
       ? (byFish.get(primaryFish) || [])
           .filter(s => !usedSlugs.has(`${s.manufacturer_slug}/${s.slug}`))
           .sort(deterministicSort)
-          .slice(0, 4)
+          .slice(0, 6)
       : [];
 
     // canonicalGroupsに登録されていれば、そのページは別slugの正規ページを参照する
