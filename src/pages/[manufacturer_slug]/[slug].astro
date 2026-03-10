@@ -635,29 +635,30 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
     </section>
 
     <!-- 購入・価格情報 -->
-    {hasPrice && (
-      <section class="mb-12">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}の購入・価格情報</h2>
-        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+    <section class="mb-12">
+      <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}の購入・価格情報</h2>
+      <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        {hasPrice && (
           <div class="flex items-baseline gap-3 mb-4">
             <span class="text-sm text-text-dim">メーカー希望価格</span>
             <span class="text-xl font-bold text-gray-900 font-mono">{priceDisplay}</span>
             <span class="text-xs text-text-dim">（税込）</span>
           </div>
-          <div class="flex flex-wrap gap-3">
-            <a
-              href={rakutenAffiliateUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-4 py-2 border border-border rounded font-mono text-sm hover:border-accent hover:text-accent transition-colors"
-            >
-              楽天市場で探す →
-            </a>
-          </div>
-          <p class="text-xs text-text-faint mt-3">※ 実際の販売価格は販売店により異なります。</p>
+        )}
+        <div class="flex flex-wrap gap-3">
+          <a
+            href={rakutenAffiliateUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#BF0000] text-white rounded font-mono text-sm font-bold hover:bg-[#A00000] transition-colors"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            楽天市場で探す
+          </a>
         </div>
-      </section>
-    )}
+        <p class="text-xs text-text-faint mt-3">※ リンク先で在庫・価格をご確認ください。</p>
+      </div>
+    </section>
 
     <!-- 公式動画 -->
     {embedUrl && (
