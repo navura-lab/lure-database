@@ -133,14 +133,33 @@ const relatedVideos = (youtubeVideos[videoKey] || [])
 // 例: 「ハグゴス」「リトルジャック ハグゴス」「ハグゴス エギ」
 // カタカナ名を先頭に配置し、typeも含めてCTR改善
 
-// 名前のSEO最適化: 「ENGLISH　-カタカナ-」→「カタカナ（ENGLISH）」に変換
-// それ以外はそのまま使用
+// 名前のSEO最適化: 日本語検索で上位を取るため、カタカナ名を先頭に配置
+// 対応パターン:
+//   1. ENGLISH　-カタカナ-         → カタカナ（ENGLISH）
+//   2. ENGLISH（カタカナ）SUFFIX   → カタカナ（ENGLISH）SUFFIX
+//   3. ENGLISH(カタカナ)SUFFIX     → カタカナ（ENGLISH）SUFFIX
+//   4. ENGLISH -カタカナNN-        → カタカナNN（ENGLISH）
+//   5. ENGLISH カタカナ            → カタカナ（ENGLISH）
 function optimizeTitleName(name: string): string {
-  // パターン: ENGLISH全角スペース-カタカナ- (例: HUGGOS　-ハグゴス-)
-  const match = name.match(/^([A-Za-z0-9\s.'-]+)[　\s]+[-ー]([^\x00-\x7F]+)[-ー]$/);
-  if (match) {
-    return `${match[2]}（${match[1].trim()}）`;
+  // パターン1: ENGLISH全角スペース-カタカナ- (例: HUGGOS　-ハグゴス-)
+  const m1 = name.match(/^([A-Za-z0-9\s.'-]+)[　\s]+[-ー]([^\x00-\x7F]+)[-ー]$/);
+  if (m1) return `${m1[2]}（${m1[1].trim()}）`;
+
+  // パターン4: ENGLISH -カタカナ+数字- (例: Gillary-01 -ギラリー01-)
+  const m4 = name.match(/^([A-Za-z0-9\s.'-]+)[　\s]+[-ー]([^\x00-\x7F][^\x00-\x7F0-9]*[0-9]*)[-ー]$/);
+  if (m4) return `${m4[2]}（${m4[1].trim()}）`;
+
+  // パターン2/3: ENGLISH（カタカナ）SUFFIX (例: VIROLA HARD（ヴィローラハード) 50)
+  const m2 = name.match(/^([A-Za-z0-9\s.'-]+)[（(]([^\x00-\x7F][^)）]*)[)）]\s*(.*)$/);
+  if (m2) {
+    const suffix = m2[3] ? ` ${m2[3]}` : '';
+    return `${m2[2]}（${m2[1].trim()}）${suffix}`;
   }
+
+  // パターン5: ENGLISH スペース カタカナ (例: Clear-S Popper クリア-S ポッパー, Fable ファブル)
+  const m5 = name.match(/^([A-Za-z0-9\s.'-]+?)\s+([^\x00-\x7F].+)$/);
+  if (m5) return `${m5[2]}（${m5[1].trim()}）`;
+
   return name;
 }
 
@@ -157,11 +176,11 @@ const specs = [
   `${series.color_count}カラー`,
 ].filter(Boolean).join('・');
 
-// meta description: リライト済みdescriptionがあればフル活用（150-250文字=meta descriptionに最適）
-// 先頭に「メーカー名の商品名（タイプ）」を置き、スペック・カラー・価格キーワードを含める
+// meta description: SEO最適化済み名称を先頭に配置し、検索クエリとの一致率を高める
+// 先頭に「SEO名（メーカー名のタイプ）」を置き、説明文・スペック・カラー・価格キーワードを含める
 const pageDescription = series.description
-  ? `${series.manufacturer}の${series.type}「${series.name}」｜${series.description}${series.color_count}カラー展開。`
-  : `${series.manufacturer}の${series.type}「${series.name}」（${specs}）のスペック・全${series.color_count}カラーバリエーション${hasPrice ? `・価格${priceDisplay}` : ''}を掲載。CAST/LOG`;
+  ? `${seoName}（${series.manufacturer}の${series.type}）｜${series.description}${series.color_count}カラー展開。`
+  : `${seoName}（${series.manufacturer}の${series.type}）｜${specs}のスペック・全${series.color_count}カラーバリエーション${hasPrice ? `・価格${priceDisplay}` : ''}を掲載。CAST/LOG`;
 
 // --- SEO: 自然言語スペック要約（ページ内表示用）---
 const specParts: string[] = [];
