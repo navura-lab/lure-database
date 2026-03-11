@@ -139,9 +139,9 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 | `scripts/request-indexing.ts` | 手動Indexing API（4モード） | `npx tsx scripts/request-indexing.ts [--submit]` |
 | `scripts/seo-opportunity-finder.ts` | GSCデータからSEO改善機会を抽出 | `npx tsx scripts/seo-opportunity-finder.ts` |
 | `scripts/youtube-collector.ts` | YouTube動画収集（5件/ルアー、SEOスコア順） | `npx tsx scripts/youtube-collector.ts [--limit N] [--verbose]` |
-| `scripts/blog-impression-collector.ts` | ブログインプレ記事収集（CSE経由） | `npx tsx scripts/blog-impression-collector.ts [--limit N] [--verbose]` |
+| `scripts/blog-impression-collector.ts` | ブログインプレ記事収集（Serper.dev経由） | `npx tsx scripts/blog-impression-collector.ts [--limit N] [--verbose]` |
 | `scripts/seo-rank-tracker.ts` | 日次ページ×クエリランキング追跡 | `npx tsx scripts/seo-rank-tracker.ts [--verbose] [--report]` |
-| `scripts/seo-competitor-analyzer.ts` | SERP競合構造分析 | `npx tsx scripts/seo-competitor-analyzer.ts [--page PATH] [--query Q] [--limit N]` |
+| `scripts/seo-competitor-analyzer.ts` | SERP競合構造分析（Serper.dev経由） | `npx tsx scripts/seo-competitor-analyzer.ts [--page PATH] [--query Q] [--limit N]` |
 | `scripts/seo-content-optimizer.ts` | AI駆動title/description最適化 | `npx tsx scripts/seo-content-optimizer.ts [--page PATH] [--apply] [--dry-run]` |
 
 ### データ保存先
@@ -160,7 +160,7 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 | API | 環境変数 | クォータ | 状態 |
 |-----|---------|---------|------|
 | YouTube Data API v3 | `YOUTUBE_API_KEY` | 10,000ユニット/日（~95ルアー） | ✅ 動作確認済み |
-| Google Custom Search | `GOOGLE_CSE_ID` + `GOOGLE_CSE_API_KEY` | 100クエリ/日 | ⚠️ GCPで有効化必要 |
+| Serper.dev | `SERPER_API_KEY` | 2,500クエリ/月（無料枠） | ✅ 動作確認済み |
 | もしもアフィリエイト | `MOSHIMO_AFFILIATE_ID=1181365` | - | ✅ 楽天提携済み |
 
 ### launchd plist
