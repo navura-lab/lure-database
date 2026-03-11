@@ -1,0 +1,558 @@
+{
+  "executedAt": "2026-03-09T14:16:02.097Z",
+  "phase": 2,
+  "deleted": {
+    "products": 70,
+    "rows": 365,
+    "errors": 0,
+    "items": [
+      {
+        "manufacturer_slug": "spro",
+        "slug": "wicked-weather-wear-heavy-duty-bib-gray"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "depth-control-8x"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "ball-bearing-swivel-2-welded-rings"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "g-box-250-duo-side"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-fillet-knife-7"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "2026-catalogs"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "rat-30-replacement-tail"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "ball-bearing-swivels-2-welded-rings-and-coast-lock-snap"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "sb60-fin-and-tail-set-wicked-perch"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-skip-gap-shaky-head-round"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "wicked-weather-wear-glove-closed-finger-gray"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "rat-25-replacement-tail"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-plasma-lighter"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "g-box-3700-deep-utility-case"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-silicone-stopper"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "prime-snap-mini"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "ball-bearing-swivel-with-split-rings"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-tbx-25m-3600-dark"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-fish-ruler-10-x-50"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "slow-pitch-assist-fluorocarbon"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "marsh-wear-pullover-green-camo"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-dura-slick-finish-power-swivels"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "cast-control-8x"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-sun-visor-blue"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "promo-goods-spro-boat-carpet-decal-black-and-green-20"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "g-box-3200-deep-utility-case"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "terminal-box"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "g-box-3700-utility-case"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "power-swivels-combo"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-mustang-inflatable-pfd"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "power-ball-bearing-with-coast-lock-2-welded-rings"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-logo-hoodie-gray"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "split-snap"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "prime-snap-hd"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "power-split-rings-black"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-side-cutter-6"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-sun-hoodie-light-blue"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-dura-tuff-aluminum-led-flashlight"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "mesh-bait-pouch"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-sun-hoodie-sea-green"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "three-way-swivel"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "slow-pitch-assist-mono"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "g-box-double-slit-foam-case-3600"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "wicked-weather-wear-light-jacket-gray"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "wicked-weather-wear-glove-split-finger-camo"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "taru-swivel"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-tbx-80l-3700d-dark"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "ultra-split-rings"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-beanie-black-with-patch"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "duo-lock-snaps-black"
+      },
+      {
+        "manufacturer_slug": "lunker-city",
+        "slug": "tungsten-flipping-weights"
+      },
+      {
+        "manufacturer_slug": "lunker-city",
+        "slug": "vgb-dropshot-nose-rig-hook"
+      },
+      {
+        "manufacturer_slug": "lunker-city",
+        "slug": "in-pursuit-of-giant-bass"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "assorted-stick-kit"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "a-r-s-blades"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "lts-waist-bag"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "lts-avid-messenger-bag"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "carolina-rig-baits-bundle"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "mini-skirts"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "john-crews-kids-eyewear"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "lets-go-fishing-performance-camo-graphite"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "aaron-lewis-ladies-american-as-it-gets-tank-top-military-green"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "autism-awareness-fish-decal-and-bracelet"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "d-bomb-hundo-bulk-bundle"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "striker-grey-hoody-small-only"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "missile-baits-blaze-orange-beanie"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "missile-baits-wwjf-shirt"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "dont-tread-on-me-tee-black-gold"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "striker-rain-bib"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "ishs-d-bomb-bundle"
+      }
+    ]
+  },
+  "reclassified": {
+    "products": 51,
+    "rows": 639,
+    "errors": 0,
+    "items": [
+      {
+        "manufacturer_slug": "spro",
+        "slug": "cannon-ball-super-glow",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "carbon-blade-tg-1-2-oz",
+        "type": "スピナーベイト"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "little-john-md-50",
+        "type": "クランクベイト"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "power-drop-shot",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "fat-papa-walker-130",
+        "type": "トップウォーター"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "cj-flip",
+        "type": "ラバージグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-flat-iwashi",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-flat-bloody-mary",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-flat-crushed-ice-pink",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "cannon-ball-peach-glow",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-semi-long-crushed-ice-glow",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-semi-long-180g-unrigged",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-flat-tequila-sunrise-glow",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-semi-long-crushed-ice",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-semi-long-crushed-ice-pink",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-flat-tequila-sunrise",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "pesce-100g",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spin-john-80",
+        "type": "スピンテールジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-flat-tequila-sunrise-glow-unrigged",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "cannon-ball-tequila-sunrise",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-semi-long-kt-special-unrigged",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-semi-long-glow-squid-unrigged",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-semi-long-bloody-mary",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "madeye-diver-85",
+        "type": "クランクベイト"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "shimmy-semi-long-iwashi",
+        "type": "メタルジグ"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "spro-25th-anniversary-falcon-140",
+        "type": "クランクベイト"
+      },
+      {
+        "manufacturer_slug": "spro",
+        "slug": "little-john-md-type-r-50",
+        "type": "クランクベイト"
+      },
+      {
+        "manufacturer_slug": "lunker-city",
+        "slug": "4-5-shaker",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "lunker-city",
+        "slug": "3-ribster",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "lunker-city",
+        "slug": "4-5-ribster",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "lunker-city",
+        "slug": "ultralite-ball-painted",
+        "type": "ジグヘッド"
+      },
+      {
+        "manufacturer_slug": "lunker-city",
+        "slug": "3-hellgie",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "hive-micro-relic",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "dragonfly",
+        "type": "トップウォーター"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "hive-hellgrammite",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "true-spin",
+        "type": "スプーン"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "fillet",
+        "type": "バイブレーション"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "big-eye",
+        "type": "スイムベイト"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "hive-micro-stash",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "bait-shifter-jigs",
+        "type": "ジグヘッド"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "hive-micro-typhon",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "hive-hover-shot",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "hive-versa-fish",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "mantle-pre-rigged-squid",
+        "type": "ワーム",
+        "target_fish": [
+          "ヒラメ",
+          "マゴチ",
+          "シーバス"
+        ]
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "glitch-blade",
+        "type": "バイブレーション"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "boshi-blade",
+        "type": "バイブレーション"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "hive-micro-manta",
+        "type": "ワーム"
+      },
+      {
+        "manufacturer_slug": "lunkerhunt",
+        "slug": "micro-tear-drop",
+        "type": "ジグヘッド"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "missile-baits-hover-missile",
+        "type": "ジグヘッド"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "missile-baits-warlock-head",
+        "type": "ジグヘッド"
+      },
+      {
+        "manufacturer_slug": "missile-baits",
+        "slug": "missile-baits-bomba-3-5",
+        "type": "ワーム"
+      }
+    ]
+  }
+}

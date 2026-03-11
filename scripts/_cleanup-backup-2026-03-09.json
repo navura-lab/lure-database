@@ -1,0 +1,383 @@
+{
+  "executedAt": "2026-03-09T14:13:37.674Z",
+  "deleted": {
+    "products": 242,
+    "rows": 885,
+    "errors": 0
+  },
+  "reclassified": {
+    "products": 41,
+    "rows": 183,
+    "errors": 0,
+    "items": [
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "movement-salt-wake-series-live-mullet",
+        "type": "トップウォーター",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "party-paddle-4-3-saltwater-live-croaker",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "party-prop-black",
+        "type": "トップウォーター"
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "party-paddle-4-3-saltwater-pickle-punch",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "movement-salt-wake-series-baby-speck",
+        "type": "トップウォーター",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "movement-salt-wake-series-sea-chicken",
+        "type": "トップウォーター",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "trace-blueback-herring",
+        "type": "スイムベイト"
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "party-prop-ghost-yellow-perch",
+        "type": "トップウォーター"
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "party-prop-ayu",
+        "type": "トップウォーター"
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "trace-baby-gizzard",
+        "type": "スイムベイト"
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "speed-glide-100-sw-live-hd-croaker",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "movement-salt-wake-series-dirty-chartreuse",
+        "type": "トップウォーター",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "movement-salt-wake-series-gold-reactor",
+        "type": "トップウォーター",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "hyperjerk-70-sw-electric-chicken",
+        "type": "ジャークベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "party-paddle-4-3-saltwater-snapper",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "hyperjerk-70-sw-green-mack",
+        "type": "ジャークベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "movement-salt-wake-series-live-croaker",
+        "type": "トップウォーター",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "party-paddle-4-3-saltwater-shrimp-gold",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "party-paddle-4-3-saltwater-bloody-pearl",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "movement-salt-wake-series-pink-chrome",
+        "type": "トップウォーター",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "hyperjerk-70-sw-salty-ice",
+        "type": "ジャークベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "movement-salt-wake-series-chrome-smash",
+        "type": "トップウォーター",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "speed-glide-100-sw-live-mullet",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "speed-glide-100-sw-pink-croaker",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "hyperjerk-70-sw-live-mullet",
+        "type": "ジャークベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "party-paddle-4-3-saltwater-guides-choice",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "party-paddle-4-3-saltwater-chartreuse-pearl",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "speed-glide-100-sw-live-hd-mullet",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "speed-glide-100-sw-live-croaker",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "hyperjerk-70-sw-bone-pearl",
+        "type": "ジャークベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "6th-sense",
+        "slug": "speed-glide-100-sw-pink-chrome",
+        "type": "スイムベイト",
+        "target_fish": [
+          "レッドフィッシュ",
+          "スヌーク",
+          "シートラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "berkley-us",
+        "slug": "finisher",
+        "type": "ワーム",
+        "target_fish": [
+          "ブラックバス"
+        ]
+      },
+      {
+        "manufacturer_slug": "berkley-us",
+        "slug": "spy",
+        "type": "ワーム",
+        "target_fish": [
+          "ブラックバス"
+        ]
+      },
+      {
+        "manufacturer_slug": "berkley-us",
+        "slug": "krej",
+        "type": "クランクベイト",
+        "target_fish": [
+          "ブラックバス"
+        ]
+      },
+      {
+        "manufacturer_slug": "googan-baits",
+        "slug": "clickbait",
+        "type": "チャターベイト",
+        "target_fish": [
+          "ブラックバス"
+        ]
+      },
+      {
+        "manufacturer_slug": "googan-baits",
+        "slug": "saucy-slimmer",
+        "type": "スイムベイト",
+        "target_fish": [
+          "ブラックバス"
+        ]
+      },
+      {
+        "manufacturer_slug": "livetarget",
+        "slug": "sardine-twitchbait",
+        "type": "ミノー",
+        "target_fish": [
+          "シーバス",
+          "ヒラメ"
+        ]
+      },
+      {
+        "manufacturer_slug": "livetarget",
+        "slug": "yellow-perch-jointed-bait-deep-dive",
+        "type": "クランクベイト",
+        "target_fish": [
+          "ウォールアイ",
+          "ブラックバス"
+        ]
+      },
+      {
+        "manufacturer_slug": "livetarget",
+        "slug": "rainbow-smelt-banana-bait-deep-dive",
+        "type": "クランクベイト",
+        "target_fish": [
+          "ウォールアイ",
+          "トラウト"
+        ]
+      },
+      {
+        "manufacturer_slug": "lunker-city",
+        "slug": "5-5-freaky-fish",
+        "type": "ワーム",
+        "target_fish": [
+          "ブラックバス"
+        ]
+      },
+      {
+        "manufacturer_slug": "lunker-city",
+        "slug": "4-5-freaky-fish",
+        "type": "ワーム",
+        "target_fish": [
+          "ブラックバス"
+        ]
+      }
+    ]
+  }
+}
