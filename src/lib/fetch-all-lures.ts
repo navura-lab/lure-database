@@ -56,5 +56,14 @@ export async function fetchAllLures() {
   }
 
   console.log(`Fetched ${allLures.length} lures total`);
+
+  // 安全チェック: データが0件ならビルドをクラッシュさせる（空デプロイ防止）
+  if (allLures.length === 0) {
+    throw new Error(
+      '❌ ルアーデータが0件です。Supabase egress制限の可能性があります。\n' +
+      '   → npx tsx scripts/dump-lures-cache.ts でキャッシュを生成してからビルドしてください。'
+    );
+  }
+
   return allLures;
 }
