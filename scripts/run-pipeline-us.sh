@@ -26,6 +26,10 @@ echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] US pipeline finished (exit code: $EXIT_CO
 if [ $EXIT_CODE -eq 0 ]; then
   echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Updating lures cache..." | tee -a "$LOGFILE"
   "$PROJECT_DIR/node_modules/.bin/tsx" scripts/dump-lures-cache.ts 2>&1 | tee -a "$LOGFILE" || true
+
+  # ランキング説明文の不足チェック（新カテゴリ発生時にログ記録）
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Checking ranking description gaps..." | tee -a "$LOGFILE"
+  "$PROJECT_DIR/node_modules/.bin/tsx" scripts/generate-ranking-descriptions.ts 2>&1 | tee -a "$LOGFILE" || true
 fi
 
 exit $EXIT_CODE

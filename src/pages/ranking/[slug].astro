@@ -104,7 +104,8 @@ const topMakers = makerBreakdown.slice(0, 3).map(m => m.name).join('・');
 const priceText = priceRange ? `¥${priceRange.min.toLocaleString()}〜¥${priceRange.max.toLocaleString()}` : '';
 
 // KP分析: 「[魚種] [タイプ] おすすめ」(210/月)、「[タイプ] ランキング」(140-210/月) が主要クエリ
-const pageTitle = `${fishName} ${typeName} おすすめランキング${rankedSeries.length}選【2026年】 | CAST/LOG`;
+const currentYear = new Date().getFullYear();
+const pageTitle = `${fishName} ${typeName} おすすめランキング${rankedSeries.length}選【${currentYear}年】 | CAST/LOG`;
 const pageDescription = [
   `${fishName}向け${typeName}のおすすめ${rankedSeries.length}シリーズをランキング形式で紹介。`,
   topMakers ? `${topMakers}等${makerBreakdown.length}メーカーの${typeName}を比較。` : '',

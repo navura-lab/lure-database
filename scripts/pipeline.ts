@@ -58,6 +58,8 @@ interface PipelineResult {
   colorsProcessed: number;
   colorsWithImage: number;
   rowsInserted: number;
+  /** 新規追加されたルアーのパス（manufacturer_slug/slug） */
+  lurePath?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -507,6 +509,7 @@ async function processRecord(
       colorsProcessed: scraped.colors.length,
       colorsWithImage: colorImageMap.size,
       rowsInserted,
+      lurePath: `${manufacturerSlug}/${scraped.slug}`,
     };
 
   } catch (err) {
@@ -710,6 +713,84 @@ async function main(): Promise<void> {
   const summaryPath = decodeURIComponent(new URL(`../logs/${summaryFilename}`, import.meta.url).pathname);
   writeFileSync(summaryPath, JSON.stringify(summaryData, null, 2));
   log(`Completion summary saved to ${summaryPath}`);
+
+  // 7. 新規追加ルアーの即時インデックス送信
+  const newLurePaths = results
+    .filter(r => r.status === 'success' && r.lurePath)
+    .map(r => r.lurePath!);
+
+  if (newLurePaths.length > 0) {
+    log(`\n=== Indexing API: 新規${newLurePaths.length}件を即時送信 ===`);
+    try {
+      const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+      const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+      const GOOGLE_REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN;
+
+      if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET || !GOOGLE_REFRESH_TOKEN) {
+        log('⚠️ Google Indexing API credentials not found, skipping indexing');
+      } else {
+        // OAuth2 トークン取得
+        const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            client_id: GOOGLE_CLIENT_ID,
+            client_secret: GOOGLE_CLIENT_SECRET,
+            refresh_token: GOOGLE_REFRESH_TOKEN,
+            grant_type: 'refresh_token',
+          }),
+        });
+        const tokenData = await tokenRes.json() as any;
+        const accessToken = tokenData.access_token;
+
+        if (!accessToken) {
+          log(`⚠️ Failed to get access token: ${JSON.stringify(tokenData)}`);
+        } else {
+          const siteUrl = process.env.GSC_SITE_URL || 'https://www.lure-db.com/';
+          const quotaProject = process.env.GOOGLE_QUOTA_PROJECT || 'plucky-mile-486802-j6';
+
+          // ルアーページ + メーカーページ（新規メーカーの場合）のURLを送信
+          const urlsToIndex = new Set<string>();
+          for (const p of newLurePaths) {
+            urlsToIndex.add(`${siteUrl}${p}/`);
+            // メーカーページも更新通知（新ルアー追加でページ内容が変わるため）
+            urlsToIndex.add(`${siteUrl}${p.split('/')[0]}/`);
+          }
+
+          let indexSuccess = 0;
+          let indexFailed = 0;
+          for (const url of urlsToIndex) {
+            try {
+              const res = await fetch('https://indexing.googleapis.com/v3/urlNotifications:publish', {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Bearer ${accessToken}`,
+                  'x-goog-user-project': quotaProject,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ url, type: 'URL_UPDATED' }),
+              });
+              if (res.ok) {
+                indexSuccess++;
+              } else {
+                const errData = await res.json() as any;
+                log(`⚠️ Indexing failed for ${url}: ${errData.error?.message || res.status}`);
+                indexFailed++;
+              }
+              // レート制限対策
+              await new Promise(r => setTimeout(r, 500));
+            } catch (e: any) {
+              log(`⚠️ Indexing error for ${url}: ${e.message}`);
+              indexFailed++;
+            }
+          }
+          log(`Indexing API: ${indexSuccess}/${urlsToIndex.size} URLs sent successfully${indexFailed > 0 ? `, ${indexFailed} failed` : ''}`);
+        }
+      }
+    } catch (e: any) {
+      log(`⚠️ Indexing API error (non-fatal): ${e.message}`);
+    }
+  }
 
   log('Pipeline complete.');
 }

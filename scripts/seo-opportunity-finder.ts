@@ -537,33 +537,70 @@ function generateReport(
     lines.push('');
   }
 
-  // ── 推奨アクション ──
+  // ── 推奨アクション（具体的・実行可能なアクション自動抽出） ──
   lines.push('## 推奨アクション');
   lines.push('');
 
-  if (classified.lowHanging.length > 0) {
-    lines.push(`### 1. Low-hanging fruit 対策（${classified.lowHanging.length}件）`);
-    lines.push('- title/descriptionの最適化');
-    lines.push('- 内部リンクの追加');
-    lines.push('- コンテンツの充実（説明文、スペック表示改善）');
+  // クエリパターン分析で自動分類
+  const rankingQueries = classified.lowHanging.filter(q =>
+    /おすすめ|ランキング|最強|人気|比較/.test(q.query)
+  );
+  const makerQueries = classified.lowHanging.filter(q =>
+    /一覧|メーカー|ルアー$/.test(q.query) && !/おすすめ|ランキング/.test(q.query)
+  );
+  const productQueries = classified.lowHanging.filter(q =>
+    !rankingQueries.includes(q) && !makerQueries.includes(q)
+  );
+
+  if (rankingQueries.length > 0) {
+    lines.push(`### 1. ランキングページ強化（${rankingQueries.length}件）`);
+    lines.push('対応ページ: `/ranking/` 配下のカテゴリページ');
+    lines.push('');
+    for (const q of rankingQueries.slice(0, 5)) {
+      lines.push(`- 「${q.query}」(imp:${q.impressions}, pos:${q.position.toFixed(1)}) → ランキングページのdescription/内部リンク強化`);
+    }
+    lines.push('');
+  }
+
+  if (makerQueries.length > 0) {
+    lines.push(`### 2. メーカーページ強化（${makerQueries.length}件）`);
+    lines.push('対応ページ: `/メーカースラッグ/` 配下');
+    lines.push('');
+    for (const q of makerQueries.slice(0, 5)) {
+      lines.push(`- 「${q.query}」(imp:${q.impressions}, pos:${q.position.toFixed(1)}) → メーカーページの内部リンク・コンテンツ強化`);
+    }
+    lines.push('');
+  }
+
+  if (productQueries.length > 0) {
+    lines.push(`### 3. 個別ルアーページ強化（${productQueries.length}件）`);
+    lines.push('対応: Supabase description更新 or テンプレート改善');
+    lines.push('');
+    for (const q of productQueries.slice(0, 10)) {
+      lines.push(`- 「${q.query}」(imp:${q.impressions}, pos:${q.position.toFixed(1)})`);
+    }
     lines.push('');
   }
 
   if (classified.ctrImprove.length > 0) {
-    lines.push(`### 2. CTR改善（${classified.ctrImprove.length}件）`);
-    lines.push('- 魅力的なtitleタグに変更');
-    lines.push('- meta descriptionに具体的な数値・特徴を含める');
-    lines.push('- 構造化データ（FAQ, HowTo）の追加');
+    lines.push(`### 4. CTR改善: 上位表示 × 低CTR（${classified.ctrImprove.length}件）`);
+    lines.push('titleに検索クエリの語を含め、descriptionに具体数値を追加:');
+    lines.push('');
+    for (const q of classified.ctrImprove.slice(0, 10)) {
+      const action = q.position <= 3
+        ? 'title/description最優先で改善'
+        : 'description改善 + 内部リンク追加';
+      lines.push(`- 「${q.query}」(imp:${q.impressions}, pos:${q.position.toFixed(1)}, CTR:${(q.ctr * 100).toFixed(1)}%) → ${action}`);
+    }
     lines.push('');
   }
 
-  if (topLures.length > 0) {
-    lines.push(`### 3. 高ポテンシャルルアーの強化（上位${Math.min(10, topLures.length)}件）`);
-    lines.push('- 修飾語キーワード対応コンテンツ追加');
-    lines.push('- YouTube動画セクション追加');
-    lines.push('- 価格比較セクション追加（アフィリエイト連携時）');
-    lines.push('');
-  }
+  // 前週比較データがあれば新出/消失クエリも
+  lines.push('### 5. 自動化チェックリスト');
+  lines.push('- [ ] Low-hanging fruit上位5件のtitle/descriptionを確認');
+  lines.push('- [ ] CTR改善上位5件のmeta descriptionに検索語を追加');
+  lines.push('- [ ] 新出ランキング系クエリに対応するカテゴリページの存在確認');
+  lines.push('');
 
   return lines.join('\n');
 }
