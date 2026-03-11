@@ -136,6 +136,40 @@ if (weightRange) {
   specItems.push({ label: '重さ', value: `${weightRange.min}g 〜 ${weightRange.max}g` });
 }
 
+// ─── 選び方セクション ───
+
+// ガイド記事から該当タイプの選び方セクションを抽出
+const matchingGuides = guideArticles.filter(g =>
+  g.targetFish.includes(fishName) || g.targetTypes.includes(typeName)
+);
+const selectionTips: { heading: string; body: string; guideSlug: string }[] = [];
+for (const guide of matchingGuides) {
+  for (const section of guide.sections) {
+    // セクション見出しにタイプ名 or 「選び方」を含むものを抽出
+    if (section.heading.includes(typeName) || (section.heading.includes('選び方') && section.heading.includes(fishName))) {
+      selectionTips.push({ heading: section.heading, body: section.body, guideSlug: guide.slug });
+    }
+  }
+}
+// 最大2セクションまで表示
+const displayTips = selectionTips.slice(0, 2);
+
+// データ駆動の選び方ポイント（ガイドがなくても表示）
+const dataPoints: string[] = [];
+if (weightRange) {
+  const lightCount = rankedSeries.filter(s => s.weight_range.min != null && s.weight_range.min <= (weightRange.min + (weightRange.max - weightRange.min) / 3)).length;
+  const heavyCount = rankedSeries.filter(s => s.weight_range.max != null && s.weight_range.max >= (weightRange.min + (weightRange.max - weightRange.min) * 2 / 3)).length;
+  dataPoints.push(`重量は${weightRange.min}g〜${weightRange.max}gまで展開。軽量モデル（${lightCount}シリーズ）は操作性重視、重量モデル（${heavyCount}シリーズ）は飛距離重視で選ぶとよい`);
+}
+if (priceRange && priceRange.max - priceRange.min > 500) {
+  const midPrice = Math.round((priceRange.min + priceRange.max) / 2);
+  const budgetCount = rankedSeries.filter(s => s.price_range.max > 0 && s.price_range.max <= midPrice).length;
+  dataPoints.push(`価格帯は${priceText}。${budgetCount}シリーズが¥${midPrice.toLocaleString()}以下で入手可能`);
+}
+if (rankedSeries[0] && rankedSeries[0].color_count >= 10) {
+  dataPoints.push(`カラー展開が多いシリーズほどフィールドや条件に合わせた使い分けがしやすい。${rankedSeries[0].manufacturer}の${rankedSeries[0].name}は${rankedSeries[0].color_count}色展開で選択肢が豊富`);
+}
+
 // FAQ JSON-LD
 const faqItems: { q: string; a: string }[] = [];
 
@@ -156,6 +190,20 @@ if (makerBreakdown.length > 0) {
   faqItems.push({
     q: `${fishName}向け${typeName}を展開するメーカーは？`,
     a: `${fishName}向け${typeName}を展開するメーカーは${makerBreakdown.length}社。${makerNames}がシリーズ数上位。`,
+  });
+}
+
+// 選び方FAQ
+if (displayTips.length > 0) {
+  const tipSummary = displayTips[0].body.length > 150 ? displayTips[0].body.slice(0, 150) + '…' : displayTips[0].body;
+  faqItems.push({
+    q: `${fishName}向け${typeName}の選び方は？`,
+    a: tipSummary,
+  });
+} else if (dataPoints.length > 0) {
+  faqItems.push({
+    q: `${fishName}向け${typeName}の選び方は？`,
+    a: dataPoints[0] + '。',
   });
 }
 
@@ -275,6 +323,37 @@ const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, 
       </div>
 
     </div>
+
+    <!-- 選び方セクション -->
+    {(displayTips.length > 0 || dataPoints.length > 0) && (
+      <section class="mb-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">{fishName}向け{typeName}の選び方</h2>
+
+        {displayTips.map(tip => (
+          <div class="bg-gray-50 rounded-lg p-4 sm:p-5 mb-3">
+            <h3 class="text-sm font-semibold text-gray-900 mb-2">{tip.heading}</h3>
+            <p class="text-sm text-gray-700 leading-relaxed">{tip.body}</p>
+            <a href={`/guide/${tip.guideSlug}/`} class="inline-block mt-2 text-xs text-accent hover:underline">
+              ガイド記事で詳しく読む →
+            </a>
+          </div>
+        ))}
+
+        {dataPoints.length > 0 && (
+          <div class="bg-white rounded-lg border border-gray-100 p-4 sm:p-5">
+            <h3 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-3">データから見る選び方のポイント</h3>
+            <ul class="space-y-2">
+              {dataPoints.map(point => (
+                <li class="text-sm text-gray-700 leading-relaxed flex gap-2">
+                  <span class="text-accent shrink-0 mt-0.5">▸</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </section>
+    )}
 
     <!-- 登録ルアー一覧 -->
     <h2 class="text-lg font-bold text-gray-900 mb-4">登録ルアー {rankedSeries.length}シリーズ</h2>
