@@ -155,6 +155,11 @@ const rankingLinks = guide.targetFish.flatMap(fish =>
     {guide.sections.map((section, i) => {
       const typeKey = guide.targetTypes[i];
       const typeLures = typeKey ? (byType[typeKey] || []) : [];
+      // セクションに対応するランキングページへのリンクを生成
+      const sectionRankingLinks = typeKey ? guide.targetFish.map(fish => ({
+        label: `${fish}×${typeKey}のおすすめ一覧`,
+        href: `/ranking/${getFishSlug(fish)}-${getTypeSlug(typeKey)}/`,
+      })) : [];
 
       return (
         <section id={`section-${i}`} class="mb-10">
@@ -168,6 +173,18 @@ const rankingLinks = guide.targetFish.flatMap(fish =>
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-4">
               {typeLures.map(s => (
                 <LureCard series={s} isNew={false} />
+              ))}
+            </div>
+          )}
+
+          {/* 該当ランキングへの導線 */}
+          {sectionRankingLinks.length > 0 && (
+            <div class="flex flex-wrap gap-2 mt-3">
+              {sectionRankingLinks.map(link => (
+                <a href={link.href} class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-accent bg-accent-bg rounded-full hover:bg-accent/10 transition-colors">
+                  {link.label}
+                  <span class="text-sm">→</span>
+                </a>
               ))}
             </div>
           )}
