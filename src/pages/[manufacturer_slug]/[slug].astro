@@ -166,7 +166,9 @@ function optimizeTitleName(name: string): string {
 const seoName = optimizeTitleName(series.name);
 // type（エギ、ミノー等）をtitleに含めてロングテールクエリに対応
 const typeInTitle = series.type && !seoName.includes(series.type) ? ` ${series.type}` : '';
-const pageTitle = `${seoName} ${series.manufacturer}${typeInTitle}のスペック・カラー・価格 | CAST/LOG`;
+// KP分析: 「[商品名] おすすめ カラー」パターンが20-140/月/商品
+// 「カラー」「一覧」をtitleに含めCTR向上、具体的なカラー数で差別化
+const pageTitle = `${seoName} ${series.manufacturer}${typeInTitle} 全${series.color_count}色カラー一覧 | CAST/LOG`;
 
 // --- SEO: Description ---
 const specs = [
@@ -176,11 +178,11 @@ const specs = [
   `${series.color_count}カラー`,
 ].filter(Boolean).join('・');
 
-// meta description: SEO最適化済み名称を先頭に配置し、検索クエリとの一致率を高める
-// 先頭に「SEO名（メーカー名のタイプ）」を置き、説明文・スペック・カラー・価格キーワードを含める
+// meta description: KP分析に基づき、カラー数・スペック・価格を先頭に配置
+// 「おすすめ カラー」検索に対応: 具体的な色数とスペックを前面に出しCTR向上
 const pageDescription = series.description
-  ? `${seoName}（${series.manufacturer}の${series.type}）｜${series.description}${series.color_count}カラー展開。`
-  : `${seoName}（${series.manufacturer}の${series.type}）｜${specs}のスペック・全${series.color_count}カラーバリエーション${hasPrice ? `・価格${priceDisplay}` : ''}を掲載。CAST/LOG`;
+  ? `${seoName}（${series.manufacturer}の${series.type}）全${series.color_count}色｜${series.description}${hasPrice ? `価格${priceDisplay}。` : ''}`
+  : `${seoName}（${series.manufacturer}の${series.type}）全${series.color_count}色のカラーバリエーション｜${specs}${hasPrice ? `・価格${priceDisplay}` : ''}を掲載。CAST/LOG`;
 
 // --- SEO: 自然言語スペック要約（ページ内表示用）---
 const specParts: string[] = [];
