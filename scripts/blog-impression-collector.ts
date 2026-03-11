@@ -5,12 +5,11 @@
  * ルアー名 + 「インプレ」でGoogle検索し、関連ブログ記事のURL・タイトルを収集。
  * 各ルアー詳細ページに「インプレ記事まとめ」セクションとして表示するためのデータ収集。
  *
- * Google Custom Search API を使用（無料枠: 100クエリ/日）。
- * https://programmablesearchengine.google.com/
+ * Serper.dev API を使用（無料枠: 2,500クエリ/月）。
+ * ※ Google CSE APIは新規受付停止（2027年終了）のためSerperに移行。
  *
  * 前提:
- *   GOOGLE_CSE_ID=xxxxxxxxxx        (カスタム検索エンジンID)
- *   GOOGLE_CSE_API_KEY=AIza...      (APIキー)
+ *   SERPER_API_KEY=xxxxx             (Serper.dev APIキー)
  *
  * Usage:
  *   npx tsx scripts/blog-impression-collector.ts --dry-run        # 対象一覧表示
@@ -18,18 +17,17 @@
  *   npx tsx scripts/blog-impression-collector.ts --lure ハグゴス   # 特定ルアー
  *   npx tsx scripts/blog-impression-collector.ts --verbose         # 詳細出力
  *
- * クォータ: 100クエリ/日（無料枠）
+ * クォータ: 2,500クエリ/月（無料枠）
  */
 
 import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
+import { searchWithSerper, isSerperConfigured } from './lib/serper.js';
 
 // ─── Config ───────────────────────────────────────────
 
-const CSE_ID = process.env.GOOGLE_CSE_ID;
-const CSE_API_KEY = process.env.GOOGLE_CSE_API_KEY;
 const DATA_DIR = path.join(import.meta.dirname, '..', 'logs', 'impression-data');
 
 const DRY_RUN = process.argv.includes('--dry-run');
@@ -60,7 +58,7 @@ function logV(msg: string) { if (VERBOSE) log(msg); }
 function sleep(ms: number) { return new Promise(r => setTimeout(r, ms)); }
 function todayStr() { return new Date().toISOString().split('T')[0]; }
 
-// ─── Google Custom Search API ─────────────────────────
+// ─── Serper.dev 検索 ─────────────────────────────────
 
 interface BlogArticle {
   title: string;
@@ -71,36 +69,18 @@ interface BlogArticle {
 }
 
 async function searchBlogImpressions(lureName: string): Promise<BlogArticle[]> {
-  if (!CSE_ID || !CSE_API_KEY) {
-    throw new Error('GOOGLE_CSE_ID / GOOGLE_CSE_API_KEY not set');
-  }
-
   const query = `${lureName} インプレ`;
   const excludeQuery = EXCLUDED_DOMAINS.map(d => `-site:${d}`).join(' ');
   const fullQuery = `${query} ${excludeQuery}`;
 
-  const url = new URL('https://www.googleapis.com/customsearch/v1');
-  url.searchParams.set('key', CSE_API_KEY);
-  url.searchParams.set('cx', CSE_ID);
-  url.searchParams.set('q', fullQuery);
-  url.searchParams.set('num', '10');
-  url.searchParams.set('lr', 'lang_ja');
-  url.searchParams.set('gl', 'jp');
+  const results = await searchWithSerper(fullQuery, { num: 10 });
 
-  const res = await fetch(url.toString());
-  const data = await res.json() as any;
-
-  if (data.error) {
-    throw new Error(`CSE API error: ${JSON.stringify(data.error)}`);
-  }
-
-  const items = data.items || [];
-  return items.map((item: any) => ({
-    title: item.title || '',
-    url: item.link || '',
-    snippet: item.snippet || '',
-    displayLink: item.displayLink || '',
-    datePublished: item.pagemap?.metatags?.[0]?.['article:published_time'] || undefined,
+  return results.map(r => ({
+    title: r.title,
+    url: r.link,
+    snippet: r.snippet,
+    displayLink: r.domain,
+    datePublished: r.date || undefined,
   }));
 }
 
@@ -206,15 +186,11 @@ interface LureImpressions {
 async function main() {
   log('=== Blog Impression Collector ===');
 
-  if (!CSE_ID || !CSE_API_KEY) {
-    console.error('\n❌ Google Custom Search API が設定されていません。');
+  if (!isSerperConfigured()) {
+    console.error('\n❌ Serper.dev API が設定されていません。');
     console.error('\n設定手順:');
-    console.error('  1. https://programmablesearchengine.google.com/ でカスタム検索エンジンを作成');
-    console.error('     - 「ウェブ全体を検索」を選択');
-    console.error('  2. 検索エンジンIDを取得 → .env に GOOGLE_CSE_ID=xxx');
-    console.error('  3. https://console.cloud.google.com/apis/library/customsearch.googleapis.com');
-    console.error('     - Custom Search API を有効化');
-    console.error('  4. APIキーを取得 → .env に GOOGLE_CSE_API_KEY=AIza...');
+    console.error('  1. https://serper.dev/ でアカウント作成（無料枠 2,500クエリ/月）');
+    console.error('  2. APIキーを取得 → .env に SERPER_API_KEY=xxxxx');
     if (!DRY_RUN) process.exit(1);
   }
 
@@ -250,7 +226,7 @@ async function main() {
     return;
   }
 
-  if (!CSE_ID || !CSE_API_KEY) return;
+  if (!isSerperConfigured()) return;
 
   // 収集実行
   const results: LureImpressions[] = [];

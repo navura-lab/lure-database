@@ -6,7 +6,7 @@
  * CAST/LOGのページとの差分を特定する。
  *
  * データソース:
- *   1. Google Custom Search API（100クエリ/日無料）
+ *   1. Serper.dev API（2,500クエリ/月無料）
  *   2. fetch + cheerio でHTMLメタデータ抽出
  *
  * 出力:
@@ -28,13 +28,12 @@ import fs from 'fs';
 import path from 'path';
 import * as cheerio from 'cheerio';
 import { getSearchAnalytics, daysAgo, todayStr, sleep } from './lib/gsc-client.js';
+import { searchWithSerper, isSerperConfigured } from './lib/serper.js';
 
 // ─── Config ───────────────────────────────────────────
 
 const DATA_DIR = path.join(import.meta.dirname, '..', 'logs', 'seo-data', 'competitors');
 const RANKINGS_DIR = path.join(import.meta.dirname, '..', 'logs', 'seo-data', 'rankings');
-const GOOGLE_CSE_ID = process.env.GOOGLE_CSE_ID;
-const GOOGLE_CSE_API_KEY = process.env.GOOGLE_CSE_API_KEY;
 
 const VERBOSE = process.argv.includes('--verbose');
 const LIMIT = (() => {
@@ -95,36 +94,22 @@ interface CompetitorAnalysis {
   recommendations: string[]; // 改善提案
 }
 
-// ─── Google Custom Search API ─────────────────────────
+// ─── Serper.dev 検索 ─────────────────────────────────
 
 async function searchGoogle(query: string, num = 10): Promise<SerpResult[]> {
-  if (!GOOGLE_CSE_ID || !GOOGLE_CSE_API_KEY) {
-    log('⚠️ GOOGLE_CSE_ID/GOOGLE_CSE_API_KEY 未設定。SERP取得をスキップ');
+  if (!isSerperConfigured()) {
+    log('⚠️ SERPER_API_KEY 未設定。SERP取得をスキップ');
     return [];
   }
 
-  const url = new URL('https://www.googleapis.com/customsearch/v1');
-  url.searchParams.set('key', GOOGLE_CSE_API_KEY);
-  url.searchParams.set('cx', GOOGLE_CSE_ID);
-  url.searchParams.set('q', query);
-  url.searchParams.set('num', String(Math.min(num, 10)));
-  url.searchParams.set('gl', 'jp');
-  url.searchParams.set('hl', 'ja');
+  const results = await searchWithSerper(query, { num: Math.min(num, 10) });
 
-  const res = await fetch(url.toString());
-  const data = await res.json() as any;
-
-  if (data.error) {
-    log(`CSE API error: ${JSON.stringify(data.error)}`);
-    return [];
-  }
-
-  return (data.items || []).map((item: any, i: number) => ({
-    position: i + 1,
-    title: item.title || '',
-    url: item.link || '',
-    snippet: item.snippet || '',
-    domain: new URL(item.link || 'https://unknown').hostname,
+  return results.map(r => ({
+    position: r.position,
+    title: r.title,
+    url: r.link,
+    snippet: r.snippet,
+    domain: r.domain,
   }));
 }
 
