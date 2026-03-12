@@ -21,15 +21,28 @@ import feedPopperColor from './feed-popper-color.js';
 import rollingBaitColor from './rolling-bait-color.js';
 import switchHitterColor from './switch-hitter-color.js';
 import kohgaBayRubberColor from './kohga-bay-rubber-color.js';
+// レビュー分析記事
+import monsterShotReview from './monster-shot-review.js';
+import onimaruReview from './onimaru-review.js';
+import jigparaMicroSlimReview from './jigpara-micro-slim-review.js';
+import metalmaruReview from './metalmaru-review.js';
+import flickShakeReview from './flick-shake-review.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
 export const contentArticles: ContentArticle[] = [
+  // カラーガイド
   jigparaVerticalShortColor,
   feedPopperColor,
   rollingBaitColor,
   switchHitterColor,
   kohgaBayRubberColor,
+  // レビュー分析
+  monsterShotReview,
+  onimaruReview,
+  jigparaMicroSlimReview,
+  metalmaruReview,
+  flickShakeReview,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
