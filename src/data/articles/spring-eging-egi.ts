@@ -10,7 +10,12 @@ const article: ContentArticle = {
   subKeywords: ['春イカ エギ おすすめ', 'アオリイカ 春 ルアー', 'エギ 3.5号 おすすめ', 'エギング 4月 5月'],
   targetFish: ['アオリイカ'],
   targetTypes: ['エギ'],
-  targetLureSlugs: [],
+  targetLureSlugs: [
+    'tobukirari-ika',                // LUCKY CRAFT 飛ぶキラリ（44色）
+    '80-609',                        // がまかつ スピードメタル エギドロッパー2.5（40色）
+    'squid-seeker-30-regular',       // ValleyHill Squid Seeker 30 Regular（34色）
+    'driftbancho',                   // EVERGREEN ドリフト番長（31色）
+  ],
   lead: '春（3月〜6月）のエギングは親イカシーズンだ。産卵のために接岸する大型のアオリイカを狙える一年で最もエキサイティングな時期である。CAST/LOGのデータベースにはアオリイカ対応のエギが44シリーズ登録されている。春イカ攻略に必要な号数・カラー・沈下速度の選び方を、データに基づいて解説する。',
   sections: [
     {

@@ -10,7 +10,13 @@ const article: ContentArticle = {
   subKeywords: ['メバル 春 ルアー', 'メバリング 3月 4月', 'メバル ワーム おすすめ 春', 'プラッギング メバル 春'],
   targetFish: ['メバル'],
   targetTypes: ['ワーム', 'ミノー', 'メタルジグ'],
-  targetLureSlugs: [],
+  targetLureSlugs: [
+    'epecxf5',                // DAIWA 月下美人 ビームスティック（ワーム24色）
+    'v62ag37',                // DAIWA 月下美人ソードビーム（ワーム22色）
+    'tetra-works-toto-42s',   // DUO TETRA WORKS TOTO 42S（ミノー22色）
+    'metalmaru',              // BREADEN Metalmaru（スピンテール19色）
+    'jig2-mebaruchun',        // JAZZ 爆釣JIGⅡ メバルチューン（メタルジグ20色）
+  ],
   lead: '春（3月〜5月）はメバリングの後半戦だ。冬に産卵を終えたメバルが体力回復のために活発にエサを追い始める時期で、大型の実績も高い。CAST/LOGのデータベースにはメバル対応ルアーがワーム79シリーズ、ミノー41シリーズ、メタルジグ16シリーズと充実している。春メバル特有のパターンに合わせたルアー選びを解説する。',
   sections: [
     {

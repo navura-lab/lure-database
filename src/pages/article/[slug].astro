@@ -292,10 +292,27 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
       </section>
     )}
 
-    <!-- 関連ルアー -->
+    <!-- 注目ルアー（記事で直接参照したルアー） -->
+    {referencedSeries.length > 0 && (
+      <section id="featured-lures" class="mb-10">
+        <h2 class="text-xl font-bold text-gray-900 mb-2">この記事で紹介したルアー</h2>
+        <p class="text-sm text-gray-600 mb-6">
+          記事内で取り上げた{referencedSeries.length}シリーズ。各ルアーの全カラー・スペック詳細はリンク先で確認できる。
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {referencedSeries.map(s => (
+            <LureCard series={s} isNew={false} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 関連ルアー（自動マッチ） -->
     {topPicks.length > 0 && (
       <section id="related-lures" class="mb-10">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">関連ルアー</h2>
+        <h2 class="text-xl font-bold text-gray-900 mb-2">
+          {article.targetFish.length > 0 ? `${article.targetFish[0]}向けルアーをもっと見る` : '関連ルアー'}
+        </h2>
         <p class="text-sm text-gray-600 mb-6">
           データベースからカラー展開数順にピックアップ。
         </p>
@@ -326,6 +343,15 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
             class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-accent bg-accent-bg rounded-full hover:bg-accent/10 transition-colors"
           >
             ガイド: {slug}
+            <span class="text-sm">→</span>
+          </a>
+        ))}
+        {referencedSeries.map(s => (
+          <a
+            href={`/${s.manufacturer_slug}/${s.slug}/`}
+            class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-50 rounded-full hover:bg-gray-100 transition-colors"
+          >
+            {s.manufacturer} {s.name}
             <span class="text-sm">→</span>
           </a>
         ))}

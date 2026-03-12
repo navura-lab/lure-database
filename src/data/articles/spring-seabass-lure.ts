@@ -10,7 +10,14 @@ const article: ContentArticle = {
   subKeywords: ['バチ抜け ルアー おすすめ', 'マイクロベイト シーバス', '春シーバス 釣り方', 'シーバス ルアー 3月 4月 5月'],
   targetFish: ['シーバス'],
   targetTypes: ['シンキングペンシル', 'ミノー', 'バイブレーション', 'ワーム'],
-  targetLureSlugs: [],
+  targetLureSlugs: [
+    'wander-salt',          // LUCKY CRAFT Wander（シンペン55色）
+    'su-san',               // ValleyHill SU-SAN スーサン（シンペン41色）
+    'buttobi-kun95s',       // Jumprize ぶっ飛び君95S（シンペン37色）
+    'bk',                   // Tackle House K-TEN ブルーオーシャン（ミノー50色）
+    'rapala-cd',            // Rapala COUNTDOWN（ミノー49色）
+    'shiriten-vibe53',      // MADNESS shiriten VIBE 53（バイブ46色）
+  ],
   lead: '春（3月〜5月）のシーバスゲームは、バチ抜けパターンとマイクロベイトパターンが主軸だ。CAST/LOGのデータベースにはシーバス対応ルアーがミノー102シリーズ、シンキングペンシル102シリーズ、バイブレーション50シリーズと豊富に登録されている。春特有のパターンに合わせたルアー選びのポイントと、データベースから導き出したおすすめルアーを解説する。',
   sections: [
     {
