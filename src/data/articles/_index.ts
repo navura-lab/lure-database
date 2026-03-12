@@ -88,6 +88,17 @@ import seabassShad from './seabass-shad.js';
 import bassPopper from './bass-popper.js';
 import aomonoTairaba from './aomono-tairaba.js';
 import seabassJighead from './seabass-jighead.js';
+// 追加記事（GSCデータ駆動 第8弾）
+import seabassVibration from './seabass-vibration.js';
+import mebaruWorm from './mebaru-worm.js';
+import ajiJighead from './aji-jighead.js';
+import rockfishWorm from './rockfish-worm.js';
+import bassBigbait from './bass-bigbait.js';
+import tachiuoMetaljig from './tachiuo-metaljig.js';
+import hirameMetaljig from './hirame-metaljig.js';
+import bassMetalVib from './bass-metal-vib.js';
+import mebaruJighead from './mebaru-jighead.js';
+import seabassWorm from './seabass-worm.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -165,6 +176,17 @@ export const contentArticles: ContentArticle[] = [
   bassPopper,
   aomonoTairaba,
   seabassJighead,
+  // GSCデータ駆動記事（第8弾）
+  seabassVibration,
+  mebaruWorm,
+  ajiJighead,
+  rockfishWorm,
+  bassBigbait,
+  tachiuoMetaljig,
+  hirameMetaljig,
+  bassMetalVib,
+  mebaruJighead,
+  seabassWorm,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
