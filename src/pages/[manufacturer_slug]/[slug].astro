@@ -120,6 +120,11 @@ export async function getStaticPaths() {
     const pageKey = `${series.manufacturer_slug}/${series.slug}`;
     const canonicalPathOverride = canonicalGroups.get(pageKey) || null;
 
+    // 比較テーブル用: 同魚種×同タイプのピア（自分除外、上位5件）
+    const categoryComparisonPeers = sortedPeers
+      .filter(s => !(s.slug === series.slug && s.manufacturer_slug === series.manufacturer_slug))
+      .slice(0, 5);
+
     return {
       params: { manufacturer_slug: series.manufacturer_slug, slug: series.slug },
       props: {
@@ -129,6 +134,7 @@ export async function getStaticPaths() {
         categoryFish: primaryFish || '',
         colorBreakdown,
         relatedContentArticles,
+        categoryComparisonPeers,
       },
     };
   });
@@ -137,6 +143,7 @@ export async function getStaticPaths() {
 const {
   series, relatedByType, relatedByMaker, relatedByFish, canonicalPathOverride,
   categoryRank, categoryTotal, categoryFish, colorBreakdown, relatedContentArticles,
+  categoryComparisonPeers,
 } = Astro.props as {
   series: LureSeries;
   relatedByType: LureSeries[];
@@ -148,6 +155,7 @@ const {
   categoryFish: string;
   colorBreakdown: ColorBreakdownEntry[];
   relatedContentArticles: ContentArticle[];
+  categoryComparisonPeers: LureSeries[];
 };
 
 const hasLimited = series.colors.some(c => c.is_limited);
@@ -252,9 +260,13 @@ function truncateDescription(raw: string, maxLen: number = 155): string {
   return raw.slice(0, maxLen - 1) + '…';
 }
 
+// カテゴリ順位をdescriptionに反映（上位10位以内なら訴求力UP）
+const rankLabel = categoryRank > 0 && categoryRank <= 10 && categoryFish
+  ? `${categoryFish}向け${series.type}${categoryTotal}選中${categoryRank}位。`
+  : '';
 const rawDescription = series.description
-  ? `${seoName}（${series.manufacturer}の${series.type}）全${series.color_count}色｜${series.description}${hasPrice ? `価格${priceDisplay}。` : ''}`
-  : `${seoName}（${series.manufacturer}の${series.type}）全${series.color_count}色のカラーバリエーション｜${specs}${hasPrice ? `・価格${priceDisplay}` : ''}を掲載。`;
+  ? `${seoName}（${series.manufacturer}の${series.type}）全${series.color_count}色を徹底比較。${rankLabel}${series.description}${hasPrice ? `価格${priceDisplay}。` : ''}`
+  : `${seoName}（${series.manufacturer}の${series.type}）全${series.color_count}色のおすすめカラーを比較｜${rankLabel}${specs}${hasPrice ? `・価格${priceDisplay}` : ''}を掲載。`;
 const pageDescription = truncateDescription(rawDescription);
 
 // --- SEO: 自然言語スペック要約（ページ内表示用）---
@@ -932,67 +944,83 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
       </section>
     )}
 
-    <!-- 似たルアーの比較 -->
-    {relatedByType.length > 0 && (
-      <section class="mb-12">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}と似たルアーの比較</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm border border-gray-100 rounded-lg overflow-hidden">
-            <thead>
-              <tr class="bg-gray-50 text-left">
-                <th class="px-3 py-2 font-medium text-text-dim text-xs">ルアー名</th>
-                <th class="px-3 py-2 font-medium text-text-dim text-xs">メーカー</th>
-                <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">重量</th>
-                <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">全長</th>
-                <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">カラー数</th>
-                <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">価格</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* 自分自身を先頭行に表示 */}
-              <tr class="border-t border-gray-50 bg-accent/5">
-                <td class="px-3 py-2 font-medium text-gray-900">{series.name}</td>
-                <td class="px-3 py-2 text-text-mid font-mono text-xs">{series.manufacturer}</td>
-                <td class="px-3 py-2 text-right font-mono text-xs">{weightDisplay || '-'}</td>
-                <td class="px-3 py-2 text-right font-mono text-xs">{lengthDisplay || '-'}</td>
-                <td class="px-3 py-2 text-right font-mono text-xs">{series.color_count}</td>
-                <td class="px-3 py-2 text-right font-mono text-xs">{priceDisplay || '-'}</td>
-              </tr>
-              {relatedByType.slice(0, 5).map(s => {
-                const w = s.weight_range.min
-                  ? s.weight_range.min === s.weight_range.max
-                    ? `${s.weight_range.min}g`
-                    : `${s.weight_range.min}~${s.weight_range.max}g`
-                  : '-';
-                const l = s.length_range.min
-                  ? s.length_range.min === s.length_range.max
-                    ? `${s.length_range.min}mm`
-                    : `${s.length_range.min}~${s.length_range.max}mm`
-                  : '-';
-                const p = s.price_range.max > 0
-                  ? s.price_range.min === s.price_range.max
-                    ? `¥${s.price_range.min.toLocaleString()}`
-                    : `¥${s.price_range.min.toLocaleString()}~`
-                  : '-';
-                return (
-                  <tr class="border-t border-gray-50 hover:bg-gray-50 transition-colors">
-                    <td class="px-3 py-2">
-                      <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="text-accent hover:underline font-medium">{s.name}</a>
-                    </td>
-                    <td class="px-3 py-2 text-text-mid font-mono text-xs">{s.manufacturer}</td>
-                    <td class="px-3 py-2 text-right font-mono text-xs">{w}</td>
-                    <td class="px-3 py-2 text-right font-mono text-xs">{l}</td>
-                    <td class="px-3 py-2 text-right font-mono text-xs">{s.color_count}</td>
-                    <td class="px-3 py-2 text-right font-mono text-xs">{p}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-        <p class="text-xs text-text-faint mt-2">※ 同タイプのルアーをスペックで比較。順序はカラー展開数順。</p>
-      </section>
-    )}
+    <!-- 似たルアーの比較（同魚種×同タイプ） -->
+    {(() => {
+      const peers = categoryComparisonPeers.length > 0 ? categoryComparisonPeers : relatedByType.slice(0, 5);
+      const isFishType = categoryComparisonPeers.length > 0 && categoryFish;
+      const tableLabel = isFishType
+        ? `${categoryFish}向け${series.type}の比較`
+        : `${series.name}と似たルアーの比較`;
+      const tableNote = isFishType
+        ? `※ ${categoryFish}×${series.type}カテゴリ内のスペック比較。カラー展開数順。`
+        : `※ 同タイプのルアーをスペックで比較。カラー展開数順。`;
+      return peers.length > 0 && (
+        <section class="mb-12">
+          <h2 class="text-xl font-bold text-gray-900 mb-4">{tableLabel}</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border border-gray-100 rounded-lg overflow-hidden">
+              <thead>
+                <tr class="bg-gray-50 text-left">
+                  <th class="px-3 py-2 font-medium text-text-dim text-xs">ルアー名</th>
+                  <th class="px-3 py-2 font-medium text-text-dim text-xs">メーカー</th>
+                  <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">重量</th>
+                  <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">全長</th>
+                  <th class="px-3 py-2 font-medium text-text-dim text-xs">レンジ</th>
+                  <th class="px-3 py-2 font-medium text-text-dim text-xs">アクション</th>
+                  <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">カラー数</th>
+                  <th class="px-3 py-2 font-medium text-text-dim text-xs text-right">価格</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* 自分自身を先頭行に表示 */}
+                <tr class="border-t border-gray-50 bg-accent/5">
+                  <td class="px-3 py-2 font-medium text-gray-900">{series.name}</td>
+                  <td class="px-3 py-2 text-text-mid font-mono text-xs">{series.manufacturer}</td>
+                  <td class="px-3 py-2 text-right font-mono text-xs">{weightDisplay || '-'}</td>
+                  <td class="px-3 py-2 text-right font-mono text-xs">{lengthDisplay || '-'}</td>
+                  <td class="px-3 py-2 text-text-mid text-xs">{series.diving_depth || '-'}</td>
+                  <td class="px-3 py-2 text-text-mid text-xs">{series.action_type || '-'}</td>
+                  <td class="px-3 py-2 text-right font-mono text-xs">{series.color_count}</td>
+                  <td class="px-3 py-2 text-right font-mono text-xs">{priceDisplay || '-'}</td>
+                </tr>
+                {peers.map(s => {
+                  const w = s.weight_range.min
+                    ? s.weight_range.min === s.weight_range.max
+                      ? `${s.weight_range.min}g`
+                      : `${s.weight_range.min}~${s.weight_range.max}g`
+                    : '-';
+                  const l = s.length_range.min
+                    ? s.length_range.min === s.length_range.max
+                      ? `${s.length_range.min}mm`
+                      : `${s.length_range.min}~${s.length_range.max}mm`
+                    : '-';
+                  const p = s.price_range.max > 0
+                    ? s.price_range.min === s.price_range.max
+                      ? `¥${s.price_range.min.toLocaleString()}`
+                      : `¥${s.price_range.min.toLocaleString()}~`
+                    : '-';
+                  return (
+                    <tr class="border-t border-gray-50 hover:bg-gray-50 transition-colors">
+                      <td class="px-3 py-2">
+                        <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="text-accent hover:underline font-medium">{s.name}</a>
+                      </td>
+                      <td class="px-3 py-2 text-text-mid font-mono text-xs">{s.manufacturer}</td>
+                      <td class="px-3 py-2 text-right font-mono text-xs">{w}</td>
+                      <td class="px-3 py-2 text-right font-mono text-xs">{l}</td>
+                      <td class="px-3 py-2 text-text-mid text-xs">{s.diving_depth || '-'}</td>
+                      <td class="px-3 py-2 text-text-mid text-xs">{s.action_type || '-'}</td>
+                      <td class="px-3 py-2 text-right font-mono text-xs">{s.color_count}</td>
+                      <td class="px-3 py-2 text-right font-mono text-xs">{p}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-text-faint mt-2">{tableNote}</p>
+        </section>
+      );
+    })()}
 
     <!-- 関連ルアー: 同メーカー -->
     {relatedByMaker.length > 0 && (
