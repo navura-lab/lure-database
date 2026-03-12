@@ -126,7 +126,44 @@ const breadcrumbLd = {
   ],
 };
 
-const jsonLd = [breadcrumbLd] as unknown as Record<string, unknown>;
+// FAQ構造化データ（データ駆動で自動生成）
+const faqEntries: { '@type': string; name: string; acceptedAnswer: { '@type': string; text: string } }[] = [];
+
+// Q1: おすすめモデル
+const topNames = topSeries.slice(0, 3).map(s => s.name).join('、');
+faqEntries.push({
+  '@type': 'Question',
+  name: `${fishName}向け${typeName}のおすすめは？`,
+  acceptedAnswer: { '@type': 'Answer', text: `CAST/LOGデータベースに登録された${fishName}対応${typeName}${totalCount}シリーズの中で、カラー展開数が多い人気モデルは${topNames}など。各モデルの特徴とスペックを比較して、フィールドや釣り方に合った1本を選ぼう。` },
+});
+
+// Q2: 価格帯
+const allPrices = topSeries.flatMap(s => [s.price_range.min, s.price_range.max]).filter(p => p > 0);
+if (allPrices.length > 0) {
+  const minP = Math.min(...allPrices);
+  const maxP = Math.max(...allPrices);
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${fishName}向け${typeName}の価格帯は？`,
+    acceptedAnswer: { '@type': 'Answer', text: `上位${topSeries.length}モデルの価格帯は¥${minP.toLocaleString()}〜¥${maxP.toLocaleString()}。メーカーやカラー展開、素材によって価格差がある。` },
+  });
+}
+
+// Q3: 選び方
+const topManufacturers = [...new Set(topSeries.map(s => s.manufacturer))].slice(0, 3).join('、');
+faqEntries.push({
+  '@type': 'Question',
+  name: `${fishName}向け${typeName}の選び方は？`,
+  acceptedAnswer: { '@type': 'Answer', text: `${fishName}向け${typeName}選びのポイントは、重量・レンジ・カラー展開の3つ。${topManufacturers}など各メーカーが特徴あるモデルを展開している。フィールドのベイトサイズや水深に合わせてスペックを比較しよう。` },
+});
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqEntries,
+};
+
+const jsonLd = [breadcrumbLd, faqLd] as unknown as Record<string, unknown>;
 
 // ─── エディトリアル ───
 const editorial = getCompareEditorial(fishName, typeName, totalCount);
@@ -379,6 +416,24 @@ const relatedArticles = contentArticles.filter(a =>
             </div>
           );
         })}
+      </div>
+    </section>
+
+    <!-- ━━━ よくある質問 ━━━ -->
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">よくある質問</h2>
+      <div class="space-y-2">
+        {faqEntries.map((faq, i) => (
+          <details class="group bg-white rounded-lg border border-gray-100 overflow-hidden" open={i === 0}>
+            <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors">
+              <span class="text-sm font-semibold text-gray-900 pr-4">{faq.name}</span>
+              <svg class="w-4 h-4 text-text-dim shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-600 leading-relaxed border-t border-gray-50">
+              {faq.acceptedAnswer.text}
+            </div>
+          </details>
+        ))}
       </div>
     </section>
 
