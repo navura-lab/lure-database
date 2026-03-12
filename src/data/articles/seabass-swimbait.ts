@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['シーバス ビッグベイト おすすめ', 'コノシロパターン ルアー', 'シーバス スイムベイト 使い方'],
   targetFish: ['シーバス'],
   targetTypes: ['スイムベイト'],
-  targetLureSlugs: ['axle-swimbait-jig-heads-raw', 'jolty', 'trshd', 'scented-paddlerz'],
+  targetLureSlugs: ['mag-draft', 'jolty', 'trshd', 'scented-paddlerz'],
   lead: 'スイムベイト（ビッグベイト）はシーバスのコノシロパターンやランカー狙いで威力を発揮する大型ルアーだ。CAST/LOGのデータベースにはシーバス対応スイムベイトが多数登録されている。100-200mmクラスの大型ルアーをデッドスローで巻く釣りは、ランカーシーバスに最も近づける方法の一つ。コノシロやボラの群れにシーバスが付いている状況で、マッチザベイトの威力を発揮する。',
   sections: [
     {

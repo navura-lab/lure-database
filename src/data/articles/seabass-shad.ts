@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['シーバス シャッド 使い方', 'デイシーバス シャッド', 'シーバス シャッドプラグ'],
   targetFish: ['シーバス'],
   targetTypes: ['シャッド'],
-  targetLureSlugs: ['rapala-sr', 'rapala-jgr', 'rapala-sre', 'rapala-ssr'],
+  targetLureSlugs: ['rapala-sr', 'zabura-shaddo-70ss', 'rapala-sre', 'rapala-ssr'],
   lead: 'シャッドはシーバスのデイゲームで切り札となるルアーだ。CAST/LOGのデータベースにはシーバス対応シャッドが登録されており、RAPALAの各シャッドシリーズが豊富なバリエーションを展開している。ミノーより一回り小さく繊細なアクションで、ハイプレッシャーフィールドのシーバスに口を使わせる。リップの角度が深いためミノーより深いレンジを引けるのも強みだ。',
   sections: [
     {

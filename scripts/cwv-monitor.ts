@@ -102,7 +102,7 @@ async function main() {
   const path = await import('path');
 
   const today = new Date().toISOString().slice(0, 10);
-  const outDir = path.resolve(__dirname, '..', 'logs', 'seo-data');
+  const outDir = path.resolve(import.meta.dirname, '..', 'logs', 'seo-data');
   fs.mkdirSync(outDir, { recursive: true });
   const outFile = path.join(outDir, `cwv-${today}.json`);
 

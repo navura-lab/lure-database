@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['キハダマグロ ジグ おすすめ', 'マグロジギング ジグ', 'マグロ ジギング メタルジグ'],
   targetFish: ['マグロ'],
   targetTypes: ['メタルジグ'],
-  targetLureSlugs: ['slash-blade', 'wigglerider', 'keitan-jig', 'swimridershort'],
+  targetLureSlugs: ['slash-blade', 'keitan-jig', 'jig-1501', 'killer-jig-v'],
   lead: 'マグロジギングはオフショアフィッシングの最高峰だ。CAST/LOGのデータベースには89シリーズものマグロ対応メタルジグが登録されている。キハダマグロ（10-50kg）やビンチョウマグロ（5-20kg）を相手にするため、ジグもタックルも最高強度のものが求められる。HOTSやNature Boysなど専門メーカーのジグが主力を占める。',
   sections: [
     {

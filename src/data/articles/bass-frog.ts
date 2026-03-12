@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['フロッグ バス おすすめ', 'バス釣り フロッグ 使い方', 'フロッグ ルアー ランキング'],
   targetFish: ['ブラックバス'],
   targetTypes: ['フロッグ'],
-  targetLureSlugs: ['masterclass-tungsten-ball-jig-head-raw', 'masterclass-lead-ball-jig-head-raw', 'bronzeye-frog-65', 'bronzeye-pop-60'],
+  targetLureSlugs: ['skating-frog', 'popperfrog', 'bronzeye-frog-65', 'bronzeye-pop-60'],
   lead: 'フロッグはウィードマットやリリーパッドの上を通せる唯一のトップウォータールアーだ。CAST/LOGのデータベースには143シリーズものバス向けフロッグが登録されている。SPROのBRONZEYE FROGは91色を展開する定番中の定番。ダブルフックがボディに密着するスナッグレス設計により、他のルアーが入れないヘビーカバーに潜むビッグバスを引きずり出すことができる。',
   sections: [
     {

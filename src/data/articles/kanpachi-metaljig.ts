@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['カンパチ ジグ おすすめ', 'カンパチ ジギング ジグ ランキング', 'ショアカンパチ ジグ'],
   targetFish: ['カンパチ'],
   targetTypes: ['メタルジグ'],
-  targetLureSlugs: ['slash-blade', 'wigglerider', 'keitan-jig', 'swimridershort'],
+  targetLureSlugs: ['slash-blade', 'wigglerider', 'arrow', 'messiah'],
   lead: 'カンパチは青物の中でも特にボトム付近に居着く傾向が強く、メタルジグのフォールに好反応を示す魚だ。CAST/LOGのデータベースには126シリーズものカンパチ対応メタルジグが登録されている。HOTSのSLASH BLADEは144色、Nature BoysのWiggleRiderは112色と、カンパチジギング専門メーカーの充実したラインナップが揃う。ブリやヒラマサとは異なるカンパチ特有のジグ選びを解説する。',
   sections: [
     {

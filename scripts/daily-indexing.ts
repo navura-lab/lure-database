@@ -154,14 +154,33 @@ async function fetchAllLureUrls(): Promise<string[]> {
     log('Warning: dist/client/ranking/ not found, skipping ranking URLs');
   }
 
+  // 特集記事ページ（最優先 — SEO価値が最も高い）
+  const articleUrls: string[] = [];
+  try {
+    const { contentArticles } = await import('../src/data/articles/_index.js');
+    articleUrls.push(...contentArticles.map((a: any) => `${SITE_URL}article/${a.slug}/`));
+    log(`Article pages: ${articleUrls.length}`);
+  } catch {
+    log('Warning: articles not found, skipping article pages');
+  }
+
+  // 比較ページ（ランキングと同一slug体系）
+  const compareUrls = [...rankingSlugs].sort().map(s => `${SITE_URL}compare/${s}/`);
+
   const urls = [
     // 固定ページ（優先度最高）
     `${SITE_URL}`,
+    `${SITE_URL}article/`,
+    `${SITE_URL}compare/`,
     `${SITE_URL}ranking/`,
     `${SITE_URL}new/`,
     `${SITE_URL}fish/`,
     `${SITE_URL}type/`,
     `${SITE_URL}search/`,
+    // 特集記事（SEO価値 最高: 月100-300click/本）
+    ...articleUrls,
+    // 比較ページ（SEO価値 高: エディトリアル説明文付き）
+    ...compareUrls,
     // ランキングページ
     ...[...rankingSlugs].sort().map(s => `${SITE_URL}ranking/${s}/`),
     // メーカーページ

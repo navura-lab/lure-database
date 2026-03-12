@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['ブリ ジグ おすすめ', 'ブリジギング メタルジグ', 'ブリ ショアジギング ジグ'],
   targetFish: ['ブリ'],
   targetTypes: ['メタルジグ'],
-  targetLureSlugs: ['slash-blade', 'wigglerider', 'keitan-jig', 'swimridershort'],
+  targetLureSlugs: ['slash-blade', 'swimridershort', 'bunchin10', 'gravel'],
   lead: 'ブリは日本を代表する青物ターゲットで、メタルジグの主要ターゲットだ。CAST/LOGのデータベースには97シリーズものブリ対応メタルジグが登録されている。イナダ・ワラサ・ブリとサイズアップする成長過程で使うジグやタックルが変わるのが特徴。ショアジギングから船のジギングまで、ブリ狙いのジグ選びを解説する。',
   sections: [
     {

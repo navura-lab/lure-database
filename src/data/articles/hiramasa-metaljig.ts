@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['ヒラマサ ジグ おすすめ', 'ヒラマサジギング ジグ', 'ヒラマサ ショアジギング ジグ'],
   targetFish: ['ヒラマサ'],
   targetTypes: ['メタルジグ'],
-  targetLureSlugs: ['slash-blade', 'wigglerider', 'keitan-jig', 'swimridershort'],
+  targetLureSlugs: ['slash-blade', 'keitan-jig', 'arc', 'gokuusu-swim'],
   lead: 'ヒラマサは青物の中でも最も引きが強く、アングラーの憧れのターゲットだ。CAST/LOGのデータベースには124シリーズものヒラマサ対応メタルジグが登録されている。HOTSのSLASH BLADEは144色、Nature BoysのWiggleRiderは112色を展開。ブリやカンパチとは異なるヒラマサ特有のジグ選びとファイト対策を解説する。',
   sections: [
     {
