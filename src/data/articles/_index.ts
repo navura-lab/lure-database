@@ -77,6 +77,17 @@ import ajiWorm from './aji-worm.js';
 import ikaEgi from './ika-egi.js';
 import bassShad from './bass-shad.js';
 import bassChatterbait from './bass-chatterbait.js';
+// 追加記事（GSCデータ駆動 第7弾）
+import bassPencilbait from './bass-pencilbait.js';
+import bassBuzzbait from './bass-buzzbait.js';
+import bassJointedbait from './bass-jointedbait.js';
+import aomonoSinkingpencil from './aomono-sinkingpencil.js';
+import seabassSwimbait from './seabass-swimbait.js';
+import hirameMinnow from './hirame-minnow.js';
+import seabassShad from './seabass-shad.js';
+import bassPopper from './bass-popper.js';
+import aomonoTairaba from './aomono-tairaba.js';
+import seabassJighead from './seabass-jighead.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -143,6 +154,17 @@ export const contentArticles: ContentArticle[] = [
   ikaEgi,
   bassShad,
   bassChatterbait,
+  // GSCデータ駆動記事（第7弾）
+  bassPencilbait,
+  bassBuzzbait,
+  bassJointedbait,
+  aomonoSinkingpencil,
+  seabassSwimbait,
+  hirameMinnow,
+  seabassShad,
+  bassPopper,
+  aomonoTairaba,
+  seabassJighead,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
