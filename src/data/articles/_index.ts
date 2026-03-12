@@ -31,6 +31,12 @@ import flickShakeReview from './flick-shake-review.js';
 import springSeabassLure from './spring-seabass-lure.js';
 import springEgingEgi from './spring-eging-egi.js';
 import springMebaring from './spring-mebaring.js';
+// 追加記事（GSCデータ駆動）
+import magochiWorm from './magochi-worm.js';
+import seabassPopper from './seabass-popper.js';
+import bassSwimbait from './bass-swimbait.js';
+import mebaruMinnow from './mebaru-minnow.js';
+import aomonoWorm from './aomono-worm.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -51,6 +57,12 @@ export const contentArticles: ContentArticle[] = [
   springSeabassLure,
   springEgingEgi,
   springMebaring,
+  // GSCデータ駆動記事
+  magochiWorm,
+  seabassPopper,
+  bassSwimbait,
+  mebaruMinnow,
+  aomonoWorm,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
