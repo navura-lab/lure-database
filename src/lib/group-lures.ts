@@ -1,5 +1,6 @@
 import type { Lure } from './supabase';
 import type { LureSeries, ColorVariant, WeightVariant } from './types';
+import { filterInvalidFishForType, removeNonFishEntries } from './fish-type-validation';
 
 function stripHtmlTags(str: string): string {
   return str.replace(/<[^>]*>/g, '').trim();
@@ -84,9 +85,14 @@ export function groupLuresBySeries(lures: Lure[]): LureSeries[] {
     const weights = records.map(r => r.weight).filter(Boolean) as number[];
     const lengths = records.map(r => r.length).filter(Boolean) as number[];
 
-    const allTargetFish = [...new Set(
+    // L1バリデーション: 不正な魚種×タイプ組み合わせを除去
+    const rawTargetFish = [...new Set(
       records.flatMap(r => r.target_fish ?? [])
     )];
+    const allTargetFish = filterInvalidFishForType(
+      rep.type,
+      removeNonFishEntries(rawTargetFish),
+    );
 
     result.push({
       slug,
