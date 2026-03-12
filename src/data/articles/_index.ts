@@ -15,14 +15,21 @@
 import type { ContentArticle } from './_types.js';
 
 // ─── 記事インポート ───────────────────────────────────
-// 新規記事追加時はここに import を追加する
-// import slugName from './{slug}.js';
+// カラーガイド記事
+import jigparaVerticalShortColor from './jigpara-vertical-short-color.js';
+import feedPopperColor from './feed-popper-color.js';
+import rollingBaitColor from './rolling-bait-color.js';
+import switchHitterColor from './switch-hitter-color.js';
+import kohgaBayRubberColor from './kohga-bay-rubber-color.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
 export const contentArticles: ContentArticle[] = [
-  // 新規記事追加時はここに追加
-  // slugName,
+  jigparaVerticalShortColor,
+  feedPopperColor,
+  rollingBaitColor,
+  switchHitterColor,
+  kohgaBayRubberColor,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
