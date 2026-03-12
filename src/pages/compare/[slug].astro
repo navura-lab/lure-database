@@ -1,0 +1,378 @@
+---
+/**
+ * ルアー比較ページ — /compare/[slug]/
+ *
+ * ランキングと同じ魚種×タイプで上位5シリーズを横並び比較。
+ * ランキング（カード一覧）とは異なり、スペック・カラー系統を
+ * テーブル形式で比較できる差別化コンテンツ。
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
+import { computeColorBreakdown } from '../../lib/color-categories';
+import type { LureSeries } from '../../lib/types';
+import type { ColorBreakdownEntry } from '../../lib/color-categories';
+
+export async function getStaticPaths() {
+  const TOP_N = 5;
+  const MIN_SERIES = 3;
+  const lures = await fetchAllLures();
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  // 魚種×タイプのクロス集計（ranking と同一ロジック）
+  const crossMap = new Map<string, { fishName: string; typeName: string; series: LureSeries[] }>();
+  for (const s of allSeries) {
+    if (!s.type) continue;
+    for (const fish of s.target_fish) {
+      const fishSlug = getFishSlug(fish);
+      const typeSlug = getTypeSlug(s.type);
+      const key = `${fishSlug}-${typeSlug}`;
+      const existing = crossMap.get(key);
+      if (existing) {
+        existing.series.push(s);
+      } else {
+        crossMap.set(key, { fishName: fish, typeName: s.type, series: [s] });
+      }
+    }
+  }
+
+  return [...crossMap.entries()]
+    .filter(([_, v]) => v.series.length >= MIN_SERIES)
+    .map(([slug, { fishName, typeName, series }]) => {
+      // カラー展開数順でソート
+      const sorted = [...series].sort((a, b) => b.color_count - a.color_count);
+      const top = sorted.slice(0, TOP_N);
+
+      // 各ルアーのカラー系統を事前計算
+      const colorBreakdowns = top.map(s =>
+        computeColorBreakdown(s.colors.map(c => c.color_name))
+      );
+
+      return {
+        params: { slug },
+        props: {
+          fishName,
+          typeName,
+          topSeries: top,
+          totalCount: series.length,
+          colorBreakdowns,
+        },
+      };
+    });
+}
+
+interface Props {
+  fishName: string;
+  typeName: string;
+  topSeries: LureSeries[];
+  totalCount: number;
+  colorBreakdowns: ColorBreakdownEntry[][];
+}
+
+const { fishName, typeName, topSeries, totalCount, colorBreakdowns } = Astro.props;
+const slug = Astro.params.slug as string;
+
+// ─── ヘルパー ───
+
+function fmtPrice(p: { min: number; max: number }): string {
+  if (p.min <= 0 && p.max <= 0) return '—';
+  if (p.min === p.max) return `¥${p.min.toLocaleString()}`;
+  return `¥${p.min.toLocaleString()}〜¥${p.max.toLocaleString()}`;
+}
+
+function fmtRange(r: { min: number | null; max: number | null }, unit: string): string {
+  if (r.min == null && r.max == null) return '—';
+  if (r.min === r.max) return `${r.min}${unit}`;
+  if (r.min == null) return `〜${r.max}${unit}`;
+  if (r.max == null) return `${r.min}${unit}〜`;
+  return `${r.min}–${r.max}${unit}`;
+}
+
+// スペック比較行
+const specRows = [
+  { label: 'メーカー', values: topSeries.map(s => s.manufacturer) },
+  { label: '価格帯', values: topSeries.map(s => fmtPrice(s.price_range)) },
+  { label: '重量', values: topSeries.map(s => fmtRange(s.weight_range, 'g')) },
+  { label: '全長', values: topSeries.map(s => fmtRange(s.length_range, 'mm')) },
+  { label: 'カラー展開', values: topSeries.map(s => `${s.color_count}色`) },
+  { label: 'レンジ', values: topSeries.map(s => s.diving_depth || '—') },
+  { label: 'アクション', values: topSeries.map(s => s.action_type || '—') },
+];
+
+// 全ルアー横断のカラー系統ID一覧（共通カテゴリを上に出す）
+const allColorIds = new Set<string>();
+for (const bd of colorBreakdowns) {
+  for (const entry of bd) {
+    if (entry.id !== 'other') allColorIds.add(entry.id);
+  }
+}
+
+// ─── SEO ───
+
+const currentYear = new Date().getFullYear();
+const pageTitle = `${fishName}向け${typeName}おすすめ${topSeries.length}選を徹底比較【${currentYear}年】 | CAST/LOG`;
+const pageDescription = `${fishName}対応の${typeName}${totalCount}シリーズから上位${topSeries.length}モデルをスペック・カラー展開・価格で横並び比較。${topSeries.map(s => s.name).join('、')}の違いがひと目でわかる。`;
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
+    { '@type': 'ListItem', position: 2, name: '比較', item: 'https://www.lure-db.com/compare/' },
+    { '@type': 'ListItem', position: 3, name: `${fishName}×${typeName}`, item: `https://www.lure-db.com/compare/${slug}/` },
+  ],
+};
+
+const jsonLd = [breadcrumbLd] as unknown as Record<string, unknown>;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/compare/${slug}/`} jsonLd={jsonLd}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <a href="/compare/" class="hover:text-accent transition-colors">比較</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{fishName}×{typeName}</span>
+    </nav>
+
+    <!-- ヘッダー -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">COMPARE</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+        {fishName}向け{typeName} 比較{topSeries.length}選
+      </h1>
+      <p class="text-sm text-text-mid mt-1">
+        {totalCount}シリーズからカラー展開数上位{topSeries.length}モデルを横並び比較
+      </p>
+    </div>
+
+    <!-- 概要 -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        {fishName}対応の{typeName}は全{totalCount}シリーズが登録されている。
+        カラー展開数が多いシリーズほどフィールドや条件への対応力が高い。
+        ここでは上位{topSeries.length}シリーズのスペック・カラー系統・価格帯を
+        横並びで比較し、それぞれの特徴を明確にする。
+      </p>
+      <div class="mt-3">
+        <a href={`/ranking/${slug}/`} class="text-xs text-accent hover:underline">
+          → {fishName}×{typeName}のランキング（全{totalCount}シリーズ）を見る
+        </a>
+      </div>
+    </div>
+
+    <!-- ━━━ スペック比較テーブル ━━━ -->
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">スペック比較</h2>
+      <div class="overflow-x-auto -mx-4 px-4">
+        <table class="w-full text-sm border-collapse min-w-[640px]">
+          <thead>
+            <tr class="border-b-2 border-gray-200">
+              <th class="py-3 pr-4 text-left text-xs font-semibold text-text-dim w-24">項目</th>
+              {topSeries.map((s, i) => (
+                <th class="py-3 px-2 text-left">
+                  <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="text-sm font-bold text-gray-900 hover:text-accent transition-colors leading-tight block">
+                    {s.name}
+                  </a>
+                  <span class="text-xs text-text-dim block">{s.manufacturer}</span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {specRows.map((row, ri) => (
+              <tr class={`border-b border-gray-100 ${ri % 2 === 0 ? 'bg-gray-50/50' : ''}`}>
+                <td class="py-2.5 pr-4 text-xs font-semibold text-text-dim whitespace-nowrap">{row.label}</td>
+                {row.values.map((val, ci) => {
+                  // カラー展開数が最大のセルをハイライト
+                  const isMax = row.label === 'カラー展開' &&
+                    parseInt(val) === Math.max(...row.values.map(v => parseInt(v) || 0));
+                  return (
+                    <td class={`py-2.5 px-2 text-sm ${isMax ? 'text-accent font-bold' : 'text-gray-700'}`}>
+                      {val}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ━━━ カラー系統比較 ━━━ -->
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">カラー系統の比較</h2>
+      <p class="text-sm text-text-mid mb-4">
+        各シリーズのカラーラインナップを系統別に分類。
+        釣り場の水質やベイトフィッシュに合わせたカラー選択の参考に。
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        {topSeries.map((s, i) => {
+          const bd = colorBreakdowns[i];
+          const maxCount = Math.max(...bd.map(e => e.count), 1);
+          return (
+            <div class="bg-white rounded-lg border border-gray-100 p-4">
+              <h3 class="text-sm font-bold text-gray-900 mb-1">
+                <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="hover:text-accent transition-colors">
+                  {s.name}
+                </a>
+              </h3>
+              <p class="text-xs text-text-dim mb-3">全{s.color_count}色</p>
+              <div class="space-y-1.5">
+                {bd.filter(e => e.id !== 'other').slice(0, 6).map(cat => (
+                  <div class="flex items-center gap-2">
+                    <span class="w-20 text-xs text-gray-600 shrink-0 truncate">{cat.label}</span>
+                    <div class="flex-1 bg-gray-100 rounded h-3.5 overflow-hidden">
+                      <div
+                        style={`width:${Math.max((cat.count / maxCount) * 100, 4)}%;background-color:${cat.cssColor}`}
+                        class="h-3.5 rounded transition-all"
+                      />
+                    </div>
+                    <span class="text-xs text-gray-500 w-6 text-right shrink-0">{cat.count}</span>
+                  </div>
+                ))}
+                {bd.some(e => e.id === 'other' && e.count > 0) && (
+                  <div class="flex items-center gap-2">
+                    <span class="w-20 text-xs text-gray-400 shrink-0">その他</span>
+                    <span class="text-xs text-gray-400">{bd.find(e => e.id === 'other')?.count}色</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- ━━━ 価格帯の比較 ━━━ -->
+    {topSeries.some(s => s.price_range.min > 0 || s.price_range.max > 0) && (
+      <section class="mb-12">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">価格帯の比較</h2>
+        {(() => {
+          const allPrices = topSeries.flatMap(s => [s.price_range.min, s.price_range.max]).filter(p => p > 0);
+          const globalMin = Math.min(...allPrices);
+          const globalMax = Math.max(...allPrices);
+          const range = globalMax - globalMin || 1;
+          return (
+            <div class="bg-white rounded-lg border border-gray-100 p-4 sm:p-5 space-y-3">
+              {topSeries
+                .filter(s => s.price_range.min > 0 || s.price_range.max > 0)
+                .map(s => {
+                  const left = ((Math.max(s.price_range.min, globalMin) - globalMin) / range) * 100;
+                  const width = Math.max(((s.price_range.max - Math.max(s.price_range.min, globalMin)) / range) * 100, 2);
+                  return (
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-xs font-semibold text-gray-900 truncate max-w-[50%]">{s.name}</span>
+                        <span class="text-xs text-text-dim">{fmtPrice(s.price_range)}</span>
+                      </div>
+                      <div class="relative h-3 bg-gray-100 rounded overflow-hidden">
+                        <div
+                          class="absolute h-3 bg-accent/50 rounded"
+                          style={`left:${left}%;width:${width}%`}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              <div class="flex justify-between text-xs text-text-dim pt-1">
+                <span>¥{globalMin.toLocaleString()}</span>
+                <span>¥{globalMax.toLocaleString()}</span>
+              </div>
+            </div>
+          );
+        })()}
+      </section>
+    )}
+
+    <!-- ━━━ どれを選ぶべきか ━━━ -->
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">どれを選ぶべきか</h2>
+      <div class="space-y-3">
+        {topSeries.map((s, i) => {
+          const bd = colorBreakdowns[i];
+          const topCat = bd.filter(e => e.id !== 'other')[0];
+          const traits: string[] = [];
+
+          // カラー展開が最多
+          if (i === 0) traits.push(`カラー展開数${s.color_count}色で最多`);
+
+          // 価格
+          if (s.price_range.min > 0) {
+            const avgPrice = Math.round((s.price_range.min + s.price_range.max) / 2);
+            const cheapest = topSeries.reduce((min, t) =>
+              t.price_range.min > 0 && t.price_range.min < (min?.price_range.min || Infinity) ? t : min,
+              null as LureSeries | null
+            );
+            if (cheapest && s.slug === cheapest.slug && s.manufacturer_slug === cheapest.manufacturer_slug) {
+              traits.push('価格が最もリーズナブル');
+            }
+          }
+
+          // 主力カラー系統
+          if (topCat) {
+            traits.push(`${topCat.label}が${topCat.count}色と充実`);
+          }
+
+          // 重量レンジの広さ
+          if (s.weight_range.min != null && s.weight_range.max != null) {
+            const weightSpan = s.weight_range.max - s.weight_range.min;
+            const widest = topSeries.reduce((max, t) => {
+              const span = (t.weight_range.max ?? 0) - (t.weight_range.min ?? 0);
+              return span > (max ?? 0) ? span : max;
+            }, 0);
+            if (weightSpan > 0 && weightSpan === widest) {
+              traits.push(`重量バリエーション${fmtRange(s.weight_range, 'g')}で最も幅広い`);
+            }
+          }
+
+          return (
+            <div class="bg-gray-50 rounded-lg p-4">
+              <h3 class="text-sm font-bold text-gray-900 mb-1">
+                <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="hover:text-accent transition-colors">
+                  {s.manufacturer} {s.name}
+                </a>
+              </h3>
+              {traits.length > 0 ? (
+                <ul class="space-y-1">
+                  {traits.map(t => (
+                    <li class="text-sm text-gray-700 flex gap-2">
+                      <span class="text-accent shrink-0">▸</span>
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="text-sm text-gray-600">
+                  全{s.color_count}色展開。{topCat ? `${topCat.label}（${topCat.count}色）が主力。` : ''}
+                  <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="text-accent hover:underline">詳細を見る</a>
+                </p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- ━━━ 相互リンク ━━━ -->
+    <section class="mt-12 pt-8 border-t border-gray-100">
+      <div class="flex flex-wrap gap-3">
+        <a href={`/ranking/${slug}/`} class="px-4 py-2 bg-accent text-white rounded-lg text-sm font-medium hover:bg-accent-hover transition-colors">
+          {fishName}×{typeName}ランキング（全{totalCount}シリーズ）→
+        </a>
+        <a href={`/fish/${getFishSlug(fishName)}/`} class="px-4 py-2 bg-white text-gray-700 rounded-lg text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+          {fishName}のルアー一覧
+        </a>
+        <a href={`/type/${getTypeSlug(typeName)}/`} class="px-4 py-2 bg-white text-gray-700 rounded-lg text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+          {typeName}のルアー一覧
+        </a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

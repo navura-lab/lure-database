@@ -277,7 +277,7 @@ if (lengthDisplay) specParts.push(`全長${lengthDisplay}`);
 if (series.diving_depth) specParts.push(`潜行深度${series.diving_depth}`);
 if (series.action_type) specParts.push(`${series.action_type}タイプ`);
 if (hasPrice) specParts.push(`価格は${priceDisplay}`);
-const specsSummary = `${series.name}は${specParts.join('、')}。全${series.color_count}カラーをラインナップ${series.target_fish.length > 0 ? `し、${series.target_fish.slice(0, 5).join('・')}などをターゲットとする` : ''}。`;
+const specsSummary = `${series.name}とは、${specParts.join('、')}のルアーである。全${series.color_count}カラーをラインナップ${series.target_fish.length > 0 ? `し、${series.target_fish.slice(0, 5).join('・')}などをターゲットとする` : ''}。`;
 
 // --- SEO: JSON-LD Product schema ---
 // 画像配列: メイン画像 + カラー画像（最大8枚）
@@ -384,14 +384,19 @@ const breadcrumbLd = {
 // FAQ schema for featured snippets
 const faqEntries: { '@type': string; name: string; acceptedAnswer: { '@type': string; text: string } }[] = [];
 
-// Q1: スペック情報
+// Q1: スペック情報（GEO対応: 詳細データ+文脈を追加）
 if (series.type) {
+  const rankInfo = categoryRank > 0 && categoryFish
+    ? `CAST/LOGデータベースには${categoryFish}対応の${series.type}が${categoryTotal}シリーズ登録されており、${series.name}はカラー展開数で${categoryRank}位です。`
+    : '';
   const answer = [
-    `${series.name}は${series.manufacturer}が製造する${series.type}です。`,
+    `${series.name}とは、${series.manufacturer}が製造する${series.type}です。`,
     weightDisplay ? `重量は${weightDisplay}、` : '',
     lengthDisplay ? `全長は${lengthDisplay}、` : '',
     series.diving_depth ? `潜行深度は${series.diving_depth}、` : '',
+    series.action_type ? `アクションは${series.action_type}タイプ、` : '',
     `全${series.color_count}カラーがラインナップされています。`,
+    rankInfo,
   ].filter(Boolean).join('');
   faqEntries.push({
     '@type': 'Question',
@@ -409,22 +414,28 @@ if (hasPrice) {
   });
 }
 
-// Q3: 対象魚
+// Q3: 対象魚（GEO対応: タイプ情報・用途文脈を追加）
 if (series.target_fish.length > 0) {
+  const fishContext = series.type && series.type !== 'その他'
+    ? `${series.type}として設計されており、`
+    : '';
   faqEntries.push({
     '@type': 'Question',
     name: `${series.name}で釣れる魚は？`,
-    acceptedAnswer: { '@type': 'Answer', text: `${series.name}は${series.target_fish.join('、')}などをターゲットにしたルアーです。` },
+    acceptedAnswer: { '@type': 'Answer', text: `${series.name}は${fishContext}${series.target_fish.join('、')}などをターゲットにしたルアーです。${series.target_fish.length >= 3 ? `特に${series.target_fish[0]}での使用実績が多い。` : ''}` },
   });
 }
 
-// Q4: カラーバリエーション
+// Q4: カラーバリエーション（GEO対応: カラー系統分析データを反映）
 if (series.color_count > 0) {
   const sampleColors = series.colors.slice(0, 5).map(c => c.color_name).join('、');
+  const topCategory = colorBreakdown.length > 0 && colorBreakdown[0].id !== 'other'
+    ? `カラー系統では${colorBreakdown[0].label}が${colorBreakdown[0].count}色（${colorBreakdown[0].pct}%）と最も多い構成です。`
+    : '';
   faqEntries.push({
     '@type': 'Question',
-    name: `${series.name}のカラーバリエーションは？`,
-    acceptedAnswer: { '@type': 'Answer', text: `${series.name}は全${series.color_count}カラーを展開しています。${sampleColors}などがラインナップされています。` },
+    name: `${series.name}のおすすめカラーは？`,
+    acceptedAnswer: { '@type': 'Answer', text: `${series.name}は全${series.color_count}カラーを展開しています。${sampleColors}などがラインナップ。${topCategory}` },
   });
 }
 
@@ -618,6 +629,9 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
       <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
         <p class="text-sm text-gray-600 leading-relaxed">
           {specsSummary}
+        </p>
+        <p class="text-xs text-text-faint mt-3 border-t border-gray-50 pt-3">
+          出典: CAST/LOGルアーデータベース（{series.created_at?.slice(0, 10) || '2026-03-12'}時点）。メーカー公式情報・販売店データに基づく。
         </p>
       </div>
     </section>

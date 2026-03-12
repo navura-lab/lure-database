@@ -43,6 +43,12 @@ import hirameVibration from './hirame-vibration.js';
 import hataWorm from './hata-worm.js';
 import aomonoPopper from './aomono-popper.js';
 import chiningLure from './chining-lure.js';
+// 追加記事（GSCデータ駆動 第3弾）
+import seabassPencilbait from './seabass-pencilbait.js';
+import seabassMetaljig from './seabass-metaljig.js';
+import hirameWorm from './hirame-worm.js';
+import takoEgi from './tako-egi.js';
+import bassSpinnerbait from './bass-spinnerbait.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -75,6 +81,12 @@ export const contentArticles: ContentArticle[] = [
   hataWorm,
   aomonoPopper,
   chiningLure,
+  // GSCデータ駆動記事（第3弾）
+  seabassPencilbait,
+  seabassMetaljig,
+  hirameWorm,
+  takoEgi,
+  bassSpinnerbait,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────

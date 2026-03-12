@@ -31,8 +31,8 @@ export default defineConfig({
       if (url.match(/\/[a-z0-9-]+\/$/) && !url.includes('/type/') && !url.includes('/fish/') && !url.includes('/ranking/') && !url.includes('/guide/') && !url.includes('/new/') && !url.includes('/maker/')) {
         return { ...item, changefreq: 'weekly', priority: 0.7 };
       }
-      // カテゴリ詳細（タイプ/対象魚/ランキング）: 週次
-      if (url.match(/\/(type|fish|ranking)\/[a-z0-9-]+\//)) {
+      // カテゴリ詳細（タイプ/対象魚/ランキング/比較）: 週次
+      if (url.match(/\/(type|fish|ranking|compare)\/[a-z0-9-]+\//)) {
         return { ...item, changefreq: 'weekly', priority: 0.6 };
       }
       // ガイド記事: 月次

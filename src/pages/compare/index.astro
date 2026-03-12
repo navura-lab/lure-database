@@ -1,0 +1,122 @@
+---
+/**
+ * 比較インデックスページ — /compare/
+ *
+ * 全カテゴリの比較ページ一覧。
+ * ランキングインデックスと並列の入口ページ。
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
+import type { LureSeries } from '../../lib/types';
+
+const MIN_SERIES = 3;
+const lures = await fetchAllLures();
+const allSeries = groupLuresBySeries(lures ?? []);
+
+// 魚種×タイプのクロス集計
+const crossMap = new Map<string, { fishName: string; typeName: string; count: number }>();
+for (const s of allSeries) {
+  if (!s.type) continue;
+  for (const fish of s.target_fish) {
+    const fishSlug = getFishSlug(fish);
+    const typeSlug = getTypeSlug(s.type);
+    const key = `${fishSlug}-${typeSlug}`;
+    const existing = crossMap.get(key);
+    if (existing) {
+      existing.count++;
+    } else {
+      crossMap.set(key, { fishName: fish, typeName: s.type, count: 1 });
+    }
+  }
+}
+
+const categories = [...crossMap.entries()]
+  .filter(([_, v]) => v.count >= MIN_SERIES)
+  .sort((a, b) => b[1].count - a[1].count);
+
+// 魚種でグループ化
+const fishGroups = new Map<string, { slug: string; fishName: string; typeName: string; count: number }[]>();
+for (const [slug, { fishName, typeName, count }] of categories) {
+  const arr = fishGroups.get(fishName) || [];
+  arr.push({ slug, fishName, typeName, count });
+  fishGroups.set(fishName, arr);
+}
+// 魚種をカテゴリ数降順で並べる
+const sortedFishGroups = [...fishGroups.entries()]
+  .sort((a, b) => b[1].reduce((s, c) => s + c.count, 0) - a[1].reduce((s, c) => s + c.count, 0));
+
+const pageTitle = 'ルアー比較 — 魚種×タイプ別スペック比較 | CAST/LOG';
+const pageDescription = `${categories.length}カテゴリのルアーをスペック・カラー系統・価格帯で横並び比較。${sortedFishGroups.slice(0, 3).map(([name]) => name).join('・')}など主要魚種の人気ルアーの違いがひと目でわかる。`;
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
+    { '@type': 'ListItem', position: 2, name: '比較', item: 'https://www.lure-db.com/compare/' },
+  ],
+};
+const jsonLd = [breadcrumbLd] as unknown as Record<string, unknown>;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath="/compare/" jsonLd={jsonLd}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">比較</span>
+    </nav>
+
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">COMPARE</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+        ルアー スペック比較
+      </h1>
+      <p class="text-sm text-text-mid mt-1">
+        {categories.length}カテゴリのルアーをスペック・カラー・価格で横並び比較
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        魚種×タイプ別に上位ルアーのスペック・カラー系統・価格帯を比較できる。
+        同じカテゴリのルアーを横並びで見ることで、自分のフィールドに最適なモデルが見つかる。
+      </p>
+    </div>
+
+    {sortedFishGroups.map(([fishName, items]) => (
+      <section class="mb-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+          {fishName}
+          <span class="text-xs font-normal text-text-dim bg-gray-100 px-2 py-0.5 rounded-full">
+            {items.length}カテゴリ
+          </span>
+        </h2>
+        <div class="flex flex-wrap gap-2">
+          {items.sort((a, b) => b.count - a.count).map(item => (
+            <a
+              href={`/compare/${item.slug}/`}
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors"
+            >
+              {item.typeName}
+              <span class="text-xs text-gray-400">{item.count}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    <!-- カタログへのリンク -->
+    <section class="mt-12 pt-8 border-t border-gray-100">
+      <p class="text-sm text-text-mid mb-3">全シリーズを一覧で見るなら:</p>
+      <a href="/ranking/" class="px-4 py-2 bg-accent text-white rounded-lg text-sm font-medium hover:bg-accent-hover transition-colors">
+        カタログ（ランキング形式）→
+      </a>
+    </section>
+
+  </div>
+</BaseLayout>
