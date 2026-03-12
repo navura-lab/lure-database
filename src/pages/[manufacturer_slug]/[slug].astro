@@ -746,7 +746,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
               {color.images && color.images.length > 0 ? (
                 <img
                   src={color.images[0]}
-                  alt={`${series.name} ${color.color_name}`}
+                  alt={`${series.manufacturer} ${series.name} ${color.color_name} ${series.type}`}
                   loading="lazy"
                   decoding="async"
                   width="400"

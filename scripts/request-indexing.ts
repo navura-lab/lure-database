@@ -583,9 +583,20 @@ async function mainPages() {
     `${SITE_URL}new/`,                          // 新着ページ
     `${SITE_URL}guide/`,                        // ガイド一覧
     `${SITE_URL}ranking/`,                      // ランキング一覧
+    `${SITE_URL}compare/`,                      // 比較一覧
+    `${SITE_URL}article/`,                      // 特集記事一覧
     // ガイド記事（全件）
     ...guideArticles.map((g: any) => `${SITE_URL}guide/${g.slug}/`),
   ];
+
+  // 特集記事ページ
+  try {
+    const { contentArticles } = await import('../src/data/articles/_index.js');
+    urls.push(...contentArticles.map((a: any) => `${SITE_URL}article/${a.slug}/`));
+    log(`Article pages: ${contentArticles.length}`);
+  } catch {
+    log('Warning: articles not found, skipping article pages');
+  }
 
   // ランキングページ: ranking-descriptions.tsのキーから構築
   // DBクロス集計と同等（エディトリアル付きページが優先対象）
@@ -593,9 +604,12 @@ async function mainPages() {
     const { rankingDescriptions } = await import('../src/data/ranking-descriptions.js');
     const rankingSlugs = Object.keys(rankingDescriptions);
     urls.push(...rankingSlugs.map(s => `${SITE_URL}ranking/${s}/`));
+    // 比較ページも同一slug体系で追加
+    urls.push(...rankingSlugs.map(s => `${SITE_URL}compare/${s}/`));
     log(`Ranking pages with editorial: ${rankingSlugs.length}`);
+    log(`Compare pages: ${rankingSlugs.length}`);
   } catch {
-    log('Warning: ranking-descriptions not found, skipping ranking pages');
+    log('Warning: ranking-descriptions not found, skipping ranking/compare pages');
   }
 
   const uniqueUrls = [...new Set(urls)].sort();
