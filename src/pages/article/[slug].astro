@@ -1,0 +1,343 @@
+---
+/**
+ * SEOコンテンツ記事ページ
+ *
+ * src/data/articles/ のContentArticleデータをSSGでレンダリングする。
+ * 記事タイプ: color-guide, review-analysis, selection-guide, howto
+ *
+ * JSON-LD: Article + FAQPage + BreadcrumbList（howtoならHowToも）
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LureCard from '../../components/LureCard.astro';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import { contentArticles } from '../../data/articles/_index';
+import type { ContentArticle, ArticleSection } from '../../data/articles/_types';
+import type { LureSeries } from '../../lib/types';
+
+export async function getStaticPaths() {
+  if (contentArticles.length === 0) return [];
+
+  const lures = await fetchAllLures();
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  // slug→LureSeriesのマップ
+  const seriesMap = new Map<string, LureSeries>();
+  for (const s of allSeries) {
+    seriesMap.set(s.slug, s);
+  }
+
+  return contentArticles.map(article => {
+    // 記事が参照するルアーシリーズを解決
+    const referencedSeries: LureSeries[] = [];
+
+    // 1. targetLureSlugから直接参照
+    if (article.targetLureSlugs) {
+      for (const slug of article.targetLureSlugs) {
+        const s = seriesMap.get(slug);
+        if (s) referencedSeries.push(s);
+      }
+    }
+
+    // 2. セクション内のlureRefsから参照
+    for (const section of article.sections) {
+      if (section.lureRefs) {
+        for (const slug of section.lureRefs) {
+          const s = seriesMap.get(slug);
+          if (s && !referencedSeries.find(r => r.slug === slug)) {
+            referencedSeries.push(s);
+          }
+        }
+      }
+    }
+
+    // 3. targetFish/targetTypesに基づくトップピック
+    const topPicks = allSeries
+      .filter(s => {
+        const fishMatch = article.targetFish.length === 0 ||
+          s.target_fish.some(f => article.targetFish.includes(f));
+        const typeMatch = article.targetTypes.length === 0 ||
+          article.targetTypes.includes(s.type);
+        return fishMatch && typeMatch;
+      })
+      .sort((a, b) => b.color_count - a.color_count)
+      .slice(0, 10);
+
+    return {
+      params: { slug: article.slug },
+      props: {
+        article,
+        referencedSeries,
+        topPicks,
+        seriesMap: Object.fromEntries(seriesMap),
+      },
+    };
+  });
+}
+
+const { article, referencedSeries, topPicks, seriesMap } = Astro.props as {
+  article: ContentArticle;
+  referencedSeries: LureSeries[];
+  topPicks: LureSeries[];
+  seriesMap: Record<string, LureSeries>;
+};
+
+const SITE_URL = 'https://www.lure-db.com';
+
+// ─── タイプラベル ──────────────────────────────────────
+
+const typeLabels: Record<string, string> = {
+  'color-guide': 'カラーガイド',
+  'review-analysis': 'レビュー分析',
+  'selection-guide': '選び方ガイド',
+  'howto': '使い方ガイド',
+};
+
+const typeBadge = typeLabels[article.type] || '記事';
+
+// ─── JSON-LD ───────────────────────────────────────────
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: article.h1,
+  description: article.description,
+  datePublished: article.publishedAt,
+  dateModified: article.updatedAt,
+  author: {
+    '@type': 'Organization',
+    name: 'CAST/LOG',
+    url: SITE_URL,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'CAST/LOG',
+    url: SITE_URL,
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon.svg` },
+  },
+  mainEntityOfPage: `${SITE_URL}/article/${article.slug}/`,
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: `${SITE_URL}/` },
+    { '@type': 'ListItem', position: 2, name: typeBadge, item: `${SITE_URL}/article/` },
+    { '@type': 'ListItem', position: 3, name: article.h1, item: `${SITE_URL}/article/${article.slug}/` },
+  ],
+};
+
+// FAQ JSON-LD
+const faqLd = article.faq.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: article.faq.map(f => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: f.answer,
+    },
+  })),
+} : null;
+
+// HowTo JSON-LD（howto記事のみ）
+const howtoLd = article.type === 'howto' ? {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: article.h1,
+  description: article.description,
+  step: article.sections.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: s.heading,
+    text: s.body.slice(0, 300),
+  })),
+} : null;
+
+const jsonLdArray = [articleLd, breadcrumbLd, faqLd, howtoLd].filter(Boolean);
+const jsonLd = jsonLdArray as unknown as Record<string, unknown>;
+
+// ─── 目次生成 ──────────────────────────────────────────
+
+const tocItems = [
+  ...article.sections.map((s, i) => ({ id: `section-${i}`, label: s.heading })),
+  ...(article.faq.length > 0 ? [{ id: 'faq', label: 'よくある質問' }] : []),
+  ...(topPicks.length > 0 ? [{ id: 'related-lures', label: '関連ルアー' }] : []),
+];
+
+// セクションごとのルアー解決
+function getSectionLures(section: ArticleSection): LureSeries[] {
+  if (!section.lureRefs) return [];
+  return section.lureRefs
+    .map(slug => seriesMap[slug])
+    .filter(Boolean) as LureSeries[];
+}
+---
+
+<BaseLayout
+  title={article.title + ' | CAST/LOG'}
+  description={article.description}
+  canonicalPath={`/article/${article.slug}/`}
+  jsonLd={jsonLd}
+>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{typeBadge}</span>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{article.h1}</span>
+    </nav>
+
+    <!-- 記事ヘッダー -->
+    <header class="mb-8">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-2">/{article.type.toUpperCase()}</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+        {article.h1}
+      </h1>
+      <div class="flex flex-wrap items-center gap-3 text-xs text-text-dim font-mono">
+        <time datetime={article.updatedAt}>更新: {article.updatedAt}</time>
+        <span>データ: {article.dataAsOf}時点</span>
+        {article.targetFish.length > 0 && (
+          <span>{article.targetFish.join('・')}</span>
+        )}
+      </div>
+    </header>
+
+    <!-- リード文 -->
+    <div class="bg-surface rounded-xl border border-border p-5 sm:p-6 mb-8">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        {article.lead}
+      </p>
+    </div>
+
+    <!-- 目次 -->
+    <nav class="bg-white rounded-xl border border-gray-100 p-5 mb-10">
+      <h2 class="text-sm font-bold text-gray-900 mb-3">目次</h2>
+      <ol class="space-y-1.5 text-sm text-text-mid">
+        {tocItems.map((item, i) => (
+          <li>
+            <a href={`#${item.id}`} class="hover:text-accent transition-colors">
+              {i + 1}. {item.label}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <!-- セクション -->
+    {article.sections.map((section, i) => {
+      const sectionLures = getSectionLures(section);
+
+      return (
+        <section id={`section-${i}`} class="mb-10">
+          <h2 class="text-xl font-bold text-gray-900 mb-4">{section.heading}</h2>
+          <p class="text-sm text-gray-700 leading-relaxed whitespace-pre-line mb-6">
+            {section.body}
+          </p>
+
+          {/* 比較表 */}
+          {section.comparisonTable && (
+            <div class="mb-6 overflow-x-auto">
+              <p class="text-xs text-text-dim mb-2 font-mono">評価基準: {section.comparisonTable.criteria}</p>
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="bg-gray-50">
+                    {section.comparisonTable.headers.map(h => (
+                      <th class="px-3 py-2 text-left text-xs font-bold text-gray-700 border-b border-gray-200">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {section.comparisonTable.rows.map(row => (
+                    <tr class="border-b border-gray-100 hover:bg-gray-50/50">
+                      {row.map(cell => (
+                        <td class="px-3 py-2 text-gray-700">{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* セクション関連ルアーカード */}
+          {sectionLures.length > 0 && (
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-4">
+              {sectionLures.map(s => (
+                <LureCard series={s} isNew={false} />
+              ))}
+            </div>
+          )}
+        </section>
+      );
+    })}
+
+    <!-- FAQ -->
+    {article.faq.length > 0 && (
+      <section id="faq" class="mb-10">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">よくある質問</h2>
+        <div class="space-y-4">
+          {article.faq.map(f => (
+            <div class="bg-white rounded-xl border border-gray-100 p-5">
+              <h3 class="text-sm font-bold text-gray-900 mb-2">{f.question}</h3>
+              <p class="text-sm text-gray-700 leading-relaxed">{f.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 関連ルアー -->
+    {topPicks.length > 0 && (
+      <section id="related-lures" class="mb-10">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">関連ルアー</h2>
+        <p class="text-sm text-gray-600 mb-6">
+          データベースからカラー展開数順にピックアップ。
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          {topPicks.map(s => (
+            <LureCard series={s} isNew={false} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 関連リンク -->
+    <aside class="bg-surface rounded-xl border border-border p-5 sm:p-6 mb-8">
+      <h2 class="text-sm font-bold text-gray-900 mb-3">関連コンテンツ</h2>
+      <div class="flex flex-wrap gap-2">
+        {article.relatedRankings.map(slug => (
+          <a
+            href={`/ranking/${slug}/`}
+            class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-accent bg-accent-bg rounded-full hover:bg-accent/10 transition-colors"
+          >
+            ランキング: {slug}
+            <span class="text-sm">→</span>
+          </a>
+        ))}
+        {article.relatedGuides.map(slug => (
+          <a
+            href={`/guide/${slug}/`}
+            class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-accent bg-accent-bg rounded-full hover:bg-accent/10 transition-colors"
+          >
+            ガイド: {slug}
+            <span class="text-sm">→</span>
+          </a>
+        ))}
+      </div>
+    </aside>
+
+    <!-- 記事フッター -->
+    <footer class="border-t border-gray-100 pt-6 mt-8">
+      <p class="text-xs text-text-dim">
+        本記事はCAST/LOGのルアーデータベース（6,160シリーズ登録）のデータに基づいて作成しています。掲載データは{article.dataAsOf}時点のものです。
+      </p>
+    </footer>
+
+  </article>
+</BaseLayout>
