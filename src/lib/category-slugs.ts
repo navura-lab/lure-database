@@ -38,6 +38,9 @@ export const TYPE_SLUG_MAP: Record<string, string> = {
   'タイラバ': 'tai-rubber',
   'テンヤ': 'tenya',
   'その他': 'other',
+  // 追加タイプ（2026-03-12）
+  'ジャークベイト': 'jerkbait',
+  'ルアーアクセサリー': 'lure-accessory',
 };
 
 // ── 対象魚 ──
@@ -84,6 +87,22 @@ export const FISH_SLUG_MAP: Record<string, string> = {
   'アイナメ': 'ainame',
   'タラ': 'cod',
   'ハタ': 'hata',
+  // 複合名・北米魚種（2026-03-12追加）
+  '青物（ブリ、ヒラマサ、カンパチ等）': 'bluerunner-all',
+  'ロックフィッシュ（カサゴ、アイナメ等）': 'rockfish-all',
+  'トラウト（管理釣り場・ネイティブ含む）': 'trout-all',
+  'イカ（アオリイカ、ヤリイカ等）': 'squid-all',
+  'チヌ・クロダイ': 'chinu-kurodai',
+  'ウォールアイ': 'walleye',
+  'クラッピー': 'crappie',
+  'シートラウト': 'seatrout',
+  'ストライパー': 'striped-bass',
+  'スヌーク': 'snook',
+  'パイク': 'pike',
+  'パンフィッシュ': 'panfish',
+  'パーチ': 'perch',
+  'レッドフィッシュ': 'redfish',
+  'ブルーフィッシュ': 'bluefish',
 };
 
 // 逆引き: slug → 日本語名

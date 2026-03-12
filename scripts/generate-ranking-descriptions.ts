@@ -19,54 +19,13 @@ import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 import { rankingDescriptions } from '../src/data/ranking-descriptions.js';
+import { getTypeSlug, getFishSlug } from '../src/lib/category-slugs.js';
 
 // ─── Config ───────────────────────────────────────────
 
 const MIN_SERIES = 3;
 const JSON_MODE = process.argv.includes('--json');
 const OUTPUT_FILE = path.join(import.meta.dirname, '..', 'logs', 'seo-data', 'ranking-desc-missing.json');
-
-// ─── スラッグマップ ───────────────────────────────────
-
-const TYPE_SLUG_MAP: Record<string, string> = {
-  'ミノー': 'minnow', 'クランクベイト': 'crankbait', 'シャッド': 'shad',
-  'バイブレーション': 'vibration', 'メタルバイブレーション': 'metal-vib',
-  'ペンシルベイト': 'pencilbait', 'シンキングペンシル': 'sinking-pencil',
-  'ダイビングペンシル': 'diving-pencil', 'ポッパー': 'popper',
-  'トップウォーター': 'topwater', 'プロップベイト': 'propbait',
-  'クローラーベイト': 'crawler-bait', 'i字系': 'i-shape',
-  'スイムベイト': 'swimbait', 'ビッグベイト': 'bigbait',
-  'ジョイントベイト': 'jointed-bait', 'フロッグ': 'frog',
-  'スピナーベイト': 'spinnerbait', 'チャターベイト': 'chatterbait',
-  'バズベイト': 'buzzbait', 'スピンテール': 'spintail',
-  'ブレードベイト': 'blade-bait', 'メタルジグ': 'metal-jig',
-  'スプーン': 'spoon', 'スピナー': 'spinner', 'ワーム': 'worm',
-  'ラバージグ': 'rubber-jig', 'ジグヘッド': 'jighead', 'エギ': 'egi',
-  'スッテ': 'sutte', 'タイラバ': 'tai-rubber', 'テンヤ': 'tenya',
-  'その他': 'other',
-};
-
-const FISH_SLUG_MAP: Record<string, string> = {
-  'シーバス': 'seabass', 'ブラックバス': 'black-bass', 'ヒラスズキ': 'hirasuzuki',
-  'トラウト': 'trout', 'メバル': 'mebaru', 'アジ': 'aji', 'カサゴ': 'kasago',
-  'ロックフィッシュ': 'rockfish', 'ヒラメ': 'hirame', 'マゴチ': 'magochi',
-  'クロダイ': 'kurodai', 'チヌ': 'chinu', 'マダイ': 'madai',
-  'タチウオ': 'tachiuo', 'ブリ': 'yellowtail', 'ヒラマサ': 'hiramasa',
-  'カンパチ': 'kampachi', '青物': 'bluerunner', 'GT': 'gt',
-  'マグロ': 'tuna', 'サワラ': 'sawara', 'アオリイカ': 'aori-ika',
-  'ケンサキイカ': 'kensaki-ika', 'ヤリイカ': 'yari-ika', 'イカ': 'squid',
-  'コウイカ': 'cuttlefish', 'シイラ': 'mahi-mahi', 'ハタ': 'hata',
-  'アイナメ': 'ainame', 'ナマズ': 'catfish', 'サクラマス': 'sakuramasu',
-  'サケ': 'sake', 'アユ': 'ayu', 'ハゼ': 'goby',
-};
-
-function getTypeSlug(name: string): string {
-  return TYPE_SLUG_MAP[name] || name.toLowerCase().replace(/\s+/g, '-');
-}
-
-function getFishSlug(name: string): string {
-  return FISH_SLUG_MAP[name] || name.toLowerCase().replace(/\s+/g, '-');
-}
 
 function log(msg: string) {
   if (!JSON_MODE) console.log(`[ranking-desc] ${msg}`);
