@@ -27,6 +27,10 @@ import onimaruReview from './onimaru-review.js';
 import jigparaMicroSlimReview from './jigpara-micro-slim-review.js';
 import metalmaruReview from './metalmaru-review.js';
 import flickShakeReview from './flick-shake-review.js';
+// 季節コンテンツ（選び方ガイド）
+import springSeabassLure from './spring-seabass-lure.js';
+import springEgingEgi from './spring-eging-egi.js';
+import springMebaring from './spring-mebaring.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -43,6 +47,10 @@ export const contentArticles: ContentArticle[] = [
   jigparaMicroSlimReview,
   metalmaruReview,
   flickShakeReview,
+  // 季節コンテンツ
+  springSeabassLure,
+  springEgingEgi,
+  springMebaring,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
