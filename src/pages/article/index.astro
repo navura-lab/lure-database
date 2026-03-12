@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { contentArticles } from '../../data/articles/_index';
+
+// タイプ別ラベル
+const typeLabels: Record<string, string> = {
+  'color-guide': 'カラーガイド',
+  'review-analysis': 'レビュー分析',
+  'selection-guide': '選び方ガイド',
+  'howto': '使い方ガイド',
+};
+
+const typeBadgeColors: Record<string, string> = {
+  'color-guide': 'bg-blue-50 text-blue-700 border-blue-200',
+  'review-analysis': 'bg-green-50 text-green-700 border-green-200',
+  'selection-guide': 'bg-purple-50 text-purple-700 border-purple-200',
+  'howto': 'bg-orange-50 text-orange-700 border-orange-200',
+};
+
+// タイプ別にグルーピング
+const typeGroups = new Map<string, typeof contentArticles>();
+for (const article of contentArticles) {
+  const existing = typeGroups.get(article.type) || [];
+  existing.push(article);
+  typeGroups.set(article.type, existing);
+}
+
+const pageDescription = `CAST/LOGの釣りルアー特集記事${contentArticles.length}本。6,160シリーズのデータベースに基づくカラーガイド・インプレ・選び方を掲載。`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'ルアー特集記事一覧',
+  url: 'https://www.lure-db.com/article/',
+  description: pageDescription,
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.lure-db.com/' },
+    { '@type': 'ListItem', position: 2, name: '特集記事', item: 'https://www.lure-db.com/article/' },
+  ],
+};
+---
+
+<BaseLayout title={`ルアー特集記事 ${contentArticles.length}本 | CAST/LOG`} description={pageDescription} canonicalPath="/article/" jsonLd={[jsonLd, breadcrumbLd] as unknown as Record<string, unknown>}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">特集記事</span>
+    </nav>
+
+    <!-- ヘッダー -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">ARTICLES</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">ルアー特集記事</h1>
+      <p class="text-sm text-text-mid mt-1">
+        {contentArticles.length}本・データベース分析に基づく独自コンテンツ
+      </p>
+    </div>
+
+    <!-- 概要 -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        CAST/LOGの6,160シリーズ・16万色以上のルアーデータベースを活用した特集記事。おすすめカラーの選び方、人気ルアーのインプレ分析、ジャンル別の選び方ガイドなど、データに基づいた客観的な情報を掲載。
+      </p>
+    </div>
+
+    <!-- タイプ別ジャンプナビ -->
+    <div class="flex flex-wrap gap-1.5 mb-8">
+      {[...typeGroups.entries()].map(([type, articles]) => (
+        <a
+          href={`#type-${type}`}
+          class={`px-3 py-1.5 text-xs font-medium rounded-full border transition-colors hover:opacity-80 ${typeBadgeColors[type] || 'bg-gray-50 text-gray-700 border-gray-200'}`}
+        >
+          {typeLabels[type] || type}（{articles.length}）
+        </a>
+      ))}
+    </div>
+
+    <!-- タイプ別記事一覧 -->
+    {[...typeGroups.entries()].map(([type, articles]) => (
+      <section class="mb-10" id={`type-${type}`}>
+        <div class="flex items-center gap-3 mb-4">
+          <h2 class="text-lg font-bold text-gray-900">{typeLabels[type] || type}</h2>
+          <span class="text-xs text-text-dim font-mono">{articles.length}本</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {articles.map(article => (
+            <a
+              href={`/article/${article.slug}/`}
+              class="flex flex-col bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all group p-4"
+            >
+              <div class="flex items-center gap-2 mb-2">
+                <span class={`px-2 py-0.5 text-[10px] font-medium rounded-full border ${typeBadgeColors[article.type] || 'bg-gray-50 text-gray-700 border-gray-200'}`}>
+                  {typeLabels[article.type]}
+                </span>
+                {article.targetFish.map(fish => (
+                  <span class="px-1.5 py-0.5 text-[10px] text-text-dim bg-gray-50 rounded">
+                    {fish}
+                  </span>
+                ))}
+              </div>
+              <h3 class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors mb-1.5 line-clamp-2">
+                {article.h1}
+              </h3>
+              <p class="text-xs text-text-mid line-clamp-2 flex-1">
+                {article.description.slice(0, 80)}…
+              </p>
+              <div class="flex items-center gap-2 mt-3 pt-2 border-t border-gray-50">
+                <span class="text-[10px] text-text-dim">{article.publishedAt}</span>
+                {article.targetTypes.map(t => (
+                  <span class="text-[10px] text-text-dim">#{t}</span>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+
+  </div>
+</BaseLayout>

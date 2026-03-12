@@ -178,11 +178,24 @@ const specs = [
   `${series.color_count}カラー`,
 ].filter(Boolean).join('・');
 
-// meta description: KP分析に基づき、カラー数・スペック・価格を先頭に配置
-// 「おすすめ カラー」検索に対応: 具体的な色数とスペックを前面に出しCTR向上
-const pageDescription = series.description
+// meta description: 160文字以内に切り詰め。先頭70文字に商品名・カラー数・タイプを配置
+// Google表示上限は約155文字。それ以降は切り捨てられるため冗長な説明文は省略
+function truncateDescription(raw: string, maxLen: number = 155): string {
+  if (raw.length <= maxLen) return raw;
+  // 句点で切る（最大長以内の最後の句点）
+  const cut = raw.lastIndexOf('。', maxLen - 1);
+  if (cut > 80) return raw.slice(0, cut + 1);
+  // 句点がなければ読点で
+  const cut2 = raw.lastIndexOf('、', maxLen - 1);
+  if (cut2 > 80) return raw.slice(0, cut2) + '。';
+  // どちらもなければ強制切り
+  return raw.slice(0, maxLen - 1) + '…';
+}
+
+const rawDescription = series.description
   ? `${seoName}（${series.manufacturer}の${series.type}）全${series.color_count}色｜${series.description}${hasPrice ? `価格${priceDisplay}。` : ''}`
-  : `${seoName}（${series.manufacturer}の${series.type}）全${series.color_count}色のカラーバリエーション｜${specs}${hasPrice ? `・価格${priceDisplay}` : ''}を掲載。CAST/LOG`;
+  : `${seoName}（${series.manufacturer}の${series.type}）全${series.color_count}色のカラーバリエーション｜${specs}${hasPrice ? `・価格${priceDisplay}` : ''}を掲載。`;
+const pageDescription = truncateDescription(rawDescription);
 
 // --- SEO: 自然言語スペック要約（ページ内表示用）---
 const specParts: string[] = [];
