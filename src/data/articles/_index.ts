@@ -66,6 +66,17 @@ import aomonoMinnow from './aomono-minnow.js';
 import troutCrankbait from './trout-crankbait.js';
 import bassVibration from './bass-vibration.js';
 import kanpachiMetaljig from './kanpachi-metaljig.js';
+// 追加記事（GSCデータ駆動 第6弾）
+import hiramasaMetaljig from './hiramasa-metaljig.js';
+import buriMetaljig from './buri-metaljig.js';
+import troutWorm from './trout-worm.js';
+import madaiMetaljig from './madai-metaljig.js';
+import maguroMetaljig from './maguro-metaljig.js';
+import bassJighead from './bass-jighead.js';
+import ajiWorm from './aji-worm.js';
+import ikaEgi from './ika-egi.js';
+import bassShad from './bass-shad.js';
+import bassChatterbait from './bass-chatterbait.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -121,6 +132,17 @@ export const contentArticles: ContentArticle[] = [
   troutCrankbait,
   bassVibration,
   kanpachiMetaljig,
+  // GSCデータ駆動記事（第6弾）
+  hiramasaMetaljig,
+  buriMetaljig,
+  troutWorm,
+  madaiMetaljig,
+  maguroMetaljig,
+  bassJighead,
+  ajiWorm,
+  ikaEgi,
+  bassShad,
+  bassChatterbait,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
