@@ -12,6 +12,9 @@ import { guideArticles } from '../../data/guides';
 import { youtubeVideos } from '../../data/youtube-videos';
 import { lureUsageGuides } from '../../data/lure-usage-guides';
 import { typeDescriptions } from '../../data/type-descriptions';
+import { contentArticles } from '../../data/articles/_index.js';
+import type { ContentArticle } from '../../data/articles/_types.js';
+import { computeColorBreakdown, type ColorBreakdownEntry } from '../../lib/color-categories';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -36,6 +39,27 @@ export async function getStaticPaths() {
       const fishArr = byFish.get(fish) || [];
       fishArr.push(s);
       byFish.set(fish, fishArr);
+    }
+  }
+
+  // 魚種×タイプの複合インデックス（カテゴリ内順位計算用）
+  const byFishType = new Map<string, LureSeries[]>();
+  for (const s of allSeries) {
+    for (const fish of s.target_fish) {
+      const key = `${fish}|${s.type}`;
+      const arr = byFishType.get(key) || [];
+      arr.push(s);
+      byFishType.set(key, arr);
+    }
+  }
+
+  // 記事のtargetLureSlugs → ルアーslugの逆引きMap
+  const articlesByLureSlug = new Map<string, ContentArticle[]>();
+  for (const article of contentArticles) {
+    for (const lureSlug of (article.targetLureSlugs || [])) {
+      const arr = articlesByLureSlug.get(lureSlug) || [];
+      arr.push(article);
+      articlesByLureSlug.set(lureSlug, arr);
     }
   }
 
@@ -71,23 +95,59 @@ export async function getStaticPaths() {
           .slice(0, 6)
       : [];
 
+    // カテゴリ内ポジション（主要魚種×タイプで順位計算）
+    const ftKey = primaryFish ? `${primaryFish}|${series.type}` : null;
+    const categoryPeers = ftKey ? (byFishType.get(ftKey) || []) : [];
+    const sortedPeers = [...categoryPeers].sort(deterministicSort);
+    const categoryRank = sortedPeers.findIndex(
+      s => s.slug === series.slug && s.manufacturer_slug === series.manufacturer_slug
+    ) + 1;
+
+    // カラー系統分析（ビルド時計算）
+    const colorBreakdown = computeColorBreakdown(series.colors.map(c => c.color_name));
+
+    // 関連記事（targetLureSlugs逆引き + 魚種/タイプマッチ）
+    const directArticles = articlesByLureSlug.get(series.slug) || [];
+    const topicArticles = contentArticles.filter(a =>
+      !directArticles.includes(a) && (
+        a.targetFish.some(f => series.target_fish.includes(f)) ||
+        a.targetTypes.includes(series.type)
+      )
+    ).slice(0, 3);
+    const relatedContentArticles = [...directArticles, ...topicArticles].slice(0, 5);
+
     // canonicalGroupsに登録されていれば、そのページは別slugの正規ページを参照する
     const pageKey = `${series.manufacturer_slug}/${series.slug}`;
     const canonicalPathOverride = canonicalGroups.get(pageKey) || null;
 
     return {
       params: { manufacturer_slug: series.manufacturer_slug, slug: series.slug },
-      props: { series, relatedByType, relatedByMaker, relatedByFish, canonicalPathOverride },
+      props: {
+        series, relatedByType, relatedByMaker, relatedByFish, canonicalPathOverride,
+        categoryRank,
+        categoryTotal: categoryPeers.length,
+        categoryFish: primaryFish || '',
+        colorBreakdown,
+        relatedContentArticles,
+      },
     };
   });
 }
 
-const { series, relatedByType, relatedByMaker, relatedByFish, canonicalPathOverride } = Astro.props as {
+const {
+  series, relatedByType, relatedByMaker, relatedByFish, canonicalPathOverride,
+  categoryRank, categoryTotal, categoryFish, colorBreakdown, relatedContentArticles,
+} = Astro.props as {
   series: LureSeries;
   relatedByType: LureSeries[];
   relatedByMaker: LureSeries[];
   relatedByFish: LureSeries[];
   canonicalPathOverride: string | null;
+  categoryRank: number;
+  categoryTotal: number;
+  categoryFish: string;
+  colorBreakdown: ColorBreakdownEntry[];
+  relatedContentArticles: ContentArticle[];
 };
 
 const hasLimited = series.colors.some(c => c.is_limited);
@@ -550,6 +610,25 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
       </div>
     </section>
 
+    <!-- カテゴリ内ポジション -->
+    {categoryRank > 0 && categoryTotal > 2 && categoryFish && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-3">{categoryFish}向け{series.type}カテゴリでの位置付け</h2>
+        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <p class="text-sm text-gray-700 leading-relaxed mb-4">
+            CAST/LOGには{categoryFish}対応の{series.type}が<span class="font-bold text-accent">{categoryTotal}シリーズ</span>登録されている。
+            {series.name}はカラー展開数で<span class="font-bold">{categoryTotal}シリーズ中{categoryRank}位</span>（全{series.color_count}色）だ。
+          </p>
+          <div class="flex items-center gap-2 text-xs text-text-dim">
+            <span class="inline-flex items-center gap-1 px-2 py-1 bg-accent/10 text-accent rounded font-mono font-medium">
+              #{categoryRank} / {categoryTotal}
+            </span>
+            <span>カラー展開数順</span>
+          </div>
+        </div>
+      </section>
+    )}
+
     <!-- 使い方・おすすめアクション -->
     {usageText && (
       <section class="mb-12">
@@ -598,6 +677,32 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
               </div>
             </details>
           ))}
+        </div>
+      </section>
+    )}
+
+    <!-- カラー系統分析 -->
+    {colorBreakdown.filter(c => c.id !== 'other').length > 1 && (
+      <section class="mb-8">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}のカラー系統分析</h2>
+        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <p class="text-sm text-gray-600 mb-4">
+            全{series.color_count}色を系統別に分類。{colorBreakdown[0]?.label}が{colorBreakdown[0]?.count}色（{colorBreakdown[0]?.pct}%）と最も多い。
+          </p>
+          <div class="space-y-2">
+            {colorBreakdown.filter(c => c.id !== 'other').map(cat => (
+              <div class="flex items-center gap-3">
+                <span class="w-28 text-xs text-text-mid shrink-0 text-right">{cat.label}</span>
+                <div class="flex-1 bg-gray-100 rounded-full h-5 overflow-hidden">
+                  <div
+                    style={`width:${Math.max(cat.pct, 2)}%;background-color:${cat.cssColor}`}
+                    class="h-5 rounded-full transition-all"
+                  />
+                </div>
+                <span class="text-xs font-mono text-text-mid w-14 shrink-0">{cat.count}色 <span class="text-text-faint">({cat.pct}%)</span></span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     )}
@@ -931,6 +1036,35 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
         </section>
       ) : null;
     })()}
+
+    <!-- 関連特集記事 -->
+    {relatedContentArticles.length > 0 && (
+      <section class="mb-12 pt-8 border-t border-gray-100">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">関連特集記事</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {relatedContentArticles.map(article => (
+            <a href={`/article/${article.slug}/`} class="group flex items-start gap-3 px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
+              <span class:list={[
+                'shrink-0 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded mt-0.5',
+                article.type === 'color-guide' ? 'bg-blue-50 text-blue-600' :
+                article.type === 'review-analysis' ? 'bg-green-50 text-green-600' :
+                article.type === 'selection-guide' ? 'bg-orange-50 text-orange-600' :
+                'bg-gray-50 text-gray-600'
+              ]}>
+                {article.type === 'color-guide' ? 'カラー' :
+                 article.type === 'review-analysis' ? 'レビュー' :
+                 article.type === 'selection-guide' ? '選び方' : 'ガイド'}
+              </span>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors truncate">{article.title}</p>
+                <p class="text-xs text-text-dim mt-0.5 truncate">{article.targetFish.join('・')}</p>
+              </div>
+              <span class="text-accent text-sm shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
 
     <!-- SNSシェア -->
     <div class="flex items-center gap-3 pt-6 border-t border-gray-100 mb-6">
