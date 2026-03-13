@@ -178,6 +178,24 @@ export async function getStaticPaths() {
     // スペック比較文: カテゴリ平均値との比較テキスト生成
     const specComparison = generateSpecComparison(series, categoryPeers);
 
+    // 価格ポジション: カテゴリ内での価格帯位置付け
+    let pricePosition = '';
+    if (series.price_range.max > 0 && categoryPeers.length >= 3) {
+      const peersWithPrice = categoryPeers.filter(p => p.price_range.max > 0);
+      if (peersWithPrice.length >= 3) {
+        const avgPrice = (peersWithPrice[0].price_range.min + peersWithPrice[0].price_range.max) / 2;
+        const prices = peersWithPrice.map(p => (p.price_range.min + p.price_range.max) / 2).sort((a, b) => a - b);
+        const seriesAvg = (series.price_range.min + series.price_range.max) / 2;
+        const rank = prices.filter(p => p <= seriesAvg).length;
+        const percentile = Math.round((rank / prices.length) * 100);
+        if (percentile <= 20) pricePosition = 'エントリーモデル（カテゴリ内で価格帯が低め）';
+        else if (percentile <= 40) pricePosition = 'コスパ良好（カテゴリ平均以下の価格帯）';
+        else if (percentile <= 60) pricePosition = 'スタンダード（カテゴリ平均的な価格帯）';
+        else if (percentile <= 80) pricePosition = 'ハイスペック（カテゴリ平均以上の価格帯）';
+        else pricePosition = 'プレミアムクラス（カテゴリ最上位の価格帯）';
+      }
+    }
+
     return {
       params: { manufacturer_slug: series.manufacturer_slug, slug: series.slug },
       props: {
@@ -189,6 +207,7 @@ export async function getStaticPaths() {
         relatedContentArticles,
         categoryComparisonPeers,
         specComparison,
+        pricePosition,
       },
     };
   });
@@ -197,7 +216,7 @@ export async function getStaticPaths() {
 const {
   series, relatedByType, relatedByMaker, relatedByFish, canonicalPathOverride,
   categoryRank, categoryTotal, categoryFish, colorBreakdown, relatedContentArticles,
-  categoryComparisonPeers, specComparison,
+  categoryComparisonPeers, specComparison, pricePosition,
 } = Astro.props as {
   series: LureSeries;
   relatedByType: LureSeries[];
@@ -211,6 +230,7 @@ const {
   relatedContentArticles: ContentArticle[];
   categoryComparisonPeers: LureSeries[];
   specComparison: string[];
+  pricePosition: string;
 };
 
 const hasLimited = series.colors.some(c => c.is_limited);
@@ -319,9 +339,11 @@ function truncateDescription(raw: string, maxLen: number = 155): string {
 const rankLabel = categoryRank > 0 && categoryRank <= 10 && categoryFish
   ? `${categoryFish}向け${series.type}${categoryTotal}選中${categoryRank}位。`
   : '';
+// E/D: CTR改善 — 「スペック」「使い方」を含め検索意図カバレッジを拡大
+const priceLabel = hasPrice ? `価格${priceDisplay}。` : '';
 const rawDescription = series.description
-  ? `${seoName}（${series.manufacturer}の${series.type}）全${series.color_count}色を徹底比較。${rankLabel}${series.description}${hasPrice ? `価格${priceDisplay}。` : ''}`
-  : `${seoName}（${series.manufacturer}の${series.type}）全${series.color_count}色のおすすめカラーを比較｜${rankLabel}${specs}${hasPrice ? `・価格${priceDisplay}` : ''}を掲載。`;
+  ? `${seoName}（${series.manufacturer}の${series.type}）のスペック・全${series.color_count}色・使い方を解説。${rankLabel}${series.description}${priceLabel}`
+  : `${seoName}（${series.manufacturer}の${series.type}）のスペック・全${series.color_count}色のおすすめカラーを解説｜${rankLabel}${specs}${hasPrice ? `・価格${priceDisplay}` : ''}。`;
 const pageDescription = truncateDescription(rawDescription);
 
 // --- SEO: 自然言語スペック要約（ページ内表示用）---
@@ -757,9 +779,29 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
               </div>
             ))}
           </div>
+          {pricePosition && (
+            <div class="flex items-start gap-2 text-sm text-gray-700 mt-2">
+              <span class="text-accent mt-0.5 shrink-0">💰</span>
+              <span>価格ポジション: {pricePosition}</span>
+            </div>
+          )}
           <p class="text-xs text-text-faint mt-3 border-t border-gray-50 pt-3">
             CAST/LOGデータベースに基づく統計分析。
           </p>
+        </div>
+      </section>
+    )}
+
+    <!-- 価格ポジション（スペック比較セクションがない場合のフォールバック） -->
+    {pricePosition && !(specComparison.length > 0 && categoryFish) && hasPrice && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-3">価格ポジション</h2>
+        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <div class="flex items-start gap-2 text-sm text-gray-700">
+            <span class="text-accent mt-0.5 shrink-0">💰</span>
+            <span>{pricePosition}</span>
+          </div>
+          <p class="text-xs text-text-faint mt-3">価格{priceDisplay} — {categoryFish || series.type}カテゴリでの相対位置</p>
         </div>
       </section>
     )}

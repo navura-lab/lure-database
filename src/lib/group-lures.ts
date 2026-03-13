@@ -2,6 +2,16 @@ import type { Lure } from './supabase';
 import type { LureSeries, ColorVariant, WeightVariant } from './types';
 import { filterInvalidFishForType, removeNonFishEntries } from './fish-type-validation';
 
+// DB上の表記揺れを正規化（「バス」→「ブラックバス」等）
+const FISH_NAME_NORMALIZE: Record<string, string> = {
+  'バス': 'ブラックバス',
+  'ライギョ': '雷魚',
+};
+
+function normalizeFishName(name: string): string {
+  return FISH_NAME_NORMALIZE[name] ?? name;
+}
+
 function stripHtmlTags(str: string): string {
   return str.replace(/<[^>]*>/g, '').trim();
 }
@@ -87,7 +97,7 @@ export function groupLuresBySeries(lures: Lure[]): LureSeries[] {
 
     // L1バリデーション: 不正な魚種×タイプ組み合わせを除去
     const rawTargetFish = [...new Set(
-      records.flatMap(r => r.target_fish ?? [])
+      records.flatMap(r => r.target_fish ?? []).map(normalizeFishName)
     )];
     const allTargetFish = filterInvalidFishForType(
       rep.type,

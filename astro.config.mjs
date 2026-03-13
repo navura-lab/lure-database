@@ -12,6 +12,7 @@ export default defineConfig({
   adapter: vercel(),
   integrations: [sitemap({
     lastmod: new Date(),
+    entryLimit: 5000, // 11,000+URLを3分割 → Googlebot回遊効率化
     filter: (page) => !page.includes('/search/') && !page.includes('/trap/'),
     serialize: (item) => {
       const url = item.url;
