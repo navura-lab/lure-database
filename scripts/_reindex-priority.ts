@@ -16,10 +16,14 @@
 import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
-import { google } from 'googleapis';
 
 const SITE_URL = 'https://www.lure-db.com';
 const DRY_RUN = !process.argv.includes('--submit');
+
+const CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
+const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
+const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN!;
+const QUOTA_PROJECT = process.env.GOOGLE_QUOTA_PROJECT || 'plucky-mile-486802-j6';
 
 // GSC 2026-03-11/12 データから特定した優先ページ
 // Low-hanging fruit（ポジション8-20、コンテンツ改善で1ページ目狙い）
@@ -73,6 +77,32 @@ const PRIORITY_URLS = [
   '/article/seabass-worm/',
 ];
 
+// ─── Helper ───────────────────────────────────────────
+
+async function getAccessToken(): Promise<string> {
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      refresh_token: REFRESH_TOKEN,
+      grant_type: 'refresh_token',
+    }),
+  });
+  const data = await res.json() as any;
+  if (!data.access_token) throw new Error(`Token error: ${JSON.stringify(data)}`);
+  return data.access_token;
+}
+
+function apiHeaders(token: string) {
+  return {
+    'Authorization': `Bearer ${token}`,
+    'x-goog-user-project': QUOTA_PROJECT,
+    'Content-Type': 'application/json',
+  };
+}
+
 async function main() {
   console.log(`=== 優先再インデックス（${DRY_RUN ? 'DRY RUN' : 'LIVE'}）===`);
   console.log(`対象: ${PRIORITY_URLS.length} URLs\n`);
@@ -85,34 +115,31 @@ async function main() {
     return;
   }
 
-  // Google Auth
-  const keyPath = path.join(import.meta.dirname, '..', 'config', 'service-account.json');
-  if (!fs.existsSync(keyPath)) {
-    console.error(`❌ サービスアカウントキーが見つかりません: ${keyPath}`);
-    process.exit(1);
-  }
-
-  const auth = new google.auth.GoogleAuth({
-    keyFile: keyPath,
-    scopes: ['https://www.googleapis.com/auth/indexing'],
-  });
-  const client = await auth.getClient();
-  const indexing = google.indexing({ version: 'v3', auth: client as any });
-
+  const token = await getAccessToken();
   let success = 0;
   let failed = 0;
 
   for (const urlPath of PRIORITY_URLS) {
     const fullUrl = `${SITE_URL}${urlPath}`;
     try {
-      await indexing.urlNotifications.publish({
-        requestBody: { url: fullUrl, type: 'URL_UPDATED' },
-      });
-      console.log(`  ✅ ${urlPath}`);
-      success++;
+      const res = await fetch(
+        'https://indexing.googleapis.com/v3/urlNotifications:publish',
+        {
+          method: 'POST',
+          headers: apiHeaders(token),
+          body: JSON.stringify({ url: fullUrl, type: 'URL_UPDATED' }),
+        },
+      );
+      const data = await res.json() as any;
+      if (!res.ok) {
+        console.log(`  ❌ ${urlPath} — ${data.error?.message || res.statusText}`);
+        failed++;
+      } else {
+        console.log(`  ✅ ${urlPath}`);
+        success++;
+      }
     } catch (err: any) {
-      const msg = err?.errors?.[0]?.message || err.message || 'unknown';
-      console.log(`  ❌ ${urlPath} — ${msg}`);
+      console.log(`  ❌ ${urlPath} — ${err.message || 'unknown'}`);
       failed++;
     }
     // レート制限対策: 100ms間隔
