@@ -16,6 +16,8 @@ import { fishTypeUsage } from '../../data/fish-type-usage';
 import { contentArticles } from '../../data/articles/_index.js';
 import type { ContentArticle } from '../../data/articles/_types.js';
 import { computeColorBreakdown, type ColorBreakdownEntry } from '../../lib/color-categories';
+import { getFieldCompatibility, type FieldCompatibility } from '../../lib/field-compatibility';
+import { generateWeightStrategy, type WeightStrategyEntry } from '../../lib/weight-strategy';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -178,6 +180,12 @@ export async function getStaticPaths() {
     // スペック比較文: カテゴリ平均値との比較テキスト生成
     const specComparison = generateSpecComparison(series, categoryPeers);
 
+    // フィールド対応度（タイプベース）
+    const fieldCompat = getFieldCompatibility(series.type);
+
+    // ウェイトバリエーション戦略文
+    const weightStrategy = generateWeightStrategy(series);
+
     // 価格ポジション: カテゴリ内での価格帯位置付け
     let pricePosition = '';
     if (series.price_range.max > 0 && categoryPeers.length >= 3) {
@@ -208,6 +216,8 @@ export async function getStaticPaths() {
         categoryComparisonPeers,
         specComparison,
         pricePosition,
+        fieldCompat,
+        weightStrategy,
       },
     };
   });
@@ -217,6 +227,7 @@ const {
   series, relatedByType, relatedByMaker, relatedByFish, canonicalPathOverride,
   categoryRank, categoryTotal, categoryFish, colorBreakdown, relatedContentArticles,
   categoryComparisonPeers, specComparison, pricePosition,
+  fieldCompat, weightStrategy,
 } = Astro.props as {
   series: LureSeries;
   relatedByType: LureSeries[];
@@ -231,6 +242,8 @@ const {
   categoryComparisonPeers: LureSeries[];
   specComparison: string[];
   pricePosition: string;
+  fieldCompat: FieldCompatibility[];
+  weightStrategy: WeightStrategyEntry[];
 };
 
 const hasLimited = series.colors.some(c => c.is_limited);
@@ -423,6 +436,16 @@ const jsonLd: Record<string, unknown> = {
       name: 'アクション',
       value: series.action_type,
     }] : []),
+    ...(series.target_fish.length > 0 ? [{
+      '@type': 'PropertyValue',
+      name: '対象魚',
+      value: series.target_fish.join('、'),
+    }] : []),
+    ...(series.color_count > 0 ? [{
+      '@type': 'PropertyValue',
+      name: 'カラー展開数',
+      value: `${series.color_count}色`,
+    }] : []),
   ],
 };
 
@@ -523,6 +546,58 @@ if (series.description) {
     name: `${series.name}の特徴は？`,
     acceptedAnswer: { '@type': 'Answer', text: series.description },
   });
+}
+
+// Q6: フィールド対応度
+if (fieldCompat.length > 0) {
+  const bestFields = fieldCompat.filter(f => f.rating === '◎').map(f => f.field);
+  const goodFields = fieldCompat.filter(f => f.rating === '○').map(f => f.field);
+  const fieldAnswer = bestFields.length > 0
+    ? `${series.name}（${series.type}）は${bestFields.join('・')}で最も適性が高いです。${goodFields.length > 0 ? `${goodFields.join('・')}でも使用可能です。` : ''}`
+    : `${series.name}（${series.type}）は${goodFields.join('・')}で使用できます。`;
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${series.name}はどのフィールドで使える？`,
+    acceptedAnswer: { '@type': 'Answer', text: fieldAnswer },
+  });
+}
+
+// Q7: ウェイト使い分け
+if (weightStrategy.length >= 2) {
+  const wsText = weightStrategy.map(w => `${w.label}は${w.situation}向き`).join('、');
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${series.name}のウェイトの使い分けは？`,
+    acceptedAnswer: { '@type': 'Answer', text: `${series.name}は重量帯別に使い分けが可能です。${wsText}。フィールドの水深や潮流に合わせて選択してください。` },
+  });
+}
+
+// Q8: シーズン（魚種ベースの推奨時期）
+if (series.target_fish.length > 0) {
+  const seasonMap: Record<string, string> = {
+    'シーバス': '通年（特に春の産卵後と秋のコノシロパターンが最盛期）',
+    'ヒラメ': '秋〜春（10月〜4月。特に晩秋〜初冬が好期）',
+    'マゴチ': '夏〜秋（6月〜10月。水温が高い時期が好期）',
+    '青物': '夏〜秋（7月〜11月。回遊のタイミング次第）',
+    'ブラックバス': '通年（特に春のスポーニング期が最盛）',
+    'メバル': '冬〜春（12月〜5月。ナイトゲームが主流）',
+    'アジ': '通年（特に夏〜秋が数釣りの好期）',
+    'イカ': '春（3月〜6月の親イカ）と秋（9月〜11月の新子）',
+    'マダイ': '通年（春の乗っ込みと秋の荒食いが好期）',
+    'ヒラマサ': '夏〜秋（6月〜11月。水温20度以上が目安）',
+    'タチウオ': '夏〜冬（7月〜12月。夕マヅメ〜夜が狙い目）',
+    'チヌ': '通年（春〜秋が活性が高い）',
+    'ロックフィッシュ': '通年（秋〜冬が好期。低水温に強い）',
+  };
+  const fish = series.target_fish[0];
+  const season = seasonMap[fish];
+  if (season) {
+    faqEntries.push({
+      '@type': 'Question',
+      name: `${series.name}が効くシーズンは？`,
+      acceptedAnswer: { '@type': 'Answer', text: `${series.name}のメインターゲットである${fish}は${season}に狙えます。地域や水温によって差があるため、ベイトの接岸状況を確認しましょう。` },
+    });
+  }
 }
 
 const faqLd = faqEntries.length > 0 ? {
@@ -802,6 +877,61 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
             <span>{pricePosition}</span>
           </div>
           <p class="text-xs text-text-faint mt-3">価格{priceDisplay} — {categoryFish || series.type}カテゴリでの相対位置</p>
+        </div>
+      </section>
+    )}
+
+    <!-- フィールド対応度 -->
+    {fieldCompat.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-3">{series.type}のフィールド適性</h2>
+        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <p class="text-sm text-gray-600 mb-4">
+            {series.type}の各フィールドでの適性をデータベースの傾向から評価。{series.name}の選択時の参考に。
+          </p>
+          <div class="space-y-2">
+            {fieldCompat.map(fc => (
+              <div class="flex items-center gap-3 text-sm">
+                <span class:list={[
+                  'w-6 text-center font-bold text-lg',
+                  fc.rating === '◎' ? 'text-green-600' :
+                  fc.rating === '○' ? 'text-blue-600' :
+                  fc.rating === '△' ? 'text-amber-600' : 'text-gray-400'
+                ]}>{fc.rating}</span>
+                <span class="w-32 shrink-0 font-medium text-gray-900">{fc.field}</span>
+                <span class="text-gray-600 text-xs">{fc.reason}</span>
+              </div>
+            ))}
+          </div>
+          <p class="text-xs text-text-faint mt-3 border-t border-gray-50 pt-3">
+            ◎=最適 ○=適 △=条件付き —=非推奨。タイプの一般的な特性に基づく。
+          </p>
+        </div>
+      </section>
+    )}
+
+    <!-- ウェイトバリエーション戦略 -->
+    {weightStrategy.length >= 2 && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-3">{series.name}のウェイト使い分け</h2>
+        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <p class="text-sm text-gray-600 mb-4">
+            {series.name}は{weightStrategy.length}つの重量帯をカバー。フィールドやターゲットに合わせた使い分けが可能。
+          </p>
+          <div class="space-y-3">
+            {weightStrategy.map(ws => (
+              <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                <span class="shrink-0 px-2.5 py-1 bg-accent/10 text-accent font-mono text-sm font-bold rounded">{ws.label}</span>
+                <div>
+                  <p class="text-sm font-medium text-gray-900">{ws.situation}</p>
+                  <p class="text-xs text-gray-600 mt-0.5">{ws.advice}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p class="text-xs text-text-faint mt-3 border-t border-gray-50 pt-3">
+            CAST/LOGデータベースの実ウェイトデータに基づく推奨。
+          </p>
         </div>
       </section>
     )}

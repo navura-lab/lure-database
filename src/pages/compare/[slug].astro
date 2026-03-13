@@ -157,6 +157,50 @@ faqEntries.push({
   acceptedAnswer: { '@type': 'Answer', text: `${fishName}向け${typeName}選びのポイントは、重量・レンジ・カラー展開の3つ。${topManufacturers}など各メーカーが特徴あるモデルを展開している。フィールドのベイトサイズや水深に合わせてスペックを比較しよう。` },
 });
 
+// Q4: カラー展開の違い
+if (topSeries.length >= 2) {
+  const s1 = topSeries[0];
+  const s2 = topSeries[1];
+  const bd1 = colorBreakdowns[0].filter(e => e.id !== 'other');
+  const bd2 = colorBreakdowns[1].filter(e => e.id !== 'other');
+  const top1Cats = bd1.slice(0, 3).map(e => e.label).join('・');
+  const top2Cats = bd2.slice(0, 3).map(e => e.label).join('・');
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${s1.name}と${s2.name}のカラー展開の違いは？`,
+    acceptedAnswer: { '@type': 'Answer', text: `${s1.name}は全${s1.color_count}色で${top1Cats}系が中心。${s2.name}は全${s2.color_count}色で${top2Cats}系が充実している。カラーバリエーションの多さで選ぶなら${s1.color_count >= s2.color_count ? s1.name : s2.name}、特定の系統を重視するなら各シリーズのカラー内訳を確認しよう。` },
+  });
+}
+
+// Q5: 初心者向け判定
+if (topSeries.length >= 2) {
+  const s1 = topSeries[0];
+  const s2 = topSeries[1];
+  // 初心者スコア: 価格が安い・重量が軽い・カラーが多いほど高評価
+  const beginnerScore = (s: typeof topSeries[0]) => {
+    let score = 0;
+    // 価格が安いほど加点（価格データがない場合は中立）
+    if (s.price_range.min > 0) score += (3000 - s.price_range.min) / 1000;
+    // 重量が軽いほど加点（扱いやすい）
+    if (s.weight_range.min != null) score += (30 - s.weight_range.min) / 10;
+    // カラーが多いほど加点（選択肢が多い）
+    score += s.color_count / 10;
+    return score;
+  };
+  const score1 = beginnerScore(s1);
+  const score2 = beginnerScore(s2);
+  const recommended = score1 >= score2 ? s1 : s2;
+  const reasonParts: string[] = [];
+  if (recommended.price_range.min > 0) reasonParts.push(`価格¥${recommended.price_range.min.toLocaleString()}〜と手が出しやすい`);
+  if (recommended.weight_range.min != null) reasonParts.push(`${recommended.weight_range.min}gから使える軽量モデルあり`);
+  reasonParts.push(`カラー${recommended.color_count}色展開で状況に応じた使い分けが可能`);
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${s1.name}と${s2.name}はどちらが初心者向け？`,
+    acceptedAnswer: { '@type': 'Answer', text: `初心者には${recommended.name}がおすすめ。${reasonParts.join('、')}。まずは扱いやすいモデルから始めて、経験に応じてステップアップしよう。` },
+  });
+}
+
 const faqLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',

@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fishingMethods } from '../../data/fishing-methods';
+import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
+
+// ─── SEO ───
+
+const currentYear = new Date().getFullYear();
+const pageTitle = `釣り方別ルアーまとめ ${fishingMethods.length}カテゴリ【${currentYear}年】 | CAST/LOG`;
+const pageDescription = `${fishingMethods.length}種類の釣り方別におすすめルアーをまとめて紹介。ショアジギング・エギング・シーバスゲーム・バスフィッシングなど、釣り方ごとに最適なルアータイプと対象魚を掲載。`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: '釣り方別ルアーまとめ',
+  url: 'https://castlog.xyz/method/',
+  description: pageDescription,
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://castlog.xyz/' },
+    { '@type': 'ListItem', position: 2, name: '釣り方', item: 'https://castlog.xyz/method/' },
+  ],
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath="/method/" jsonLd={[jsonLd, breadcrumbLd] as unknown as Record<string, unknown>}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">釣り方</span>
+    </nav>
+
+    <!-- ヘッダー -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">METHOD</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">釣り方別ルアーまとめ</h1>
+      <p class="text-sm text-text-mid mt-1">
+        {fishingMethods.length}カテゴリの釣り方からルアーを探す
+      </p>
+    </div>
+
+    <!-- 概要 -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        釣り方（メソッド）ごとに、対象魚と主要ルアータイプを整理。各ページではデータベースに登録されたルアーをカラー展開数順に掲載している。
+      </p>
+    </div>
+
+    <!-- メソッド一覧 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {fishingMethods.map(method => (
+        <a href={`/method/${method.slug}/`} class="group block bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 hover:shadow-card-hover hover:scale-[1.01]">
+          <div class="p-5">
+            <h2 class="text-base font-bold text-gray-900 mb-2 group-hover:text-accent transition-colors">
+              {method.name}
+            </h2>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-2">
+              {method.description}
+            </p>
+
+            <!-- 対象魚タグ -->
+            <div class="flex flex-wrap gap-1.5 mb-3">
+              {method.targetFish.map(fish => (
+                <span class="px-2 py-0.5 bg-accent-bg text-accent rounded-full text-xs font-medium">
+                  {fish}
+                </span>
+              ))}
+            </div>
+
+            <!-- ルアータイプタグ -->
+            <div class="flex flex-wrap gap-1.5">
+              {method.mainTypes.map(type => (
+                <span class="px-2 py-0.5 bg-gray-50 text-gray-600 rounded text-xs border border-gray-100">
+                  {type}
+                </span>
+              ))}
+            </div>
+
+            <!-- フッター情報 -->
+            <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between text-xs text-text-dim">
+              <span>{method.fields.join('・')}</span>
+              <span class="text-accent group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

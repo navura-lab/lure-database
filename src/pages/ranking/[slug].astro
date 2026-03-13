@@ -107,10 +107,11 @@ const priceText = priceRange ? `¥${priceRange.min.toLocaleString()}〜¥${price
 const currentYear = new Date().getFullYear();
 const pageTitle = `${fishName} ${typeName} おすすめランキング${rankedSeries.length}選【${currentYear}年】 | CAST/LOG`;
 const pageDescription = [
-  `${fishName}向け${typeName}のおすすめ${rankedSeries.length}シリーズをランキング形式で紹介。`,
-  topMakers ? `${topMakers}等${makerBreakdown.length}メーカーの${typeName}を比較。` : '',
+  `全${totalColors}カラー・${rankedSeries.length}シリーズを徹底比較。`,
+  `${fishName}向け${typeName}のおすすめと選び方を解説。`,
+  topMakers ? `${topMakers}等${makerBreakdown.length}メーカーから厳選。` : '',
   priceText ? `価格帯${priceText}。` : '',
-  'カラー・スペック・価格を一覧で比較できる。',
+  'スペック・カラー展開・価格を一覧で比較して最適な1本が見つかる。',
 ].filter(Boolean).join('');
 
 // 概要テキスト

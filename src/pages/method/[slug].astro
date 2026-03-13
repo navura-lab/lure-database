@@ -1,0 +1,292 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LureCard from '../../components/LureCard.astro';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
+import { fishingMethods } from '../../data/fishing-methods';
+import { contentArticles } from '../../data/articles/_index';
+import type { LureSeries } from '../../lib/types';
+import type { FishingMethod } from '../../data/fishing-methods';
+
+// ─── 静的パス生成 ───
+
+export async function getStaticPaths() {
+  const lures = await fetchAllLures();
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  return fishingMethods.map(method => {
+    // targetFish × mainTypes でフィルタ
+    const matchingSeries = allSeries.filter(s => {
+      if (!s.type) return false;
+      const typeMatch = method.mainTypes.includes(s.type);
+      const fishMatch = s.target_fish.some(f => method.targetFish.includes(f));
+      return typeMatch && fishMatch;
+    });
+
+    // カラー数順でソート（ランキングページと同じ）
+    const sorted = matchingSeries
+      .sort((a, b) => b.color_count - a.color_count);
+
+    // タイプ別にグルーピング
+    const byType = new Map<string, LureSeries[]>();
+    for (const s of sorted) {
+      const existing = byType.get(s.type) || [];
+      existing.push(s);
+      byType.set(s.type, existing);
+    }
+
+    // mainTypes の順番を維持してタイプ別データを構築
+    const typeGroups = method.mainTypes
+      .filter(t => byType.has(t))
+      .map(t => ({
+        typeName: t,
+        typeSlug: getTypeSlug(t),
+        series: byType.get(t)!,
+      }));
+
+    return {
+      params: { slug: method.slug },
+      props: { method, typeGroups, totalCount: sorted.length },
+    };
+  });
+}
+
+// ─── Props ───
+
+const { method, typeGroups, totalCount } = Astro.props as {
+  method: FishingMethod;
+  typeGroups: { typeName: string; typeSlug: string; series: LureSeries[] }[];
+  totalCount: number;
+};
+
+const slug = Astro.params.slug as string;
+
+// ─── 関連ランキングリンク ───
+
+const relatedRankings: { slug: string; label: string }[] = [];
+for (const fish of method.targetFish) {
+  for (const type of method.mainTypes) {
+    const rSlug = `${getFishSlug(fish)}-${getTypeSlug(type)}`;
+    relatedRankings.push({ slug: rSlug, label: `${fish}×${type}` });
+  }
+}
+
+// ─── 関連記事 ───
+
+const relatedArticles = contentArticles.filter(a =>
+  a.targetFish.some(f => method.targetFish.includes(f)) ||
+  a.targetTypes.some(t => method.mainTypes.includes(t))
+).slice(0, 6);
+
+// ─── SEO ───
+
+const currentYear = new Date().getFullYear();
+const pageTitle = `${method.name} ルアー おすすめ【${currentYear}年】 | CAST/LOG`;
+const pageDescription = `${method.name}で使うルアーのおすすめ${totalCount}シリーズを紹介。${method.mainTypes.join('・')}など${method.targetFish.join('・')}向けルアーをカラー展開数順に掲載。`;
+
+// ─── FAQ JSON-LD（3問） ───
+
+const faqItems = [
+  {
+    q: `${method.name}にはどんなルアーが使われる？`,
+    a: `${method.name}では主に${method.mainTypes.join('・')}が使われる。${method.targetFish.join('・')}を対象に、${totalCount}シリーズが登録されている。`,
+  },
+  {
+    q: `${method.name}のベストシーズンは？`,
+    a: `${method.name}のベストシーズンは${method.season}。${method.fields.join('・')}などのフィールドで楽しめる。`,
+  },
+  {
+    q: `${method.name}のコツは？`,
+    a: method.tips[0] + '。' + (method.tips[1] ? method.tips[1] + '。' : ''),
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${method.name}のルアーまとめ`,
+  url: `https://castlog.xyz/method/${slug}/`,
+  description: pageDescription,
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://castlog.xyz/' },
+    { '@type': 'ListItem', position: 2, name: '釣り方', item: 'https://castlog.xyz/method/' },
+    { '@type': 'ListItem', position: 3, name: method.name, item: `https://castlog.xyz/method/${slug}/` },
+  ],
+};
+
+const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, unknown>;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/method/${slug}/`} jsonLd={jsonLd}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <a href="/method/" class="hover:text-accent transition-colors">釣り方</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{method.name}</span>
+    </nav>
+
+    <!-- ヘッダー -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">METHOD</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+        {method.name}のルアー {totalCount}選
+      </h1>
+      <p class="text-sm text-text-mid mt-1">
+        {method.targetFish.join('・')}向け・{totalCount}シリーズ
+      </p>
+    </div>
+
+    <!-- 概要セクション -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed mb-4">
+        {method.description}
+      </p>
+
+      <!-- スペックサマリー -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5">
+        <div>
+          <p class="text-xs text-text-dim">対象魚</p>
+          <p class="text-sm font-semibold text-gray-900">{method.targetFish.join('・')}</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">主要ルアー</p>
+          <p class="text-sm font-semibold text-gray-900">{method.mainTypes.join('・')}</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">フィールド</p>
+          <p class="text-sm font-semibold text-gray-900">{method.fields.join('・')}</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">シーズン</p>
+          <p class="text-sm font-semibold text-gray-900">{method.season}</p>
+        </div>
+      </div>
+
+      <!-- タグリンク -->
+      <div class="flex flex-wrap gap-2">
+        {method.targetFish.map(fish => (
+          <a href={`/fish/${getFishSlug(fish)}/`} class="px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+            {fish}のルアー一覧
+          </a>
+        ))}
+        {method.mainTypes.map(type => (
+          <a href={`/type/${getTypeSlug(type)}/`} class="px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+            {type}のルアー一覧
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- おすすめルアータイプ（タイプ別セクション） -->
+    {typeGroups.map(group => (
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <h2 class="text-lg font-bold text-gray-900">{group.typeName}</h2>
+          <a href={`/type/${group.typeSlug}/`} class="text-xs text-text-mid hover:text-accent transition-colors">
+            全一覧 →
+          </a>
+          <span class="text-xs text-text-dim">{group.series.length}シリーズ</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {group.series.slice(0, 5).map((s, i) => (
+            <div class="relative">
+              <LureCard series={s} isNew={false} priority={i < 2} rank={i + 1} />
+            </div>
+          ))}
+        </div>
+        {group.series.length > 5 && (
+          <p class="mt-3 text-sm text-text-mid">
+            他 {group.series.length - 5}シリーズ →
+            <a href={`/type/${group.typeSlug}/`} class="text-accent hover:underline">一覧を見る</a>
+          </p>
+        )}
+      </section>
+    ))}
+
+    <!-- コツ -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">{method.name}のコツ</h2>
+      <div class="bg-white rounded-lg border border-gray-100 p-4 sm:p-5">
+        <ul class="space-y-2">
+          {method.tips.map(tip => (
+            <li class="text-sm text-gray-700 leading-relaxed flex gap-2">
+              <span class="text-accent shrink-0 mt-0.5">▸</span>
+              <span>{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ アコーディオン -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">よくある質問</h2>
+      <div class="space-y-3">
+        {faqItems.map(item => (
+          <details class="bg-white rounded-lg border border-gray-100 overflow-hidden group">
+            <summary class="px-4 py-3 text-sm font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
+              <span>{item.q}</span>
+              <span class="text-accent text-xs group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div class="px-4 pb-4 text-sm text-gray-700 leading-relaxed">
+              {item.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- 関連ランキング -->
+    {relatedRankings.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連カタログ</h2>
+        <div class="flex flex-wrap gap-2">
+          {relatedRankings.map(r => (
+            <a href={`/ranking/${r.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+              {r.label}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 関連記事 -->
+    {relatedArticles.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連記事</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {relatedArticles.map(article => (
+            <a href={`/article/${article.slug}/`} class="group flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
+              <div>
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors">{article.h1}</p>
+                <p class="text-xs text-text-dim mt-0.5">{article.targetFish.join('・')}</p>
+              </div>
+              <span class="text-accent text-sm shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>

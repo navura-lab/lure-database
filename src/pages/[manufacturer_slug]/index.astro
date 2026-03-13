@@ -6,6 +6,7 @@ import { groupLuresBySeries } from '../../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { manufacturerDescriptions } from '../../data/manufacturer-descriptions';
 import { guideArticles } from '../../data/guides';
+import { contentArticles } from '../../data/articles/_index.js';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -149,6 +150,25 @@ if (priceRange) {
 }
 const summaryText = summaryParts.join('。') + '。';
 
+// ─── 代表シリーズ TOP 5（カラー展開数上位）───
+
+const topSeries = [...series]
+  .sort((a, b) => b.color_count - a.color_count)
+  .slice(0, 5);
+
+// ─── E-E-A-T 出典表記用 ───
+
+const now = new Date();
+const eatYear = now.getFullYear();
+const eatMonth = now.getMonth() + 1;
+
+// ─── 関連特集記事（魚種 or タイプが一致）───
+
+const relatedContentArticles = contentArticles.filter(a =>
+  a.targetFish.some(f => allTargetFish.includes(f)) ||
+  a.targetTypes.some(t => typeBreakdown.some(tb => tb.type === t))
+).slice(0, 3);
+
 // ─── FAQ JSON-LD（リッチスニペット用）───
 
 const faqItems: { q: string; a: string }[] = [];
@@ -173,6 +193,28 @@ if (priceRange) {
   faqItems.push({
     q: `${manufacturer}のルアーの価格帯は？`,
     a: `${manufacturer}のルアーは¥${priceRange.min.toLocaleString()}〜¥${priceRange.max.toLocaleString()}の価格帯。${totalColors}カラーの豊富なバリエーションから選択できる。`,
+  });
+}
+
+// 人気ルアー FAQ
+if (topSeries.length > 0) {
+  const top3Names = topSeries.slice(0, 3).map(s => `${s.name}（${s.color_count}カラー）`).join('、');
+  faqItems.push({
+    q: `${manufacturer}で人気のルアーは？`,
+    a: `${manufacturer}でカラー展開数が多い人気シリーズは${top3Names}。カラーバリエーションの豊富さはフィールドや状況に応じた使い分けに役立つ。`,
+  });
+}
+
+// 最新ルアー FAQ
+const latestSeries = [...series]
+  .filter(s => s.release_year != null)
+  .sort((a, b) => (b.release_year ?? 0) - (a.release_year ?? 0))
+  .slice(0, 3);
+if (latestSeries.length > 0) {
+  const latestNames = latestSeries.map(s => `${s.name}（${s.release_year}年）`).join('、');
+  faqItems.push({
+    q: `${manufacturer}の最新ルアーは？`,
+    a: `${manufacturer}の最新モデルは${latestNames}。最新のルアーテクノロジーを搭載したラインナップとなっている。`,
   });
 }
 
@@ -300,8 +342,11 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
     <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
 
       <!-- ① 概要テキスト -->
-      <p class="text-sm text-gray-700 leading-relaxed mb-4">
+      <p class="text-sm text-gray-700 leading-relaxed mb-2">
         {summaryText}
+      </p>
+      <p class="text-xs text-text-dim mb-4">
+        出典: CAST/LOGルアーデータベース（{eatYear}年{eatMonth}月更新）
       </p>
 
       {editorialText && (
@@ -321,6 +366,27 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
                 <span class="text-accent">{t.count}</span>
               </a>
             ))}
+          </div>
+        </div>
+      )}
+
+      <!-- ②-b カテゴリ分布チャート -->
+      {typeBreakdown.length > 2 && (
+        <div class="mb-5">
+          <h2 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-2">カテゴリ分布</h2>
+          <div class="space-y-1.5">
+            {typeBreakdown.slice(0, 8).map(t => {
+              const pct = Math.round((t.count / series.length) * 100);
+              return (
+                <div class="flex items-center gap-2">
+                  <span class="w-24 text-xs text-gray-600 shrink-0 truncate">{t.type}</span>
+                  <div class="flex-1 bg-gray-100 rounded h-3 overflow-hidden">
+                    <div class="h-3 bg-accent/60 rounded" style={`width:${Math.max(pct, 4)}%`} />
+                  </div>
+                  <span class="text-xs text-gray-500 w-8 text-right shrink-0">{t.count}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -350,6 +416,18 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
       )}
 
     </div>
+
+    <!-- 代表シリーズ TOP 5 -->
+    {topSeries.length > 0 && (
+      <section class="mb-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">代表シリーズ TOP 5</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+          {topSeries.map(s => (
+            <LureCard series={s} isNew={false} priority={true} />
+          ))}
+        </div>
+      </section>
+    )}
 
     <!-- シリーズ見出し + 検索・ソート -->
     <div class="flex flex-col gap-4 mb-6">
@@ -532,6 +610,21 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
                 <p class="text-sm font-semibold text-gray-900">{g.title.split('【')[0]}</p>
                 <p class="text-xs text-text-dim mt-0.5">{g.targetFish.join('・')}</p>
               </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 関連特集記事（contentArticles: 魚種/タイプ一致） -->
+    {relatedContentArticles.length > 0 && (
+      <section class="mt-8 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連特集記事</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {relatedContentArticles.map(a => (
+            <a href={`/article/${a.slug}/`} class="flex flex-col gap-1 px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
+              <p class="text-sm font-semibold text-gray-900 line-clamp-2">{a.h1}</p>
+              <p class="text-xs text-text-dim">{a.targetFish.slice(0, 3).join('・')}{a.targetTypes.length > 0 ? ` / ${a.targetTypes.slice(0, 2).join('・')}` : ''}</p>
             </a>
           ))}
         </div>

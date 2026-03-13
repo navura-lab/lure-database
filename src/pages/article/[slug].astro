@@ -14,6 +14,8 @@ import { groupLuresBySeries } from '../../lib/group-lures';
 import { contentArticles } from '../../data/articles/_index';
 import type { ContentArticle, ArticleSection } from '../../data/articles/_types';
 import type { LureSeries } from '../../lib/types';
+import { getArticleCrosslinks } from '../../lib/article-crosslinks';
+import type { CrosslinkArticle } from '../../lib/article-crosslinks';
 
 export async function getStaticPaths() {
   if (contentArticles.length === 0) return [];
@@ -51,7 +53,10 @@ export async function getStaticPaths() {
       }
     }
 
-    // 3. targetFish/targetTypesに基づくトップピック
+    // 3. 記事間クロスリンク
+    const crosslinks = getArticleCrosslinks(article, contentArticles, 5);
+
+    // 4. targetFish/targetTypesに基づくトップピック
     const topPicks = allSeries
       .filter(s => {
         const fishMatch = article.targetFish.length === 0 ||
@@ -69,16 +74,18 @@ export async function getStaticPaths() {
         article,
         referencedSeries,
         topPicks,
+        crosslinks,
         seriesMap: Object.fromEntries(seriesMap),
       },
     };
   });
 }
 
-const { article, referencedSeries, topPicks, seriesMap } = Astro.props as {
+const { article, referencedSeries, topPicks, crosslinks, seriesMap } = Astro.props as {
   article: ContentArticle;
   referencedSeries: LureSeries[];
   topPicks: LureSeries[];
+  crosslinks: CrosslinkArticle[];
   seriesMap: Record<string, LureSeries>;
 };
 
@@ -319,6 +326,34 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {topPicks.map(s => (
             <LureCard series={s} isNew={false} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 関連記事（クロスリンク） -->
+    {crosslinks.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">関連記事</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {crosslinks.map(cl => (
+            <a href={`/article/${cl.slug}/`} class="group flex items-start gap-3 px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
+              <span class:list={[
+                'shrink-0 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded mt-0.5',
+                cl.type === 'color-guide' ? 'bg-blue-50 text-blue-600' :
+                cl.type === 'review-analysis' ? 'bg-green-50 text-green-600' :
+                cl.type === 'selection-guide' ? 'bg-orange-50 text-orange-600' :
+                'bg-gray-50 text-gray-600'
+              ]}>
+                {cl.type === 'color-guide' ? 'カラー' :
+                 cl.type === 'review-analysis' ? 'レビュー' :
+                 cl.type === 'selection-guide' ? '選び方' : 'ガイド'}
+              </span>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors truncate">{cl.title}</p>
+              </div>
+              <span class="text-accent text-sm shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+            </a>
           ))}
         </div>
       </section>
