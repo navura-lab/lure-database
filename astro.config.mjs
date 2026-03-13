@@ -24,21 +24,21 @@ export default defineConfig({
       if (url.includes('/new/')) {
         return { ...item, changefreq: 'daily', priority: 0.9 };
       }
-      // 一覧ページ（メーカー/タイプ/対象魚/カタログ/ガイド）: 週次更新
-      if (url.match(/\/(maker|type|fish|ranking|guide)\/$/)) {
+      // 一覧ページ（メーカー/タイプ/対象魚/カタログ/ガイド/比較/釣り方/記事）: 週次更新
+      if (url.match(/\/(maker|type|fish|ranking|guide|compare|method|article)\/$/)) {
         return { ...item, changefreq: 'weekly', priority: 0.8 };
       }
-      // メーカー詳細: 週次更新（新商品追加あり）
-      if (url.match(/\/[a-z0-9-]+\/$/) && !url.includes('/type/') && !url.includes('/fish/') && !url.includes('/ranking/') && !url.includes('/guide/') && !url.includes('/new/') && !url.includes('/maker/')) {
-        return { ...item, changefreq: 'weekly', priority: 0.7 };
+      // 記事・ガイド詳細: 月次（先にマッチさせてメーカー詳細と混同させない）
+      if (url.match(/\/(guide|article|method)\/[a-z0-9-]+\//)) {
+        return { ...item, changefreq: 'monthly', priority: 0.6 };
       }
       // カテゴリ詳細（タイプ/対象魚/ランキング/比較）: 週次
       if (url.match(/\/(type|fish|ranking|compare)\/[a-z0-9-]+\//)) {
         return { ...item, changefreq: 'weekly', priority: 0.6 };
       }
-      // ガイド記事: 月次
-      if (url.includes('/guide/')) {
-        return { ...item, changefreq: 'monthly', priority: 0.6 };
+      // メーカー詳細: 週次更新（新商品追加あり）
+      if (url.match(/\/[a-z0-9-]+\/$/) && !url.includes('/type/') && !url.includes('/fish/') && !url.includes('/ranking/') && !url.includes('/guide/') && !url.includes('/new/') && !url.includes('/maker/') && !url.includes('/compare/') && !url.includes('/method/') && !url.includes('/article/')) {
+        return { ...item, changefreq: 'weekly', priority: 0.7 };
       }
       // ルアー詳細ページ: 月次
       return { ...item, changefreq: 'monthly', priority: 0.5 };
