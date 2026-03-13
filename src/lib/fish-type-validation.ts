@@ -108,3 +108,41 @@ export function removeNonFishEntries(targetFish: string[]): string[] {
 
 /** ビルドから除外すべきタイプ（ルアーではない製品） */
 export const EXCLUDED_TYPES = new Set(['ルアーアクセサリー']);
+
+/**
+ * 非ルアー製品の名前パターン検出
+ * シンカー/ウェイト単体、フック単体、ロッド、交換パーツ等を除外
+ * 偽陽性ゼロのパターンのみ（「Blade」「Line」等の曖昧なものは含めない）
+ */
+const EXCLUDED_NAME_PATTERNS = [
+  // シンカー/ウェイト単体
+  /\b(?:flipping|drop\s*shot|casting|neko|wacky|splitshot|split\s*ball)\s*weight\b/i,
+  /dome\s*neko\s*weight/i,
+  /offset\s*sinker/i,
+  /オフセット.*シンカー/,
+  // フック単体
+  /keel\s*weighted\s*hook/i,
+  /\bswimbait\s*hook\b/i,
+  /\bewg\s*hook\b/i,
+  /\bflippin.*hook\b/i,
+  /\bbandito\s*flippin/i,
+  /\blive\s*minnow\s*hook\b/i,
+  /\bjugular.*hook\b/i,
+  /フックユニット/,
+  // ジグヘッド（スピナーベイト等に誤分類されたもののみ）
+  /\bline.?thru\s*jig\s*head\b/i,
+  // ロッド
+  /\btravel\s*rod\b/i,
+  // 交換パーツ/アクセサリー
+  /\breplacement\s*tail\b/i,
+  /\bsilicone\s*skirt\b/i,
+  /\baccessory\s*kit\b/i,
+  /\bspare\s*parts\b/i,
+  /スペアパーツ/,
+  /\bfishing\s*tool\b/i,
+];
+
+/** 製品名が非ルアー（アクセサリー/パーツ）かどうかを判定 */
+export function isNonLureProduct(name: string): boolean {
+  return EXCLUDED_NAME_PATTERNS.some(pattern => pattern.test(name));
+}

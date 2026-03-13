@@ -18,6 +18,7 @@ import type { ContentArticle } from '../../data/articles/_types.js';
 import { computeColorBreakdown, type ColorBreakdownEntry } from '../../lib/color-categories';
 import { getFieldCompatibility, type FieldCompatibility } from '../../lib/field-compatibility';
 import { generateWeightStrategy, type WeightStrategyEntry } from '../../lib/weight-strategy';
+import { findSimilarSeries, buildTypeIndex, type SimilarSeriesEntry } from '../../lib/similar-series';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -93,6 +94,9 @@ export async function getStaticPaths() {
       byFish.set(fish, fishArr);
     }
   }
+
+  // 類似シリーズ検索用のタイプ別インデックス（O(n²)回避）
+  const similarTypeIndex = buildTypeIndex(allSeries);
 
   // 魚種×タイプの複合インデックス（カテゴリ内順位計算用）
   const byFishType = new Map<string, LureSeries[]>();
@@ -186,6 +190,9 @@ export async function getStaticPaths() {
     // ウェイトバリエーション戦略文
     const weightStrategy = generateWeightStrategy(series);
 
+    // 類似シリーズ比較文
+    const similarSeries = findSimilarSeries(series, similarTypeIndex, 3);
+
     // 価格ポジション: カテゴリ内での価格帯位置付け
     let pricePosition = '';
     if (series.price_range.max > 0 && categoryPeers.length >= 3) {
@@ -218,6 +225,7 @@ export async function getStaticPaths() {
         pricePosition,
         fieldCompat,
         weightStrategy,
+        similarSeries,
       },
     };
   });
@@ -227,7 +235,7 @@ const {
   series, relatedByType, relatedByMaker, relatedByFish, canonicalPathOverride,
   categoryRank, categoryTotal, categoryFish, colorBreakdown, relatedContentArticles,
   categoryComparisonPeers, specComparison, pricePosition,
-  fieldCompat, weightStrategy,
+  fieldCompat, weightStrategy, similarSeries,
 } = Astro.props as {
   series: LureSeries;
   relatedByType: LureSeries[];
@@ -244,6 +252,7 @@ const {
   pricePosition: string;
   fieldCompat: FieldCompatibility[];
   weightStrategy: WeightStrategyEntry[];
+  similarSeries: SimilarSeriesEntry[];
 };
 
 const hasLimited = series.colors.some(c => c.is_limited);
@@ -965,6 +974,49 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
             </div>
           )}
         </div>
+      </section>
+    )}
+
+    <!-- 類似シリーズとの比較 -->
+    {similarSeries.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}と類似シリーズの比較</h2>
+        <div class="space-y-3">
+          {similarSeries.map(sim => (
+            <div class="bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:border-accent/30 transition-colors">
+              <div class="flex items-center gap-3 mb-2">
+                {sim.series.representative_image && (
+                  <img
+                    src={sim.series.representative_image}
+                    alt={`${sim.series.manufacturer} ${sim.series.name}`}
+                    width="48"
+                    height="48"
+                    loading="lazy"
+                    decoding="async"
+                    class="w-12 h-12 object-scale-down rounded border border-gray-50"
+                  />
+                )}
+                <div>
+                  <h3 class="font-semibold text-gray-900">
+                    <a href={`/${sim.series.manufacturer_slug}/${sim.series.slug}/`} class="text-accent hover:underline">
+                      {sim.series.name}
+                    </a>
+                    <span class="text-sm text-text-dim ml-2">({sim.series.manufacturer})</span>
+                  </h3>
+                  <div class="flex items-center gap-2 text-xs text-text-dim mt-0.5">
+                    <span>{sim.series.type}</span>
+                    {sim.series.color_count > 0 && <><span class="text-text-faint">|</span><span>{sim.series.color_count}色</span></>}
+                    {sim.series.price_range.max > 0 && (
+                      <><span class="text-text-faint">|</span><span class="font-mono">{sim.series.price_range.min === sim.series.price_range.max ? `¥${sim.series.price_range.min.toLocaleString()}` : `¥${sim.series.price_range.min.toLocaleString()}~`}</span></>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <p class="text-sm text-gray-700 leading-relaxed">{sim.comparisonText}</p>
+            </div>
+          ))}
+        </div>
+        <p class="text-xs text-text-faint mt-2">※ 同タイプ・同対象魚・価格帯・重量帯の類似度スコアに基づく。</p>
       </section>
     )}
 

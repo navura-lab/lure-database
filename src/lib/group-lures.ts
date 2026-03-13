@@ -1,6 +1,7 @@
 import type { Lure } from './supabase';
 import type { LureSeries, ColorVariant, WeightVariant } from './types';
-import { filterInvalidFishForType, removeNonFishEntries, EXCLUDED_TYPES } from './fish-type-validation';
+import { filterInvalidFishForType, removeNonFishEntries, EXCLUDED_TYPES, isNonLureProduct } from './fish-type-validation';
+import { refineFishByContent } from './fish-inference';
 
 // DB上の表記揺れを正規化（「バス」→「ブラックバス」等）
 const FISH_NAME_NORMALIZE: Record<string, string> = {
@@ -25,6 +26,8 @@ export function groupLuresBySeries(lures: Lure[]): LureSeries[] {
     if (!lure.slug || !lure.manufacturer_slug) continue;
     // ルアーではないタイプを除外（アクセサリー等）
     if (EXCLUDED_TYPES.has(lure.type)) continue;
+    // 名前パターンで非ルアー製品を除外（シンカー/フック/ロッド等）
+    if (isNonLureProduct(lure.name)) continue;
     const key = lure.slug; // DB格納の英語slug
     const existing = seriesMap.get(key) || [];
     existing.push(lure);
@@ -101,9 +104,16 @@ export function groupLuresBySeries(lures: Lure[]): LureSeries[] {
     const rawTargetFish = [...new Set(
       records.flatMap(r => r.target_fish ?? []).map(normalizeFishName)
     )];
-    const allTargetFish = filterInvalidFishForType(
+    const l1TargetFish = filterInvalidFishForType(
       rep.type,
       removeNonFishEntries(rawTargetFish),
+    );
+    // L2推定: ブランドライン・カテゴリキーワードで絞り込み
+    const allTargetFish = refineFishByContent(
+      rep.name,
+      rep.description ?? '',
+      l1TargetFish,
+      rep.manufacturer_slug,
     );
 
     result.push({
