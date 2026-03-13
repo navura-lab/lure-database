@@ -1,6 +1,6 @@
 import type { Lure } from './supabase';
 import type { LureSeries, ColorVariant, WeightVariant } from './types';
-import { filterInvalidFishForType, removeNonFishEntries } from './fish-type-validation';
+import { filterInvalidFishForType, removeNonFishEntries, EXCLUDED_TYPES } from './fish-type-validation';
 
 // DB上の表記揺れを正規化（「バス」→「ブラックバス」等）
 const FISH_NAME_NORMALIZE: Record<string, string> = {
@@ -23,6 +23,8 @@ export function groupLuresBySeries(lures: Lure[]): LureSeries[] {
   for (const lure of lures) {
     // slugがない旧データはスキップ（マイグレーション前の互換性）
     if (!lure.slug || !lure.manufacturer_slug) continue;
+    // ルアーではないタイプを除外（アクセサリー等）
+    if (EXCLUDED_TYPES.has(lure.type)) continue;
     const key = lure.slug; // DB格納の英語slug
     const existing = seriesMap.get(key) || [];
     existing.push(lure);

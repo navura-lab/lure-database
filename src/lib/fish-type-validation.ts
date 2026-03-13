@@ -1,14 +1,16 @@
 /**
  * L1 魚種×ルアータイプ バリデーション
  *
- * 明らかに不正な組み合わせをビルド時にフィルタリングする。
- * 「許可リスト方式」: 特殊なタイプのみ許可魚種を定義。
- * 許可リストにないタイプ（ミノー、メタルジグ等の汎用型）は制限なし。
+ * 2層のフィルタリングで不正な魚種×タイプ組み合わせを除去:
+ * 1. 許可リスト (TYPE_ALLOWED_FISH): 特殊タイプは listed fish のみ通す
+ * 2. 拒否リスト (TYPE_DENIED_FISH): 汎用タイプで明らかに不正な魚種を除外
+ *
+ * 対象外タイプ（ミノー、ワーム等）は制限なし。
  *
  * @see /Users/user/clawd/obsidian/10_プロジェクト/CASTLOG/lure-page-enrichment-ideas.md
  */
 
-// タイプごとの許可魚種（ここにないタイプは全魚種OK）
+// ========== 許可リスト方式（厳格: ここに無い魚種は全て除去） ==========
 const TYPE_ALLOWED_FISH: Record<string, Set<string>> = {
   // エギ → イカ類 + タコのみ
   'エギ': new Set([
@@ -29,16 +31,14 @@ const TYPE_ALLOWED_FISH: Record<string, Set<string>> = {
     '青物（ブリ、ヒラマサ、カンパチ等）',
     'ロックフィッシュ（カサゴ、アイナメ等）',
     'チヌ・クロダイ', 'ヒラメ・マゴチ',
-    'オフショア', 'ソルト',
   ]),
   // テンヤ → 鯛・底物メイン
   'テンヤ': new Set([
     'マダイ', 'タコ', 'ヒラメ', 'マゴチ',
     'ロックフィッシュ', 'カサゴ', 'ハタ', 'アイナメ',
-    'タチウオ',
+    'タチウオ', '青物',
     'ロックフィッシュ（カサゴ、アイナメ等）',
     'ヒラメ・マゴチ',
-    'オフショア', 'ソルト',
   ]),
   // フロッグ → バス・雷魚・ナマズのみ（淡水カバーゲーム専用）
   'フロッグ': new Set([
@@ -48,21 +48,52 @@ const TYPE_ALLOWED_FISH: Record<string, Set<string>> = {
   'クローラーベイト': new Set([
     'ブラックバス', 'バス', 'ナマズ', '雷魚', 'ライギョ', 'シーバス',
   ]),
+  // バズベイト → 淡水カバーゲーム専用（表層バジング）
+  'バズベイト': new Set([
+    'ブラックバス', 'バス', 'ナマズ', '雷魚', 'ライギョ',
+  ]),
+  // ダイビングペンシル → 大型回遊魚（オフショア/ショアキャスティング）
+  'ダイビングペンシル': new Set([
+    '青物', 'シーバス', 'マグロ', 'GT', 'ヒラマサ', 'カンパチ', 'ブリ',
+    'シイラ', 'マダイ', 'クロダイ', 'ヒラメ', 'サワラ', 'タチウオ',
+    '青物（ブリ、ヒラマサ、カンパチ等）', 'チヌ・クロダイ', 'ヒラメ・マゴチ',
+  ]),
+  // スピンテールジグ → データ上バスのみ（30件）
+  'スピンテールジグ': new Set([
+    'ブラックバス', 'バス',
+  ]),
+  // ルアーアクセサリー → 魚種なし（全拒否。group-luresでも除外される）
+  'ルアーアクセサリー': new Set([]),
+};
+
+// ========== 拒否リスト方式（部分除去: 汎用タイプの明らかな不正のみ） ==========
+const TYPE_DENIED_FISH: Record<string, Set<string>> = {
+  // クランクベイト: マダイは不正（チニング=クロダイはOK）
+  'クランクベイト': new Set(['マダイ']),
+  // スプーン: ハゼは不正（スプーンでハゼは狙わない）
+  'スプーン': new Set(['ハゼ']),
 };
 
 /**
  * ルアータイプに基づいて target_fish から不正な魚種を除去
  *
- * @param type ルアータイプ（日本語名）
- * @param targetFish 元の対象魚リスト
- * @returns フィルタリング後の対象魚リスト
+ * 優先順位: 許可リスト > 拒否リスト > 制限なし
  */
 export function filterInvalidFishForType(type: string, targetFish: string[]): string[] {
+  // 1. 許可リストがあるタイプ → listed fish のみ通す
   const allowed = TYPE_ALLOWED_FISH[type];
-  if (!allowed) return targetFish; // 制限なしのタイプ
+  if (allowed) {
+    return targetFish.filter(fish => allowed.has(fish));
+  }
 
-  return targetFish.filter(fish => allowed.has(fish));
-  // 空配列が返る場合 = 全魚種が不正 → ランキング/比較に非表示（詳細ページは影響なし）
+  // 2. 拒否リストがあるタイプ → listed fish を除去
+  const denied = TYPE_DENIED_FISH[type];
+  if (denied) {
+    return targetFish.filter(fish => !denied.has(fish));
+  }
+
+  // 3. どちらにもないタイプ → 制限なし
+  return targetFish;
 }
 
 /**
@@ -72,7 +103,8 @@ export function filterInvalidFishForType(type: string, targetFish: string[]): st
 const NON_FISH_ENTRIES = new Set(['ソルト', 'オフショア']);
 
 export function removeNonFishEntries(targetFish: string[]): string[] {
-  const filtered = targetFish.filter(fish => !NON_FISH_ENTRIES.has(fish));
-  // 「ソルト」のみの場合は空配列を返す（ランキングに載せない）
-  return filtered;
+  return targetFish.filter(fish => !NON_FISH_ENTRIES.has(fish));
 }
+
+/** ビルドから除外すべきタイプ（ルアーではない製品） */
+export const EXCLUDED_TYPES = new Set(['ルアーアクセサリー']);
