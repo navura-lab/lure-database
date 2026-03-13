@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['メバリング ジグヘッド おすすめ', 'メバル ジグヘッド 重さ', 'メバリング ジグヘッド 選び方'],
   targetFish: ['メバル'],
   targetTypes: ['ジグヘッド'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['shead-rtype', 'head-dx-mini-r-type', 'dtype', 'gimlet'],
   lead: 'メバリングにおいてジグヘッドは最も基本的かつ重要なリグだ。ワームとの組み合わせでメバルの繊細なバイトに対応しつつ、飛距離とレンジコントロールを両立させる。CAST/LOGデータベースに登録されたジグヘッドの中から、メバル攻略に最適なウェイト・フック形状・ヘッド形状を解説。常夜灯周りから沖の潮目まで、シチュエーション別の使い分けを紹介する。',
   sections: [
     {

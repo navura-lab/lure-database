@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['アジング ジグヘッド おすすめ', 'アジング ジグヘッド 重さ', 'アジング ジグヘッド 形状'],
   targetFish: ['アジ'],
   targetTypes: ['ジグヘッド'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['shead-rtype', 'head-dx-mini-r-type', 'dtype', 'head-dx-mini-d-type'],
   lead: 'アジングの釣果はジグヘッド選びで大きく変わる。CAST/LOGのデータベースにはアジング対応ジグヘッドが多数登録されている。アジは吸い込みバイトの魚で、ジグヘッドの重さや形状がフッキング率に直結する。ヘッド形状は大きくラウンド・矢じり・ダート系の3タイプがあり、それぞれ得意なシチュエーションが異なる。ウェイトは0.3-1.5gの極軽量を使い分け、潮と風を読んだ繊細なアプローチが求められる。',
   sections: [
     {

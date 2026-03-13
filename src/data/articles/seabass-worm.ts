@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['シーバス ワーム おすすめ ジグヘッド', 'シーバス ワーム バチパターン', 'シーバス ワーム カラー'],
   targetFish: ['シーバス'],
   targetTypes: ['ワーム'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['saltybait', 'choco-cra', 'tetra-works-burny-burny', 'supatera'],
   lead: 'ワームはプラグで反応が得られない状況でシーバスを引き出す切り札だ。ソフトマテリアルの自然な波動とスローな誘いは、ハイプレッシャーフィールドや低活性時に絶大な効果を発揮する。CAST/LOGデータベースに登録されたシーバス対応ワームの中から、形状・サイズ・カラーの選び方を解説。バチパターンからベイトフィッシュパターンまで、シーズン別の使い分けを紹介する。',
   sections: [
     {

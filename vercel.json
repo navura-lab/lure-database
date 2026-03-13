@@ -88,7 +88,26 @@
     { "source": "/breaden/gyokotsu/", "destination": "/breaden/", "permanent": true },
     { "source": "/seafloor-control/s-legend/", "destination": "/seafloor-control/", "permanent": true },
     { "source": "/berkley/vahid80-80/", "destination": "/berkley/", "permanent": true },
-    { "source": "/geecrack/tairaba-super-curly/", "destination": "/geecrack/", "permanent": true }
+    { "source": "/geecrack/tairaba-super-curly/", "destination": "/geecrack/", "permanent": true },
+
+    { "source": "/ranking/seabass-tai-rubber/", "destination": "/ranking/", "permanent": true },
+    { "source": "/ranking/seabass-sutte/", "destination": "/ranking/", "permanent": true },
+    { "source": "/ranking/seabass-frog/", "destination": "/ranking/", "permanent": true },
+    { "source": "/ranking/trout-crawler-bait/", "destination": "/ranking/", "permanent": true },
+    { "source": "/ranking/black-bass-tai-rubber/", "destination": "/ranking/", "permanent": true },
+    { "source": "/ranking/bluerunner-sutte/", "destination": "/ranking/", "permanent": true },
+    { "source": "/ranking/bluerunner-tenya/", "destination": "/ranking/", "permanent": true },
+    { "source": "/ranking/saltwater-:slug*/", "destination": "/ranking/", "permanent": true },
+    { "source": "/ranking/offshore-:slug*/", "destination": "/ranking/", "permanent": true },
+    { "source": "/compare/seabass-tai-rubber/", "destination": "/compare/", "permanent": true },
+    { "source": "/compare/seabass-sutte/", "destination": "/compare/", "permanent": true },
+    { "source": "/compare/seabass-frog/", "destination": "/compare/", "permanent": true },
+    { "source": "/compare/trout-crawler-bait/", "destination": "/compare/", "permanent": true },
+    { "source": "/compare/black-bass-tai-rubber/", "destination": "/compare/", "permanent": true },
+    { "source": "/compare/bluerunner-sutte/", "destination": "/compare/", "permanent": true },
+    { "source": "/compare/bluerunner-tenya/", "destination": "/compare/", "permanent": true },
+    { "source": "/compare/saltwater-:slug*/", "destination": "/compare/", "permanent": true },
+    { "source": "/compare/offshore-:slug*/", "destination": "/compare/", "permanent": true }
   ],
   "headers": [
     {

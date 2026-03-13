@@ -1,7 +1,7 @@
 ---
 interface Props {
   label: string;
-  variant: 'new' | 'limited' | 'discontinued' | 'type';
+  variant: 'new' | 'limited' | 'discontinued' | 'type' | 'rank';
 }
 
 const { label, variant } = Astro.props;
@@ -11,6 +11,7 @@ const variantClasses: Record<string, string> = {
   limited: 'bg-purple-50 text-purple-700 border-purple-200',
   discontinued: 'bg-gray-100 text-gray-500 border-gray-200',
   type: 'bg-accent-bg text-accent border-accent',
+  rank: 'bg-orange-50 text-orange-700 border-orange-200',
 };
 ---
 

@@ -7,9 +7,10 @@ interface Props {
   series: LureSeries;
   isNew: boolean;
   priority?: boolean;
+  rank?: number; // ランキングページでの順位（1始まり）
 }
 
-const { series, isNew, priority = false } = Astro.props;
+const { series, isNew, priority = false, rank } = Astro.props;
 
 const hasLimited = series.colors.some(c => c.is_limited);
 const hasPrice = series.price_range.max > 0;
@@ -47,6 +48,15 @@ const filterData = JSON.stringify({
         />
       ) : (
         <Placeholder type={series.type} />
+      )}
+      {rank && rank <= 3 && (
+        <div class="absolute top-2 left-2">
+          <span class={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold border ${
+            rank === 1 ? 'bg-yellow-50 text-yellow-700 border-yellow-300' :
+            rank === 2 ? 'bg-gray-50 text-gray-600 border-gray-300' :
+            'bg-orange-50 text-orange-600 border-orange-300'
+          }`}>{rank}</span>
+        </div>
       )}
       <div class="absolute top-2 right-2 flex flex-col gap-1">
         {isNew && <Badge label="新着" variant="new" />}

@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['ビッグベイト おすすめ バス', 'ビッグベイト 使い方', 'ビッグベイト タックル'],
   targetFish: ['ブラックバス'],
   targetTypes: ['ビッグベイト'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['tiny-klash-low', 'yamato-jr', 'lightreal-175j', 'klash-joker'],
   lead: 'ビッグベイトはデカバスを狙い撃つための特攻ルアーだ。CAST/LOGのデータベースにはバス対応ビッグベイトが多数登録されている。4-8インチの大型ルアーは小バスを排除し、40cmオーバーのコンディションの良い個体に的を絞れる。ビッグベイトの強みは「存在感」と「水押し」。広いフィールドでバスの注意を引き、捕食スイッチを強制的に入れる。近年はデッドスロー系やI字系など繊細なアプローチも進化し、ビッグベイトの守備範囲は広がっている。',
   sections: [
     {

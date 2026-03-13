@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['シーバス 鉄板バイブ おすすめ', 'シーバス バイブレーション デイゲーム', 'シーバス 鉄板バイブ 使い方'],
   targetFish: ['シーバス'],
   targetTypes: ['バイブレーション'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['renjibaibu-45es55es70es80es90es100es', 'varid-salt', 'hardcore-solid-vibes', 'renjibaibu-55tg70tg'],
   lead: 'バイブレーションはシーバスのデイゲームを支える主力ルアーだ。CAST/LOGのデータベースにはシーバス対応バイブレーションが多数登録されている。鉄板バイブは遠投性能と振動によるアピール力が高く、広大なフィールドを効率よくサーチできる。特にベイトが散っている日中の港湾やサーフでは、バイブレーションの手返しの良さが魚との遭遇率を大幅に上げる。初心者でもただ巻きで使えるため、最初に揃えるべきルアーの一つだ。',
   sections: [
     {

@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['メタルバイブ バス おすすめ', 'バス メタルバイブ 使い方', 'メタルバイブ 冬 バス'],
   targetFish: ['ブラックバス'],
   targetTypes: ['メタルバイブ'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['littlemax', 'full-metal-sonic', 'bladecross', 'dex-mr'],
   lead: 'メタルバイブは冬のバスフィッシングにおける最終兵器だ。金属ボディならではの速いフォールスピードとタイトバイブレーションが、低水温で動きが鈍ったバスのリアクションバイトを誘発する。CAST/LOGデータベースに登録されたメタルバイブの中から、バス攻略に最適なモデルをウェイト・ラインアイ位置・アクションの観点で徹底解説する。',
   sections: [
     {

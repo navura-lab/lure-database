@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['ヒラメ ジグ おすすめ', 'サーフ メタルジグ ヒラメ', 'ヒラメ メタルジグ 重さ'],
   targetFish: ['ヒラメ'],
   targetTypes: ['メタルジグ'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['f-sardine', 'r-sardine', 'korojiguburedo-30g60g', 'ly3bbev'],
   lead: 'サーフからヒラメを狙うショアジギングは飛距離が釣果を左右する。メタルジグは圧倒的な飛距離でサーフの広大なフィールドを効率的にサーチできる。CAST/LOGデータベースに登録されたメタルジグの中から、ヒラメ攻略に必要な着底感・フォールアクション・カラーの観点で最適なモデル選びを解説する。リフト＆フォールを軸にした実践テクニックも紹介する。',
   sections: [
     {

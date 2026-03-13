@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['タチウオ ジグ おすすめ', 'タチウオ メタルジグ 重さ', 'タチウオジギング メタルジグ カラー'],
   targetFish: ['タチウオ'],
   targetTypes: ['メタルジグ'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['fuoruten-mideiamu', 'capriceedge', 'ktkkkzc', 'uwjv711'],
   lead: 'タチウオジギングはショアからでも手軽に楽しめる人気の釣りだ。メタルジグはタチウオの縦の動きに対応しやすく、フォール中のバイトを効率的に拾える。CAST/LOGデータベースに登録されたメタルジグの中から、タチウオに最適なロング・スリム形状のモデルをウェイト・カラー・アクションの観点で解説する。ワイヤーリーダーやフックセッティングなど実釣に欠かせないポイントも押さえておこう。',
   sections: [
     {

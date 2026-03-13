@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['ロックフィッシュ ワーム 選び方', 'アイナメ ワーム おすすめ', 'ソイ ワーム おすすめ'],
   targetFish: ['ロックフィッシュ'],
   targetTypes: ['ワーム'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['jakobagu', 'hafu-a', 'waver-shrimp-2-rockfishver', 'baby-dragon-2-rockfishver-2'],
   lead: 'ロックフィッシュ攻略にワームは欠かせない。CAST/LOGのデータベースにはロックフィッシュ対応ワームが多数登録されている。アイナメ・ソイ・ハタ類は岩礁帯やテトラ帯に潜む根魚で、ストラクチャーに直接アプローチできるワームが最も効率的。ハードルアーでは根掛かりで消耗するポイントでも、ワーム+オフセットフックなら果敢に攻められる。ボトムの甲殻類を偏食する根魚にはクロー系が、小魚を追う個体にはシャッドテールが刺さる。',
   sections: [
     {

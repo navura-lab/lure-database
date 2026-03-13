@@ -235,6 +235,8 @@ const collectionLd = {
       position: i + 1,
       url: `https://www.lure-db.com/${s.manufacturer_slug}/${s.slug}/`,
       name: `${s.manufacturer} ${s.name}`,
+      ...(s.representative_image ? { image: s.representative_image } : {}),
+      description: `${s.type}・全${s.color_count}色${s.price_range.max > 0 ? `・¥${s.price_range.min.toLocaleString()}〜` : ''}`,
     })),
   },
 };
@@ -366,7 +368,7 @@ const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
       {rankedSeries.map((s, i) => (
         <div class="relative">
-          <LureCard series={s} isNew={false} priority={i < 4} />
+          <LureCard series={s} isNew={false} priority={i < 4} rank={i + 1} />
         </div>
       ))}
     </div>

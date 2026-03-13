@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['メバリング ワーム おすすめ', 'メバル ワーム カラー', 'メバリング ジグヘッド ワーム'],
   targetFish: ['メバル'],
   targetTypes: ['ワーム'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['flap-eel', 'super-jaco', 'aji-pinpin', 'pila-pila-pilarin'],
   lead: 'メバリングの主役はジグヘッド+ワームの組み合わせだ。CAST/LOGのデータベースにはメバル対応ワームが多数登録されている。メバルは視覚に頼って捕食する魚で、ワームのシルエットと微細な波動が釣果を左右する。常夜灯周りの漁港から磯のシャローまで、ワームのサイズとカラーを合わせれば安定した釣果が期待できる。タックルはUL-Lクラスのメバリングロッドにフロロ2-4lbまたはPE0.2-0.4号が基本となる。',
   sections: [
     {
