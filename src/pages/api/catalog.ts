@@ -28,7 +28,7 @@ export const GET: APIRoute = async ({ request, url }) => {
 
   // --- Referer check (optional, defense in depth) ---
   const referer = request.headers.get('referer') || '';
-  if (referer && !referer.includes('lure-db.com') && !referer.includes('localhost')) {
+  if (referer && !referer.includes('castlog.xyz') && !referer.includes('lure-db.com') && !referer.includes('localhost')) {
     return new Response(JSON.stringify({ error: 'Forbidden' }), {
       status: 403,
       headers: { 'Content-Type': 'application/json' },

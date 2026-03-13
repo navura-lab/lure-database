@@ -5,7 +5,7 @@
 Vercelにデプロイ。SSG（Static Site Generation）。
 - 表示名: CAST/LOG（スラッシュは常にAccent Green）
 - テキスト/URL: castlog（小文字、スラッシュなし）
-- ドメイン: lure-db.com
+- ドメイン: castlog.xyz（旧: lure-db.com、2026/09/13まで301リダイレクト維持）
 - タグライン JP: 一投を、資産にする。
 - タグライン EN: Cast it. Log it. Prove it.
 

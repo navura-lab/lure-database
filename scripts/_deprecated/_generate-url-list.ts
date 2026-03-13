@@ -7,7 +7,7 @@
 import 'dotenv/config';
 import { createClient } from '@supabase/supabase-js';
 
-const BASE_URL = 'https://www.lure-db.com';
+const BASE_URL = 'https://castlog.xyz';
 const PAGE_SIZE = 1000;
 
 async function main() {

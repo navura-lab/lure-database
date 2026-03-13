@@ -14,4 +14,4 @@ Crawl-delay: 2
 Disallow: /api/
 Disallow: /trap/
 
-Sitemap: https://www.lure-db.com/sitemap-index.xml
+Sitemap: https://castlog.xyz/sitemap-index.xml

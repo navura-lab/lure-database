@@ -45,7 +45,7 @@ async function main() {
   }
 
   // Search Console API: search analytics for lure-db.com
-  const siteUrl = 'https://www.lure-db.com/';
+  const siteUrl = 'https://castlog.xyz/';
   console.log(`\n=== Search Analytics (${siteUrl}) ===`);
   const analyticsRes = await fetch(
     `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(siteUrl)}/searchAnalytics/query`,
@@ -84,8 +84,8 @@ async function main() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        inspectionUrl: 'https://www.lure-db.com/',
-        siteUrl: 'https://www.lure-db.com/',
+        inspectionUrl: 'https://castlog.xyz/',
+        siteUrl: 'https://castlog.xyz/',
       }),
     }
   );

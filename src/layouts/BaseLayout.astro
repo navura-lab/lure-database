@@ -13,7 +13,7 @@ interface Props {
   jsonLd?: Record<string, unknown>;
 }
 
-const SITE_URL = 'https://www.lure-db.com';
+const SITE_URL = 'https://castlog.xyz';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
 
 const {
@@ -70,8 +70,8 @@ const resolvedOgImage = ogImage || DEFAULT_OG_IMAGE;
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: 'CAST/LOG',
-      url: 'https://www.lure-db.com',
-      logo: 'https://www.lure-db.com/favicon.svg',
+      url: 'https://castlog.xyz',
+      logo: 'https://castlog.xyz/favicon.svg',
       description: '釣り人のためのルアーデータベース。国内主要メーカーのルアーを網羅的に掲載。',
     })} />
     <!-- Google Analytics — deferred to avoid blocking render -->

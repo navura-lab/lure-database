@@ -11,7 +11,7 @@ const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN!;
 const QUOTA_PROJECT = process.env.GOOGLE_QUOTA_PROJECT || 'plucky-mile-486802-j6';
 
-export const SITE_URL = process.env.GSC_SITE_URL || 'https://www.lure-db.com/';
+export const SITE_URL = process.env.GSC_SITE_URL || 'https://castlog.xyz/';
 
 export interface SearchAnalyticsRow {
   keys: string[];

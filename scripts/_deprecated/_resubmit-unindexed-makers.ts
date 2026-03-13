@@ -5,7 +5,7 @@
 import 'dotenv/config';
 import { readFileSync } from 'fs';
 
-const SITE = 'https://www.lure-db.com';
+const SITE = 'https://castlog.xyz';
 
 // OAuth2 access token 取得
 async function getAccessToken(): Promise<string> {

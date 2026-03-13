@@ -282,7 +282,7 @@ async function analyzeSERP(keyword: string): Promise<CompetitorPage[]> {
 
   // 自サイトを除外し、上位3件を分析
   const competitors = results
-    .filter(r => !r.link.includes('lure-db.com'))
+    .filter(r => !r.link.includes('castlog.xyz') && !r.link.includes('lure-db.com'))
     .slice(0, 3);
 
   const pages: CompetitorPage[] = [];

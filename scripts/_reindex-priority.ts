@@ -17,7 +17,7 @@ import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 
-const SITE_URL = 'https://www.lure-db.com';
+const SITE_URL = 'https://castlog.xyz';
 const DRY_RUN = !process.argv.includes('--submit');
 
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;

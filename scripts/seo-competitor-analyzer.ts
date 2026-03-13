@@ -339,7 +339,7 @@ async function main() {
 
     // 上位3サイト（自サイト除外）の詳細取得
     const competitorUrls = serp
-      .filter(s => !s.url.includes('lure-db.com'))
+      .filter(s => !s.url.includes('castlog.xyz') && !s.url.includes('lure-db.com'))
       .slice(0, 3);
 
     const competitors: PageMeta[] = [];
@@ -354,7 +354,7 @@ async function main() {
     let ourMeta: PageMeta | null = null;
     if (target.page) {
       // target.page は既に正規化済み（相対パス）
-      const ourUrl = `https://www.lure-db.com${target.page}`;
+      const ourUrl = `https://castlog.xyz${target.page}`;
       logV(`  Fetching our page: ${ourUrl}`);
       ourMeta = await extractPageMeta(ourUrl);
     }

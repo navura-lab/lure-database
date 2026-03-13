@@ -43,6 +43,7 @@ const LURE_FILTER = (() => {
 
 // 自サイトは除外、ショッピングサイトも除外
 const EXCLUDED_DOMAINS = [
+  'castlog.xyz',
   'lure-db.com',
   'amazon.co.jp',
   'rakuten.co.jp',

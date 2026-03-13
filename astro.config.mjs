@@ -6,7 +6,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.lure-db.com',
+  site: 'https://castlog.xyz',
   output: 'static',
   trailingSlash: 'always',
   adapter: vercel(),
@@ -17,7 +17,7 @@ export default defineConfig({
     serialize: (item) => {
       const url = item.url;
       // ホームページ: 最高優先度・毎日更新
-      if (url === 'https://www.lure-db.com/' || url === 'https://www.lure-db.com') {
+      if (url === 'https://castlog.xyz/' || url === 'https://castlog.xyz') {
         return { ...item, changefreq: 'daily', priority: 1.0 };
       }
       // 新着ページ: 毎日更新

@@ -4,7 +4,7 @@ const CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN!;
 const QUOTA_PROJECT = process.env.GOOGLE_QUOTA_PROJECT || 'plucky-mile-486802-j6';
-const SITE_URL = process.env.GSC_SITE_URL || 'https://www.lure-db.com/';
+const SITE_URL = process.env.GSC_SITE_URL || 'https://castlog.xyz/';
 
 async function getAccessToken(): Promise<string> {
   const res = await fetch('https://oauth2.googleapis.com/token', {

@@ -26,7 +26,7 @@ import path from 'path';
 // ─── Config ───────────────────────────────────────────
 
 const SLACK_WEBHOOK = process.env.SLACK_SEO_WEBHOOK;
-const SITE_URL = process.env.GSC_SITE_URL || 'https://www.lure-db.com/';
+const SITE_URL = process.env.GSC_SITE_URL || 'https://castlog.xyz/';
 
 const DATA_DIR = path.join(import.meta.dirname, '..', 'logs', 'seo-data');
 const REPORT_DIR = path.join(import.meta.dirname, '..', 'logs', 'seo-reports');
