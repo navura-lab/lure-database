@@ -401,6 +401,16 @@ export async function scrapeZoomPage(url: string): Promise<ScrapedLure> {
   // 8. メイン画像
   const mainImage = jsonLd?.image || parseMainImage(html);
 
+  // 8.1 画像フォールバック: カラー別画像がないものにメイン画像を割り当て
+  if (mainImage) {
+    const mainImg = typeof mainImage === 'string' ? mainImage : '';
+    if (mainImg) {
+      for (const c of colors) {
+        if (!c.imageUrl) c.imageUrl = mainImg;
+      }
+    }
+  }
+
   // 9. 長さ（説明文 → 商品名の順で検出）
   let length = parseLengthFromText(description);
   if (length === null) {

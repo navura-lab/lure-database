@@ -425,6 +425,13 @@ function scrapePost(post: WPPost): ScrapedProduct | null {
   const colors = extractColorsFromTable(html);
   const mainImageUrl = extractMainImage(html);
 
+  // 画像フォールバック: カラー別画像がないものにメイン画像を割り当て
+  if (mainImageUrl) {
+    for (const c of colors) {
+      if (!c.imageUrl) c.imageUrl = mainImageUrl;
+    }
+  }
+
   if (colors.length === 0) {
     return null; // No colors = not a real product page
   }

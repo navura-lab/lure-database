@@ -420,6 +420,14 @@ export function createShopifyScraper(config: ShopifyBrandConfig): ScraperFunctio
     }
     const colors: ScrapedColor[] = Array.from(colorMap.values());
 
+    // 4.1 画像フォールバック: バリアント画像がないカラーにメイン画像を割り当て
+    const fallbackImage = images[0]?.src || '';
+    if (fallbackImage) {
+      for (const c of colors) {
+        if (!c.imageUrl) c.imageUrl = fallbackImage;
+      }
+    }
+
     // 5. 価格（最初のバリアントの USD 価格 → JPY）
     const firstPrice = parseFloat(variants[0]?.price || '0');
     const priceJpy = Math.round(firstPrice * 150);
