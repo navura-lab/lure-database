@@ -7,6 +7,7 @@ import { TYPE_SLUG_MAP, TYPE_NAME_MAP, FISH_SLUG_MAP, FISH_NAME_MAP, getTypeSlug
 import { rankingDescriptions } from '../../data/ranking-descriptions';
 import { guideArticles } from '../../data/guides';
 import { computeRankingScores } from '../../lib/ranking-score';
+import { getCuratedRanking } from '../../data/curated-rankings';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -39,15 +40,40 @@ export async function getStaticPaths() {
   return allRankings.map(({ slug, fishName, typeName }) => {
     const data = crossMap.get(slug)!;
 
-    // 複合スコアでソート（カラー数35%・価格帯幅20%・重量帯幅20%・モデル数15%・魚種対応数10%）
+    // ── ソート: キュレーテッド優先 → アルゴリズムスコア ──
+    // 実績ベースの手動ランキングがあるカテゴリはその順序を優先し、
+    // 残りのシリーズをアルゴリズムスコア順で後続させる
+    const curatedOrder = getCuratedRanking(slug);
     const scores = computeRankingScores(data.series);
-    const rankedSeries = data.series
+    const isCurated = curatedOrder.length > 0;
+
+    const seriesMap = new Map<string, LureSeries>();
+    for (const s of data.series) {
+      seriesMap.set(`${s.manufacturer_slug}/${s.slug}`, s);
+    }
+
+    // キュレーテッドリストのシリーズ（DBに存在するもののみ）
+    const curatedSeries: (LureSeries & { score: number })[] = [];
+    const curatedKeys = new Set<string>();
+    for (const key of curatedOrder) {
+      const s = seriesMap.get(key);
+      if (s) {
+        curatedSeries.push({ ...s, score: 1 });
+        curatedKeys.add(key);
+      }
+    }
+
+    // 残りのシリーズをアルゴリズムスコア順
+    const remainingSeries = data.series
+      .filter(s => !curatedKeys.has(`${s.manufacturer_slug}/${s.slug}`))
       .map(s => {
         const key = `${s.manufacturer_slug}/${s.slug}`;
         const rankingScore = scores.get(key);
         return { ...s, score: rankingScore?.total ?? 0 };
       })
       .sort((a, b) => b.score - a.score);
+
+    const rankedSeries = [...curatedSeries, ...remainingSeries];
 
     // 関連ランキング: 同じ魚種 or 同じタイプ
     const related = allRankings
@@ -57,16 +83,17 @@ export async function getStaticPaths() {
 
     return {
       params: { slug },
-      props: { fishName, typeName, rankedSeries, related },
+      props: { fishName, typeName, rankedSeries, related, isCurated },
     };
   });
 }
 
-const { fishName, typeName, rankedSeries, related } = Astro.props as {
+const { fishName, typeName, rankedSeries, related, isCurated } = Astro.props as {
   fishName: string;
   typeName: string;
   rankedSeries: (LureSeries & { score: number })[];
   related: { slug: string; fishName: string; typeName: string; count: number }[];
+  isCurated: boolean;
 };
 
 const slug = Astro.params.slug as string;
@@ -129,7 +156,11 @@ if (topMakers) {
 if (priceRange) {
   summaryParts.push(`価格帯は${priceText}`);
 }
-summaryParts.push('カラー展開・価格帯・重量展開・モデル数・魚種対応の5指標を総合評価して掲載している');
+if (isCurated) {
+  summaryParts.push('複数の釣り情報サイト・口コミ・販売実績をもとに、実績のあるルアーを上位に掲載している');
+} else {
+  summaryParts.push('カラー展開・価格帯・重量展開・モデル数・魚種対応の5指標を総合評価して掲載している');
+}
 const summaryText = summaryParts.join('。') + '。';
 
 // スペック
@@ -407,18 +438,33 @@ const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, 
     <section class="mt-12 pt-8 border-t border-gray-100">
       <h2 class="text-lg font-bold text-gray-900 mb-3">掲載順について</h2>
       <div class="bg-gray-50 rounded-lg p-4 sm:p-5">
-        <p class="text-sm text-gray-700 leading-relaxed mb-3">
-          本ランキングはCAST/LOGデータベースに登録されたスペックデータをもとに、以下の5指標を同カテゴリ内で正規化し、重み付けした複合スコアで算出しています。
-        </p>
-        <ul class="space-y-1.5 text-sm text-gray-700">
-          <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>カラー展開数（35%）</strong>: カラーバリエーションが多いシリーズほど、メーカーが注力している売れ筋モデルと判断</span></li>
-          <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>価格帯の幅（20%）</strong>: エントリーからハイエンドまで幅広い価格設定があるほどラインナップが充実</span></li>
-          <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>重量展開の幅（20%）</strong>: 軽量から重量級まで幅広いウェイト展開があるほど多様なフィールドに対応</span></li>
-          <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>モデル数（15%）</strong>: ユニークな重量バリエーション数。サイズ展開が豊富なほどシチュエーションに合わせやすい</span></li>
-          <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>対応魚種数（10%）</strong>: 複数の魚種に対応するほど汎用性が高い</span></li>
-        </ul>
+        {isCurated ? (
+          <>
+            <p class="text-sm text-gray-700 leading-relaxed mb-3">
+              本カタログの上位掲載は、複数の釣り情報サイト・販売実績・ユーザー口コミを横断的に調査し、実績のあるルアーを優先的に掲載しています。
+            </p>
+            <ul class="space-y-1.5 text-sm text-gray-700">
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>調査対象</strong>: TSURI HACK、マイベスト、sakidori、タックルノート、Amazon売上ランキング、Yahoo!ショッピング等の複数ソース</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>評価基準</strong>: 複数ソースで繰り返し名前が挙がるルアーほど「実績あり」と判断し上位に配置</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>上位以降</strong>: 手動調査リスト以降のシリーズは、スペックデータ（カラー展開・価格帯・重量展開・モデル数・対応魚種）の複合スコアで順位を決定</span></li>
+            </ul>
+          </>
+        ) : (
+          <>
+            <p class="text-sm text-gray-700 leading-relaxed mb-3">
+              本カタログはCAST/LOGデータベースに登録されたスペックデータをもとに、以下の5指標を同カテゴリ内で正規化し、重み付けした複合スコアで算出しています。
+            </p>
+            <ul class="space-y-1.5 text-sm text-gray-700">
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>カラー展開数（35%）</strong>: カラーバリエーションが多いシリーズほど、メーカーが注力している売れ筋モデルと判断</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>価格帯の幅（20%）</strong>: エントリーからハイエンドまで幅広い価格設定があるほどラインナップが充実</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>重量展開の幅（20%）</strong>: 軽量から重量級まで幅広いウェイト展開があるほど多様なフィールドに対応</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>モデル数（15%）</strong>: ユニークな重量バリエーション数。サイズ展開が豊富なほどシチュエーションに合わせやすい</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>対応魚種数（10%）</strong>: 複数の魚種に対応するほど汎用性が高い</span></li>
+            </ul>
+          </>
+        )}
         <p class="text-xs text-text-dim mt-3">
-          ※ 各指標は同カテゴリ内の最大値を1として0〜1に正規化。広告・アフィリエイトによる順位操作は一切行っていません。
+          ※ 広告・アフィリエイトによる順位操作は一切行っていません。
         </p>
       </div>
     </section>

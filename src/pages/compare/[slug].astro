@@ -13,6 +13,7 @@ import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { computeColorBreakdown } from '../../lib/color-categories';
 import { getCompareEditorial } from '../../lib/compare-editorial';
 import { computeRankingScores } from '../../lib/ranking-score';
+import { getCuratedRanking } from '../../data/curated-rankings';
 import { contentArticles } from '../../data/articles/_index.js';
 import type { LureSeries } from '../../lib/types';
 import type { ColorBreakdownEntry } from '../../lib/color-categories';
@@ -43,13 +44,34 @@ export async function getStaticPaths() {
   return [...crossMap.entries()]
     .filter(([_, v]) => v.series.length >= MIN_SERIES)
     .map(([slug, { fishName, typeName, series }]) => {
-      // 複合スコア順でソート（ランキングと同じロジック）
+      // キュレーテッド優先 → アルゴリズムスコア（ランキングと同じロジック）
+      const curatedOrder = getCuratedRanking(slug);
       const scores = computeRankingScores(series);
-      const sorted = [...series].sort((a, b) => {
-        const scoreA = scores.get(`${a.manufacturer_slug}/${a.slug}`)?.total ?? 0;
-        const scoreB = scores.get(`${b.manufacturer_slug}/${b.slug}`)?.total ?? 0;
-        return scoreB - scoreA;
-      });
+
+      const seriesMap = new Map<string, LureSeries>();
+      for (const s of series) {
+        seriesMap.set(`${s.manufacturer_slug}/${s.slug}`, s);
+      }
+
+      const curatedSeries: LureSeries[] = [];
+      const curatedKeys = new Set<string>();
+      for (const key of curatedOrder) {
+        const s = seriesMap.get(key);
+        if (s) {
+          curatedSeries.push(s);
+          curatedKeys.add(key);
+        }
+      }
+
+      const remaining = series
+        .filter(s => !curatedKeys.has(`${s.manufacturer_slug}/${s.slug}`))
+        .sort((a, b) => {
+          const scoreA = scores.get(`${a.manufacturer_slug}/${a.slug}`)?.total ?? 0;
+          const scoreB = scores.get(`${b.manufacturer_slug}/${b.slug}`)?.total ?? 0;
+          return scoreB - scoreA;
+        });
+
+      const sorted = [...curatedSeries, ...remaining];
       const top = sorted.slice(0, TOP_N);
 
       // 各ルアーのカラー系統を事前計算
