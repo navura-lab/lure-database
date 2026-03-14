@@ -711,7 +711,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
   title={pageTitle}
   description={pageDescription}
   canonicalPath={canonicalPathOverride || `/${series.manufacturer_slug}/${series.slug}/`}
-  ogImage={series.representative_image || undefined}
+  ogImage={`https://castlog.xyz/og/${series.manufacturer_slug}/${series.slug}/`}
   ogType="product"
   jsonLd={combinedJsonLd}
 >

@@ -17,25 +17,45 @@ let fontData: ArrayBuffer | null = null;
 async function loadFont(): Promise<ArrayBuffer> {
   if (fontData) return fontData;
 
-  // 候補パスを順番に試す
+  // 候補パスを順番に試す（import.meta.urlベース → process.cwd()ベース）
+  const thisDir = dirname(fileURLToPath(import.meta.url));
   const candidates = [
+    join(thisDir, '..', 'assets', 'fonts', 'NotoSansJP-Bold.ttf'),
     join(process.cwd(), 'src', 'assets', 'fonts', 'NotoSansJP-Bold.ttf'),
     join(process.cwd(), 'public', 'fonts', 'NotoSansJP-Bold.ttf'),
   ];
 
   for (const fontPath of candidates) {
-    if (existsSync(fontPath)) {
-      const buffer = readFileSync(fontPath);
-      fontData = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
-      return fontData;
+    try {
+      if (existsSync(fontPath)) {
+        const buffer = readFileSync(fontPath);
+        fontData = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
+        return fontData;
+      }
+    } catch {
+      // パスアクセスに失敗した場合は次の候補へ
     }
   }
 
-  // ファイルシステムにない場合はCDNからfetch（Vercelサーバーレス関数用）
-  const res = await fetch('https://castlog.xyz/fonts/NotoSansJP-Bold.ttf');
-  const buf = await res.arrayBuffer();
-  fontData = buf;
-  return fontData;
+  // ファイルシステムにない場合はGoogle Fonts CDNからfetch（Vercelサーバーレス関数用）
+  const cdnUrls = [
+    'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-jp@latest/japanese-700-normal.ttf',
+    'https://castlog.xyz/fonts/NotoSansJP-Bold.ttf',
+  ];
+
+  for (const cdnUrl of cdnUrls) {
+    try {
+      const res = await fetch(cdnUrl, { signal: AbortSignal.timeout(10000) });
+      if (res.ok) {
+        fontData = await res.arrayBuffer();
+        return fontData;
+      }
+    } catch {
+      // CDNフェッチ失敗時は次の候補へ
+    }
+  }
+
+  throw new Error('フォントの読み込みに失敗しました');
 }
 
 /** 外部画像をfetchしてPNG base64データURIに変換（satoriはWebP非対応のため） */

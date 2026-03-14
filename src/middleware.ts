@@ -153,7 +153,7 @@ function getClientIp(request: Request): string {
 function classifyPath(pathname: string): RateCategory | 'trap' | 'static' {
   if (pathname.startsWith('/trap/')) return 'trap';
   if (pathname === '/') return 'home';
-  if (pathname.startsWith('/api/')) return 'api';
+  if (pathname.startsWith('/api/') || pathname.startsWith('/og/')) return 'api';
   if (pathname.includes('sitemap')) return 'sitemap';
   if (pathname.startsWith('/_astro/') || pathname === '/favicon.svg' || pathname === '/favicon.ico' || pathname === '/robots.txt') return 'static';
   return 'page';
