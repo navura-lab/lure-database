@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LureCard from '../../../components/LureCard.astro';
+import { fetchAllLures } from '../../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../../lib/group-lures';
+import { computeRankingScores } from '../../../lib/ranking-score';
+import { getTypeSlug } from '../../../lib/category-slugs';
+import { priceRanges } from '../../../data/price-ranges';
+import type { LureSeries } from '../../../lib/types';
+import type { PriceRange } from '../../../data/price-ranges';
+
+// ─── 静的パス生成 ───
+
+export async function getStaticPaths() {
+  const lures = await fetchAllLures();
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  return priceRanges.map(range => {
+    // 価格帯でフィルタ（price_range.min/maxどちらかが範囲内ならマッチ）
+    const matchingSeries = allSeries.filter(s => {
+      if (s.price_range.max === 0) return false;
+      return s.price_range.min <= range.priceMax && s.price_range.max >= range.priceMin;
+    });
+
+    // スコアでソート
+    const scoreMap = computeRankingScores(matchingSeries);
+    const sorted = matchingSeries.sort((a, b) => {
+      const sa = scoreMap.get(`${a.manufacturer_slug}/${a.slug}`)?.total ?? 0;
+      const sb = scoreMap.get(`${b.manufacturer_slug}/${b.slug}`)?.total ?? 0;
+      return sb - sa;
+    });
+
+    // タイプ別にグルーピング
+    const byType = new Map<string, LureSeries[]>();
+    for (const s of sorted) {
+      if (!s.type) continue;
+      const existing = byType.get(s.type) || [];
+      existing.push(s);
+      byType.set(s.type, existing);
+    }
+
+    // タイプ別グループを件数降順でソート
+    const typeGroups = [...byType.entries()]
+      .sort((a, b) => b[1].length - a[1].length)
+      .slice(0, 10)
+      .map(([typeName, series]) => ({
+        typeName,
+        typeSlug: getTypeSlug(typeName),
+        series,
+      }));
+
+    // メーカー集計
+    const makerCounts = new Map<string, number>();
+    for (const s of sorted) {
+      makerCounts.set(s.manufacturer, (makerCounts.get(s.manufacturer) ?? 0) + 1);
+    }
+    const topMakers = [...makerCounts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10);
+
+    return {
+      params: { slug: range.slug },
+      props: { range, typeGroups, totalCount: sorted.length, topMakers },
+    };
+  });
+}
+
+// ─── Props ───
+
+const { range, typeGroups, totalCount, topMakers } = Astro.props as {
+  range: PriceRange;
+  typeGroups: { typeName: string; typeSlug: string; series: LureSeries[] }[];
+  totalCount: number;
+  topMakers: [string, number][];
+};
+
+const slug = Astro.params.slug as string;
+
+// ─── SEO ───
+
+const currentYear = new Date().getFullYear();
+const pageTitle = `${range.name} おすすめ【${currentYear}年】${totalCount}シリーズ | CAST/LOG`;
+const pageDescription = range.description;
+
+// 他の価格帯
+const otherRanges = priceRanges.filter(r => r.slug !== range.slug);
+
+// FAQ JSON-LD
+const faqEntries = range.faq.map(f => ({
+  '@type': 'Question' as const,
+  name: f.question,
+  acceptedAnswer: { '@type': 'Answer' as const, text: f.answer },
+}));
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqEntries,
+};
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: range.name,
+  url: `https://castlog.xyz/guide/price/${slug}/`,
+  description: pageDescription,
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://castlog.xyz/' },
+    { '@type': 'ListItem', position: 2, name: '価格帯で選ぶ', item: 'https://castlog.xyz/guide/price/' },
+    { '@type': 'ListItem', position: 3, name: range.name, item: `https://castlog.xyz/guide/price/${slug}/` },
+  ],
+};
+
+const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, unknown>;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/guide/price/${slug}/`} jsonLd={jsonLd}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <a href="/guide/" class="hover:text-accent transition-colors">ガイド</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{range.name}</span>
+    </nav>
+
+    <!-- ヘッダー -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">PRICE GUIDE</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+        {range.name} おすすめ{totalCount}選
+      </h1>
+      <p class="text-sm text-text-mid mt-1">
+        {range.label}の価格帯のルアーを{typeGroups.length}タイプに分けて紹介
+      </p>
+    </div>
+
+    <!-- 概要セクション -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed mb-4">
+        {range.characteristics}
+      </p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5">
+        <div>
+          <p class="text-xs text-text-dim">価格帯</p>
+          <p class="text-sm font-semibold text-gray-900">{range.label}</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">登録シリーズ</p>
+          <p class="text-sm font-semibold text-gray-900">{totalCount}シリーズ</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">タイプ数</p>
+          <p class="text-sm font-semibold text-gray-900">{typeGroups.length}タイプ</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">メーカー数</p>
+          <p class="text-sm font-semibold text-gray-900">{topMakers.length}社以上</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-xs text-text-dim mb-1">こんな方におすすめ</p>
+        <p class="text-sm text-gray-700">{range.buyerProfile}</p>
+      </div>
+    </div>
+
+    <!-- 選び方のコツ -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">選び方のコツ</h2>
+      <div class="bg-white rounded-lg border border-gray-100 p-4 sm:p-5">
+        <ul class="space-y-2">
+          {range.tips.map(tip => (
+            <li class="text-sm text-gray-700 leading-relaxed flex gap-2">
+              <span class="text-accent shrink-0 mt-0.5">▸</span>
+              <span>{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- 主要メーカー -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">この価格帯の主要メーカー</h2>
+      <div class="flex flex-wrap gap-2">
+        {topMakers.map(([maker, count]) => (
+          <span class="px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200">
+            {maker}（{count}）
+          </span>
+        ))}
+      </div>
+    </section>
+
+    <!-- タイプ別ルアー -->
+    {typeGroups.map(group => (
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <h2 class="text-lg font-bold text-gray-900">{group.typeName}</h2>
+          <a href={`/type/${group.typeSlug}/`} class="text-xs text-text-mid hover:text-accent transition-colors">
+            全一覧 →
+          </a>
+          <span class="text-xs text-text-dim">{group.series.length}シリーズ</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {group.series.slice(0, 4).map((s, i) => (
+            <LureCard series={s} isNew={false} priority={i < 2} />
+          ))}
+        </div>
+        {group.series.length > 4 && (
+          <p class="mt-3 text-sm text-text-mid">
+            他 {group.series.length - 4}シリーズ →
+            <a href={`/type/${group.typeSlug}/`} class="text-accent hover:underline">一覧を見る</a>
+          </p>
+        )}
+      </section>
+    ))}
+
+    <!-- FAQ アコーディオン -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">よくある質問</h2>
+      <div class="space-y-3">
+        {range.faq.map(item => (
+          <details class="bg-white rounded-lg border border-gray-100 overflow-hidden group">
+            <summary class="px-4 py-3 text-sm font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
+              <span>{item.question}</span>
+              <span class="text-accent text-xs group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div class="px-4 pb-4 text-sm text-gray-700 leading-relaxed">
+              {item.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- 他の価格帯 -->
+    <section class="mt-12 pt-8 border-t border-gray-100">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">他の価格帯</h2>
+      <div class="flex flex-wrap gap-2">
+        {otherRanges.map(r => (
+          <a href={`/guide/price/${r.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+            {r.label}
+          </a>
+        ))}
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

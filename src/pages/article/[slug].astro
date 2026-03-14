@@ -149,11 +149,13 @@ const faqLd = article.faq.length > 0 ? {
   })),
 } : null;
 
-// HowTo JSON-LD（howto記事のみ）
-const howtoLd = article.type === 'howto' ? {
+// HowTo JSON-LD（howto記事 + selection-guide記事）
+const howtoLd = (article.type === 'howto' || article.type === 'selection-guide') ? {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
-  name: article.h1,
+  name: article.type === 'selection-guide'
+    ? `${article.h1}の手順`
+    : article.h1,
   description: article.description,
   step: article.sections.map((s, i) => ({
     '@type': 'HowToStep',

@@ -99,6 +99,22 @@ import hirameMetaljig from './hirame-metaljig.js';
 import bassMetalVib from './bass-metal-vib.js';
 import mebaruJighead from './mebaru-jighead.js';
 import seabassWorm from './seabass-worm.js';
+// 追加記事（第9弾）
+import seabassNightGame from './seabass-night-game.js';
+import surfHirameHowto from './surf-hirame-howto.js';
+import bassSightFishing from './bass-sight-fishing.js';
+import egingAutumnHowto from './eging-autumn-howto.js';
+import ajiNightGame from './aji-night-game.js';
+import madaiMetalJig from './madai-metal-jig.js';
+import chimuTopwater from './chimu-topwater.js';
+import aomonoDivingPencil from './aomono-diving-pencil.js';
+import autumnSeabassLure from './autumn-seabass-lure.js';
+import winterMebaru from './winter-mebaru.js';
+import summerBassTopwater from './summer-bass-topwater.js';
+import hirameMinnowGuide from './hirame-minnow-guide.js';
+import kurodaiRubberJig from './kurodai-rubber-jig.js';
+import flatfishJighead from './flatfish-jighead.js';
+import bassWormTexasRig from './bass-worm-texas-rig.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -187,6 +203,22 @@ export const contentArticles: ContentArticle[] = [
   bassMetalVib,
   mebaruJighead,
   seabassWorm,
+  // 第9弾
+  seabassNightGame,
+  surfHirameHowto,
+  bassSightFishing,
+  egingAutumnHowto,
+  ajiNightGame,
+  madaiMetalJig,
+  chimuTopwater,
+  aomonoDivingPencil,
+  autumnSeabassLure,
+  winterMebaru,
+  summerBassTopwater,
+  hirameMinnowGuide,
+  kurodaiRubberJig,
+  flatfishJighead,
+  bassWormTexasRig,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────

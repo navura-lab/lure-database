@@ -6,6 +6,7 @@ import { groupLuresBySeries } from '../../../lib/group-lures';
 import { TYPE_SLUG_MAP, TYPE_NAME_MAP, getFishSlug } from '../../../lib/category-slugs';
 import { typeDescriptions } from '../../../data/type-descriptions';
 import { guideArticles } from '../../../data/guides';
+import { contentArticles } from '../../../data/articles/_index';
 import type { LureSeries } from '../../../lib/types';
 
 export async function getStaticPaths() {
@@ -345,6 +346,27 @@ const relatedGuides = guideArticles.filter(g => g.targetTypes.includes(typeName)
         </div>
       </section>
     )}
+
+    <!-- 関連記事（タイプマッチ） -->
+    {(() => {
+      const typeArticles = contentArticles.filter(a => a.targetTypes.includes(typeName)).slice(0, 6);
+      return typeArticles.length > 0 ? (
+        <section class="mt-12 pt-8 border-t border-gray-100">
+          <h2 class="text-lg font-bold text-gray-900 mb-4">関連記事</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {typeArticles.map(article => (
+              <a href={`/article/${article.slug}/`} class="group flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors">{article.h1}</p>
+                  <p class="text-xs text-text-dim mt-0.5">{article.targetFish.join('・')}</p>
+                </div>
+                <span class="text-accent text-sm shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null;
+    })()}
 
     <!-- 関連ルアータイプ -->
     {relatedTypes.length > 0 && (

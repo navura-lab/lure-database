@@ -4,7 +4,7 @@ import LureCard from '../../components/LureCard.astro';
 import { fetchAllLures } from '../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
-import { manufacturerDescriptions } from '../../data/manufacturer-descriptions';
+import { manufacturerDescriptions, manufacturerOfficialUrls } from '../../data/manufacturer-descriptions';
 import { guideArticles } from '../../data/guides';
 import { contentArticles } from '../../data/articles/_index.js';
 import type { LureSeries } from '../../lib/types';
@@ -69,6 +69,7 @@ const { manufacturer, series, relatedManufacturers } = Astro.props as {
 
 const manufacturerSlug = Astro.params.manufacturer_slug as string;
 const editorialText = manufacturerDescriptions[manufacturerSlug] ?? '';
+const officialUrl = manufacturerOfficialUrls[manufacturerSlug] ?? null;
 
 // ─── 集計データの算出 ───
 
@@ -352,6 +353,15 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
       {editorialText && (
         <p class="text-sm text-gray-600 leading-relaxed mb-5 border-l-2 border-slate-200 pl-4">
           {editorialText}
+        </p>
+      )}
+
+      {officialUrl && (
+        <p class="text-sm mb-5">
+          <a href={officialUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-accent hover:underline">
+            {manufacturer} 公式サイト
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          </a>
         </p>
       )}
 

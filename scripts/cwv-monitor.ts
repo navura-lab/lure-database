@@ -11,7 +11,7 @@
  * 環境変数 PSI_API_KEY を設定すると上限緩和。
  */
 
-const BASE_URL = 'https://cast-log.com';
+const BASE_URL = 'https://castlog.xyz';
 
 // 計測対象URL（ページ種別ごとの代表URL）
 const SAMPLE_URLS = [

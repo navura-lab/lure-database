@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { seasonalGuides } from '../../data/seasonal-guides';
+
+const pageTitle = '季節で選ぶルアーガイド | CAST/LOG';
+const pageDescription = '春夏秋冬、季節ごとのルアー選びガイド。シーバス・バス・青物・ヒラメなど魚種別に、その季節のパターンとおすすめルアーを紹介。';
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://castlog.xyz/' },
+    { '@type': 'ListItem', position: 2, name: '季節で選ぶ', item: 'https://castlog.xyz/season/' },
+  ],
+};
+
+const jsonLd = [breadcrumbLd] as unknown as Record<string, unknown>;
+
+// 季節ごとにグルーピング
+const seasons = [
+  { label: '春（3〜5月）', slug: 'spring', guides: seasonalGuides.filter(g => g.seasonSlug === 'spring') },
+  { label: '夏（6〜8月）', slug: 'summer', guides: seasonalGuides.filter(g => g.seasonSlug === 'summer') },
+  { label: '秋（9〜11月）', slug: 'autumn', guides: seasonalGuides.filter(g => g.seasonSlug === 'autumn') },
+  { label: '冬（12〜2月）', slug: 'winter', guides: seasonalGuides.filter(g => g.seasonSlug === 'winter') },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath="/season/" jsonLd={jsonLd}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">季節で選ぶ</span>
+    </nav>
+
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">SEASONAL GUIDE</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">季節で選ぶルアーガイド</h1>
+      <p class="text-sm text-text-mid mt-1">
+        全{seasonalGuides.length}ページ — 季節×魚種ごとのルアー選びガイド
+      </p>
+    </div>
+
+    <p class="text-sm text-gray-700 leading-relaxed mb-8">
+      魚は季節によって行動パターンが大きく変わります。春の産卵前の荒食い、夏のトップウォーターゲーム、秋のベイトフィッシュ回遊、冬のディープゲーム。
+      季節に合ったルアーを選ぶことが、釣果アップの最短ルートです。
+    </p>
+
+    {seasons.map(season => (
+      <section class="mb-10">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">{season.label}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {season.guides.map(guide => (
+            <a href={`/season/${guide.slug}/`} class="group block bg-white rounded-lg border border-gray-100 p-4 hover:border-accent hover:shadow-sm transition-all">
+              <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors">{guide.name}</p>
+              <p class="text-xs text-text-dim mt-1">{guide.fish} — {guide.recommendedTypes.slice(0, 3).join('・')}</p>
+              <p class="text-xs text-text-mid mt-2 line-clamp-2">{guide.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+
+  </div>
+</BaseLayout>

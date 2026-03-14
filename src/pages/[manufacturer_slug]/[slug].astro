@@ -20,6 +20,7 @@ import { getFieldCompatibility, type FieldCompatibility } from '../../lib/field-
 import { generateWeightStrategy, type WeightStrategyEntry } from '../../lib/weight-strategy';
 import { findSimilarSeries, buildTypeIndex, type SimilarSeriesEntry } from '../../lib/similar-series';
 import type { LureSeries } from '../../lib/types';
+import { generateAutoDescription } from '../../lib/auto-description';
 
 export async function getStaticPaths() {
   /** カテゴリ平均値との比較テキストを生成 */
@@ -357,15 +358,17 @@ function truncateDescription(raw: string, maxLen: number = 155): string {
   return raw.slice(0, maxLen - 1) + '…';
 }
 
+// description が null の場合、スペックベースの自動生成文を使う
+const autoDescription = series.description ? null : generateAutoDescription(series);
+const effectiveDescription = series.description || autoDescription!;
+
 // カテゴリ順位をdescriptionに反映（上位10位以内なら訴求力UP）
 const rankLabel = categoryRank > 0 && categoryRank <= 10 && categoryFish
   ? `${categoryFish}向け${series.type}${categoryTotal}選中${categoryRank}位。`
   : '';
 // E/D: CTR改善 — 「スペック」「使い方」を含め検索意図カバレッジを拡大
 const priceLabel = hasPrice ? `価格${priceDisplay}。` : '';
-const rawDescription = series.description
-  ? `${seoName}（${series.manufacturer}の${series.type}）のスペック・全${series.color_count}色・使い方を解説。${rankLabel}${series.description}${priceLabel}`
-  : `${seoName}（${series.manufacturer}の${series.type}）のスペック・全${series.color_count}色のおすすめカラーを解説｜${rankLabel}${specs}${hasPrice ? `・価格${priceDisplay}` : ''}。`;
+const rawDescription = `${seoName}（${series.manufacturer}の${series.type}）のスペック・全${series.color_count}色・使い方を解説。${rankLabel}${effectiveDescription}${priceLabel}`;
 const pageDescription = truncateDescription(rawDescription);
 
 // --- SEO: 自然言語スペック要約（ページ内表示用）---
@@ -414,7 +417,7 @@ const jsonLd: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'Product',
   name: `${series.manufacturer} ${series.name}`,
-  description: series.description || `${series.manufacturer}の${series.type}「${series.name}」。${specs}。`,
+  description: effectiveDescription,
   brand: {
     '@type': 'Brand',
     name: series.manufacturer,
@@ -548,14 +551,12 @@ if (series.color_count > 0) {
   });
 }
 
-// Q5: 特徴・使い方（description がある場合）
-if (series.description) {
-  faqEntries.push({
-    '@type': 'Question',
-    name: `${series.name}の特徴は？`,
-    acceptedAnswer: { '@type': 'Answer', text: series.description },
-  });
-}
+// Q5: 特徴・使い方（公式descriptionまたは自動生成文）
+faqEntries.push({
+  '@type': 'Question',
+  name: `${series.name}の特徴は？`,
+  acceptedAnswer: { '@type': 'Answer', text: effectiveDescription },
+});
 
 // Q6: フィールド対応度
 if (fieldCompat.length > 0) {
@@ -622,7 +623,7 @@ if (youtubeId) {
     '@context': 'https://schema.org',
     '@type': 'VideoObject',
     name: `${series.manufacturer} ${series.name} 公式動画`,
-    description: series.description || `${series.manufacturer}の${series.type}「${series.name}」の紹介動画。`,
+    description: `${series.manufacturer}の${series.type}「${series.name}」の紹介動画。`,
     thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
     embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
     uploadDate: series.created_at,
@@ -809,11 +810,9 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
         )}
 
         <!-- 説明 -->
-        {series.description && (
-          <p class="text-gray-700 leading-relaxed">
-            {series.description}
-          </p>
-        )}
+        <p class="text-gray-700 leading-relaxed">
+          {effectiveDescription}
+        </p>
       </div>
     </div>
 

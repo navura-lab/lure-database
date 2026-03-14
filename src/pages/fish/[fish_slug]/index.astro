@@ -6,6 +6,8 @@ import { groupLuresBySeries } from '../../../lib/group-lures';
 import { FISH_SLUG_MAP, FISH_NAME_MAP, getTypeSlug } from '../../../lib/category-slugs';
 import { fishDescriptions } from '../../../data/fish-descriptions';
 import { guideArticles } from '../../../data/guides';
+import { contentArticles } from '../../../data/articles/_index';
+import { seasonalGuides } from '../../../data/seasonal-guides';
 import type { LureSeries } from '../../../lib/types';
 
 export async function getStaticPaths() {
@@ -338,6 +340,44 @@ const relatedGuides = guideArticles.filter(g => g.targetFish.includes(fishName))
         </div>
       </section>
     )}
+
+    <!-- 関連記事（魚種マッチ） -->
+    {(() => {
+      const fishArticles = contentArticles.filter(a => a.targetFish.includes(fishName)).slice(0, 6);
+      return fishArticles.length > 0 ? (
+        <section class="mt-12 pt-8 border-t border-gray-100">
+          <h2 class="text-lg font-bold text-gray-900 mb-4">関連記事</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {fishArticles.map(article => (
+              <a href={`/article/${article.slug}/`} class="group flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors">{article.h1}</p>
+                  <p class="text-xs text-text-dim mt-0.5">{article.targetTypes.slice(0, 3).join('・')}</p>
+                </div>
+                <span class="text-accent text-sm shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null;
+    })()}
+
+    <!-- 季節ガイド（魚種マッチ） -->
+    {(() => {
+      const fishSeasons = seasonalGuides.filter(g => g.fish === fishName);
+      return fishSeasons.length > 0 ? (
+        <section class="mt-12 pt-8 border-t border-gray-100">
+          <h2 class="text-lg font-bold text-gray-900 mb-4">季節別ガイド</h2>
+          <div class="flex flex-wrap gap-2">
+            {fishSeasons.map(g => (
+              <a href={`/season/${g.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+                {g.name}
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null;
+    })()}
 
     <!-- 関連対象魚 -->
     {relatedFish.length > 0 && (
