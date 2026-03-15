@@ -1,0 +1,456 @@
+---
+/**
+ * 英語版ルアー比較ページ — /en/compare/[slug]/
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getTypeSlug, getFishSlug } from '../../../lib/category-slugs';
+import { getCompareEditorialEn } from '../../../i18n/generators/compare-editorial.en';
+import { contentArticles } from '../../../data/articles/_index.js';
+import { getComparePaths } from '../../../lib/paths/compare-paths';
+import type { ComparePathProps } from '../../../lib/paths/compare-paths';
+import type { LureSeries } from '../../../lib/types';
+import type { ColorBreakdownEntry } from '../../../lib/color-categories';
+import { LURE_TYPE_EN, FISH_NAME_EN, COLOR_CATEGORY_EN } from '../../../i18n/dictionaries/fishing-terms';
+
+const locale = 'en' as const;
+
+export async function getStaticPaths() {
+  return getComparePaths();
+}
+
+const { fishName, typeName, topSeries, totalCount, colorBreakdowns } = Astro.props as ComparePathProps;
+const slug = Astro.params.slug as string;
+
+const fishEn = FISH_NAME_EN[fishName] ?? fishName;
+const typeEn = LURE_TYPE_EN[typeName] ?? typeName;
+
+// --- Helpers ---
+
+function fmtPrice(p: { min: number; max: number }): string {
+  if (p.min <= 0 && p.max <= 0) return '—';
+  const usdMin = Math.round(p.min / 150);
+  const usdMax = Math.round(p.max / 150);
+  if (p.min === p.max) return `$${usdMin} (${String.fromCharCode(165)}${p.min.toLocaleString()})`;
+  return `$${usdMin}–$${usdMax} (${String.fromCharCode(165)}${p.min.toLocaleString()}–${String.fromCharCode(165)}${p.max.toLocaleString()})`;
+}
+
+function fmtRange(r: { min: number | null; max: number | null }, unit: string): string {
+  if (r.min == null && r.max == null) return '—';
+  if (r.min === r.max) return `${r.min}${unit}`;
+  if (r.min == null) return `up to ${r.max}${unit}`;
+  if (r.max == null) return `${r.min}${unit}+`;
+  return `${r.min}–${r.max}${unit}`;
+}
+
+// Spec comparison rows
+const specRows = [
+  { label: 'Brand', values: topSeries.map(s => s.manufacturer) },
+  { label: 'Price Range', values: topSeries.map(s => fmtPrice(s.price_range)) },
+  { label: 'Weight', values: topSeries.map(s => fmtRange(s.weight_range, 'g')) },
+  { label: 'Length', values: topSeries.map(s => fmtRange(s.length_range, 'mm')) },
+  { label: 'Colors', values: topSeries.map(s => `${s.color_count} colors`) },
+  { label: 'Depth', values: topSeries.map(s => s.diving_depth || '—') },
+  { label: 'Action', values: topSeries.map(s => s.action_type || '—') },
+];
+
+// Color category IDs across all lures
+const allColorIds = new Set<string>();
+for (const bd of colorBreakdowns) {
+  for (const entry of bd) {
+    if (entry.id !== 'other') allColorIds.add(entry.id);
+  }
+}
+
+// --- SEO ---
+
+const currentYear = new Date().getFullYear();
+const pageTitle = `Best ${typeEn} for ${fishEn}: Top ${topSeries.length} Compared [${currentYear}] | CAST/LOG`;
+const pageDescription = `Compare the top ${topSeries.length} ${typeEn.toLowerCase()} lures for ${fishEn} from ${totalCount} series. Side-by-side specs, colors, and pricing for ${topSeries.map(s => s.name).join(', ')}.`;
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Compare', item: 'https://www.castlog.xyz/en/compare/' },
+    { '@type': 'ListItem', position: 3, name: `${fishEn} ${typeEn}`, item: `https://www.castlog.xyz/en/compare/${slug}/` },
+  ],
+};
+
+// FAQ structured data (data-driven)
+const faqEntries: { '@type': string; name: string; acceptedAnswer: { '@type': string; text: string } }[] = [];
+
+// Q1: Recommended models
+const topNames = topSeries.slice(0, 3).map(s => s.name).join(', ');
+faqEntries.push({
+  '@type': 'Question',
+  name: `What are the best ${typeEn.toLowerCase()} lures for ${fishEn}?`,
+  acceptedAnswer: { '@type': 'Answer', text: `Based on CAST/LOG database analysis of ${totalCount} ${typeEn.toLowerCase()} series for ${fishEn}, the top-rated models include ${topNames}. Rankings are based on color variety, price range, weight range, and other performance metrics.` },
+});
+
+// Q2: Price range
+const allPrices = topSeries.flatMap(s => [s.price_range.min, s.price_range.max]).filter(p => p > 0);
+if (allPrices.length > 0) {
+  const minP = Math.min(...allPrices);
+  const maxP = Math.max(...allPrices);
+  const usdMin = Math.round(minP / 150);
+  const usdMax = Math.round(maxP / 150);
+  faqEntries.push({
+    '@type': 'Question',
+    name: `How much do ${fishEn} ${typeEn.toLowerCase()} lures cost?`,
+    acceptedAnswer: { '@type': 'Answer', text: `The top ${topSeries.length} models range from ${String.fromCharCode(165)}${minP.toLocaleString()} to ${String.fromCharCode(165)}${maxP.toLocaleString()} (approximately $${usdMin}–$${usdMax} USD). Pricing varies by brand, materials, and color options.` },
+  });
+}
+
+// Q3: How to choose
+const topManufacturers = [...new Set(topSeries.map(s => s.manufacturer))].slice(0, 3).join(', ');
+faqEntries.push({
+  '@type': 'Question',
+  name: `How do I choose a ${typeEn.toLowerCase()} for ${fishEn}?`,
+  acceptedAnswer: { '@type': 'Answer', text: `Key factors for choosing a ${typeEn.toLowerCase()} for ${fishEn} are weight, diving depth, and color selection. Brands like ${topManufacturers} offer distinct models. Match specs to your fishing conditions and compare side by side to find the best fit.` },
+});
+
+// Q4: Color lineup differences
+if (topSeries.length >= 2) {
+  const s1 = topSeries[0];
+  const s2 = topSeries[1];
+  const bd1 = colorBreakdowns[0].filter(e => e.id !== 'other');
+  const bd2 = colorBreakdowns[1].filter(e => e.id !== 'other');
+  const top1Cats = bd1.slice(0, 3).map(e => COLOR_CATEGORY_EN[e.label] ?? e.label).join(', ');
+  const top2Cats = bd2.slice(0, 3).map(e => COLOR_CATEGORY_EN[e.label] ?? e.label).join(', ');
+  faqEntries.push({
+    '@type': 'Question',
+    name: `What is the difference between ${s1.name} and ${s2.name} color lineups?`,
+    acceptedAnswer: { '@type': 'Answer', text: `The ${s1.name} offers ${s1.color_count} colors, primarily ${top1Cats} patterns. The ${s2.name} has ${s2.color_count} colors, emphasizing ${top2Cats} patterns. For maximum variety, the ${s1.color_count >= s2.color_count ? s1.name : s2.name} has more options.` },
+  });
+}
+
+// Q5: Beginner recommendation
+if (topSeries.length >= 2) {
+  const s1 = topSeries[0];
+  const s2 = topSeries[1];
+  const beginnerScore = (s: typeof topSeries[0]) => {
+    let score = 0;
+    if (s.price_range.min > 0) score += (3000 - s.price_range.min) / 1000;
+    if (s.weight_range.min != null) score += (30 - s.weight_range.min) / 10;
+    score += s.color_count / 10;
+    return score;
+  };
+  const score1 = beginnerScore(s1);
+  const score2 = beginnerScore(s2);
+  const recommended = score1 >= score2 ? s1 : s2;
+  const reasonParts: string[] = [];
+  if (recommended.price_range.min > 0) {
+    const usd = Math.round(recommended.price_range.min / 150);
+    reasonParts.push(`affordable starting at ~$${usd}`);
+  }
+  if (recommended.weight_range.min != null) reasonParts.push(`lightweight models from ${recommended.weight_range.min}g available`);
+  reasonParts.push(`${recommended.color_count} color options for versatile use`);
+  faqEntries.push({
+    '@type': 'Question',
+    name: `Which is better for beginners: ${s1.name} or ${s2.name}?`,
+    acceptedAnswer: { '@type': 'Answer', text: `For beginners, the ${recommended.name} is recommended: ${reasonParts.join(', ')}. Start with an easy-to-use model and upgrade as you gain experience.` },
+  });
+}
+
+const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqEntries };
+
+const itemListLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `Best ${typeEn} for ${fishEn} - Top ${topSeries.length}`,
+  numberOfItems: topSeries.length,
+  itemListElement: topSeries.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `https://www.castlog.xyz/en/${s.manufacturer_slug}/${s.slug}/`,
+    name: `${s.manufacturer} ${s.name}`,
+    ...(s.representative_image ? { image: s.representative_image } : {}),
+    description: `${typeEn} - ${s.color_count} colors${s.price_range.max > 0 ? ` - from ${String.fromCharCode(165)}${s.price_range.min.toLocaleString()}` : ''}`,
+  })),
+};
+
+const jsonLd = [breadcrumbLd, faqLd, itemListLd] as unknown as Record<string, unknown>;
+
+// --- Editorial ---
+const editorial = getCompareEditorialEn(fishName, typeName, totalCount);
+
+// Related articles (match by fish or type)
+const relatedArticles = contentArticles.filter(a =>
+  a.targetFish.includes(fishName) || a.targetTypes.includes(typeName)
+).slice(0, 3);
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/en/compare/${slug}/`} jsonLd={jsonLd} locale={locale}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/en/compare/" class="hover:text-accent transition-colors">Compare</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{fishEn} {typeEn}</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">COMPARE</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+        Best {typeEn} for {fishEn}: Top {topSeries.length} Compared
+      </h1>
+      <p class="text-sm text-text-mid mt-1">
+        Top {topSeries.length} models selected from {totalCount} series, compared side by side
+      </p>
+    </div>
+
+    <!-- Overview -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        {editorial.contextParagraph}
+      </p>
+      <p class="text-sm text-gray-700 leading-relaxed mt-2">
+        Below we compare the top {topSeries.length} series by specs, color lineups, and pricing to highlight their differences.
+      </p>
+      {editorial.selectionCriteria && (
+        <div class="mt-4 pt-3 border-t border-gray-100">
+          <p class="text-xs font-semibold text-gray-900 mb-2">Key Selection Criteria</p>
+          <div class="flex flex-wrap gap-2">
+            {editorial.selectionCriteria.map(c => (
+              <span class="text-xs bg-gray-50 text-gray-700 px-2.5 py-1 rounded-full border border-gray-200">
+                {c}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+      <div class="mt-3">
+        <a href={`/en/ranking/${slug}/`} class="text-xs text-accent hover:underline">
+          View full {fishEn} {typeEn} ranking (all {totalCount} series) &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Spec Comparison Table -->
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Spec Comparison</h2>
+      <div class="overflow-x-auto -mx-4 px-4">
+        <table class="w-full text-sm border-collapse min-w-[640px]">
+          <thead>
+            <tr class="border-b-2 border-gray-200">
+              <th class="py-3 pr-4 text-left text-xs font-semibold text-text-dim w-24">Spec</th>
+              {topSeries.map(s => (
+                <th class="py-3 px-2 text-left">
+                  <a href={`/en/${s.manufacturer_slug}/${s.slug}/`} class="text-sm font-bold text-gray-900 hover:text-accent transition-colors leading-tight block">
+                    {s.name}
+                  </a>
+                  <span class="text-xs text-text-dim block">{s.manufacturer}</span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {specRows.map((row, ri) => (
+              <tr class={`border-b border-gray-100 ${ri % 2 === 0 ? 'bg-gray-50/50' : ''}`}>
+                <td class="py-2.5 pr-4 text-xs font-semibold text-text-dim whitespace-nowrap">{row.label}</td>
+                {row.values.map(val => {
+                  const isMax = row.label === 'Colors' &&
+                    parseInt(val) === Math.max(...row.values.map(v => parseInt(v) || 0));
+                  return (
+                    <td class={`py-2.5 px-2 text-sm ${isMax ? 'text-accent font-bold' : 'text-gray-700'}`}>
+                      {val}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Color Breakdown Comparison -->
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Color Lineup Comparison</h2>
+      <p class="text-sm text-text-mid mb-4">
+        Each series' color lineup categorized by type. Use this to match your lure colors to water conditions and baitfish.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        {topSeries.map((s, i) => {
+          const bd = colorBreakdowns[i];
+          const maxCount = Math.max(...bd.map(e => e.count), 1);
+          return (
+            <div class="bg-white rounded-lg border border-gray-100 p-4">
+              <h3 class="text-sm font-bold text-gray-900 mb-1">
+                <a href={`/en/${s.manufacturer_slug}/${s.slug}/`} class="hover:text-accent transition-colors">
+                  {s.name}
+                </a>
+              </h3>
+              <p class="text-xs text-text-dim mb-3">{s.color_count} colors total</p>
+              <div class="space-y-1.5">
+                {bd.filter(e => e.id !== 'other').slice(0, 6).map(cat => (
+                  <div class="flex items-center gap-2">
+                    <span class="w-20 text-xs text-gray-600 shrink-0 truncate">{COLOR_CATEGORY_EN[cat.label] ?? cat.label}</span>
+                    <div class="flex-1 bg-gray-100 rounded h-3.5 overflow-hidden">
+                      <div
+                        style={`width:${Math.max((cat.count / maxCount) * 100, 4)}%;background-color:${cat.cssColor}`}
+                        class="h-3.5 rounded transition-all"
+                      />
+                    </div>
+                    <span class="text-xs text-gray-500 w-6 text-right shrink-0">{cat.count}</span>
+                  </div>
+                ))}
+                {bd.some(e => e.id === 'other' && e.count > 0) && (
+                  <div class="flex items-center gap-2">
+                    <span class="w-20 text-xs text-gray-400 shrink-0">Other</span>
+                    <span class="text-xs text-gray-400">{bd.find(e => e.id === 'other')?.count} colors</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Price Range Comparison -->
+    {topSeries.some(s => s.price_range.min > 0 || s.price_range.max > 0) && (
+      <section class="mb-12">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Price Range Comparison</h2>
+        {(() => {
+          const priceValues = topSeries.flatMap(s => [s.price_range.min, s.price_range.max]).filter(p => p > 0);
+          const globalMin = Math.min(...priceValues);
+          const globalMax = Math.max(...priceValues);
+          const range = globalMax - globalMin || 1;
+          return (
+            <div class="bg-white rounded-lg border border-gray-100 p-4 sm:p-5 space-y-3">
+              {topSeries
+                .filter(s => s.price_range.min > 0 || s.price_range.max > 0)
+                .map(s => {
+                  const left = ((Math.max(s.price_range.min, globalMin) - globalMin) / range) * 100;
+                  const width = Math.max(((s.price_range.max - Math.max(s.price_range.min, globalMin)) / range) * 100, 2);
+                  return (
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-xs font-semibold text-gray-900 truncate max-w-[50%]">{s.name}</span>
+                        <span class="text-xs text-text-dim">{fmtPrice(s.price_range)}</span>
+                      </div>
+                      <div class="relative h-3 bg-gray-100 rounded overflow-hidden">
+                        <div
+                          class="absolute h-3 bg-accent/50 rounded"
+                          style={`left:${left}%;width:${width}%`}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              <div class="flex justify-between text-xs text-text-dim pt-1">
+                <span>{String.fromCharCode(165)}{globalMin.toLocaleString()}</span>
+                <span>{String.fromCharCode(165)}{globalMax.toLocaleString()}</span>
+              </div>
+            </div>
+          );
+        })()}
+      </section>
+    )}
+
+    <!-- Which One Should You Choose -->
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Which One Should You Choose?</h2>
+      <div class="space-y-3">
+        {topSeries.map((s, i) => {
+          const bd = colorBreakdowns[i];
+          const topCat = bd.filter(e => e.id !== 'other')[0];
+          const topCatEn = topCat ? (COLOR_CATEGORY_EN[topCat.label] ?? topCat.label) : '';
+          const traits: string[] = [];
+
+          if (i === 0) traits.push(`Most colors available with ${s.color_count} options`);
+
+          if (s.price_range.min > 0) {
+            const cheapest = topSeries.reduce((min, t) =>
+              t.price_range.min > 0 && t.price_range.min < (min?.price_range.min || Infinity) ? t : min,
+              null as LureSeries | null
+            );
+            if (cheapest && s.slug === cheapest.slug && s.manufacturer_slug === cheapest.manufacturer_slug) {
+              traits.push('Most affordable option');
+            }
+          }
+
+          if (topCat) {
+            traits.push(`Strong ${topCatEn} selection with ${topCat.count} colors`);
+          }
+
+          if (s.weight_range.min != null && s.weight_range.max != null) {
+            const weightSpan = s.weight_range.max - s.weight_range.min;
+            const widest = topSeries.reduce((max, t) => {
+              const span = (t.weight_range.max ?? 0) - (t.weight_range.min ?? 0);
+              return span > (max ?? 0) ? span : max;
+            }, 0);
+            if (weightSpan > 0 && weightSpan === widest) {
+              traits.push(`Widest weight range: ${fmtRange(s.weight_range, 'g')}`);
+            }
+          }
+
+          return (
+            <div class="bg-gray-50 rounded-lg p-4">
+              <h3 class="text-sm font-bold text-gray-900 mb-1">
+                <a href={`/en/${s.manufacturer_slug}/${s.slug}/`} class="hover:text-accent transition-colors">
+                  {s.manufacturer} {s.name}
+                </a>
+              </h3>
+              {traits.length > 0 ? (
+                <ul class="space-y-1">
+                  {traits.map(t => (
+                    <li class="text-sm text-gray-700 flex gap-2">
+                      <span class="text-accent shrink-0">&#9656;</span>
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="text-sm text-gray-600">
+                  {s.color_count} colors available. {topCat ? `${topCatEn} (${topCat.count} colors) is the primary category.` : ''}
+                  <a href={`/en/${s.manufacturer_slug}/${s.slug}/`} class="text-accent hover:underline">View details</a>
+                </p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+      <div class="space-y-2">
+        {faqEntries.map((faq, i) => (
+          <details class="group bg-white rounded-lg border border-gray-100 overflow-hidden" open={i === 0}>
+            <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors">
+              <span class="text-sm font-semibold text-gray-900 pr-4">{faq.name}</span>
+              <svg class="w-4 h-4 text-text-dim shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-gray-600 leading-relaxed border-t border-gray-50">
+              {faq.acceptedAnswer.text}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Cross Links -->
+    <section class="mt-12 pt-8 border-t border-gray-100">
+      <div class="flex flex-wrap gap-3">
+        <a href={`/en/ranking/${slug}/`} class="px-4 py-2 bg-accent text-white rounded-lg text-sm font-medium hover:bg-accent-hover transition-colors">
+          {fishEn} {typeEn} Ranking (all {totalCount} series) &rarr;
+        </a>
+        <a href={`/en/fish/${getFishSlug(fishName)}/`} class="px-4 py-2 bg-white text-gray-700 rounded-lg text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+          All {fishEn} Lures
+        </a>
+        <a href={`/en/type/${getTypeSlug(typeName)}/`} class="px-4 py-2 bg-white text-gray-700 rounded-lg text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+          All {typeEn} Lures
+        </a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>
