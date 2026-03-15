@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['X-80SW インプレ', 'komomoII インプレ', 'シーバス ミノー 比較', 'シーバス ミノー おすすめ', 'ハチマル コモモ'],
   targetFish: ['シーバス'],
   targetTypes: ['ミノー'],
-  targetLureSlugs: ['megabass/x-80sw', 'ima/komomoii'],
+  targetLureSlugs: ['x-80sw', 'komomoii'],
   lead: 'シーバスミノーの定番として長年支持されるメガバスX-80SW（通称ハチマル）とアイマkomomoII 90。前者は80.5mm・10.9gのスローシンキングミノーでジャーキングによるダートアクションを得意とし、後者は90mm・12gのフローティングミノーで水面直下0〜20cmのシャローレンジを攻略する。設計思想が根本的に異なるこの2機種は、補完関係にあるといっても過言ではない。本記事ではスペック・アクション・適材適所を客観データで比較し、あなたのフィールドに合った選択を支援する。',
   sections: [
     {

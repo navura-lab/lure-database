@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['ディープクランク おすすめ', 'DEEP-X300 インプレ', 'ブリッツEX-DR インプレ', 'ディープクランク 比較'],
   targetFish: ['ブラックバス'],
   targetTypes: ['クランクベイト'],
-  targetLureSlugs: ['megabass/deep-x300', 'osp/blitz-ex-dr'],
+  targetLureSlugs: ['deep-x300', 'blitz-ex-dr'],
   lead: 'ディープクランクの名作対決。メガバス DEEP-X300は75mm・3/4ozの重心移動搭載モデルで最大潜行深度5m。O.S.P ブリッツEX-DRは53mm・12gの固定重心コンパクトモデルで潜行深度4m前後。どちらも琵琶湖やリザーバーのディープ攻略で実績を積み上げてきた定番だ。大型ボディで強烈にアピールするDEEP-X300と、コンパクトシルエットで食わせに寄せるブリッツEX-DR。それぞれの特性とフィールド適性を詳しく比較する。',
   sections: [
     {

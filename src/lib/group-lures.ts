@@ -48,7 +48,7 @@ export function groupLuresBySeries(lures: Lure[]): LureSeries[] {
     // ルアーではないタイプを除外（アクセサリー等）
     if (EXCLUDED_TYPES.has(lure.type)) continue;
     // 名前パターンで非ルアー製品を除外（シンカー/フック/ロッド等）
-    if (isNonLureProduct(lure.name)) continue;
+    if (isNonLureProduct(lure.name, lure.slug)) continue;
     const key = lure.slug; // DB格納の英語slug
     const existing = seriesMap.get(key) || [];
     existing.push(lure);
@@ -138,9 +138,15 @@ export function groupLuresBySeries(lures: Lure[]): LureSeries[] {
       rep.manufacturer_slug,
     );
 
+    // スクレイプ時に混入したサイト名テキストを除去
+    const cleanName = rep.name
+      .replace(/\s*-\s*XESTA.*公式ウェブサイト$/i, '')
+      .replace(/\s*-\s*.*公式サイト$/i, '')
+      .trim();
+
     result.push({
       slug,
-      name: rep.name,
+      name: cleanName || rep.name,
       manufacturer: rep.manufacturer,
       manufacturer_slug: rep.manufacturer_slug,
       type: rep.type,

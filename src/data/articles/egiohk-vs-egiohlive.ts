@@ -15,7 +15,7 @@ const article: ContentArticle = {
   ],
   targetFish: ['アオリイカ'],
   targetTypes: ['エギ'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['egi-k', 'egi-live'],
   lead: 'ヤマシタのエギ王シリーズは、エギング界で絶対的な地位を誇るブランドだ。中でも「エギ王K」と「エギ王LIVE」は二大主力モデルとして多くのエギンガーに愛用されている。しかし「どっちを買えばいいのか分からない」という声は非常に多い。結論から言えば、Kはフォールで食わせるエギ、LIVEはダートで誘うエギだ。設計思想が根本的に異なるこの2モデルの違いを、スペック・使用感・釣れるシチュエーションの3軸で比較する。',
   sections: [
     {

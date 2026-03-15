@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['バックスライド ワーム 比較', 'ドライブSSギル 使い方', 'ファットイカ バックスライド', 'カバー ワーム おすすめ'],
   targetFish: ['ブラックバス'],
   targetTypes: ['ワーム'],
-  targetLureSlugs: ['osp/dolivessgill', 'smith/bass-fatika'],
+  targetLureSlugs: ['dolivessgill', 'bass-fatika'],
   lead: 'バックスライド系ワームの2大巨頭、O.S.PドライブSSギルとゲーリーヤマモト ファットイカ。ファットイカは「バックスライド」という釣法を世に広めたパイオニアであり、ゲーリー素材の圧倒的な集魚力で今なお最前線で活躍する。一方のドライブSSギルは、ギル型ボディと独自のパーツ設計で「スライド幅」と「フォールアクション」を両立させた後発の実力派だ。TSURI HACK・DeeeP STREAM等のインプレ情報とO.S.P公式スペックを基に、両者の性能差と使い分けを客観的に比較する。',
   sections: [
     {

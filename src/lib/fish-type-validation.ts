@@ -134,6 +134,7 @@ export const EXCLUDED_TYPES = new Set(['ルアーアクセサリー']);
 const EXCLUDED_NAME_PATTERNS = [
   // シンカー/ウェイト単体
   /\b(?:flipping|drop\s*shot|casting|neko|wacky|splitshot|split\s*ball)\s*weight\b/i,
+  /\btungsten\s*worm\s*weight\b/i,
   /dome\s*neko\s*weight/i,
   /offset\s*sinker/i,
   /オフセット.*シンカー/,
@@ -146,10 +147,14 @@ const EXCLUDED_NAME_PATTERNS = [
   /\blive\s*minnow\s*hook\b/i,
   /\bjugular.*hook\b/i,
   /フックユニット/,
-  // ジグヘッド（スピナーベイト等に誤分類されたもののみ）
+  // ジグヘッド単体（ルアーではなくフック+シンカー製品）
   /\bline.?thru\s*jig\s*head\b/i,
+  /\btube\s*jig\b/i,
+  /\bned\s*rig\s*jig\b/i,
+  /\bwacky\s*jig\s*head\b/i,
   // ロッド
   /\btravel\s*rod\b/i,
+  /ショアジギングロッド/,
   // 交換パーツ/アクセサリー
   /\breplacement\s*tail\b/i,
   /\bsilicone\s*skirt\b/i,
@@ -159,7 +164,14 @@ const EXCLUDED_NAME_PATTERNS = [
   /\bfishing\s*tool\b/i,
 ];
 
-/** 製品名が非ルアー（アクセサリー/パーツ）かどうかを判定 */
-export function isNonLureProduct(name: string): boolean {
+/** スクレイプ時に誤って取り込まれた非ルアー製品のslug */
+const EXCLUDED_SLUGS = new Set([
+  'runway-xr',       // XESTAロッド
+  'venus-crew-2026', // XESTAレディースウェアブランド
+]);
+
+/** 製品名またはslugが非ルアー（アクセサリー/パーツ/ロッド/ウェア）かどうかを判定 */
+export function isNonLureProduct(name: string, slug?: string): boolean {
+  if (slug && EXCLUDED_SLUGS.has(slug)) return true;
   return EXCLUDED_NAME_PATTERNS.some(pattern => pattern.test(name));
 }

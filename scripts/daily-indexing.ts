@@ -290,6 +290,42 @@ function saveProgress(progress: Progress) {
   fs.writeFileSync(PROGRESS_FILE, JSON.stringify(progress, null, 2));
 }
 
+// ─── Rewrites Applied 読み込み ──────────────────────────
+
+const REWRITES_APPLIED_FILE = path.join(DATA_DIR, 'rewrites-applied.json');
+
+interface RewritesApplied {
+  urls: string[];
+  appliedAt: string;
+}
+
+/**
+ * rewrite-detector が出力した rewrites-applied.json を読み込み、
+ * 通常バッチの先頭に優先挿入するURLリストを返す。
+ * 読み込み後、アーカイブにリネームする。
+ */
+function loadAndArchiveRewritesApplied(): string[] {
+  if (!fs.existsSync(REWRITES_APPLIED_FILE)) return [];
+
+  try {
+    const data: RewritesApplied = JSON.parse(fs.readFileSync(REWRITES_APPLIED_FILE, 'utf-8'));
+    const urls = data.urls || [];
+
+    if (urls.length > 0) {
+      // アーカイブ
+      const today = new Date().toISOString().split('T')[0];
+      const archiveName = path.join(DATA_DIR, `rewrites-applied-${today}.json`);
+      fs.renameSync(REWRITES_APPLIED_FILE, archiveName);
+      log(`Rewrites applied: ${urls.length}件を優先送信（アーカイブ: ${path.basename(archiveName)}）`);
+    }
+
+    return urls;
+  } catch (e: any) {
+    log(`Warning: rewrites-applied.json の読み込みに失敗: ${e.message}`);
+    return [];
+  }
+}
+
 // ─── Main ─────────────────────────────────────────────
 
 async function main() {
@@ -303,6 +339,9 @@ async function main() {
   // 1. 進捗読み込み
   const progress = loadProgress();
   log(`Progress: offset=${progress.lure_offset}, total_submitted=${progress.total_submitted}, last_run=${progress.last_run}`);
+
+  // 1.5. Rewrites applied（title書き換え済みURL）を優先送信リストとして取得
+  const rewriteUrls = loadAndArchiveRewritesApplied();
 
   // 2. 全URL取得
   log('Fetching all URLs from Supabase...');
@@ -318,7 +357,13 @@ async function main() {
     offset = 0;
   }
 
-  const batchUrls = allUrls.slice(offset, offset + BATCH_SIZE);
+  // rewrite URLを先頭に挿入し、通常バッチから残り枠を埋める
+  const normalBatchSize = Math.max(0, BATCH_SIZE - rewriteUrls.length);
+  const normalUrls = allUrls.slice(offset, offset + normalBatchSize);
+  // 重複排除（rewriteUrlsとnormalUrlsの重複を除去）
+  const rewriteSet = new Set(rewriteUrls);
+  const dedupedNormal = normalUrls.filter(u => !rewriteSet.has(u));
+  const batchUrls = [...rewriteUrls, ...dedupedNormal];
 
   if (batchUrls.length === 0) {
     log('No URLs to submit.');
@@ -393,7 +438,11 @@ async function main() {
 
   // 8. 進捗保存
   const today = new Date().toISOString().split('T')[0];
-  progress.lure_offset = offset + successCount;
+  // rewriteUrlsは優先挿入分なので通常進捗には含めない
+  const normalSuccessCount = results
+    .slice(rewriteUrls.length) // rewrite分を除いた通常バッチ部分
+    .filter(r => r.success).length;
+  progress.lure_offset = offset + normalSuccessCount;
   progress.total_submitted += successCount;
   progress.last_run = today;
   progress.history.push({ date: today, offset, success: successCount, failed: failedCount });

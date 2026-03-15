@@ -15,7 +15,7 @@ const article: ContentArticle = {
   ],
   targetFish: ['青物'],
   targetTypes: ['メタルジグ'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['huz2stf', '7c5pl9f'],
   lead: 'ダイワが誇る2大メタルジグ「TGベイト」と「サムライジグR」。タングステン製のTGベイトはコンパクトシルエットと圧倒的な飛距離が武器で、鉛製のサムライジグRは安定したスイミングと水平フォールをハイコスパで実現する。同じダイワ製でありながら素材・設計思想が全く異なるこの2本を、スペック・使い勝手・釣れる場面の3軸で比較し、どちらを選ぶべきかを明確にする。',
   sections: [
     {

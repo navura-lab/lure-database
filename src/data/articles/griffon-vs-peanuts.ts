@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['SR-X グリフォン インプレ', 'ピーナッツII クランク', 'シャロークランク おすすめ', 'メガバス ダイワ クランク 比較'],
   targetFish: ['ブラックバス'],
   targetTypes: ['クランクベイト'],
-  targetLureSlugs: ['megabass/sr-x-griffon', 'evergreen/wildhunch'],
+  targetLureSlugs: ['sr-x-griffon', 'op4em6r'],
   lead: 'シャロークランクの定番対決、メガバス SR-Xグリフォンとダイワ ピーナッツII。グリフォンは43mm・約7gのコンパクトボディに最大潜行深度1.3mのハイレスポンスクランク。ピーナッツIIは50mm・9gで潜行深度約1.0mの超コストパフォーマンスモデル。価格帯が大きく異なる両者だが、どちらも長年バスアングラーに愛され続けている実力派だ。アクション特性・障害物回避・カラーラインナップなど多角的に比較し、フィールドに合った選び方を解説する。',
   sections: [
     {

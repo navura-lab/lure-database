@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['ジグパラショート ビッグバッカー 違い', 'ビッグバッカージグ インプレ', 'メタルジグ ショアジギング', '青物 メタルジグ おすすめ'],
   targetFish: ['青物'],
   targetTypes: ['メタルジグ'],
-  targetLureSlugs: ['majorcraft/jps', 'jackall/bigbackerjig'],
+  targetLureSlugs: ['jps', 'bigbackerjig'],
   lead: 'ショアジギングの定番メタルジグ対決、メジャークラフト ジグパラショートとジャッカル ビッグバッカージグ。ジグパラショートはセンターバランスの安定型ジグとして入門者からベテランまで幅広く支持される。ビッグバッカージグは後方重心の遠投特化型で、エッジの立ったボディが生む強フラッシングが武器だ。まるなか大衆鮮魚・伊豆釣り.comのインプレ情報とメーカー公式スペックを基に、両者の設計思想の違いと実釣での使い分けを解説する。',
   sections: [
     {

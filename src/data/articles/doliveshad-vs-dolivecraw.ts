@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['ドライブシャッド 使い分け', 'ドライブクロー テキサス', 'OSP ワーム 比較', 'バス ワーム 選び方'],
   targetFish: ['ブラックバス'],
   targetTypes: ['ワーム'],
-  targetLureSlugs: ['osp/doliveshad', 'osp/dolivecraw'],
+  targetLureSlugs: ['doliveshad', 'dolivecraw'],
   lead: 'O.S.Pのドライブシャッドとドライブクローは、どちらもバスフィッシングの定番ワームだが、設計思想とアプローチが根本的に異なる。ドライブシャッドはシャッドテール型で、フリーフォールでも自発的に泳ぐアクションを獲得した「巻いて探る」ワーム。一方のドライブクローは、複数のパーツがフォール時にバタバタと動く「落として食わせる」クロー系ワームだ。O.S.P公式サイトおよびLureNote等のインプレ情報を基に、両者のスペック・使い分け・最適リグを客観的に比較する。',
   sections: [
     {

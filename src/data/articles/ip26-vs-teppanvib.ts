@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['IP-26 インプレ', '鉄PANバイブ インプレ', 'シーバス メタルバイブ 比較', 'シーバス 鉄板バイブ おすすめ', 'アイアンプレート 鉄PANバイブ'],
   targetFish: ['シーバス'],
   targetTypes: ['メタルバイブレーション'],
-  targetLureSlugs: ['coreman/ip-26-ironplate-sc', 'jackson/teppan-vib-9g-14g-20g-26g'],
+  targetLureSlugs: ['ip-26-ironplate-sc', 'teppan-vib-9g-14g-20g-26g'],
   lead: 'シーバスデイゲームの必需品であるメタルバイブレーション。その頂点に君臨するコアマン IP-26 アイアンプレートと、圧倒的コストパフォーマンスで人気のジャクソン 鉄PANバイブ 26は、いずれも26gクラスの鉄板バイブとして多くのアングラーに支持されている。IP-26は安定した飛距離と適度な巻き抵抗、トラブルの少なさで「完成度の極み」と評され、鉄PANバイブは実売800円前後という価格ながら全てが高水準にまとまった「コスパ最強」の呼び声が高い。本記事では両者のスペックと実釣性能を客観的に比較する。',
   sections: [
     {

@@ -10,7 +10,7 @@ const article: ContentArticle = {
   subKeywords: ['ジグパラショート インプレ', 'TGベイト ショアジギング', 'メタルジグ 比較', '鉛 タングステン ジグ 違い'],
   targetFish: ['青物'],
   targetTypes: ['メタルジグ'],
-  targetLureSlugs: ['majorcraft/jps', 'daiwa/huz2stf'],
+  targetLureSlugs: ['jps', 'huz2stf'],
   lead: 'ショアジギングのメタルジグ選びで必ず比較対象になるのが、メジャークラフトのジグパラショートとダイワのTGベイトだ。ジグパラショートは鉛製のセンターバランスジグで、圧倒的なコストパフォーマンスとAmazonレビュー星5が100件超の実績を誇る。TGベイトはタングステン製のコンパクトジグで、同重量で鉛ジグより一回り小さいシルエットとキレのあるフォールが武器。まるなか大衆鮮魚・TSURI HACK等のインプレ情報と公式スペックを基に、両者の性能差と使い分けを客観比較する。',
   sections: [
     {

@@ -15,7 +15,7 @@ const article: ContentArticle = {
   ],
   targetFish: ['アオリイカ'],
   targetTypes: ['エギ'],
-  targetLureSlugs: [],
+  targetLureSlugs: ['egi-k', 'pfpygsw'],
   lead: 'エギング二大ブランドの対決。ヤマシタ「エギ王K」とダイワ「エメラルダスダートII」は、それぞれのメーカーを代表するスタンダードエギだ。エギ王Kはハイドロフィンによる安定フォールで食わせに特化し、エメラルダスダートIIはシャープなダートアクションでイカを誘い出す。フォール派かダート派か、エギング界の永遠のテーマに対してスペックと実釣データから明確な回答を出す。',
   sections: [
     {
