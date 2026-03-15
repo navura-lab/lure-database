@@ -1,0 +1,273 @@
+---
+/**
+ * 英語版釣り方詳細ページ — /en/method/[slug]/
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LureCard from '../../../components/LureCard.astro';
+import { fetchAllLures } from '../../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../../lib/group-lures';
+import { getTypeSlug, getFishSlug } from '../../../lib/category-slugs';
+import { fishingMethods } from '../../../data/fishing-methods';
+import { LURE_TYPE_EN, FISH_NAME_EN, FIELD_NAME_EN } from '../../../i18n/dictionaries/fishing-terms';
+import type { LureSeries } from '../../../lib/types';
+import type { FishingMethod } from '../../../data/fishing-methods';
+
+const locale = 'en' as const;
+
+// ─── 静的パス生成 ───
+
+export async function getStaticPaths() {
+  const lures = await fetchAllLures();
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  return fishingMethods.map(method => {
+    const matchingSeries = allSeries.filter(s => {
+      if (!s.type) return false;
+      const typeMatch = method.mainTypes.includes(s.type);
+      const fishMatch = s.target_fish.some(f => method.targetFish.includes(f));
+      return typeMatch && fishMatch;
+    });
+
+    const sorted = matchingSeries.sort((a, b) => b.color_count - a.color_count);
+
+    const byType = new Map<string, LureSeries[]>();
+    for (const s of sorted) {
+      const existing = byType.get(s.type) || [];
+      existing.push(s);
+      byType.set(s.type, existing);
+    }
+
+    const typeGroups = method.mainTypes
+      .filter(t => byType.has(t))
+      .map(t => ({
+        typeName: t,
+        typeSlug: getTypeSlug(t),
+        series: byType.get(t)!,
+      }));
+
+    return {
+      params: { slug: method.slug },
+      props: { method, typeGroups, totalCount: sorted.length },
+    };
+  });
+}
+
+// ─── Props ───
+
+const { method, typeGroups, totalCount } = Astro.props as {
+  method: FishingMethod;
+  typeGroups: { typeName: string; typeSlug: string; series: LureSeries[] }[];
+  totalCount: number;
+};
+
+const slug = Astro.params.slug as string;
+const methodNameEn = method.nameEn ?? method.name;
+const methodDescEn = method.descriptionEn ?? method.description;
+const methodFieldsEn = method.fieldsEn ?? method.fields;
+const methodSeasonEn = method.seasonEn ?? method.season;
+const methodTipsEn = method.tipsEn ?? method.tips;
+
+// ─── 関連ランキングリンク ───
+
+const relatedRankings: { slug: string; label: string }[] = [];
+for (const fish of method.targetFish) {
+  for (const type of method.mainTypes) {
+    const rSlug = `${getFishSlug(fish)}-${getTypeSlug(type)}`;
+    const fishEn = FISH_NAME_EN[fish] ?? fish;
+    const typeEn = LURE_TYPE_EN[type] ?? type;
+    relatedRankings.push({ slug: rSlug, label: `${fishEn} × ${typeEn}` });
+  }
+}
+
+// ─── SEO ───
+
+const currentYear = new Date().getFullYear();
+const pageTitle = `${methodNameEn} — Best ${currentYear} Lures (${totalCount} Series) | CAST/LOG`;
+const targetFishEn = method.targetFish.map(f => FISH_NAME_EN[f] ?? f).join(', ');
+const mainTypesEn = method.mainTypes.map(t => LURE_TYPE_EN[t] ?? t).join(', ');
+const pageDescription = `Best lures for ${methodNameEn.toLowerCase()}: ${totalCount} series covering ${mainTypesEn}. Targeting ${targetFishEn}. Sorted by color lineup count.`;
+
+// ─── FAQ JSON-LD ───
+
+const faqItems = [
+  {
+    q: `What lures are used for ${methodNameEn.toLowerCase()}?`,
+    a: `${methodNameEn} primarily uses ${mainTypesEn}. Targeting ${targetFishEn}, with ${totalCount} series in the database.`,
+  },
+  {
+    q: `When is the best season for ${methodNameEn.toLowerCase()}?`,
+    a: `The best season for ${methodNameEn.toLowerCase()} is ${methodSeasonEn}. Popular locations include ${methodFieldsEn.join(', ')}.`,
+  },
+  {
+    q: `What are the key tips for ${methodNameEn.toLowerCase()}?`,
+    a: methodTipsEn[0] + '. ' + (methodTipsEn[1] ? methodTipsEn[1] + '.' : ''),
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${methodNameEn} Lure Guide`,
+  url: `https://www.castlog.xyz/en/method/${slug}/`,
+  description: pageDescription,
+  inLanguage: 'en',
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Methods', item: 'https://www.castlog.xyz/en/method/' },
+    { '@type': 'ListItem', position: 3, name: methodNameEn, item: `https://www.castlog.xyz/en/method/${slug}/` },
+  ],
+};
+
+const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, unknown>;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/en/method/${slug}/`} jsonLd={jsonLd} locale={locale}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/en/method/" class="hover:text-accent transition-colors">Methods</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{methodNameEn}</span>
+    </nav>
+
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">METHOD</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+        {methodNameEn} — Top {totalCount} Lures
+      </h1>
+      <p class="text-sm text-text-mid mt-1">
+        {targetFishEn} · {totalCount} series
+      </p>
+    </div>
+
+    <!-- Summary -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed mb-4">
+        {methodDescEn}
+      </p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5">
+        <div>
+          <p class="text-xs text-text-dim">Target Fish</p>
+          <p class="text-sm font-semibold text-gray-900">{targetFishEn}</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">Main Lure Types</p>
+          <p class="text-sm font-semibold text-gray-900">{mainTypesEn}</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">Locations</p>
+          <p class="text-sm font-semibold text-gray-900">{methodFieldsEn.join(', ')}</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">Season</p>
+          <p class="text-sm font-semibold text-gray-900">{methodSeasonEn}</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        {method.targetFish.map(fish => (
+          <a href={`/en/fish/${getFishSlug(fish)}/`} class="px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+            {FISH_NAME_EN[fish] ?? fish} lures
+          </a>
+        ))}
+        {method.mainTypes.map(type => (
+          <a href={`/en/type/${getTypeSlug(type)}/`} class="px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+            {LURE_TYPE_EN[type] ?? type} lures
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Recommended Lures by Type -->
+    {typeGroups.map(group => (
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <h2 class="text-lg font-bold text-gray-900">{LURE_TYPE_EN[group.typeName] ?? group.typeName}</h2>
+          <a href={`/en/type/${group.typeSlug}/`} class="text-xs text-text-mid hover:text-accent transition-colors">
+            View all →
+          </a>
+          <span class="text-xs text-text-dim">{group.series.length} series</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {group.series.slice(0, 5).map((s, i) => (
+            <div class="relative">
+              <LureCard series={s} isNew={false} priority={i < 2} rank={i + 1} locale={locale} />
+            </div>
+          ))}
+        </div>
+        {group.series.length > 5 && (
+          <p class="mt-3 text-sm text-text-mid">
+            {group.series.length - 5} more series →
+            <a href={`/en/type/${group.typeSlug}/`} class="text-accent hover:underline">View all</a>
+          </p>
+        )}
+      </section>
+    ))}
+
+    <!-- Tips -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Tips for {methodNameEn}</h2>
+      <div class="bg-white rounded-lg border border-gray-100 p-4 sm:p-5">
+        <ul class="space-y-2">
+          {methodTipsEn.map(tip => (
+            <li class="text-sm text-gray-700 leading-relaxed flex gap-2">
+              <span class="text-accent shrink-0 mt-0.5">▸</span>
+              <span>{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">FAQ</h2>
+      <div class="space-y-3">
+        {faqItems.map(item => (
+          <details class="bg-white rounded-lg border border-gray-100 overflow-hidden group">
+            <summary class="px-4 py-3 text-sm font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
+              <span>{item.q}</span>
+              <span class="text-accent text-xs group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div class="px-4 pb-4 text-sm text-gray-700 leading-relaxed">
+              {item.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Related Rankings -->
+    {relatedRankings.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Related Rankings</h2>
+        <div class="flex flex-wrap gap-2">
+          {relatedRankings.map(r => (
+            <a href={`/en/ranking/${r.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+              {r.label}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>

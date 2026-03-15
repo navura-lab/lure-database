@@ -1,0 +1,93 @@
+---
+/**
+ * 英語版釣り方一覧ページ — /en/method/
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { fishingMethods } from '../../../data/fishing-methods';
+import { LURE_TYPE_EN, FISH_NAME_EN } from '../../../i18n/dictionaries/fishing-terms';
+
+const locale = 'en' as const;
+const currentYear = new Date().getFullYear();
+const pageTitle = `Fishing Methods — ${fishingMethods.length} Techniques with Recommended Lures | CAST/LOG`;
+const pageDescription = `Browse ${fishingMethods.length} fishing methods with recommended JDM lures. Shore jigging, eging, seabass game, bass fishing and more — find the right lure type for your technique.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Fishing Methods — JDM Lure Guide',
+  url: 'https://www.castlog.xyz/en/method/',
+  description: pageDescription,
+  inLanguage: 'en',
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Methods', item: 'https://www.castlog.xyz/en/method/' },
+  ],
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath="/en/method/" jsonLd={[jsonLd, breadcrumbLd] as unknown as Record<string, unknown>} locale={locale}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">Methods</span>
+    </nav>
+
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">METHOD</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Fishing Methods</h1>
+      <p class="text-sm text-text-mid mt-1">
+        {fishingMethods.length} techniques with recommended JDM lures
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        Browse fishing methods (techniques) with matched target fish and recommended lure types. Each page lists database lures sorted by color lineup count.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {fishingMethods.map(method => (
+        <a href={`/en/method/${method.slug}/`} class="group block bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 hover:shadow-card-hover hover:scale-[1.01]">
+          <div class="p-5">
+            <h2 class="text-base font-bold text-gray-900 mb-2 group-hover:text-accent transition-colors">
+              {method.nameEn ?? method.name}
+            </h2>
+            <p class="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-2">
+              {method.descriptionEn ?? method.description}
+            </p>
+
+            <div class="flex flex-wrap gap-1.5 mb-3">
+              {method.targetFish.map(fish => (
+                <span class="px-2 py-0.5 bg-accent-bg text-accent rounded-full text-xs font-medium">
+                  {FISH_NAME_EN[fish] ?? fish}
+                </span>
+              ))}
+            </div>
+
+            <div class="flex flex-wrap gap-1.5">
+              {method.mainTypes.map(type => (
+                <span class="px-2 py-0.5 bg-gray-50 text-gray-600 rounded text-xs border border-gray-100">
+                  {LURE_TYPE_EN[type] ?? type}
+                </span>
+              ))}
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between text-xs text-text-dim">
+              <span>{(method.fieldsEn ?? method.fields).join(' · ')}</span>
+              <span class="text-accent group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>
