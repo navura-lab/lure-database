@@ -10,6 +10,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { getCompareEditorial } from '../../lib/compare-editorial';
 import { contentArticles } from '../../data/articles/_index.js';
+import { fishTypeUsage } from '../../data/fish-type-usage';
 import { getComparePaths } from '../../lib/paths/compare-paths';
 import type { ComparePathProps } from '../../lib/paths/compare-paths';
 import type { LureSeries } from '../../lib/types';
@@ -146,6 +147,44 @@ if (topSeries.length >= 2) {
     name: `${s1.name}と${s2.name}はどちらが初心者向け？`,
     acceptedAnswer: { '@type': 'Answer', text: `初心者には${recommended.name}がおすすめ。${reasonParts.join('、')}。まずは扱いやすいモデルから始めて、経験に応じてステップアップしよう。` },
   });
+}
+
+// Q6: アクションのコツ
+const fishSlugForUsage = getFishSlug(fishName);
+const typeSlugForUsage = getTypeSlug(typeName);
+const usageKey = `${fishSlugForUsage}|${typeSlugForUsage}`;
+const usageText = fishTypeUsage[usageKey];
+if (usageText) {
+  const actionSummary = usageText.split('。').slice(0, 2).join('。') + '。';
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${fishName}向け${typeName}のアクション（使い方）のコツは？`,
+    acceptedAnswer: { '@type': 'Answer', text: actionSummary },
+  });
+}
+
+// Q7: 重量の選び方
+if (topSeries.length >= 2) {
+  const allWeights = topSeries
+    .flatMap(s => [s.weight_range.min, s.weight_range.max])
+    .filter((w): w is number => w != null && w > 0);
+  if (allWeights.length >= 2) {
+    const minW = Math.min(...allWeights);
+    const maxW = Math.max(...allWeights);
+    const lightModel = topSeries.reduce((best, s) =>
+      s.weight_range.min != null && s.weight_range.min > 0 && (best == null || s.weight_range.min < best.weight_range.min!) ? s : best,
+      null as typeof topSeries[0] | null
+    );
+    const heavyModel = topSeries.reduce((best, s) =>
+      s.weight_range.max != null && s.weight_range.max > 0 && (best == null || s.weight_range.max! > best.weight_range.max!) ? s : best,
+      null as typeof topSeries[0] | null
+    );
+    faqEntries.push({
+      '@type': 'Question',
+      name: `${fishName}向け${typeName}の重量はどう選ぶ？`,
+      acceptedAnswer: { '@type': 'Answer', text: `上位${topSeries.length}モデルの重量は${minW}g〜${maxW}g。${lightModel ? `軽量モデルは${lightModel.name}（${lightModel.weight_range.min}g〜）が操作性に優れ、` : ''}${heavyModel ? `重量級は${heavyModel.name}（〜${heavyModel.weight_range.max}g）が飛距離を稼げる。` : ''}フィールドの水深と潮流に合わせて選ぼう。` },
+    });
+  }
 }
 
 const faqLd = {

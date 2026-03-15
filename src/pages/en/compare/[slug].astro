@@ -6,6 +6,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getTypeSlug, getFishSlug } from '../../../lib/category-slugs';
 import { getCompareEditorialEn } from '../../../i18n/generators/compare-editorial.en';
 import { contentArticles } from '../../../data/articles/_index.js';
+import { fishTypeUsage } from '../../../data/fish-type-usage';
 import { getComparePaths } from '../../../lib/paths/compare-paths';
 import type { ComparePathProps } from '../../../lib/paths/compare-paths';
 import type { LureSeries } from '../../../lib/types';
@@ -151,6 +152,43 @@ if (topSeries.length >= 2) {
     name: `Which is better for beginners: ${s1.name} or ${s2.name}?`,
     acceptedAnswer: { '@type': 'Answer', text: `For beginners, the ${recommended.name} is recommended: ${reasonParts.join(', ')}. Start with an easy-to-use model and upgrade as you gain experience.` },
   });
+}
+
+// Q6: Action/technique tips
+const fishSlugForUsage = getFishSlug(fishName);
+const typeSlugForUsage = getTypeSlug(typeName);
+const usageKey = `${fishSlugForUsage}|${typeSlugForUsage}`;
+const usageText = fishTypeUsage[usageKey];
+if (usageText) {
+  faqEntries.push({
+    '@type': 'Question',
+    name: `What is the best technique for ${typeEn.toLowerCase()} when targeting ${fishEn}?`,
+    acceptedAnswer: { '@type': 'Answer', text: `The key to using ${typeEn.toLowerCase()} for ${fishEn} is matching retrieve speed and action to conditions. Vary your approach between steady retrieve, jerking, and pause-and-fall techniques. Check individual lure pages for model-specific recommendations.` },
+  });
+}
+
+// Q7: Weight selection
+if (topSeries.length >= 2) {
+  const allWeights = topSeries
+    .flatMap(s => [s.weight_range.min, s.weight_range.max])
+    .filter((w): w is number => w != null && w > 0);
+  if (allWeights.length >= 2) {
+    const minW = Math.min(...allWeights);
+    const maxW = Math.max(...allWeights);
+    const lightModel = topSeries.reduce((best, s) =>
+      s.weight_range.min != null && s.weight_range.min > 0 && (best == null || s.weight_range.min < best.weight_range.min!) ? s : best,
+      null as typeof topSeries[0] | null
+    );
+    const heavyModel = topSeries.reduce((best, s) =>
+      s.weight_range.max != null && s.weight_range.max > 0 && (best == null || s.weight_range.max! > best.weight_range.max!) ? s : best,
+      null as typeof topSeries[0] | null
+    );
+    faqEntries.push({
+      '@type': 'Question',
+      name: `How to choose the right weight for ${fishEn} ${typeEn.toLowerCase()} lures?`,
+      acceptedAnswer: { '@type': 'Answer', text: `The top ${topSeries.length} models range from ${minW}g to ${maxW}g. ${lightModel ? `Lighter options like the ${lightModel.name} (from ${lightModel.weight_range.min}g) offer better control and finesse. ` : ''}${heavyModel ? `Heavier models like the ${heavyModel.name} (up to ${heavyModel.weight_range.max}g) provide greater casting distance. ` : ''}Choose based on water depth, current strength, and target casting range.` },
+    });
+  }
 }
 
 const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqEntries };

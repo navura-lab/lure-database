@@ -11,6 +11,7 @@ import type { LureSeries } from '../../../lib/types';
 import { LURE_TYPE_EN, FISH_NAME_EN } from '../../../i18n/dictionaries/fishing-terms';
 import { getUI, formatPrice, formatPriceRange } from '../../../i18n/lib/t';
 import { rankingDescriptionsEn } from '../../../data/ranking-descriptions-en';
+import { fishTypeUsage } from '../../../data/fish-type-usage';
 
 export async function getStaticPaths() {
   return getRankingPaths();
@@ -115,6 +116,48 @@ if (dataPoints.length > 0) {
   faqItems.push({
     q: `How to choose the best ${typeEn.toLowerCase()} for ${fishEn}?`,
     a: dataPoints[0] + '.',
+  });
+}
+
+// Benefit FAQ
+const fishSlugForUsage = getFishSlug(fishName);
+const typeSlugForUsage = getTypeSlug(typeName);
+const usageKey = `${fishSlugForUsage}|${typeSlugForUsage}`;
+const usageText = fishTypeUsage[usageKey];
+if (usageText) {
+  faqItems.push({
+    q: `Why use a ${typeEn.toLowerCase()} for ${fishEn}?`,
+    a: `${typeEn} lures are especially effective for ${fishEn} due to their action profile and versatility. ${rankedSeries.length} series are available from ${makerBreakdown.length} brands, offering options for different conditions and skill levels.`,
+  });
+}
+
+// Beginner price FAQ
+if (priceRange) {
+  const entryPrice = Math.round(priceRange.min + (priceRange.max - priceRange.min) * 0.3);
+  const budgetSeries = rankedSeries.filter(s => s.price_range.max > 0 && s.price_range.max <= entryPrice);
+  const usdMin = Math.round(priceRange.min / 150);
+  const usdEntry = Math.round(entryPrice / 150);
+  faqItems.push({
+    q: `What is the best price range for beginners looking for ${fishEn} ${typeEn.toLowerCase()} lures?`,
+    a: `Beginners should look in the ${formatPrice(priceRange.min, locale)}–${formatPrice(entryPrice, locale)} range (~$${usdMin}–$${usdEntry} USD). ${budgetSeries.length} series fall in this entry-level range, offering solid performance at accessible prices.${budgetSeries[0] ? ` The ${budgetSeries[0].manufacturer} ${budgetSeries[0].name} is a good starting point.` : ''}`,
+  });
+}
+
+// Action tips FAQ
+if (usageText) {
+  faqItems.push({
+    q: `What is the best technique for fishing ${typeEn.toLowerCase()} lures for ${fishEn}?`,
+    a: `The key to using ${typeEn.toLowerCase()} for ${fishEn} effectively is matching your retrieve to conditions. Vary speed, depth, and action style to trigger strikes. Check our detailed lure pages for specific technique recommendations.`,
+  });
+}
+
+// Color selection FAQ
+if (rankedSeries.length >= 3) {
+  const topColorSeries = [...rankedSeries].sort((a, b) => b.color_count - a.color_count).slice(0, 3);
+  const colorAdvice = topColorSeries.map(s => `${s.name} (${s.color_count} colors)`).join(', ');
+  faqItems.push({
+    q: `How to choose the right color for ${fishEn} ${typeEn.toLowerCase()} lures?`,
+    a: `Series with the most color options: ${colorAdvice}. As a general rule, use natural/translucent colors in clear water, chartreuse/gold in murky conditions, and red-head or bright patterns at dawn/dusk. Match your lure color to local baitfish and water clarity.`,
   });
 }
 
@@ -248,6 +291,26 @@ const relatedArticles = contentArticles
               </a>
             );
           })}
+        </div>
+      </section>
+    )}
+
+    <!-- FAQ -->
+    {faqItems.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-2">
+          {faqItems.map((faq, i) => (
+            <details class="group bg-white rounded-lg border border-gray-100 overflow-hidden" open={i === 0}>
+              <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors">
+                <span class="text-sm font-semibold text-gray-900 pr-4">{faq.q}</span>
+                <svg class="w-4 h-4 text-text-dim shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="px-4 pb-3 text-sm text-gray-600 leading-relaxed border-t border-gray-50">
+                {faq.a}
+              </div>
+            </details>
+          ))}
         </div>
       </section>
     )}

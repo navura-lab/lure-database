@@ -5,6 +5,7 @@ import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { rankingDescriptions } from '../../data/ranking-descriptions';
 import { guideArticles } from '../../data/guides';
 import { contentArticles } from '../../data/articles/_index';
+import { fishTypeUsage } from '../../data/fish-type-usage';
 import { getRankingPaths } from '../../lib/paths/ranking-paths';
 import type { RankingPathProps } from '../../lib/paths/ranking-paths';
 import type { LureSeries } from '../../lib/types';
@@ -162,6 +163,47 @@ if (displayTips.length > 0) {
   faqItems.push({
     q: `${fishName}向け${typeName}の選び方は？`,
     a: dataPoints[0] + '。',
+  });
+}
+
+// メリットFAQ
+const fishSlugForUsage = getFishSlug(fishName);
+const typeSlugForUsage = getTypeSlug(typeName);
+const usageKey = `${fishSlugForUsage}|${typeSlugForUsage}`;
+const usageText = fishTypeUsage[usageKey];
+if (usageText) {
+  faqItems.push({
+    q: `${fishName}に${typeName}を使うメリットは？`,
+    a: usageText.length > 200 ? usageText.slice(0, 200) + '…' : usageText,
+  });
+}
+
+// 初心者おすすめ価格帯FAQ
+if (priceRange) {
+  const entryPrice = Math.round(priceRange.min + (priceRange.max - priceRange.min) * 0.3);
+  const budgetSeries = rankedSeries.filter(s => s.price_range.max > 0 && s.price_range.max <= entryPrice);
+  faqItems.push({
+    q: `${fishName}向け${typeName}で初心者におすすめの価格帯は？`,
+    a: `初心者には¥${priceRange.min.toLocaleString()}〜¥${entryPrice.toLocaleString()}のエントリー〜コスパ帯がおすすめ。この価格帯には${budgetSeries.length}シリーズがあり、基本性能を備えつつ手が出しやすい。${budgetSeries[0] ? `${budgetSeries[0].manufacturer}の${budgetSeries[0].name}などが候補になる。` : ''}`,
+  });
+}
+
+// アクションのコツFAQ
+if (usageText) {
+  const actionSummary = usageText.split('。').slice(0, 2).join('。') + '。';
+  faqItems.push({
+    q: `${typeName}のアクション（使い方）のコツは？`,
+    a: actionSummary,
+  });
+}
+
+// カラー選びFAQ
+if (rankedSeries.length >= 3) {
+  const topColorSeries = [...rankedSeries].sort((a, b) => b.color_count - a.color_count).slice(0, 3);
+  const colorAdvice = topColorSeries.map(s => `${s.name}（${s.color_count}色）`).join('、');
+  faqItems.push({
+    q: `${fishName}向け${typeName}のカラー選びのポイントは？`,
+    a: `カラー展開が豊富なシリーズほど状況に応じた使い分けがしやすい。${colorAdvice}がカラー展開上位。クリアウォーターではナチュラル系、濁り時はチャート系やゴールド系、マズメ時はアカキン・レッドヘッド系が定番。フィールドの水色とベイトに合わせて選ぼう。`,
   });
 }
 
@@ -371,6 +413,26 @@ const relatedArticles = contentArticles
                 <p class="text-xs text-text-mid mt-1 line-clamp-2">{a.description}</p>
               </div>
             </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- よくある質問 -->
+    {faqItems.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">よくある質問</h2>
+        <div class="space-y-2">
+          {faqItems.map((faq, i) => (
+            <details class="group bg-white rounded-lg border border-gray-100 overflow-hidden" open={i === 0}>
+              <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors">
+                <span class="text-sm font-semibold text-gray-900 pr-4">{faq.q}</span>
+                <svg class="w-4 h-4 text-text-dim shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="px-4 pb-3 text-sm text-gray-600 leading-relaxed border-t border-gray-50">
+                {faq.a}
+              </div>
+            </details>
           ))}
         </div>
       </section>

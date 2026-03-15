@@ -140,6 +140,30 @@ import sasuke120Color from './sasuke-120-color.js';
 import silentAssassinColor from './silent-assassin-color.js';
 import kagelouReview from './kagelou-review.js';
 import lureFishingBeginner from './lure-fishing-beginner.js';
+// メーカー別おすすめ記事（第11弾）
+import shimanoSeabassLure from './shimano-seabass-lure.js';
+import daiwaSeabassLure from './daiwa-seabass-lure.js';
+import shimanoTroutLure from './shimano-trout-lure.js';
+import daiwaEgingEgi from './daiwa-eging-egi.js';
+import jackallBassLure from './jackall-bass-lure.js';
+// メーカー別おすすめ記事（第12弾）
+import megabassBassLure from './megabass-bass-lure.js';
+import ospBassLure from './osp-bass-lure.js';
+import duoSeabassLure from './duo-seabass-lure.js';
+import jackallSeabassLure from './jackall-seabass-lure.js';
+import depsBassLure from './deps-bass-lure.js';
+// メーカー別おすすめ記事（第13弾）
+import duelSeabassLure from './duel-seabass-lure.js';
+import shimanoCardiffSpoon from './shimano-cardiff-spoon.js';
+import daiwaGekkaBijin from './daiwa-gekka-bijin.js';
+import megabassSeabassLure from './megabass-seabass-lure.js';
+import jackallAjiMebaru from './jackall-aji-mebaru.js';
+// メーカー別おすすめ記事（第14弾）
+import imaSeabassLure from './ima-seabass-lure.js';
+import majorcraftShoreJigging from './majorcraft-shore-jigging.js';
+import daiwaShoreJigging from './daiwa-shore-jigging.js';
+import shimanoShoreJigging from './shimano-shore-jigging.js';
+import duelEgingEgi from './duel-eging-egi.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -265,6 +289,30 @@ export const contentArticles: ContentArticle[] = [
   silentAssassinColor,
   kagelouReview,
   lureFishingBeginner,
+  // メーカー別おすすめ記事（第11弾）
+  shimanoSeabassLure,
+  daiwaSeabassLure,
+  shimanoTroutLure,
+  daiwaEgingEgi,
+  jackallBassLure,
+  // メーカー別おすすめ記事（第12弾）
+  megabassBassLure,
+  ospBassLure,
+  duoSeabassLure,
+  jackallSeabassLure,
+  depsBassLure,
+  // メーカー別おすすめ記事（第13弾）
+  duelSeabassLure,
+  shimanoCardiffSpoon,
+  daiwaGekkaBijin,
+  megabassSeabassLure,
+  jackallAjiMebaru,
+  // メーカー別おすすめ記事（第14弾）
+  imaSeabassLure,
+  majorcraftShoreJigging,
+  daiwaShoreJigging,
+  shimanoShoreJigging,
+  duelEgingEgi,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
