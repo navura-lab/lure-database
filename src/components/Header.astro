@@ -1,23 +1,38 @@
 ---
+import { getUI } from '../i18n/lib/t';
+import { getBasePrefix, getJaPath, getEnPath } from '../i18n/lib/locale';
+import type { Locale } from '../i18n/lib/t';
+
+interface Props {
+  locale?: Locale;
+}
+
+const locale: Locale = Astro.props.locale ?? 'ja';
+const ui = getUI(locale);
+const prefix = getBasePrefix(locale);
 const currentPath = Astro.url.pathname;
 
+// 言語切替リンク
+const altLangHref = locale === 'ja' ? getEnPath(currentPath) : getJaPath(currentPath);
+const altLangLabel = locale === 'ja' ? 'EN' : 'JA';
+
 const navLinks = [
-  { href: '/maker/', label: 'メーカー', prefix: '/maker' },
-  { href: '/type/', label: 'タイプ', prefix: '/type' },
-  { href: '/fish/', label: '対象魚', prefix: '/fish' },
-  { href: '/ranking/', label: 'カタログ', prefix: '/ranking' },
-  { href: '/method/', label: '釣り方', prefix: '/method' },
-  { href: '/season/', label: '季節', prefix: '/season' },
-  { href: '/guide/', label: 'ガイド', prefix: '/guide' },
-  { href: '/article/', label: '特集', prefix: '/article' },
-  { href: '/search/', label: '検索', prefix: '/search' },
+  { href: `${prefix}/maker/`, label: ui.nav.maker, prefix: `${prefix}/maker` },
+  { href: `${prefix}/type/`, label: ui.nav.type, prefix: `${prefix}/type` },
+  { href: `${prefix}/fish/`, label: ui.nav.fish, prefix: `${prefix}/fish` },
+  { href: `${prefix}/ranking/`, label: ui.nav.catalog, prefix: `${prefix}/ranking` },
+  { href: `${prefix}/method/`, label: ui.nav.method, prefix: `${prefix}/method` },
+  { href: `${prefix}/season/`, label: ui.nav.season, prefix: `${prefix}/season` },
+  { href: `${prefix}/guide/`, label: ui.nav.guide, prefix: `${prefix}/guide` },
+  { href: `${prefix}/article/`, label: ui.nav.article, prefix: `${prefix}/article` },
+  { href: `${prefix}/search/`, label: ui.nav.search, prefix: `${prefix}/search` },
 ];
 ---
 
 <header class="sticky top-0 z-50 bg-white/[0.94] backdrop-blur-xl border-b border-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-14">
-      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+      <a href={`${prefix}/`} class="flex items-center gap-2 hover:opacity-80 transition-opacity">
         <span class="font-mono text-[20px] font-bold tracking-[2px]">CAST<span class="text-accent">/</span>LOG</span>
       </a>
 
@@ -34,13 +49,21 @@ const navLinks = [
             {link.label}
           </a>
         ))}
+        <!-- 言語切替 -->
+        <a
+          href={altLangHref}
+          class="text-text-dim hover:text-text transition-colors duration-[0.15s] border-l border-border pl-4"
+          aria-label={ui.aria.languageSwitch}
+        >
+          {altLangLabel}
+        </a>
       </nav>
 
       <!-- モバイルハンバーガーボタン -->
       <button
         id="mobile-menu-btn"
         class="sm:hidden flex items-center justify-center w-10 h-10 -mr-2"
-        aria-label="メニューを開く"
+        aria-label={ui.aria.openMenu}
         aria-expanded="false"
       >
         <!-- ハンバーガーアイコン -->
@@ -71,6 +94,14 @@ const navLinks = [
           {link.label}
         </a>
       ))}
+      <!-- モバイル言語切替 -->
+      <a
+        href={altLangHref}
+        class="font-mono text-[13px] tracking-[1px] px-3 py-2.5 rounded-lg text-text-mid hover:text-text hover:bg-surface border-t border-border mt-1 pt-3"
+        aria-label={ui.aria.languageSwitch}
+      >
+        🌐 {altLangLabel === 'EN' ? 'English' : '日本語'}
+      </a>
     </nav>
   </div>
 </header>
@@ -87,6 +118,9 @@ const navLinks = [
     iconOpen.classList.toggle('hidden');
     iconClose.classList.toggle('hidden');
     btn.setAttribute('aria-expanded', String(!isOpen));
-    btn.setAttribute('aria-label', isOpen ? 'メニューを開く' : 'メニューを閉じる');
+    // aria-labelはlocaleに依存するためdata属性で管理
+    const openLabel = btn.dataset.labelOpen || 'Open menu';
+    const closeLabel = btn.dataset.labelClose || 'Close menu';
+    btn.setAttribute('aria-label', isOpen ? openLabel : closeLabel);
   });
 </script>

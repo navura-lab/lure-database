@@ -15,7 +15,18 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   adapter: vercel(),
+  i18n: {
+    defaultLocale: 'ja',
+    locales: ['ja', 'en'],
+    routing: {
+      prefixDefaultLocale: false, // ja は /ranking/xxx/（変更なし）、en は /en/ranking/xxx/
+    },
+  },
   integrations: [sitemap({
+    i18n: {
+      defaultLocale: 'ja',
+      locales: { ja: 'ja-JP', en: 'en-US' },
+    },
     lastmod: new Date(),
     entryLimit: 5000, // 11,000+URLを3分割 → Googlebot回遊効率化
     filter: (page) => !page.includes('/search/') && !page.includes('/trap/'),

@@ -1,100 +1,18 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LureCard from '../../components/LureCard.astro';
-import { fetchAllLures } from '../../lib/fetch-all-lures';
-import { groupLuresBySeries } from '../../lib/group-lures';
-import { TYPE_SLUG_MAP, TYPE_NAME_MAP, FISH_SLUG_MAP, FISH_NAME_MAP, getTypeSlug, getFishSlug } from '../../lib/category-slugs';
+import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { rankingDescriptions } from '../../data/ranking-descriptions';
 import { guideArticles } from '../../data/guides';
-import { computeRankingScores } from '../../lib/ranking-score';
-import { getCuratedRanking } from '../../data/curated-rankings';
+import { getRankingPaths } from '../../lib/paths/ranking-paths';
+import type { RankingPathProps } from '../../lib/paths/ranking-paths';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
-  const MIN_SERIES = 3;
-  const lures = await fetchAllLures();
-  const allSeries = groupLuresBySeries(lures ?? []);
-
-  // 魚種×タイプのクロス集計
-  const crossMap = new Map<string, { fishName: string; typeName: string; series: LureSeries[] }>();
-  for (const s of allSeries) {
-    if (!s.type) continue;
-    for (const fish of s.target_fish) {
-      const fishSlug = getFishSlug(fish);
-      const typeSlug = getTypeSlug(s.type);
-      const key = `${fishSlug}-${typeSlug}`;
-      const existing = crossMap.get(key);
-      if (existing) {
-        existing.series.push(s);
-      } else {
-        crossMap.set(key, { fishName: fish, typeName: s.type, series: [s] });
-      }
-    }
-  }
-
-  // 全ランキング一覧（関連ランキング算出用）
-  const allRankings = [...crossMap.entries()]
-    .filter(([_, v]) => v.series.length >= MIN_SERIES)
-    .map(([slug, v]) => ({ slug, fishName: v.fishName, typeName: v.typeName, count: v.series.length }));
-
-  return allRankings.map(({ slug, fishName, typeName }) => {
-    const data = crossMap.get(slug)!;
-
-    // ── ソート: キュレーテッド優先 → アルゴリズムスコア ──
-    // 実績ベースの手動ランキングがあるカテゴリはその順序を優先し、
-    // 残りのシリーズをアルゴリズムスコア順で後続させる
-    const curatedOrder = getCuratedRanking(slug);
-    const scores = computeRankingScores(data.series);
-    const isCurated = curatedOrder.length > 0;
-
-    const seriesMap = new Map<string, LureSeries>();
-    for (const s of data.series) {
-      seriesMap.set(`${s.manufacturer_slug}/${s.slug}`, s);
-    }
-
-    // キュレーテッドリストのシリーズ（DBに存在するもののみ）
-    const curatedSeries: (LureSeries & { score: number })[] = [];
-    const curatedKeys = new Set<string>();
-    for (const key of curatedOrder) {
-      const s = seriesMap.get(key);
-      if (s) {
-        curatedSeries.push({ ...s, score: 1 });
-        curatedKeys.add(key);
-      }
-    }
-
-    // 残りのシリーズをアルゴリズムスコア順
-    const remainingSeries = data.series
-      .filter(s => !curatedKeys.has(`${s.manufacturer_slug}/${s.slug}`))
-      .map(s => {
-        const key = `${s.manufacturer_slug}/${s.slug}`;
-        const rankingScore = scores.get(key);
-        return { ...s, score: rankingScore?.total ?? 0 };
-      })
-      .sort((a, b) => b.score - a.score);
-
-    const rankedSeries = [...curatedSeries, ...remainingSeries];
-
-    // 関連ランキング: 同じ魚種 or 同じタイプ
-    const related = allRankings
-      .filter(r => r.slug !== slug && (r.fishName === fishName || r.typeName === typeName))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 8);
-
-    return {
-      params: { slug },
-      props: { fishName, typeName, rankedSeries, related, isCurated },
-    };
-  });
+  return getRankingPaths();
 }
 
-const { fishName, typeName, rankedSeries, related, isCurated } = Astro.props as {
-  fishName: string;
-  typeName: string;
-  rankedSeries: (LureSeries & { score: number })[];
-  related: { slug: string; fishName: string; typeName: string; count: number }[];
-  isCurated: boolean;
-};
+const { fishName, typeName, rankedSeries, related, isCurated } = Astro.props as RankingPathProps;
 
 const slug = Astro.params.slug as string;
 const editorialText = rankingDescriptions[slug] ?? '';

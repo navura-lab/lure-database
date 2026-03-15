@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { fetchAllLures } from '../../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../../lib/group-lures';
+import { getTypeSlug, getFishSlug } from '../../../lib/category-slugs';
+import { LURE_TYPE_EN, FISH_NAME_EN } from '../../../i18n/dictionaries/fishing-terms';
+
+const locale = 'en' as const;
+const MIN_SERIES = 3;
+
+const lures = await fetchAllLures();
+const allSeries = groupLuresBySeries(lures ?? []);
+
+type RankingEntry = { slug: string; fishName: string; typeName: string; count: number; topMaker: string };
+
+const crossMap = new Map<string, { fishName: string; typeName: string; count: number; makers: Map<string, number> }>();
+for (const s of allSeries) {
+  if (!s.type) continue;
+  for (const fish of s.target_fish) {
+    const fishSlug = getFishSlug(fish);
+    const typeSlug = getTypeSlug(s.type);
+    const key = `${fishSlug}-${typeSlug}`;
+    const existing = crossMap.get(key);
+    if (existing) { existing.count++; existing.makers.set(s.manufacturer, (existing.makers.get(s.manufacturer) || 0) + 1); }
+    else crossMap.set(key, { fishName: fish, typeName: s.type, count: 1, makers: new Map([[s.manufacturer, 1]]) });
+  }
+}
+
+const rankings: RankingEntry[] = [...crossMap.entries()]
+  .filter(([_, v]) => v.count >= MIN_SERIES)
+  .map(([slug, v]) => {
+    const topMaker = [...v.makers.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? '';
+    return { slug, fishName: v.fishName, typeName: v.typeName, count: v.count, topMaker };
+  })
+  .sort((a, b) => b.count - a.count);
+
+const fishGroups = new Map<string, RankingEntry[]>();
+for (const r of rankings) {
+  const existing = fishGroups.get(r.fishName) || [];
+  existing.push(r);
+  fishGroups.set(r.fishName, existing);
+}
+const sortedFishGroups = [...fishGroups.entries()]
+  .sort((a, b) => b[1].reduce((s, r) => s + r.count, 0) - a[1].reduce((s, r) => s + r.count, 0));
+
+const pageDescription = `Browse ${rankings.length} lure catalog categories. Find the best JDM lures organized by target fish and lure type.`;
+
+const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'JDM Lure Catalog', url: 'https://www.castlog.xyz/en/ranking/', description: pageDescription, inLanguage: 'en' };
+const breadcrumbLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' }, { '@type': 'ListItem', position: 2, name: 'Catalog', item: 'https://www.castlog.xyz/en/ranking/' }] };
+---
+
+<BaseLayout title={`JDM Lure Catalog - ${rankings.length} Categories | CAST/LOG`} description={pageDescription} canonicalPath="/en/ranking/" jsonLd={[jsonLd, breadcrumbLd] as unknown as Record<string, unknown>} locale={locale}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">Catalog</span>
+    </nav>
+
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">CATALOG</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">JDM Lure Catalog</h1>
+      <p class="text-sm text-text-mid mt-1">{rankings.length} categories · By target fish × lure type</p>
+    </div>
+
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        Browse JDM lures organized by target fish and lure type. {rankings.length} categories covering {sortedFishGroups.length} species.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-3 mb-6">
+      <div class="relative max-w-xs">
+        <input id="catalog-search" type="text" placeholder="Search by fish or type..." class="w-full pl-8 pr-3 py-1.5 text-sm border border-border rounded focus:outline-none focus:border-accent transition-colors" />
+        <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-text-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+      </div>
+      <div class="flex flex-wrap gap-1.5 sticky top-14 bg-white/95 backdrop-blur-sm py-2 z-10 border-b border-border" id="fish-jump-nav">
+        {sortedFishGroups.map(([fishName]) => (
+          <a href={`#catalog-${getFishSlug(fishName)}`} class="px-2 py-1 text-xs font-mono text-text-mid hover:text-accent hover:bg-accent/5 rounded transition-colors">
+            {FISH_NAME_EN[fishName] ?? fishName}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    {sortedFishGroups.map(([fishName, entries]) => {
+      const fishEn = FISH_NAME_EN[fishName] ?? fishName;
+      return (
+        <section class="mb-10 catalog-section" id={`catalog-${getFishSlug(fishName)}`} data-fish={fishName.toLowerCase()}>
+          <div class="flex items-center gap-3 mb-4">
+            <h2 class="text-lg font-bold text-gray-900">{fishEn}</h2>
+            <a href={`/en/fish/${getFishSlug(fishName)}/`} class="text-xs text-text-mid hover:text-accent transition-colors">All lures →</a>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+            {entries.sort((a, b) => b.count - a.count).map(r => {
+              const typeEn = LURE_TYPE_EN[r.typeName] ?? r.typeName;
+              return (
+                <a href={`/en/ranking/${r.slug}/`} class="catalog-card flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all group" data-fish={fishName.toLowerCase()} data-type={r.typeName.toLowerCase()}>
+                  <div>
+                    <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors">{typeEn}</p>
+                    <p class="text-xs text-text-dim mt-0.5">{r.count} series · {r.topMaker}</p>
+                  </div>
+                  <span class="text-xs font-mono text-accent">{r.count}</span>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      );
+    })}
+
+    <div id="no-results" class="hidden text-center py-12 text-text-dim">
+      <p class="text-lg">No matching categories found</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('catalog-search') as HTMLInputElement;
+      const noResults = document.getElementById('no-results')!;
+      let searchTimeout: ReturnType<typeof setTimeout>;
+      searchInput.addEventListener('input', () => { clearTimeout(searchTimeout); searchTimeout = setTimeout(applySearch, 150); });
+      function applySearch() {
+        const query = searchInput.value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.catalog-card');
+        const sections = document.querySelectorAll('.catalog-section');
+        let visibleCount = 0;
+        cards.forEach(card => { const el = card as HTMLElement; const fish = el.dataset.fish || ''; const type = el.dataset.type || ''; const match = !query || fish.includes(query) || type.includes(query); el.style.display = match ? '' : 'none'; if (match) visibleCount++; });
+        sections.forEach(section => { const el = section as HTMLElement; const visibleCards = el.querySelectorAll('.catalog-card:not([style*="display: none"])'); el.style.display = visibleCards.length > 0 ? '' : 'none'; });
+        noResults.style.display = visibleCount === 0 ? '' : 'none';
+      }
+    });
+  </script>
+</BaseLayout>

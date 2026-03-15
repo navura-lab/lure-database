@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import LureCard from '../../components/LureCard.astro';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
+import { guideArticles } from '../../data/guides';
+import { LURE_TYPE_EN, FISH_NAME_EN } from '../../i18n/dictionaries/fishing-terms';
+
+const locale = 'en' as const;
+
+const lures = await fetchAllLures();
+const series = groupLuresBySeries(lures ?? []);
+const totalColors = lures?.length ?? 0;
+
+// ─── ランキング集計（上位8件）───
+const crossMap = new Map<string, { fishName: string; typeName: string; count: number }>();
+for (const s of series) {
+  if (!s.type) continue;
+  for (const fish of s.target_fish) {
+    const fishSlug = getFishSlug(fish);
+    const typeSlug = getTypeSlug(s.type);
+    const key = `${fishSlug}-${typeSlug}`;
+    const existing = crossMap.get(key);
+    if (existing) existing.count++;
+    else crossMap.set(key, { fishName: fish, typeName: s.type, count: 1 });
+  }
+}
+const topRankings = [...crossMap.entries()]
+  .filter(([_, v]) => v.count >= 3)
+  .sort((a, b) => b[1].count - a[1].count)
+  .slice(0, 8)
+  .map(([slug, v]) => ({ slug, fishName: v.fishName, typeName: v.typeName, count: v.count }));
+
+// ─── メーカー数 ───
+const mfrMap = new Map<string, boolean>();
+for (const s of series) mfrMap.set(s.manufacturer_slug, true);
+
+// ─── 新着ルアー ───
+const thirtyDaysAgo = new Date();
+thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+const newThreshold = thirtyDaysAgo.toISOString();
+const newArrivals = series.filter(s => s.created_at > newThreshold).slice(0, 10);
+
+// ─── JSON-LD ───
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'CAST/LOG',
+  url: 'https://www.castlog.xyz/en/',
+  description: 'The ultimate JDM fishing lure database. Over 6,000 series and 165,000 color variants cataloged.',
+  inLanguage: 'en',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: { '@type': 'EntryPoint', urlTemplate: 'https://www.castlog.xyz/en/search/?q={search_term_string}' },
+    'query-input': 'required name=search_term_string',
+  },
+};
+---
+
+<BaseLayout
+  title={`CAST/LOG - JDM Lure Database | ${series.length} Series · ${totalColors.toLocaleString()} Colors`}
+  description={`The ultimate Japanese fishing lure database. ${series.length} series from ${mfrMap.size} JDM brands with ${totalColors.toLocaleString()} color variants. Search by type, brand, or target fish.`}
+  canonicalPath="/en/"
+  jsonLd={jsonLd}
+  locale={locale}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white border-b border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
+      <p class="font-mono text-[11px] text-accent tracking-[3px] uppercase mb-4">JDM LURE DATABASE</p>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        Turn every cast into data.
+      </h1>
+      <p class="text-text-mid text-sm sm:text-base max-w-xl mx-auto mb-6">
+        {series.length.toLocaleString()} series · {totalColors.toLocaleString()} color variants from {mfrMap.size} Japanese brands
+      </p>
+      <a href="/en/ranking/" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors">
+        Browse Catalog →
+      </a>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+    <!-- New Arrivals -->
+    {newArrivals.length > 0 && (
+      <section>
+        <SectionHeading title="New Arrivals" href="/en/search/" slashLabel="NEW ARRIVALS" locale={locale} />
+        <div class="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory scrollbar-hide">
+          {newArrivals.map((s, i) => (
+            <div class="snap-start shrink-0 w-56 sm:w-64">
+              <LureCard series={s} isNew={true} priority={i < 4} locale={locale} />
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Popular Categories -->
+    {topRankings.length > 0 && (
+      <section>
+        <SectionHeading title="Popular Categories" href="/en/ranking/" slashLabel="CATALOG" locale={locale} />
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {topRankings.map(r => {
+            const fishEn = FISH_NAME_EN[r.fishName] ?? r.fishName;
+            const typeEn = LURE_TYPE_EN[r.typeName] ?? r.typeName;
+            return (
+              <a
+                href={`/en/ranking/${r.slug}/`}
+                class="flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-border-light hover:border-accent hover:shadow-sm transition-all duration-[0.15s] group"
+              >
+                <div>
+                  <p class="text-[13px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s]">
+                    {fishEn} × {typeEn}
+                  </p>
+                  <p class="font-mono text-[11px] text-text-dim mt-0.5">
+                    {r.count} series
+                  </p>
+                </div>
+                <span class="font-mono text-[11px] font-bold text-accent">{r.count}</span>
+              </a>
+            );
+          })}
+        </div>
+        <div class="mt-3 text-right">
+          <a href="/en/ranking/" class="font-mono text-[11px] text-text-dim hover:text-accent tracking-[1px] transition-colors duration-[0.15s]">
+            View all {crossMap.size} categories →
+          </a>
+        </div>
+      </section>
+    )}
+
+    <!-- Guide Articles -->
+    {guideArticles.length > 0 && (
+      <section>
+        <SectionHeading title="Guides" href="/en/guide/" slashLabel="GUIDE" locale={locale} />
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {guideArticles.map(guide => (
+            <a href={`/en/guide/${guide.slug}/`} class="group block bg-white rounded-lg border border-border-light p-4 hover:border-accent hover:shadow-sm transition-all duration-[0.15s]">
+              <h3 class="text-[14px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s] mb-2 line-clamp-2">
+                {guide.title}
+              </h3>
+              <p class="text-[12px] text-text-mid leading-relaxed line-clamp-2 mb-2">
+                {guide.description}
+              </p>
+              <div class="flex items-center gap-2 font-mono text-[10px] text-text-dim">
+                <time datetime={guide.updatedAt}>{guide.updatedAt}</time>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>
+
+<style>
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>

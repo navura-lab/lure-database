@@ -7,100 +7,19 @@
  * テーブル形式で比較できる差別化コンテンツ。
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { fetchAllLures } from '../../lib/fetch-all-lures';
-import { groupLuresBySeries } from '../../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
-import { computeColorBreakdown } from '../../lib/color-categories';
 import { getCompareEditorial } from '../../lib/compare-editorial';
-import { computeRankingScores } from '../../lib/ranking-score';
-import { getCuratedRanking } from '../../data/curated-rankings';
 import { contentArticles } from '../../data/articles/_index.js';
+import { getComparePaths } from '../../lib/paths/compare-paths';
+import type { ComparePathProps } from '../../lib/paths/compare-paths';
 import type { LureSeries } from '../../lib/types';
 import type { ColorBreakdownEntry } from '../../lib/color-categories';
 
 export async function getStaticPaths() {
-  const TOP_N = 5;
-  const MIN_SERIES = 3;
-  const lures = await fetchAllLures();
-  const allSeries = groupLuresBySeries(lures ?? []);
-
-  // 魚種×タイプのクロス集計（ranking と同一ロジック）
-  const crossMap = new Map<string, { fishName: string; typeName: string; series: LureSeries[] }>();
-  for (const s of allSeries) {
-    if (!s.type) continue;
-    for (const fish of s.target_fish) {
-      const fishSlug = getFishSlug(fish);
-      const typeSlug = getTypeSlug(s.type);
-      const key = `${fishSlug}-${typeSlug}`;
-      const existing = crossMap.get(key);
-      if (existing) {
-        existing.series.push(s);
-      } else {
-        crossMap.set(key, { fishName: fish, typeName: s.type, series: [s] });
-      }
-    }
-  }
-
-  return [...crossMap.entries()]
-    .filter(([_, v]) => v.series.length >= MIN_SERIES)
-    .map(([slug, { fishName, typeName, series }]) => {
-      // キュレーテッド優先 → アルゴリズムスコア（ランキングと同じロジック）
-      const curatedOrder = getCuratedRanking(slug);
-      const scores = computeRankingScores(series);
-
-      const seriesMap = new Map<string, LureSeries>();
-      for (const s of series) {
-        seriesMap.set(`${s.manufacturer_slug}/${s.slug}`, s);
-      }
-
-      const curatedSeries: LureSeries[] = [];
-      const curatedKeys = new Set<string>();
-      for (const key of curatedOrder) {
-        const s = seriesMap.get(key);
-        if (s) {
-          curatedSeries.push(s);
-          curatedKeys.add(key);
-        }
-      }
-
-      const remaining = series
-        .filter(s => !curatedKeys.has(`${s.manufacturer_slug}/${s.slug}`))
-        .sort((a, b) => {
-          const scoreA = scores.get(`${a.manufacturer_slug}/${a.slug}`)?.total ?? 0;
-          const scoreB = scores.get(`${b.manufacturer_slug}/${b.slug}`)?.total ?? 0;
-          return scoreB - scoreA;
-        });
-
-      const sorted = [...curatedSeries, ...remaining];
-      const top = sorted.slice(0, TOP_N);
-
-      // 各ルアーのカラー系統を事前計算
-      const colorBreakdowns = top.map(s =>
-        computeColorBreakdown(s.colors.map(c => c.color_name))
-      );
-
-      return {
-        params: { slug },
-        props: {
-          fishName,
-          typeName,
-          topSeries: top,
-          totalCount: series.length,
-          colorBreakdowns,
-        },
-      };
-    });
+  return getComparePaths();
 }
 
-interface Props {
-  fishName: string;
-  typeName: string;
-  topSeries: LureSeries[];
-  totalCount: number;
-  colorBreakdowns: ColorBreakdownEntry[][];
-}
-
-const { fishName, typeName, topSeries, totalCount, colorBreakdowns } = Astro.props;
+const { fishName, typeName, topSeries, totalCount, colorBreakdowns } = Astro.props as ComparePathProps;
 const slug = Astro.params.slug as string;
 
 // ─── ヘルパー ───

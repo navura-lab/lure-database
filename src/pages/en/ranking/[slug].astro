@@ -1,0 +1,273 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LureCard from '../../../components/LureCard.astro';
+import { getTypeSlug, getFishSlug } from '../../../lib/category-slugs';
+import { guideArticles } from '../../../data/guides';
+import { getRankingPaths } from '../../../lib/paths/ranking-paths';
+import type { RankingPathProps } from '../../../lib/paths/ranking-paths';
+import type { LureSeries } from '../../../lib/types';
+import { LURE_TYPE_EN, FISH_NAME_EN } from '../../../i18n/dictionaries/fishing-terms';
+import { getUI, formatPrice, formatPriceRange } from '../../../i18n/lib/t';
+
+export async function getStaticPaths() {
+  return getRankingPaths();
+}
+
+const locale = 'en' as const;
+const ui = getUI(locale);
+const { fishName, typeName, rankedSeries, related, isCurated } = Astro.props as RankingPathProps;
+const slug = Astro.params.slug as string;
+
+const fishEn = FISH_NAME_EN[fishName] ?? fishName;
+const typeEn = LURE_TYPE_EN[typeName] ?? typeName;
+
+// ─── 集計 ───
+const totalColors = rankedSeries.reduce((sum, s) => sum + s.color_count, 0);
+
+const makerCounts = new Map<string, { name: string; slug: string; count: number }>();
+for (const s of rankedSeries) {
+  const existing = makerCounts.get(s.manufacturer_slug);
+  if (existing) existing.count++;
+  else makerCounts.set(s.manufacturer_slug, { name: s.manufacturer, slug: s.manufacturer_slug, count: 1 });
+}
+const makerBreakdown = [...makerCounts.values()].sort((a, b) => b.count - a.count);
+
+const prices = rankedSeries.flatMap(s => [s.price_range.min, s.price_range.max]).filter(p => p > 0);
+const priceRange = prices.length > 0 ? { min: Math.min(...prices), max: Math.max(...prices) } : null;
+
+const weights = rankedSeries.flatMap(s => [s.weight_range.min, s.weight_range.max]).filter((w): w is number => w != null && w > 0);
+const weightRange = weights.length > 0 ? { min: Math.min(...weights), max: Math.max(...weights) } : null;
+
+// ─── SEO ───
+const topMakers = makerBreakdown.slice(0, 3).map(m => m.name).join(', ');
+const priceText = priceRange ? formatPriceRange(priceRange.min, priceRange.max, locale) : '';
+
+const currentYear = new Date().getFullYear();
+const pageTitle = `Best ${typeEn} for ${fishEn}: Top ${rankedSeries.length} Picks [${currentYear}] | CAST/LOG`;
+const pageDescription = [
+  `${rankedSeries.length} series and ${totalColors} color options compared side by side.`,
+  `Find the best ${typeEn.toLowerCase()} for ${fishEn}.`,
+  topMakers ? `Curated from ${makerBreakdown.length} brands including ${topMakers}.` : '',
+  priceText ? `Price range: ${priceText}.` : '',
+  'Compare specs, colors, and prices to find your perfect match.',
+].filter(Boolean).join(' ');
+
+// 概要テキスト
+const summaryParts: string[] = [];
+summaryParts.push(`${rankedSeries.length} ${typeEn.toLowerCase()} series from ${makerBreakdown.length} brands are cataloged for ${fishEn}`);
+if (topMakers) summaryParts.push(`${topMakers} lead the lineup`);
+if (priceRange) summaryParts.push(`prices range from ${priceText}`);
+if (isCurated) {
+  summaryParts.push('Rankings are based on real-world performance data from multiple fishing review sites and sales figures');
+} else {
+  summaryParts.push('Ranked by a composite score of color variety, price range, weight range, model count, and target species');
+}
+const summaryText = summaryParts.join('. ') + '.';
+
+// スペック
+const specItems: { label: string; value: string }[] = [];
+specItems.push({ label: 'Series', value: `${rankedSeries.length}` });
+specItems.push({ label: 'Colors', value: `${totalColors}` });
+specItems.push({ label: 'Brands', value: `${makerBreakdown.length}` });
+if (priceRange) specItems.push({ label: 'Price Range', value: priceText });
+if (weightRange) specItems.push({ label: 'Weight', value: `${weightRange.min}g – ${weightRange.max}g` });
+
+// 選び方ポイント
+const dataPoints: string[] = [];
+if (weightRange) {
+  const lightCount = rankedSeries.filter(s => s.weight_range.min != null && s.weight_range.min <= (weightRange.min + (weightRange.max - weightRange.min) / 3)).length;
+  const heavyCount = rankedSeries.filter(s => s.weight_range.max != null && s.weight_range.max >= (weightRange.min + (weightRange.max - weightRange.min) * 2 / 3)).length;
+  dataPoints.push(`Weight ranges from ${weightRange.min}g to ${weightRange.max}g. Light models (${lightCount} series) prioritize control, while heavy models (${heavyCount} series) maximize casting distance`);
+}
+if (priceRange && priceRange.max - priceRange.min > 500) {
+  const midPrice = Math.round((priceRange.min + priceRange.max) / 2);
+  const budgetCount = rankedSeries.filter(s => s.price_range.max > 0 && s.price_range.max <= midPrice).length;
+  dataPoints.push(`${budgetCount} series available under ${formatPrice(midPrice, locale)}`);
+}
+if (rankedSeries[0] && rankedSeries[0].color_count >= 10) {
+  dataPoints.push(`More color options = more versatility. The ${rankedSeries[0].manufacturer} ${rankedSeries[0].name} leads with ${rankedSeries[0].color_count} colors`);
+}
+
+// FAQ
+const faqItems: { q: string; a: string }[] = [];
+faqItems.push({
+  q: `What ${typeEn.toLowerCase()} lures are available for ${fishEn}?`,
+  a: `${rankedSeries.length} ${typeEn.toLowerCase()} series are cataloged for ${fishEn}. ${rankedSeries[0] ? `The ${rankedSeries[0].manufacturer} ${rankedSeries[0].name} is among the top-rated.` : ''}`,
+});
+if (priceRange) {
+  faqItems.push({
+    q: `What is the price range for ${fishEn} ${typeEn.toLowerCase()} lures?`,
+    a: `Prices range from ${priceText}. Choose from ${rankedSeries.length} series with ${totalColors} color options.`,
+  });
+}
+if (makerBreakdown.length > 0) {
+  const makerNames = makerBreakdown.slice(0, 5).map(m => `${m.name} (${m.count} series)`).join(', ');
+  faqItems.push({
+    q: `Which brands make ${typeEn.toLowerCase()} for ${fishEn}?`,
+    a: `${makerBreakdown.length} brands produce ${typeEn.toLowerCase()} for ${fishEn}. Top brands: ${makerNames}.`,
+  });
+}
+if (dataPoints.length > 0) {
+  faqItems.push({
+    q: `How to choose the best ${typeEn.toLowerCase()} for ${fishEn}?`,
+    a: dataPoints[0] + '.',
+  });
+}
+
+const fishSlug = getFishSlug(fishName);
+const typeSlug = getTypeSlug(typeName);
+
+const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) };
+const collectionLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `${fishEn} ${typeEn} Catalog`, url: `https://www.castlog.xyz/en/ranking/${slug}/`, description: pageDescription, inLanguage: 'en', mainEntity: { '@type': 'ItemList', numberOfItems: rankedSeries.length, itemListElement: rankedSeries.slice(0, 50).map((s, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://www.castlog.xyz/en/${s.manufacturer_slug}/${s.slug}/`, name: `${s.manufacturer} ${s.name}`, ...(s.representative_image ? { image: s.representative_image } : {}), description: `${LURE_TYPE_EN[s.type] ?? s.type} · ${s.color_count} colors${s.price_range.max > 0 ? ` · from ${formatPrice(s.price_range.min, locale)}` : ''}` })) } };
+const breadcrumbLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' }, { '@type': 'ListItem', position: 2, name: 'Catalog', item: 'https://www.castlog.xyz/en/ranking/' }, { '@type': 'ListItem', position: 3, name: `${fishEn} × ${typeEn}`, item: `https://www.castlog.xyz/en/ranking/${slug}/` }] };
+const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, unknown>;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/en/ranking/${slug}/`} jsonLd={jsonLd} locale={locale}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/en/ranking/" class="hover:text-accent transition-colors">Catalog</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{fishEn} × {typeEn}</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">CATALOG</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+        Best {typeEn} for {fishEn}: Top {rankedSeries.length}
+      </h1>
+      <p class="text-sm text-text-mid mt-1">
+        {rankedSeries.length} series · {totalColors} colors
+      </p>
+    </div>
+
+    <!-- Summary -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed mb-4">{summaryText}</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-5">
+        {specItems.map(item => (
+          <div>
+            <p class="text-xs text-text-dim">{item.label}</p>
+            <p class="text-sm font-semibold text-gray-900">{item.value}</p>
+          </div>
+        ))}
+      </div>
+
+      {makerBreakdown.length > 0 && (
+        <div class="mb-5">
+          <h2 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-2">Brands</h2>
+          <div class="flex flex-wrap gap-2">
+            {makerBreakdown.map(m => (
+              <a href={`/en/${m.slug}/`} class="inline-flex items-center gap-1 px-3 py-1 bg-accent-bg text-accent rounded-full text-xs font-medium border border-accent-bg hover:bg-accent-bg transition-colors">
+                {m.name}
+                <span class="text-accent">{m.count}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div class="flex flex-wrap gap-2">
+        <a href={`/en/compare/${slug}/`} class="px-3 py-1 bg-accent-bg text-accent rounded-full text-xs font-medium border border-accent-bg hover:bg-accent/10 transition-colors">
+          Compare top models →
+        </a>
+        <a href={`/en/fish/${fishSlug}/`} class="px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+          {fishEn} lure catalog
+        </a>
+        <a href={`/en/type/${typeSlug}/`} class="px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+          All {typeEn} lures
+        </a>
+      </div>
+    </div>
+
+    <!-- Data-Driven Buying Guide -->
+    {dataPoints.length > 0 && (
+      <section class="mb-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">How to Choose a {typeEn} for {fishEn}</h2>
+        <div class="bg-white rounded-lg border border-gray-100 p-4 sm:p-5">
+          <h3 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-3">Data-Driven Buying Guide</h3>
+          <ul class="space-y-2">
+            {dataPoints.map(point => (
+              <li class="text-sm text-gray-700 leading-relaxed flex gap-2">
+                <span class="text-accent shrink-0 mt-0.5">▸</span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    <!-- Listed Lures -->
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Listed Lures ({rankedSeries.length} series)</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      {rankedSeries.map((s, i) => (
+        <div class="relative">
+          <LureCard series={s} isNew={false} priority={i < 4} rank={i + 1} locale={locale} />
+        </div>
+      ))}
+    </div>
+
+    <!-- About Rankings -->
+    <section class="mt-12 pt-8 border-t border-gray-100">
+      <h2 class="text-lg font-bold text-gray-900 mb-3">About Our Rankings</h2>
+      <div class="bg-gray-50 rounded-lg p-4 sm:p-5">
+        {isCurated ? (
+          <>
+            <p class="text-sm text-gray-700 leading-relaxed mb-3">
+              Top-ranked lures are determined by cross-referencing multiple Japanese fishing review sites, sales data, and user reviews to surface proven performers.
+            </p>
+            <ul class="space-y-1.5 text-sm text-gray-700">
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>Sources</strong>: TSURI HACK, My Best, sakidori, Tackle Note, Amazon JP sales rankings, Yahoo! Shopping, and more</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>Criteria</strong>: Lures consistently recommended across multiple sources are ranked higher</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>Remaining</strong>: Series not in the curated list are ranked by composite spec score (color variety, price range, weight range, model count, target species)</span></li>
+            </ul>
+          </>
+        ) : (
+          <>
+            <p class="text-sm text-gray-700 leading-relaxed mb-3">
+              Rankings are calculated using a composite score based on the following 5 metrics, normalized within each category:
+            </p>
+            <ul class="space-y-1.5 text-sm text-gray-700">
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>Color Variety (35%)</strong>: More colors indicates a flagship model with strong manufacturer support</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>Price Range (20%)</strong>: Wider price options from entry to high-end suggest a comprehensive lineup</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>Weight Range (20%)</strong>: Broader weight options mean greater field versatility</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>Model Count (15%)</strong>: More unique weight variants allow better situation matching</span></li>
+              <li class="flex gap-2"><span class="text-accent shrink-0">▸</span><span><strong>Target Species (10%)</strong>: Multi-species compatibility indicates higher versatility</span></li>
+            </ul>
+          </>
+        )}
+        <p class="text-xs text-text-dim mt-3">
+          * Rankings are never influenced by advertising or affiliate partnerships.
+        </p>
+      </div>
+    </section>
+
+    <!-- Related Categories -->
+    {related.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Related Categories</h2>
+        <div class="flex flex-wrap gap-2">
+          {related.map(r => {
+            const rFishEn = FISH_NAME_EN[r.fishName] ?? r.fishName;
+            const rTypeEn = LURE_TYPE_EN[r.typeName] ?? r.typeName;
+            return (
+              <a href={`/en/ranking/${r.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+                {rFishEn} × {rTypeEn}
+                <span class="text-xs text-gray-400">{r.count}</span>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>

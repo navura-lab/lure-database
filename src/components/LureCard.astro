@@ -2,22 +2,26 @@
 import Badge from './Badge.astro';
 import Placeholder from './Placeholder.astro';
 import type { LureSeries } from '../lib/types';
+import { getUI, formatPriceRange } from '../i18n/lib/t';
+import { getBasePrefix } from '../i18n/lib/locale';
+import type { Locale } from '../i18n/lib/t';
 
 interface Props {
   series: LureSeries;
   isNew: boolean;
   priority?: boolean;
   rank?: number; // ランキングページでの順位（1始まり）
+  locale?: Locale;
 }
 
-const { series, isNew, priority = false, rank } = Astro.props;
+const { series, isNew, priority = false, rank, locale = 'ja' } = Astro.props;
+const ui = getUI(locale);
+const prefix = getBasePrefix(locale);
 
 const hasLimited = series.colors.some(c => c.is_limited);
 const hasPrice = series.price_range.max > 0;
 const priceDisplay = hasPrice
-  ? series.price_range.min === series.price_range.max
-    ? `¥${series.price_range.min.toLocaleString()}`
-    : `¥${series.price_range.min.toLocaleString()} - ¥${series.price_range.max.toLocaleString()}`
+  ? formatPriceRange(series.price_range.min, series.price_range.max, locale)
   : null;
 
 const filterData = JSON.stringify({
@@ -30,7 +34,7 @@ const filterData = JSON.stringify({
 ---
 
 <a
-  href={`/${series.manufacturer_slug}/${series.slug}/`}
+  href={`${prefix}/${series.manufacturer_slug}/${series.slug}/`}
   class="group block"
   data-series={filterData}
 >
@@ -59,8 +63,8 @@ const filterData = JSON.stringify({
         </div>
       )}
       <div class="absolute top-2 right-2 flex flex-col gap-1">
-        {isNew && <Badge label="新着" variant="new" />}
-        {hasLimited && <Badge label="限定" variant="limited" />}
+        {isNew && <Badge label={ui.lureCard.new} variant="new" />}
+        {hasLimited && <Badge label={ui.lureCard.limited} variant="limited" />}
       </div>
     </div>
 
@@ -73,7 +77,7 @@ const filterData = JSON.stringify({
       </h3>
       <div class="flex items-center gap-1.5 text-xs text-text-mid mb-3">
         <Badge label={series.type} variant="type" />
-        <span>{series.color_count}カラー</span>
+        <span>{series.color_count} {ui.lureCard.colors}</span>
       </div>
       {priceDisplay && (
         <p class="text-sm font-bold text-gray-900">
