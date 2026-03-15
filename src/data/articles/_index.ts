@@ -164,6 +164,41 @@ import majorcraftShoreJigging from './majorcraft-shore-jigging.js';
 import daiwaShoreJigging from './daiwa-shore-jigging.js';
 import shimanoShoreJigging from './shimano-shore-jigging.js';
 import duelEgingEgi from './duel-eging-egi.js';
+// VS比較記事（第15弾）
+import saVsSasuke from './sa-vs-sasuke.js';
+import saVsSetupper from './sa-vs-setupper.js';
+import kagelouVsBlowin from './kagelou-vs-blowin.js';
+import setupperVsBlowin from './setupper-vs-blowin.js';
+import sa99VsKagelou from './sa99-vs-kagelou.js';
+// VS比較記事（第16弾）
+import tgbaitVsSamuraijig from './tgbait-vs-samuraijig.js';
+import egiohkVsEgiohlive from './egiohk-vs-egiohlive.js';
+import egiohkVsEmeraldas from './egiohk-vs-emeraldas.js';
+import miuVsTiaro from './miu-vs-tiaro.js';
+import miuVsPal from './miu-vs-pal.js';
+// VS比較記事（第17弾 — シンペン/クランク）
+import switchhitterVsWander from './switchhitter-vs-wander.js';
+import buttobiVsPunchline from './buttobi-vs-punchline.js';
+import sneconVsManic from './snecon-vs-manic.js';
+import switchhitterVsButtobi from './switchhitter-vs-buttobi.js';
+import blitzVsWildhunch from './blitz-vs-wildhunch.js';
+// VS比較記事（第18弾 — クランク＆ワーム）
+import griffonVsPeanuts from './griffon-vs-peanuts.js';
+import deepx300VsBlitzexdr from './deepx300-vs-blitzexdr.js';
+import wildhunchVsShotover from './wildhunch-vs-shotover.js';
+import senkoVsCuttail from './senko-vs-cuttail.js';
+import drivestickVsSenko from './drivestick-vs-senko.js';
+// VS比較記事（第19弾 — バイブ/ワーム/ジグ）
+import x80swVsKomomo from './x80sw-vs-komomo.js';
+import rangevibVsSalvage from './rangevib-vs-salvage.js';
+import ip26VsTeppanvib from './ip26-vs-teppanvib.js';
+import ip26VsRealsteel from './ip26-vs-realsteel.js';
+import rangevibVsMient from './rangevib-vs-mient.js';
+import doliveshadVsDolivecraw from './doliveshad-vs-dolivecraw.js';
+import dolivessgillVsFatika from './dolivessgill-vs-fatika.js';
+import jigparaVsTgbait from './jigpara-vs-tgbait.js';
+import jigparaVsBigbacker from './jigpara-vs-bigbacker.js';
+import jigparaVsMakimaki from './jigpara-vs-makimaki.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -313,6 +348,41 @@ export const contentArticles: ContentArticle[] = [
   daiwaShoreJigging,
   shimanoShoreJigging,
   duelEgingEgi,
+  // VS比較記事（第15弾）
+  saVsSasuke,
+  saVsSetupper,
+  kagelouVsBlowin,
+  setupperVsBlowin,
+  sa99VsKagelou,
+  // VS比較記事（第16弾）
+  tgbaitVsSamuraijig,
+  egiohkVsEgiohlive,
+  egiohkVsEmeraldas,
+  miuVsTiaro,
+  miuVsPal,
+  // VS比較記事（第17弾 — シンペン/クランク）
+  switchhitterVsWander,
+  buttobiVsPunchline,
+  sneconVsManic,
+  switchhitterVsButtobi,
+  blitzVsWildhunch,
+  // VS比較記事（第18弾 — クランク＆ワーム）
+  griffonVsPeanuts,
+  deepx300VsBlitzexdr,
+  wildhunchVsShotover,
+  senkoVsCuttail,
+  drivestickVsSenko,
+  // VS比較記事（第19弾 — バイブ/ワーム/ジグ）
+  x80swVsKomomo,
+  rangevibVsSalvage,
+  ip26VsTeppanvib,
+  ip26VsRealsteel,
+  rangevibVsMient,
+  doliveshadVsDolivecraw,
+  dolivessgillVsFatika,
+  jigparaVsTgbait,
+  jigparaVsBigbacker,
+  jigparaVsMakimaki,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
