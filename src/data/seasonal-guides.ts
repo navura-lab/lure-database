@@ -18,6 +18,11 @@ export interface SeasonalGuide {
   patterns: string[];         // パターン・攻略法（3-5個）
   tips: string[];             // コツ（3-5個）
   faq: { question: string; answer: string }[];
+  nameEn?: string;
+  descriptionEn?: string;
+  patternsEn?: string[];
+  tipsEn?: string[];
+  faqEn?: { question: string; answer: string }[];
 }
 
 export const seasonalGuides: SeasonalGuide[] = [
@@ -46,6 +51,24 @@ export const seasonalGuides: SeasonalGuide[] = [
       { question: '春シーバスに最適なルアーサイズは？', answer: 'バチ抜けなら7〜12cm、稚鮎パターンなら7〜9cmが目安です。ベイトのサイズに合わせるのが基本です。' },
       { question: '春シーバスは何月が一番釣れる？', answer: '地域差がありますが、関東では3月後半〜4月のバチ抜けシーズンが最も安定した釣果が期待できます。' },
     ],
+    nameEn: 'Spring Seabass Lure Selection',
+    descriptionEn: 'Guide to spring (March–May) seabass patterns and recommended lures. From the worm hatch pattern to micro-baitfish tactics — data-driven tips for spring Japanese seabass.',
+    patternsEn: [
+      'Worm hatch pattern (Bachi-nuke, Mar–Apr): Slow retrieve with slim sinking pencils',
+      'Micro baitfish pattern: Drift small minnows or soft plastics near the surface',
+      'Ami (krill) pattern: Slowly drift clear-colored sinking pencils',
+      'Juvenile sweetfish pattern (Chi-ayu, Apr–May): Target estuaries with 7–9cm minnows',
+    ],
+    tipsEn: [
+      'During worm hatch season, target dusk and after on spring/neap tides',
+      'Clear and pearl colors are standard; switch to chartreuse in murky water',
+      'Keep lures in the top 30cm — avoid going too deep',
+      'Use PE 0.6–0.8 braid with 12–16lb fluorocarbon leader for sensitivity',
+    ],
+    faqEn: [
+      { question: 'What is the best lure size for spring seabass?', answer: 'For worm hatch: 7–12cm; for juvenile sweetfish pattern: 7–9cm. Match lure size to the prevailing baitfish.' },
+      { question: 'What is the best month for spring seabass?', answer: 'Varies by region, but in the Kanto area late March through April during the worm hatch season offers the most consistent catches.' },
+    ],
   },
   {
     slug: 'spring-bass',
@@ -70,6 +93,24 @@ export const seasonalGuides: SeasonalGuide[] = [
     faq: [
       { question: '春バスにおすすめのルアーカラーは？', answer: 'クランクベイトならクローフィッシュ系、ミノーならナチュラル系が春の定番です。水の透明度に応じてチャート系も有効。' },
       { question: 'プリスポーンバスを見つけるコツは？', answer: '水温10〜15℃のシャローフラットやワンドの入口を重点的に探りましょう。ハードボトムや岬周りが特に有望です。' },
+    ],
+    nameEn: 'Spring Largemouth Bass Lure Selection',
+    descriptionEn: 'Guide to spring (March–May) largemouth bass lures. Pre-spawn, spawn, and post-spawn patterns with recommended lure selections for each phase.',
+    patternsEn: [
+      'Pre-spawn (March): Target bass moving shallow with crankbaits and jerkbaits',
+      'Spawning (April): Sight-fish beds with soft plastics and worms',
+      'Post-spawn (May): Recovering big fish react to topwater — buzzbaits and poppers shine',
+      'Search deep-to-shallow migration routes with spinnerbaits',
+    ],
+    tipsEn: [
+      'Water temps of 10–15°C signal the pre-spawn phase — focus on shallow flats',
+      'Spawning areas are typically hard-bottom flats at 1–2m depth',
+      'Crawfish-colored crankbaits are a spring staple',
+      'On windy days, switch to spinnerbaits — surface chop reduces wariness',
+    ],
+    faqEn: [
+      { question: 'What are the best lure colors for spring bass?', answer: 'Crawfish patterns for crankbaits and natural colors for minnows are spring staples. Chartreuse works well in stained water.' },
+      { question: 'How do I find pre-spawn bass?', answer: 'Focus on shallow flats and cove entrances where water temps are 10–15°C. Hard-bottom areas and points are especially productive.' },
     ],
   },
   {
@@ -96,6 +137,24 @@ export const seasonalGuides: SeasonalGuide[] = [
       { question: '渓流解禁直後のおすすめルアーは？', answer: 'スプーン3〜5gが最も汎用性が高いです。カラーは金銀をベースにローテーションしましょう。' },
       { question: 'エリアトラウトの春の攻め方は？', answer: '放流直後はスプーンの速巻きが効きます。渋くなったらクランクのデッドスローやボトムバンプを試しましょう。' },
     ],
+    nameEn: 'Spring Trout Lure Selection',
+    descriptionEn: 'Guide to spring (March–May) trout fishing. Lure selection and techniques for stream season openers and managed fishing areas (stocked ponds).',
+    patternsEn: [
+      'Season opener (March): Probe the bottom slowly with 2–5g spoons',
+      'Rising activity (April): Work mid-water to surface with minnows and crankbaits',
+      'Insect pattern (May): Topwater lures and floating minnows become effective',
+      'Managed fishing area: Fast-retrieve spoons after stocking; dead-slow crankbaits when bite slows',
+    ],
+    tipsEn: [
+      'Water temps are still low at season opener — slow presentations are key',
+      'Rotate spoon colors: gold, silver, and fluorescent pink',
+      'Sinking minnows in 5–7cm are the standard for mountain streams',
+      'At managed fishing areas (stocked ponds), build your approach around 0.8–2.5g spoons',
+    ],
+    faqEn: [
+      { question: 'What lures work best right after stream season opens?', answer: '3–5g spoons are the most versatile choice. Rotate between gold and silver as your base colors.' },
+      { question: 'How should I approach spring area trout?', answer: 'Fast-retrieve spoons right after stocking. When the bite slows, switch to dead-slow crankbaits or bottom-bumping techniques.' },
+    ],
   },
   {
     slug: 'spring-mebaru',
@@ -121,6 +180,24 @@ export const seasonalGuides: SeasonalGuide[] = [
       { question: '春メバリングの時間帯は？', answer: '夕マズメ〜夜間がベスト。特に常夜灯のある漁港や堤防が狙い目です。' },
       { question: '春メバルに効くワームサイズは？', answer: '1.5〜2インチが基本。活性が高い時は2.5インチも有効です。' },
     ],
+    nameEn: 'Spring Rockfish (Mebaru) Lure Selection',
+    descriptionEn: 'Guide to spring (March–May) rockfish (mebaru) fishing. Recommended lures and patterns for the aggressive post-spawn feeding season.',
+    patternsEn: [
+      'Post-spawn aggressive feeding (Mar–Apr): Slow-retrieve worms through upper to mid water column',
+      'Worm hatch pattern (Bachi-nuke): Dead-slow slim sinking pencils',
+      'Ami (krill) pattern: Drift clear worms on lightweight jig heads',
+      'Plankton pattern: Slow-fall presentations near night fishing lights (harbor lights)',
+    ],
+    tipsEn: [
+      'Spring rockfish often suspend near the surface — start shallow and work down',
+      'Use lightweight jig heads ranging from 0.3–1.0g',
+      'Prepare both clear and glow-colored worms',
+      'The light/shadow boundary at night fishing lights (harbor lights) is the most productive zone',
+    ],
+    faqEn: [
+      { question: 'What is the best time for spring rockfish?', answer: 'Dusk golden hour through nighttime is best. Harbors and seawalls with night fishing lights are prime spots.' },
+      { question: 'What worm size works for spring rockfish?', answer: '1.5–2 inches is standard. When activity is high, 2.5-inch worms can also be effective.' },
+    ],
   },
   {
     slug: 'spring-hirame',
@@ -145,6 +222,24 @@ export const seasonalGuides: SeasonalGuide[] = [
     faq: [
       { question: '春ヒラメに最適なルアーは？', answer: 'ヘビーシンキングミノー12〜14cmが最も実績があります。メタルジグ20〜40gも飛距離が必要な場面で有効。' },
       { question: '春ヒラメのベストシーズンは？', answer: '地域差がありますが、3月後半〜4月が産卵前の荒食いシーズンで大型のチャンスです。' },
+    ],
+    nameEn: 'Spring Japanese Flounder (Hirame) Lure Selection',
+    descriptionEn: 'Guide to spring (March–May) surf flounder fishing. Lure selection and patterns for targeting trophy-size pre-spawn flounder from the beach.',
+    patternsEn: [
+      'Aggressive pre-spawn feeding (Mar–Apr): Search shallow zones broadly with large 12–14cm minnows',
+      'Metal jig long cast: Attack offshore breaklines from the surf',
+      'Worm + jig head: Slow trace along the bottom',
+      'Dawn golden hour focus: The one hour around sunrise is prime time',
+    ],
+    tipsEn: [
+      'Focus on structure — rip currents and underwater slopes/drop-offs are key',
+      'Heavy sinking minnows offer the best combination of casting distance and depth control',
+      'Gold and pink colors are the spring standard',
+      'Keep your lure within 30cm of the bottom at all times',
+    ],
+    faqEn: [
+      { question: 'What is the best lure for spring flounder?', answer: 'Heavy sinking minnows in 12–14cm have the strongest track record. 20–40g metal jigs are also effective when distance is needed.' },
+      { question: 'When is the best time for spring flounder?', answer: 'Varies by region, but late March through April is the pre-spawn aggressive feeding period with the best chance at trophy fish.' },
     ],
   },
 
@@ -173,6 +268,24 @@ export const seasonalGuides: SeasonalGuide[] = [
       { question: '夏シーバスにトップウォーターは使える？', answer: 'はい、夏はトップウォーターの最盛期です。特に朝マズメのボイル撃ちにポッパーやペンシルベイトが効果的です。' },
       { question: '夏のデイシーバスの攻め方は？', answer: 'バイブレーションの高速巻きやミノーのジャーキングが有効。流れのある橋脚周りやストラクチャーを重点的に攻めましょう。' },
     ],
+    nameEn: 'Summer Seabass Lure Selection',
+    descriptionEn: 'Guide to summer (June–August) seabass patterns and recommended lures. Topwater action peaks in summer — patterns and lure selection for Japanese seabass.',
+    patternsEn: [
+      'Topwater game: Target explosive surface strikes with poppers and pencil baits',
+      'Juvenile mullet pattern (Inakko): Match the hatch with 7–9cm minnows on surface boils',
+      'Daytime game: High-speed vibration retrieves for reaction bites',
+      'Bridge pillar light/shadow casting: Twitching minnows along river bridge pilings',
+    ],
+    tipsEn: [
+      'Summer bass are highly active and respond well to topwater — start at the surface',
+      'For daytime, target areas with current flow — bridge pilings and structure are prime spots',
+      'Juvenile mullet colors (silver and mullet-pattern) have a strong track record',
+      'Night fishing near harbor lights can produce on worm hatch and krill patterns through summer',
+    ],
+    faqEn: [
+      { question: 'Can topwater lures catch summer seabass?', answer: 'Yes — summer is peak topwater season. Poppers and pencil baits are especially effective during dawn golden hour surface boils.' },
+      { question: 'How do I catch seabass during summer daytime?', answer: 'High-speed vibration retrieves and minnow jerking are effective. Focus on bridge pilings and structure in areas with current flow.' },
+    ],
   },
   {
     slug: 'summer-bass',
@@ -197,6 +310,24 @@ export const seasonalGuides: SeasonalGuide[] = [
     faq: [
       { question: '夏バスのトップウォーターは何時まで有効？', answer: '朝マズメ（日の出〜8時頃）と夕マズメ（16時〜日没）が最も反応が良いです。曇天なら日中もチャンスあり。' },
       { question: '夏のディープバスの攻め方は？', answer: 'ディープクランクやラバージグ、ヘビーダウンショットで5〜8mレンジを攻めましょう。ブレイクラインの変化点が有望です。' },
+    ],
+    nameEn: 'Summer Largemouth Bass Lure Selection',
+    descriptionEn: 'Guide to summer (June–August) largemouth bass lures. Peak topwater season — patterns and lure selection to dominate summer bass fishing.',
+    patternsEn: [
+      'Peak topwater: Attack dawn golden hour with poppers and buzzbaits',
+      'Frog game: Target bass and snakehead in heavy cover with frogs',
+      'Punching: Drop Texas rigs through matted vegetation',
+      'Deep cranking: Pursue bass that retreat to deep water during peak heat',
+    ],
+    tipsEn: [
+      'Dawn and dusk golden hours offer the most efficient topwater fishing',
+      'Midday, focus on bass holding in shade and cover',
+      'When water temps exceed 30°C, bass move to deep zones and creek inlets',
+      'Frogs produce the biggest fish in the thickest cover',
+    ],
+    faqEn: [
+      { question: 'How long is the topwater window for summer bass?', answer: 'Dawn golden hour (sunrise–8am) and dusk golden hour (4pm–sunset) have the best response. Overcast days extend the window into midday.' },
+      { question: 'How do I target deep summer bass?', answer: 'Deep crankbaits, rubber jigs, and heavy drop-shot rigs in the 5–8m range are effective. Focus on breakline transitions and structure.' },
     ],
   },
   {
@@ -223,6 +354,24 @@ export const seasonalGuides: SeasonalGuide[] = [
       { question: '夏の青物にベストなジグの重さは？', answer: '堤防からなら30〜40g、磯やサーフなら40〜60gが標準です。水深と潮流に合わせて調整しましょう。' },
       { question: 'ショアジギングで青物を釣るコツは？', answer: '朝マズメの回遊タイミングに合わせること。潮目やブレイクライン、鳥山を目安に回遊ルートを予測しましょう。' },
     ],
+    nameEn: 'Summer Bluerunner / Pelagics Lure Selection',
+    descriptionEn: 'Guide to summer (June–August) bluerunner (yellowtail, amberjack) shore jigging. Lure selection and patterns for targeting pelagics from shore.',
+    patternsEn: [
+      'Surface feeding frenzy (Nabura): Strike boils with poppers and diving pencils',
+      'Metal jig long cast: One-pitch jerk 40–60g jigs around breaklines',
+      'Ambush the school: Position at jetty tips and rocky points along migration routes',
+      'Baitball pattern: Target small-scale surface frenzies with 20–30g compact metal jigs',
+    ],
+    tipsEn: [
+      'Timing the dawn golden hour migration run is the single most important factor',
+      'Silver and blue-pink metal jig colors are universally effective',
+      'When you spot a surface frenzy (Nabura), cast immediately — topwater is faster than jigs',
+      'Set drag firm. Use PE 2–3 braid with 40lb+ fluorocarbon leader',
+    ],
+    faqEn: [
+      { question: 'What is the best jig weight for summer bluerunners?', answer: '30–40g from jetties; 40–60g from rocky shores and surf. Adjust based on water depth and current strength.' },
+      { question: 'What is the key to shore jigging success?', answer: 'Match the dawn golden hour migration timing. Use tide lines, breaklines, and diving bird flocks to predict migration routes.' },
+    ],
   },
   {
     slug: 'summer-eging',
@@ -247,6 +396,24 @@ export const seasonalGuides: SeasonalGuide[] = [
     faq: [
       { question: '夏にアオリイカは釣れる？', answer: '8月後半から新子が出始めますが、本格シーズンは秋（9月〜）です。夏はケンサキイカやマルイカが主なターゲットです。' },
       { question: '夏のエギングのポイント選びは？', answer: '常夜灯のある漁港が一番手堅いです。光に集まるベイトを追ってイカも寄ってきます。' },
+    ],
+    nameEn: 'Summer Squid (Eging) Lure Selection',
+    descriptionEn: 'Guide to summer (June–August) squid eging. Lure selection and techniques for targeting swordtip squid and bigfin reef squid at night.',
+    patternsEn: [
+      'Swordtip squid night game: Slow-work 2–2.5 size egi near night fishing lights (harbor lights)',
+      'Bigfin squid: Free-fall lightweight squid jigs and egi',
+      'Daytime eging: Persistent bottom-bouncing presentations',
+      'Harbor night lights: Target squid chasing baitfish drawn to the lights',
+    ],
+    tipsEn: [
+      'Swordtip squid are the main summer target — night fishing is the standard approach',
+      'Egi size 2–2.5 (small) is the summer mainstay',
+      'Glow and UV-reactive colors dominate at night',
+      'Young-of-year bigfin reef squid appear from late August onward, growing into autumn',
+    ],
+    faqEn: [
+      { question: 'Can I catch bigfin reef squid in summer?', answer: 'Young-of-year squid start appearing from late August, but the main season is autumn (September onward). Swordtip squid are the primary summer target.' },
+      { question: 'How do I choose a summer eging spot?', answer: 'Harbors with night fishing lights are the most reliable. Baitfish gather under the lights, and squid follow.' },
     ],
   },
 
@@ -275,6 +442,24 @@ export const seasonalGuides: SeasonalGuide[] = [
       { question: '秋シーバスのベストシーズンは何月？', answer: '10月〜11月が最盛期です。コノシロパターンや落ちアユパターンでランカーサイズが狙えます。' },
       { question: '秋シーバスのルアーサイズの目安は？', answer: 'ベイトに合わせるのが基本。イワシパターンなら9〜12cm、コノシロパターンなら14〜18cmが目安です。' },
     ],
+    nameEn: 'Autumn Seabass Lure Selection',
+    descriptionEn: 'Guide to autumn (September–November) seabass patterns and recommended lures. Baitfish are abundant — the best season for size and numbers of Japanese seabass.',
+    patternsEn: [
+      'Gizzard shad pattern (Konoshiro): Large 14–16cm minnows and big baits for trophy fish',
+      'Sardine pattern: Straight-retrieve 9–12cm minnows — the proven classic',
+      'Goby pattern: Bottom-bump vibrations along the substrate',
+      'Downstream migrating sweetfish pattern (Oct–Nov): Drift minnows through mid-river zones',
+    ],
+    tipsEn: [
+      'Autumn is the best season for both size and numbers of seabass all year',
+      'Matching lure size to the prevailing baitfish is the key to success',
+      'The gizzard shad (Konoshiro) pattern is most likely to produce trophy-class fish',
+      'The downstream sweetfish pattern fishes best from dusk golden hour into night',
+    ],
+    faqEn: [
+      { question: 'What is the best month for autumn seabass?', answer: 'October through November is peak season. The gizzard shad and downstream sweetfish patterns produce trophy-class fish.' },
+      { question: 'What lure size should I use for autumn seabass?', answer: 'Match the baitfish: 9–12cm for sardine patterns and 14–18cm for gizzard shad patterns.' },
+    ],
   },
   {
     slug: 'autumn-eging',
@@ -299,6 +484,24 @@ export const seasonalGuides: SeasonalGuide[] = [
     faq: [
       { question: '秋エギングのエギサイズは？', answer: '9月は2.5号、10月は3号、11月は3.5号と、イカの成長に合わせてサイズアップするのが基本です。' },
       { question: '秋エギングの時間帯は？', answer: '朝マズメ・夕マズメが最も反応が良いですが、秋は日中でも釣れます。潮が動くタイミングを狙いましょう。' },
+    ],
+    nameEn: 'Autumn Squid (Eging) Lure Selection',
+    descriptionEn: 'Guide to autumn (September–November) eging. The best season for numbers — egi selection and techniques for young-of-year bigfin reef squid.',
+    patternsEn: [
+      'Young-of-year squid (September): Run-and-gun shallow zones with 2.5-size egi',
+      'Growing phase (October): Size up to 3.0 egi with bolder, larger actions',
+      'Late autumn (November): Probe deeper water with 3.5-size egi — larger specimens mixed in',
+      'Day and night capable: Focus on bottom during daytime; mid-water suspended at night',
+    ],
+    tipsEn: [
+      'Autumn is the numbers season — cover ground with a run-and-gun approach',
+      'Start with orange and pink egi colors, then rotate based on response',
+      'Shallow weed beds and rocky reef areas are squid habitat',
+      'When bites are sparse, vary the fall speed — try shallow or deep-tuned egi models',
+    ],
+    faqEn: [
+      { question: 'What egi size should I use for autumn squid?', answer: 'Size up with squid growth: 2.5 in September, 3.0 in October, 3.5 in November.' },
+      { question: 'What is the best time for autumn eging?', answer: 'Dawn and dusk golden hours produce the best response, but autumn squid also bite during the day. Target times when the tide is moving.' },
     ],
   },
   {
@@ -325,6 +528,24 @@ export const seasonalGuides: SeasonalGuide[] = [
       { question: '秋の青物に最適なメタルジグは？', answer: '40〜60gのセンターバランスが万能です。サーフなら飛距離重視のリアバランス、磯ならフォール重視のフロントバランスも。' },
       { question: '秋の青物はいつまで釣れる？', answer: '水温が下がる11月〜12月初旬まで。ブリクラスが回遊する10〜11月がベストシーズンです。' },
     ],
+    nameEn: 'Autumn Bluerunner / Pelagics Lure Selection',
+    descriptionEn: 'Guide to autumn (September–November) bluerunner (yellowtail, amberjack) shore jigging. Peak season lure selection and patterns for pelagics from shore.',
+    patternsEn: [
+      'Peak migration: Target offshore breaklines with 40–60g metal jigs',
+      'Surface feeding frenzy (Nabura): Explosive surface strikes on poppers and diving pencils',
+      'Trophy hunting (Oct–Nov): Heavy 60–80g jigs to reach deep-running schools',
+      'Yellowtail kingfish on plugs: Rocky shore plug fishing comes into full swing',
+    ],
+    tipsEn: [
+      'Autumn is peak shore jigging season — large pelagics move within casting range',
+      'When you spot a surface frenzy or diving birds, cast immediately — speed is everything',
+      'Center-balanced metal jigs are the most versatile; rear-balanced for distance',
+      'If Spanish mackerel are present, consider a wire leader to prevent bite-offs',
+    ],
+    faqEn: [
+      { question: 'What is the best metal jig for autumn bluerunners?', answer: 'Center-balanced 40–60g jigs are the most versatile. Rear-balanced for surf distance; front-balanced for fall-focused rocky shore work.' },
+      { question: 'How late into autumn can you catch bluerunners?', answer: 'Through November into early December as water cools. October–November is the prime window when yellowtail-class fish are running.' },
+    ],
   },
   {
     slug: 'autumn-bass',
@@ -350,6 +571,24 @@ export const seasonalGuides: SeasonalGuide[] = [
       { question: '秋バスに最適なルアーは？', answer: 'クランクベイトとスピナーベイトが双璧です。広範囲をサーチできる巻物で効率よく探りましょう。' },
       { question: 'ターンオーバー時の攻略法は？', answer: '水質が良いエリア（流入河川、湧水、風裏）に絞って攻めましょう。リアクション系のバイブレーションも有効です。' },
     ],
+    nameEn: 'Autumn Largemouth Bass Lure Selection',
+    descriptionEn: 'Guide to autumn (September–November) largemouth bass lures. Moving baits dominate — patterns and lure selection for the fall feeding frenzy.',
+    patternsEn: [
+      'Moving bait season: Search wide with crankbaits and spinnerbaits',
+      'Turnover (water column mixing) tactics: Seek out areas with clearer water',
+      'Deep cranking: Follow bass moving deeper as water temps drop',
+      'Vibration jigs: Effective for fall reaction-bite fishing',
+    ],
+    tipsEn: [
+      'Bass scatter in autumn — moving baits that cover water efficiently are the way to go',
+      'During turnover (water quality decline), target feeder creeks and spring-fed areas',
+      'Chartreuse and crawfish colors produce consistently',
+      'Carry 3–4 crankbaits with different dive depths for maximum versatility',
+    ],
+    faqEn: [
+      { question: 'What is the best lure for autumn bass?', answer: 'Crankbaits and spinnerbaits are the top two choices. Moving baits that cover water efficiently are the most productive approach.' },
+      { question: 'How do I fish during turnover?', answer: 'Focus on areas with better water quality — feeder creeks, spring-fed zones, and wind-sheltered banks. Reaction baits like vibration jigs also work well.' },
+    ],
   },
   {
     slug: 'autumn-hirame',
@@ -374,6 +613,24 @@ export const seasonalGuides: SeasonalGuide[] = [
     faq: [
       { question: '秋ヒラメのベストシーズンは？', answer: '10月〜11月が最盛期です。水温が18℃前後に下がるとヒラメの活性が上がり、大型も期待できます。' },
       { question: '秋のサーフで狙うべきポイントは？', answer: '離岸流の周辺と、その両サイドのカケアガリが最も有望です。波の動きをよく観察して地形変化を見つけましょう。' },
+    ],
+    nameEn: 'Autumn Japanese Flounder (Hirame) Lure Selection',
+    descriptionEn: 'Guide to autumn (September–November) surf flounder fishing. Peak season for trophy-size flounder (70cm+) — lure selection and patterns from the beach.',
+    patternsEn: [
+      'Baitfish migration inshore: Time your sessions with sardine schools moving onto the surf',
+      'Long-range minnow casting: Cover maximum ground with heavy sinking minnows',
+      'Metal jig: Reach offshore breaklines from the beach',
+      'Worm + jig head: Slow presentations for finicky fish',
+    ],
+    tipsEn: [
+      'Autumn is the peak season for trophy-size flounder (70cm+)',
+      'Reading rip currents is the single most important skill on the surf',
+      'Heavy sinking minnows in 12–14cm are the standard starting lure',
+      'Gold colors are the autumn standard; switch to chartreuse in turbid water',
+    ],
+    faqEn: [
+      { question: 'When is the best time for autumn flounder?', answer: 'October through November is peak season. Flounder activity peaks as water temps drop to around 18°C, with trophy-size fish in the mix.' },
+      { question: 'Where should I target on the surf in autumn?', answer: 'Rip currents and the underwater slopes/drop-offs on either side are the highest-percentage spots. Read the wave action to identify bottom structure.' },
     ],
   },
 
@@ -402,6 +659,24 @@ export const seasonalGuides: SeasonalGuide[] = [
       { question: '冬でもシーバスは釣れる？', answer: 'はい、冬でも狙えます。コノシロパターンやバイブレーションゲームが有効です。釣れる数は減りますが大型が出やすい時期です。' },
       { question: '冬シーバスのポイント選びは？', answer: '港湾部の温排水周りや河川の深場が有力ポイント。水温が比較的高いエリアにシーバスが集まります。' },
     ],
+    nameEn: 'Winter Seabass Lure Selection',
+    descriptionEn: 'Guide to winter (December–February) seabass patterns and recommended lures. From the lingering gizzard shad pattern to early worm hatches — winter Japanese seabass tactics.',
+    patternsEn: [
+      'Lingering gizzard shad pattern (December): Big baits and large minnows for trophy seabass',
+      'Vibration jigs: Lift-and-fall in deep zones during cold water periods',
+      'Early worm hatch (February onward): Slow sinking pencils in early-season worm hatch areas',
+      'Daytime game: Activity rises when water temps climb during midday',
+    ],
+    tipsEn: [
+      'Fewer fish overall, but the ones you hook tend to be large',
+      'Below 10°C water temp, slow presentations are essential',
+      'Steel/metal vibration jigs are the go-to winter pattern lure',
+      'Harbor areas with more stable water temps outperform rivers in winter',
+    ],
+    faqEn: [
+      { question: 'Can you catch seabass in winter?', answer: 'Yes — the gizzard shad pattern and vibration jig game are both effective. Numbers decline, but winter is known for producing larger fish.' },
+      { question: 'Where should I fish for winter seabass?', answer: 'Harbors near warm-water discharges and deep river pools are top choices. Seabass concentrate where water temps are relatively higher.' },
+    ],
   },
   {
     slug: 'winter-mebaru',
@@ -426,6 +701,24 @@ export const seasonalGuides: SeasonalGuide[] = [
     faq: [
       { question: '冬メバルは何月から釣れる？', answer: '12月から本格シーズン開幕です。水温13〜15℃前後が最も活性が高くなります。' },
       { question: '冬メバリングの最適なライン？', answer: 'PE0.2〜0.3号にフロロリーダー3〜4lbが標準。感度と飛距離のバランスが良い組み合わせです。' },
+    ],
+    nameEn: 'Winter Rockfish (Mebaru) Lure Selection',
+    descriptionEn: 'Guide to winter (December–February) rockfish (mebaru) fishing. Season-opening lure selection and patterns for the premier light-game target.',
+    patternsEn: [
+      'Season opener (December): Jig head + worm around night fishing lights (harbor lights)',
+      'Cold-water slow game: Dead-slow retrieve with 0.3–0.5g jig heads',
+      'Plugging: Search shallow ranges with small 5cm minnows',
+      'Surface-suspended pattern: Target plankton-feeding rockfish with slow-sinking worms',
+    ],
+    tipsEn: [
+      'Winter rockfish include aggressive pre-spawn feeders that can be highly active',
+      'Ultra-light jig heads (0.3–0.8g) are the winter standard',
+      'Calm, windless nights offer the best conditions',
+      'Clear worms are universally effective; switch to chartreuse on murky days',
+    ],
+    faqEn: [
+      { question: 'When does rockfish season start in winter?', answer: 'The main season kicks off in December. Activity peaks when water temps are around 13–15°C.' },
+      { question: 'What is the best line setup for winter rockfish?', answer: 'PE 0.2–0.3 braid with 3–4lb fluorocarbon leader is standard — a good balance of sensitivity and casting distance.' },
     ],
   },
   {
@@ -452,6 +745,24 @@ export const seasonalGuides: SeasonalGuide[] = [
       { question: '冬バスに効くルアーは？', answer: 'メタルバイブのリフト&フォールが最も実績があります。リアクションバイトを狙えるため低活性時に強いです。' },
       { question: '冬バスの釣れる時間帯は？', answer: '日中の水温が上がる10時〜14時頃がチャンスタイム。夏と違い、朝マズメより日中の方が釣れやすいです。' },
     ],
+    nameEn: 'Winter Largemouth Bass Lure Selection',
+    descriptionEn: 'Guide to winter (December–February) largemouth bass lures. Cold-water techniques and lure selection to crack the toughest season for bass fishing.',
+    patternsEn: [
+      'Metal vibration lift-and-fall: Trigger deep-holding bass with reaction strikes',
+      'Jerkbait: Suspend-and-pause technique — "jerk then hold for 5–10 seconds"',
+      'Drop shot: Methodical bottom-bouncing finesse presentations',
+      'Shad slow roll: Slow-retrieve through mid-water to probe deep zones',
+    ],
+    tipsEn: [
+      'Winter bass stack up deep (5–10m) — use electronics to locate schools first',
+      'Metal vibration jigs in 3/8–1/2oz are the easiest to work',
+      'Jerkbait cadence: "jerk, then long pause (5–10 seconds)" is the winter standard',
+      'Midday warmth is your friend — time sessions for the 10am–2pm water-temp rise',
+    ],
+    faqEn: [
+      { question: 'What lures work for winter bass?', answer: 'Metal vibration lift-and-fall has the strongest track record. Reaction strikes are the key to triggering lethargic cold-water bass.' },
+      { question: 'What is the best time of day for winter bass?', answer: 'Midday (10am–2pm) when water temps rise is the prime window. Unlike summer, midday outperforms dawn in winter.' },
+    ],
   },
   {
     slug: 'winter-hirame',
@@ -477,6 +788,24 @@ export const seasonalGuides: SeasonalGuide[] = [
       { question: '冬のサーフヒラメは釣れる？', answer: '数は減りますが、12月〜1月は「寒ヒラメ」と呼ばれ大型・良型が狙えます。ボトム付近をスローに攻めるのがコツです。' },
       { question: '冬ヒラメのルアーアクションは？', answer: 'スローリトリーブとリフト&フォールの組み合わせが基本。リフト幅を抑えてボトムから離しすぎないことが重要です。' },
     ],
+    nameEn: 'Winter Japanese Flounder (Hirame) Lure Selection',
+    descriptionEn: 'Guide to winter (December–February) surf flounder fishing. Winter flounder (Kan-Birame) season — lure selection and patterns for premium-quality flatfish.',
+    patternsEn: [
+      'Winter flounder (Dec–Jan): Slow presentations tight to the bottom',
+      'Metal jig: Long-cast to reach deep offshore zones',
+      'Worm + jig head: Bottom-bump with a patient, methodical retrieve',
+      'Vibration jig: Lift-and-fall to trigger reaction bites in cold water',
+    ],
+    tipsEn: [
+      'Winter flounder are prized for flavor — "Kan-Birame" is considered the finest eating',
+      'The cardinal rule: keep your lure within 30cm of the bottom',
+      'Metal jigs in 30–40g efficiently probe deep water from the surf',
+      'Fish the same spots as autumn, but target deeper zones — flounder have moved out',
+    ],
+    faqEn: [
+      { question: 'Can you catch flounder from the surf in winter?', answer: 'Numbers decline, but December through January is "winter flounder" season — known for producing large, high-quality fish. Work the bottom slowly.' },
+      { question: 'What lure action works for winter flounder?', answer: 'Combine slow retrieves with lift-and-fall. Keep lifts short and stay glued to the bottom — never let your lure drift too far off the substrate.' },
+    ],
   },
   {
     slug: 'winter-trout',
@@ -501,6 +830,24 @@ export const seasonalGuides: SeasonalGuide[] = [
     faq: [
       { question: '冬のエリアトラウトで釣れるルアーは？', answer: 'マイクロスプーン（0.5〜1.5g）のデッドスローが最も安定します。クランクのボトムバンプも低活性時に有効です。' },
       { question: '冬トラウトのカラー選びは？', answer: '暗色系（オリーブ・カーキ・ブラウン）が冬の定番。水がクリアな日は特に効果的です。' },
+    ],
+    nameEn: 'Winter Trout Lure Selection (Area Trout)',
+    descriptionEn: 'Guide to winter (December–February) managed fishing area (stocked pond) trout. Lure selection and techniques for cold-water area trout fishing.',
+    patternsEn: [
+      'Micro spoon: Dead-slow retrieve with 0.5–1.5g ultra-light spoons',
+      'Crankbait bottom-knock: Slowly bump crankbaits along the bottom',
+      'Minnow twitch: Reaction-bite triggering with sharp twitches',
+      'Post-stocking: Fast-retrieve 2–3g spoons while fish are still aggressive',
+    ],
+    tipsEn: [
+      'Low activity is the winter default at managed fishing areas — dead-slow is the baseline',
+      'Dark-colored spoons (khaki, brown, olive) outperform in winter',
+      'Floating crankbaits on a dead-slow retrieve is the classic winter technique',
+      'Dropping to thinner line (2–3lb) noticeably improves bite rates',
+    ],
+    faqEn: [
+      { question: 'What lures catch area trout in winter?', answer: 'Micro spoons (0.5–1.5g) on a dead-slow retrieve are the most consistent producers. Crankbait bottom-bumping is also effective during low-activity periods.' },
+      { question: 'What colors work for winter trout?', answer: 'Dark tones — olive, khaki, and brown — are winter staples. They are especially effective on clear-water days.' },
     ],
   },
 ];

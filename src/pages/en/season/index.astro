@@ -1,0 +1,84 @@
+---
+/**
+ * 英語版 季節ガイド一覧ページ — /en/season/
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { seasonalGuides } from '../../../data/seasonal-guides';
+import { FISH_NAME_EN, LURE_TYPE_EN } from '../../../i18n/dictionaries/fishing-terms';
+
+const locale = 'en' as const;
+
+const SEASON_EN: Record<string, string> = {
+  spring: 'Spring (Mar–May)',
+  summer: 'Summer (Jun–Aug)',
+  autumn: 'Autumn (Sep–Nov)',
+  winter: 'Winter (Dec–Feb)',
+};
+
+const pageTitle = 'Seasonal Lure Guides | CAST/LOG';
+const pageDescription = 'Season-by-season JDM lure selection guides. Seabass, bass, trout, flounder, squid and more — find the right lure patterns for spring, summer, autumn and winter fishing in Japan.';
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Seasonal Guides', item: 'https://www.castlog.xyz/en/season/' },
+  ],
+};
+
+const jsonLd = [breadcrumbLd] as unknown as Record<string, unknown>;
+
+const seasons = [
+  { label: SEASON_EN.spring, slug: 'spring', guides: seasonalGuides.filter(g => g.seasonSlug === 'spring') },
+  { label: SEASON_EN.summer, slug: 'summer', guides: seasonalGuides.filter(g => g.seasonSlug === 'summer') },
+  { label: SEASON_EN.autumn, slug: 'autumn', guides: seasonalGuides.filter(g => g.seasonSlug === 'autumn') },
+  { label: SEASON_EN.winter, slug: 'winter', guides: seasonalGuides.filter(g => g.seasonSlug === 'winter') },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath="/en/season/" jsonLd={jsonLd} locale={locale}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">Seasonal Guides</span>
+    </nav>
+
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">SEASONAL GUIDE</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Seasonal Lure Guides</h1>
+      <p class="text-sm text-text-mid mt-1">
+        {seasonalGuides.length} guides — Season × species lure selection
+      </p>
+    </div>
+
+    <p class="text-sm text-gray-700 leading-relaxed mb-8">
+      Fish behavior changes dramatically with the seasons. Spring pre-spawn feeding, summer topwater action, autumn baitfish migration, winter deep-water tactics.
+      Choosing the right lure for each season is the fastest path to better catches.
+    </p>
+
+    {seasons.map(season => (
+      <section class="mb-10">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">{season.label}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {season.guides.map(guide => (
+            <a href={`/en/season/${guide.slug}/`} class="group block bg-white rounded-lg border border-gray-100 p-4 hover:border-accent hover:shadow-sm transition-all">
+              <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors">
+                {guide.nameEn ?? guide.name}
+              </p>
+              <p class="text-xs text-text-dim mt-1">
+                {FISH_NAME_EN[guide.fish] ?? guide.fish} — {guide.recommendedTypes.slice(0, 3).map(t => LURE_TYPE_EN[t] ?? t).join(', ')}
+              </p>
+              <p class="text-xs text-text-mid mt-2 line-clamp-2">
+                {guide.descriptionEn ?? guide.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+
+  </div>
+</BaseLayout>

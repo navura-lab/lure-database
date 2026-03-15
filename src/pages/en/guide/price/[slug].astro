@@ -1,0 +1,266 @@
+---
+/**
+ * 英語版 価格帯ガイドページ — /en/guide/price/[slug]/
+ */
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import LureCard from '../../../../components/LureCard.astro';
+import { fetchAllLures } from '../../../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../../../lib/group-lures';
+import { computeRankingScores } from '../../../../lib/ranking-score';
+import { getTypeSlug } from '../../../../lib/category-slugs';
+import { priceRanges } from '../../../../data/price-ranges';
+import { LURE_TYPE_EN } from '../../../../i18n/dictionaries/fishing-terms';
+import type { LureSeries } from '../../../../lib/types';
+import type { PriceRange } from '../../../../data/price-ranges';
+
+const locale = 'en' as const;
+const yen = String.fromCharCode(165);
+
+// ─── 静的パス生成 ───
+
+export async function getStaticPaths() {
+  const lures = await fetchAllLures();
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  return priceRanges.map(range => {
+    const matchingSeries = allSeries.filter(s => {
+      if (s.price_range.max === 0) return false;
+      return s.price_range.min <= range.priceMax && s.price_range.max >= range.priceMin;
+    });
+
+    const scoreMap = computeRankingScores(matchingSeries);
+    const sorted = matchingSeries.sort((a, b) => {
+      const sa = scoreMap.get(`${a.manufacturer_slug}/${a.slug}`)?.total ?? 0;
+      const sb = scoreMap.get(`${b.manufacturer_slug}/${b.slug}`)?.total ?? 0;
+      return sb - sa;
+    });
+
+    const byType = new Map<string, LureSeries[]>();
+    for (const s of sorted) {
+      if (!s.type) continue;
+      const existing = byType.get(s.type) || [];
+      existing.push(s);
+      byType.set(s.type, existing);
+    }
+
+    const typeGroups = [...byType.entries()]
+      .sort((a, b) => b[1].length - a[1].length)
+      .slice(0, 10)
+      .map(([typeName, series]) => ({
+        typeName,
+        typeSlug: getTypeSlug(typeName),
+        series,
+      }));
+
+    const makerCounts = new Map<string, number>();
+    for (const s of sorted) {
+      makerCounts.set(s.manufacturer, (makerCounts.get(s.manufacturer) ?? 0) + 1);
+    }
+    const topMakers = [...makerCounts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10);
+
+    return {
+      params: { slug: range.slug },
+      props: { range, typeGroups, totalCount: sorted.length, topMakers },
+    };
+  });
+}
+
+// ─── Props ───
+
+const { range, typeGroups, totalCount, topMakers } = Astro.props as {
+  range: PriceRange;
+  typeGroups: { typeName: string; typeSlug: string; series: LureSeries[] }[];
+  totalCount: number;
+  topMakers: [string, number][];
+};
+
+const slug = Astro.params.slug as string;
+const rangeName = range.nameEn ?? range.name;
+const rangeLabel = range.labelEn ?? range.label;
+const rangeCharacteristics = range.characteristicsEn ?? range.characteristics;
+const rangeBuyerProfile = range.buyerProfileEn ?? range.buyerProfile;
+const rangeTips = range.tipsEn ?? range.tips;
+const rangeFaq = range.faqEn ?? range.faq;
+
+// ─── SEO ───
+
+const currentYear = new Date().getFullYear();
+const pageTitle = `${rangeName} — Top ${totalCount} Picks ${currentYear} | CAST/LOG`;
+const pageDescription = range.descriptionEn ?? range.description;
+
+const otherRanges = priceRanges.filter(r => r.slug !== range.slug);
+
+// FAQ JSON-LD
+const faqEntries = rangeFaq.map(f => ({
+  '@type': 'Question' as const,
+  name: f.question,
+  acceptedAnswer: { '@type': 'Answer' as const, text: f.answer },
+}));
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqEntries,
+};
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: rangeName,
+  url: `https://www.castlog.xyz/en/guide/price/${slug}/`,
+  description: pageDescription,
+  inLanguage: 'en',
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Price Guide', item: 'https://www.castlog.xyz/en/guide/price/' },
+    { '@type': 'ListItem', position: 3, name: rangeName, item: `https://www.castlog.xyz/en/guide/price/${slug}/` },
+  ],
+};
+
+const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, unknown>;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/en/guide/price/${slug}/`} jsonLd={jsonLd} locale={locale}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/en/guide/price/" class="hover:text-accent transition-colors">Price Guide</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{rangeName}</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">PRICE GUIDE</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+        {rangeName} — {totalCount} Series
+      </h1>
+      <p class="text-sm text-text-mid mt-1">
+        {rangeLabel} — {typeGroups.length} lure types in this price range
+      </p>
+    </div>
+
+    <!-- Summary -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed mb-4">
+        {rangeCharacteristics}
+      </p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5">
+        <div>
+          <p class="text-xs text-text-dim">Price Range</p>
+          <p class="text-sm font-semibold text-gray-900">{rangeLabel}</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">Series</p>
+          <p class="text-sm font-semibold text-gray-900">{totalCount} series</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">Lure Types</p>
+          <p class="text-sm font-semibold text-gray-900">{typeGroups.length} types</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">Brands</p>
+          <p class="text-sm font-semibold text-gray-900">{topMakers.length}+ brands</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-xs text-text-dim mb-1">Best for</p>
+        <p class="text-sm text-gray-700">{rangeBuyerProfile}</p>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Selection Tips</h2>
+      <div class="bg-white rounded-lg border border-gray-100 p-4 sm:p-5">
+        <ul class="space-y-2">
+          {rangeTips.map(tip => (
+            <li class="text-sm text-gray-700 leading-relaxed flex gap-2">
+              <span class="text-accent shrink-0 mt-0.5">▸</span>
+              <span>{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Top Brands -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Top Brands in This Range</h2>
+      <div class="flex flex-wrap gap-2">
+        {topMakers.map(([maker, count]) => (
+          <span class="px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200">
+            {maker} ({count})
+          </span>
+        ))}
+      </div>
+    </section>
+
+    <!-- Lures by Type -->
+    {typeGroups.map(group => (
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <h2 class="text-lg font-bold text-gray-900">{LURE_TYPE_EN[group.typeName] ?? group.typeName}</h2>
+          <a href={`/en/type/${group.typeSlug}/`} class="text-xs text-text-mid hover:text-accent transition-colors">
+            View all →
+          </a>
+          <span class="text-xs text-text-dim">{group.series.length} series</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {group.series.slice(0, 4).map((s, i) => (
+            <LureCard series={s} isNew={false} priority={i < 2} locale={locale} />
+          ))}
+        </div>
+        {group.series.length > 4 && (
+          <p class="mt-3 text-sm text-text-mid">
+            {group.series.length - 4} more →
+            <a href={`/en/type/${group.typeSlug}/`} class="text-accent hover:underline">View all</a>
+          </p>
+        )}
+      </section>
+    ))}
+
+    <!-- FAQ -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">FAQ</h2>
+      <div class="space-y-3">
+        {rangeFaq.map(item => (
+          <details class="bg-white rounded-lg border border-gray-100 overflow-hidden group">
+            <summary class="px-4 py-3 text-sm font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
+              <span>{item.question}</span>
+              <span class="text-accent text-xs group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div class="px-4 pb-4 text-sm text-gray-700 leading-relaxed">
+              {item.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Other Price Ranges -->
+    <section class="mt-12 pt-8 border-t border-gray-100">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Other Price Ranges</h2>
+      <div class="flex flex-wrap gap-2">
+        {otherRanges.map(r => (
+          <a href={`/en/guide/price/${r.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+            {r.labelEn ?? r.label}
+          </a>
+        ))}
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>

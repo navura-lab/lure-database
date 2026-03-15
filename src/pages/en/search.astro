@@ -1,0 +1,362 @@
+---
+/**
+ * 英語版 検索ページ — /en/search/
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fetchAllLures } from '../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../lib/group-lures';
+import { LURE_TYPE_EN, FISH_NAME_EN } from '../../i18n/dictionaries/fishing-terms';
+
+const locale = 'en' as const;
+
+const lures = await fetchAllLures();
+const series = groupLuresBySeries(lures ?? []);
+
+const manufacturers = [...new Set(series.map(s => s.manufacturer))].sort();
+const types = [...new Set(series.map(s => s.type))].sort();
+const targetFish = [...new Set(series.flatMap(s => s.target_fish))].sort();
+
+const apiToken = import.meta.env.LDB_API_TOKEN || '';
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Search', item: 'https://www.castlog.xyz/en/search/' },
+  ],
+};
+---
+
+<BaseLayout
+  title="Lure Search — CAST/LOG"
+  description={`Search JDM fishing lures. ${series.length} series, ${lures?.length ?? 0} colors listed.`}
+  canonicalPath="/en/search/"
+  noindex={true}
+  jsonLd={breadcrumbLd as unknown as Record<string, unknown>}
+  locale={locale}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
+    <nav class="text-sm text-text-mid mb-4">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">Search</span>
+    </nav>
+    <h1 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Lure Search</h1>
+  </div>
+
+  <!-- Inline FilterBar (English) -->
+  <div class="bg-white border-b border-gray-100 sticky top-14 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div>
+          <label for="filter-manufacturer" class="sr-only">Brand</label>
+          <select
+            id="filter-manufacturer"
+            data-filter-manufacturer
+            class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          >
+            <option value="">Brand</option>
+            {manufacturers.map(m => (
+              <option value={m}>{m}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label for="filter-type" class="sr-only">Type</label>
+          <select
+            id="filter-type"
+            data-filter-type
+            class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          >
+            <option value="">Type</option>
+            {types.map(t => (
+              <option value={t}>{LURE_TYPE_EN[t] ?? t}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label for="filter-targetfish" class="sr-only">Target Fish</label>
+          <select
+            id="filter-targetfish"
+            data-filter-targetfish
+            class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          >
+            <option value="">Target Fish</option>
+            {targetFish.map(f => (
+              <option value={f}>{FISH_NAME_EN[f] ?? f}</option>
+            ))}
+          </select>
+        </div>
+        <div class="relative">
+          <label for="filter-search" class="sr-only">Search by lure name</label>
+          <input
+            id="filter-search"
+            type="text"
+            data-filter-search
+            placeholder="Search by lure name..."
+            class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 placeholder:text-gray-400 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          />
+          <button
+            data-filter-clear
+            class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs hidden"
+            aria-label="Clear filters"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <p id="results-count" class="text-sm text-text-mid mb-6"></p>
+
+    <div id="lure-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+    </div>
+
+    <div id="load-spinner" class="py-8 text-center">
+      <div class="inline-block h-6 w-6 animate-spin rounded-full border-2 border-accent border-t-transparent"></div>
+    </div>
+
+    <div id="load-more-sentinel" class="h-4"></div>
+
+    <div id="no-results" class="hidden text-center py-16">
+      <p class="text-text-mid">No lures match your criteria</p>
+      <button data-filter-reset class="mt-4 text-accent text-sm font-medium hover:underline">
+        Reset filters
+      </button>
+    </div>
+  </section>
+
+  <script define:vars={{ apiToken }}>
+    window.__LDB_T = apiToken;
+  </script>
+</BaseLayout>
+
+<script>
+  const grid = document.getElementById('lure-grid')!;
+  const countDisplay = document.getElementById('results-count')!;
+  const noResults = document.getElementById('no-results')!;
+  const sentinel = document.getElementById('load-more-sentinel')!;
+  const spinner = document.getElementById('load-spinner')!;
+  const manufacturerSelect = document.querySelector<HTMLSelectElement>('[data-filter-manufacturer]')!;
+  const typeSelect = document.querySelector<HTMLSelectElement>('[data-filter-type]')!;
+  const targetFishSelect = document.querySelector<HTMLSelectElement>('[data-filter-targetfish]')!;
+  const searchInput = document.querySelector<HTMLInputElement>('[data-filter-search]')!;
+  const clearBtn = document.querySelector<HTMLButtonElement>('[data-filter-clear]')!;
+  const resetBtn = document.querySelector<HTMLButtonElement>('[data-filter-reset]');
+
+  const TOKEN = (window as any).__LDB_T || '';
+
+  interface CardData {
+    slug: string;
+    name: string;
+    manufacturer: string;
+    manufacturer_slug: string;
+    type: string;
+    target_fish: string[];
+    representative_image: string | null;
+    color_count: number;
+    price_min: number;
+    price_max: number;
+    is_new: boolean;
+    has_limited: boolean;
+  }
+
+  interface CatalogResponse {
+    items: CardData[];
+    total: number;
+    page: number;
+    hasMore: boolean;
+  }
+
+  const BATCH_SIZE = 32;
+  let currentPage = 0;
+  let hasMore = true;
+  let isLoading = false;
+  let totalCount = 0;
+  let filterDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function readUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q') || '';
+    const mfr = params.get('manufacturer') || '';
+    const type = params.get('type') || '';
+    const fish = params.get('targetFish') || '';
+
+    if (q) searchInput.value = q;
+    if (mfr) manufacturerSelect.value = mfr;
+    if (type) typeSelect.value = type;
+    if (fish) targetFishSelect.value = fish;
+  }
+
+  function updateUrlParams() {
+    const params = new URLSearchParams();
+    const q = searchInput.value.trim();
+    const mfr = manufacturerSelect.value;
+    const type = typeSelect.value;
+    const fish = targetFishSelect.value;
+
+    if (q) params.set('q', q);
+    if (mfr) params.set('manufacturer', mfr);
+    if (type) params.set('type', type);
+    if (fish) params.set('targetFish', fish);
+
+    const qs = params.toString();
+    const newUrl = qs ? `/en/search/?${qs}` : '/en/search/';
+    history.replaceState(null, '', newUrl);
+  }
+
+  async function fetchCatalog(params: Record<string, string | number>): Promise<CatalogResponse | null> {
+    const qs = new URLSearchParams();
+    for (const [k, v] of Object.entries(params)) {
+      if (v !== '' && v !== 0) qs.set(k, String(v));
+    }
+    try {
+      const res = await fetch(`/api/catalog?${qs.toString()}`, {
+        headers: { 'X-LDB-Token': TOKEN, 'Accept': 'application/json' },
+      });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch {
+      return null;
+    }
+  }
+
+  function cardHtml(d: CardData): string {
+    const hasPrice = d.price_max > 0;
+    const yen = '\u00A5';
+    const priceDisplay = hasPrice
+      ? d.price_min === d.price_max
+        ? `${yen}${d.price_min.toLocaleString()}`
+        : `${yen}${d.price_min.toLocaleString()} – ${yen}${d.price_max.toLocaleString()}`
+      : '';
+
+    const imgHtml = d.representative_image
+      ? `<img src="${escHtml(d.representative_image)}" alt="${escHtml(d.manufacturer)} ${escHtml(d.name)} ${escHtml(d.type)}" loading="lazy" width="500" height="375" class="w-full h-full object-scale-down p-3">`
+      : `<div class="placeholder-lure-bg w-full h-full flex items-center justify-center"><span class="text-xs text-accent">${escHtml(d.type)}</span></div>`;
+
+    const badges = [
+      d.is_new ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-amber-50 text-amber-700 border-amber-200">New</span>` : '',
+      d.has_limited ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-purple-50 text-purple-700 border-purple-200">Limited</span>` : '',
+    ].filter(Boolean).join('');
+
+    return `<a href="/en/${escHtml(d.manufacturer_slug)}/${escHtml(d.slug)}/" class="group block">
+      <div class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 group-hover:shadow-card-hover group-hover:scale-[1.01]">
+        <div class="aspect-[4/3] relative overflow-hidden bg-white">
+          ${imgHtml}
+          <div class="absolute top-2 right-2 flex flex-col gap-1">${badges}</div>
+        </div>
+        <div class="p-4">
+          <p class="text-xs text-text-mid tracking-wider uppercase mb-1">${escHtml(d.manufacturer)}</p>
+          <h3 class="text-base font-bold text-gray-900 mb-1.5 group-hover:text-accent transition-colors">${escHtml(d.name)}</h3>
+          <div class="flex items-center gap-1.5 text-xs text-text-mid mb-3">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-accent-bg text-accent border-accent">${escHtml(d.type)}</span>
+            <span>${d.color_count} colors</span>
+          </div>
+          ${priceDisplay ? `<p class="text-sm font-bold text-gray-900">${priceDisplay}</p>` : ''}
+        </div>
+      </div>
+    </a>`;
+  }
+
+  function escHtml(s: string): string {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function appendCards(items: CardData[]) {
+    const fragment = document.createDocumentFragment();
+    const div = document.createElement('div');
+    for (const d of items) {
+      div.innerHTML = cardHtml(d);
+      const el = div.firstElementChild;
+      if (el) fragment.appendChild(el);
+    }
+    grid.appendChild(fragment);
+  }
+
+  async function loadPage() {
+    if (isLoading || !hasMore) return;
+    isLoading = true;
+    spinner.classList.remove('hidden');
+
+    const mfr = manufacturerSelect.value;
+    const type = typeSelect.value;
+    const fish = targetFishSelect.value;
+    const query = searchInput.value.trim();
+
+    const data = await fetchCatalog({
+      page: currentPage,
+      limit: BATCH_SIZE,
+      ...(mfr && { manufacturer: mfr }),
+      ...(type && { type }),
+      ...(fish && { targetFish: fish }),
+      ...(query && { search: query }),
+    });
+
+    spinner.classList.add('hidden');
+    isLoading = false;
+
+    if (!data) return;
+
+    appendCards(data.items);
+    totalCount = data.total;
+    currentPage++;
+    hasMore = data.hasMore;
+
+    countDisplay.textContent = `${totalCount} series found`;
+    grid.classList.toggle('hidden', totalCount === 0 && !hasMore);
+    noResults.classList.toggle('hidden', totalCount > 0 || hasMore);
+
+    if (!hasMore) {
+      sentinel.style.display = 'none';
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) loadPage();
+  }, { rootMargin: '400px' });
+  observer.observe(sentinel);
+
+  async function applyFilters() {
+    updateUrlParams();
+    grid.innerHTML = '';
+    currentPage = 0;
+    hasMore = true;
+    totalCount = 0;
+    sentinel.style.display = '';
+
+    const mfr = manufacturerSelect.value;
+    const type = typeSelect.value;
+    const fish = targetFishSelect.value;
+    const query = searchInput.value.trim();
+    const hasFilter = !!(mfr || type || fish || query);
+
+    clearBtn.classList.toggle('hidden', !hasFilter);
+    await loadPage();
+  }
+
+  function resetFilters() {
+    manufacturerSelect.value = '';
+    typeSelect.value = '';
+    targetFishSelect.value = '';
+    searchInput.value = '';
+    applyFilters();
+  }
+
+  function debouncedApplyFilters() {
+    if (filterDebounceTimer) clearTimeout(filterDebounceTimer);
+    filterDebounceTimer = setTimeout(applyFilters, 300);
+  }
+
+  [manufacturerSelect, typeSelect, targetFishSelect].forEach(el =>
+    el.addEventListener('change', applyFilters)
+  );
+  searchInput.addEventListener('input', debouncedApplyFilters);
+  clearBtn.addEventListener('click', resetFilters);
+  resetBtn?.addEventListener('click', resetFilters);
+
+  readUrlParams();
+  applyFilters();
+</script>

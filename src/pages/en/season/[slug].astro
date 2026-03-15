@@ -1,0 +1,306 @@
+---
+/**
+ * 英語版 季節×魚種ガイドページ — /en/season/[slug]/
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LureCard from '../../../components/LureCard.astro';
+import { fetchAllLures } from '../../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../../lib/group-lures';
+import { computeRankingScores } from '../../../lib/ranking-score';
+import { getTypeSlug, getFishSlug } from '../../../lib/category-slugs';
+import { seasonalGuides } from '../../../data/seasonal-guides';
+import { LURE_TYPE_EN, FISH_NAME_EN, SEASON_NAME_EN } from '../../../i18n/dictionaries/fishing-terms';
+import type { LureSeries } from '../../../lib/types';
+import type { SeasonalGuide } from '../../../data/seasonal-guides';
+
+const locale = 'en' as const;
+
+const SEASON_LABEL_EN: Record<string, string> = {
+  spring: 'Spring (Mar–May)',
+  summer: 'Summer (Jun–Aug)',
+  autumn: 'Autumn (Sep–Nov)',
+  winter: 'Winter (Dec–Feb)',
+};
+
+// ─── 静的パス生成 ───
+
+export async function getStaticPaths() {
+  const lures = await fetchAllLures();
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  return seasonalGuides.map(guide => {
+    const matchingSeries = allSeries.filter(s => {
+      if (!s.type) return false;
+      const typeMatch = guide.recommendedTypes.includes(s.type);
+      const fishMatch = s.target_fish.some(f => f === guide.fish);
+      return typeMatch && fishMatch;
+    });
+
+    const scoreMap = computeRankingScores(matchingSeries);
+    const sorted = matchingSeries.sort((a, b) => {
+      const sa = scoreMap.get(`${a.manufacturer_slug}/${a.slug}`)?.total ?? 0;
+      const sb = scoreMap.get(`${b.manufacturer_slug}/${b.slug}`)?.total ?? 0;
+      return sb - sa;
+    });
+
+    const byType = new Map<string, LureSeries[]>();
+    for (const s of sorted) {
+      const existing = byType.get(s.type) || [];
+      existing.push(s);
+      byType.set(s.type, existing);
+    }
+
+    const typeGroups = guide.recommendedTypes
+      .filter(t => byType.has(t))
+      .map(t => ({
+        typeName: t,
+        typeSlug: getTypeSlug(t),
+        series: byType.get(t)!,
+      }));
+
+    return {
+      params: { slug: guide.slug },
+      props: { guide, typeGroups, totalCount: sorted.length },
+    };
+  });
+}
+
+// ─── Props ───
+
+const { guide, typeGroups, totalCount } = Astro.props as {
+  guide: SeasonalGuide;
+  typeGroups: { typeName: string; typeSlug: string; series: LureSeries[] }[];
+  totalCount: number;
+};
+
+const slug = Astro.params.slug as string;
+const fishNameEn = FISH_NAME_EN[guide.fish] ?? guide.fish;
+const seasonLabelEn = SEASON_LABEL_EN[guide.seasonSlug] ?? guide.seasonSlug;
+const guideName = guide.nameEn ?? guide.name;
+
+// ─── 関連ランキングリンク ───
+
+const relatedRankings: { slug: string; label: string }[] = [];
+for (const type of guide.recommendedTypes) {
+  const rSlug = `${getFishSlug(guide.fish)}-${getTypeSlug(type)}`;
+  const typeEn = LURE_TYPE_EN[type] ?? type;
+  relatedRankings.push({ slug: rSlug, label: `${fishNameEn} × ${typeEn}` });
+}
+
+// ─── 同じ魚種の他シーズン ───
+
+const otherSeasons = seasonalGuides.filter(g =>
+  g.fish === guide.fish && g.slug !== guide.slug
+);
+
+// ─── SEO ───
+
+const currentYear = new Date().getFullYear();
+const pageTitle = `${guideName} — Best ${totalCount} Picks ${currentYear} | CAST/LOG`;
+const pageDescription = guide.descriptionEn ?? guide.description;
+
+const patterns = guide.patternsEn ?? guide.patterns;
+const tips = guide.tipsEn ?? guide.tips;
+const faq = guide.faqEn ?? guide.faq;
+
+// FAQ JSON-LD
+const faqEntries = faq.map(f => ({
+  '@type': 'Question' as const,
+  name: f.question,
+  acceptedAnswer: { '@type': 'Answer' as const, text: f.answer },
+}));
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqEntries,
+};
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: guideName,
+  url: `https://www.castlog.xyz/en/season/${slug}/`,
+  description: pageDescription,
+  inLanguage: 'en',
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Seasonal Guides', item: 'https://www.castlog.xyz/en/season/' },
+    { '@type': 'ListItem', position: 3, name: guideName, item: `https://www.castlog.xyz/en/season/${slug}/` },
+  ],
+};
+
+const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, unknown>;
+
+const recommendedTypesEn = guide.recommendedTypes.map(t => LURE_TYPE_EN[t] ?? t);
+const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/en/season/${slug}/`} jsonLd={jsonLd} locale={locale}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/en/season/" class="hover:text-accent transition-colors">Seasonal Guides</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{guideName}</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">{seasonLabelEn}</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+        {guideName} — Top {totalCount} Picks
+      </h1>
+      <p class="text-sm text-text-mid mt-1">
+        {fishNameEn} — {recommendedTypesEn.join(', ')}
+      </p>
+    </div>
+
+    <!-- Summary -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed mb-4">
+        {pageDescription}
+      </p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5">
+        <div>
+          <p class="text-xs text-text-dim">Season</p>
+          <p class="text-sm font-semibold text-gray-900">{guide.months.map(m => monthNames[m - 1]).join(', ')}</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">Target Fish</p>
+          <p class="text-sm font-semibold text-gray-900">{fishNameEn}</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">Recommended Lures</p>
+          <p class="text-sm font-semibold text-gray-900">{recommendedTypesEn.slice(0, 3).join(', ')}</p>
+        </div>
+        <div>
+          <p class="text-xs text-text-dim">Series</p>
+          <p class="text-sm font-semibold text-gray-900">{totalCount} series</p>
+        </div>
+      </div>
+
+      <!-- Tag links -->
+      <div class="flex flex-wrap gap-2">
+        <a href={`/en/fish/${getFishSlug(guide.fish)}/`} class="px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+          All {fishNameEn} lures
+        </a>
+        {guide.recommendedTypes.map(type => (
+          <a href={`/en/type/${getTypeSlug(type)}/`} class="px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+            All {LURE_TYPE_EN[type] ?? type} lures
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Patterns -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">{SEASON_NAME_EN[guide.season] ?? guide.season} Patterns</h2>
+      <div class="bg-white rounded-lg border border-gray-100 p-4 sm:p-5">
+        <ul class="space-y-3">
+          {patterns.map(pattern => (
+            <li class="text-sm text-gray-700 leading-relaxed flex gap-2">
+              <span class="text-accent shrink-0 mt-0.5">▸</span>
+              <span>{pattern}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Recommended Lures by Type -->
+    {typeGroups.map(group => (
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <h2 class="text-lg font-bold text-gray-900">{LURE_TYPE_EN[group.typeName] ?? group.typeName}</h2>
+          <a href={`/en/type/${group.typeSlug}/`} class="text-xs text-text-mid hover:text-accent transition-colors">
+            View all →
+          </a>
+          <span class="text-xs text-text-dim">{group.series.length} series</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {group.series.slice(0, 8).map((s, i) => (
+            <LureCard series={s} isNew={false} priority={i < 2} rank={i + 1} locale={locale} />
+          ))}
+        </div>
+        {group.series.length > 8 && (
+          <p class="mt-3 text-sm text-text-mid">
+            {group.series.length - 8} more →
+            <a href={`/en/type/${group.typeSlug}/`} class="text-accent hover:underline">View all</a>
+          </p>
+        )}
+      </section>
+    ))}
+
+    <!-- Tips -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Tips for {SEASON_NAME_EN[guide.season] ?? guide.season} {fishNameEn}</h2>
+      <div class="bg-white rounded-lg border border-gray-100 p-4 sm:p-5">
+        <ul class="space-y-2">
+          {tips.map(tip => (
+            <li class="text-sm text-gray-700 leading-relaxed flex gap-2">
+              <span class="text-accent shrink-0 mt-0.5">▸</span>
+              <span>{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="mb-10">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">FAQ</h2>
+      <div class="space-y-3">
+        {faq.map(item => (
+          <details class="bg-white rounded-lg border border-gray-100 overflow-hidden group">
+            <summary class="px-4 py-3 text-sm font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
+              <span>{item.question}</span>
+              <span class="text-accent text-xs group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div class="px-4 pb-4 text-sm text-gray-700 leading-relaxed">
+              {item.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Other Seasons -->
+    {otherSeasons.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Other Seasons for {fishNameEn}</h2>
+        <div class="flex flex-wrap gap-2">
+          {otherSeasons.map(other => (
+            <a href={`/en/season/${other.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+              {other.nameEn ?? other.name}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Rankings -->
+    {relatedRankings.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Related Catalogs</h2>
+        <div class="flex flex-wrap gap-2">
+          {relatedRankings.map(r => (
+            <a href={`/en/ranking/${r.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+              {r.label}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>

@@ -16,6 +16,14 @@ export interface PriceRange {
   buyerProfile: string;         // 想定ユーザー像
   tips: string[];               // 選び方のコツ
   faq: { question: string; answer: string }[];
+  // English fields (optional)
+  nameEn?: string;
+  descriptionEn?: string;
+  labelEn?: string;
+  characteristicsEn?: string;
+  buyerProfileEn?: string;
+  tipsEn?: string[];
+  faqEn?: { question: string; answer: string }[];
 }
 
 export const priceRanges: PriceRange[] = [
@@ -38,6 +46,21 @@ export const priceRanges: PriceRange[] = [
       { question: '1,000円以下のルアーでも釣れる？', answer: 'はい、十分釣れます。特にメタルジグやワームは価格と釣果の相関が低く、安価なものでも高い実釣性能を発揮します。' },
       { question: '初心者が最初に買うべき1,000円以下のルアーは？', answer: 'メタルジグ（20〜40g）とワーム+ジグヘッドのセットがおすすめ。幅広い魚種に対応でき、ロストしても懐が痛みにくいです。' },
     ],
+    nameEn: 'Lures Under $7 (¥1,000)',
+    descriptionEn: 'Best budget lures under $7 (¥1,000). Metal jigs, soft plastics, and other high-value JDM lures that deliver results without breaking the bank.',
+    labelEn: 'Under $7',
+    characteristicsEn: 'The sweet spot for beginners and anglers who fish heavy cover where snags are inevitable. Metal jigs and soft plastics dominate this range, and they catch fish just as well as pricier options. Being able to cast fearlessly into structure is the biggest advantage of fishing this price tier.',
+    buyerProfileEn: 'Beginners, budget-conscious anglers, anyone fishing snag-heavy spots where losing lures is part of the game',
+    tipsEn: [
+      'Metal jigs in this range deliver excellent casting distance and catch rates — no need to spend more',
+      'Soft plastics are the ultimate value pick; a single pack covers multiple fishing trips',
+      'Use these confidently around heavy cover and structure where snags are likely',
+      'Japanese 100-yen-shop lures (like Daiso) punch above their weight — especially jigs with proven track records',
+    ],
+    faqEn: [
+      { question: 'Can lures under $7 actually catch fish?', answer: 'Absolutely. Metal jigs and soft plastics in particular show very little correlation between price and catch rate. Budget JDM lures deliver serious performance on the water.' },
+      { question: 'What should a beginner buy first under $7?', answer: 'Start with a metal jig (20–40g) and a soft plastic + jighead combo. These cover a wide range of species and are easy on the wallet when you inevitably lose a few.' },
+    ],
   },
   {
     slug: '1000-1500',
@@ -57,6 +80,21 @@ export const priceRanges: PriceRange[] = [
     faq: [
       { question: 'この価格帯のルアーと高級ルアーの違いは？', answer: '基本的な釣果に大差はありません。高級品は飛距離・アクションの安定性・フック品質などで優れますが、この価格帯でも十分な実釣性能があります。' },
       { question: 'コスパの良いルアーブランドは？', answer: 'ダイワ、メジャークラフト、ジャクソン、ブルーブルーなどがこの価格帯で高品質なルアーを展開しています。' },
+    ],
+    nameEn: 'Lures $7–$10 (¥1,000–¥1,500)',
+    descriptionEn: 'Best lures in the $7–$10 range (¥1,000–¥1,500). Entry-level hard baits from top JDM brands at great value. Browse by lure type.',
+    labelEn: '$7–$10',
+    characteristicsEn: 'This is where entry-level hard baits start to appear. You will find standard models from major Japanese domestic brands alongside flagship products from international manufacturers. An excellent balance of performance and price.',
+    buyerProfileEn: 'Value-oriented anglers, those building out a lure collection, anyone looking for reliable backup lures',
+    tipsEn: [
+      'Vibrations and sinking pencils have particularly strong selection in this range',
+      'Watch for sales to stock up on proven performers at even better prices',
+      'This is the best tier for building out your color lineup without overspending',
+      'Crankbaits and spinnerbaits from brands like Daiwa and Major Craft are available here',
+    ],
+    faqEn: [
+      { question: 'How do these compare to premium lures?', answer: 'Catch rates are comparable. Premium lures may edge ahead in casting distance, action consistency, and hook quality, but $7–$10 JDM lures deliver solid real-world performance.' },
+      { question: 'Which brands offer the best value?', answer: 'Daiwa, Major Craft, Jackson, and Blue Blue all produce high-quality lures in this price range that rival more expensive competitors.' },
     ],
   },
   {
@@ -78,6 +116,21 @@ export const priceRanges: PriceRange[] = [
       { question: 'この価格帯でおすすめのミノーは？', answer: 'シマノ サイレントアサシン、ダイワ ショアラインシャイナーZ、ジャクソン アスリートなど、実績の高い定番モデルが揃っています。' },
       { question: '1,500〜2,000円は高い？安い？', answer: 'ハードルアーの相場としては標準的な価格帯です。最も選択肢が多く、性能と価格のバランスが良いゾーンです。' },
     ],
+    nameEn: 'Lures $10–$13 (¥1,500–¥2,000)',
+    descriptionEn: 'Best lures in the $10–$13 range (¥1,500–¥2,000). The volume zone for JDM lures — standard models from Shimano, Daiwa, Megabass, and more. Browse by type.',
+    labelEn: '$10–$13',
+    characteristicsEn: 'The volume zone with the widest selection of any price tier. This is where Shimano and Daiwa park their flagship series, and where Megabass and Evergreen offer mid-range models. Consider this the standard price point for Japanese lure fishing.',
+    buyerProfileEn: 'Intermediate anglers, those exploring specific lure types in depth, anyone choosing a main-rotation lure',
+    tipsEn: [
+      'Many of Shimano and Daiwa\'s most popular series fall squarely in this range',
+      'For minnows and sinking pencils, this tier offers the best quality-to-price ratio',
+      'Build your core lineup around this price point for the widest variety of proven models',
+      'Hook quality improves significantly here — most models are ready to fish straight out of the box',
+    ],
+    faqEn: [
+      { question: 'What are the best minnows in this range?', answer: 'The Shimano Silent Assassin, Daiwa Shoreline Shiner Z, and Jackson Athlete are all proven JDM performers with serious track records in this price tier.' },
+      { question: 'Is $10–$13 expensive or cheap for a lure?', answer: 'It is the standard price point for hard baits in Japan. This tier has the most options and offers the best balance between performance and cost.' },
+    ],
   },
   {
     slug: '2000-3000',
@@ -98,6 +151,21 @@ export const priceRanges: PriceRange[] = [
       { question: '2,000円以上のルアーは必要？', answer: '必須ではありませんが、飛距離・アクションの安定性・フック品質など、トータルの完成度が高くなります。特定の状況で差が出る場面があります。' },
       { question: 'この価格帯のビッグベイト入門モデルは？', answer: 'ジャッカルやメガバスのエントリーモデルがこの価格帯で購入可能。まずは2,000〜3,000円台のモデルで感覚を掴みましょう。' },
     ],
+    nameEn: 'Lures $13–$20 (¥2,000–¥3,000)',
+    descriptionEn: 'Best lures in the $13–$20 range (¥2,000–¥3,000). High-spec flagship models from top JDM brands. For anglers who demand peak performance.',
+    labelEn: '$13–$20',
+    characteristicsEn: 'The high-spec tier where each manufacturer\'s flagship models reside. Casting distance, action precision, and durability are all top-notch. This is also the entry point for big baits and jointed swimbaits in the Japanese market.',
+    buyerProfileEn: 'Advanced anglers, those who demand specific performance characteristics, big bait beginners',
+    tipsEn: [
+      'Lures in this range show a noticeable jump in casting distance and action precision',
+      'If you are getting into big baits or jointed swimbaits, this is the starting price tier',
+      'Hooks and split rings are premium quality as standard — no upgrades needed',
+      'Limited-edition colorways and brand collaborations are common at this price point',
+    ],
+    faqEn: [
+      { question: 'Are lures over $13 worth it?', answer: 'Not strictly necessary, but the overall completeness improves — casting distance, action stability, and hook quality all step up. The difference shows in specific situations where precision matters.' },
+      { question: 'What big baits can I get in this range?', answer: 'Entry-level models from Jackall and Megabass are available here. Start with a $13–$20 big bait to learn the feel before investing in higher-end options.' },
+    ],
   },
   {
     slug: 'over-3000',
@@ -117,6 +185,21 @@ export const priceRanges: PriceRange[] = [
     faq: [
       { question: '3,000円以上のルアーで釣果は変わる？', answer: '一般的なハードルアーでは劇的な差は出にくいですが、ビッグベイトなど大型ルアーはこの価格帯が標準です。飛距離やアクションの質で差が出る場面もあります。' },
       { question: '高級ルアーのロスト対策は？', answer: '根がかり回収機を携帯する、ストラクチャーの少ないオープンエリアで使用する、太めのリーダーを使用するなどの対策が有効です。' },
+    ],
+    nameEn: 'Premium Lures $20+ (¥3,000+)',
+    descriptionEn: 'Premium JDM lures over $20 (¥3,000+). Big baits, jointed swimbaits, handmade lures, and limited-edition collector items. Browse by type.',
+    labelEn: '$20+',
+    characteristicsEn: 'The premium tier dominated by big baits and jointed swimbaits. Handmade lures and limited-production runs live here too. Beyond pure fishing performance, there is a collectibility factor — this is where the art and craft of Japanese lure making truly shines.',
+    buyerProfileEn: 'Big bait enthusiasts, lure collectors, trophy hunters chasing personal records',
+    tipsEn: [
+      'Big baits from Jackall, Megabass, and Gan Craft cluster in the $20–$35 range',
+      'Handmade Japanese lures can exceed $70 — some anglers treat them as investments',
+      'Factor snag risk into your spot selection; losing a $30 lure stings',
+      'Limited-edition colorways often hold or increase in resale value among collectors',
+    ],
+    faqEn: [
+      { question: 'Do $20+ lures catch more fish?', answer: 'For standard hard baits, the difference is marginal. However, big baits and jointed swimbaits are priced here by default. Where premium lures excel is in casting distance, action refinement, and build quality.' },
+      { question: 'How do I avoid losing expensive lures?', answer: 'Carry a lure retriever, fish open areas with less structure, and use heavier leader material. These simple precautions dramatically reduce the pain of fishing premium tackle.' },
     ],
   },
 ];
