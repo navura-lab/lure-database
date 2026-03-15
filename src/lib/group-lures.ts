@@ -9,8 +9,29 @@ const FISH_NAME_NORMALIZE: Record<string, string> = {
   'ライギョ': '雷魚',
 };
 
+// 複合名を個別の魚種に展開（元の名前も保持する）
+// 例: 「ヒラメ・マゴチ」→ 「ヒラメ」「マゴチ」も追加
+const FISH_NAME_EXPAND: Record<string, string[]> = {
+  'ヒラメ・マゴチ': ['ヒラメ', 'マゴチ'],
+};
+
 function normalizeFishName(name: string): string {
   return FISH_NAME_NORMALIZE[name] ?? name;
+}
+
+/** 正規化 + 複合名展開で完全な魚種リストを生成 */
+function expandFishNames(names: string[]): string[] {
+  const result = new Set<string>();
+  for (const raw of names) {
+    const normalized = normalizeFishName(raw);
+    result.add(normalized);
+    // 複合名から個別魚種を展開
+    const expanded = FISH_NAME_EXPAND[normalized];
+    if (expanded) {
+      for (const e of expanded) result.add(e);
+    }
+  }
+  return [...result];
 }
 
 function stripHtmlTags(str: string): string {
@@ -100,10 +121,11 @@ export function groupLuresBySeries(lures: Lure[]): LureSeries[] {
     const weights = records.map(r => r.weight).filter(Boolean) as number[];
     const lengths = records.map(r => r.length).filter(Boolean) as number[];
 
+    // 正規化 + 複合名展開（「ヒラメ・マゴチ」→「ヒラメ」「マゴチ」も追加）
+    const rawTargetFish = expandFishNames(
+      records.flatMap(r => r.target_fish ?? [])
+    );
     // L1バリデーション: 不正な魚種×タイプ組み合わせを除去
-    const rawTargetFish = [...new Set(
-      records.flatMap(r => r.target_fish ?? []).map(normalizeFishName)
-    )];
     const l1TargetFish = filterInvalidFishForType(
       rep.type,
       removeNonFishEntries(rawTargetFish),

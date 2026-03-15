@@ -879,7 +879,7 @@ async function discoverEvergreen(page: Page): Promise<Array<{ url: string; name:
             const img = link.querySelector('img');
             const text = img?.getAttribute('alt')?.trim() || link.textContent?.trim() || '';
 
-            results.push({ url: fullUrl, text: text.substring(0, 100) });
+            results.push({ url: fullUrl, name: text.substring(0, 100) });
           }
         }
 
@@ -891,7 +891,7 @@ async function discoverEvergreen(page: Page): Promise<Array<{ url: string; name:
         if (seen.has(normalized)) continue;
         seen.add(normalized);
 
-        let name = p.text;
+        let name = p.name;
         if (!name) {
           const match = normalized.match(/\/goods_list\/([^/]+)\.html/i);
           name = match ? match[1] : '(名前取得失敗)';
@@ -2225,7 +2225,7 @@ var GAMAKATSU_EXCLUDE_PATTERNS = [
 ];
 
 // Product IDs that are confirmed NOT lure bodies (hooks/accessories/jigheads)
-var GAMAKATSU_EXCLUDE_IDS = new Set([
+var GAMAKATSU_EXCLUDE_IDS: Set<string> = new Set([
   // Worm hooks, assist hooks, jigheads, accessories etc.
   // These were identified during initial product classification
 ]);
@@ -3693,6 +3693,7 @@ async function discoverJumprize(): Promise<DiscoveredProduct[]> {
     results.push({
       url: rawUrl, // Use original (possibly encoded) URL
       name: pName,
+      maker: 'jumprize',
     });
   }
 
@@ -3756,7 +3757,7 @@ async function discoverThirtyfour(): Promise<DiscoveredProduct[]> {
             .replace(/&#8221;/g, '"')
             .trim()
         : pg.slug;
-      results.push({ url: link, name: pName });
+      results.push({ url: link, name: pName, maker: 'thirtyfour' });
     }
   }
 
@@ -3909,7 +3910,7 @@ async function discoverNoike(): Promise<DiscoveredProduct[]> {
           .trim()
       : slug;
 
-    results.push({ url: link, name: pName });
+    results.push({ url: link, name: pName, maker: 'noike' });
   }
 
   log('[noike] Discovered ' + results.length + ' lure products via WP REST API');

@@ -99,7 +99,7 @@ export const GET: APIRoute = async ({ params }) => {
 
     const pngBuffer = await generateOgImage(series);
 
-    return new Response(pngBuffer, {
+    return new Response(pngBuffer as unknown as BodyInit, {
       status: 200,
       headers: {
         'Content-Type': 'image/png',

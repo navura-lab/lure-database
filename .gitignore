@@ -24,6 +24,9 @@ pnpm-debug.log*
 # MCP config (contains OAuth secrets)
 .mcp.json
 
+# deprecated scripts (型エラーの原因になるため追跡除外)
+scripts/_deprecated/
+
 # macOS-specific files
 .DS_Store
 
