@@ -1,7 +1,7 @@
 /**
  * 記事翻訳キャッシュ（英語版）
  *
- * 12バッチファイルから統合。108記事の英語翻訳。
+ * 22バッチファイルから統合。158記事の英語翻訳。
  * slug → 翻訳済みフィールドのマップ。
  *
  * 未翻訳の記事は英語版ページが生成されない。
@@ -37,10 +37,20 @@ import { batch9a } from './_batch-9a';
 import { batch9b } from './_batch-9b';
 import { batch9c } from './_batch-9c';
 import { batch9d } from './_batch-9d';
+import { batch10a } from './_batch-10a';
+import { batch10b } from './_batch-10b';
+import { batch10c } from './_batch-10c';
+import { batch10d } from './_batch-10d';
+import { batch10e } from './_batch-10e';
+import { batch10f } from './_batch-10f';
+import { batch10g } from './_batch-10g';
+import { batch10h } from './_batch-10h';
+import { batch10i } from './_batch-10i';
+import { batch10j } from './_batch-10j';
 
 /**
  * 翻訳済み記事マップ（slug → TranslatedArticle）
- * 108記事の英語翻訳
+ * 158記事の英語翻訳
  */
 export const articleTranslationsEn: Record<string, TranslatedArticle> = {
   ...batch1,
@@ -55,4 +65,14 @@ export const articleTranslationsEn: Record<string, TranslatedArticle> = {
   ...batch9b,
   ...batch9c,
   ...batch9d,
+  ...batch10a,
+  ...batch10b,
+  ...batch10c,
+  ...batch10d,
+  ...batch10e,
+  ...batch10f,
+  ...batch10g,
+  ...batch10h,
+  ...batch10i,
+  ...batch10j,
 };
