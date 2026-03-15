@@ -11,7 +11,7 @@ const articleDateMap = new Map(
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://castlog.xyz',
+  site: 'https://www.castlog.xyz',
   output: 'static',
   trailingSlash: 'always',
   adapter: vercel(),
@@ -22,7 +22,7 @@ export default defineConfig({
     serialize: (item) => {
       const url = item.url;
       // ホームページ: 最高優先度・毎日更新
-      if (url === 'https://castlog.xyz/' || url === 'https://castlog.xyz') {
+      if (url === 'https://www.castlog.xyz/' || url === 'https://www.castlog.xyz') {
         return { ...item, changefreq: 'daily', priority: 1.0 };
       }
       // 新着ページ: 毎日更新

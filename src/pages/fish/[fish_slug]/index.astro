@@ -208,7 +208,7 @@ const collectionLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: `${fishName}向けルアー一覧`,
-  url: `https://castlog.xyz/fish/${fishSlug}/`,
+  url: `https://www.castlog.xyz/fish/${fishSlug}/`,
   description: pageDescription,
   mainEntity: {
     '@type': 'ItemList',
@@ -216,7 +216,7 @@ const collectionLd = {
     itemListElement: series.slice(0, 50).map((s, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: `https://castlog.xyz/${s.manufacturer_slug}/${s.slug}/`,
+      url: `https://www.castlog.xyz/${s.manufacturer_slug}/${s.slug}/`,
       name: `${s.manufacturer} ${s.name}`,
     })),
   },
@@ -226,9 +226,9 @@ const breadcrumbLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://castlog.xyz/' },
-    { '@type': 'ListItem', position: 2, name: '対象魚', item: 'https://castlog.xyz/fish/' },
-    { '@type': 'ListItem', position: 3, name: fishName, item: `https://castlog.xyz/fish/${fishSlug}/` },
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: 'https://www.castlog.xyz/' },
+    { '@type': 'ListItem', position: 2, name: '対象魚', item: 'https://www.castlog.xyz/fish/' },
+    { '@type': 'ListItem', position: 3, name: fishName, item: `https://www.castlog.xyz/fish/${fishSlug}/` },
   ],
 };
 

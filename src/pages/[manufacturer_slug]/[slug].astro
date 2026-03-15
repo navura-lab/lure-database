@@ -401,7 +401,7 @@ const offersLd = hasPrice
         priceCurrency: 'JPY',
         price: series.price_range.min,
         availability: 'https://schema.org/InStock',
-        url: `https://castlog.xyz/${series.manufacturer_slug}/${series.slug}/`,
+        url: `https://www.castlog.xyz/${series.manufacturer_slug}/${series.slug}/`,
       }
     : {
         '@type': 'AggregateOffer',
@@ -424,7 +424,7 @@ const jsonLd: Record<string, unknown> = {
   },
   category: series.type,
   sku: `${series.manufacturer_slug}-${series.slug}`,
-  url: `https://castlog.xyz/${series.manufacturer_slug}/${series.slug}/`,
+  url: `https://www.castlog.xyz/${series.manufacturer_slug}/${series.slug}/`,
   ...(uniqueImages.length > 0 ? { image: uniqueImages } : {}),
   ...(offersLd ? { offers: offersLd } : {}),
   additionalProperty: [
@@ -470,25 +470,25 @@ const breadcrumbLd = {
       '@type': 'ListItem',
       position: 1,
       name: 'トップ',
-      item: 'https://castlog.xyz/',
+      item: 'https://www.castlog.xyz/',
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'メーカー一覧',
-      item: 'https://castlog.xyz/maker/',
+      item: 'https://www.castlog.xyz/maker/',
     },
     {
       '@type': 'ListItem',
       position: 3,
       name: series.manufacturer,
-      item: `https://castlog.xyz/${series.manufacturer_slug}/`,
+      item: `https://www.castlog.xyz/${series.manufacturer_slug}/`,
     },
     {
       '@type': 'ListItem',
       position: 4,
       name: series.name,
-      item: `https://castlog.xyz/${series.manufacturer_slug}/${series.slug}/`,
+      item: `https://www.castlog.xyz/${series.manufacturer_slug}/${series.slug}/`,
     },
   ],
 };
@@ -712,7 +712,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
   title={pageTitle}
   description={pageDescription}
   canonicalPath={canonicalPathOverride || `/${series.manufacturer_slug}/${series.slug}/`}
-  ogImage={`https://castlog.xyz/og/${series.manufacturer_slug}/${series.slug}/`}
+  ogImage={`https://www.castlog.xyz/og/${series.manufacturer_slug}/${series.slug}/`}
   ogType="product"
   jsonLd={combinedJsonLd}
 >
@@ -1455,7 +1455,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
     <div class="flex items-center gap-3 pt-6 border-t border-gray-100 mb-6">
       <span class="text-xs text-text-dim font-mono">SHARE:</span>
       <a
-        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${series.manufacturer} ${series.name} | CAST/LOG`)}&url=${encodeURIComponent(`https://castlog.xyz/${series.manufacturer_slug}/${series.slug}/`)}`}
+        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${series.manufacturer} ${series.name} | CAST/LOG`)}&url=${encodeURIComponent(`https://www.castlog.xyz/${series.manufacturer_slug}/${series.slug}/`)}`}
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-text-dim border border-border rounded hover:border-accent hover:text-accent transition-colors"
@@ -1463,7 +1463,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
         X(Twitter)
       </a>
       <a
-        href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(`https://castlog.xyz/${series.manufacturer_slug}/${series.slug}/`)}`}
+        href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(`https://www.castlog.xyz/${series.manufacturer_slug}/${series.slug}/`)}`}
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-text-dim border border-border rounded hover:border-accent hover:text-accent transition-colors"

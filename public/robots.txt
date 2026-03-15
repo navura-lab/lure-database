@@ -14,4 +14,4 @@ Crawl-delay: 2
 Disallow: /api/
 Disallow: /trap/
 
-Sitemap: https://castlog.xyz/sitemap-index.xml
+Sitemap: https://www.castlog.xyz/sitemap-index.xml

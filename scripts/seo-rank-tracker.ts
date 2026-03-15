@@ -82,7 +82,7 @@ async function collectDailyRankings(): Promise<DailyRankingData> {
   log(`Got ${rows.length} page×query combinations`);
 
   const rankings: PageQueryRanking[] = rows.map(r => ({
-    page: r.keys[0].replace(SITE_URL.replace(/\/$/, ''), '').replace('https://castlog.xyz', ''),
+    page: r.keys[0].replace(SITE_URL.replace(/\/$/, ''), '').replace('https://www.castlog.xyz', ''),
     query: r.keys[1],
     clicks: r.clicks,
     impressions: r.impressions,

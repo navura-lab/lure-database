@@ -746,7 +746,7 @@ async function main(): Promise<void> {
         if (!accessToken) {
           log(`⚠️ Failed to get access token: ${JSON.stringify(tokenData)}`);
         } else {
-          const siteUrl = process.env.GSC_SITE_URL || 'https://castlog.xyz/';
+          const siteUrl = process.env.GSC_SITE_URL || 'https://www.castlog.xyz/';
           const quotaProject = process.env.GOOGLE_QUOTA_PROJECT || 'plucky-mile-486802-j6';
 
           // ルアーページ + メーカーページ（新規メーカーの場合）のURLを送信

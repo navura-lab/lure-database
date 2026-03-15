@@ -9,19 +9,19 @@ async function main() {
   pages.sort((a: any, b: any) => b.impressions - a.impressions);
   console.log('\n--- Top 20 ページ（インプレッション順） ---');
   pages.slice(0, 20).forEach((p: any, i: number) => {
-    const path = p.url.replace('https://castlog.xyz', '');
+    const path = p.url.replace('https://www.castlog.xyz', '');
     console.log(`  ${i+1}. ${path} | imp=${p.impressions} click=${p.clicks} pos=${p.position.toFixed(1)}`);
   });
   
   // 404候補: vercel.jsonにリダイレクト済みの旧URLがGSCに残ってないか
   const oldSlugs = pages.filter((p: any) => {
-    const path = p.url.replace('https://castlog.xyz', '');
+    const path = p.url.replace('https://www.castlog.xyz', '');
     return path.includes('%') || path.includes('_') || /[A-Z]/.test(path);
   });
   if (oldSlugs.length > 0) {
     console.log(`\n--- 旧フォーマットURL（404候補） ---`);
     oldSlugs.forEach((p: any) => {
-      const path = p.url.replace('https://castlog.xyz', '');
+      const path = p.url.replace('https://www.castlog.xyz', '');
       console.log(`  ${path} | imp=${p.impressions}`);
     });
   }

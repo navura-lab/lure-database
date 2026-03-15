@@ -354,7 +354,7 @@ async function main() {
     let ourMeta: PageMeta | null = null;
     if (target.page) {
       // target.page は既に正規化済み（相対パス）
-      const ourUrl = `https://castlog.xyz${target.page}`;
+      const ourUrl = `https://www.castlog.xyz${target.page}`;
       logV(`  Fetching our page: ${ourUrl}`);
       ourMeta = await extractPageMeta(ourUrl);
     }

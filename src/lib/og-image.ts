@@ -40,7 +40,7 @@ async function loadFont(): Promise<ArrayBuffer> {
   // ファイルシステムにない場合はGoogle Fonts CDNからfetch（Vercelサーバーレス関数用）
   const cdnUrls = [
     'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-jp@latest/japanese-700-normal.ttf',
-    'https://castlog.xyz/fonts/NotoSansJP-Bold.ttf',
+    'https://www.castlog.xyz/fonts/NotoSansJP-Bold.ttf',
   ];
 
   for (const cdnUrl of cdnUrls) {
