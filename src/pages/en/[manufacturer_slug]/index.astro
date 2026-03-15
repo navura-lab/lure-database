@@ -12,6 +12,7 @@ import { manufacturerDescriptionsEn } from '../../../data/manufacturer-descripti
 import { contentArticles } from '../../../data/articles/_index.js';
 import type { LureSeries } from '../../../lib/types';
 import { LURE_TYPE_EN, FISH_NAME_EN } from '../../../i18n/dictionaries/fishing-terms';
+import { articleTranslationsEn } from '../../../i18n/cache/article-translations-en';
 
 const locale = 'en' as const;
 
@@ -148,6 +149,17 @@ for (const fish of allTargetFish.slice(0, 4)) {
     relatedRankings.push({ slug, label: `${FISH_NAME_EN[fish] ?? fish} ${LURE_TYPE_EN[t.type] ?? t.type}` });
   }
 }
+
+// Related articles (translated only)
+const makerFish = new Set(series.flatMap(s => Array.isArray(s.target_fish) ? s.target_fish : []));
+const makerTypes = new Set(series.map(s => s.type));
+
+const relatedContentArticles = contentArticles
+  .filter(a =>
+    (a.slug in articleTranslationsEn) &&
+    (a.targetFish.some(f => makerFish.has(f)) || a.targetTypes.some(t => makerTypes.has(t)))
+  )
+  .slice(0, 5);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/en/${manufacturerSlug}/`} jsonLd={jsonLd} locale={locale}>
@@ -363,6 +375,27 @@ for (const fish of allTargetFish.slice(0, 4)) {
         }
       });
     </script>
+
+    <!-- Related Articles -->
+    {relatedContentArticles.length > 0 && (
+      <section class="mt-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Related Articles</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {relatedContentArticles.map(a => {
+            const translated = articleTranslationsEn[a.slug];
+            return (
+              <a href={`/en/article/${a.slug}/`} class="flex items-start gap-3 p-3 bg-white rounded-lg border border-gray-100 hover:border-accent transition-colors">
+                <span class="text-accent shrink-0 mt-0.5">&#9656;</span>
+                <div>
+                  <p class="text-sm font-medium text-gray-900">{translated?.h1 ?? a.h1}</p>
+                  <p class="text-xs text-text-mid mt-1 line-clamp-2">{translated?.description ?? a.description}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
 
     <!-- FAQ -->
     {faqItems.length > 0 && (

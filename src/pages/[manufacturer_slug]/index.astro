@@ -165,10 +165,15 @@ const eatMonth = now.getMonth() + 1;
 
 // ─── 関連特集記事（魚種 or タイプが一致）───
 
-const relatedContentArticles = contentArticles.filter(a =>
-  a.targetFish.some(f => allTargetFish.includes(f)) ||
-  a.targetTypes.some(t => typeBreakdown.some(tb => tb.type === t))
-).slice(0, 3);
+const makerFish = new Set(series.flatMap(s => Array.isArray(s.target_fish) ? s.target_fish : []));
+const makerTypes = new Set(series.map(s => s.type));
+
+const relatedContentArticles = contentArticles
+  .filter(a =>
+    a.targetFish.some(f => makerFish.has(f)) ||
+    a.targetTypes.some(t => makerTypes.has(t))
+  )
+  .slice(0, 5);
 
 // ─── FAQ JSON-LD（リッチスニペット用）───
 
@@ -626,15 +631,18 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
       </section>
     )}
 
-    <!-- 関連特集記事（contentArticles: 魚種/タイプ一致） -->
+    <!-- 関連記事（contentArticles: 魚種/タイプ一致） -->
     {relatedContentArticles.length > 0 && (
-      <section class="mt-8 pt-8 border-t border-gray-100">
-        <h2 class="text-lg font-bold text-gray-900 mb-4">関連特集記事</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <section class="mt-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連記事</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {relatedContentArticles.map(a => (
-            <a href={`/article/${a.slug}/`} class="flex flex-col gap-1 px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
-              <p class="text-sm font-semibold text-gray-900 line-clamp-2">{a.h1}</p>
-              <p class="text-xs text-text-dim">{a.targetFish.slice(0, 3).join('・')}{a.targetTypes.length > 0 ? ` / ${a.targetTypes.slice(0, 2).join('・')}` : ''}</p>
+            <a href={`/article/${a.slug}/`} class="flex items-start gap-3 p-3 bg-white rounded-lg border border-gray-100 hover:border-accent transition-colors">
+              <span class="text-accent shrink-0 mt-0.5">▸</span>
+              <div>
+                <p class="text-sm font-medium text-gray-900">{a.h1}</p>
+                <p class="text-xs text-text-mid mt-1 line-clamp-2">{a.description}</p>
+              </div>
             </a>
           ))}
         </div>

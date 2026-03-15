@@ -3,6 +3,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import LureCard from '../../../components/LureCard.astro';
 import { getTypeSlug, getFishSlug } from '../../../lib/category-slugs';
 import { guideArticles } from '../../../data/guides';
+import { contentArticles } from '../../../data/articles/_index';
+import { articleTranslationsEn } from '../../../i18n/cache/article-translations-en';
 import { getRankingPaths } from '../../../lib/paths/ranking-paths';
 import type { RankingPathProps } from '../../../lib/paths/ranking-paths';
 import type { LureSeries } from '../../../lib/types';
@@ -123,6 +125,11 @@ const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity
 const collectionLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `${fishEn} ${typeEn} Catalog`, url: `https://www.castlog.xyz/en/ranking/${slug}/`, description: pageDescription, inLanguage: 'en', mainEntity: { '@type': 'ItemList', numberOfItems: rankedSeries.length, itemListElement: rankedSeries.slice(0, 50).map((s, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://www.castlog.xyz/en/${s.manufacturer_slug}/${s.slug}/`, name: `${s.manufacturer} ${s.name}`, ...(s.representative_image ? { image: s.representative_image } : {}), description: `${LURE_TYPE_EN[s.type] ?? s.type} · ${s.color_count} colors${s.price_range.max > 0 ? ` · from ${formatPrice(s.price_range.min, locale)}` : ''}` })) } };
 const breadcrumbLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' }, { '@type': 'ListItem', position: 2, name: 'Catalog', item: 'https://www.castlog.xyz/en/ranking/' }, { '@type': 'ListItem', position: 3, name: `${fishEn} × ${typeEn}`, item: `https://www.castlog.xyz/en/ranking/${slug}/` }] };
 const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, unknown>;
+
+// ─── Related Articles (translated only) ───
+const relatedArticles = contentArticles
+  .filter(a => articleTranslationsEn[a.slug] && (a.targetFish.includes(fishName) || a.targetTypes.includes(typeName)))
+  .slice(0, 5);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/en/ranking/${slug}/`} jsonLd={jsonLd} locale={locale}>
@@ -223,6 +230,27 @@ const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, 
         </div>
       ))}
     </div>
+
+    <!-- Related Articles -->
+    {relatedArticles.length > 0 && (
+      <section class="mt-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Related Articles</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {relatedArticles.map(a => {
+            const t = articleTranslationsEn[a.slug]!;
+            return (
+              <a href={`/en/article/${a.slug}/`} class="flex items-start gap-3 p-3 bg-white rounded-lg border border-gray-100 hover:border-accent transition-colors">
+                <span class="text-accent shrink-0 mt-0.5">▸</span>
+                <div>
+                  <p class="text-sm font-medium text-gray-900">{t.h1}</p>
+                  <p class="text-xs text-text-mid mt-1 line-clamp-2">{t.description}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
 
     <!-- About Rankings -->
     <section class="mt-12 pt-8 border-t border-gray-100">

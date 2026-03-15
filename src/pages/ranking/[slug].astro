@@ -4,6 +4,7 @@ import LureCard from '../../components/LureCard.astro';
 import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { rankingDescriptions } from '../../data/ranking-descriptions';
 import { guideArticles } from '../../data/guides';
+import { contentArticles } from '../../data/articles/_index';
 import { getRankingPaths } from '../../lib/paths/ranking-paths';
 import type { RankingPathProps } from '../../lib/paths/ranking-paths';
 import type { LureSeries } from '../../lib/types';
@@ -208,6 +209,11 @@ const breadcrumbLd = {
 };
 
 const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, unknown>;
+
+// ─── 関連記事（contentArticles） ───
+const relatedArticles = contentArticles
+  .filter(a => a.targetFish.includes(fishName) || a.targetTypes.includes(typeName))
+  .slice(0, 5);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/ranking/${slug}/`} jsonLd={jsonLd}>
@@ -351,6 +357,24 @@ const jsonLd = [collectionLd, breadcrumbLd, faqLd] as unknown as Record<string, 
         </section>
       ) : null;
     })()}
+
+    <!-- 関連記事 -->
+    {relatedArticles.length > 0 && (
+      <section class="mt-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連記事</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {relatedArticles.map(a => (
+            <a href={`/article/${a.slug}/`} class="flex items-start gap-3 p-3 bg-white rounded-lg border border-gray-100 hover:border-accent transition-colors">
+              <span class="text-accent shrink-0 mt-0.5">▸</span>
+              <div>
+                <p class="text-sm font-medium text-gray-900">{a.h1}</p>
+                <p class="text-xs text-text-mid mt-1 line-clamp-2">{a.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
 
     <!-- 掲載順について -->
     <section class="mt-12 pt-8 border-t border-gray-100">

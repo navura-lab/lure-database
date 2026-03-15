@@ -9,6 +9,7 @@ import { groupLuresBySeries } from '../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../lib/category-slugs';
 import makerLogos from '../data/maker-logos.json';
 import { guideArticles } from '../data/guides';
+import { contentArticles } from '../data/articles/_index';
 
 const lures = await fetchAllLures();
 const series = groupLuresBySeries(lures ?? []);
@@ -192,6 +193,36 @@ const jsonLd = {
                 <time datetime={guide.updatedAt}>{guide.updatedAt}</time>
                 <span>{guide.targetFish.join('・')}</span>
               </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 特集記事 -->
+    {contentArticles.length > 0 && (
+      <section>
+        <SectionHeading title="特集記事" href="/article/" slashLabel="ARTICLE" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {contentArticles.slice(-6).reverse().map(a => (
+            <a href={`/article/${a.slug}/`} class="group block bg-white rounded-lg border border-border-light p-4 hover:border-accent hover:shadow-sm transition-all duration-[0.15s]">
+              <div class="flex items-center gap-2 mb-2">
+                <span class={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
+                  a.type === 'color-guide' ? 'bg-blue-50 text-blue-600' :
+                  a.type === 'review-analysis' ? 'bg-amber-50 text-amber-600' :
+                  a.type === 'howto' ? 'bg-green-50 text-green-600' :
+                  'bg-gray-50 text-gray-600'
+                }`}>
+                  {a.type === 'color-guide' ? 'カラー' : a.type === 'review-analysis' ? 'レビュー' : a.type === 'howto' ? 'ハウツー' : '選び方'}
+                </span>
+                <span class="text-[10px] text-text-dim font-mono">{a.targetFish.join('・')}</span>
+              </div>
+              <h3 class="text-[14px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s] mb-2 line-clamp-2">
+                {a.h1}
+              </h3>
+              <p class="text-[12px] text-text-mid leading-relaxed line-clamp-2">
+                {a.description}
+              </p>
             </a>
           ))}
         </div>

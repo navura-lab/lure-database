@@ -115,6 +115,31 @@ import hirameMinnowGuide from './hirame-minnow-guide.js';
 import kurodaiRubberJig from './kurodai-rubber-jig.js';
 import flatfishJighead from './flatfish-jighead.js';
 import bassWormTexasRig from './bass-worm-texas-rig.js';
+// 追加記事（第10弾 — Web調査ベース）
+// Batch A: ショアジギ/サワラ/冬バス/渓流/カラーガイド
+import shoreJiggingGuide from './shore-jigging-guide.js';
+import sawaraLure from './sawara-lure.js';
+import winterBassLure from './winter-bass-lure.js';
+import sakuramasuLure from './sakuramasu-lure.js';
+import lureColorGuideGeneral from './lure-color-guide-general.js';
+// Batch B: 渓流/ナマズ/タチウオ/イカメタル
+import keiryuLure from './keiryu-lure.js';
+import namazuLure from './namazu-lure.js';
+import tachiuoWinding from './tachiuo-winding.js';
+import ikaMetalGuide from './ika-metal-guide.js';
+import chiningWorm from './chining-worm.js';
+// Batch C: シーバス初心者/季節バス/季節シーバス
+import seabassBeginner from './seabass-beginner.js';
+import springBassLure from './spring-bass-lure.js';
+import autumnBassLure from './autumn-bass-lure.js';
+import summerSeabassLure from './summer-seabass-lure.js';
+import winterSeabassLure from './winter-seabass-lure.js';
+// Batch D: レビュー/カラーガイド
+import vj16Review from './vj-16-review.js';
+import sasuke120Color from './sasuke-120-color.js';
+import silentAssassinColor from './silent-assassin-color.js';
+import kagelouReview from './kagelou-review.js';
+import lureFishingBeginner from './lure-fishing-beginner.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -219,6 +244,27 @@ export const contentArticles: ContentArticle[] = [
   kurodaiRubberJig,
   flatfishJighead,
   bassWormTexasRig,
+  // 第10弾（Web調査ベース）
+  shoreJiggingGuide,
+  sawaraLure,
+  winterBassLure,
+  sakuramasuLure,
+  lureColorGuideGeneral,
+  keiryuLure,
+  namazuLure,
+  tachiuoWinding,
+  ikaMetalGuide,
+  chiningWorm,
+  seabassBeginner,
+  springBassLure,
+  autumnBassLure,
+  summerSeabassLure,
+  winterSeabassLure,
+  vj16Review,
+  sasuke120Color,
+  silentAssassinColor,
+  kagelouReview,
+  lureFishingBeginner,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────

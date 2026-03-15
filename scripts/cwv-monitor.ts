@@ -124,7 +124,7 @@ async function main() {
     }
 
     // Rate limit: 3 req/min without API key
-    if (!process.env.PSI_API_KEY) await new Promise(r => setTimeout(r, 22000));
+    if (!process.env.PSI_API_KEY) await new Promise(r => setTimeout(r, 25000));
 
     // Desktop
     console.log(`  🖥️  ${label} (desktop)...`);
@@ -136,7 +136,7 @@ async function main() {
       console.log(`    Perf: ${desktop.performance} | LCP: ${desktop.lcp}ms | CLS: ${desktop.cls} | TBT: ${desktop.tbt}ms | TTFB: ${desktop.ttfb}ms`);
     }
 
-    if (!process.env.PSI_API_KEY) await new Promise(r => setTimeout(r, 22000));
+    if (!process.env.PSI_API_KEY) await new Promise(r => setTimeout(r, 25000));
   }
 
   // Summary

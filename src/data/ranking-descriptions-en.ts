@@ -1,668 +1,685 @@
 // src/data/ranking-descriptions-en.ts
-// English ranking page editorial descriptions
-// Keys: {fish_slug}-{type_slug} (e.g., seabass-minnow)
-// 331 entries — mirrors ranking-descriptions.ts
+// English editorial descriptions for ranking pages
+// Key: {fish_slug}-{type_slug} (e.g. seabass-minnow)
+// Translated from ranking-descriptions.ts (Japanese)
 export const rankingDescriptionsEn: Record<string, string> = {
   'seabass-minnow':
-    'Minnows deliver the best baitfish imitation when targeting Japanese Seabass in rivers and tidal flats. Drift them just below the surface and let the current impart a rolling action to trigger strikes. Size selection in the 90–120 mm range should match the prevailing forage.',
+    'When targeting seabass in rivers and tidal flats, minnows offer the best baitfish imitation. Drifting them just below the surface and letting them roll in current seams triggers aggressive strikes. Choose sizes between 90-120mm, matching the prevailing forage.',
   'seabass-vibration':
-    'Lipless crankbaits let you cover water from bottom to mid-column efficiently when chasing Japanese Seabass. In autumn, a fast retrieve triggers reaction strikes, while a dead-slow crawl near bottom with tight wobble excels in winter. They are proven performers around bridge pilings and shadow lines.',
+    'Vibration lures cover a wide range from bottom to mid-water with excellent casting efficiency. During the aggressive fall feeding frenzy, fast retrieves trigger reaction strikes, while dead-slow winter presentations keep a tight wobble near the bottom. They also excel around bridge pilings in light-shadow transitions.',
   'seabass-sinking-pencil':
-    'Sinking pencils shine on the drift and slow retrieve for Japanese Seabass. Letting the current sweep them in an S-curve faithfully mimics a wounded baitfish. Essential for trophy hunting on surf and river mouths, they also excel under dock lights at night.',
+    'Sinking pencils shine when drifted or slow-retrieved. Letting the current carry them in an S-shaped trajectory faithfully replicates a struggling baitfish. Essential for trophy seabass in surf and river mouths, they also produce well around streetlights during night sessions.',
   'seabass-metal-vib':
-    'Metal vibs—often called iron-plate lures in Japan—combine casting distance with fast sink rates. Lift-and-fall along the bottom sends strong vibrations that pull Seabass from a wide area. Even in winter when activity drops, these lures draw bites; they are especially effective during baitfish migrations in rivers.',
+    'Metal vibes, also known as blade baits, leverage exceptional casting distance and fast sink rates. Working the bottom with a lift-and-fall cadence sends vibrations that attract seabass from a wide area. They coax bites even during low-activity winter conditions, with hit rates spiking during baitfish migration periods in rivers.',
   'seabass-pencilbait':
-    'A pencil bait\'s walk-the-dog action directly targets the predatory instinct of Japanese Seabass. Work it side to side on the surface and pause—strikes often come right at the stop. Indispensable during autumn Inakko (juvenile mullet) patterns and morning-twilight blitzes, it delivers high visual excitement.',
+    'The walking-the-dog action of a pencil bait directly targets the seabass predatory instinct. Working it side-to-side on the surface and pausing often triggers strikes at the moment it stops. Indispensable for fall mullet patterns and dawn surface blitzes, it delivers the most visually thrilling topwater experience.',
   'seabass-popper':
-    'A popper\'s explosive report can pull Japanese Seabass to the surface from depth. The cupped face pushes water to create sound and spray that attract fish from far away. When sardines or Konoshiro shad are being driven to the surface, nothing beats a popper for topwater action.',
+    'A popper\'s explosive sound can pull seabass all the way to the surface. The cupping action pushes water to create noise and splash that reaches fish from considerable distance. When sardines or gizzard shad are being herded to the surface, popper-based topwater tactics are overwhelmingly effective.',
   'seabass-metal-jig':
-    'When targeting Japanese Seabass from surf or rocky shores, a metal jig\'s casting distance decides the game. On shallow surf, skip a slow-style jig across the surface; in river mouths, use vertical lift-and-fall. Jigs in the 30–50 g range offer the best versatility where bluerunners also roam.',
+    'For seabass from surf and rocky shores, metal jig casting distance is the deciding factor. On shallow surf, skipping a slow-pitch jig across the surface works well, while river mouths call for vertical lift-and-fall presentations. In mixed pelagic zones, 30-50g jigs offer the best versatility.',
   'seabass-spintail':
-    'Spintail jigs combine blade flash with a soft-body\'s fluid action. They stimulate both the lateral line and vision of Seabass, making them especially effective during low-light conditions at dawn and dusk. A slow retrieve with a quivering tail also triggers bites on the fall.',
+    'Spintail lures combine blade flash with the supple movement of a soft body. They stimulate both the seabass\'s vision and lateral line, making them particularly effective during low-light conditions at dawn and dusk. A slow retrieve with a subtle tail vibration also produces strikes on the fall.',
   'seabass-bigbait':
-    'Big baits unleash their full power during Konoshiro shad or mullet seasons for Japanese Seabass. Their weight favors close-range casts over distance, banking on sheer presence to target trophy fish. The wobble generated by multi-jointed bodies displaces serious water, pulling in fish over 90 cm.',
+    'Big baits come into their own during gizzard shad and mullet seasons. Their weight limits casting range, but their sheer presence excels at drawing trophy-class fish at close quarters. The wobbling generated by jointed segments displaces serious water, pulling in seabass over 90cm.',
   'seabass-worm':
-    'Soft plastics are the most persistent presentation for lethargic Japanese Seabass. A dead-slow shad-tail retrieve generates just enough tail vibration to coax a bite. Slow-rolling or dragging bottom around structure is the trump card when hard baits draw no response.',
+    'Soft plastics offer the most persistent presentation for inactive seabass. Dead-slow-retrieved shad tails produce bites through tail micro-vibrations alone. Slow-rolling and dragging along the bottom near structure serve as the ace up your sleeve when hardbaits fail to draw a response.',
   'seabass-jighead':
-    'A jig head rig offers pinpoint accuracy for targeting Japanese Seabass. Head weight selection—typically 1–10 g—matched to depth and current is the key variable. Swimming or lift-and-fall techniques in current let you fine-tune the bite window.',
+    'Jighead rigs deliver pinpoint accuracy when targeting seabass in specific zones. Selecting the right head weight for the depth and target range is critical, with 1-10g being the standard range. Swimming and lift-and-fall techniques in current allow precise timing of the strike window.',
   'seabass-blade-bait':
-    'The thin metal body\'s vibration and flash are the hallmarks of blade baits. They produce stable vibration at any speed and remain effective year-round. For shade-line attacks around bridge pilings and tetrapods, a vertical lift-and-fall lifts fish off the bottom.',
+    'Thin metal bodies generate distinctive vibration and flash. They produce stable vibration across both fast and slow retrieves, delivering year-round versatility. For working shade zones around bridge pilings and tetrapods, vertical lift-and-fall presentations draw fish up from the bottom.',
   'seabass-shad':
-    'Shad plugs match the compact silhouette of Haku (juvenile mullet) and Ami (mysid shrimp) that Seabass feed on. During micro-bait patterns, a small shad on a dead-slow retrieve draws strikes from fish that ignore everything else. The combined roll action and subtle vibration seal the deal.',
+    'Shad plugs excel with their compact silhouette that mimics juvenile mullet and mysid shrimp. During micro bait patterns, dead-slow-retrieving a small shad draws strikes from fish that ignore everything else. The combination of rolling action and subtle vibration is what triggers the bite.',
   'seabass-jointed-bait':
-    'The S-curve action born from a jointed bait\'s hinge stimulates the predatory instinct of Japanese Seabass. Its seductive dead-slow shimmy is the main weapon—simply drifting it in current can trigger bites from trophy fish. This is a lure favored by dedicated trophy hunters, meant to be fished slowly and deliberately.',
+    'The S-shaped action born from a jointed bait\'s hinge point triggers the seabass predatory instinct. Its sinuous movement at dead-slow speed is the ultimate weapon — simply letting it drift in current can draw strikes from trophy-class fish. This is a lure that rewards the patient, methodical angler.',
   'seabass-crankbait':
-    'Crankbaits use their lip to control diving depth while generating a steady wobble. The tangible feel of the lip grabbing water in current makes them intuitive to fish, and they excel at efficiently covering shallow zones. Deflecting off riprap and structure creates the trigger that provokes strikes.',
+    'Crankbaits control diving depth via the lip while generating stable wobble. The lip\'s grip on the water is easy to feel, making them efficient for searching shallow areas. Deflections off riprap and structure create erratic movements that trigger feeding responses.',
   'seabass-swimbait':
-    'Swimbaits fool pressured Japanese Seabass with natural swimming action and realistic profiles. From one-piece to multi-jointed designs, matching the situation is key. They swim convincingly even at slow speeds and can be worked from bottom to surface across any depth.',
+    'Swimbaits overcome pressured seabass with natural swimming action and realistic profiles. Choosing between one-piece and multi-jointed types to match conditions is key. They swim convincingly even at slow speeds and can work effectively from bottom to surface.',
   'black-bass-worm':
-    'Soft plastics are both the foundation and the deepest rabbit hole of bass fishing. Texas rigs, drop-shots, Neko rigs—the versatility is endless. The slower you work them along structure changes, the more bites you draw even on highly pressured waters. Size, color, and material selection determine your catch rate.',
+    'Soft plastics are both fundamental and endlessly versatile in bass fishing. Texas rigs, drop shots, and Neko rigs handle diverse presentations, and the slower you work them along bottom contours, the more likely you are to get bites on pressured waters. Size, color, and material selection directly determine your catch rate.',
   'black-bass-crankbait':
-    'Crankbaits are the ultimate search tool for covering vast areas efficiently. Lip shape dictates diving depth, so tracing them tight along weed tops and rock ledges is essential. The erratic deflection when the lip contacts hard bottom triggers instinctive bass strikes.',
+    'Crankbaits are ideal for efficiently searching large areas. Lip shape determines diving depth, so tracing tightly along weed tops and rock ledges is essential. The deflection-triggered erratic flash when contacting cover is the primary bite trigger for largemouth bass.',
   'black-bass-minnow':
-    'Minnows come into their own for sight-fishing and spawning-season Largemouth Bass. Flash and roll action agitate bedding fish, while the natural presentation fools even pressured bass. Jerk-and-pause along shallow cover edges is the standard tactic.',
+    'Minnows truly shine for sight-fishing and spawn-period bass tactics. Flash and roll action provoke nest-guarding fish, and they coax bites from pressure-wise bass with natural presentations. Working shallow cover edges with a jerk-and-pause cadence is the textbook approach.',
   'black-bass-spinnerbait':
-    'Spinnerbaits combine snag resistance for punching through cover with blade flash—a true all-around weapon. Especially lethal in stained water and low-light mornings, they search wide swaths of water quickly. Slow-rolling near the bottom draws big fish.',
+    'Spinnerbaits are all-purpose weapons combining excellent snag resistance for punching cover with blade flash appeal. They are particularly effective in stained water and low-light mornings. Slow-rolling near the bottom draws bigger bass and serves as a premier search bait across wide areas.',
   'black-bass-vibration':
-    'Lipless crankbaits are high-powered search baits that perform across all seasons. Fast retrieves probe the mid-column while bottom contact triggers reaction bites. They shine brightest when depth is hard to read, such as post-turnover in fall or the depths of winter.',
+    'Vibration plugs deliver outstanding search capability for bass in all seasons. Fast retrieves probe the mid-water column while bottom contact triggers reaction strikes. They see the most action during periods when depth is hard to read, such as winter deep patterns and post-turnover fall fishing.',
   'black-bass-rubber-jig':
-    'Rubber jigs specialize in reaching big bass buried deep in cover. The skirt\'s motion suggests bluegill or crawfish, and a slow fall gives the fish time to commit. Trailer selection drastically alters the action, so fine-tuning directly impacts your results.',
+    'Rubber jigs specialize in reaching big bass buried deep in cover. Skirt movement suggests bluegill or crawfish, while a slow fall lets the fish study and commit to the bait. Trailer selection dramatically changes the action profile, making fine-tuning directly impact your results.',
   'black-bass-bigbait':
-    'Big baits are tools for selectively targeting trophy bass. A large silhouette and heavy water displacement awaken the predatory instinct of lunker fish. They produce best during pre-spawn in spring and the fall feed-up, demanding strategic use on expansive waters to single out monster-sized fish.',
+    'Big baits are tools designed to selectively target trophy bass. Oversized profiles and heavy water displacement awaken the predatory instinct of the largest fish. They have a proven track record during pre-spawn spring and the fall feeding binge, demanding a strategic approach to target monsters on expansive fisheries.',
   'black-bass-shad':
-    'Shad-style soft baits excel at matching the Wakasagi (pond smelt) and Moroko (minnow) that bass feed on. The tight wobble-and-roll balance translates directly into bites, even when water temperatures drop and activity slows. The ability to cover depths from deep to shallow is a major asset.',
+    'Shad-profile lures excel at matching forage like smelt and minnows that bass feed on. The balance of tight wobble and roll translates directly into a feeding trigger, coaxing bites even when water temperatures drop and activity slows. Their ability to work from deep to shallow makes them extremely versatile.',
   'black-bass-popper':
-    'A popper explosion on the surface is one of bass fishing\'s most thrilling moments. The cupped face generates sound and rings that trigger the predatory instinct of bass, bringing them up through the water column. On shallow morning and evening bites around vegetation, a measured pause-and-pop cadence is the key.',
+    'A popper explosion on the surface is one of the most exciting moments in bass fishing. The sound and ripple pattern from the concave face triggers the bass attack instinct, bringing fish all the way to the surface. On shallow flats and around vegetation at dawn and dusk, a well-paced cadence with deliberate pauses is the key to success.',
   'black-bass-swimbait':
-    'Swimbaits offer a finesse presentation that covers shallow to deep water evenly. Worm-like natural materials catch the current and roll the tail, fooling even line-shy bass. Weight configuration and retrieve speed together control the running depth.',
+    'Swimbaits probe shallow to deep water uniformly as finesse-oriented lures. Soft, natural materials receive current and generate tail roll, coaxing bites from pressured bass without triggering suspicion. Range control comes from matching weight selection to retrieve speed.',
   'black-bass-chatterbait':
-    'Chatterbaits combine high-frequency blade vibration with trailer movement for a compound action that bass find irresistible. They cut through weeds and cover cleanly, making them user-friendly in dense structure. Especially dominant around the spawn, they show high selectivity for big fish.',
+    'Chatterbaits combine high-frequency blade vibration with trailer action for a compound presentation. Their ability to cut through weeds and cover makes them user-friendly in dense structure. They are especially potent around the spawn, showing high selectivity for big bass.',
   'black-bass-pencilbait':
-    'A pencil bait\'s walk-the-dog action flips the aggression switch in bass. Work it slowly with side-to-side headshakes, pausing to create a feeding window. It is most effective during topwater-sensitive dawn periods and when baitfish push to the surface at dusk.',
+    'The walking-the-dog action of a pencil bait flips the feeding switch on bass. Working it slowly side-to-side and creating pauses for the fish to strike is fundamental. It is especially effective during dawn surface feeds and evening hours when bait moves to the surface.',
   'black-bass-buzzbait':
-    'The continuous splashing and churning of a buzzbait\'s propeller calls bass to the surface. High-speed surface retrieves along seawalls and reed edges dramatically increase blowups. On summer mornings and overcast days it can produce all day, condensing the thrill of topwater fishing into every cast.',
+    'The continuous splashing sound and spray from a buzzbait\'s propeller draw bass to the surface. High-speed surface retrieves are the standard, and tracing along seawalls and reed lines dramatically increases blowups. On summer mornings and overcast days, the bite can last all day, delivering the pure essence of topwater bass fishing.',
   'black-bass-crawler-bait':
-    'Crawler baits use their arms to push water, creating a unique wake and sound that draws bass in. They keep working even at ultra-slow speeds, making them effective during low-activity periods and under high-temperature pressure. Dawn on a calm surface is prime time for this style.',
+    'Crawler baits attract bass with the unique wave action and sound generated by their arms displacing water. They maintain action even at ultra-slow retrieves, making them effective during low-activity periods and high-pressure warm-water conditions. Early morning calm-water sessions see the most action.',
   'black-bass-frog':
-    'Frogs make it possible to fish over weed mats and lily pads where no other lure can go. To haul big bass up through heavy cover, heavy line is a must. Pause length and the moment after splashdown are the critical factors that trigger a strike.',
+    'Frogs enable a one-of-a-kind approach — skating across weed mats and lily pads. Pulling heavyweight bass through dense cover to the surface demands heavy line. The length of pause and timing after the cast are critical factors in triggering bites.',
   'black-bass-jointed-bait':
-    'The S-curve slalom of a jointed bait replicates the swimming motion of living prey with uncanny realism. Its sinuous dead-slow action visually stimulates spawning-related big bass. Add a jerk for erratic movement and you can also trigger reaction strikes—a multi-dimensional lure.',
+    'The S-shaped slalom action of a jointed bait faithfully replicates a living creature\'s swim. Its seductive movement at dead-slow speed visually stimulates big spawning-season bass with remarkable effectiveness. Adding jerks creates erratic movement, making it a multifaceted lure that also triggers reaction strikes.',
   'black-bass-metal-vib':
-    'Metal vibs are purpose-built for quickly probing deep-water bottom. Lift-and-fall in the vertical plane tempts bass during the pause. In the coldest water of winter when targeting deep fish, this is one of the most effective vibration-class patterns available.',
+    'Metal vibes specialize in quickly probing deep-water bottoms. Vertical lift-and-fall presentations create a feeding window on the drop where bass commit. During winter low-water-temperature deep patterns, they rank among the most effective vibration-category techniques.',
   'black-bass-i-shape':
-    'I-shape lures swim in a near-straight line with minimal action—a secret weapon against pressured bass. Simply dead-slow retrieving a slim shad or pin-tail worm just below the surface creates a dazed, drifting motion that triggers the predatory instinct. They prove their worth on clear, high-pressure fisheries.',
+    'I-shaped lures are a secret weapon against pressured bass, running in an ultra-simple near-straight trajectory. Dead-slow-retrieving a slender shad or pintail worm just below the surface, drifting languidly, triggers the bass predatory instinct. They show their true value on clear, high-pressure fisheries.',
   'black-bass-spintail':
-    'Spintail jigs combine a soft body with blade flash to appeal through both vibration and sight. Slow-rolling through the mid-column is the bread-and-butter technique, with the blade\'s reflected light flipping the feed switch. Their unique action draws bites even on pressured waters.',
+    'Spintail lures combine a worm body with blade flash, appealing to both sight and vibration. Slow-rolling through the mid-water column is the fundamental approach, where the reflected light from the blade flips the feeding switch. Even on pressured waters, their unique action coaxes bites.',
   'black-bass-propbait':
-    'The sound and surface ripples from a prop bait\'s spinning blade attract bass from a wide area. Combining pauses with short twitches to deliberately create feeding windows is the key to success. Focused morning and evening sessions let you efficiently target quality fish on the surface.',
+    'The sound and ripple pattern from a propbait\'s prop blades attract bass from a wide area. Combining pauses with short twitches to intentionally create strike windows is the key to success. Deploying them during dawn and dusk when bass are surface-oriented maximizes trophy-class opportunities.',
   'black-bass-sinking-pencil':
-    'Sinking pencils trigger bites with their shimmer and horizontal posture during the fall. Letting out slack for a fluttering, irregular descent draws reaction strikes. Pause during a slow mid-column retrieve and trailing bass commit on the drop.',
+    'Sinking pencils coax strikes from bass with their shimmer and horizontal posture during the fall. Feeding slack line and letting them drop creates an irregular fluttering motion that triggers reaction bites. Pausing during a slow mid-water retrieve lets trailing bass commit on the subsequent fall.',
   'black-bass-blade-bait':
-    'Blade baits weaponize the intense vibration and flash of a thin metal body. Vertical lift-and-fall jigging is devastating on deep bass, capable of drawing bites even in the coldest water of winter. Their compact silhouette relative to weight is an added advantage.',
+    'Blade baits leverage the intense vibration and flash from thin metal bodies. Vertical lift-and-fall tactics are especially effective on deep bass, with proven ability to coax bites even during peak winter cold. Their compact silhouette relative to weight is an additional advantage.',
   'black-bass-topwater':
-    'Topwater fishing—where you see the bass blow up on your lure—delivers the ultimate adrenaline rush. Concentrate casts during early morning calm to draw aggressive surface strikes from shallow-holding big bass. Lure type matters less than timing and spot selection.',
+    'Topwater fishing, where you witness the strike firsthand, delivers the ultimate adrenaline rush. Focusing early morning casts during calm surface conditions draws big shallow-suspended bass into aggressive surface strikes. Timing and spot selection matter more than lure type.',
   'black-bass-jighead':
-    'A jig head rig paired with a shad or curly-tail and fished on a swimming retrieve is the standard approach. Light heads swim through shallows; heavier heads with a drop reach deep bottom. The freedom to dial in any depth while reading bottom contours makes this rig incredibly versatile.',
+    'Jighead rigs paired with shad tails or curly tails for swimming presentations are the standard approach. Light heads for shallow work and heavy heads with fall pauses for deep bottom tactics offer tremendous range flexibility. Reading terrain and dialing in the optimal depth zone is key.',
   'trout-spoon':
-    'Spoons are the origin and most versatile lure in trout fishing. Weight and size adapt to current speed and depth, producing actions from slow rolls to fast retrieves. Flash-reflecting overcast skies or early mornings tend to concentrate strikes.',
+    'The spoon is the origin of trout fishing and remains the most versatile lure. Weight and size adapt to current speed and depth, producing diverse actions from slow rolls to fast retrieves. Flash reflects particularly well under overcast skies and at dawn, when strikes tend to concentrate.',
   'trout-minnow':
-    'Trout minnows work from mountain streams to managed ponds. Heavy-sinking types hold their depth in fast current, with a flash-and-roll action that excels on Char and Yamame. The skill of drifting the lure into slack water behind boulders directly affects your catch.',
+    'Trout minnows work across a wide range of scenarios, from mountain streams to managed fisheries. Heavy sinking types hold their range in strong current and flash to effectively target char and yamame trout. Drifting into current seams and delivering the lure behind boulders is the technique that determines success.',
   'trout-crankbait':
-    'Trout crankbaits shine during dead-slow presentations at managed fisheries. The lip stabilizes the diving depth while generating subtle wobble that triggers even lethargic Rainbow Trout. Just slightly reducing retrieve speed can make a dramatic difference in getting bites.',
+    'Trout crankbaits reach their full potential during dead-slow tactics at managed fisheries. The lip stabilizes diving depth while generating subtle wobble that triggers responses from inactive rainbow trout. Simply dropping the retrieve speed can dramatically improve your catch rate.',
   'trout-spinner':
-    'The spinning blade and flash of a spinner is the fastest route to a trout\'s reaction strike. Adjusting retrieve speed so the blade stays spinning steadily in current is fundamental—the moment it stalls, the bites stop. An upstream cast retrieved back down (up-cross technique) is the classic method.',
+    'The rotating blade flash of a spinner is the fastest route to triggering a trout reflex strike. Adjusting retrieve speed to maintain consistent blade rotation in current is fundamental — the instant the blade stalls, the bites stop. Upstream casting and retrieving back is the textbook approach.',
   'trout-vibration':
-    'Trout-sized lipless crankbaits offer the mobility to search a wide depth range for pressured fish at managed fisheries. Focus on micro-class sizes during low-light periods with a slow retrieve for consistent results. Strikes frequently come on the fall, so line tension management is critical.',
+    'Trout vibration lures provide the mobility to search a wide range of depths for pressured fish at managed fisheries. Focus on micro-class sizes during low-light conditions with a slow retrieve for consistent results. Bites frequently come during the fall, making line tension management essential.',
   'trout-sinking-pencil':
-    'Sinking pencils counter trout wariness with a natural, drifting presentation. The swaying fall suggests a weakened baitfish and triggers predatory instinct. In mountain streams, dropping one into the white water of a riffle and drifting it can produce strikes from unexpected lies.',
+    'Sinking pencils counter trout wariness with their natural movement. The drifting, fluttering fall imitates a wounded baitfish, triggering feeding responses. In mountain streams, casting into whitewater riffles and drifting can produce fish from unexpected lies.',
   'trout-spinnerbait':
-    'Trout-sized spinnerbaits—typically single-blade models—are best suited for searching lightly pressured ponds and lakes. The blade\'s flash and water displacement draw Amago and Cherry Salmon from distance. Slow-rolling near bottom in deeper areas tends to produce larger fish.',
+    'Trout-sized spinnerbaits feature single blades and suit searching in lakes and ponds with lower fishing pressure. Blade flash and water displacement attract cherry salmon and landlocked salmon from a wide area. Slow-rolling near the bottom in deeper zones tends to draw bigger fish.',
   'bluerunner-metal-jig':
-    'Metal jigs combine extreme casting distance with high-speed sink rates for targeting pelagics. Rhythmic jerk-and-fall action works both horizontal and vertical planes to trigger chasing strikes from Yellowtail and Amberjack. Choose jig weight at roughly 3x the water depth, sinking to bottom before working a one-pitch retrieve back up.',
+    'The metal jig\'s casting range and fast sink rate are the ultimate weapons for pelagic species. Alternating jerks and falls across multiple depths provokes chase strikes from yellowtail and amberjack. Select weight at roughly three times the water depth, sink to the bottom, then work back up with one-pitch jerk retrieves.',
   'bluerunner-minnow':
-    'Minnows for bluerunner species achieve perfect match-the-hatch imitation of sardines and anchovies. Jerk-and-pause after a long cast combines flash and sudden stops to trigger bites. On surface-feeding blitzes, start the retrieve immediately on splashdown to hook fast-moving Spanish Mackerel and Bluefish.',
+    'Minnows for pelagics deliver a perfect match-the-hatch presentation for sardines and anchovies. Working them with a jerk-and-pause cadence after a long cast produces flash and sudden stops that trigger strikes. During surface blitzes, start retrieving immediately after splashdown to connect with Spanish mackerel.',
   'bluerunner-popper':
-    'Popper fishing over a pelagic blitz is the peak of topwater excitement. The cupped face pushes splash and sound that further excite bluerunners already driving bait to the surface, producing explosive surface strikes. Dog-walking with quick jerks and high-speed pauses reduces missed bites.',
+    'Nothing matches the excitement of casting a popper into a pelagic surface blitz. The splash and sound from the cupping face further excite fish already chasing bait, drawing explosive surface strikes. Combining fast dog-walking jerks with quick pauses reduces missed hookups.',
   'bluerunner-sinking-pencil':
-    'Sinking pencils are a staple for targeting pelagics. Fall-bite patterns are common—let the lure sink through the school\'s depth, then slow-wobble it back up. They are particularly effective along tide lines and current breaks, with bites concentrating during the pause after a jerk.',
+    'The sinking pencil is a staple of pelagic fishing. Fall-bite patterns dominate, so count down to target the layer just below the surface commotion and entice with slow wobble. They are especially effective around current seams and tidal transitions, where pausing after a jerk concentrates the bites.',
   'bluerunner-diving-pencil':
-    'Diving pencils are worked with the rod to grab water, producing a unique splash-and-dive action that draws pelagics in. The near-surface swimming is visually exciting and easily flips the feeding switch. A rhythmic rod cadence is the key, with best results at dawn and dusk.',
+    'Diving pencils use rod work to grab the water, producing distinctive splash-and-dive action that draws pelagics in. The subsurface swim provides high visual excitement and readily flips the feeding switch. Rhythmic rod work is essential, with dawn and dusk windows producing the most consistent results.',
   'bluerunner-pencilbait':
-    'Pencil baits float on the surface, enticing pelagics through walk-the-dog and splash actions. They are ideal for casting into surface blitzes when bait is being pushed up. The interplay of movement and pause becomes the bite trigger. Always confirm the swim action by adjusting hook size and setting before fishing.',
+    'Pencil baits entice pelagics with dog-walking and splash presentations on the surface. They are ideal for surface-blitz situations where bait is being pushed up, and varying between stop-and-go cadences serves as the feeding trigger. Check the swim action by adjusting hook size and rigging before starting.',
   'bluerunner-vibration':
-    'Lipless crankbaits excel when pelagic activity is low or when you need to probe deeper zones. Lift-and-fall or steady retrieves search a wide area, and the strong vibration maintains presence even in dim conditions at dawn and dusk. Varying the countdown to find the cruising depth is the fundamental technique.',
+    'Vibration lures shine when pelagic activity slows or when targeting deeper zones. Lift-and-fall and steady retrieves search a wide area, and their strong water displacement maintains presence even in dim pre-dawn conditions. Varying the countdown to locate the cruising depth is the fundamental approach.',
   'bluerunner-spintail':
-    'The flash and vibration from a spintail jig\'s rear blade directly trigger the predatory instinct of pelagics. A simple steady retrieve produces ample action, and the blade keeps spinning even on the fall. The stronger the current hitting the blade, the more it turns and the greater the appeal.',
+    'The blade flash and vibration from a spintail appeals directly to the pelagic predatory instinct. A simple steady retrieve generates sufficient action, and the blade continues spinning even during the fall. The stronger the current at a given spot, the faster the blade spins, amplifying its appeal.',
   'bluerunner-metal-vib':
-    'Metal vibs sink fast, reaching bottom reliably even in deep water or strong wind. Repeated lift-and-fall thoroughly covers the bottom zone and excels where pelagics are pinning bait against sand flats or reef edges. Maintaining stable operation against the current is the key to building a catch.',
+    'Metal vibes sink fast, reaching the bottom reliably even in deep water or strong winds. Repeated lift-and-fall cycles thoroughly cover the near-bottom zone, excelling when pelagics are pinning bait against sandy or rocky structure. Maintaining stable operation against the current is the key to boosting your catch rate.',
   'bluerunner-worm':
-    'Soft plastics for pelagics may seem unconventional, but they have a strong track record on surface blitzes and topwater patterns. Pin-tails and paddle-tails on a fast steady retrieve are devastating during whitebait (Shirasu) patterns. Better hookup rates and reduced throw-offs compared to jigs make them a trump card on pressured waters.',
+    'Soft plastics for pelagics may seem unconventional, but they have a strong track record for surface blitzes and topwater tactics. During whitebait patterns, fast-retrieved pintails and paddle tails produce outstanding results. Better hookup rates and fewer lost fish compared to jigs make them a trump card on pressured waters.',
   'bluerunner-bigbait':
-    'Big baits specifically target trophy-class pelagics. Their large silhouette and powerful wobble reach distant fish that ignore other lures, pulling in lunker-sized Yellowtail and Amberjack. When you want to make an impact statement from surf or rocky shore, this is the lure to reach for.',
+    'Big baits target trophy-class pelagics exclusively. Oversized silhouettes and strong wobble reach fish at distance, pulling in specimens that ignore other lures. For targeting big yellowtail and amberjack from surf or rocky shores, these are the go-to for making an impact.',
   'bluerunner-swimbait':
-    'Swimbaits use a realistic baitfish silhouette and natural tail action to coax bites from pressured pelagics. They hold high value as a rotation option when jigs and vibs stop working, maintaining presence even on a slow retrieve. Deploying them when the tide slackens can be especially effective.',
+    'Swimbaits coax bites from pressured pelagics with realistic baitfish silhouettes and natural tail action. They hold high rotation value during periods when jigs and vibes fail to produce, maintaining presence even at slow retrieves. Deploying them when the current slackens is particularly effective.',
   'bluerunner-jighead':
-    'A jig head rig offers fine control over the target depth, making it powerful when pelagics are stacked in a specific layer. Adjust weight for countdown depth control and swap worm styles to vary the action. The lighter tackle translates to more direct fights with trophy fish.',
+    'Jighead rigs allow precise depth control, making them powerful when pelagics concentrate at a specific layer. Adjusting weight and counting down to dial in the range while fine-tuning action via worm selection is fundamental. The lighter tackle setup amplifies the fight, delivering a more direct connection to big fish.',
   'hirame-minnow':
-    'Minnow fishing for Japanese Flounder is all about tracing the near-bottom zone as long as possible. Start the retrieve just before the lure touches down and maintain a depth of 30–50 cm off the sand. Switching between deep-diving and floating models keeps the lure in the zone even in rough surf.',
+    'Flounder minnow tactics are all about tracing the near-bottom zone for as long as possible. Begin the retrieve just before the lure touches down and maintain a 30-50cm depth off the bottom while avoiding snags. Switching between deep-diving long-lip models and floating types stabilizes your range even in rough surf conditions.',
   'hirame-metal-jig':
-    'Metal jigs bring casting distance and sink speed to Japanese Flounder fishing. From surf or seawall, reach offshore breaks and work the bottom with lift-and-fall. Bites frequently come on the drop, so maintaining tension while reading line movement is the key variable for success.',
+    'The metal jig\'s casting distance and sink rate are key weapons for Japanese flounder. Launch from surf or jetties to reach offshore breaks, and work the bottom with lift-and-fall cadences. Bites frequently come during the fall, so maintaining consistent tension and reading line movement for subtle takes is critical to success.',
   'hirame-worm':
-    'Soft plastics are indispensable for slow presentations targeting Japanese Flounder. A shad-tail crawled near bottom swims just above the sand with devastating appeal. In cold water and winter conditions the natural action becomes even more effective, picking up fish that ignore hard baits.',
+    'Soft plastics are indispensable for slow presentations targeting flounder. A shad tail crawled slowly near the bottom swims enticingly just above the sand, creating a powerful visual trigger. The colder the water and the tougher the conditions, the more natural worm action comes into its own, picking up fish that ignore hardbaits.',
   'hirame-sinking-pencil':
-    'Sinking pencils are most effective when drifted naturally in the surf current for Flounder. Control the sink with a countdown, starting the retrieve just above bottom. Slow wobble provides natural appeal, with bites triggered by the pause after a jerk.',
+    'For surf flounder, drifting a sinking pencil naturally in the current is the most effective approach. Manage the sink via countdown after splashdown and begin the retrieve just above the bottom. Natural wobble provides a subtle appeal, while pausing after a jerk triggers bites.',
   'hirame-vibration':
-    'Lipless crankbaits for Japanese Flounder excel at alerting distant fish. Cast far, sink quickly to bottom, then maintain depth through lift-and-fall retrieves. Their stable underwater action even in dirty water and wind gives consistent results in rough surf conditions.',
+    'Vibration lures have the power to alert distant flounder to your presence. Cast long, sink quickly to bottom, then maintain range through lift-and-fall sequences. Their stable underwater action even in murky or windy conditions provides reliable catch rates in rough sea states.',
   'hirame-spintail':
-    'The blade flash of a spintail jig draws Japanese Flounder from distance. A slow retrieve near bottom keeps the blade spinning, reflecting light even in gentle current. Particularly effective during low-light early mornings and evenings when Flounder patrol the bottom hunting baitfish.',
+    'The blade flash of a spintail draws flounder from distance. Slow-retrieving near the bottom keeps the blade spinning and reflecting light even in subtle current. Particularly effective during low-light early mornings and evenings, when flounder prowl the bottom searching for prey.',
   'hirame-swimbait':
-    'The realistic silhouette and supple tail action of a swimbait is devastating against pressured Japanese Flounder. A valuable rotation option once the sun climbs and pressure increases. Pair with a jig head to adjust weight and run the lure just off bottom for the standard approach.',
+    'The realistic profile and fluid tail action of a swimbait is devastatingly effective on pressured flounder. It is a valuable rotation option for midday sessions when pressure builds. Adjusting weight via jighead pairing and keeping the lure swimming just above the bottom is the standard style.',
   'hirame-bigbait':
-    'Big bait fishing for Japanese Flounder is a strategy for selectively drawing out trophy-class fish. Individuals that respond to large profiles tend to be quality size—60 cm and above. Work them slowly near deep surf pockets or harbor run-outs for dramatic chase-and-smash strikes.',
+    'Big baits for flounder are a strategy for selectively targeting trophy-class specimens. Fish that respond to large silhouettes generally run bigger, allowing you to target fish over 60cm. Slow presentations in deeper surf zones and harbor outflows can produce spectacular chase-and-strike bites.',
   'rockfish-worm':
-    'Soft plastic fishing for rockfish demands reading rock structure and current to present the bait as slowly and naturally as possible. Texas rigs or free rigs with grubs and creature baits fished tight to crevices are the standard approach. Set the hook immediately on any subtle line movement or added weight during the fall.',
+    'Targeting rockfish with soft plastics is all about reading structure and current, presenting as slowly and naturally as possible. Texas rigs and free rigs with grubs or creature baits let you probe cracks and tight spots along rocks. When you detect a subtle line twitch or weight increase during the fall, set the hook immediately.',
   'rockfish-jighead':
-    'Jig head rigs are the go-to for light-tackle rock-zone exploration when targeting rockfish. Crawl them down rocky slopes to draw strikes from fish hiding in the gaps. Select the lightest head that still maintains bottom contact in the current, and carefully follow the bottom-touch sensation as you work the rig.',
+    'Jighead rigs are ideal for light probing around rocky structure. Slowly tracing along rock faces on the drop draws fish out of hiding. Select the lightest weight that still maintains bottom contact for the given current and depth, carefully tracking the sensation of each bottom touch.',
   'rockfish-metal-jig':
-    'Metal jigs are the choice for targeting mid-size and larger rockfish, or for searching deeper, wider areas. Short-pitch jerks and lift-and-fall trigger reaction bites from ambush-oriented rockfish. Tight, repetitive actions from mid-column to bottom thoroughly cover the strike zone.',
+    'Metal jigs are the choice when targeting medium-to-large rockfish or searching deeper water broadly. Short-pitch jerks and lift-and-fall presentations trigger reaction strikes. Methodically working mid-water to near-bottom with tight action overcomes the ambush-style behavior of rockfish.',
   'rockfish-minnow':
-    'Targeting rockfish with minnows is ideal along shallow rocky shelves and tidal platforms. Cast tight to cover and twitch to draw strikes from fish actively chasing bait. Choose a short-lipped floating minnow and present it slightly off the bottom with lateral movement rather than hugging the rocks.',
+    'Targeting rockfish with minnows finds its ideal setting along shallow rocky shelves and reef platforms. Cast tight to cover and twitch to draw immediate strikes from fish that are actively chasing bait. Choose short-lipped floating minnows and present with lateral movement slightly above the bottom rather than hugging it.',
   'rockfish-sinking-pencil':
-    'Sinking pencils become an interesting option for rockfish when surface activity is high. A slow-sinking type drifted down draws strikes from suspended fish reacting to the fall. Cast along reef edges and shallow rock zones during a hot bite for a shot at surprisingly large specimens.',
+    'A sinking pencil becomes an interesting option when rockfish are active near the surface. Slowly sinking a slow-sinking type while letting it drift draws strikes from suspended fish reacting to the fall. Casting to shallow reef edges and rock faces during hot bites can produce surprising trophy catches.',
   'mebaru-worm':
-    'Worm fishing for Mebaru (Japanese Rockfish) is defined by depth control and fall-speed management. Thread a 1–2 inch pin-tail or grub onto a jig head and let the current carry it down slowly. Bites often come the instant tension is released—reading line changes and subtle weight increases is the key to building numbers.',
+    'Rockfish worming comes down to range management and fall speed control. Thread a 1-2 inch pintail or grub onto a jighead and let the current carry it down slowly. Bites often come the instant tension is released — reading subtle line changes and detecting the slightest weight increase is the key to maximizing your count.',
   'mebaru-jighead':
-    'Lightweight finesse is the weapon of a Mebaru jig head rig. Drifting a worm on a 0.5–1.5 g head through shadow lines and dock-light edges draws bites from lurking fish. Add a float rig to extend range to offshore spots where bigger fish hold and search efficiently.',
+    'Jighead rigs for rockfish rely on lightness and finesse. Drifting worms slowly on 0.5-1.5g jigheads at the edge of light-shadow transitions and streetlight perimeters draws bites. Pairing with a float rig extends reach to offshore spots, efficiently covering areas that hold bigger fish.',
   'mebaru-minnow':
-    'Minnow fishing for Mebaru centers on tracing a lane just below the surface. A floating minnow on a slow retrieve draws trailing fish that commit the instant it pauses. Especially effective under dock lights at night—start with silhouette-oriented colors visible in the light.',
+    'Minnow tactics for rockfish center on tracing just below the surface. Slow-retrieving a floating minnow draws following fish that strike the moment it pauses. Especially effective around streetlights at night — start with silhouette-type colors that stand out in the light for the highest-percentage approach.',
   'mebaru-sinking-pencil':
-    'When using a sinking pencil for Mebaru, picture the lure drifting just below the surface. A slow steady retrieve or free drift presents naturally and fools wary fish. This low-resistance lure is at its best when Mebaru are rising under dock lights chasing bait near the surface.',
+    'When targeting rockfish with sinking pencils, the key is to create a subsurface drifting presentation. Slow steady retrieves or drifting naturally draw bites from pressured fish. When rockfish are rising under streetlights, this low-resistance lure shows outstanding effectiveness.',
   'mebaru-vibration':
-    'A small lipless crankbait is the ace up your sleeve when Mebaru ignore jig heads. It excels for probing bottom during daytime sessions or when cooling water pushes fish deeper. A short lift-and-fall triggers reaction bites from fish that respond to movement.',
+    'Micro vibration lures serve as a trump card when jigheads are not producing. They shine during daytime bottom-probing sessions or when rockfish have retreated to deeper water in cold temperatures. Short falls after a lift trigger reaction strikes, picking up fish that respond readily to moving targets.',
   'aji-worm':
-    'Soft plastic selection for Aji (Horse Mackerel) directly impacts catch rate through material softness and finesse of action. A slim 1–2 inch pin-tail matched to a jig head and drifted on a free fall in the current is the standard. At night, minimize movement and feel for subtle line-tension changes—this sensitive operation is the core of productive Ajing.',
+    'In light-game horse mackerel fishing, soft plastic texture and action finesse directly impact your catch rate. Pair a slim 1-2 inch pintail with a jighead and let the current carry it on a free fall. In low-light night sessions, minimize movement and focus on detecting bites through subtle line tension changes — this sensitive approach is the essence of productive ajing.',
   'aji-jighead':
-    'Jig head weight selection governs everything in Ajing. Read current strength and depth, then pick the lightest head that still sinks slowly under tension. To detect fall bites, keep line snug but not taut, managing different depths by counting down from surface to bottom.',
+    'In horse mackerel fishing, jighead weight selection dictates everything. Read current strength and depth to find the weight that sinks just slowly enough under tension. Maintain controlled but not excessive line tension to detect fall bites, managing various depth ranges via countdown.',
   'aji-metal-jig':
-    'Metal jigs efficiently search for roaming schools of Aji. Steady-retrieve through the mid-column while varying depth until you find the response zone, then concentrate there. Micro jigs fished spoon-style also work well for searching tide-line fish at distance during daytime sessions.',
+    'Metal jigs for horse mackerel efficiently locate migrating schools. Vary the retrieve depth during a steady mid-water retrieve and concentrate on the layer that produces responses. A spoon-like approach with small metal jigs also works well, and jigs with good casting distance excel at reaching offshore current seams during daytime sessions.',
   'aori-ika-egi':
-    'Eging (squid-jigging) for Bigfin Reef Squid comes down to managing the jerk rhythm and the following fall time. Autumn Aori-ika aggressively chase the egi, so two-to-three snaps followed by a controlled fall gets the grab. For cautious spring trophy squid, long falls are the ticket. Drifting with the current efficiently covers ground and locates big individuals.',
+    'In squid jigging, the cadence of the rod snap and subsequent fall time management determines your success. Autumn squid aggressively chase the jig, so a two-to-three snap sequence followed by a controlled fall is the go-to technique. Spring trophy specimens are more cautious, requiring extended falls. Drifting with the current efficiently covers a wide area, making it easier to locate big squid.',
   'madai-tai-rubber':
-    'Tai Rubber (kabura-style jig) fishing for Red Sea Bream starts with selecting the right skirt color and head weight. Vary the steady retrieve speed while re-touching bottom to match the boat\'s drift, searching for the layer where Madai rise to feed. When you feel the tap-tap of an initial bite, maintain speed without changing, and wait for the rod to load fully before setting the hook.',
+    'With tai-rubber, selecting the right skirt color and head weight is where the battle begins. Vary the retrieve speed while matching the boat drift to re-establish bottom contact, searching for the layer where red sea bream feed upward. When you feel the telltale tap-tap-tap of a preliminary bite, maintain speed without changing, and wait until the rod loads fully before setting the hook.',
   'madai-metal-jig':
-    'When targeting Red Sea Bream with metal jigs, a slow slide-fall repeated from bottom to mid-water is the fundamental technique. Bites concentrate during the fall, so reacting quickly to line movement and slack is what raises your hookup rate. Silver and gold flash colors are especially effective during bright conditions.',
+    'When targeting red sea bream with metal jigs, the basic approach is repeated slide-falls worked slowly upward from the bottom. Bites concentrate during the fall, so reacting quickly to line movement and slack is what raises your hookup rate. Silver and gold flash colors are especially effective during bright-light conditions.',
   'kurodai-worm':
-    'Drift-fishing a worm downstream along the bottom is devastatingly effective for Black Sea Bream (Kurodai). A craw-style soft plastic rolled along the sand mimics crustaceans naturally, keeping the lure in the feeding zone for extended periods. Work structure edges meticulously—the majority of bites come during the fall.',
+    'Drifting worms downstream and rolling them along the bottom is devastatingly effective for black sea bream. Crawfish-imitating claw-type worms crawled naturally along the bottom stay in the feeding zone longer. Work tight to structure, and keep in mind that the majority of bites come during the fall.',
   'kurodai-popper':
-    'A popper is the go-to topwater for Black Sea Bream chining in harbors and shallow rivers. The popping sound and surface disturbance trigger the feeding instinct, producing explosive surface strikes. Bites typically come right after the pause, so building a clear move-and-stop rhythm directly translates to more hookups.',
+    'For topwater black sea bream, harbors and shallow river sections provide the best stage. The popping sound and ripple pattern stimulate the predatory instinct, producing explosive surface strikes. Fish tend to strike immediately after the lure stops, so creating a clear move-and-pause rhythm directly translates to more catches.',
   'tachiuo-metal-jig':
-    'Targeting Largehead Hairtail with metal jigs is primarily a boat-based vertical jigging game. Slim-profile jigs maintain an excellent fall posture and achieve deep hooksets. Vary the depth incrementally to pinpoint the school, then trigger reaction bites with short jerks followed by a controlled fall.',
+    'Vertical jigging from boats is the primary approach for cutlassfish with metal jigs. Slim-profile jigs maintain excellent fall posture and produce deep hooksets. Pinpoint the school by systematically varying depth ranges, then draw reaction strikes with short jerks followed by controlled falls — that is the essence of this game.',
   'tachiuo-worm':
-    'Soft plastics for Hairtail (Tachiuo) have proven especially effective from shore. Thread a slim shad-tail or ring-worm on a light jig head and slow-roll through the mid-column to let the Hairtail chase from the side. Metal-armed worm hooks withstand the razor-sharp teeth and dramatically improve hookup rates.',
+    'Soft plastics deliver strong results for cutlassfish from shore. Thread elongated shad tails or ring worms on light jigheads and slow-retrieve through the mid-water column to intercept the cutlassfish lateral feeding movement. Wire-hook-equipped soft plastics handle their razor teeth while dramatically improving hookup rates.',
   'hiramasa-metal-jig':
-    'Jigging for Yellowtail Amberjack (Hiramasa) is a battle of endurance and focus. Long-stroke jerks cover a wide depth range from bottom to mid-water, and you must be ready at all times for the decisive fall bite. Assist hook size and configuration are critical—ensuring they track the fish\'s explosive initial run prevents throw-offs.',
+    'Jigging for amberjack is a battle of stamina and concentration. Repeated long-stroke jerks probe a wide range from bottom to mid-water, with constant readiness to detect the critical fall bite. Assist hook sizing and rigging are paramount — ensuring enough give to track the fish\'s explosive initial run is the fundamental anti-break-off strategy.',
   'hiramasa-diving-pencil':
-    'Diving pencil fishing for Hiramasa from shore rocks or offshore boats delivers the ultimate surface-game thrill. The large cup grabs water to produce splash on each dive, drawing fish in with repeated dives. Matching rod angle to retrieve rhythm for consistent action is the secret to bringing Hiramasa to the surface.',
+    'Diving pencil games for amberjack offer the ultimate surface excitement from rocky shores or offshore. The large cup grabs water to generate splash, and consecutive dives draw fish in. Matching rod angle to retrieve rhythm to produce a regular action pattern is the secret to bringing amberjack all the way to the surface.',
   'hiramasa-popper':
-    'Speed is everything when throwing poppers at boiling Yellowtail Amberjack. The loud pops and spray attract surrounding fish, and the visual of a surface chase ending in a strike is unmatched in fishing. Work the rod high to make the popper jump on the surface for the standard action.',
+    'Speed is critical when casting a popper at amberjack boils. The big popping sound and spray draw in surrounding fish, and witnessing the chase-to-strike sequence on the surface delivers an experience unlike any other in fishing. Work the rod high to make the popper skip off the surface — that is the fundamental action.',
   'kampachi-metal-jig':
-    'Greater Amberjack (Kampachi) tend to hold near bottom around structure, making bottom-jigging the primary strategy. Sink the jig without hesitation, then work it with quick short-pitch jerks along the reef edge. Keep fall pauses short and trigger reaction bites to exploit Kampachi\'s renowned speed and explosive strikes.',
+    'Greater amberjack tend to hold tight to bottom structure, making bottom jigging with metal jigs the core strategy. Fearlessly sink to the bottom and work tight to structure with fast-tempo short-pitch jerks. Keep feeding falls short, targeting reaction strikes to draw out the explosive bites that greater amberjack are known for.',
   'kampachi-diving-pencil':
-    'Topwater diving-pencil fishing for Kampachi reaches its zenith over offshore reefs and seamounts. The sight of a fish surging up to hammer a lure swimming just below the surface is pure adrenaline. Because Kampachi make straighter, more powerful runs than Hiramasa, a robust tackle setup is a prerequisite.',
+    'Diving pencil topwater games for greater amberjack reach their peak around offshore pinnacles and seamounts. The sight of a fish rocketing up from below to hit a lure splashing through the surface is truly jaw-dropping. Greater amberjack make stronger straight-line runs than yellowtail amberjack, demanding robust tackle setups as a prerequisite.',
   'tuna-metal-jig':
-    'Tuna jigging is the highlight of offshore fishing. High-pitch jerks search from mid-water to bottom, and reading the moment a passing school comes through is paramount. Drift-jigging—letting the jig ride the current naturally—also produces, and following the captain\'s depth calls is the foundation of success.',
+    'Tuna jigging is the highlight of offshore fishing. High-pitch jerks work the jig from mid-water to bottom, and timing your presentation to coincide with a passing school is everything. Drift-jigging on the current also produces results — following the captain\'s guidance on target depth is the fundamental basis of success.',
   'tuna-diving-pencil':
-    'Diving pencil tactics for Tuna are most effective on surface blitzes. Cast into the center of a bird pile, grab water on the retrieve, and work the lure back quickly to trigger a surface strike. Always verify that hook strength and rod butt power can withstand the initial impact before committing to the fight.',
+    'Diving pencils are most effective for tuna when targeting surface-feeding schools. Cast into the center of a bird pile, grab the water, and work a fast retrieve to draw tuna through the surface for explosive strikes. Always verify that hook strength and rod butt power can withstand a tuna\'s first devastating run before engaging.',
   'tuna-popper':
-    'Poppers for Tuna use an oversized cup to simulate panicked bait. Casting distance lets you reach fish from afar; continuous pops mimic fleeing baitfish and draw explosive surface charges. Post-hookup, sufficient drag setting and strong rod work are the non-negotiable requirements for landing the fish.',
+    'Poppers for tuna aim to simulate panicked baitfish using a large cup. Leverage casting distance to draw fish from a wide area, and rapid consecutive pops portray fleeing bait, bringing tuna crashing through the surface. Proper drag settings and powerful rod work to control the initial run are absolute requirements for getting fish to the boat.',
   'yellowtail-metal-jig':
-    'Shore jigging for Japanese Yellowtail (Buri) is the origin of the pelagic game. Leverage casting distance to hit blitzes and tide lines, then jerk immediately on splashdown and work one-pitch jerks through the column. Reading the run timing and covering ground to find the school is more productive than pounding the same spot.',
+    'Shore jigging for yellowtail with metal jigs is the foundation of pelagic fishing. Leverage casting range to target surface blitzes and current seams, starting the one-pitch jerk retrieve immediately after splashdown to probe the mid-water column. Reading migration timing, choosing your position, and covering water broadly rather than hammering one spot is the shortcut to building a solid catch tally.',
   'gt-popper':
-    'Popper fishing for Giant Trevally tests both physical stamina and nerve at the highest level. The thunderous report and water column from a massive cup draws GT from dozens of meters away—the surface strike is unrivaled. Continuous popping with sweeping rod strokes builds excitement, with bites typically coming on the pause.',
+    'Targeting giant trevally with poppers is the pinnacle of fishing — a test of both stamina and nerve. The thunderous sound and water columns generated by an oversized cup draw GTs from dozens of meters away, and the impact of a surface strike is unparalleled. Continuous popping with aggressive rod sweeps builds excitement, with the classic pattern being a strike the moment the lure pauses.',
   'gt-diving-pencil':
-    'Diving pencils offer more sub-surface tracking than poppers for GT, producing extended chase sequences. The rod-work-to-retrieve combination grabs water and dives the lure, and once a GT locks on, maintaining pace without slowing is the key to converting the follow into a bite. Rocky shores and outer-reef edges are the prime arenas.',
+    'Diving pencils for GT carry more depth than poppers, enabling longer subsurface chases. The fundamental technique combines rod work to submerge the lure with quick retrieves — once a GT locks on from behind, maintaining pace without slowing is the key to converting the follow into a strike. Rocky shores and outer-reef edges provide the ultimate arena.',
   'gt-metal-jig':
-    'Jigging for Giant Trevally takes place in deep open water and around submerged reef structure. Working a heavy jig with long-stroke jerks is a pure endurance contest, and tackle balance—specifically the ability to absorb a GT\'s violent initial strike—determines the outcome. Detect fall bites instantly, set hard, and stand firm against the fish\'s run toward the reef.',
+    'Jigging for GT plays out in deep open water and around structure. Driving heavy jigs with long-stroke jerks is a pure endurance contest, and the tackle balance to absorb the crushing initial strike determines everything. Detecting fall bites and setting the hook instantly, then applying enough rod power to prevent a charge into the reef — that is the level of strength demanded.',
+  // ── Batch 2 ──
   'bass-bigbait':
-    'This category is about sending big meals after big bass. Big baits use realistic profiles and water displacement to force strikes even on pressured fisheries. When a 200 g+ monster lure rips across the lake surface, every single cast carries meaning.',
+    'This is the category for hunting big bass that eat big prey. Big baits possess the silhouette realism and water displacement to coax bites even on pressured fisheries. When a 200g-plus lure tears across the lake surface, every single cast carries meaning.',
   'bass-blade-bait':
-    'A vibration-class metal plate shakes at high speed, covering wide swaths with tight wobble. Devastatingly effective for forced bites in winter deep zones and stained water. Lift-and-fall to trigger reaction strikes is the textbook technique.',
+    'A vibration-type metal plate shudders at high speed, searching a wide area with tight wobble. Devastatingly effective for forcing strikes in winter deep zones or stained water. Lift-and-fall reaction tactics are another classic application.',
   'bass-buzzbait':
-    'The surface blowup you\'ll never forget. A buzzbait\'s continuous splashing noise and spray call bass to the top. Running high-speed along mat cover and reed edges delivers the pure essence of topwater bass fishing.',
+    'The surface strike is something you will never forget. The continuous splashing sound and spray from the blade call bass in. Running the mat cover and reed edges at speed delivers the full thrill of topwater bass fishing.',
   'bass-chatterbait':
-    'The erratic blade vibration and wave action cut through dirty water without losing presence. The skirt\'s flow combined with the jig head\'s movement creates a compound trigger. This is the power-style trump card that performs from weed edges to open water all season long.',
+    'The erratic blade vibration and wave action maintain presence even in stained water. The combination of skirt flutter and jig-head movement creates a compound appeal that triggers bass. From weed edges to open water, this is the power-style trump card for all seasons.',
   'bass-crankbait':
-    'The lip grabs water and hammers its designed depth zone with tight wobble. A single crankbait in the box lets you instantly search vast areas. Hard-bottom contact produces irregular deflections—that is exactly where instinctive bass strikes concentrate.',
+    'The lip grabs water and drives the lure at its designed range with a tight wobble. Having one in your bag means you can instantly search a wide area. Bottom contact generates irregular action, and that is exactly where bass concentrate their instinctive strikes.',
   'bass-crawler-bait':
-    'Wings or arms move slowly, spreading wakes and bubbles across the surface in the ultimate slow game. Under low-light conditions at night or on overcast days, work the surface quietly and big bass will send up a geyser to eat it.',
+    'Wings or arms move slowly, spreading ripples and bubbles across the surface in the ultimate slow game. Working the surface quietly in night or overcast low-light conditions draws trophy bass up through the water column for explosive surface strikes.',
   'bass-frog':
-    'Walk it across the mat, drop it in holes, and get bit. Walking-the-dog over pads while mimicking a real frog brings even deep-cover lunkers crashing to the surface.',
+    'Walk it across the mat and drop it into a pocket to trigger the bite. Walking the dog along lily pads while portraying a realistic frog draws even big bass from deep in cover for an explosive surface blowup.',
   'bass-i-shape':
-    'Almost no action—just existing. A dead-straight retrieve fools spawn-related bass and fish in slow seasonal moods. The gap between its plain appearance and its catch rate makes it a genuine secret weapon.',
+    'Barely moving — almost just being there. The straight-line retrieve deceives finicky spawning-phase bass and slow seasonal fish through sheer non-action. The contrast between its unassuming appearance and actual catch rate makes it a genuine secret weapon.',
   'bass-jointed-bait':
-    'The sinuous S-curve from a jointed hinge. Fish-like swimming draws big bass on pure instinct. The slower you retrieve, the more seductive the action becomes—a permanent first-string lure for trophy hunting.',
+    'The sensuous S-shaped action born from the joint. A fish-like swimming motion draws trophy bass in on pure instinct. The slower you retrieve, the more seductive the swim becomes — this is a front-line lure that continues to reign for big-fish pursuits.',
   'bass-metal-vib':
-    'Iron-plate vibration\'s mobility lets you probe from winter deep zones to shallow breaklines without hesitation. High density means long casts, reaching the far bank or a breakline in a single throw.',
+    'The mobility of a blade-style vibration lure covers everything from winter deep zones to shallow breaks. High density delivers long casting distance, reaching pressured far banks and breaklines in a single cast.',
   'bass-minnow':
-    'Tight wobble and shimmy fall extract bites from bass that ignore everything else. Add a twitch for a darting escape that perfectly replicates fleeing baitfish. A proven pattern for post-spawn bass in particular.',
+    'Tight wobble and shimmy fall draw out bass that refuse every other lure. Twitched dart action perfectly replicates a fleeing baitfish. A proven pattern that is particularly deadly on post-spawn bass.',
   'bass-pencilbait':
-    'Rod-work driven walk-the-dog is the fundamental action. Subtler splash than a popper pulls bass from a wider area, and a rhythmic cadence is the shortcut to getting bit.',
+    'Walking the dog with rod work is the foundation. Subtler splash than a popper draws bass from a wide area, and maintaining a steady rhythm is the shortcut to consistent catches.',
   'bass-popper':
-    'The cupped face spits water with a sharp chug-chug, calling bass from across the flat. Splash and sound simultaneously stimulate vision and hearing. Bites concentrate during the drift pause, so the patience to wait is the real skill.',
+    'The cup catches water, producing a distinct pop-pop sound that calls bass from distance. The splash and sound combination simultaneously triggers visual and auditory senses. Bites concentrate during the pause drift, demanding the patience to wait without rushing.',
   'bass-propbait':
-    'A tail propeller spins, generating fine bubbles and surface noise. The nuanced presentation—subtler than a popper—fools pressured bass into committing. Extended-pause twitch-and-hold is the productive cadence.',
+    'The tail propeller spins, creating fine bubbles and sound waves on the surface. A more delicate presentation than a popper that coaxes bites from pressured bass without raising suspicion. Extended-pause twitch-and-stop cadences are most effective.',
   'bass-rubber-jig':
-    'The rubber skirt breathes underwater, settling slowly along structure. From football heads to Arky heads, this covers finesse to power fishing—the undisputed king of bottom presentations.',
+    'The rubber skirt breathes in the water, drifting slowly along structure. From football heads to arky heads, it covers everything from finesse to power fishing as the undisputed king of bottom tactics.',
   'bass-shad':
-    'A flapping tail on the most fish-like body form. Retrieve alone produces a seductive swim; paired with a swim jig or weighted hook, it perfectly commands the mid-range. An understated yet deadly soft-bait design.',
+    'The tail kicks with the most fish-like body form available. A straight retrieve produces a seductive swim, and pairing with a swim jig or weighted hook delivers flawless mid-range coverage. A quietly productive soft plastic masterpiece.',
   'bass-sinking-pencil':
-    'From splashdown it sinks while maintaining a horizontal posture, generating bites on the fall. Lift-and-fall opens up the vertical game unique to sinking hard baits. It sits at the intersection of hard-bait casting distance and soft-bait finesse.',
+    'Maintaining a horizontal posture while sinking, it draws bites throughout the fall. Lift-and-fall vertical presentations leverage the sinking style. This lure bridges the gap between hardbait casting distance and soft plastic finesse.',
   'bass-spinnerbait':
-    'Blades emit light and vibration simultaneously, announcing presence through stained water and darkness alike. Blade selection changes the approach, and the ability to deflect cover while efficiently covering ground is the reason for enduring popularity.',
+    'Blades broadcast light and vibration simultaneously, announcing presence to bass in stained water or darkness. Blade selection changes the approach, and the ability to deflect cover while efficiently searching a wide area is what makes them so popular.',
   'bass-spintail':
-    'A shad-body with a tail spinner produces multi-dimensional action through jerks and falls. The blade\'s reflected flash reaches bass across a wide area, filling the niche between soft plastics and hard baits.',
+    'A shad-bodied lure with a tail spinner produces diverse action through jerks and falls. The spinner\'s reflected flash appeals to bass across a wide area, filling the sweet spot between soft plastics and hardbaits.',
   'bass-spoon':
-    'A simple metal plate flutters through the water, mimicking the glint of baitfish. There are situations where only a spoon will produce. Lift-and-fall for vertical coverage, swimming for horizontal—one plate enables endless presentations. The angler\'s origin lure.',
+    'A simple metal plate swims with a flutter, mimicking the flash of baitfish. There are absolutely situations where only a spoon will produce. Vertical lift-and-fall, horizontal swimming — one plate enables a diversity of presentations that represents the angler\'s roots.',
   'bass-swimbait':
-    'A realistic fish silhouette and precision tail action fool the wariest trophy bass. Match the local forage size—gill, shad, or minnow—for perfect match-the-hatch. A dedicated medium-speed finesse lure.',
+    'Realistic fish silhouettes and precise tail action deceive wary trophy bass. Matching the gill or shad forage size creates a perfect match-the-hatch presentation. A dedicated finesse lure for medium-speed retrieves.',
   'bass-topwater':
-    'The moment a bass blows up on the surface is everything. Popper, pencil, or crawler—surface fishing is every bass angler\'s eternal aspiration. Concentrate at dawn and dusk; the calmer the conditions, the more explosive the action.',
+    'The moment a bass explodes through the surface is what this entire pursuit is about. Poppers, pencils, crawlers — surface games are every bass angler\'s eternal aspiration. Focus on dawn and dusk, and dead-calm conditions only amplify the explosive potential.',
   'bass-vibration':
-    'Cast and reel—it vibrates automatically, quickly searching a wide range and area. Rattle models excel for reaction bites in stained water; silent types dominate clear conditions. A trusted search bait across all seasons.',
+    'Cast and retrieve — it vibrates automatically, quickly searching wide ranges and areas. Rattle models excel at reaction strikes in stained water, while silent versions show their true power in clear conditions. A trusted search lure across all seasons.',
   'bass-worm':
-    'If you have a worm, you can fish. Weightless, Texas, drop-shot—the rigging possibilities are infinite, adapting to any condition. Tail action simultaneously triggers appetite and curiosity, and skill translates directly into results.',
+    'If you have worms, you can fish. Weightless, Texas, drop shot — the rigging options are infinite, adapting to any condition. Tail action stimulates both appetite and curiosity simultaneously, making this a lure where technique directly translates to results.',
   'seabass-chatterbait':
-    'The blade\'s vibration punches through waves to reach Japanese Seabass. The action stays stable even in river current, making it deadly on bottom-feeding pressured fish. Heavier models also serve as effective daytime search lures.',
+    'Blade vibration carries through waves to reach seabass. Action remains stable even in river current, proving strong against bottom-feeding pressured seabass. Heavier models also serve effectively as daytime search baits.',
   'seabass-crawler-bait':
-    'A crawling surface action drives Japanese Seabass wild on nighttime rivers. When it locks into a worm-hatch (Bachi) pattern, you can witness fish slowly sucking it from behind. Commit to a slow retrieve and trust the lure—patience produces the catch.',
+    'The crawling surface action drives seabass wild on nighttime rivers. When the sandworm hatch pattern connects, you can witness seabass slowly sipping the lure from behind. Commit to dead-slow retrieves with patience, and the catches will follow.',
   'seabass-diving-pencil':
-    'A fast retrieve after the cast sends the lure diving; adding jerks produces darting depth changes. Indispensable for hitting Seabass boils head-on. The combination of casting distance and diving ability lets you efficiently work expansive surf and river-mouth zones.',
+    'A fast retrieve after the cast sends it diving, and adding jerks creates darting action that breaks from the zone. Essential for targeting seabass surface blowups. The casting distance and diving capability efficiently cover vast surf and river mouth areas.',
   'seabass-i-shape':
-    'Nearly motionless, yet they eat it. The I-shape retrieve introduced finesse to the Japanese Seabass game. Devastatingly effective on pressured urban rivers and in slow winter seas. Bites—often a rise or side-swipe—frequently come the instant the rod stops.',
+    'Nearly motionless, yet they bite. The I-shape retrieve introduced finesse concepts to the seabass game. Devastatingly effective on pressured urban rivers and slow winter seas. Bites from below or the side frequently occur the moment the rod stops.',
   'seabass-other':
-    'The Japanese Seabass game embraces diverse tactics. Vibrations, jigs, jig-head rigs—expanding your arsenal for the day\'s conditions is what this category is about. Breaking away from standards and matching the fish\'s behavior pattern is what separates catch rates.',
+    'The seabass game encompasses diverse tactics. This category covers vibration lures, jigs, jighead rigs, and more for situation-specific deployment. Selecting to match the day\'s seabass behavior patterns, rather than sticking to conventions, is what separates catch rates.',
   'seabass-propbait':
-    'The subtle sound and micro-bubbles from a spinning prop draw actively feeding Japanese Seabass. Less conspicuous than a popper yet more action-driven than a pencil, it fills the topwater middle ground. A proven producer of nighttime surface bites.',
+    'The subtle sound and bubbles from the propeller draw in feeding-mode seabass. A middle-ground topwater that is less conspicuous than a popper yet more action-driven than a pencil. Produces consistent surface bites during night sessions.',
   'seabass-spinner':
-    'An underwater spinning blade scatters light and maintains presence even in current. It functions as a trigger when Seabass are present but won\'t commit under pressure. A steady retrieve alone often produces follows and strikes.',
+    'An underwater rotating blade scatters light, maintaining presence even in current. It readily serves as a trigger when seabass are present but refusing to commit under pressure. Even a straight retrieve produces bites in many situations.',
   'seabass-spinnerbait':
-    'Spinnerbaits deliver aggressive vibration and flash for river and surf Seabass. They handle tight approaches around bridge pilings and reef structure, with particularly high reliability in stained-water daytime sessions.',
+    'Spinnerbait wave action and flash appeal aggressively to seabass in rivers and surf. Capable of tight approaches around bridge pilings and rocky reefs, with particularly high reliability during stained-water daytime sessions.',
   'seabass-spoon':
-    'Metal flash and a fluttering fall draw reaction strikes from Japanese Seabass. The standard play is searching vast surf and river-mouth areas with a metal spoon, then reaching a distant boil with a single long cast. Stable fishing even in strong wind is a bonus.',
+    'Metal flash and fluttering fall trigger seabass reaction strikes. The standard approach is searching broad surf and river mouth areas with a metal spoon, reaching distant surface blitzes with long casts. Consistent performance even in strong wind conditions.',
   'seabass-sutte':
-    'Sutte-style lures work the bottom with an egi-like action, specializing in Japanese Seabass around submerged structure and tetrapod gaps. The irregular fall posture—different from a jig head—creates a bite trigger and excels on bottom-oriented lethargic Seabass.',
+    'Squid-jig-style bottom presentations specialize in seabass around river obstructions and tetrapod structures. The irregular fall posture, distinct from a jighead, creates the feeding trigger — effective on bottom-oriented inactive seabass.',
   'seabass-tai-rubber':
-    'Adapting Tai Rubber to the Seabass game is an innovative approach. The slow fall and undulating rubber skirt stimulate the feeding instinct, drawing strikes on a simple slow retrieve from bottom to mid-column. A strong pattern during low-activity winter periods.',
+    'This method originated from adapting tai-rubber for seabass. The slow fall and skirt flutter stimulate the predatory instinct, producing bites on a simple slow retrieve from bottom to mid-water. A strong pattern during low-activity winter periods.',
   'seabass-topwater':
-    'Throwing a topwater into a summer-dawn Seabass boil is an unmatched thrill. On shallow flats and river mouths where Seabass chase Haku and Inakko mullet, they feed on the surface. The explosive strikes and water columns define the pinnacle moment of the Seabass game.',
+    'Casting a topwater into seabass blowups at summer dawn is an incomparable thrill. Seabass chasing mullet and juvenile fish on shallow tidal flats will strike at the surface. Explosive bites and water columns create the supreme moment in seabass fishing.',
   'bluerunner-blade-bait':
-    'High-speed steady-retrieve iron-plate vibration flips the switch on pelagics. It dials depth from bottom to surface, efficiently searching through Yellowtail and Amberjack schools. One-pitch jerking leverages casting distance and sink speed for pure reaction-bite tactics.',
+    'High-speed steady retrieves with blade vibration flip the switch on pelagics. Freely range from bottom to surface while efficiently searching yellowtail and amberjack schools. One-pitch jerk reaction tactics leveraging casting distance and sink rate deliver results.',
   'bluerunner-crankbait':
-    'When pelagic activity peaks, a crankbait\'s traced depth and wobble can unleash devastating effectiveness. High-season surface cranking produces thrilling water-breaking strikes. Vary retrieve speed to find the sweet spot.',
+    'During peak feeding hours, a crankbait\'s trace depth and wobble deliver explosive effectiveness against pelagics. High-season surface cranking produces savage topwater strikes. Vary retrieve speed to dial in the sweet spot.',
   'bluerunner-crawler-bait':
-    'When bluerunners pin bait on the surface, a crawler bait\'s wake and water noise strike directly at the feeding instinct. The sight of a Yellowtail or Amberjack crashing the surface is an excitement only experienced firsthand.',
+    'When pelagics pin bait against the surface, the water-noise from a crawler bait strikes directly at the predatory instinct. Watching yellowtail and amberjack break the surface is an excitement only experienced firsthand.',
   'bluerunner-i-shape':
-    'A finesse approach deployed when pelagics won\'t commit. The notion that an I-shape retrieve works on bluerunners has been validated by catch reports, particularly in Hiramasa (Yellowtail Amberjack) games. It functions as a lockout-breaker during tough bites.',
+    'A finesse approach deployed when pelagics refuse to commit. Catch reports — particularly from amberjack games — have overturned doubts about whether I-shape retrieves work on pelagics. Functions as a trump card during lock-jaw situations.',
   'bluerunner-jointed-bait':
-    'A multi-segmented body traces an S-curve that awakens the hunting instinct of trophy pelagics. It enables selective targeting of lunker Hiramasa and Yellowtail. The wake and silhouette deliver a convincing baitfish imitation.',
+    'The S-curve from a segmented body awakens the hunting instinct of trophy pelagics. Enables a selective approach targeting trophy amberjack and yellowtail. The wake and silhouette create a convincingly realistic baitfish presentation.',
   'bluerunner-other':
-    'The pelagic game encompasses many approaches. Tungsten jigs, specialty plugs, and unconventional lures that fall outside standard categories often break a stalemate. The more options you carry for varying fields and seasons, the greater your advantage.',
+    'Pelagic fishing encompasses a variety of approaches. Unconventional lures like tungsten jigs and specialty plugs frequently break through when standard categories fail. The more options you carry for varying fields and seasons, the greater your advantage.',
   'bluerunner-propbait':
-    'Throw a prop bait splashing into a blitz and pelagics commit without hesitation. In Hiramasa topwater games, the propeller\'s buzzing frequently serves as the bite trigger. The explosive power when bait is being corralled on the surface is overwhelming.',
+    'Cast a propbait splashing into a surface blitz and pelagics commit without hesitation. In amberjack topwater games, the prop rotation sound frequently serves as the bite trigger, delivering overwhelming explosive potential during bait-pinning scenarios.',
   'bluerunner-shad':
-    'A shad tail\'s realistic swim precisely attacks pelagics keyed in on specific baitfish. Size-matching to anchovy or kibinago silhouettes is critical, and a swim-jig pairing for match-the-hatch fishing is the dominant approach.',
+    'The realistic action of a shad tail precisely targets pelagics that are selectively feeding on bait. Size-matching to anchovy and silverside profiles is critical, and pairing with a swim jig for a match-the-hatch presentation produces strong results.',
   'bluerunner-spinner':
-    'A spinner\'s blade-generated flash and vibration carry broad search power across open water. When Yellowtail schools are running through an area, a high-speed steady retrieve can produce reaction bites in rapid succession.',
+    'A spinner\'s blade-generated light and vibration possess wide-area search capability across open water. Fast steady retrieves through yellowtail schooling zones can sometimes produce chain reaction strikes.',
   'bluerunner-spoon':
-    'Spoons combine extreme casting distance with intense flash, making them the centerpiece of the pelagic surf game. The distance advantage reaches offshore blitzes that other lures cannot, and the posture stays stable even at high speeds. A universal performer for Yellowtail, Amberjack, and Kampachi alike.',
+    'Combining long casting range with intense flash, spoons are the star of pelagic surf games. The distance advantage reaches offshore blitzes, and posture stability holds even at high-speed retrieves. A versatile all-rounder covering yellowtail, amberjack, and greater amberjack.',
   'bluerunner-sutte':
-    'Sutte lures sink deep and are worked back up, matching the vertical movements of pelagics. Effective when large Yellowtail are stacked near bottom. Staying alert for fall bites and setting quickly are the keys to converting strikes.',
+    'Squid-style jigs dropped deep and worked upward address the vertical movement patterns of pelagics. Effective when big yellowtail stack near the bottom. Concentration to detect fall bites and fast hooksets determine your success rate.',
   'bluerunner-tai-rubber':
-    'Tai Rubber produces on pelagics more often than most anglers expect. The fluttering rubber skirt is devastating against bottom-hugging Yellowtail and Amberjack. Slow-retrieve-to-fall combinations force bites even on high-pressure grounds.',
+    'Tai-rubber producing pelagic bites happens more often than you might expect. The skirt flutter is devastatingly effective on bottom-pinned yellowtail and greater amberjack. Slow-retrieve-to-fall combinations coax bites even in high-pressure waters.',
   'bluerunner-tenya':
-    'Pelagics respond to Tenya rigs when bait is holding deep. The shrimp- or baitfish-mimicking silhouette and distinctive fall draw strikes from Yellowtail and Amberjack alike. Varying the jerk pitch and fall duration is the key variable.',
+    'Pelagics respond to tenya rigs primarily when bait dives deep. Shrimp and small-fish profiles combined with the unique fall action draw strikes from yellowtail and amberjack. Varying the jerking cadence and fall duration is the key.',
   'bluerunner-topwater':
-    'Surface explosion. The moment a Hiramasa rockets into a diving pencil is the zenith of shore fishing. Long casts from rocks or surf followed by high-speed diving action provoke Amberjack attacks. The combative fight that follows is an experience that changes anglers forever.',
+    'Surface explosion. Watching amberjack blast a diving pencil is the pinnacle of shore fishing. Long casts from rocky shores or surf followed by high-speed diving action provoke amberjack attacks. The physical fight that follows is an experience that changes an angler.',
   'black-bass-egi':
-    'Targeting Largemouth Bass with an egi (squid jig) may look unorthodox, but it is logical when bass are keyed on crawfish around the spawn. Bottom darts and controlled falls draw cautious pre-spawn trophy bass into committing.',
+    'Targeting largemouth bass with squid jigs may seem unorthodox, but it makes perfect sense for pre-spawn fish selectively feeding on crawfish. Bottom darts and falls coax bites from wary pre-spawn trophy bass, gaining attention as a viable tactic.',
   'black-bass-metal-jig':
-    'Metal jigs in the bass arsenal are specialized for high-speed reaction strikes in winter deep water or stained conditions. The erratic fall action flips the switch, and the ability to probe a wide vertical column is the core strength. A genuine go-big-or-go-home wild card.',
+    'Using metal jigs for bass specializes in high-speed reaction presentations for winter deep water or stained conditions. The irregular fall action flips the feeding switch, and the ability to probe a wide range vertically is the greatest strength. Functions as a game-changing wild card.',
   'black-bass-other':
-    'Largemouth Bass fishing thrives on creativity beyond conventional categories. From finesse rigs to big baits, this category encompasses boundary-pushing approaches. The ability to adapt flexibly to changing fields and seasons is what drives skill development.',
+    'Largemouth bass fishing thrives on creativity that breaks convention. This category encompasses approaches from finesse rigs to big baits that push beyond established norms. The ability to flexibly adapt to changing conditions and seasons is what drives angler development.',
   'black-bass-spinner':
-    'A spinner\'s blade flash and strong wave action simultaneously trigger the aggression and reaction instincts of bass. Slow-rolling along weed edges and cover produces consistent results in stained water and low-light conditions.',
+    'Spinner blade flash and strong wave action simultaneously stimulate the bass fight response and reaction instinct. Slow-rolling along weed edges and cover delivers consistent results in stained water and low-light conditions.',
   'black-bass-spoon':
-    'A spoon\'s flash and natural flutter provoke bass into feeding. Lift-and-fall for vertical coverage, swimming for horizontal—this simple metal covers a wide depth range with an infinite capacity for creative application.',
+    'Spoon flash and natural flutter draw bass into feeding mode. Covering a wide range from surface to bottom with lift-and-fall and swimming retrieves, the simple plate format holds infinite versatility for bass applications.',
   'black-bass-tai-rubber':
-    'Adapting Tai Rubber for Largemouth Bass is a technique gaining attention in recent years. The rubber skirt\'s wave action and the head\'s fall speed trigger the predatory instinct, proving effective on deep suspended bass and under tough conditions.',
+    'Adapting tai-rubber for largemouth bass has gained attention as an emerging approach. The rubber pulsation and head fall speed stimulate the predatory instinct, proving effective on deep-suspended bass and during tough-bite conditions.',
+  // ── Batch 2: trout, flounder, black sea bream, etc. ──
   'trout-crawler-bait':
-    'A crawler bait\'s surface-tearing wave action triggers the predatory instinct of trout. From managed fisheries to mountain streams, a slow surface retrieve produces results, and dropping one in during a dawn rise window delivers explosive surface strikes on Rainbow Trout.',
+    'Crawler bait surface action and wave displacement trigger the trout predatory instinct. From managed fisheries to mountain streams, slow-retrieving the surface produces results — deploy during rise-heavy dawn and dusk windows for explosive surface strikes.',
   'trout-jighead':
-    'Jig head rigs for trout offer depth-slicing versatility from bottom to surface as an all-around system. Worm pairings let you freely adjust wave action and silhouette, producing consistent catches even on pressured managed fisheries.',
+    'A jighead rig that can precisely segment depth ranges is a versatile system for searching bottom to surface. Adjusting wave action and silhouette through worm selection produces consistent results even at pressured managed fisheries.',
   'trout-jointed-bait':
-    'The seductive S-curve of a jointed body draws out the pursuit instinct of trout. It generates lifelike action even at dead-slow speeds, making it a trump card during cold water and low-activity periods. It also appeals strongly to large Char in mountain streams.',
+    'The alluring S-curve trajectory from a jointed body draws out the trout chase instinct. Generating lifelike action even at dead-slow speeds makes it a trump card during cold-water and inactive periods. Also appeals strongly to trophy-class char in mountain streams.',
   'trout-metal-jig':
-    'Casting distance and fast sink rates let metal jigs target trout holding on distant breaks and deep structure. Maximize the flash through lift-and-fall to draw aggressive strikes even in low-visibility stained water.',
+    'Leveraging casting range and fast sink rates to pick off trout on offshore breaks and deep zones. Maximizing flash through lift-and-fall presentations triggers aggressive strikes even in low-visibility stained water.',
   'trout-metal-vib':
-    'The high-frequency vibration from a metal body hits the trout\'s lateral line directly. Covering a wide speed range from high-speed retrieve to ultra-slow, it serves as a reliable ace for winter bottom fishing and fast-flowing main rivers.',
+    'The high-frequency vibration from a metal body directly targets the trout lateral line. Wide-ranging coverage from fast retrieves to ultra-slow presentations makes it a trump card for winter bottom tactics and fast-flowing main river channels.',
   'trout-other':
-    'Unconventional lures outside the standard categories expand the possibilities of the trout game. Having a deep bench of situational approaches is what creates the edge over other anglers when conditions get tough.',
+    'Unconventional lures outside standard categories expand the possibilities of trout fishing. A deep arsenal of situational approaches reaches its full potential in those critical moments that separate experienced anglers from beginners.',
   'trout-pencilbait':
-    'A pencil bait\'s walk-the-dog action maximally stimulates the aggression of trout. Line-slack twitching to produce side-to-side headshakes brings Yamame and large Rainbow Trout crashing through the surface.',
+    'Pencil bait walking-the-dog action maximally stimulates trout aggression. Using line slack for twitching to generate side-to-side head shakes draws yamame and trophy rainbow trout to break the surface with violent strikes.',
   'trout-popper':
-    'The pop and splash of a popper instantly flip the feeding switch of trout. The cupped-face sound simulates a bug hitting the water—the ultimate weapon for drawing Yamame and Amago to the surface in summer mountain streams.',
+    'The pop sound and splash instantly engage the trout feeding switch. The cup-generated sound simulates an insect fall, making it the ultimate weapon for drawing yamame and amago to the surface on summer mountain streams.',
   'trout-propbait':
-    'The shimmering sound and fine ripples from a spinning prop stimulate trout curiosity. The continuous water noise during a slow retrieve is especially effective during active hatches, bringing large Rainbow Trout out without hesitation.',
+    'The chattering sound and fine ripples from the propeller stimulate trout curiosity. The continuous water noise during slow retrieves is especially effective during active hatch periods, drawing even trophy rainbow trout into unhesitating surface strikes.',
   'trout-shad':
-    'The subtle tail vibration of a shad-body soft plastic delivers otherworldly bite-inducing power against trout. Even in the most severe clear-water conditions it draws bites without spooking, serving as a consistent all-rounder regardless of fish size.',
+    'The natural swim generated by subtle tail vibration possesses extraordinary finesse capability against trout. Even under severe clear-water conditions, it draws bites without triggering suspicion — an all-rounder delivering consistent results regardless of fish size.',
   'trout-topwater':
-    'Explosive strikes on a floating topwater lure are the single greatest thrill of trout fishing. Deploy at dusk during the rise window and large Char or Rainbow Trout will attack with abandon—pure excitement on the water.',
+    'Explosive strikes on a surface lure drifting just below the top are the ultimate thrill of trout fishing. Deploy during evening rise time to draw aggressive attacks from trophy char and rainbow trout for the most exciting session of all.',
   'trout-worm':
-    'A soft-material\'s natural wave action disarms the wariness of pressured trout. Weightless drifting or drop-shot rigs solve lockjaw situations, offering a dependable approach for breaking through stalemates at managed fisheries.',
+    'The natural wave action of soft material disarms the wariness of pressured trout. Weightless drifts and drop shots overcome shut-down fish, providing a reliable approach for breaking through difficult conditions at managed fisheries.',
   'hirame-crawler-bait':
-    'A crawler bait\'s wobbling swim action triggers reaction strikes from Japanese Flounder. Carefully tracing the surf break line can bring sand-dwelling ambush predators surging up through the water column.',
+    'The swimming wobble of a crawler triggers flounder reaction strikes. Carefully tracing the breakline in surf conditions draws flounder up from their sandy ambush positions for aggressive bites.',
   'hirame-other':
-    'When jigs and minnows can\'t cover the situation, alternative approaches open new opportunities. A flexible selection eye matched to surf conditions and tidal changes creates the chance to pinpoint Flounder holding spots.',
+    'When jigs and minnows fall short, alternative approaches open new doors. A flexible eye for matching surf conditions and tidal changes creates opportunities to precisely target flounder holding spots.',
   'hirame-pencilbait':
-    'A pencil bait swimming in an S-curve just below the surface can bring Japanese Flounder off the bottom. Effective when activity is high, and even a dead-slow walk along the wash zone can produce dramatic topwater strikes from Flounder.',
+    'A pencil swimming in an S-curve just below the surface draws flounder up in the surf. Beyond high-activity scenarios, a dead-slow presentation along the wave wash zone produces dramatic strike sequences.',
   'hirame-popper':
-    'A popper\'s splash and sound stimulate the predatory instinct of Japanese Flounder. Dog-walking through ultra-shallow surf zones and rip-current intersections can bring Flounder chasing bait right up through the surface.',
+    'Popper splash and pop sounds stimulate the flounder predatory instinct. Working a dog-walk presentation in ultra-shallow surf areas and rip current zones draws flounder that have been chasing bait all the way to the surface.',
   'hirame-magochi-jighead':
-    'A jig head and worm combination is the ultimate bottom-contact rig for flatfish. Confirm the touchdown, then work lift-and-fall along the sandy bottom to efficiently target both Japanese Flounder and Bartail Flathead.',
+    'A jighead-and-worm combination is the ultimate bottom-probing tactic for flatfish. Confirming bottom contact and working lift-and-fall along sandy bottoms efficiently targets both flounder and flathead simultaneously.',
   'hirame-magochi-metal-jig':
-    'Metal jigs reach distant breaks and deep-water Flounder and Flathead from the surf with long casts. A fast sink secures bottom contact quickly, and slow lift-and-fall extends the time in the strike zone—a proven strategy.',
+    'Target offshore breaks and deep zones for flounder and flathead with the advantage of long casts. Fast-sinking to establish bottom quickly, then slow lift-and-fall presentations extend the time spent in the strike zone.',
   'hirame-magochi-minnow':
-    'A minnow\'s wobble traced tight to the bottom triggers the feeding response of flatfish. Slow-roll along surf break lines and shelf edges to present strongly to waiting Flounder and Bartail Flathead.',
+    'A minnow\'s wobble tracing tight to the bottom triggers flatfish feeding responses. Slow-retrieving along surf breaklines and drop-offs creates a powerful appeal to both flounder and flathead lying in ambush.',
   'hirame-magochi-sinking-pencil':
-    'A sinking pencil with countdown depth control and a dead-slow retrieve offers precision access to bottom-hugging Flounder and Flathead on the surf. The ability to dial in the exact running depth is its core advantage.',
+    'A sinking pencil that counts down to establish the bottom range and works at dead-slow speed directly approaches flounder and flathead pinned to the surf bottom — a high-precision lure for this application.',
   'hirame-magochi-worm':
-    'The subtle wave action of a soft worm stimulates the sensitive lateral line of flatfish. Texas rigs or jig heads minimize snags while a slow bottom retrieve draws committed bites from both Flounder and Bartail Flathead.',
+    'The subtle wave action of soft plastics stimulates the sensitive lateral line of flatfish. Working the bottom slowly with Texas rigs or jigheads while avoiding snags draws aggressive bites from both flathead and flounder.',
   'kurodai-metal-vib':
-    'A high-density metal vib on a steady retrieve draws reaction strikes from Black Sea Bream (Kurodai). Ripping it along cobble beaches and reef edges at speed appeals to the territorial aggression of Chinu for an aggressive approach.',
+    'High-density metal vibe steady retrieves trigger reaction strikes from black sea bream. Fast-swinging along cobble beaches and rocky shoreline bottoms taps into the territorial aggression of chinu for an explosive approach.',
   'kurodai-minnow':
-    'A minnow traced tight along shallow reefs and eelgrass beds draws Black Sea Bream into striking. From slow winter retrieves to fast summer burns, this approach broadly covers conditions and raises the hit rate on Chinu.',
+    'A minnow tightly tracing rocky shallows and eelgrass beds draws black sea bream out. From slow winter retrieves to fast summer presentations, it covers a wide range while boosting chinu hookup rates.',
   'kurodai-other':
-    'Unconventional lures bring new dimensions to the Black Sea Bream (Chinu) game. Across rivers, tidal flats, and rocky shores, situation-matched approaches open up new possibilities for diverse fields.',
+    'An inventive lure collection that broadens the possibilities of black sea bream fishing, enabling situation-matched approaches across diverse fields including rivers, tidal flats, and rocky shores.',
   'kurodai-pencilbait':
-    'A pencil bait\'s walk-the-dog action elevates the topwater Kurodai game to its peak. When you hear feeding sounds on a shallow flat, throw the pencil immediately. The explosive surface strike of a Chinu is an unforgettable experience.',
+    'Pencil bait walking the dog elevates the black sea bream topwater game to its peak. When you hear feeding sounds on the shallow flat, throw the pencil immediately. A surface-strike from chinu is an experience you will never forget.',
   'kurodai-sinking-pencil':
-    'The subtle depth-holding ability of a slow-sinking pencil is the key to cracking pressured Black Sea Bream. Current-assisted drifts and slow presentations along structure force visible Chinu to open their mouths.',
+    'The subtle range-holding ability of a slow-sinker is the key to cracking pressured black sea bream. River current drifts and slow presentations along structure open the mouth of visible chinu.',
   'kurodai-spoon':
-    'A spoon\'s flash and natural swimming action trigger the instinct of Black Sea Bream. Drifting with the tide on a slow retrieve is particularly effective against harbor and surf Chinu.',
+    'Spoon flash and natural swimming action stimulate the black sea bream instinct. Slow retrieves while drifting in the current are highly effective against chinu in harbor areas and surf zones.',
   'kurodai-vibration':
-    'The strong vibration and flash of a lipless crankbait simultaneously stimulate curiosity and reaction in Black Sea Bream. Bottom bumping and lift-and-fall efficiently search structure-oriented Chinu and draw aggressive bites.',
+    'Vibration lure wave action and flash simultaneously stimulate black sea bream curiosity and reaction instinct. Bottom-bumping and lift-and-fall around structure efficiently target chinu for aggressive strikes.',
   'madai-crankbait':
-    'A crankbait\'s wobble and diving ability let you directly target the swimming layer of Red Sea Bream. Combining slow-retrieve pauses with movement triggers reaction bites from actively feeding Madai.',
+    'Leveraging crankbait wobble and diving capability to directly target the red sea bream swimming layer. Combining pauses with movement during slow retrieves triggers reaction strikes from actively feeding fish.',
   'madai-minnow':
-    'A slim silhouette with sharp wobble-and-roll stimulates the feeding urge of Red Sea Bream. When Tai Rubber draws no response, or when fish are blitzing the surface, a minnow is the ace that produces explosive bites from large Madai.',
+    'A slender profile with sharp wobble-and-roll stimulates red sea bream appetite. When tai-rubber fails to produce or surface schools appear, minnows serve as the trump card for drawing explosive strikes from trophy fish.',
   'madai-other':
-    'Unconventional lures that fill the gaps when standard Tai Rubber or jigging can\'t adapt to the situation. Reading subtle condition changes—current shifts, temperature breaks—and selecting accordingly is what separates catch rates for Red Sea Bream.',
+    'An unconventional lure collection that coaxes bites from red sea bream when tai-rubber and jigging standards fall short. Reading subtle shifts in current and water temperature for selective lure changes is what separates catch rates.',
   'madai-sinking-pencil':
-    'A slow-sinking pencil on a steady drift-and-retrieve traces the Red Sea Bream strike zone for an extended distance. The slim profile and natural swim fool even large, cautious Madai—a powerful finesse weapon.',
+    'The steady-retrieve drift of a slow-sinking pencil traces the red sea bream strike zone for an extended distance. A slender profile and natural swim serve as the ultimate weapon for deceiving wary trophy specimens.',
   'madai-worm':
-    'The ultra-natural wave action of a soft worm flips the switch on Red Sea Bream. Jig head or offset-hook rigs cover surface to mid-column, coaxing bites from pressured Madai that refuse everything else.',
+    'The extremely natural wave action of soft plastics flips the red sea bream switch. Rigs with jigheads or offset hooks cover a wide range from surface to mid-water, coaxing bites from pressured fish as the finesse option.',
   'rockfish-diving-pencil':
-    'The violent splash and diving action of a diving pencil triggers the territorial instinct of rockfish. Cast to rocky points and work the action to bring them charging out of their lairs.',
+    'The aggressive splash and diving action of a diving pencil stimulates rockfish territorial behavior. Cast to rocky points and work the action to draw fish charging out of their lairs.',
   'rockfish-other':
-    'Unique lures that expand the arsenal for rockfish across diverse structure-heavy terrain. When Texas rigs can\'t reach certain crevices or a reaction approach is needed, unconventional presentations deliver.',
+    'Unique lures for diverse rockfish terrain expand the game\'s tactical arsenal. Independent approaches that excel where Texas rigs cannot reach or when reaction strikes are needed produce breakthrough results.',
   'rockfish-popper':
-    'A popper\'s splash triggers the feeding instinct of rockfish. Short-jerk a popper along reef edges and rocky structure to bring Scorpionfish (Kasago) and Grouper (Kijihata) crashing through the surface.',
+    'Popper splash stimulates the rockfish predatory instinct. Drop a popper tight to rocky shorelines and reef structure, then work short jerks to draw grouper and scorpionfish up for spectacular surface strikes.',
   'rockfish-spintail':
-    'The blade flash and strong wave action of a spintail jig trigger reaction bites from rockfish. Steady retrieves and lift-and-fall around structure cover a wide depth range, with a strong track record on Scorpionfish and Bekkou-zoi.',
+    'Spintail blade flash and strong wave action trigger reaction strikes from rockfish. Steady retrieves and lift-and-fall around structure cover a wide range, with a strong track record on scorpionfish and rockfish species.',
   'rockfish-topwater':
-    'Topwater rockfishing delivers excitement beyond imagination. Drop a lure along the reef edge and let it struggle on the surface—Kasago and Grouper will surge up from the rocks to hammer it in a thrilling display.',
+    'Topwater rockfish games deliver excitement beyond imagination. Drop a lure tight to the rocks and let it struggle on the surface — scorpionfish and grouper will charge up from their lairs for thrilling surface strikes.',
   'mebaru-jointed-bait':
-    'The supple S-curve of a jointed body stimulates the feeding instinct of Mebaru (Japanese Rockfish). Dead-slow retrieves around dock lights and seaweed beds draw fish that track the lure patiently before committing with confidence—a high finesse-bite lure.',
+    'The soft S-curve from a jointed body stimulates the rockfish predatory instinct. Dead-slow retrieves around streetlights and seaweed beds coax following fish into unhesitating bites with outstanding finesse capability.',
   'mebaru-metal-jig':
-    'Small metal jigs use fast sink and flash to trigger reaction strikes from Mebaru. From dock lights on breakwaters to deep rocky zones, the casting distance lets you quickly cover offshore-roaming schools.',
+    'The fast fall and flash of a small metal jig triggers rockfish reactions. Covering everything from streetlight-lit jetties to deep rocky zones, leveraging casting distance to target migrating rockfish offshore.',
   'mebaru-other':
-    'Approaches outside the standard Mebaring playbook crack the code on pressured fish. Float rigs, plugging, and varied techniques provide the breakthrough to put bites on fish that have refused everything conventional.',
+    'Approaches outside the standard rockfish toolbox crack pressured fish. Float rigs, plugging, and other diverse techniques open breakthroughs against fish that have been refusing everything else.',
   'mebaru-pencilbait':
-    'Watching Mebaru respond to a pencil bait swimming just below the surface on a dead-slow retrieve is a high-skill game. Presenting the silhouette at the eye level of dock-light Mebaru focused on bait delivers explosive topwater strikes.',
+    'Watching rockfish respond to a pencil swimming dead-slow just below the surface is supremely engaging. Matching the sightline of rockfish targeting bait around streetlights delivers explosive surface bites.',
   'mebaru-spintail':
-    'The blade flash of a spintail jig strongly appeals to the vision of Mebaru. Even a simple steady retrieve produces a natural fluttering swim that efficiently picks up surface-to-midwater Mebaru—a versatile all-rounder.',
+    'Spintail blade flash strongly appeals to rockfish vision. Even a simple steady retrieve produces a natural fluttering swim that efficiently collects rockfish from surface to mid-water — a versatile all-rounder.',
   'aji-jointed-bait':
-    'The soft movement of a jointed bait naturally triggers the feeding response of Aji (Horse Mackerel). Dead-slow surface retrieves under dock lights draw fish that detect the tail\'s subtle vibration and commit with a suction bite. Upsizing potential is a bonus.',
+    'The soft jointed movement naturally triggers horse mackerel feeding. Dead-slow surface retrieves around streetlights deliver bites as fish detect the subtle tail vibration and inhale the lure. Upsizing potential is also strong.',
   'aji-minnow':
-    'A slim-profiled minnow syncs with the baitfish pattern of Aji. Countdown to the school\'s depth, then slow-retrieve to systematically pick fish from the edge of the group—outstanding practical catch performance.',
+    'A slender-profile minnow syncs with the horse mackerel bait pattern. Counting down to establish the range and then slow-retrieving efficiently picks off fish from the edges of the school — outstanding practical performance.',
   'aji-other':
-    'Unconventional lures that come into their own when standard Ajing rigs hit a wall. The judgment to match current, depth, and fish activity to the optimal approach is what unlocks both numbers and quality.',
+    'An unconventional lure collection that excels in situations where standard horse mackerel rigs fall short. The ability to select optimal approaches based on current, depth, and fish activity enables both numbers and trophy-size pursuits.',
   'aji-sinking-pencil':
-    'A sinking pencil with freeform countdown depth control directly targets the swimming layer of Aji. Dead-slow steady retrieves minimize wave action, drawing natural bites even from wary dock-light fish in clear water.',
+    'A sinking pencil that freely segments depth via countdown directly targets the horse mackerel cruising layer. Dead-slow steady retrieves with minimal wave action coax natural bites from pressured fish around clear-water streetlight zones.',
   'aji-spintail':
-    'The blade flash of a micro spintail jig locks onto the vision of Aji. A simple steady retrieve produces consistent results, earning deep trust as a reliable option for long-distance casting in wind and deep-zone Aji targeting.',
+    'Micro spintail blade flash locks horse mackerel vision onto a single point. Consistent catches on a simple steady retrieve alone make it an extremely reliable lure for long-cast wind days and deep-zone horse mackerel tactics.',
   'aji-vibration':
-    'The strong vibration of a lipless crankbait stimulates the lateral line of Aji and triggers reaction bites. Even in fast current or when Aji drop to depth, it quickly identifies the holding zone for efficient run-and-gun fishing.',
+    'Vibration wave action stimulates the horse mackerel lateral line to trigger reaction strikes. Quickly establishing depth ranges even in strong current or deep-holding situations, it excels in efficient count-building run-and-gun sessions.',
   'aori-ika-sutte':
-    'The color palette and posture changes of a Sutte simultaneously stimulate the curiosity and predatory instinct of Bigfin Reef Squid. Glow and luminous materials are devastatingly effective for night and boat-based eging. Combining as a dropper with a standard egi is a proven setup that boosts catch rates significantly.',
+    'The color and posture changes of squid jigs simultaneously stimulate curiosity and predatory instinct. Mastering the timing to draw the embrace during the post-snap fall is the essence of squid fishing — the weight of a big squid committing is an incomparable sensation.',
   'aori-ika-worm':
-    'Soft-material Tip-Run egi and worms appeal to the delicate tactile senses of Bigfin Reef Squid. Dead-fall and slow-jerk presentations in current deliver extremely high bite-inducing power against pressured Aori-ika.',
+    'Soft-bodied tip-run jigs and worms appeal to the squid\'s delicate tactile senses. Dead falls and slow snaps in current deliver exceptionally high finesse performance against pressured squid.',
+  // ── Batch 3 ──
   'hiramasa-minnow':
-    'A realistic baitfish silhouette and wobbling action stimulate the predatory instinct of cruising Yellowtail Amberjack (Hiramasa). Work them tight along rocky white-water zones and tide lines for explosive strikes.',
+    'Realistic baitfish silhouettes and wobbling action stimulate the predatory instinct of migrating amberjack. Tight attacks along rocky wash zones and current seams produce explosive strikes.',
   'hiramasa-other':
-    'Lures that expand the Hiramasa arsenal. Matching the type to conditions opens the door to bites when standard approaches have been shut out.',
+    'A lure collection that expands the amberjack tactical arsenal. Deploying type-matched selections for varying situations opens bite opportunities even when standard approaches fail.',
   'hiramasa-pencilbait':
-    'If you want to feel a Hiramasa blow up on the surface, pencil bait is the only answer. Walk it side to side and watch fish compete for the strike in the heart of the blitz, sending up water columns. This is the essence of the pelagic topwater game.',
+    'If you want to experience amberjack breaking the surface, the pencil bait is the only choice. Walking the dog with side-to-side head shakes draws competing strikes and towering water columns from amberjack in the blitz zone. Pure topwater pelagic fishing at its finest.',
   'hiramasa-sinking-pencil':
-    'A sinking pencil combines casting distance with versatile action for a cornerstone role in the Hiramasa game. From steady retrieve to twitch, it handles multiple techniques and efficiently searches a wide depth range from surface to mid-column.',
+    'A sinking pencil that balances casting range with versatile action is a cornerstone lure for the amberjack game. Adapting from steady retrieves to twitching, it efficiently searches a wide range from surface to mid-water.',
   'kampachi-minnow':
-    'Greater Amberjack (Kampachi) frequently show reflexive strikes on minnows. Speed-cranking and jerking create the windows that provoke reaction bites. The drag-screaming fight that follows is addictive.',
+    'Greater amberjack frequently show reflex strikes to minnows. Creating feeding windows through speed reeling and jerking to trigger reaction bites is the textbook approach. The rod-screaming fight that follows is unforgettable.',
   'kampachi-other':
-    'Kampachi fishing demands condition-reading lure selection. Approaches that perform in low-activity windows and finicky bites increase the probability of experiencing that famously powerful fight.',
+    'Successful greater amberjack fishing demands situation-aware lure selection. Approaches that produce during low-activity or lock-jaw conditions maximize your chances of connecting with that incredible power.',
   'kampachi-popper':
-    'For explosive surface-strike fishing, the popper reigns supreme. The cupped face sends up spray and sound that trigger Kampachi\'s attack instinct, producing violent strikes. The exhilaration of the pelagic topwater game is second to none.',
+    'For explosive surface action, the popper is the best choice. The cup catches water, producing spray and noise that stimulate the greater amberjack attack instinct for violent strikes. The exhilaration of pelagic topwater fishing is unmatched.',
   'kampachi-sinking-pencil':
-    'A sinking pencil that reads the current and searches wide areas is effective on cruising Greater Amberjack. High castability reaches offshore tide lines, turning encounters with trophy-class fish beyond shore range into reality.',
+    'A sinking pencil reading the current to cover wide areas is effective on migrating greater amberjack. High castability reaches offshore current seams, turning encounters with trophy-class fish into reality.',
   'tuna-other':
-    'Tuna demand casting distance and tackle strength beyond the ordinary. Unconventional approaches that attract distant blitz fish and overpower the sheer force of the fight are what this category delivers.',
+    'Targeting tuna demands extraordinary casting distance and robust tackle. These are the options for drawing in big fish from distant blitzes and current seams, then prevailing in overwhelmingly powerful fights.',
   'tuna-pencilbait':
-    'Chasing a topwater tuna bite on the open ocean. Cast a pencil bait to distance and work it on the surface to flip the switch on cruising tuna. The piercing strike and titanic fight are the pinnacle of the offshore game.',
+    'Pursuing tuna topwater bites on the open ocean. Cast a pencil bait to distance, work it on the surface, and flip the feeding switch on cruising tuna. The piercing strike and epic fight represent the pinnacle of offshore fishing.',
   'tuna-sinking-pencil':
-    'When the blitz is distant or fish are focused on the mid-column, a sinking pencil comes into its own. Countdown to the cruising layer and work the action at the right depth to create reliable bite opportunities on Tuna.',
+    'When the blitz is distant or fish are focused mid-water, sinking pencils prove their worth. Counting down to match the range and working the action at the tuna cruising layer creates reliable bite opportunities.',
   'yellowtail-minnow':
-    'Japanese Yellowtail (Buri) readily show reaction strikes to minnows. Jerking and speed-cranking create the illusion of panicking bait to trigger chases. The winter Buri season produces especially strong responses, with a proven track record for trophy-class fish.',
+    'Yellowtail readily show reaction strikes to minnows. Jerking and speed-reeling portray fleeing bait to draw chase-and-strike sequences. Winter yellowtail season sees particularly strong responses, with proven results targeting trophy-class fish.',
   'yellowtail-other':
-    'A diverse lure selection that broadens the Yellowtail game. Water temperature, current, and bait species change the optimal approach. Adapting selection to conditions maximizes encounter probability with Buri.',
+    'A diverse lure collection that broadens yellowtail tactics. The optimal approach shifts with water temperature, current, and bait species — matching your selection to conditions maximizes encounter rates.',
   'yellowtail-pencilbait':
-    'Yellowtail topwater fishing is pure adrenaline. Walk a pencil bait on the surface and watch the school compete for the strike. The instant effectiveness on surface blitzes makes it a staple of the pelagic topwater arsenal.',
+    'Yellowtail topwater games deliver non-stop adrenaline. Walking the dog on the surface draws competitive strikes from schooling fish. Exceptional immediacy during surface blitzes makes this a pelagic topwater staple.',
   'yellowtail-sinking-pencil':
-    'When Yellowtail are cruising the mid-column or when blitzes are far offshore, a sinking pencil is the reliable choice. Leverage casting distance to search wide, adjusting retrieve speed to control depth as you work through the school.',
+    'When yellowtail cruise the mid-water column or blitzes move offshore, sinking pencils prove reliable. Leveraging casting distance to search broadly while adjusting range through retrieve speed is the core tactic.',
   'gt-pencilbait':
-    'The pencil bait is the protagonist of the GT game. Cast a 100 mm+ plug to distance and drive it with powerful rod strokes. The sight of a Giant Trevally plowing through the whitewash to engulf it is a once-in-a-lifetime moment of tropical game fishing.',
+    'The pencil bait is the star of the GT game. Launch 100mm-plus plugs to distance and drive powerful head shakes with rod work. Watching a giant trevally charge through the whitewash for a strike is a once-in-a-lifetime tropical fishing moment.',
   'magochi-bigbait':
-    'To selectively target trophy Bartail Flathead (Magochi), a big bait\'s presence creates overwhelming separation. A realistic swimming action worked near bottom draws the largest individuals and elevates the scale of the flatfish game.',
+    'For targeting trophy flathead, a big bait\'s commanding presence creates decisive differentiation. Bottom-oriented realistic swimming action draws big fish in, elevating the flatfish game to the next level.',
   'magochi-metal-jig':
-    'Metal jig tactics for Bartail Flathead center on one-pitch jerks after touching bottom. Re-establishing bottom contact and working a slow presentation puts the jig directly in front of sand-dwelling Magochi. Ideal for efficiently searching deep surf and harbor zones.',
+    'Flathead metal jig tactics center on one-pitch jerks after touching bottom. Working the jig slowly while re-establishing bottom contact puts it directly in front of sand-burrowed flathead. Ideal for efficiently searching deep surf and harbor zones.',
   'magochi-minnow':
-    'Bartail Flathead bite when a minnow is traced just above the bottom. A lipped floating minnow retrieved slowly with intermittent bottom contact kicks up sand clouds that draw Magochi in. A classic surf-game technique.',
+    'Flathead strike when a minnow is retrieved just above the bottom. Slowly retrieving a lipped floating minnow while making occasional bottom contact creates sand puffs that attract flathead — a fundamental surf technique.',
   'magochi-pencilbait':
-    'When Bartail Flathead turn their attention to the surface, a pencil-bait topwater game becomes viable. The ferocious topwater strike from a flatfish defies expectations and delivers pure game-fishing excitement.',
+    'When flathead turn their attention to the surface, pencil bait topwater games become viable. The violent topwater strikes from what seems like a bottom-dwelling species deliver the full excitement of game fishing.',
   'magochi-swimbait':
-    'A swimbait\'s realistic swimming action excels during Magochi\'s selective feeding periods. The subtle tail vibration draws Flathead holding in the bottom feeding zone.',
+    'A swimbait\'s realistic swimming action is strong during selective flathead feeding periods. Subtle tail vibration in the near-bottom feeding zone draws flathead in from distance.',
   'magochi-worm':
-    'Worm tactics for Bartail Flathead center on the jig head rig. Drag the bottom with occasional shakes to mimic goby and sandworm movement. The high bite-inducing power produces stable catches even on pressured flats.',
+    'Jighead rigs are the foundation of flathead soft plastic tactics. Dragging the bottom with occasional shakes to imitate goby and worm movement delivers high finesse capability and consistent results even on pressured waters.',
   'kasago-jighead':
-    'Scorpionfish (Kasago) aggressively bite jig head rigs. Drop the rig into tetrapod gaps and along rock edges, then crawl it slowly across the bottom for rapid-fire bites. A light-game staple enjoyed by beginners and experts alike.',
+    'Scorpionfish are aggressive biters on jighead rigs. Drop the rig into tetrapod gaps and along structure edges with a slow bottom retrieve for continuous strikes. An accessible light-game staple from beginner to expert.',
   'kasago-vibration':
-    'The tight action of a lipless crankbait triggers Kasago\'s feeding instinct. Lift-and-fall around reefs and structure efficiently locates bottom-dwelling Scorpionfish.',
+    'Vibration lure tight action stimulates the scorpionfish predatory instinct. Lift-and-fall around rocky reefs and structure efficiently targets bottom-dwelling scorpionfish.',
   'kasago-worm':
-    'Soft plastics are one of the most reliable lures in the Kasago angler\'s arsenal. Shrimp or sandworm profiles on a Texas rig or drop-shot deliver consistent bites when punched into rocky crevices.',
+    'Soft plastics are among the most reliable lures for scorpionfish. Shrimp and worm profiles rigged Texas-style or on drop shots and delivered into rocky crevices produce reliable bites.',
   'hata-metal-jig':
-    'Grouper (Hata) respond strongly to the fall of a metal jig. Mixing in slack-line jerks near the bottom draws explosive bites from reef-hugging fish. Metal jigs are indispensable for deep rockfish territory.',
+    'Grouper respond strongly to metal jig falls. Mixing slack jerks near the bottom draws aggressive strikes from bottom-hugging grouper. Metal jigs are essential for deep rockfish territory.',
   'hata-worm':
-    'Grouper species respond exceptionally well to the natural movement of soft plastics. Texas rigs or leaderless drop-shots delivered into rock pockets and fished slowly near bottom are the proven standard approach.',
+    'Grouper species respond exceptionally well to the natural movement of soft plastics. Texas rigs and leaderless drop shots delivered into rocky structure and presented slowly near the bottom produce reliable bites as the standard approach.',
   'catfish-topwater':
-    'Topwater catfish fishing erupts on nighttime rivers. The thunderous surface strike as a catfish engulfs the lure is instantly addictive. Poppers and noisy surface lures worked with audible splashing are the standard tactic.',
+    'Catfish topwater action explodes on nighttime rivers. The thunderous strike on a surface lure is addictive once experienced. Poppers and noisy surface baits that generate sound while working are the textbook method.',
   'snakehead-frog':
-    'The frog is the undisputed star of the Snakehead game. Slide it across heavy cover and wait for the explosive surface strike as it drops into an opening. A thrilling game-fishing pursuit targeting trophy fish buried under the thickest vegetation.',
+    'The frog is the absolute star of snakehead fishing. Skating it across cover and pausing at an open-water edge produces explosive strikes. A thrilling game targeting trophy snakehead holding in heavy cover.',
   'sweetfish-minnow':
-    'Lure fishing for Ayu (Sweetfish) centers on a minnow-based approach mimicking traditional friend-fishing. A minnow imitating a live Ayu drifted through the current triggers territorial attack-bites from wild fish. The clarity of mountain streams and the fight of Ayu combine for a unique experience.',
+    'Sweetfish lure fishing centers on minnow-based approaches that imitate traditional friend-fishing techniques. A minnow matched to real sweetfish swims naturally through the current, triggering territorial attack strikes from wild fish. Enjoy the mountain stream atmosphere and spirited fight simultaneously.',
   'ayu-minnow':
-    'Ayu minnows are the cornerstone of lure-based Ayu fishing that exploits their territorial behavior. A silhouette nearly identical to a live decoy fish swims along the streambed to provoke territorial strikes from wild Ayu. Ideal for game fishing in crystal-clear mountain streams.',
+    'Ayu minnows are the cornerstone of lure fishing that exploits the sweetfish territorial behavior. Swimming a lure with virtually the same silhouette as a live decoy around riverbed rocks provokes territorial attacks from aggressive wild sweetfish. Ideal for clear-water stream game fishing.',
   'cuttlefish-egi':
-    'Eging for Cuttlefish is a slow-style shallow-water game. No aggressive snapping is needed—simply drag the egi along the bottom slowly, and Cuttlefish wrap onto it. An excellent entry point into the eging world.',
+    'Cuttlefish jigging is based on a slow, bottom-oriented style in shallow waters. Flashy snapping is unnecessary — simply placing the jig on the bottom and slowly dragging produces embraces. An excellent entry point to squid jigging.',
   'squid-egi':
-    'Eging uses egi (shrimp/baitfish-mimicking jigs) to attract squid. The combination of snapping jerks and controlled falls draws interest, with the grab typically coming during the sink. Riding the fall bite is the core thrill.',
+    'Squid jigging uses shrimp-and-small-fish-imitating jigs to attract squid. The combination of rod snaps and falls draws squid interest, and setting the embrace during the fall is the core thrill of the sport.',
   'squid-other':
-    'A fresh approach to squid fishing beyond standard egi and sutte. Diverse rigs and techniques offer a distinctly different angle of attack, opening new possibilities for targeting squid on pressured grounds.',
+    'A fresh approach targeting squid with lures beyond conventional jigs and droppers. Diverse rigs and techniques enable distinctly different tactics, opening new possibilities for squid fishing on pressured grounds.',
   'squid-sutte':
-    'Sutte lures strongly stimulate squid\'s vision and lateral line. Glow and luminescent materials are devastatingly effective for night and boat-based fishing. Combining with an egi as a dropper rig is a proven configuration that significantly boosts the catch.',
+    'Dropper jigs appeal strongly to squid vision and lateral line. Glow and luminescent materials are devastatingly effective for night fishing and boat jigging. Pairing as a dropper with a main jig is a standard tactic that significantly boosts catch rates.',
   'yari-ika-sutte':
-    'Spear Squid (Yari-ika) respond well to sutte, with boat-based sutte fishing being the mainstream approach. Multi-dropper rigs make multiple-hookup catches routine. From winter through spring spawning season, casting from shore also becomes viable.',
+    'Spear squid respond well to dropper jigs, making boat-based jigging the mainstream approach. Multi-hook dropper rigs enable double and triple hookups. From winter through spring spawning season, shore casting games also become viable.',
   'kensaki-ika-sutte':
-    'Swordtip Squid (Kensaki-ika) react quickly to sutte, producing satisfying reaction bites on active jigging cadences. Targeting light-attracted schools from nighttime breakwaters or offshore boats offers strong potential for big hauls.',
+    'Swordtip squid react swiftly to dropper jigs, and the active snap-triggered reaction strikes feel incredibly satisfying. Night sessions from jetties or offshore boats targeting light-attracted schools produce big hauls.',
   'octopus-egi':
-    'Octopus egi are purpose-designed squid-jig-style lures with rubber tentacles and curly tails that trigger the octopus\'s wrapping instinct. A slow bottom drag with intermittent shakes is all it takes, and the snag-resistant design makes fishing reef zones far easier.',
+    'Octopus jigs are purpose-designed lures with rubber tentacles and curly tails that trigger embraces. Simply dragging the bottom with added shaking while the snag-resistant design makes rocky reef tactics manageable.',
   'octopus-other':
-    'Octopus fishing demands specialized rigs and strategies. Non-egi octopus lures and setups target large individuals around reefs and wave-breaker blocks. Getting a solid wrap and recovering quickly is the core skill of octopus fishing.',
+    'Octopus fishing demands specialized rigs and strategy. Dedicated octopus lures and setups target large specimens around reefs and wave-dissipating blocks. Securing the embrace quickly and retrieving promptly is the core skill of octopus fishing.',
   'octopus-worm':
-    'Soft plastic rigs are a reliable method for targeting octopus. The soft material texture creates minimal alarm, buying extra wrapping time. Texas rigs or bullet-sinker combos methodically work rock structure for precise presentations.',
+    'Octopus can also be reliably targeted with soft plastic rigs. The soft texture avoids triggering rejection, buying time for the octopus to fully commit. Paired with Texas rigs or bullet sinkers for thorough structure probing.',
   'saltwater-sutte':
-    'Saltwater sutte fishing produces best around nighttime dock lights and harbor zones. Glow and luminescent sutte materials powerfully attract squid species, enabling efficient numbers-fishing on float rigs or boat drifts.',
+    'Saltwater dropper jig fishing has a strong track record around nighttime streetlights and fishing ports. Glow and luminescent materials intensely attract squid species, enabling efficient numbers fishing with float rigs and boat drifting.',
   'saltwater-tai-rubber':
-    'Tai Rubber is a cornerstone saltwater lure. Despite its simple head-and-skirt design, a steady-speed retrieve triggers the predatory instinct of fish. Its versatility across Red Sea Bream and numerous other species is a major draw.',
+    'Tai-rubber commands enormous confidence in saltwater fishing. Despite its simple head-and-rubber construction, a constant-speed retrieve stimulates the feeding instinct. Outstanding versatility covering red sea bream and many other species.',
   'saltwater-worm':
-    'Soft plastics are indispensable in the saltwater game. Their natural action breaks through slow-bite conditions and draws committed strikes in situations where hard baits struggle to reach.',
+    'Soft plastics are indispensable in saltwater fishing. Their natural action breaks through tough-bite situations, reliably drawing strikes in scenarios where hardbaits struggle.',
   'offshore-diving-pencil':
-    'Diving pencils are the standard lure for offshore casting games. The rod-worked diving action generates a distinctive wave pattern that draws pelagics from a wide radius. Purpose-built for topwater encounters with large migratory species.',
+    'Diving pencils are the standard for offshore casting games. Rod-work-driven subsurface diving action generates unique wave displacement that draws pelagics from a wide area. A topwater lure purpose-built for big-game offshore encounters.',
   'offshore-metal-jig':
-    'Offshore metal jigs search every depth from bottom to surface with total freedom. One-pitch jerking on the way up, with bites taken on the fall—the jigging fundamental. They accommodate everything from high-speed to slow-pitch styles.',
+    'Offshore metal jigs are the versatile workhorses that search from deep to surface. The foundational one-pitch jerk draws the fish in while the fall secures the bite. Adaptable across high-speed jigging through slow-pitch styles.',
   'offshore-pencilbait':
-    'Pencil baits command unrivaled presence in the offshore casting game. Long casts toward bird piles and blitzes, powered by vigorous walk-the-dog action, call trophy pelagics to the surface. The headliner of the open-water big game.',
+    'Pencil baits command an overwhelming presence in offshore casting games. Long-casting toward bird piles and surface blitzes with powerful walking-the-dog action calls trophy pelagics to the surface — the star of big-game offshore fishing.',
   'mahi-mahi-diving-pencil':
-    'Mahi-Mahi (Dorado) show flashy strikes on diving pencils. Cast along tide lines and work the lure sub-surface with erratic action to draw color-blazing Mahi competing for the bite.',
+    'Mahi-mahi produce spectacular strikes on diving pencils. Casting along current seams and working subsurface with erratic action draws brilliantly colored mahi-mahi competing for the strike.',
   'mahi-mahi-minnow':
-    'Mahi-Mahi respond aggressively to a minnow\'s lip-driven wobble. Speed-cranking and jerking replicate panicking bait, delivering the thrill of acrobatic Mahi blasting through the blue surface.',
+    'Mahi-mahi respond strongly to the lip-driven wobbling action of minnows. Speed-reeling and jerking to portray fleeing bait lets you experience the spectacular leaping strikes and powerful fight of mahi-mahi across blue ocean waters.',
   'mahi-mahi-popper':
-    'Mahi-Mahi popper fishing delivers non-stop visual excitement. Work the cup to produce sound and spray, and gold-green Mahi will charge boldly. The full-throttle experience of offshore topwater fishing.',
+    'Mahi-mahi popper fishing delivers non-stop visual excitement. Working the cup to produce sound and spray draws gold-and-green mahi-mahi into fearless strikes. A full experience of offshore topwater game fishing at its finest.',
   'tachiuo-other':
-    'Largehead Hairtail (Tachiuo) can be targeted with everything from bait-wrapped Tenya to casting lures. Specialized tackle that handles the razor-sharp teeth and unique bite pattern makes the sight of a silver ribbon dancing across the surface an addictive experience.',
+    'Cutlassfish are targetable through diverse approaches from bait-wrapped tenya to lures. Specialized tackle handles their razor-sharp teeth and unique bite patterns, and the excitement of that ribbon-like body thrashing on the surface is unforgettable.',
   'tachiuo-tenya':
-    'Tenya holds an unshakable position in boat-based Hairtail (Tachiuo) fishing. Work the bait-wrapped tenya with fall and lift movements to ride the characteristic upward-feed bite. The definitive style of boat Tachiuo fishing.',
+    'Tenya holds an unshakeable position in cutlassfish boat fishing. Bait-wrapped tenya worked with falls and retrieves exploits the characteristic upward-feeding bite pattern for reliable hooksets — the definitive style of boat-based cutlassfish fishing.',
+  // ── Batch 4 ──
   'aji-pencilbait':
-    'A pencil bait\'s sub-surface walk-the-dog action makes topwater Aji (Horse Mackerel) fishing for trophy-size fish a reality. Match the feeding depth of dock-light Aji with a slow retrieve to experience the thrill of plug-based Ajing.',
+    'Pencil bait subsurface walking the dog establishes a viable topwater game for trophy horse mackerel. Slow-retrieving to match the feeding range of bait-chasing fish around streetlights delivers the pure thrill of plugging-style ajing.',
   'aji-metal-vib':
-    'A metal vib\'s high-density body delivers casting distance even into a headwind, excelling in daytime deep-zone Aji fishing. Lift-and-fall quickly pinpoints the school\'s depth for efficient numbers-building.',
+    'The high-density body of a metal vibe maintains casting distance even into headwinds, proving its worth for daytime deep-zone horse mackerel tactics. Lift-and-fall presentations quickly locate the school\'s depth for efficient numbers fishing.',
   'seabass-frog':
-    'A frog\'s subtle splashdown and slow crawl draw Japanese Seabass from under cover. Navigate weed zones and moored-boat shade snag-free, and the surface explosion on the bite is extraordinary.',
+    'A frog\'s natural splashdown sound and slow movement draw seabass out from under cover. Weed areas and dock undercuts can be fished snag-free, and the surface explosion on the bite is exceptional.',
   'seabass-rubber-jig':
-    'The skirt-wave action and slow fall of a rubber jig target bottom-holding Japanese Seabass. Precisely dropping along bridge-piling bases and submerged rocks pulls out resident fish that ignore conventional hard baits.',
+    'Rubber jig skirt action and slow fall appeal to near-bottom seabass. Carefully dropping along bridge piling bases and submerged structure pulls out resident fish that ignore standard hardbaits.',
   'kurodai-crankbait':
-    'A crankbait\'s wide wobble triggers the curiosity of Black Sea Bream. Deflecting the lip off shallow cobble and riprap generates reaction bites—an approach gaining traction as a fresh angle in the Chinu game.',
+    'Crankbait wide wobble stimulates black sea bream curiosity. Tracing along shallow cobble and riprap with lip contact triggers reaction strikes — gaining attention as a fresh approach to chinu fishing.',
   'chinu-kurodai-popper':
-    'Poppers are essential for topwater Black Sea Bream (Chinu) action. Popping across tidal flats and shallow areas produces dramatic surface blowups from Chinu. Dawn and dusk are the prime windows.',
+    'Poppers are essential for chinu topwater games. Popping action on tidal flats and shallow areas produces explosive surface strikes from black sea bream. Dawn and dusk windows are the prime time.',
   'madai-jighead':
-    'A jig head and worm rig offers a light-tackle approach to Red Sea Bream. When Tai Rubber draws blanks on lethargic fish, a slow fall with subtle shakes coaxes the gentle suction bite.',
+    'A light jighead-and-worm approach for red sea bream. When tai-rubber fails during low-activity periods, slow falls and shaking produce a suction-type bite from red sea bream.',
   'hirame-jighead':
-    'A jig head rig delivers the highest-precision bottom approach for Japanese Flounder. Lift-and-fall after touching down puts the worm in the strike zone of sand-dwelling fish, and the classic feed-up bite on the fall is securely hooked.',
+    'Jighead rigs deliver the highest-precision bottom approach for flounder. Lift-and-fall after touching bottom puts the worm within range of sand-burrowed flounder, reliably connecting on upward-feeding fall bites.',
   'hirame-spinnerbait':
-    'A spinnerbait\'s blade flash and skirt wave catch surf-zone Flounder from a wide area. Slow-rolling near bottom, the flashing blade flips the feeding switch on sand-buried Japanese Flounder.',
+    'Spinnerbait blade flash and skirt wave action attract surf flounder from a wide area. Slow-rolling near the bottom lets blade flash flip the feeding switch on sand-buried flounder.',
   'catfish-crawler-bait':
-    'A crawler bait\'s surface-crawling action and distinctive water noise drive Catfish into a frenzy. Slow-retrieve through nighttime rivers and irrigation channels for thunderous topwater strikes and the full Catfish-game experience.',
+    'Crawler bait surface action and distinctive water noise drive catfish wild. Slow-retrieving through nighttime rivers and drainage channels produces thunderous strikes that deliver the full catfish game excitement.',
+  // Pelagic compound names
   'bluerunner-all-pencilbait':
-    'Walk-the-dog pencil baits are the single strongest topwater choice for pelagics across the board. Yellowtail, Amberjack, and Kampachi crashing the surface create memories etched deep in every angler\'s mind. Instant effectiveness on surface blitzes is overwhelming.',
+    'Walking the dog with a pencil bait is the ultimate topwater choice for all pelagic species. Watching yellowtail, amberjack, and greater amberjack break the surface for a strike creates memories etched deep in every angler. Outstanding immediacy for surface-blitz situations.',
   'bluerunner-all-sinking-pencil':
-    'Sinking pencils offer broad versatility for targeting pelagics in general. Countdown to depth and pick off species from Yellowtail to Kampachi. Casting distance and action freedom make this a mainstay of the shore-jig game.',
+    'Sinking pencils provide high versatility across all pelagic targets. Counting down to match the range targets everything from yellowtail to greater amberjack. Casting distance and action versatility make it a shore-fishing mainstay.',
   'bluerunner-all-metal-jig':
-    'Metal jigs are the backbone of the pelagic game. From shore to offshore, one-pitch and slow-pitch jerks cut across Yellowtail, Amberjack, and Kampachi. Weight and silhouette selection dictate the day\'s results.',
+    'The metal jig is the backbone of pelagic fishing. From shore to offshore, one-pitch and slow-pitch jerks horizontally target yellowtail, amberjack, and greater amberjack. Weight and silhouette selection determine the day\'s catch rate.',
   'bluerunner-all-blade-bait':
-    'The high-speed vibration and flash of blade baits draw reaction strikes from pelagics across species. A simple steady retrieve efficiently searches wide areas, and when a school is located, chain hookups are far from rare.',
+    'Blade bait high-speed vibration and flash trigger reaction strikes across all pelagic species. Efficient steady-retrieve searching covers wide areas, and encountering a migrating school can produce chain hookups.',
   'bluerunner-all-diving-pencil':
-    'Diving pencils are the showpiece of rock and surf casting for pelagics. Rod-worked sub-surface dives directly target the predatory instinct of every bluerunner species from Yellowtail to Amberjack.',
+    'The diving pencil is the showpiece of pelagic casting games from rocky shores and surf. Rod-work-driven subsurface diving action directly targets the predatory instinct of all pelagic species from yellowtail to amberjack.',
+  // Rockfish and trout compound names
   'rockfish-all-metal-jig':
-    'Metal jigs are ideal for deep-zone rockfish coverage. Lift-and-fall from rocky shores or boats efficiently targets Scorpionfish, Greenling, and Grouper. The fluttering flash on the fall is the primary bite trigger.',
+    'Metal jigs are ideal for deep-water rockfish tactics across all species. Lift-and-fall from rocky shores or boats efficiently targets scorpionfish, lingcod, and grouper alike. The flutter on the fall serves as the primary bite trigger.',
   'rockfish-all-jighead':
-    'Jig head rigs are the standard rockfish tactic. Punching a worm into tetrapod gaps and reef zones for a slow bottom crawl draws reliable bites from Scorpionfish and Greenling. Fine-tuning head weight is the key variable.',
+    'Jighead rigs are the standard rockfish approach. Delivering worms into tetrapod gaps and rocky reefs with a slow bottom probe produces reliable bites from scorpionfish and lingcod. Fine-tuning head weight is what separates catch rates.',
   'trout-all-crankbait':
-    'Crankbaits are the all-around performer from managed fisheries to native-trout streams. Lip angle dials in the depth, and tight wobble coaxes bites from even the most reluctant trout.',
+    'Crankbaits are versatile all-rounders from managed fisheries to native trout waters. Matching range via lip diving angle and tight wobble coaxes bites from even the most reluctant trout.',
   'trout-all-minnow':
-    'Minnows are the foundational trout-fishing lure. From managed-pond Rainbows to mountain-stream Char, the classic twitch-and-pause action works universally—an effective approach even on pressured fish.',
+    'Minnows are the foundation of all trout fishing. From managed-fishery rainbows to mountain stream char, the classic twitch-and-pause action draws bites even from pressured fish.',
   'trout-all-jighead':
-    'Jig head rigs cover trout fishing from bottom probing to swimming presentations. From dead-slow managed-fishery sessions to fast-water drifts, head-weight selection broadens the range of approach.',
+    'Jighead rigs cover everything from trout bottom tactics to swimming presentations. From dead-slow managed-fishery sessions to fast-water main-river drifts, approach versatility expands with head-weight selection.',
   'trout-all-other':
-    'Spoons, spinners, and other lures outside standard categories expand the trout-fishing toolkit. The unconventional approach that becomes the deciding factor under tough conditions is often in this group.',
+    'Diverse lures outside standard spoon and spinner categories expand the trout game\'s tactical range. Unconventional approaches that become trump cards in tough conditions frequently make the difference in catch rates.',
   'trout-swimbait':
-    'A swimbait\'s realistic profile and tail action stimulate the feeding instinct of trophy trout. Slow retrieves on lakes and main rivers are the foundation, matching forage like Wakasagi (pond smelt) and Oikawa (pale chub) for a precise match-the-hatch approach.',
+    'Swimbait realistic silhouettes and tail action stimulate the predatory instinct of trophy trout. Slow retrieves in lakes and main rivers are fundamental, matching the hatch when trout are keyed on smelt or minnows.',
+  // Squid
   'squid-all-egi':
-    'Egi are the universal squid lure, covering everything from Bigfin Reef Squid to Spear Squid. Snap-and-fall combinations adapt to each species\' behavior, with size and color matched to season and region determining the catch.',
+    'Squid jigs are the all-around lure for targeting every squid species from bigfin reef squid to spear squid. The snap-and-fall combination adapts to each species\' behavior patterns, with size and color selection by season and region determining success.',
+  // North American freshwater — Crappie
   'crappie-worm':
-    'Soft plastics are the most versatile lure in Crappie fishing. Small curly-tails or grubs on a jig head fished with a slow fall efficiently build numbers when schools are located.',
+    'Soft plastics are the most versatile lure in crappie fishing. Small curly tails and grubs on jigheads worked with a slow fall efficiently produce numbers from schooling crappie.',
   'crappie-jighead':
-    'Jig head rigs are the go-to for Crappie. A lightweight head with a micro worm dropped slowly into brush piles and submerged timber produces chain bites from schooling fish.',
+    'Jighead rigs are the gold standard for crappie. Micro worms on light jigheads slowly dropped around brush piles and submerged timber produce chain-reaction bites from schooling fish.',
   'crappie-swimbait':
-    'A swimbait\'s realistic shad-tail action triggers feeding responses from slab-sized Crappie. Slow-swimming along breaklines and structure edges opens the door to trophy encounters.',
+    'The realistic shad-tail action of a swimbait triggers feeding responses from slab crappie. Slow-swimming along breaklines and structure edges opens the door to trophy-class encounters.',
   'crappie-rubber-jig':
-    'A rubber jig\'s skirt wave stimulates Crappie curiosity. Tight drops into brush piles and weed edges on a slow fall draw concentrated bites from quality Crappie.',
+    'Rubber jig skirt action stimulates crappie curiosity. Dropping tight to brush piles and weed edges with a slow fall draws concentrated bites from quality crappie.',
   'crappie-crankbait':
-    'Trolling or casting crankbaits efficiently searches wide areas for Crappie. For fall and winter deep-holding fish, a long-lipped model that reaches the right depth is the key.',
+    'Crankbaits cover wide areas efficiently through trolling or casting for crappie. Deep-diving lip models are the key to matching depth during fall and winter deep-crappie patterns.',
   'crappie-minnow':
-    'A minnow\'s tight wobble matches the Crappie baitfish pattern. Slow retrieves around shallow brush piles draw bites from suspended Crappie schools.',
+    'A minnow\'s tight wobble matches the crappie bait pattern. Slow-retrieving around shallow brush piles coaxes bites from suspended schooling crappie.',
+  // North American — Redfish
   'redfish-worm':
-    'Soft plastics are the standard Redfish approach. Shad-tails or paddle-tails on a jig head worked methodically along flats and marsh shorelines produce reliable bites.',
+    'Soft plastics are a staple of redfish fishing. Shad tails and paddle tails on jigheads worked carefully around flats and marsh shorelines produce reliable bites.',
   'redfish-jighead':
-    'Jig head rigs are ideal for sight-fishing Redfish. Cast ahead of a tailing fish on a shallow flat and crawl it along the bottom for an immediate response.',
+    'Jighead rigs are ideal for redfish sight-fishing. Cast ahead of tailing fish on shallow flats and work a slow bottom retrieve for immediate strikes.',
   'redfish-swimbait':
-    'A swimbait\'s realistic baitfish action triggers the predatory instinct of bull Redfish. Slow retrieves along marsh edges and flats deliver powerful strikes and brutal fights.',
+    'A swimbait\'s realistic baitfish action stimulates the predatory instinct of trophy redfish. Slow-retrieving around marshes and flats delivers powerful strikes and an incredible fight from bull reds.',
   'redfish-spinnerbait':
-    'A spinnerbait\'s blade flash and skirt wave cut through muddy water to reach Redfish. Slow-rolling along marsh shorelines catches fish across a wide area.',
+    'Spinnerbait blade flash and skirt wave action appeal aggressively to redfish in murky water. Slow-rolling along marsh shorelines catches redfish across a wide area.',
   'redfish-topwater':
-    'Topwater Redfish fishing reaches the peak of visual excitement. Popper or walk-the-dog presentations to fish chasing bait on shallow flats produce explosive surface strikes.',
+    'Redfish topwater fishing takes visual excitement to the maximum. Casting poppers and walking baits at shallow-flat fish chasing bait produces explosive surface strikes.',
   'redfish-minnow':
-    'Minnows are the foundation of a match-the-hatch Redfish strategy. Twitch-and-pause along shorelines and dock structures produces chain reaction bites.',
+    'Minnows are central to redfish match-the-hatch strategies. Twitch-and-pause presentations along shorelines and docks trigger chain-reaction strikes.',
   'redfish-jerkbait':
-    'A jerkbait\'s darting action triggers reaction strikes from Redfish. Jerk-and-pause on clear-water flats draws committed bites from trailing fish.',
+    'Jerkbait darting action triggers redfish reaction strikes. Jerk-and-pause sequences on clear-water flats draw committed bites from trailing redfish.',
+  // North American — Snook
   'snook-worm':
-    'Soft plastics are the most trusted Snook lure. Drop a jig head rig into mangrove roots and dock pilings with a slow presentation, and Snook will charge out of cover to strike.',
+    'Soft plastics are the most reliable lure for snook. Dropping jighead rigs into mangrove roots and dock structure with slow presentations draws snook charging out to strike.',
   'snook-swimbait':
-    'A swimbait\'s realistic swim flips the feed switch on trophy Snook. Match mullet or pilchard size and work inlet zones and beachfronts for the standard approach.',
+    'A swimbait\'s realistic swim engages the big-snook feeding switch. Matching size to mullet and pilchard profiles to work inlets and beachfronts is the core strategy.',
   'snook-rubber-jig':
-    'Rubber jigs are ideal for Snook structure fishing. Flip into dock pilings and seawall edges to draw powerful bites from cover-holding trophy Snook.',
+    'Rubber jigs are ideal for snook structure fishing. Flipping into dock pilings and seawall edges draws powerful bites from big snook holding tight to structure.',
   'snook-topwater':
-    'Topwater Snook strikes carry explosive force. Pre-dawn and sunset sessions with walk-the-dog or popper presentations deliver the signature aggressive surface blow-ups Snook are known for.',
+    'Snook topwater strikes deliver explosive power. Deploy walking baits and poppers during pre-dawn and sunset windows for the violent snook-specific surface strikes.',
   'snook-minnow':
-    'A minnow\'s tight action is effective around mangrove-oriented Snook. Twitch-and-pause replicating baitfish movement precisely targets Snook ambush points.',
+    'A minnow\'s tight action effectively targets snook around mangroves. Twitch-and-pause presentations accurately replicate baitfish movement in ambush zones.',
   'snook-spinnerbait':
-    'A spinnerbait\'s blade flash draws Snook from mangrove and marsh cover. The ability to search wide areas while deflecting structure makes it especially devastating in low-light conditions.',
+    'Spinnerbait blade flash draws snook out of mangroves and marsh cover. Deflecting through cover for wide-area searching, with particular devastating effect during low-light conditions.',
   'snook-jerkbait':
-    'A jerkbait\'s erratic dart triggers Snook reaction strikes. Jerk-and-pause on clear-water flats and around inlet zones draws aggressive attacks from holding fish.',
+    'Jerkbait erratic darts trigger snook reaction strikes. Jerk-and-pause sequences around clear-water flats and inlets draw fearless attacks from snook.',
+  // North American — Seatrout
   'seatrout-worm':
-    'Soft plastics deliver consistent Seatrout catches regardless of season. A jig head slowly worked across grass flats and sand bars produces chain hookups from schooling fish.',
+    'Soft plastics deliver consistent seatrout results across all seasons. Slowly probing grass flats and sandbars with jigheads produces chain hookups from schooling fish.',
   'seatrout-swimbait':
-    'A swimbait\'s realistic baitfish action directly targets the Seatrout feeding zone. Slow retrieves around grass flats can produce encounters with "gator trout"—the largest trophy-class individuals.',
+    'A swimbait\'s realistic baitfish action directly targets the seatrout feeding range. Slow-retrieving around grass flats can produce encounters with trophy-class gator trout.',
   'seatrout-topwater':
-    'Topwater Seatrout fishing peaks on dawn sessions over shallow flats. Surface blow-ups on walk-the-dog and popper presentations are the essence of inshore game fishing.',
+    'Seatrout topwater games reach their peak on dawn shallow-flat sessions. Surface-explosion strikes on walking baits and poppers are the essence of inshore game fishing.',
   'seatrout-jerkbait':
-    'A jerkbait\'s sub-surface darting action triggers reaction bites from Seatrout. Jerk-and-pause combinations over clear-water grass flats are especially effective.',
+    'Subsurface darting action from a jerkbait triggers seatrout reaction bites. Jerk-and-pause combinations on clear-water grass flats deliver consistent results.',
+  // North American — Walleye
   'walleye-crankbait':
-    'Crankbaits are the primary weapon in Walleye fishing. Trolling covers expansive areas while lip depth matches the suspended zone of Walleye—the strategic depth match determines the day\'s catch.',
+    'Crankbaits are the primary lure in walleye fishing. Trolling to cover wide areas while matching suspended-fish depth via lip diving range is the strategy that determines success.',
   'walleye-worm':
-    'Worm rigs excel in slow-presentation Walleye fishing. A bottom-dragging live-bait-rig feel lets you detect the characteristically delicate Walleye bite.',
+    'Worm rigs reach their full potential during slow walleye presentations. Slowly dragging the bottom with live-bait-rig sensibilities lets you detect the characteristically delicate walleye bite.',
   'walleye-swimbait':
-    'A swimbait\'s realistic action matches the selective feeding pattern of Walleye. Slow retrieves around deep breaks and humps methodically target trophy-class fish.',
+    'A swimbait\'s realistic action matches walleye selective-feeding patterns. Slow-retrieving deep breaks and humps targets trophy-class walleye.',
   'walleye-minnow':
-    'A minnow\'s wobble-and-roll action directly hits the Walleye feeding zone. Twitch-and-pause mimics a wounded baitfish to trigger reaction strikes.',
+    'Minnow wobble-and-roll directly targets the walleye feeding range. Twitch-and-pause portray wounded baitfish to trigger reaction strikes.',
   'walleye-vibration':
-    'The strong vibration of a lipless crankbait stimulates the Walleye\'s lateral line. Deep lift-and-fall and bottom bumping efficiently trigger reaction bites from lethargic fish.',
+    'Vibration lure wave action stimulates the walleye lateral line. Deep lift-and-fall and bottom-bumping efficiently trigger reaction bites from inactive walleye.',
   'walleye-jighead':
-    'Jig head rigs are the fundamental Walleye technique. Bounce a minnow or worm combination across rocky and gravel bottom and Walleye will reliably commit.',
+    'Jighead rigs are the absolute foundation of walleye fishing. Bouncing minnow or worm combos along rocky and gravel bottoms reliably produces bites.',
   'walleye-rubber-jig':
-    'A rubber jig\'s slow fall and skirt wave match the bottom-feeding behavior of Walleye. Methodical fishing around rocky bottom and brush piles precisely locates the zones where large individuals hold.',
+    'Rubber jig slow falls and skirt action match walleye bottom-feeding behavior. Methodically working rocky bottoms and brush piles precisely targets areas holding big fish.',
+  // North American — Striped Bass
   'striped-bass-worm':
-    'Soft plastics excel for a finesse approach to Striped Bass. A jig head or drop-shot crawled slowly along the bottom draws bites even on heavily pressured waters.',
+    'Soft plastics deliver results through striped bass finesse approaches. Slow bottom presentations with jigheads and drop shots coax bites even on pressured waters.',
   'striped-bass-swimbait':
-    'A swimbait\'s large silhouette and realistic tail action awaken the predatory instinct of trophy Striped Bass. Heavy models fished slowly through reservoir and river deep zones are the standard approach.',
+    'A swimbait\'s oversized profile and realistic tail action awaken the predatory instinct of trophy striped bass. Heavy models slowly worked through reservoir and river deep zones target the biggest fish.',
   'striped-bass-rubber-jig':
-    'Rubber jigs are ideal for Striped Bass structure fishing. Flipping into dam intakes and bridge pilings targets cover-hugging trophy fish with powerful bite potential.',
+    'Rubber jigs are ideal for striped bass structure fishing. Flipping into dam intakes and bridge pilings draws powerful strikes from big stripers holding tight to structure.',
+  // North American — Pike
   'pike-worm':
-    'Pike aggressively attack large-profile worm rigs with jerkbait-style presentations. Slow-working weed edges and lily-pad zones draws ferocious charges from ambush-oriented Pike.',
+    'Pike attack large worm jerkbait rigs with ferocity. Showing slow movement along weed edges and lily pad zones draws aggressive charges.',
   'pike-swimbait':
-    'A swimbait\'s large silhouette maximally stimulates the predatory instinct of Pike. Slow-retrieving across weed flats produces the dramatic subsurface surges Pike are famous for.',
+    'An oversized swimbait profile maximally stimulates the pike predatory instinct. Slow-retrieving weed flats produces explosive upward-thrusting strikes from trophy pike.',
   'pike-frog':
-    'Frogs are the top choice for Pike weed-mat fishing. Slide across lily pads and pause on open pockets for explosive surface strikes that shatter the calm.',
+    'Frogs are the ultimate choice for pike weed-mat games. Skating across lily pads and pausing on open pockets produces the explosive surface strikes pike are famous for.',
   'pike-crankbait':
-    'A crankbait\'s wide wobble simultaneously stimulates the vision and lateral line of Pike. Fast retrieves along weed edges and rock piles produce rapid-fire reaction strikes.',
+    'Crankbait wide wobble simultaneously stimulates pike vision and lateral line. Fast retrieves along weed edges and rock piles produce chain-reaction strikes.',
+  // North American — Panfish
   'panfish-worm':
-    'Soft plastics are the most reliable lure for Panfish (Bluegill, Sunfish) across the board. Micro-sized grubs and worms on light jig heads fished with finesse deliver numbers-fishing fun.',
+    'Soft plastics are the most reliable lure for panfish species including bluegill and sunfish. Micro-sized grubs and worms on light jigheads enable delicate approaches for enjoyable numbers fishing.',
   'panfish-jighead':
-    'Jig head rigs offer pinpoint accuracy for Panfish. Drop a micro jig into brush piles where Bluegill and Crappie school for chain bites.',
+    'Jighead rigs are ideal for panfish pinpoint tactics. Dropping micro jigs into brush piles where bluegill and crappie school produces continuous bites.',
   'panfish-swimbait':
-    'Micro swimbaits with realistic tail action selectively target trophy Panfish. Slow retrieves along breaklines and weed edges open the door to slab Bluegill.',
+    'Micro swimbait realistic tail action enables a selective approach targeting trophy panfish. Slow-retrieving along breaklines and weed edges opens encounters with slab-sized bluegill.',
   'panfish-rubber-jig':
-    'Micro rubber jigs draw Panfish with their skirt wave action. Slow-fall presentations around brush piles and dock pilings concentrate bites from quality Bluegill and Sunfish.',
+    'Micro rubber jig skirt action attracts panfish curiosity. Slow-fall presentations around brush piles and dock pilings draw concentrated bites from quality bluegill and sunfish.',
+  // North American — Perch
   'perch-worm':
-    'Soft plastics are the standard Perch lure. Micro curly-tails or grubs on a drop-shot rig efficiently build numbers from schooling Perch.',
+    'Soft plastics are a staple of perch fishing. Micro curly tails and grubs on drop shots efficiently build numbers from schooling perch.',
   'perch-swimbait':
-    'A swimbait\'s realistic action matches the Perch feeding pattern. Slow retrieves along rocky bottom and weed edges draw quality Perch competing for the bite.',
+    'A swimbait\'s realistic action matches perch feeding patterns. Slow-retrieving rocky bottoms and weed edges draws competitive bites from quality perch.',
   'perch-crankbait':
-    'A crankbait\'s vibration and flash gather Perch from across a wide area. Tight traces along rocky shorelines and break points efficiently produce bites from schooling fish.',
+    'Crankbait vibration and flash attract perch schools from a wide area. Tight retrieves along rocky shorelines and breakpoints efficiently produce bites from schooling fish.',
   'perch-spinnerbait':
-    'A spinnerbait\'s blade flash strongly appeals to the vision of Perch. Slow-rolling along weed edges and drop-offs, the moment you locate a school, chain hookups become the expectation.',
+    'Spinnerbait blade flash strongly appeals to perch vision. Slow-rolling along weed edges and drop-offs produces chain hookups from the moment you locate a school.',
+  // Final additions
   'tachiuo-lure-accessory':
-    'Accessories like assist hooks, blades, and glow sticks significantly impact catch rates in Largehead Hairtail (Tachiuo) fishing. Wire leaders and tuning components designed for razor-sharp teeth ensure reliable hooksets and safe landings.',
+    'Accessories such as assist hooks, blades, and glow sticks significantly impact cutlassfish catch rates. Wire leaders and tuning parts designed for razor-sharp teeth ensure stable hooksets and successful landing.',
   'aji-shad':
-    'A shad plug\'s tight wobble matches the micro-bait pattern of Aji (Horse Mackerel). Dead-slow retrieves through the surface layer under dock lights produce chain bites from plankton-feeding Aji schools.',
+    'A shad\'s tight wobble matches horse mackerel micro bait patterns. Dead-slow surface retrieves around streetlights produce chain bites from plankton-feeding schools.',
   'mebaru-shad':
-    'A shad plug\'s subtle vibration triggers the feeding instinct of Mebaru (Japanese Rockfish). Slow retrieves along the shadow line of dock lights deliver precise finesse bites in the plugging Mebaru game. Especially effective in clear water.',
+    'A shad\'s subtle vibration stimulates the rockfish predatory instinct. Slow-retrieving along the light-shadow boundary around streetlights delivers the precision finesse of plugging-style rockfish fishing. Especially strong in clear water.',
   'crappie-spinnerbait':
-    'A spinnerbait\'s blade flash draws Crappie from a wide area in stained water. Slow-rolling around brush piles produces chain bites from schooling fish.',
+    'Spinnerbait blade flash draws crappie from a wide area in stained water. Slow-rolling around brush piles produces chain bites from schooling crappie.',
 };
