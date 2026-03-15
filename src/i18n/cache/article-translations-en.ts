@@ -1,7 +1,7 @@
 /**
  * 記事翻訳キャッシュ（英語版）
  *
- * 22バッチファイルから統合。158記事の英語翻訳。
+ * 23バッチファイルから統合。173記事の英語翻訳。
  * slug → 翻訳済みフィールドのマップ。
  *
  * 未翻訳の記事は英語版ページが生成されない。
@@ -47,10 +47,11 @@ import { batch10g } from './_batch-10g';
 import { batch10h } from './_batch-10h';
 import { batch10i } from './_batch-10i';
 import { batch10j } from './_batch-10j';
+import { batch11 } from './_batch-11';
 
 /**
  * 翻訳済み記事マップ（slug → TranslatedArticle）
- * 158記事の英語翻訳
+ * 173記事の英語翻訳
  */
 export const articleTranslationsEn: Record<string, TranslatedArticle> = {
   ...batch1,
@@ -75,4 +76,5 @@ export const articleTranslationsEn: Record<string, TranslatedArticle> = {
   ...batch10h,
   ...batch10i,
   ...batch10j,
+  ...batch11,
 };

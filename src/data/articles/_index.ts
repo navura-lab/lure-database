@@ -199,6 +199,25 @@ import dolivessgillVsFatika from './dolivessgill-vs-fatika.js';
 import jigparaVsTgbait from './jigpara-vs-tgbait.js';
 import jigparaVsBigbacker from './jigpara-vs-bigbacker.js';
 import jigparaVsMakimaki from './jigpara-vs-makimaki.js';
+// 第20弾（アジング+初心者+ロックフィッシュ）
+// アジング特化
+import ajingBeginner from './ajing-beginner.js';
+import ajiPlug from './aji-plug.js';
+import ajiMetalJig from './aji-metal-jig.js';
+import dayAjing from './day-ajing.js';
+import ajingColorGuide from './ajing-color-guide.js';
+// 初心者向け
+import bassFishingBeginner from './bass-fishing-beginner.js';
+import egingBeginner from './eging-beginner.js';
+import shoreJiggingBeginner from './shore-jigging-beginner.js';
+import mebaringBeginner from './mebaring-beginner.js';
+import lightGameBeginner from './light-game-beginner.js';
+// ロックフィッシュ
+import kasagoLure from './kasago-lure.js';
+import ainameWorm from './ainame-worm.js';
+import kijihataLure from './kijihata-lure.js';
+import rockfishBeginner from './rockfish-beginner.js';
+import rockfishJighead from './rockfish-jighead.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -383,6 +402,25 @@ export const contentArticles: ContentArticle[] = [
   jigparaVsTgbait,
   jigparaVsBigbacker,
   jigparaVsMakimaki,
+  // 第20弾（アジング+初心者+ロックフィッシュ）
+  // アジング特化
+  ajingBeginner,
+  ajiPlug,
+  ajiMetalJig,
+  dayAjing,
+  ajingColorGuide,
+  // 初心者向け
+  bassFishingBeginner,
+  egingBeginner,
+  shoreJiggingBeginner,
+  mebaringBeginner,
+  lightGameBeginner,
+  // ロックフィッシュ
+  kasagoLure,
+  ainameWorm,
+  kijihataLure,
+  rockfishBeginner,
+  rockfishJighead,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
