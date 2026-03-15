@@ -1,0 +1,404 @@
+---
+/**
+ * English Manufacturer Index — /en/[manufacturer_slug]/
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LureCard from '../../../components/LureCard.astro';
+import { fetchAllLures } from '../../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../../lib/group-lures';
+import { getTypeSlug, getFishSlug } from '../../../lib/category-slugs';
+import { manufacturerDescriptions, manufacturerOfficialUrls } from '../../../data/manufacturer-descriptions';
+import { contentArticles } from '../../../data/articles/_index.js';
+import type { LureSeries } from '../../../lib/types';
+import { LURE_TYPE_EN, FISH_NAME_EN } from '../../../i18n/dictionaries/fishing-terms';
+
+const locale = 'en' as const;
+
+export async function getStaticPaths() {
+  const lures = await fetchAllLures();
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  const manufacturerMap = new Map<string, { manufacturer: string; series: LureSeries[] }>();
+  for (const s of allSeries) {
+    const existing = manufacturerMap.get(s.manufacturer_slug);
+    if (existing) existing.series.push(s);
+    else manufacturerMap.set(s.manufacturer_slug, { manufacturer: s.manufacturer, series: [s] });
+  }
+
+  const manufacturerProfiles = new Map<string, { fish: Set<string>; types: Set<string>; name: string; count: number }>();
+  for (const [slug, data] of manufacturerMap) {
+    const fish = new Set<string>();
+    const types = new Set<string>();
+    for (const s of data.series) {
+      if (s.type) types.add(s.type);
+      for (const f of s.target_fish) fish.add(f);
+    }
+    manufacturerProfiles.set(slug, { fish, types, name: data.manufacturer, count: data.series.length });
+  }
+
+  return [...manufacturerMap.entries()].map(([slug, data]) => {
+    const profile = manufacturerProfiles.get(slug)!;
+    const scored: { slug: string; name: string; count: number; score: number }[] = [];
+    for (const [otherSlug, otherProfile] of manufacturerProfiles) {
+      if (otherSlug === slug) continue;
+      let score = 0;
+      for (const f of profile.fish) { if (otherProfile.fish.has(f)) score += 2; }
+      for (const t of profile.types) { if (otherProfile.types.has(t)) score += 1; }
+      if (score > 0) scored.push({ slug: otherSlug, name: otherProfile.name, count: otherProfile.count, score });
+    }
+    scored.sort((a, b) => b.score - a.score || b.count - a.count);
+    const relatedManufacturers = scored.slice(0, 8).map(({ slug, name, count }) => ({ slug, name, count }));
+    return { params: { manufacturer_slug: slug }, props: { manufacturer: data.manufacturer, series: data.series, relatedManufacturers } };
+  });
+}
+
+const { manufacturer, series, relatedManufacturers } = Astro.props as {
+  manufacturer: string; series: LureSeries[]; relatedManufacturers: { slug: string; name: string; count: number }[];
+};
+
+const manufacturerSlug = Astro.params.manufacturer_slug as string;
+const officialUrl = manufacturerOfficialUrls[manufacturerSlug] ?? null;
+const yen = String.fromCharCode(165);
+
+const totalColors = series.reduce((sum, s) => sum + s.color_count, 0);
+
+const typeCounts = new Map<string, number>();
+for (const s of series) { if (s.type) typeCounts.set(s.type, (typeCounts.get(s.type) || 0) + 1); }
+const typeBreakdown = [...typeCounts.entries()].sort((a, b) => b[1] - a[1]).map(([type, count]) => ({ type, count }));
+
+const fishCounts = new Map<string, number>();
+for (const s of series) { for (const fish of s.target_fish) fishCounts.set(fish, (fishCounts.get(fish) || 0) + 1); }
+const allTargetFish = [...fishCounts.entries()].sort((a, b) => b[1] - a[1]).map(([fish]) => fish).slice(0, 12);
+
+const prices = series.flatMap(s => [s.price_range.min, s.price_range.max]).filter(p => p > 0);
+const priceRange = prices.length > 0 ? { min: Math.min(...prices), max: Math.max(...prices) } : null;
+const weights = series.flatMap(s => [s.weight_range.min, s.weight_range.max]).filter(w => w > 0);
+const weightRange = weights.length > 0 ? { min: Math.min(...weights), max: Math.max(...weights) } : null;
+
+const topTypes = typeBreakdown.slice(0, 3).map(t => LURE_TYPE_EN[t.type] ?? t.type).join(', ');
+const topFish = allTargetFish.slice(0, 3).map(f => FISH_NAME_EN[f] ?? f).join(', ');
+
+const pageTitle = `${manufacturer} Lures: ${series.length} Series Catalog | CAST/LOG`;
+const pageDescription = `Browse all ${series.length} lure series (${totalColors} colors) from ${manufacturer}. ${topTypes ? `Types include ${topTypes}.` : ''} ${topFish ? `Targets: ${topFish}.` : ''} Compare specs, colors, and pricing.`;
+
+const summaryParts: string[] = [];
+summaryParts.push(`${manufacturer} offers ${series.length} lure series with ${totalColors} total color variations`);
+if (typeBreakdown.length > 0) {
+  const names = typeBreakdown.slice(0, 5).map(t => LURE_TYPE_EN[t.type] ?? t.type).join(', ');
+  summaryParts.push(`spanning ${typeBreakdown.length > 5 ? `${typeBreakdown.length} types including` : ''} ${names}`);
+}
+if (allTargetFish.length > 0) {
+  const names = allTargetFish.slice(0, 5).map(f => FISH_NAME_EN[f] ?? f).join(', ');
+  summaryParts.push(`targeting ${names}`);
+}
+if (priceRange) {
+  summaryParts.push(`priced from ${yen}${priceRange.min.toLocaleString()} to ${yen}${priceRange.max.toLocaleString()}`);
+}
+const summaryText = summaryParts.join(', ') + '.';
+
+const topSeries = [...series].sort((a, b) => b.color_count - a.color_count).slice(0, 5);
+
+// FAQ
+const faqItems: { q: string; a: string }[] = [];
+if (typeBreakdown.length > 0) {
+  const names = typeBreakdown.slice(0, 5).map(t => `${LURE_TYPE_EN[t.type] ?? t.type} (${t.count} series)`).join(', ');
+  faqItems.push({ q: `What types of lures does ${manufacturer} make?`, a: `${manufacturer} offers ${typeBreakdown.length} lure types: ${names}.` });
+}
+if (allTargetFish.length > 0) {
+  const names = allTargetFish.slice(0, 6).map(f => FISH_NAME_EN[f] ?? f).join(', ');
+  faqItems.push({ q: `What fish can you catch with ${manufacturer} lures?`, a: `${manufacturer} lures target ${names} and more. Choose from ${series.length} series to match your target species.` });
+}
+if (priceRange) {
+  const usdMin = Math.round(priceRange.min / 150);
+  const usdMax = Math.round(priceRange.max / 150);
+  faqItems.push({ q: `What is the price range of ${manufacturer} lures?`, a: `${manufacturer} lures range from ${yen}${priceRange.min.toLocaleString()} to ${yen}${priceRange.max.toLocaleString()} (~$${usdMin}-$${usdMax} USD), with ${totalColors} color variants available.` });
+}
+if (topSeries.length > 0) {
+  const top3 = topSeries.slice(0, 3).map(s => `${s.name} (${s.color_count} colors)`).join(', ');
+  faqItems.push({ q: `What are the most popular ${manufacturer} lures?`, a: `Top ${manufacturer} series by color variety: ${top3}. A wider color lineup helps match different fishing conditions.` });
+}
+
+const faqLd = faqItems.length > 0 ? { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) } : null;
+
+const breadcrumbLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+  { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' },
+  { '@type': 'ListItem', position: 2, name: 'Brands', item: 'https://www.castlog.xyz/en/maker/' },
+  { '@type': 'ListItem', position: 3, name: manufacturer, item: `https://www.castlog.xyz/en/${manufacturerSlug}/` },
+]};
+
+const collectionLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `${manufacturer} Lure Catalog`, url: `https://www.castlog.xyz/en/${manufacturerSlug}/`, description: pageDescription,
+  mainEntity: { '@type': 'ItemList', numberOfItems: series.length, itemListElement: series.slice(0, 50).map((s, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://www.castlog.xyz/en/${s.manufacturer_slug}/${s.slug}/`, name: s.name })) }
+};
+
+const jsonLd = [collectionLd, breadcrumbLd, ...(faqLd ? [faqLd] : [])] as unknown as Record<string, unknown>;
+
+const specItems = [
+  ...(priceRange ? [{ label: 'Price Range', value: `${yen}${priceRange.min.toLocaleString()} - ${yen}${priceRange.max.toLocaleString()}` }] : []),
+  ...(weightRange ? [{ label: 'Weight', value: `${weightRange.min}g - ${weightRange.max}g` }] : []),
+  { label: 'Total Colors', value: `${totalColors}` },
+];
+
+// Related rankings
+const relatedRankings: { slug: string; label: string }[] = [];
+for (const fish of allTargetFish.slice(0, 4)) {
+  for (const t of typeBreakdown.slice(0, 4)) {
+    const slug = `${getFishSlug(fish)}-${getTypeSlug(t.type)}`;
+    relatedRankings.push({ slug, label: `${FISH_NAME_EN[fish] ?? fish} ${LURE_TYPE_EN[t.type] ?? t.type}` });
+  }
+}
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/en/${manufacturerSlug}/`} jsonLd={jsonLd} locale={locale}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/en/maker/" class="hover:text-accent transition-colors">Brands</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{manufacturer}</span>
+    </nav>
+
+    <div class="mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">{manufacturer}</h1>
+      <p class="text-sm text-text-mid mt-1">{series.length} series &middot; {totalColors} colors</p>
+    </div>
+
+    <!-- Overview -->
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed mb-2">{summaryText}</p>
+      <p class="text-xs text-text-dim mb-4">Source: CAST/LOG Lure Database</p>
+
+      {officialUrl && (
+        <p class="text-sm mb-5">
+          <a href={officialUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-accent hover:underline">
+            {manufacturer} Official Website
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          </a>
+        </p>
+      )}
+
+      {typeBreakdown.length > 0 && (
+        <div class="mb-5">
+          <h2 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-2">Lure Types</h2>
+          <div class="flex flex-wrap gap-2">
+            {typeBreakdown.map(t => (
+              <a href={`/en/type/${getTypeSlug(t.type)}/`} class="inline-flex items-center gap-1 px-3 py-1 bg-accent-bg text-accent rounded-full text-xs font-medium border border-accent-bg hover:bg-accent-bg transition-colors">
+                {LURE_TYPE_EN[t.type] ?? t.type}
+                <span class="text-accent">{t.count}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {typeBreakdown.length > 2 && (
+        <div class="mb-5">
+          <h2 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-2">Category Distribution</h2>
+          <div class="space-y-1.5">
+            {typeBreakdown.slice(0, 8).map(t => {
+              const pct = Math.round((t.count / series.length) * 100);
+              return (
+                <div class="flex items-center gap-2">
+                  <span class="w-24 text-xs text-gray-600 shrink-0 truncate">{LURE_TYPE_EN[t.type] ?? t.type}</span>
+                  <div class="flex-1 bg-gray-100 rounded h-3 overflow-hidden">
+                    <div class="h-3 bg-accent/60 rounded" style={`width:${Math.max(pct, 4)}%`} />
+                  </div>
+                  <span class="text-xs text-gray-500 w-8 text-right shrink-0">{t.count}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5">
+        {specItems.map(item => (
+          <div><p class="text-xs text-text-dim">{item.label}</p><p class="text-sm font-semibold text-gray-900">{item.value}</p></div>
+        ))}
+      </div>
+
+      {allTargetFish.length > 0 && (
+        <div>
+          <h2 class="text-xs font-semibold text-text-dim uppercase tracking-wider mb-2">Target Fish</h2>
+          <div class="flex flex-wrap gap-1.5">
+            {allTargetFish.map(fish => (
+              <a href={`/en/fish/${getFishSlug(fish)}/`} class="px-2.5 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
+                {FISH_NAME_EN[fish] ?? fish}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+
+    <!-- Top 5 Series -->
+    {topSeries.length > 0 && (
+      <section class="mb-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Top 5 Series</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+          {topSeries.map(s => (<LureCard series={s} isNew={false} priority={true} locale={locale} />))}
+        </div>
+      </section>
+    )}
+
+    <!-- All Series -->
+    <div class="flex flex-col gap-4 mb-6">
+      <h2 class="text-lg font-bold text-gray-900">All {series.length} Series</h2>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+        <div class="flex gap-2">
+          <button id="sort-name" class="px-3 py-1.5 text-xs font-mono rounded border border-accent bg-accent text-white transition-colors" data-active="true">A-Z</button>
+          <button id="sort-colors" class="px-3 py-1.5 text-xs font-mono rounded border border-border text-text-mid hover:border-accent hover:text-accent transition-colors" data-active="false">By Colors</button>
+        </div>
+        <div class="relative flex-1 max-w-xs">
+          <input id="series-search" type="text" placeholder="Search series..." class="w-full pl-8 pr-3 py-1.5 text-sm border border-border rounded focus:outline-none focus:border-accent transition-colors" />
+          <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-text-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+        </div>
+      </div>
+
+      {typeBreakdown.length > 1 && (
+        <div class="flex flex-wrap gap-1.5" id="type-filter">
+          <button class="type-filter-btn px-2.5 py-1 text-xs font-mono rounded-full border border-accent bg-accent text-white transition-colors" data-type="all" data-active="true">All {series.length}</button>
+          {typeBreakdown.map(t => (
+            <button class="type-filter-btn px-2.5 py-1 text-xs font-mono rounded-full border border-border text-text-mid hover:border-accent hover:text-accent transition-colors" data-type={t.type} data-active="false">
+              {LURE_TYPE_EN[t.type] ?? t.type} {t.count}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div id="series-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      {series.map(s => (<LureCard series={s} isNew={false} locale={locale} />))}
+    </div>
+
+    <div id="no-results" class="hidden text-center py-12 text-text-dim">
+      <p class="text-lg">No matching series found</p>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const sortNameBtn = document.getElementById('sort-name');
+        const sortColorsBtn = document.getElementById('sort-colors');
+        const searchInput = document.getElementById('series-search');
+        const seriesGrid = document.getElementById('series-grid');
+        const noResults = document.getElementById('no-results');
+        const typeFilterBtns = document.querySelectorAll('.type-filter-btn');
+        let activeType = 'all';
+
+        function setActiveSort(activeBtn, inactiveBtn) {
+          activeBtn.classList.add('bg-accent', 'text-white', 'border-accent');
+          activeBtn.classList.remove('text-text-mid', 'border-border');
+          activeBtn.dataset.active = 'true';
+          inactiveBtn.classList.remove('bg-accent', 'text-white', 'border-accent');
+          inactiveBtn.classList.add('text-text-mid', 'border-border');
+          inactiveBtn.dataset.active = 'false';
+        }
+
+        function getCards() { return [...seriesGrid.querySelectorAll('[data-series]')]; }
+
+        function sortCards(compareFn) {
+          const cards = getCards();
+          cards.sort(compareFn);
+          cards.forEach(c => seriesGrid.appendChild(c));
+          applyFilters();
+        }
+
+        sortNameBtn?.addEventListener('click', () => {
+          if (sortNameBtn.dataset.active === 'true') return;
+          setActiveSort(sortNameBtn, sortColorsBtn);
+          sortCards((a, b) => {
+            const aData = JSON.parse(a.dataset.series);
+            const bData = JSON.parse(b.dataset.series);
+            return aData.name.localeCompare(bData.name);
+          });
+        });
+
+        sortColorsBtn?.addEventListener('click', () => {
+          if (sortColorsBtn.dataset.active === 'true') return;
+          setActiveSort(sortColorsBtn, sortNameBtn);
+          sortCards((a, b) => {
+            const aData = JSON.parse(a.dataset.series);
+            const bData = JSON.parse(b.dataset.series);
+            return (bData.color_count || 0) - (aData.color_count || 0);
+          });
+        });
+
+        typeFilterBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            typeFilterBtns.forEach(b => { b.classList.remove('bg-accent', 'text-white', 'border-accent'); b.classList.add('text-text-mid', 'border-border'); b.dataset.active = 'false'; });
+            btn.classList.add('bg-accent', 'text-white', 'border-accent'); btn.classList.remove('text-text-mid', 'border-border'); btn.dataset.active = 'true';
+            activeType = btn.dataset.type;
+            applyFilters();
+          });
+        });
+
+        let searchTimeout;
+        searchInput?.addEventListener('input', () => { clearTimeout(searchTimeout); searchTimeout = setTimeout(applyFilters, 150); });
+
+        function applyFilters() {
+          const query = searchInput?.value.toLowerCase().trim() || '';
+          const cards = getCards();
+          let visibleCount = 0;
+          cards.forEach(card => {
+            try {
+              const data = JSON.parse(card.dataset.series);
+              const matchesSearch = !query || data.name.toLowerCase().includes(query);
+              const matchesType = activeType === 'all' || data.type === activeType;
+              const visible = matchesSearch && matchesType;
+              card.style.display = visible ? '' : 'none';
+              if (visible) visibleCount++;
+            } catch (e) { card.style.display = ''; visibleCount++; }
+          });
+          noResults.style.display = visibleCount === 0 ? '' : 'none';
+        }
+      });
+    </script>
+
+    <!-- FAQ -->
+    {faqItems.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">FAQ</h2>
+        <div class="space-y-2">
+          {faqItems.map((faq, i) => (
+            <details class="group bg-white rounded-lg border border-gray-100 overflow-hidden" open={i === 0}>
+              <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors">
+                <span class="text-sm font-semibold text-gray-900 pr-4">{faq.q}</span>
+                <svg class="w-4 h-4 text-text-dim shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="px-4 pb-3 text-sm text-gray-600 leading-relaxed border-t border-gray-50">{faq.a}</div>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Rankings -->
+    {relatedRankings.length > 0 && (
+      <section class="mt-8 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Browse Catalog</h2>
+        <div class="flex flex-wrap gap-2">
+          {relatedRankings.slice(0, 12).map(r => (
+            <a href={`/en/ranking/${r.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">{r.label}</a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Manufacturers -->
+    {relatedManufacturers.length > 0 && (
+      <section class="mt-8 pt-8 border-t border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Related Brands</h2>
+        <p class="text-sm text-text-mid mb-4">Brands with similar target fish and lure types as {manufacturer}</p>
+        <div class="flex flex-wrap gap-2">
+          {relatedManufacturers.map(m => (
+            <a href={`/en/${m.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
+              {m.name} <span class="text-xs text-gray-400">{m.count}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>

@@ -1,0 +1,321 @@
+---
+/**
+ * 英語版対象魚一覧ページ — /en/fish/
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { fetchAllLures } from '../../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../../lib/group-lures';
+import { getFishSlug } from '../../../lib/category-slugs';
+import { FISH_NAME_EN, LURE_TYPE_EN } from '../../../i18n/dictionaries/fishing-terms';
+
+const locale = 'en' as const;
+const lures = await fetchAllLures();
+const allSeries = groupLuresBySeries(lures ?? []);
+
+// 対象魚別に集計
+const fishStats = new Map<string, { count: number; colors: number; topTypes: { name: string; count: number }[] }>();
+for (const s of allSeries) {
+  for (const fish of s.target_fish) {
+    const existing = fishStats.get(fish);
+    if (existing) {
+      existing.count++;
+      existing.colors += s.color_count;
+    } else {
+      fishStats.set(fish, { count: 1, colors: s.color_count, topTypes: [] });
+    }
+  }
+}
+
+// 各魚種の上位ルアータイプを算出
+for (const [fishName, stats] of fishStats) {
+  const typeCount = new Map<string, number>();
+  for (const s of allSeries) {
+    if (s.target_fish.includes(fishName) && s.type) {
+      typeCount.set(s.type, (typeCount.get(s.type) || 0) + 1);
+    }
+  }
+  stats.topTypes = [...typeCount.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([name, count]) => ({ name, count }));
+}
+
+const fishList = [...fishStats.entries()]
+  .map(([name, stats]) => ({ name, nameEn: FISH_NAME_EN[name] ?? name, slug: getFishSlug(name), ...stats }));
+
+const byCount = [...fishList].sort((a, b) => b.count - a.count);
+const byName = [...fishList].sort((a, b) => a.nameEn.localeCompare(b.nameEn));
+
+const totalFish = fishList.length;
+const totalSeriesCount = allSeries.length;
+
+const topFishNames = byCount.slice(0, 5).map(f => f.nameEn).join(', ');
+const pageDescription = `Browse ${totalFish} target fish species for JDM lures. ${topFishNames} and more — search and compare lures by species across ${totalSeriesCount} series.`;
+const pageTitle = `Target Fish Species (${totalFish}) — JDM Lure Database | CAST/LOG`;
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Target Fish', item: 'https://www.castlog.xyz/en/fish/' },
+  ],
+};
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Target Fish — JDM Lure Database',
+  url: 'https://www.castlog.xyz/en/fish/',
+  description: pageDescription,
+  inLanguage: 'en',
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: fishList.length,
+    itemListElement: byCount.map((f, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.castlog.xyz/en/fish/${f.slug}/`,
+      name: f.nameEn,
+    })),
+  },
+};
+
+const jsonLd = [breadcrumbLd, collectionLd] as unknown as Record<string, unknown>;
+
+const introText = `Browse ${totalFish} target fish species with JDM lures listed. From ${topFishNames} — find the right lures for your target species. Each fish page shows recommended lure types, brands, and available series.`;
+
+// 淡水・海水のグルーピング
+const freshwaterFish = new Set(['ブラックバス', 'トラウト', 'ナマズ', 'ライギョ', 'コイ', 'ヘラブナ', 'ブルーギル', 'イワナ', 'ヤマメ', 'アマゴ', 'ニジマス', 'サクラマス', 'イトウ']);
+const saltwaterFish = new Set(['シーバス', '青物', 'ヒラメ', 'マゴチ', 'アジ', 'メバル', 'カサゴ', 'タチウオ', 'マダイ', 'チヌ', 'イカ', 'タコ', 'カマス', 'ロックフィッシュ', 'フラットフィッシュ', 'マグロ', 'カツオ', 'ブリ', 'サワラ', 'ハタ', 'キジハタ', 'アオリイカ', 'カンパチ', 'ヒラマサ', 'クロダイ', 'キス', 'サヨリ', 'アイナメ', 'ソイ', 'メッキ', 'カマス']);
+
+function getFishCategory(name: string): string {
+  if (freshwaterFish.has(name)) return 'Freshwater';
+  if (saltwaterFish.has(name)) return 'Saltwater';
+  return 'Other';
+}
+
+const groupOrder = ['Saltwater', 'Freshwater', 'Other'];
+const groupedByCount = new Map<string, typeof fishList>();
+for (const f of byCount) {
+  const cat = getFishCategory(f.name);
+  if (!groupedByCount.has(cat)) groupedByCount.set(cat, []);
+  groupedByCount.get(cat)!.push(f);
+}
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} canonicalPath="/en/fish/" jsonLd={jsonLd} locale={locale}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">Target Fish</span>
+    </nav>
+
+    <div class="mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Target Fish Species</h1>
+      <p class="text-sm text-text-mid mt-1 font-mono">
+        {totalFish} SPECIES / {totalSeriesCount} SERIES
+      </p>
+      <p class="text-sm text-gray-600 leading-relaxed mt-3 max-w-3xl">
+        {introText}
+      </p>
+    </div>
+
+    <!-- Sort + Search -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
+      <div class="flex gap-2">
+        <button
+          id="sort-count"
+          class="px-3 py-1.5 text-xs font-mono rounded border border-accent bg-accent text-white transition-colors"
+          data-active="true"
+        >
+          By Series Count
+        </button>
+        <button
+          id="sort-name"
+          class="px-3 py-1.5 text-xs font-mono rounded border border-border text-text-mid hover:border-accent hover:text-accent transition-colors"
+          data-active="false"
+        >
+          A-Z
+        </button>
+      </div>
+      <div class="relative flex-1 max-w-xs">
+        <input
+          id="fish-search"
+          type="text"
+          placeholder="Search fish species..."
+          class="w-full pl-8 pr-3 py-1.5 text-sm border border-border rounded focus:outline-none focus:border-accent transition-colors"
+        />
+        <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-text-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Group Jump Nav -->
+    <div id="jump-nav" class="flex gap-2 mb-6 sticky top-14 bg-white/95 backdrop-blur-sm py-2 z-10 border-b border-border">
+      {groupOrder.filter(g => groupedByCount.has(g)).map(g => (
+        <a
+          href={`#group-${g}`}
+          class="px-3 py-1 text-xs font-mono text-text-mid hover:text-accent hover:bg-accent/5 rounded transition-colors"
+          data-group-link={g}
+        >
+          {g}
+          <span class="text-text-faint ml-1">{groupedByCount.get(g)!.length}</span>
+        </a>
+      ))}
+    </div>
+
+    <!-- Fish List by Group -->
+    <div id="fish-list">
+      {groupOrder.filter(g => groupedByCount.has(g)).map(g => {
+        const fishes = groupedByCount.get(g)!;
+        return (
+          <section id={`group-${g}`} class="mb-8" data-group={g}>
+            <h2 class="text-lg font-bold text-gray-900 font-mono border-b-2 border-accent pb-1 mb-4">
+              {g}
+              <span class="text-sm font-normal text-text-dim ml-2">{fishes.length} species</span>
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {fishes.map(f => (
+                <a
+                  href={`/en/fish/${f.slug}/`}
+                  class="fish-card group block bg-white rounded-lg border border-gray-100 overflow-hidden transition-all duration-150 hover:border-accent hover:scale-[1.01]"
+                  data-name={f.nameEn.toLowerCase()}
+                  data-count={f.count}
+                  data-group={g}
+                >
+                  <div class="p-3 sm:p-4">
+                    <h3 class="text-sm sm:text-base font-bold text-gray-900 group-hover:text-accent transition-colors mb-1.5 leading-tight">
+                      {f.nameEn}
+                    </h3>
+                    <div class="flex items-center gap-2 text-xs text-text-mid font-mono mb-2">
+                      <span>{f.count} series</span>
+                      <span class="text-text-faint">|</span>
+                      <span>{f.colors} colors</span>
+                    </div>
+                    {f.topTypes.length > 0 && (
+                      <div class="flex flex-wrap gap-1">
+                        {f.topTypes.map(t => (
+                          <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono text-text-mid bg-gray-50 border border-gray-100">
+                            {LURE_TYPE_EN[t.name] ?? t.name}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
+
+    <!-- No Results -->
+    <div id="no-results" class="hidden text-center py-12 text-text-dim">
+      <p class="text-lg">No matching species found</p>
+    </div>
+
+  </div>
+
+  <script define:vars={{ byCountOrder: byCount.map(f => f.nameEn), byNameOrder: byName.map(f => f.nameEn), fishCategories: Object.fromEntries(fishList.map(f => [f.nameEn.toLowerCase(), getFishCategory(f.name)])) }}>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sortCountBtn = document.getElementById('sort-count');
+      const sortNameBtn = document.getElementById('sort-name');
+      const searchInput = document.getElementById('fish-search');
+      const fishListEl = document.getElementById('fish-list');
+      const jumpNav = document.getElementById('jump-nav');
+      const noResults = document.getElementById('no-results');
+
+      let currentSort = 'count';
+
+      function setActiveSort(activeBtn, inactiveBtn) {
+        activeBtn.classList.add('bg-accent', 'text-white', 'border-accent');
+        activeBtn.classList.remove('text-text-mid', 'border-border');
+        activeBtn.dataset.active = 'true';
+        inactiveBtn.classList.remove('bg-accent', 'text-white', 'border-accent');
+        inactiveBtn.classList.add('text-text-mid', 'border-border');
+        inactiveBtn.dataset.active = 'false';
+      }
+
+      sortCountBtn.addEventListener('click', () => {
+        if (currentSort === 'count') return;
+        currentSort = 'count';
+        setActiveSort(sortCountBtn, sortNameBtn);
+        jumpNav.style.display = '';
+        document.querySelectorAll('section[data-group]').forEach(s => s.style.display = '');
+        const flatGrid = document.getElementById('flat-grid');
+        if (flatGrid) flatGrid.remove();
+        document.querySelectorAll('section[data-group]').forEach(section => {
+          const grid = section.querySelector('.grid');
+          if (!grid) return;
+          const cards = [...grid.querySelectorAll('.fish-card')];
+          cards.sort((a, b) => parseInt(b.dataset.count) - parseInt(a.dataset.count));
+          cards.forEach(c => grid.appendChild(c));
+        });
+        applySearch();
+      });
+
+      sortNameBtn.addEventListener('click', () => {
+        if (currentSort === 'name') return;
+        currentSort = 'name';
+        setActiveSort(sortNameBtn, sortCountBtn);
+        jumpNav.style.display = 'none';
+        document.querySelectorAll('section[data-group]').forEach(s => s.style.display = 'none');
+        const existing = document.getElementById('flat-grid');
+        if (existing) existing.remove();
+
+        const allCards = [...document.querySelectorAll('.fish-card')];
+        const nameIndex = new Map();
+        byNameOrder.forEach((name, i) => nameIndex.set(name.toLowerCase(), i));
+        allCards.sort((a, b) => {
+          const ai = nameIndex.get(a.dataset.name) ?? 999;
+          const bi = nameIndex.get(b.dataset.name) ?? 999;
+          return ai - bi;
+        });
+
+        const grid = document.createElement('div');
+        grid.id = 'flat-grid';
+        grid.className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3';
+        allCards.forEach(card => {
+          const clone = card.cloneNode(true);
+          clone.style.display = '';
+          grid.appendChild(clone);
+        });
+        fishListEl.appendChild(grid);
+        applySearch();
+      });
+
+      let searchTimeout;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(applySearch, 150);
+      });
+
+      function applySearch() {
+        const query = searchInput.value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.fish-card');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+          const name = card.dataset.name || '';
+          const match = !query || name.includes(query);
+          card.style.display = match ? '' : 'none';
+          if (match) visibleCount++;
+        });
+
+        if (currentSort === 'count') {
+          document.querySelectorAll('section[data-group]').forEach(section => {
+            const visibleCards = section.querySelectorAll('.fish-card:not([style*="display: none"])');
+            section.style.display = visibleCards.length > 0 ? '' : 'none';
+          });
+        }
+
+        noResults.style.display = visibleCount === 0 ? '' : 'none';
+      }
+    });
+  </script>
+</BaseLayout>

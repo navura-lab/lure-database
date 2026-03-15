@@ -1,0 +1,353 @@
+---
+/**
+ * 英語版メーカー一覧ページ — /en/maker/
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { fetchAllLures } from '../../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../../lib/group-lures';
+import { LURE_TYPE_EN } from '../../../i18n/dictionaries/fishing-terms';
+
+const locale = 'en' as const;
+const lures = await fetchAllLures();
+const allSeries = groupLuresBySeries(lures ?? []);
+
+// メーカー別に集計
+const makerStats = new Map<string, {
+  name: string;
+  slug: string;
+  seriesCount: number;
+  colorCount: number;
+  topTypes: { name: string; count: number }[];
+  image: string | null;
+}>();
+
+for (const s of allSeries) {
+  const existing = makerStats.get(s.manufacturer_slug);
+  if (existing) {
+    existing.seriesCount++;
+    existing.colorCount += s.color_count;
+    if (!existing.image && s.representative_image) existing.image = s.representative_image;
+  } else {
+    makerStats.set(s.manufacturer_slug, {
+      name: s.manufacturer,
+      slug: s.manufacturer_slug,
+      seriesCount: 1,
+      colorCount: s.color_count,
+      topTypes: [],
+      image: s.representative_image,
+    });
+  }
+}
+
+// 各メーカーの上位3タイプを算出
+for (const [slug, stats] of makerStats) {
+  const typeCount = new Map<string, number>();
+  for (const s of allSeries) {
+    if (s.manufacturer_slug === slug && s.type) {
+      typeCount.set(s.type, (typeCount.get(s.type) || 0) + 1);
+    }
+  }
+  stats.topTypes = [...typeCount.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([name, count]) => ({ name, count }));
+}
+
+const makerList = [...makerStats.values()];
+const totalSeries = makerList.reduce((sum, m) => sum + m.seriesCount, 0);
+const totalColors = makerList.reduce((sum, m) => sum + m.colorCount, 0);
+
+// アルファベット順でグルーピング
+function getGroupKey(name: string): string {
+  const first = name.charAt(0).toUpperCase();
+  if (/[A-Z]/.test(first)) return first;
+  if (/[0-9]/.test(first)) return '#';
+  return 'Other';
+}
+
+const sortedByName = [...makerList].sort((a, b) => {
+  const aKey = getGroupKey(a.name);
+  const bKey = getGroupKey(b.name);
+  if (aKey === bKey) return a.name.localeCompare(b.name);
+  if (aKey === '#') return 1;
+  if (bKey === '#') return -1;
+  if (aKey === 'Other') return 1;
+  if (bKey === 'Other') return -1;
+  return aKey.localeCompare(bKey);
+});
+
+// グループ化
+const groups = new Map<string, typeof makerList>();
+for (const m of sortedByName) {
+  const key = getGroupKey(m.name);
+  if (!groups.has(key)) groups.set(key, []);
+  groups.get(key)!.push(m);
+}
+
+const groupKeys = [...groups.keys()];
+
+const topMakerNames = [...makerList].sort((a, b) => b.seriesCount - a.seriesCount).slice(0, 5).map(m => m.name).join(', ');
+const pageDescription = `Browse ${makerList.length} JDM lure brands. ${topMakerNames} and more — ${totalSeries} series, ${totalColors.toLocaleString()} colors listed. Compare lure specs, colors, and pricing by manufacturer.`;
+const pageTitle = `JDM Lure Brands (${makerList.length} Manufacturers) | CAST/LOG`;
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Brands', item: 'https://www.castlog.xyz/en/maker/' },
+  ],
+};
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'JDM Lure Brands',
+  url: 'https://www.castlog.xyz/en/maker/',
+  description: pageDescription,
+  inLanguage: 'en',
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: makerList.length,
+    itemListElement: sortedByName.map((m, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://www.castlog.xyz/en/${m.slug}/`,
+      name: m.name,
+    })),
+  },
+};
+
+const jsonLd = [breadcrumbLd, collectionLd] as unknown as Record<string, unknown>;
+
+const introText = `Browse ${makerList.length} Japanese fishing lure manufacturers alphabetically. From DAIWA, SHIMANO, and JACKALL to boutique brands — ${totalSeries} series and ${totalColors.toLocaleString()} colors covered.`;
+
+// クライアント切替用データ
+const makerDataForClient = makerList.map(m => ({
+  name: m.name,
+  slug: m.slug,
+  seriesCount: m.seriesCount,
+  colorCount: m.colorCount,
+  topTypes: m.topTypes.map(t => LURE_TYPE_EN[t.name] ?? t.name),
+  group: getGroupKey(m.name),
+}));
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath="/en/maker/"
+  jsonLd={jsonLd}
+  locale={locale}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">Brands</span>
+    </nav>
+
+    <div class="mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">JDM Lure Brands</h1>
+      <p class="text-sm text-text-mid mt-1 font-mono">
+        {makerList.length} BRANDS / {totalSeries} SERIES
+      </p>
+      <p class="text-sm text-gray-600 leading-relaxed mt-3 max-w-3xl">
+        {introText}
+      </p>
+    </div>
+
+    <!-- Sort + Search -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
+      <div class="flex gap-2">
+        <button
+          id="sort-alpha"
+          class="px-3 py-1.5 text-xs font-mono rounded border border-accent bg-accent text-white transition-colors"
+          data-active="true"
+        >
+          A-Z
+        </button>
+        <button
+          id="sort-count"
+          class="px-3 py-1.5 text-xs font-mono rounded border border-border text-text-mid hover:border-accent hover:text-accent transition-colors"
+          data-active="false"
+        >
+          By Series Count
+        </button>
+      </div>
+      <div class="relative flex-1 max-w-xs">
+        <input
+          id="maker-search"
+          type="text"
+          placeholder="Search brands..."
+          class="w-full pl-8 pr-3 py-1.5 text-sm border border-border rounded focus:outline-none focus:border-accent transition-colors"
+        />
+        <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-text-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Jump Navigation -->
+    <div id="jump-nav" class="flex flex-wrap gap-1 mb-6 sticky top-14 bg-white/95 backdrop-blur-sm py-2 z-10 border-b border-border">
+      {groupKeys.map(key => (
+        <a
+          href={`#group-${key}`}
+          class="px-2 py-1 text-xs font-mono text-text-mid hover:text-accent hover:bg-accent/5 rounded transition-colors"
+          data-group-link={key}
+        >
+          {key}
+          <span class="text-text-faint ml-0.5">{groups.get(key)!.length}</span>
+        </a>
+      ))}
+    </div>
+
+    <!-- Brand List by Group -->
+    <div id="maker-list">
+      {groupKeys.map(key => {
+        const makers = groups.get(key)!;
+        return (
+          <section id={`group-${key}`} class="mb-8" data-group={key}>
+            <h2 class="text-lg font-bold text-gray-900 font-mono border-b-2 border-accent pb-1 mb-4">
+              {key}
+              <span class="text-sm font-normal text-text-dim ml-2">{makers.length} brands</span>
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+              {makers.map(m => (
+                <a
+                  href={`/en/${m.slug}/`}
+                  class="maker-card group block bg-white rounded-lg border border-gray-100 overflow-hidden transition-all duration-150 hover:border-accent hover:scale-[1.01]"
+                  data-name={m.name.toLowerCase()}
+                  data-series={m.seriesCount}
+                  data-group={key}
+                >
+                  <div class="p-3 sm:p-4">
+                    <h3 class="text-sm sm:text-base font-bold text-gray-900 group-hover:text-accent transition-colors mb-1.5 leading-tight">
+                      {m.name}
+                    </h3>
+                    <div class="flex items-center gap-2 text-xs text-text-mid font-mono mb-2">
+                      <span>{m.seriesCount} series</span>
+                      <span class="text-text-faint">|</span>
+                      <span>{m.colorCount} colors</span>
+                    </div>
+                    {m.topTypes.length > 0 && (
+                      <div class="flex flex-wrap gap-1">
+                        {m.topTypes.map(t => (
+                          <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono text-text-mid bg-gray-50 border border-gray-100">
+                            {LURE_TYPE_EN[t.name] ?? t.name}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
+
+    <!-- No Results -->
+    <div id="no-results" class="hidden text-center py-12 text-text-dim">
+      <p class="text-lg">No matching brands found</p>
+    </div>
+
+  </div>
+
+  <script define:vars={{ makerDataForClient }}>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sortAlpha = document.getElementById('sort-alpha');
+      const sortCount = document.getElementById('sort-count');
+      const searchInput = document.getElementById('maker-search');
+      const jumpNav = document.getElementById('jump-nav');
+      const makerListEl = document.getElementById('maker-list');
+      const noResults = document.getElementById('no-results');
+
+      function setActiveSort(activeBtn, inactiveBtn) {
+        activeBtn.classList.add('bg-accent', 'text-white', 'border-accent');
+        activeBtn.classList.remove('text-text-mid', 'border-border');
+        activeBtn.dataset.active = 'true';
+        inactiveBtn.classList.remove('bg-accent', 'text-white', 'border-accent');
+        inactiveBtn.classList.add('text-text-mid', 'border-border');
+        inactiveBtn.dataset.active = 'false';
+      }
+
+      sortAlpha.addEventListener('click', () => {
+        if (sortAlpha.dataset.active === 'true') return;
+        setActiveSort(sortAlpha, sortCount);
+        jumpNav.style.display = '';
+        document.querySelectorAll('[data-group]').forEach(el => {
+          if (el.tagName === 'SECTION') el.style.display = '';
+        });
+        reorderAlpha();
+      });
+
+      sortCount.addEventListener('click', () => {
+        if (sortCount.dataset.active === 'true') return;
+        setActiveSort(sortCount, sortAlpha);
+        jumpNav.style.display = 'none';
+        reorderByCount();
+      });
+
+      function reorderByCount() {
+        const sections = makerListEl.querySelectorAll('section');
+        sections.forEach(s => s.style.display = 'none');
+
+        const existing = document.getElementById('flat-grid');
+        if (existing) existing.remove();
+
+        const allCards = [...document.querySelectorAll('.maker-card')];
+        allCards.sort((a, b) => parseInt(b.dataset.series) - parseInt(a.dataset.series));
+
+        const grid = document.createElement('div');
+        grid.id = 'flat-grid';
+        grid.className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3';
+        allCards.forEach(card => {
+          const clone = card.cloneNode(true);
+          clone.style.display = '';
+          grid.appendChild(clone);
+        });
+        makerListEl.appendChild(grid);
+        applySearch();
+      }
+
+      function reorderAlpha() {
+        const flatGrid = document.getElementById('flat-grid');
+        if (flatGrid) flatGrid.remove();
+        document.querySelectorAll('section[data-group]').forEach(s => s.style.display = '');
+        document.querySelectorAll('.maker-card').forEach(c => c.style.display = '');
+        applySearch();
+      }
+
+      let searchTimeout;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(applySearch, 150);
+      });
+
+      function applySearch() {
+        const query = searchInput.value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.maker-card');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+          const name = card.dataset.name || '';
+          const match = !query || name.includes(query);
+          card.style.display = match ? '' : 'none';
+          if (match) visibleCount++;
+        });
+
+        if (sortAlpha.dataset.active === 'true') {
+          document.querySelectorAll('section[data-group]').forEach(section => {
+            const visibleCards = section.querySelectorAll('.maker-card:not([style*="display: none"])');
+            section.style.display = visibleCards.length > 0 ? '' : 'none';
+          });
+        }
+
+        noResults.style.display = visibleCount === 0 ? '' : 'none';
+      }
+    });
+  </script>
+</BaseLayout>
