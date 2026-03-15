@@ -1,0 +1,148 @@
+---
+/**
+ * 英語版 記事一覧ページ — /en/article/
+ *
+ * 翻訳済み記事のみ表示。未翻訳記事はスキップ。
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { contentArticles } from '../../../data/articles/_index';
+import { articleTranslationsEn } from '../../../i18n/cache/article-translations-en';
+import { FISH_NAME_EN, LURE_TYPE_EN } from '../../../i18n/dictionaries/fishing-terms';
+
+const locale = 'en' as const;
+
+const typeLabelsEn: Record<string, string> = {
+  'color-guide': 'Color Guide',
+  'review-analysis': 'Review & Analysis',
+  'selection-guide': 'Selection Guide',
+  'howto': 'How-To Guide',
+};
+
+const typeBadgeColors: Record<string, string> = {
+  'color-guide': 'bg-blue-50 text-blue-700 border-blue-200',
+  'review-analysis': 'bg-green-50 text-green-700 border-green-200',
+  'selection-guide': 'bg-purple-50 text-purple-700 border-purple-200',
+  'howto': 'bg-orange-50 text-orange-700 border-orange-200',
+};
+
+// 翻訳済み記事のみ
+const translatedArticles = contentArticles.filter(a => articleTranslationsEn[a.slug]);
+const totalCount = translatedArticles.length;
+
+// タイプ別にグルーピング
+const typeGroups = new Map<string, typeof translatedArticles>();
+for (const article of translatedArticles) {
+  const existing = typeGroups.get(article.type) || [];
+  existing.push(article);
+  typeGroups.set(article.type, existing);
+}
+
+const pageDescription = `CAST/LOG fishing lure articles. Data-driven color guides, reviews, and selection guides based on ${contentArticles.length > 6000 ? '6,000+' : contentArticles.length} lure series.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Lure Articles',
+  url: 'https://www.castlog.xyz/en/article/',
+  description: pageDescription,
+  inLanguage: 'en',
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.castlog.xyz/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Articles', item: 'https://www.castlog.xyz/en/article/' },
+  ],
+};
+---
+
+<BaseLayout title={`Lure Articles (${totalCount}) | CAST/LOG`} description={pageDescription} canonicalPath="/en/article/" jsonLd={[jsonLd, breadcrumbLd] as unknown as Record<string, unknown>} locale={locale}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">Articles</span>
+    </nav>
+
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">ARTICLES</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Lure Articles</h1>
+      <p class="text-sm text-text-mid mt-1">
+        {totalCount} articles — data-driven fishing lure content
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        In-depth articles powered by CAST/LOG's database of 6,160+ JDM lure series and 160,000+ color variations. Color guides, review analysis, selection guides, and how-to content based on real data.
+      </p>
+    </div>
+
+    {totalCount === 0 ? (
+      <div class="text-center py-16">
+        <p class="text-text-mid">Article translations are in progress. Check back soon!</p>
+        <a href="/en/" class="mt-4 inline-block text-accent text-sm font-medium hover:underline">← Back to Home</a>
+      </div>
+    ) : (
+      <>
+        <div class="flex flex-wrap gap-1.5 mb-8">
+          {[...typeGroups.entries()].map(([type, articles]) => (
+            <a
+              href={`#type-${type}`}
+              class={`px-3 py-1.5 text-xs font-medium rounded-full border transition-colors hover:opacity-80 ${typeBadgeColors[type] || 'bg-gray-50 text-gray-700 border-gray-200'}`}
+            >
+              {typeLabelsEn[type] || type} ({articles.length})
+            </a>
+          ))}
+        </div>
+
+        {[...typeGroups.entries()].map(([type, articles]) => (
+          <section class="mb-10" id={`type-${type}`}>
+            <div class="flex items-center gap-3 mb-4">
+              <h2 class="text-lg font-bold text-gray-900">{typeLabelsEn[type] || type}</h2>
+              <span class="text-xs text-text-dim font-mono">{articles.length} articles</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {articles.map(article => {
+                const t = articleTranslationsEn[article.slug];
+                return (
+                  <a
+                    href={`/en/article/${article.slug}/`}
+                    class="flex flex-col bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all group p-4"
+                  >
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class={`px-2 py-0.5 text-[10px] font-medium rounded-full border ${typeBadgeColors[article.type] || 'bg-gray-50 text-gray-700 border-gray-200'}`}>
+                        {typeLabelsEn[article.type]}
+                      </span>
+                      {article.targetFish.map(fish => (
+                        <span class="px-1.5 py-0.5 text-[10px] text-text-dim bg-gray-50 rounded">
+                          {FISH_NAME_EN[fish] ?? fish}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors mb-1.5 line-clamp-2">
+                      {t?.h1 ?? article.h1}
+                    </h3>
+                    <p class="text-xs text-text-mid line-clamp-2 flex-1">
+                      {(t?.description ?? article.description).slice(0, 100)}...
+                    </p>
+                    <div class="flex items-center gap-2 mt-3 pt-2 border-t border-gray-50">
+                      <span class="text-[10px] text-text-dim">{article.publishedAt}</span>
+                      {article.targetTypes.slice(0, 2).map(tp => (
+                        <span class="text-[10px] text-text-dim">#{LURE_TYPE_EN[tp] ?? tp}</span>
+                      ))}
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </>
+    )}
+
+  </div>
+</BaseLayout>

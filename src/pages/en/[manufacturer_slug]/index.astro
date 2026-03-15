@@ -8,6 +8,7 @@ import { fetchAllLures } from '../../../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../../../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../../../lib/category-slugs';
 import { manufacturerDescriptions, manufacturerOfficialUrls } from '../../../data/manufacturer-descriptions';
+import { manufacturerDescriptionsEn } from '../../../data/manufacturer-descriptions-en';
 import { contentArticles } from '../../../data/articles/_index.js';
 import type { LureSeries } from '../../../lib/types';
 import { LURE_TYPE_EN, FISH_NAME_EN } from '../../../i18n/dictionaries/fishing-terms';
@@ -58,6 +59,7 @@ const { manufacturer, series, relatedManufacturers } = Astro.props as {
 
 const manufacturerSlug = Astro.params.manufacturer_slug as string;
 const officialUrl = manufacturerOfficialUrls[manufacturerSlug] ?? null;
+const editorialText = manufacturerDescriptionsEn[manufacturerSlug] ?? '';
 const yen = String.fromCharCode(165);
 
 const totalColors = series.reduce((sum, s) => sum + s.color_count, 0);
@@ -163,6 +165,13 @@ for (const fish of allTargetFish.slice(0, 4)) {
       <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">{manufacturer}</h1>
       <p class="text-sm text-text-mid mt-1">{series.length} series &middot; {totalColors} colors</p>
     </div>
+
+    <!-- Editorial -->
+    {editorialText && (
+      <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-4 shadow-sm">
+        <p class="text-sm text-gray-700 leading-relaxed">{editorialText}</p>
+      </div>
+    )}
 
     <!-- Overview -->
     <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">

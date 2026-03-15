@@ -1,0 +1,368 @@
+---
+/**
+ * 英語版 記事詳細ページ — /en/article/[slug]/
+ *
+ * 翻訳済み記事のみビルド。翻訳キャッシュから英語テキストを使用。
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LureCard from '../../../components/LureCard.astro';
+import { fetchAllLures } from '../../../lib/fetch-all-lures';
+import { groupLuresBySeries } from '../../../lib/group-lures';
+import { contentArticles } from '../../../data/articles/_index';
+import { articleTranslationsEn } from '../../../i18n/cache/article-translations-en';
+import type { TranslatedArticle } from '../../../i18n/cache/article-translations-en';
+import type { ContentArticle, ArticleSection } from '../../../data/articles/_types';
+import type { LureSeries } from '../../../lib/types';
+import { getArticleCrosslinks } from '../../../lib/article-crosslinks';
+import type { CrosslinkArticle } from '../../../lib/article-crosslinks';
+import { FISH_NAME_EN, LURE_TYPE_EN } from '../../../i18n/dictionaries/fishing-terms';
+
+const locale = 'en' as const;
+const SITE_URL = 'https://www.castlog.xyz';
+
+export async function getStaticPaths() {
+  // 翻訳済み記事のみ生成
+  const translatedArticles = contentArticles.filter(a => articleTranslationsEn[a.slug]);
+  if (translatedArticles.length === 0) return [];
+
+  const lures = await fetchAllLures();
+  const allSeries = groupLuresBySeries(lures ?? []);
+
+  const seriesMap = new Map<string, LureSeries>();
+  for (const s of allSeries) {
+    seriesMap.set(s.slug, s);
+  }
+
+  return translatedArticles.map(article => {
+    const referencedSeries: LureSeries[] = [];
+
+    if (article.targetLureSlugs) {
+      for (const slug of article.targetLureSlugs) {
+        const s = seriesMap.get(slug);
+        if (s) referencedSeries.push(s);
+      }
+    }
+
+    for (const section of article.sections) {
+      if (section.lureRefs) {
+        for (const slug of section.lureRefs) {
+          const s = seriesMap.get(slug);
+          if (s && !referencedSeries.find(r => r.slug === slug)) {
+            referencedSeries.push(s);
+          }
+        }
+      }
+    }
+
+    const crosslinks = getArticleCrosslinks(article, contentArticles, 5);
+
+    const topPicks = allSeries
+      .filter(s => {
+        const fishMatch = article.targetFish.length === 0 ||
+          s.target_fish.some(f => article.targetFish.includes(f));
+        const typeMatch = article.targetTypes.length === 0 ||
+          article.targetTypes.includes(s.type);
+        return fishMatch && typeMatch;
+      })
+      .sort((a, b) => b.color_count - a.color_count)
+      .slice(0, 10);
+
+    return {
+      params: { slug: article.slug },
+      props: {
+        article,
+        translation: articleTranslationsEn[article.slug]!,
+        referencedSeries,
+        topPicks,
+        crosslinks,
+        seriesMap: Object.fromEntries(seriesMap),
+      },
+    };
+  });
+}
+
+const { article, translation, referencedSeries, topPicks, crosslinks, seriesMap } = Astro.props as {
+  article: ContentArticle;
+  translation: TranslatedArticle;
+  referencedSeries: LureSeries[];
+  topPicks: LureSeries[];
+  crosslinks: CrosslinkArticle[];
+  seriesMap: Record<string, LureSeries>;
+};
+
+// ─── English labels ──────────────────────────────────
+
+const typeLabelsEn: Record<string, string> = {
+  'color-guide': 'Color Guide',
+  'review-analysis': 'Review & Analysis',
+  'selection-guide': 'Selection Guide',
+  'howto': 'How-To Guide',
+};
+
+const typeBadge = typeLabelsEn[article.type] || 'Article';
+
+// ─── JSON-LD ─────────────────────────────────────────
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: translation.h1,
+  description: translation.description,
+  datePublished: article.publishedAt,
+  dateModified: article.updatedAt,
+  inLanguage: 'en',
+  author: { '@type': 'Organization', name: 'CAST/LOG', url: SITE_URL },
+  publisher: {
+    '@type': 'Organization', name: 'CAST/LOG', url: SITE_URL,
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon.svg` },
+  },
+  mainEntityOfPage: `${SITE_URL}/en/article/${article.slug}/`,
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/en/` },
+    { '@type': 'ListItem', position: 2, name: typeBadge, item: `${SITE_URL}/en/article/` },
+    { '@type': 'ListItem', position: 3, name: translation.h1, item: `${SITE_URL}/en/article/${article.slug}/` },
+  ],
+};
+
+const faqLd = translation.faq.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: translation.faq.map(f => ({
+    '@type': 'Question', name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+} : null;
+
+const howtoLd = (article.type === 'howto' || article.type === 'selection-guide') ? {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: translation.h1,
+  description: translation.description,
+  step: translation.sections.map((s, i) => ({
+    '@type': 'HowToStep', position: i + 1, name: s.heading, text: s.body.slice(0, 300),
+  })),
+} : null;
+
+const jsonLd = [articleLd, breadcrumbLd, faqLd, howtoLd].filter(Boolean) as unknown as Record<string, unknown>;
+
+// ─── TOC ─────────────────────────────────────────────
+
+const tocItems = [
+  ...translation.sections.map((s, i) => ({ id: `section-${i}`, label: s.heading })),
+  ...(translation.faq.length > 0 ? [{ id: 'faq', label: 'FAQ' }] : []),
+  ...(topPicks.length > 0 ? [{ id: 'related-lures', label: 'Related Lures' }] : []),
+];
+
+function getSectionLures(sectionIdx: number): LureSeries[] {
+  const originalSection = article.sections[sectionIdx];
+  if (!originalSection?.lureRefs) return [];
+  return originalSection.lureRefs.map(slug => seriesMap[slug]).filter(Boolean) as LureSeries[];
+}
+---
+
+<BaseLayout
+  title={translation.title + ' | CAST/LOG'}
+  description={translation.description}
+  canonicalPath={`/en/article/${article.slug}/`}
+  jsonLd={jsonLd}
+  locale={locale}
+>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/en/" class="hover:text-accent transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/en/article/" class="hover:text-accent transition-colors">{typeBadge}</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900">{translation.h1}</span>
+    </nav>
+
+    <header class="mb-8">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-2">/{article.type.toUpperCase()}</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+        {translation.h1}
+      </h1>
+      <div class="flex flex-wrap items-center gap-3 text-xs text-text-dim font-mono">
+        <time datetime={article.updatedAt}>Updated: {article.updatedAt}</time>
+        <span>Data: {article.dataAsOf}</span>
+        {article.targetFish.length > 0 && (
+          <span>{article.targetFish.map(f => FISH_NAME_EN[f] ?? f).join(', ')}</span>
+        )}
+      </div>
+    </header>
+
+    <div class="bg-surface rounded-xl border border-border p-5 sm:p-6 mb-8">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        {translation.lead}
+      </p>
+    </div>
+
+    <nav class="bg-white rounded-xl border border-gray-100 p-5 mb-10">
+      <h2 class="text-sm font-bold text-gray-900 mb-3">Contents</h2>
+      <ol class="space-y-1.5 text-sm text-text-mid">
+        {tocItems.map((item, i) => (
+          <li>
+            <a href={`#${item.id}`} class="hover:text-accent transition-colors">
+              {i + 1}. {item.label}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    {translation.sections.map((section, i) => {
+      const sectionLures = getSectionLures(i);
+      return (
+        <section id={`section-${i}`} class="mb-10">
+          <h2 class="text-xl font-bold text-gray-900 mb-4">{section.heading}</h2>
+          <p class="text-sm text-gray-700 leading-relaxed whitespace-pre-line mb-6">
+            {section.body}
+          </p>
+
+          {section.comparisonTable && (
+            <div class="mb-6 overflow-x-auto">
+              <p class="text-xs text-text-dim mb-2 font-mono">Criteria: {section.comparisonTable.criteria}</p>
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="bg-gray-50">
+                    {section.comparisonTable.headers.map(h => (
+                      <th class="px-3 py-2 text-left text-xs font-bold text-gray-700 border-b border-gray-200">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {section.comparisonTable.rows.map(row => (
+                    <tr class="border-b border-gray-100 hover:bg-gray-50/50">
+                      {row.map(cell => (
+                        <td class="px-3 py-2 text-gray-700">{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {sectionLures.length > 0 && (
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-4">
+              {sectionLures.map(s => (
+                <LureCard series={s} isNew={false} locale={locale} />
+              ))}
+            </div>
+          )}
+        </section>
+      );
+    })}
+
+    {translation.faq.length > 0 && (
+      <section id="faq" class="mb-10">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">FAQ</h2>
+        <div class="space-y-4">
+          {translation.faq.map(f => (
+            <div class="bg-white rounded-xl border border-gray-100 p-5">
+              <h3 class="text-sm font-bold text-gray-900 mb-2">{f.question}</h3>
+              <p class="text-sm text-gray-700 leading-relaxed">{f.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {referencedSeries.length > 0 && (
+      <section id="featured-lures" class="mb-10">
+        <h2 class="text-xl font-bold text-gray-900 mb-2">Featured Lures in This Article</h2>
+        <p class="text-sm text-gray-600 mb-6">
+          {referencedSeries.length} series mentioned in this article. See full specs and all color variants on each detail page.
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {referencedSeries.map(s => (
+            <LureCard series={s} isNew={false} locale={locale} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    {topPicks.length > 0 && (
+      <section id="related-lures" class="mb-10">
+        <h2 class="text-xl font-bold text-gray-900 mb-2">
+          {article.targetFish.length > 0 ? `More ${FISH_NAME_EN[article.targetFish[0]] ?? article.targetFish[0]} Lures` : 'Related Lures'}
+        </h2>
+        <p class="text-sm text-gray-600 mb-6">
+          Top picks from the database, sorted by color variety.
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          {topPicks.map(s => (
+            <LureCard series={s} isNew={false} locale={locale} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    {crosslinks.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">Related Articles</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {crosslinks.map(cl => {
+            const clTrans = articleTranslationsEn[cl.slug];
+            const clTypeLabel = cl.type === 'color-guide' ? 'Color' :
+              cl.type === 'review-analysis' ? 'Review' :
+              cl.type === 'selection-guide' ? 'Guide' : 'How-To';
+            return (
+              <a href={clTrans ? `/en/article/${cl.slug}/` : `/article/${cl.slug}/`} class="group flex items-start gap-3 px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
+                <span class:list={[
+                  'shrink-0 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded mt-0.5',
+                  cl.type === 'color-guide' ? 'bg-blue-50 text-blue-600' :
+                  cl.type === 'review-analysis' ? 'bg-green-50 text-green-600' :
+                  cl.type === 'selection-guide' ? 'bg-orange-50 text-orange-600' :
+                  'bg-gray-50 text-gray-600'
+                ]}>
+                  {clTypeLabel}
+                </span>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors truncate">
+                    {clTrans?.title ?? cl.title}
+                  </p>
+                </div>
+                <span class="text-accent text-sm shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <aside class="bg-surface rounded-xl border border-border p-5 sm:p-6 mb-8">
+      <h2 class="text-sm font-bold text-gray-900 mb-3">Related Content</h2>
+      <div class="flex flex-wrap gap-2">
+        {article.relatedRankings.map(slug => (
+          <a
+            href={`/en/ranking/${slug}/`}
+            class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-accent bg-accent-bg rounded-full hover:bg-accent/10 transition-colors"
+          >
+            Ranking: {slug} <span class="text-sm">→</span>
+          </a>
+        ))}
+        {referencedSeries.slice(0, 5).map(s => (
+          <a
+            href={`/en/${s.manufacturer_slug}/${s.slug}/`}
+            class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-50 rounded-full hover:bg-gray-100 transition-colors"
+          >
+            {s.manufacturer} {s.name} <span class="text-sm">→</span>
+          </a>
+        ))}
+      </div>
+    </aside>
+
+    <footer class="border-t border-gray-100 pt-6 mt-8">
+      <p class="text-xs text-text-dim">
+        This article is based on data from the CAST/LOG lure database (6,160+ series). Data as of {article.dataAsOf}.
+      </p>
+    </footer>
+
+  </article>
+</BaseLayout>

@@ -167,7 +167,8 @@ async function fetchAllLureUrls(): Promise<string[]> {
   // 比較ページ（ランキングと同一slug体系）
   const compareUrls = [...rankingSlugs].sort().map(s => `${SITE_URL}compare/${s}/`);
 
-  const urls = [
+  // ── 日本語URL（優先） ──
+  const jaUrls = [
     // 固定ページ（優先度最高）
     `${SITE_URL}`,
     `${SITE_URL}article/`,
@@ -189,7 +190,31 @@ async function fetchAllLureUrls(): Promise<string[]> {
     ...[...allPaths].sort().map(p => `${SITE_URL}${p}/`),
   ];
 
-  return urls;
+  // ── 英語URL（日本語の後に追加） ──
+  const EN = `${SITE_URL}en/`;
+  const enUrls = [
+    // 固定ページ
+    EN,
+    `${EN}ranking/`,
+    `${EN}compare/`,
+    `${EN}fish/`,
+    `${EN}type/`,
+    `${EN}maker/`,
+    `${EN}method/`,
+    `${EN}season/`,
+    `${EN}guide/price/`,
+    // 比較ページ
+    ...[...rankingSlugs].sort().map(s => `${EN}compare/${s}/`),
+    // ランキングページ
+    ...[...rankingSlugs].sort().map(s => `${EN}ranking/${s}/`),
+    // メーカーページ
+    ...[...makerSlugs].sort().map(s => `${EN}${s}/`),
+    // ルアーページ
+    ...[...allPaths].sort().map(p => `${EN}${p}/`),
+  ];
+
+  log(`URL breakdown: JA=${jaUrls.length}, EN=${enUrls.length}`);
+  return [...jaUrls, ...enUrls];
 }
 
 // ─── Indexing API 送信 ────────────────────────────────
