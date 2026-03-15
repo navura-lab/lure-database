@@ -12,6 +12,8 @@ const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN!;
 const QUOTA_PROJECT = process.env.GOOGLE_QUOTA_PROJECT || 'plucky-mile-486802-j6';
 
 export const SITE_URL = process.env.GSC_SITE_URL || 'https://www.castlog.xyz/';
+// Search Analytics APIはドメインプロパティ形式が必要（sc-domain:castlog.xyz）
+export const ANALYTICS_PROPERTY = process.env.GSC_ANALYTICS_PROPERTY || SITE_URL;
 
 export interface SearchAnalyticsRow {
   keys: string[];
@@ -71,7 +73,7 @@ export async function getSearchAnalytics(
     body.dimensionFilterGroups = [{ filters }];
   }
   const res = await fetch(
-    `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(SITE_URL)}/searchAnalytics/query`,
+    `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(ANALYTICS_PROPERTY)}/searchAnalytics/query`,
     {
       method: 'POST',
       headers: gscHeaders(token),
