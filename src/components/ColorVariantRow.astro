@@ -10,8 +10,8 @@ interface Props {
 const { color } = Astro.props;
 ---
 
-<div class="flex items-center gap-4 py-4 border-b border-gray-100 last:border-b-0">
-  <div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100">
+<div class="flex items-center gap-4 py-4 border-b border-border-light last:border-b-0">
+  <div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 border border-border-light">
     {color.images && color.images.length > 0 ? (
       <img
         src={color.images[0]}
@@ -25,7 +25,7 @@ const { color } = Astro.props;
   </div>
 
   <div class="flex-1 min-w-0">
-    <p class="text-sm font-medium text-gray-900 truncate">
+    <p class="text-sm font-medium text-text truncate">
       {color.color_name}
     </p>
     {(color.weight || color.length) && (
@@ -43,7 +43,7 @@ const { color } = Astro.props;
   </div>
 
   {color.price > 0 && (
-    <div class="text-sm font-bold text-gray-900 flex-shrink-0">
+    <div class="text-sm font-bold text-text flex-shrink-0">
       ¥{color.price.toLocaleString()}
     </div>
   )}

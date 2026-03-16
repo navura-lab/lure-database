@@ -73,6 +73,13 @@ const BRAND_LINE_RULES: BrandLineRule[] = [
     manufacturerSlug: 'apia',
     allowedFish: new Set(['シーバス', 'ヒラメ', 'マゴチ', 'クロダイ', 'ヒラメ・マゴチ', 'チヌ・クロダイ']),
   },
+  // --- Tackle House ---
+  // 「ナブラ」はナブラ撃ち（青物のボイル打ち）を意味する青物向けライン
+  {
+    namePattern: /ナブラ/,
+    manufacturerSlug: 'tackle-house',
+    allowedFish: new Set(['ブリ', 'ヒラマサ', 'カンパチ', '青物（ブリ、ヒラマサ、カンパチ等）', 'シーバス', 'シイラ']),
+  },
 ];
 
 // ========== カテゴリキーワード → 許可魚種 ==========

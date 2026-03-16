@@ -8,7 +8,7 @@ interface Props {
 const { manufacturers, types, targetFish } = Astro.props;
 ---
 
-<div class="bg-white border-b border-gray-100 sticky top-14 z-40">
+<div class="bg-bg border-b border-border-light sticky top-14 z-40">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       <div>
@@ -16,7 +16,7 @@ const { manufacturers, types, targetFish } = Astro.props;
         <select
           id="filter-manufacturer"
           data-filter-manufacturer
-          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          class="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-mid focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
         >
           <option value="">メーカー</option>
           {manufacturers.map(m => (
@@ -29,7 +29,7 @@ const { manufacturers, types, targetFish } = Astro.props;
         <select
           id="filter-type"
           data-filter-type
-          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          class="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-mid focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
         >
           <option value="">種類</option>
           {types.map(t => (
@@ -42,7 +42,7 @@ const { manufacturers, types, targetFish } = Astro.props;
         <select
           id="filter-targetfish"
           data-filter-targetfish
-          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          class="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-mid focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
         >
           <option value="">対象魚</option>
           {targetFish.map(f => (
@@ -57,11 +57,11 @@ const { manufacturers, types, targetFish } = Astro.props;
           type="text"
           data-filter-search
           placeholder="ルアー名で検索..."
-          class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 placeholder:text-gray-400 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          class="w-full rounded-lg border border-border bg-bg px-3 py-2 text-sm text-text-mid placeholder:text-text-dim focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
         />
         <button
           data-filter-clear
-          class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs hidden"
+          class="absolute right-2 top-1/2 -translate-y-1/2 text-text-dim hover:text-text-mid text-xs hidden"
           aria-label="フィルターをクリア"
         >
           クリア

@@ -76,17 +76,19 @@ export async function getStaticPaths() {
         topPicks,
         crosslinks,
         seriesMap: Object.fromEntries(seriesMap),
+        totalSeries: allSeries.length,
       },
     };
   });
 }
 
-const { article, referencedSeries, topPicks, crosslinks, seriesMap } = Astro.props as {
+const { article, referencedSeries, topPicks, crosslinks, seriesMap, totalSeries } = Astro.props as {
   article: ContentArticle;
   referencedSeries: LureSeries[];
   topPicks: LureSeries[];
   crosslinks: CrosslinkArticle[];
   seriesMap: Record<string, LureSeries>;
+  totalSeries: number;
 };
 
 const SITE_URL = 'https://www.castlog.xyz';
@@ -183,6 +185,7 @@ const jsonLd = jsonLdArray as unknown as Record<string, unknown>;
 const tocItems = [
   ...article.sections.map((s, i) => ({ id: `section-${i}`, label: s.heading })),
   ...(article.faq.length > 0 ? [{ id: 'faq', label: 'よくある質問' }] : []),
+  ...(referencedSeries.length > 0 ? [{ id: 'featured-lures', label: 'この記事で紹介したルアー' }] : []),
   ...(topPicks.length > 0 ? [{ id: 'related-lures', label: '関連ルアー' }] : []),
 ];
 
@@ -207,15 +210,15 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
     <nav class="text-sm text-text-mid mb-8">
       <a href="/" class="hover:text-accent transition-colors">トップ</a>
       <span class="mx-2">/</span>
-      <span class="text-gray-900">{typeBadge}</span>
+      <a href="/article/" class="hover:text-accent transition-colors">{typeBadge}</a>
       <span class="mx-2">/</span>
-      <span class="text-gray-900">{article.h1}</span>
+      <span class="text-text">{article.h1}</span>
     </nav>
 
     <!-- 記事ヘッダー -->
-    <header class="mb-8">
+    <header class="mb-10">
       <p class="text-xs font-mono text-accent uppercase tracking-wider mb-2">/{article.type.toUpperCase()}</p>
-      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+      <h1 class="text-2xl sm:text-3xl font-bold text-text mb-4 leading-snug">
         {article.h1}
       </h1>
       <div class="flex flex-wrap items-center gap-3 text-xs text-text-dim font-mono">
@@ -228,16 +231,28 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
     </header>
 
     <!-- リード文 -->
-    <div class="bg-surface rounded-xl border border-border p-5 sm:p-6 mb-8">
-      <p class="text-sm text-gray-700 leading-relaxed">
+    <div class="bg-surface rounded-xl border border-border p-5 sm:p-6 mb-10">
+      <p class="text-[15px] text-text-mid leading-[1.9]">
         {article.lead}
       </p>
     </div>
 
+    <!-- 記事で紹介するルアー（リード直後に配置 → 回遊促進） -->
+    {referencedSeries.length > 0 && referencedSeries.length <= 6 && (
+      <div class="mb-10">
+        <p class="text-xs font-mono text-text-dim uppercase tracking-wider mb-3">紹介ルアー</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {referencedSeries.slice(0, 6).map(s => (
+            <LureCard series={s} isNew={false} />
+          ))}
+        </div>
+      </div>
+    )}
+
     <!-- 目次 -->
-    <nav class="bg-white rounded-xl border border-gray-100 p-5 mb-10">
-      <h2 class="text-sm font-bold text-gray-900 mb-3">目次</h2>
-      <ol class="space-y-1.5 text-sm text-text-mid">
+    <nav class="bg-bg rounded-xl border border-border-light p-5 mb-12">
+      <h2 class="text-sm font-bold text-text mb-3">目次</h2>
+      <ol class="space-y-2 text-sm text-text-mid">
         {tocItems.map((item, i) => (
           <li>
             <a href={`#${item.id}`} class="hover:text-accent transition-colors">
@@ -248,64 +263,83 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
       </ol>
     </nav>
 
-    <!-- セクション -->
-    {article.sections.map((section, i) => {
-      const sectionLures = getSectionLures(section);
+    <!-- 本文セクション（NOTE風フォーマット） -->
+    <div class="article-body max-w-prose mx-auto">
+      {article.sections.map((section, i) => {
+        const sectionLures = getSectionLures(section);
 
-      return (
-        <section id={`section-${i}`} class="mb-10">
-          <h2 class="text-xl font-bold text-gray-900 mb-4">{section.heading}</h2>
-          <p class="text-sm text-gray-700 leading-relaxed whitespace-pre-line mb-6">
-            {section.body}
-          </p>
+        return (
+          <section id={`section-${i}`} class="mb-14">
+            <h2 class="text-xl sm:text-[22px] font-bold text-text mt-12 mb-5 first:mt-0">{section.heading}</h2>
+            <div class="text-[15px] text-text-mid leading-[1.9] whitespace-pre-line mb-6">
+              {section.body}
+            </div>
 
-          {/* 比較表 */}
-          {section.comparisonTable && (
-            <div class="mb-6 overflow-x-auto">
-              <p class="text-xs text-text-dim mb-2 font-mono">評価基準: {section.comparisonTable.criteria}</p>
-              <table class="w-full text-sm border-collapse">
-                <thead>
-                  <tr class="bg-gray-50">
-                    {section.comparisonTable.headers.map(h => (
-                      <th class="px-3 py-2 text-left text-xs font-bold text-gray-700 border-b border-gray-200">{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {section.comparisonTable.rows.map(row => (
-                    <tr class="border-b border-gray-100 hover:bg-gray-50/50">
-                      {row.map(cell => (
-                        <td class="px-3 py-2 text-gray-700">{cell}</td>
+            {/* 比較表 */}
+            {section.comparisonTable && (
+              <div class="mb-8 overflow-x-auto -mx-4 px-4">
+                <p class="text-xs text-text-dim mb-2 font-mono">評価基準: {section.comparisonTable.criteria}</p>
+                <table class="w-full text-sm border-collapse">
+                  <thead>
+                    <tr class="bg-surface">
+                      {section.comparisonTable.headers.map(h => (
+                        <th class="px-3 py-2.5 text-left text-xs font-bold text-text-mid border-b border-border">{h}</th>
                       ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+                  </thead>
+                  <tbody>
+                    {section.comparisonTable.rows.map(row => (
+                      <tr class="border-b border-border-light hover:bg-surface/50">
+                        {row.map(cell => (
+                          <td class="px-3 py-2.5 text-text-mid">{cell}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
-          {/* セクション関連ルアーカード */}
-          {sectionLures.length > 0 && (
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-4">
-              {sectionLures.map(s => (
-                <LureCard series={s} isNew={false} />
-              ))}
-            </div>
-          )}
-        </section>
-      );
-    })}
+            {/* セクション関連ルアーカード */}
+            {sectionLures.length > 0 && (
+              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-6 max-w-none -mx-4 px-4 sm:mx-0 sm:px-0">
+                {sectionLures.map(s => (
+                  <LureCard series={s} isNew={false} />
+                ))}
+              </div>
+            )}
+          </section>
+        );
+      })}
+    </div>
+
+    <!-- データ根拠セクション -->
+    <aside class="bg-surface rounded-xl border border-border p-5 sm:p-6 mb-12 max-w-prose mx-auto">
+      <h3 class="text-sm font-bold text-text mb-2">データについて</h3>
+      <p class="text-[13px] text-text-mid leading-relaxed">
+        本記事はCAST/LOGルアーデータベース（{totalSeries.toLocaleString()}シリーズ登録、{article.dataAsOf}時点）の分析に基づいて作成しています。
+        各ルアーの評価は、カラー展開数・価格帯・メーカー公式情報・ユーザーの使用実績を総合的に判断したものです。
+        掲載情報は定期的に更新しており、最新の情報と異なる場合があります。
+      </p>
+    </aside>
 
     <!-- FAQ -->
     {article.faq.length > 0 && (
-      <section id="faq" class="mb-10">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">よくある質問</h2>
+      <section id="faq" class="mb-12">
+        <h2 class="text-xl font-bold text-text mb-5">よくある質問</h2>
         <div class="space-y-4">
           {article.faq.map(f => (
-            <div class="bg-white rounded-xl border border-gray-100 p-5">
-              <h3 class="text-sm font-bold text-gray-900 mb-2">{f.question}</h3>
-              <p class="text-sm text-gray-700 leading-relaxed">{f.answer}</p>
-            </div>
+            <details class="group bg-bg rounded-xl border border-border-light">
+              <summary class="flex items-center justify-between cursor-pointer p-5 text-sm font-bold text-text">
+                {f.question}
+                <svg class="w-4 h-4 text-text-dim shrink-0 ml-2 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div class="px-5 pb-5">
+                <p class="text-[14px] text-text-mid leading-[1.8]">{f.answer}</p>
+              </div>
+            </details>
           ))}
         </div>
       </section>
@@ -313,9 +347,9 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
 
     <!-- 注目ルアー（記事で直接参照したルアー） -->
     {referencedSeries.length > 0 && (
-      <section id="featured-lures" class="mb-10">
-        <h2 class="text-xl font-bold text-gray-900 mb-2">この記事で紹介したルアー</h2>
-        <p class="text-sm text-gray-600 mb-6">
+      <section id="featured-lures" class="mb-12">
+        <h2 class="text-xl font-bold text-text mb-2">この記事で紹介したルアー</h2>
+        <p class="text-sm text-text-mid mb-6">
           記事内で取り上げた{referencedSeries.length}シリーズ。各ルアーの全カラー・スペック詳細はリンク先で確認できる。
         </p>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -328,11 +362,11 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
 
     <!-- 関連ルアー（自動マッチ） -->
     {topPicks.length > 0 && (
-      <section id="related-lures" class="mb-10">
-        <h2 class="text-xl font-bold text-gray-900 mb-2">
+      <section id="related-lures" class="mb-12">
+        <h2 class="text-xl font-bold text-text mb-2">
           {article.targetFish.length > 0 ? `${article.targetFish[0]}向けルアーをもっと見る` : '関連ルアー'}
         </h2>
-        <p class="text-sm text-gray-600 mb-6">
+        <p class="text-sm text-text-mid mb-6">
           データベースからカラー展開数順にピックアップ。
         </p>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -345,24 +379,24 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
 
     <!-- 関連記事（クロスリンク） -->
     {crosslinks.length > 0 && (
-      <section class="mb-10">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">関連記事</h2>
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-text mb-4">関連記事</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {crosslinks.map(cl => (
-            <a href={`/article/${cl.slug}/`} class="group flex items-start gap-3 px-4 py-3 bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all">
+            <a href={`/article/${cl.slug}/`} class="group flex items-start gap-3 px-4 py-3 bg-bg rounded-xl border border-border-light hover:border-accent hover:shadow-card transition-all duration-200">
               <span class:list={[
                 'shrink-0 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded mt-0.5',
                 cl.type === 'color-guide' ? 'bg-blue-50 text-blue-600' :
-                cl.type === 'review-analysis' ? 'bg-green-50 text-green-600' :
+                cl.type === 'review-analysis' ? 'bg-accent-bg text-accent' :
                 cl.type === 'selection-guide' ? 'bg-orange-50 text-orange-600' :
-                'bg-gray-50 text-gray-600'
+                'bg-surface text-text-mid'
               ]}>
                 {cl.type === 'color-guide' ? 'カラー' :
                  cl.type === 'review-analysis' ? 'レビュー' :
                  cl.type === 'selection-guide' ? '選び方' : 'ガイド'}
               </span>
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors truncate">{cl.title}</p>
+                <p class="text-sm font-semibold text-text group-hover:text-accent transition-colors truncate">{cl.title}</p>
               </div>
               <span class="text-accent text-sm shrink-0 group-hover:translate-x-1 transition-transform">→</span>
             </a>
@@ -373,7 +407,7 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
 
     <!-- 関連リンク -->
     <aside class="bg-surface rounded-xl border border-border p-5 sm:p-6 mb-8">
-      <h2 class="text-sm font-bold text-gray-900 mb-3">関連コンテンツ</h2>
+      <h2 class="text-sm font-bold text-text mb-3">関連コンテンツ</h2>
       <div class="flex flex-wrap gap-2">
         {article.relatedRankings.map(slug => (
           <a
@@ -396,7 +430,7 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
         {referencedSeries.map(s => (
           <a
             href={`/${s.manufacturer_slug}/${s.slug}/`}
-            class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-50 rounded-full hover:bg-gray-100 transition-colors"
+            class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-text-mid bg-elevated rounded-full hover:bg-border transition-colors"
           >
             {s.manufacturer} {s.name}
             <span class="text-sm">→</span>
@@ -406,9 +440,10 @@ function getSectionLures(section: ArticleSection): LureSeries[] {
     </aside>
 
     <!-- 記事フッター -->
-    <footer class="border-t border-gray-100 pt-6 mt-8">
-      <p class="text-xs text-text-dim">
-        本記事はCAST/LOGのルアーデータベース（6,160シリーズ登録）のデータに基づいて作成しています。掲載データは{article.dataAsOf}時点のものです。
+    <footer class="border-t border-border-light pt-6 mt-8">
+      <p class="text-xs text-text-dim leading-relaxed">
+        本記事はCAST/LOGのルアーデータベース（{totalSeries.toLocaleString()}シリーズ登録）のデータに基づいて作成しています。掲載データは{article.dataAsOf}時点のものです。
+        最新の商品情報・価格は各メーカー公式サイトおよび販売店にてご確認ください。
       </p>
     </footer>
 

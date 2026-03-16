@@ -12,7 +12,7 @@ const typeLabels: Record<string, string> = {
 
 const typeBadgeColors: Record<string, string> = {
   'color-guide': 'bg-blue-50 text-blue-700 border-blue-200',
-  'review-analysis': 'bg-green-50 text-green-700 border-green-200',
+  'review-analysis': 'bg-accent-bg text-accent border-accent',
   'selection-guide': 'bg-purple-50 text-purple-700 border-purple-200',
   'howto': 'bg-orange-50 text-orange-700 border-orange-200',
 };
@@ -24,6 +24,16 @@ for (const article of contentArticles) {
   existing.push(article);
   typeGroups.set(article.type, existing);
 }
+
+// タブ用のカテゴリリスト（全件 + 各タイプ）
+const categories = [
+  { key: 'all', label: 'すべて', count: contentArticles.length },
+  ...[...typeGroups.entries()].map(([type, articles]) => ({
+    key: type,
+    label: typeLabels[type] || type,
+    count: articles.length,
+  })),
+];
 
 const pageDescription = `CAST/LOGの釣りルアー特集記事${contentArticles.length}本。6,160シリーズのデータベースに基づくカラーガイド・インプレ・選び方を掲載。`;
 
@@ -52,77 +62,100 @@ const breadcrumbLd = {
     <nav class="text-sm text-text-mid mb-8">
       <a href="/" class="hover:text-accent transition-colors">トップ</a>
       <span class="mx-2">/</span>
-      <span class="text-gray-900">特集記事</span>
+      <span class="text-text">特集記事</span>
     </nav>
 
     <!-- ヘッダー -->
     <div class="mb-6">
       <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">ARTICLES</p>
-      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">ルアー特集記事</h1>
+      <h1 class="text-2xl sm:text-3xl font-bold text-text">ルアー特集記事</h1>
       <p class="text-sm text-text-mid mt-1">
         {contentArticles.length}本・データベース分析に基づく独自コンテンツ
       </p>
     </div>
 
-    <!-- 概要 -->
-    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
-      <p class="text-sm text-gray-700 leading-relaxed">
-        CAST/LOGの6,160シリーズ・16万色以上のルアーデータベースを活用した特集記事。おすすめカラーの選び方、人気ルアーのインプレ分析、ジャンル別の選び方ガイドなど、データに基づいた客観的な情報を掲載。
-      </p>
+    <!-- カテゴリタブ（ピル型フィルター） -->
+    <div class="flex flex-wrap gap-2 mb-8" role="tablist" id="article-tabs">
+      {categories.map((cat, i) => (
+        <button
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+          data-category={cat.key}
+          class:list={[
+            'article-cat-tab px-4 py-2 rounded-full text-[13px] font-bold transition-all duration-200',
+            i === 0 ? 'bg-text text-bg' : 'bg-surface text-text-dim hover:bg-elevated',
+          ]}
+        >
+          {cat.label}
+          <span class="font-mono text-[11px] ml-1 opacity-70">{cat.count}</span>
+        </button>
+      ))}
     </div>
 
-    <!-- タイプ別ジャンプナビ -->
-    <div class="flex flex-wrap gap-1.5 mb-8">
-      {[...typeGroups.entries()].map(([type, articles]) => (
+    <!-- 記事グリッド -->
+    <div id="article-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {contentArticles.map(article => (
         <a
-          href={`#type-${type}`}
-          class={`px-3 py-1.5 text-xs font-medium rounded-full border transition-colors hover:opacity-80 ${typeBadgeColors[type] || 'bg-gray-50 text-gray-700 border-gray-200'}`}
+          href={`/article/${article.slug}/`}
+          data-article-type={article.type}
+          class="article-card flex flex-col bg-bg rounded-xl border border-border-light hover:border-accent hover:shadow-card transition-all duration-200 group p-4"
         >
-          {typeLabels[type] || type}（{articles.length}）
+          <div class="flex items-center gap-2 mb-2">
+            <span class={`px-2 py-0.5 text-[10px] font-medium rounded-full border ${typeBadgeColors[article.type] || 'bg-surface text-text-mid border-border'}`}>
+              {typeLabels[article.type]}
+            </span>
+            {article.targetFish.slice(0, 2).map(fish => (
+              <span class="px-1.5 py-0.5 text-[10px] text-text-dim bg-surface rounded">
+                {fish}
+              </span>
+            ))}
+          </div>
+          <h3 class="text-sm font-semibold text-text group-hover:text-accent transition-colors mb-1.5 line-clamp-2">
+            {article.h1}
+          </h3>
+          <p class="text-xs text-text-mid line-clamp-2 flex-1">
+            {article.description.slice(0, 80)}…
+          </p>
+          <div class="flex items-center gap-2 mt-3 pt-2 border-t border-border-light">
+            <span class="text-[10px] text-text-dim">{article.publishedAt}</span>
+            {article.targetTypes.slice(0, 2).map(t => (
+              <span class="text-[10px] text-text-dim">#{t}</span>
+            ))}
+          </div>
         </a>
       ))}
     </div>
 
-    <!-- タイプ別記事一覧 -->
-    {[...typeGroups.entries()].map(([type, articles]) => (
-      <section class="mb-10" id={`type-${type}`}>
-        <div class="flex items-center gap-3 mb-4">
-          <h2 class="text-lg font-bold text-gray-900">{typeLabels[type] || type}</h2>
-          <span class="text-xs text-text-dim font-mono">{articles.length}本</span>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {articles.map(article => (
-            <a
-              href={`/article/${article.slug}/`}
-              class="flex flex-col bg-white rounded-lg border border-gray-100 hover:border-accent hover:shadow-sm transition-all group p-4"
-            >
-              <div class="flex items-center gap-2 mb-2">
-                <span class={`px-2 py-0.5 text-[10px] font-medium rounded-full border ${typeBadgeColors[article.type] || 'bg-gray-50 text-gray-700 border-gray-200'}`}>
-                  {typeLabels[article.type]}
-                </span>
-                {article.targetFish.map(fish => (
-                  <span class="px-1.5 py-0.5 text-[10px] text-text-dim bg-gray-50 rounded">
-                    {fish}
-                  </span>
-                ))}
-              </div>
-              <h3 class="text-sm font-semibold text-gray-900 group-hover:text-accent transition-colors mb-1.5 line-clamp-2">
-                {article.h1}
-              </h3>
-              <p class="text-xs text-text-mid line-clamp-2 flex-1">
-                {article.description.slice(0, 80)}…
-              </p>
-              <div class="flex items-center gap-2 mt-3 pt-2 border-t border-gray-50">
-                <span class="text-[10px] text-text-dim">{article.publishedAt}</span>
-                {article.targetTypes.map(t => (
-                  <span class="text-[10px] text-text-dim">#{t}</span>
-                ))}
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-    ))}
-
   </div>
 </BaseLayout>
+
+<script>
+  // カテゴリタブフィルタリング
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.article-cat-tab');
+  const cards = document.querySelectorAll<HTMLElement>('.article-card');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const category = tab.dataset.category;
+
+      // タブ状態更新
+      tabs.forEach(t => {
+        const isActive = t.dataset.category === category;
+        t.classList.toggle('bg-text', isActive);
+        t.classList.toggle('text-bg', isActive);
+        t.classList.toggle('bg-surface', !isActive);
+        t.classList.toggle('text-text-dim', !isActive);
+        t.setAttribute('aria-selected', String(isActive));
+      });
+
+      // カードフィルタリング
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.articleType === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

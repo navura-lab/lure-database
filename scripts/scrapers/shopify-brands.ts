@@ -83,6 +83,13 @@ const BRANDS: ShopifyBrandConfig[] = [
       { keywords: /bucktail/i, type: 'ラバージグ' },
       { keywords: /mcstick/i, type: 'ミノー' },
       { keywords: /mike\s*mcclelland|rk\s*crawler/i, type: 'クランクベイト' },
+      // 日本市場向けソルトウォータージグ（SHIMMY/PESCE/AIYA/BANANA等）
+      { keywords: /shimmy|pesce|aiya|banana\s*jig|inchiku/i, type: 'メタルジグ' },
+      { keywords: /pop\s*cork/i, type: 'トップウォーター' },
+      { keywords: /cyclone\s*prop/i, type: 'トップウォーター' },
+      { keywords: /slender\s*hunter|swimming\s*squid/i, type: 'メタルジグ' },
+      // エビ型ワーム
+      { keywords: /sakura.*shrimp|pintail|pocket\s*tail|wave\s*tail|kick\s*back/i, type: 'ワーム' },
     ],
   },
   {

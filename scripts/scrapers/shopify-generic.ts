@@ -406,8 +406,10 @@ export function createShopifyScraper(config: ShopifyBrandConfig): ScraperFunctio
         colorMap.set(colorName, { name: colorName, imageUrl: img });
       }
     }
-    // colorOptionKey がない場合、バリアントタイトルが "Default Title" でなければ使う
-    if (colorMap.size === 0) {
+    // colorOptionKey がない場合、バリアントタイトルが "Default Title" でなければ使う。
+    // ただし sizeOptionKey がある場合、タイトルはサイズ値（"Size 1/2 oz." 等）なので
+    // 色として使わない（SPRO等のSize-only商品でcolor_nameにサイズが入るバグの修正）。
+    if (colorMap.size === 0 && !sizeOptionKey) {
       for (const v of variants) {
         const title = v.title?.trim() || '';
         if (title && title !== 'Default Title') {

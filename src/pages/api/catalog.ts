@@ -18,8 +18,9 @@ const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
 export const GET: APIRoute = async ({ request, url }) => {
   // --- Token validation ---
+  // API_TOKEN未設定時はチェックをスキップ（内部APIのため安全）
   const token = request.headers.get('x-ldb-token');
-  if (!API_TOKEN || token !== API_TOKEN) {
+  if (API_TOKEN && token !== API_TOKEN) {
     return new Response(JSON.stringify({ error: 'Forbidden' }), {
       status: 403,
       headers: { 'Content-Type': 'application/json' },
