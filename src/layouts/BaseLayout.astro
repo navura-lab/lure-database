@@ -6,6 +6,11 @@ import { getLocale, getHreflangUrls } from '../i18n/lib/locale';
 import { getUI } from '../i18n/lib/t';
 import type { Locale } from '../i18n/lib/t';
 
+// クリティカルフォントサブセットpreload（モバイルLCP改善）
+// subset 119: ひらがな・カタカナ（79KB）、118: ラテン・数字（18KB）
+import fontKana from '@fontsource-variable/noto-sans-jp/files/noto-sans-jp-119-wght-normal.woff2?url';
+import fontLatin from '@fontsource-variable/noto-sans-jp/files/noto-sans-jp-118-wght-normal.woff2?url';
+
 interface Props {
   title: string;
   description?: string;
@@ -56,6 +61,8 @@ const orgDescription = locale === 'en'
       : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
     }
     <meta name="google-site-verification" content="D7Q80KgtUENvvxm2yGZ2xlpOjgCHHvRkMzonRL_bFS8" />
+    <link rel="preload" href={fontKana} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={fontLatin} as="font" type="font/woff2" crossorigin />
     <link rel="dns-prefetch" href="https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev" />
     <link rel="preconnect" href="https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev" crossorigin />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
