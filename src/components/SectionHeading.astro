@@ -19,8 +19,12 @@ const ui = getUI(locale);
       <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">/{slashLabel}</p>
     )}
     <h2 class="text-[18px] font-bold text-text">{title}</h2>
+    <div class="w-12 h-0.5 bg-accent mt-2 rounded-full"></div>
   </div>
-  <a href={href} class="font-mono text-[11px] text-text-dim hover:text-text tracking-[1px] transition-colors duration-[0.15s]">
+  <a href={href} class="group/link flex items-center gap-1 font-mono text-[11px] text-text-dim hover:text-text tracking-[1px] transition-colors duration-[0.15s]">
     {ui.common.seeAll}
+    <svg class="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
   </a>
 </div>

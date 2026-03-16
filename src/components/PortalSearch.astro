@@ -38,7 +38,7 @@ const { types, makers, fish, remainingTypeCount, remainingMakerCount, remainingF
       role="tab"
       aria-selected="true"
       data-tab="type"
-      class="portal-tab portal-tab--active px-4 py-3.5 font-mono text-[13px] font-bold border-b-2 border-accent text-text transition-colors duration-[0.15s]"
+      class="portal-tab portal-tab--active px-4 py-3.5 font-mono text-[13px] font-bold border-b-2 border-accent text-text transition-all duration-200"
     >
       タイプ
     </button>
@@ -46,7 +46,7 @@ const { types, makers, fish, remainingTypeCount, remainingMakerCount, remainingF
       role="tab"
       aria-selected="false"
       data-tab="species"
-      class="portal-tab px-4 py-3.5 font-mono text-[13px] font-bold border-b-2 border-transparent text-text-dim transition-colors duration-[0.15s]"
+      class="portal-tab px-4 py-3.5 font-mono text-[13px] font-bold border-b-2 border-transparent text-text-dim transition-all duration-200"
     >
       対象魚
     </button>
@@ -54,7 +54,7 @@ const { types, makers, fish, remainingTypeCount, remainingMakerCount, remainingF
       role="tab"
       aria-selected="false"
       data-tab="maker"
-      class="portal-tab px-4 py-3.5 font-mono text-[13px] font-bold border-b-2 border-transparent text-text-dim transition-colors duration-[0.15s]"
+      class="portal-tab px-4 py-3.5 font-mono text-[13px] font-bold border-b-2 border-transparent text-text-dim transition-all duration-200"
     >
       メーカー
     </button>
@@ -68,9 +68,9 @@ const { types, makers, fish, remainingTypeCount, remainingMakerCount, remainingF
           href={`/type/${t.slug}/`}
           class="flex flex-col items-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
         >
-          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden flex items-center justify-center mb-2 bg-elevated">
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden flex items-center justify-center mb-2 bg-elevated">
             {t.image ? (
-              <img src={t.image} alt={t.name} class="w-8 h-8 sm:w-10 sm:h-10 object-contain" loading="lazy" />
+              <img src={t.image} alt={t.name} class="w-10 h-10 sm:w-12 sm:h-12 object-contain" loading="lazy" />
             ) : (
               <span class="font-mono text-[9px] text-text-dim">{t.slug}</span>
             )}
@@ -83,7 +83,7 @@ const { types, makers, fish, remainingTypeCount, remainingMakerCount, remainingF
         href="/type/"
         class="flex flex-col items-center justify-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
       >
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-2 bg-elevated">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center mb-2 bg-elevated">
           <svg class="w-5 h-5 text-text-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01" />
           </svg>
@@ -102,8 +102,8 @@ const { types, makers, fish, remainingTypeCount, remainingMakerCount, remainingF
           href={`/fish/${f.slug}/`}
           class="flex flex-col items-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
         >
-          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden flex items-center justify-center mb-2 bg-elevated">
-            <img src={`/icons/fish/${f.slug}.svg`} alt={f.name} class="w-6 h-6 sm:w-8 sm:h-8 object-contain" loading="lazy" />
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden flex items-center justify-center mb-2 bg-elevated">
+            <img src={`/icons/fish/${f.slug}.svg`} alt={f.name} class="w-8 h-8 sm:w-10 sm:h-10 object-contain" loading="lazy" />
           </div>
           <span class="text-[14px] font-bold text-text">{f.name}</span>
           <span class="font-mono text-[11px] text-text-dim mt-1">{f.count.toLocaleString()}</span>
@@ -113,7 +113,7 @@ const { types, makers, fish, remainingTypeCount, remainingMakerCount, remainingF
         href="/fish/"
         class="flex flex-col items-center justify-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
       >
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-2 bg-elevated">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center mb-2 bg-elevated">
           <svg class="w-5 h-5 text-text-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01" />
           </svg>
@@ -132,9 +132,9 @@ const { types, makers, fish, remainingTypeCount, remainingMakerCount, remainingF
           href={`/${m.slug}/`}
           class="flex flex-col items-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
         >
-          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden flex items-center justify-center mb-2 bg-elevated">
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden flex items-center justify-center mb-2 bg-elevated">
             {makerLogos[m.slug] ? (
-              <img src={makerLogos[m.slug]} alt={m.name} class="w-8 h-8 sm:w-10 sm:h-10 object-contain" loading="lazy" />
+              <img src={makerLogos[m.slug]} alt={m.name} class="w-10 h-10 sm:w-12 sm:h-12 object-contain" loading="lazy" />
             ) : (
               <span class="font-mono text-[9px] text-text-dim font-bold">{m.name.slice(0, 3)}</span>
             )}
@@ -147,7 +147,7 @@ const { types, makers, fish, remainingTypeCount, remainingMakerCount, remainingF
         href="/maker/"
         class="flex flex-col items-center justify-center text-center p-4 bg-surface border border-border-light rounded-lg transition-all duration-[0.15s] hover:border-accent hover:bg-accent-bg"
       >
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-2 bg-elevated">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center mb-2 bg-elevated">
           <svg class="w-5 h-5 text-text-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01" />
           </svg>

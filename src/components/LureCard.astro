@@ -38,8 +38,8 @@ const filterData = JSON.stringify({
   class="group block"
   data-series={filterData}
 >
-  <div class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card transition-all duration-200 group-hover:shadow-card-hover group-hover:scale-[1.01]">
-    <div class="aspect-[4/3] relative overflow-hidden bg-white">
+  <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-card hover-lift hover-glow transition-all duration-200 group-hover:scale-[1.01]">
+    <div class="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-gray-50 to-white">
       {series.representative_image ? (
         <img
           src={series.representative_image}
@@ -48,17 +48,17 @@ const filterData = JSON.stringify({
           fetchpriority={priority ? "high" : undefined}
           width="500"
           height="375"
-          class="w-full h-full object-scale-down p-3"
+          class="w-full h-full object-scale-down p-3 transition-transform duration-500 ease-out group-hover:scale-105"
         />
       ) : (
         <Placeholder type={series.type} />
       )}
       {rank && rank <= 3 && (
         <div class="absolute top-2 left-2">
-          <span class={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold border ${
-            rank === 1 ? 'bg-yellow-50 text-yellow-700 border-yellow-300' :
-            rank === 2 ? 'bg-gray-50 text-gray-600 border-gray-300' :
-            'bg-orange-50 text-orange-600 border-orange-300'
+          <span class={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold shadow-md ${
+            rank === 1 ? 'bg-gradient-to-br from-yellow-400 to-amber-500 text-white' :
+            rank === 2 ? 'bg-gradient-to-br from-gray-300 to-gray-400 text-white' :
+            'bg-gradient-to-br from-orange-300 to-orange-400 text-white'
           }`}>{rank}</span>
         </div>
       )}
@@ -66,6 +66,23 @@ const filterData = JSON.stringify({
         {isNew && <Badge label={ui.lureCard.new} variant="new" />}
         {hasLimited && <Badge label={ui.lureCard.limited} variant="limited" />}
       </div>
+      <button
+        class="heart-btn absolute bottom-3 right-3 w-9 h-9 rounded-full
+               bg-white/80 backdrop-blur-sm border border-white/50
+               flex items-center justify-center
+               opacity-0 group-hover:opacity-100 sm:opacity-0 sm:group-hover:opacity-100
+               transition-opacity duration-200
+               hover:bg-white hover:scale-110 active:scale-95"
+        data-lure-slug={`${series.manufacturer_slug}/${series.slug}`}
+        aria-label="お気に入り"
+        onclick="event.preventDefault(); event.stopPropagation(); toggleFavorite(this);"
+      >
+        <svg class="w-5 h-5 text-gray-400 heart-icon" fill="none" viewBox="0 0 24 24"
+             stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+      </button>
     </div>
 
     <div class="p-4">

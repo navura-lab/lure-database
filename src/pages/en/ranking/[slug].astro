@@ -206,14 +206,14 @@ const relatedArticles = contentArticles
     )}
 
     <!-- Summary -->
-    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm">
+    <div class="bg-white rounded-xl border border-gray-100 p-5 sm:p-6 mb-8 shadow-sm animate-fade-up">
       <p class="text-sm text-gray-700 leading-relaxed mb-4">{summaryText}</p>
 
       <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-5">
         {specItems.map(item => (
           <div>
             <p class="text-xs text-text-dim">{item.label}</p>
-            <p class="text-sm font-semibold text-gray-900">{item.value}</p>
+            <p class="text-[22px] font-bold text-accent font-mono">{item.value}</p>
           </div>
         ))}
       </div>
@@ -264,11 +264,11 @@ const relatedArticles = contentArticles
     )}
 
     <!-- Listed Lures -->
-    <h2 class="text-lg font-bold text-gray-900 mb-4">Listed Lures ({rankedSeries.length} series)</h2>
+    <h2 class="text-lg font-bold text-gray-900 mb-4 animate-fade-up">Listed Lures ({rankedSeries.length} series)</h2>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 animate-stagger">
       {rankedSeries.map((s, i) => (
-        <div class="relative">
+        <div class:list={["relative", i === 0 && "sm:col-span-2"]}>
           <LureCard series={s} isNew={false} priority={i < 4} rank={i + 1} locale={locale} />
         </div>
       ))}

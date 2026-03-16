@@ -298,6 +298,15 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
             <Placeholder type={series.type} />
           )}
         </div>
+        {series.colors && series.colors.filter(c => c.images?.length > 0).length > 1 && (
+          <div class="flex gap-2 overflow-x-auto py-3 scrollbar-hide">
+            {series.colors.filter(c => c.images?.length > 0).slice(0, 12).map((color, i) => (
+              <div class="shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent hover:border-accent transition-colors cursor-pointer">
+                <img src={color.images[0]} alt={color.color_name} class="w-full h-full object-cover" loading="lazy" />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <!-- Info -->

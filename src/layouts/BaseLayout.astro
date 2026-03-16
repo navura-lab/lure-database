@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -109,6 +110,7 @@ const orgDescription = locale === 'en'
         document.head.appendChild(s);
       });
     </script>
+    <ViewTransitions />
     <title>{title}</title>
   </head>
   <body class="bg-bg text-text font-sans min-h-screen flex flex-col">
@@ -119,5 +121,94 @@ const orgDescription = locale === 'en'
     <!-- Honeypot: invisible link only visible to crawlers -->
     <a href="/trap/harvest" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true" tabindex="-1">catalog download</a>
     <Footer locale={locale} />
+    <script>
+      // Scroll animation observer
+      const io = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        }
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.animate-fade-up, .animate-scale-in, .animate-stagger')
+        .forEach(el => io.observe(el));
+
+      // ヘッダースクロール影
+      const header = document.querySelector('header');
+      window.addEventListener('scroll', () => {
+        header?.classList.toggle('header-scrolled', window.scrollY > 10);
+      }, { passive: true });
+
+      // 訪問済みルアートラッキング
+      const VISITED_KEY = 'castlog_visited';
+      const path = location.pathname;
+      if (path.match(/^(\/en)?\/[a-z0-9-]+\/[a-z0-9-]+\/$/)) {
+        const visited = JSON.parse(localStorage.getItem(VISITED_KEY) || '[]');
+        if (!visited.includes(path)) {
+          visited.push(path);
+          if (visited.length > 500) visited.shift();
+          localStorage.setItem(VISITED_KEY, JSON.stringify(visited));
+        }
+      }
+
+      // お気に入りシステム
+      const FAV_KEY = 'castlog_favorites';
+      function getFavorites() {
+        return JSON.parse(localStorage.getItem(FAV_KEY) || '[]');
+      }
+      function toggleFavorite(btn) {
+        const slug = btn.dataset.lureSlug;
+        if (!slug) return;
+        const favs = getFavorites();
+        const idx = favs.indexOf(slug);
+        const icon = btn.querySelector('.heart-icon');
+        if (idx === -1) {
+          favs.push(slug);
+          icon.setAttribute('fill', 'currentColor');
+          icon.classList.remove('text-gray-400');
+          icon.classList.add('text-red-500');
+          btn.classList.add('is-liked');
+          setTimeout(() => btn.classList.remove('is-liked'), 400);
+        } else {
+          favs.splice(idx, 1);
+          icon.setAttribute('fill', 'none');
+          icon.classList.remove('text-red-500');
+          icon.classList.add('text-gray-400');
+        }
+        localStorage.setItem(FAV_KEY, JSON.stringify(favs));
+        const counter = document.getElementById('fav-count');
+        if (counter) {
+          counter.textContent = String(favs.length);
+          counter.classList.toggle('hidden', favs.length === 0);
+        }
+      }
+      window.toggleFavorite = toggleFavorite;
+
+      // ページ読み込み時にお気に入り状態を復元
+      document.addEventListener('astro:page-load', () => {
+        // Re-init observer for View Transitions
+        document.querySelectorAll('.animate-fade-up, .animate-scale-in, .animate-stagger')
+          .forEach(el => { if (!el.classList.contains('is-visible')) io.observe(el); });
+
+        const favs = getFavorites();
+        document.querySelectorAll('.heart-btn').forEach(btn => {
+          const slug = btn.dataset.lureSlug;
+          if (slug && favs.includes(slug)) {
+            const icon = btn.querySelector('.heart-icon');
+            if (icon) {
+              icon.setAttribute('fill', 'currentColor');
+              icon.classList.remove('text-gray-400');
+              icon.classList.add('text-red-500');
+            }
+          }
+        });
+        const counter = document.getElementById('fav-count');
+        if (counter) {
+          counter.textContent = String(favs.length);
+          counter.classList.toggle('hidden', favs.length === 0);
+        }
+      });
+    </script>
   </body>
 </html>

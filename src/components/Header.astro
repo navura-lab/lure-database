@@ -49,6 +49,13 @@ const navLinks = [
             {link.label}
           </a>
         ))}
+        <!-- お気に入り -->
+        <a href="/search/?favorites=1" class="relative text-text-dim hover:text-text transition-colors duration-200" aria-label="お気に入り">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          <span id="fav-count" class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center hidden">0</span>
+        </a>
         <!-- 言語切替 -->
         <a
           href={altLangHref}
@@ -94,6 +101,10 @@ const navLinks = [
           {link.label}
         </a>
       ))}
+      <!-- モバイルお気に入り -->
+      <a href="/search/?favorites=1" class="block py-2 font-mono text-[13px] tracking-[1px] text-text-dim hover:text-text transition-colors">
+        ♥ お気に入り
+      </a>
       <!-- モバイル言語切替 -->
       <a
         href={altLangHref}

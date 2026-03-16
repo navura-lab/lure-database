@@ -7,7 +7,7 @@ interface Props {
 const { label, variant } = Astro.props;
 
 const variantClasses: Record<string, string> = {
-  new: 'bg-amber-50 text-amber-700 border-amber-200',
+  new: 'bg-gradient-to-r from-amber-50 to-amber-100 text-amber-700 border-amber-200',
   limited: 'bg-purple-50 text-purple-700 border-purple-200',
   discontinued: 'bg-gray-100 text-gray-500 border-gray-200',
   type: 'bg-accent-bg text-accent border-accent',
@@ -15,9 +15,21 @@ const variantClasses: Record<string, string> = {
 };
 ---
 
-<span class:list={[
-  'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border',
-  variantClasses[variant]
-]}>
-  {label}
-</span>
+{variant === 'limited' ? (
+  <span class="relative inline-flex">
+    <span class="absolute inset-0 rounded-full bg-purple-400 animate-ping opacity-20"></span>
+    <span class:list={[
+      'relative inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border',
+      variantClasses[variant]
+    ]}>
+      {label}
+    </span>
+  </span>
+) : (
+  <span class:list={[
+    'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border',
+    variantClasses[variant]
+  ]}>
+    {label}
+  </span>
+)}
