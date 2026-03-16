@@ -229,7 +229,7 @@ const collectionLd = {
   mainEntity: {
     '@type': 'ItemList',
     numberOfItems: rankedSeries.length,
-    itemListElement: rankedSeries.slice(0, 50).map((s, i) => ({
+    itemListElement: rankedSeries.slice(0, 100).map((s, i) => ({
       '@type': 'ListItem',
       position: i + 1,
       url: `https://www.castlog.xyz/${s.manufacturer_slug}/${s.slug}/`,

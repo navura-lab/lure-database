@@ -87,7 +87,21 @@ const breadcrumbLd = {
   ],
 };
 
-const jsonLd = [articleLd, breadcrumbLd] as unknown as Record<string, unknown>;
+// HowTo JSON-LD: ガイド記事のセクションをステップとして構造化
+const howtoLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: guide.title,
+  description: guide.description,
+  step: guide.sections.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: s.heading,
+    text: s.body.slice(0, 300),
+  })),
+};
+
+const jsonLd = [articleLd, breadcrumbLd, howtoLd] as unknown as Record<string, unknown>;
 
 // 関連ランキングリンク
 const rankingLinks = guide.targetFish.flatMap(fish =>

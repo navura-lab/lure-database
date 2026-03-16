@@ -38,6 +38,21 @@ export async function getStaticPaths() {
     manufacturerProfiles.set(slug, { fish, types, name: data.manufacturer, count: data.series.length });
   }
 
+  // ─── 実在するランキングスラグを算出（魚種×タイプ、3シリーズ以上） ───
+  const MIN_SERIES = 3;
+  const rankingCrossMap = new Map<string, number>();
+  for (const s of allSeries) {
+    if (!s.type) continue;
+    for (const fish of s.target_fish) {
+      const key = `${getFishSlug(fish)}-${getTypeSlug(s.type)}`;
+      rankingCrossMap.set(key, (rankingCrossMap.get(key) || 0) + 1);
+    }
+  }
+  const validRankingSlugs = new Set<string>();
+  for (const [slug, count] of rankingCrossMap) {
+    if (count >= MIN_SERIES) validRankingSlugs.add(slug);
+  }
+
   return [...manufacturerMap.entries()].map(([slug, data]) => {
     const profile = manufacturerProfiles.get(slug)!;
     const scored: { slug: string; name: string; count: number; score: number }[] = [];
@@ -50,12 +65,12 @@ export async function getStaticPaths() {
     }
     scored.sort((a, b) => b.score - a.score || b.count - a.count);
     const relatedManufacturers = scored.slice(0, 8).map(({ slug, name, count }) => ({ slug, name, count }));
-    return { params: { manufacturer_slug: slug }, props: { manufacturer: data.manufacturer, series: data.series, relatedManufacturers } };
+    return { params: { manufacturer_slug: slug }, props: { manufacturer: data.manufacturer, series: data.series, relatedManufacturers, validRankingSlugs } };
   });
 }
 
-const { manufacturer, series, relatedManufacturers } = Astro.props as {
-  manufacturer: string; series: LureSeries[]; relatedManufacturers: { slug: string; name: string; count: number }[];
+const { manufacturer, series, relatedManufacturers, validRankingSlugs } = Astro.props as {
+  manufacturer: string; series: LureSeries[]; relatedManufacturers: { slug: string; name: string; count: number }[]; validRankingSlugs: Set<string>;
 };
 
 const manufacturerSlug = Astro.params.manufacturer_slug as string;
@@ -141,25 +156,53 @@ const specItems = [
   { label: 'Total Colors', value: `${totalColors}` },
 ];
 
-// Related rankings
-const relatedRankings: { slug: string; label: string }[] = [];
-for (const fish of allTargetFish.slice(0, 4)) {
-  for (const t of typeBreakdown.slice(0, 4)) {
+// Related rankings（実在するランキングのみ、魚種ごとに均等ピック）
+const rankingsByFish = new Map<string, { slug: string; label: string }[]>();
+for (const fish of allTargetFish) {
+  const entries: { slug: string; label: string }[] = [];
+  for (const t of typeBreakdown) {
     const slug = `${getFishSlug(fish)}-${getTypeSlug(t.type)}`;
-    relatedRankings.push({ slug, label: `${FISH_NAME_EN[fish] ?? fish} ${LURE_TYPE_EN[t.type] ?? t.type}` });
+    if (validRankingSlugs.has(slug)) {
+      entries.push({ slug, label: `${FISH_NAME_EN[fish] ?? fish} ${LURE_TYPE_EN[t.type] ?? t.type}` });
+    }
   }
+  if (entries.length > 0) rankingsByFish.set(fish, entries);
+}
+const relatedRankings: { slug: string; label: string }[] = [];
+const seen = new Set<string>();
+let round = 0;
+while (relatedRankings.length < 16) {
+  let added = false;
+  for (const [, entries] of rankingsByFish) {
+    if (round < entries.length && !seen.has(entries[round].slug)) {
+      relatedRankings.push(entries[round]);
+      seen.add(entries[round].slug);
+      added = true;
+    }
+  }
+  if (!added) break;
+  round++;
 }
 
-// Related articles (translated only)
+// Related articles（メーカー名 > ルアーslug > 魚種/タイプ一致でスコアリング、翻訳済みのみ）
 const makerFish = new Set(series.flatMap(s => Array.isArray(s.target_fish) ? s.target_fish : []));
 const makerTypes = new Set(series.map(s => s.type));
+const makerSeriesSlugs = new Set(series.map(s => s.slug));
 
 const relatedContentArticles = contentArticles
-  .filter(a =>
-    (a.slug in articleTranslationsEn) &&
-    (a.targetFish.some(f => makerFish.has(f)) || a.targetTypes.some(t => makerTypes.has(t)))
-  )
-  .slice(0, 5);
+  .filter(a => a.slug in articleTranslationsEn)
+  .map(a => {
+    let score = 0;
+    if (a.slug.includes(manufacturerSlug)) score += 10;
+    if (a.targetLureSlugs?.some(ls => makerSeriesSlugs.has(ls))) score += 5;
+    if (a.targetFish.some(f => makerFish.has(f))) score += 2;
+    if (a.targetTypes.some(t => makerTypes.has(t))) score += 1;
+    return { article: a, score };
+  })
+  .filter(({ score }) => score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 8)
+  .map(({ article }) => article);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} canonicalPath={`/en/${manufacturerSlug}/`} jsonLd={jsonLd} locale={locale}>
@@ -415,12 +458,15 @@ const relatedContentArticles = contentArticles
       </section>
     )}
 
-    <!-- Related Rankings -->
+    <!-- Related Rankings (validated) -->
     {relatedRankings.length > 0 && (
       <section class="mt-8 pt-8 border-t border-gray-100">
-        <h2 class="text-lg font-bold text-gray-900 mb-4">Browse Catalog</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Related Rankings</h2>
+        <p class="text-sm text-text-mid mb-4">
+          Rankings for species and lure types that {manufacturer} covers
+        </p>
         <div class="flex flex-wrap gap-2">
-          {relatedRankings.slice(0, 12).map(r => (
+          {relatedRankings.slice(0, 16).map(r => (
             <a href={`/en/ranking/${r.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">{r.label}</a>
           ))}
         </div>

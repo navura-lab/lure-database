@@ -10,6 +10,9 @@ import { getTypeSlug, getFishSlug } from '../lib/category-slugs';
 import makerLogos from '../data/maker-logos.json';
 import { guideArticles } from '../data/guides';
 import { contentArticles } from '../data/articles/_index';
+import { seasonalGuides } from '../data/seasonal-guides';
+import { fishingMethods } from '../data/fishing-methods';
+import { curatedRankings } from '../data/curated-rankings';
 
 const lures = await fetchAllLures();
 const series = groupLuresBySeries(lures ?? []);
@@ -85,6 +88,27 @@ const newThreshold = thirtyDaysAgo.toISOString();
 const newArrivals = series
   .filter(s => s.created_at > newThreshold)
   .slice(0, 10);
+
+// ─── 季節ガイド（各季節から代表1-2件、計6件）───
+const seasonOrder = ['春', '夏', '秋', '冬'] as const;
+const seasonEmoji: Record<string, string> = { '春': '🌸', '夏': '☀️', '秋': '🍂', '冬': '❄️' };
+const featuredSeasons = seasonOrder.flatMap(season => {
+  const items = seasonalGuides.filter(g => g.season === season);
+  // 各季節から最大2件（シーバス＋もう1魚種を優先）
+  const seabass = items.find(g => g.fish === 'シーバス');
+  const others = items.filter(g => g.fish !== 'シーバス');
+  return seabass ? [seabass, ...(others.length > 0 ? [others[0]] : [])] : items.slice(0, 1);
+}).slice(0, 8);
+
+// ─── 釣り方（人気順6件）───
+const featuredMethods = fishingMethods.slice(0, 6);
+
+// ─── 人気比較ページ（キュレーテッドランキングから上位4件）───
+const popularCompareKeys = Object.keys(curatedRankings).slice(0, 4);
+const popularCompares = popularCompareKeys.map(slug => {
+  const entry = crossMap.get(slug);
+  return entry ? { slug, fishName: entry.fishName, typeName: entry.typeName, count: entry.count } : null;
+}).filter((c): c is NonNullable<typeof c> => c !== null);
 
 // ─── API token（ランダムセクション用）───
 const apiToken = import.meta.env.LDB_API_TOKEN || '';
@@ -228,6 +252,109 @@ const jsonLd = {
         </div>
       </section>
     )}
+
+    <!-- 季節で選ぶ -->
+    {featuredSeasons.length > 0 && (
+      <section>
+        <SectionHeading title="季節で選ぶ" href="/season/" slashLabel="SEASON" />
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {featuredSeasons.map(g => (
+            <a
+              href={`/season/${g.slug}/`}
+              class="group block bg-white rounded-lg border border-border-light p-4 hover:border-accent hover:shadow-sm transition-all duration-[0.15s]"
+            >
+              <div class="flex items-center gap-2 mb-2">
+                <span class={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
+                  g.season === '春' ? 'bg-pink-50 text-pink-600' :
+                  g.season === '夏' ? 'bg-sky-50 text-sky-600' :
+                  g.season === '秋' ? 'bg-orange-50 text-orange-600' :
+                  'bg-blue-50 text-blue-600'
+                }`}>
+                  {g.season}
+                </span>
+                <span class="text-[10px] text-text-dim font-mono">{g.fish}</span>
+              </div>
+              <h3 class="text-[13px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s] line-clamp-2">
+                {g.name}
+              </h3>
+              <p class="text-[11px] text-text-mid mt-1 line-clamp-2">
+                {g.recommendedTypes.slice(0, 3).join('・')}
+              </p>
+            </a>
+          ))}
+        </div>
+        <div class="mt-3 text-right">
+          <a href="/season/" class="font-mono text-[11px] text-text-dim hover:text-accent tracking-[1px] transition-colors duration-[0.15s]">
+            全{seasonalGuides.length}件の季節ガイドを見る →
+          </a>
+        </div>
+      </section>
+    )}
+
+    <!-- 釣り方で選ぶ -->
+    {featuredMethods.length > 0 && (
+      <section>
+        <SectionHeading title="釣り方で選ぶ" href="/method/" slashLabel="METHOD" />
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {featuredMethods.map(m => (
+            <a
+              href={`/method/${m.slug}/`}
+              class="group block bg-white rounded-lg border border-border-light p-4 hover:border-accent hover:shadow-sm transition-all duration-[0.15s]"
+            >
+              <h3 class="text-[14px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s] mb-1">
+                {m.name}
+              </h3>
+              <p class="text-[11px] text-text-mid leading-relaxed line-clamp-2 mb-2">
+                {m.description}
+              </p>
+              <div class="flex flex-wrap gap-1">
+                {m.targetFish.slice(0, 3).map(fish => (
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-accent-bg text-accent border border-accent">
+                    {fish}
+                  </span>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+        <div class="mt-3 text-right">
+          <a href="/method/" class="font-mono text-[11px] text-text-dim hover:text-accent tracking-[1px] transition-colors duration-[0.15s]">
+            全{fishingMethods.length}件の釣り方を見る →
+          </a>
+        </div>
+      </section>
+    )}
+
+    <!-- 比較して選ぶ -->
+    <section>
+      <SectionHeading title="比較して選ぶ" href="/compare/" slashLabel="COMPARE" />
+      <div class="bg-white rounded-lg border border-border-light p-6">
+        <p class="text-[13px] text-text-mid leading-relaxed mb-4">
+          気になるルアー同士のスペックを横並びで比較。サイズ・重量・価格・カラー数など、購入前の検討に最適です。
+        </p>
+        {popularCompares.length > 0 && (
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+            {popularCompares.map(c => (
+              <a
+                href={`/compare/${c.slug}/`}
+                class="flex items-center justify-between px-3 py-2 bg-gray-50 rounded border border-border-light hover:border-accent hover:bg-white transition-all duration-[0.15s] group"
+              >
+                <span class="text-[12px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s]">
+                  {c.fishName}×{c.typeName}
+                </span>
+                <span class="font-mono text-[10px] text-text-dim">{c.count}</span>
+              </a>
+            ))}
+          </div>
+        )}
+        <a
+          href="/compare/"
+          class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-900 text-white rounded-lg text-[13px] font-medium hover:bg-gray-800 transition-colors duration-[0.15s]"
+        >
+          比較ページを見る →
+        </a>
+      </div>
+    </section>
 
     <!-- ルアーを発見する -->
     <section>

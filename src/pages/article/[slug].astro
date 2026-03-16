@@ -104,11 +104,21 @@ const typeBadge = typeLabels[article.type] || '記事';
 
 // ─── JSON-LD ───────────────────────────────────────────
 
+// OGP画像（記事のog:imageと同一）
+const articleImage = `${SITE_URL}/og/${article.slug}.png`;
+// articleBody: リード文 + 最初のセクション冒頭500文字
+const articleBodyText = [
+  article.lead,
+  article.sections[0]?.body ?? '',
+].join('\n').slice(0, 500);
+
 const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: article.h1,
   description: article.description,
+  image: articleImage,
+  articleBody: articleBodyText,
   datePublished: article.publishedAt,
   dateModified: article.updatedAt,
   author: {

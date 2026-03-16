@@ -40,6 +40,21 @@ export async function getStaticPaths() {
     manufacturerProfiles.set(slug, { fish, types, name: data.manufacturer, count: data.series.length });
   }
 
+  // ─── 実在するランキングスラグを算出（魚種×タイプ、3シリーズ以上） ───
+  const MIN_SERIES = 3;
+  const rankingCrossMap = new Map<string, number>();
+  for (const s of allSeries) {
+    if (!s.type) continue;
+    for (const fish of s.target_fish) {
+      const key = `${getFishSlug(fish)}-${getTypeSlug(s.type)}`;
+      rankingCrossMap.set(key, (rankingCrossMap.get(key) || 0) + 1);
+    }
+  }
+  const validRankingSlugs = new Set<string>();
+  for (const [slug, count] of rankingCrossMap) {
+    if (count >= MIN_SERIES) validRankingSlugs.add(slug);
+  }
+
   return [...manufacturerMap.entries()].map(([slug, data]) => {
     // 関連メーカー: 対象魚・タイプの重複度でスコアリング
     const profile = manufacturerProfiles.get(slug)!;
@@ -56,15 +71,16 @@ export async function getStaticPaths() {
 
     return {
       params: { manufacturer_slug: slug },
-      props: { manufacturer: data.manufacturer, series: data.series, relatedManufacturers },
+      props: { manufacturer: data.manufacturer, series: data.series, relatedManufacturers, validRankingSlugs },
     };
   });
 }
 
-const { manufacturer, series, relatedManufacturers } = Astro.props as {
+const { manufacturer, series, relatedManufacturers, validRankingSlugs } = Astro.props as {
   manufacturer: string;
   series: LureSeries[];
   relatedManufacturers: { slug: string; name: string; count: number }[];
+  validRankingSlugs: Set<string>;
 };
 
 const manufacturerSlug = Astro.params.manufacturer_slug as string;
@@ -163,17 +179,28 @@ const now = new Date();
 const eatYear = now.getFullYear();
 const eatMonth = now.getMonth() + 1;
 
-// ─── 関連特集記事（魚種 or タイプが一致）───
+// ─── 関連特集記事（メーカー名一致 > ルアーslug一致 > 魚種/タイプ一致でスコアリング）───
 
 const makerFish = new Set(series.flatMap(s => Array.isArray(s.target_fish) ? s.target_fish : []));
 const makerTypes = new Set(series.map(s => s.type));
+const makerSeriesSlugs = new Set(series.map(s => s.slug));
 
 const relatedContentArticles = contentArticles
-  .filter(a =>
-    a.targetFish.some(f => makerFish.has(f)) ||
-    a.targetTypes.some(t => makerTypes.has(t))
-  )
-  .slice(0, 5);
+  .map(a => {
+    let score = 0;
+    // 記事slugにメーカースラグが含まれる（例: shimano-seabass-lure）→最高優先度
+    if (a.slug.includes(manufacturerSlug)) score += 10;
+    // targetLureSlugsにメーカーのシリーズslugが含まれる
+    if (a.targetLureSlugs?.some(ls => makerSeriesSlugs.has(ls))) score += 5;
+    // 魚種・タイプの一致
+    if (a.targetFish.some(f => makerFish.has(f))) score += 2;
+    if (a.targetTypes.some(t => makerTypes.has(t))) score += 1;
+    return { article: a, score };
+  })
+  .filter(({ score }) => score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 8)
+  .map(({ article }) => article);
 
 // ─── FAQ JSON-LD（リッチスニペット用）───
 
@@ -290,15 +317,34 @@ const relatedGuides = guideArticles.filter(g =>
   g.targetFish.some(f => allTargetFish.includes(f))
 ).slice(0, 4);
 
-// 魚種×タイプの組み合わせでランキングページURLを生成
-const relatedRankings: { slug: string; label: string }[] = [];
-const fishForRanking = allTargetFish.slice(0, 4);
-const typesForRanking = typeBreakdown.slice(0, 4);
-for (const fish of fishForRanking) {
-  for (const t of typesForRanking) {
+// 魚種×タイプの組み合わせでランキングページURLを生成（実在するランキングのみ）
+// 魚種ごとにグルーピングし、各魚種から均等にピックすることで多様性を確保
+const rankingsByFish = new Map<string, { slug: string; label: string }[]>();
+for (const fish of allTargetFish) {
+  const entries: { slug: string; label: string }[] = [];
+  for (const t of typeBreakdown) {
     const slug = `${getFishSlug(fish)}-${getTypeSlug(t.type)}`;
-    relatedRankings.push({ slug, label: `${fish}×${t.type}` });
+    if (validRankingSlugs.has(slug)) {
+      entries.push({ slug, label: `${fish}×${t.type}` });
+    }
   }
+  if (entries.length > 0) rankingsByFish.set(fish, entries);
+}
+// ラウンドロビンで各魚種から均等にピック
+const relatedRankings: { slug: string; label: string }[] = [];
+const seen = new Set<string>();
+let round = 0;
+while (relatedRankings.length < 16) {
+  let added = false;
+  for (const [, entries] of rankingsByFish) {
+    if (round < entries.length && !seen.has(entries[round].slug)) {
+      relatedRankings.push(entries[round]);
+      seen.add(entries[round].slug);
+      added = true;
+    }
+  }
+  if (!added) break;
+  round++;
 }
 
 // スペックサマリー表示用
@@ -631,7 +677,7 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
       </section>
     )}
 
-    <!-- 関連記事（contentArticles: 魚種/タイプ一致） -->
+    <!-- 関連記事（メーカー名 > ルアーslug > 魚種/タイプ一致でスコアリング） -->
     {relatedContentArticles.length > 0 && (
       <section class="mt-8">
         <h2 class="text-lg font-bold text-gray-900 mb-4">関連記事</h2>
@@ -649,12 +695,15 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
       </section>
     )}
 
-    <!-- 関連カタログ（内部リンク → ランキングページのインデックス促進） -->
+    <!-- 関連ランキング（実在するランキングページのみ表示） -->
     {relatedRankings.length > 0 && (
       <section class="mt-8 pt-8 border-t border-gray-100">
-        <h2 class="text-lg font-bold text-gray-900 mb-4">カタログで探す</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-4">関連ランキング</h2>
+        <p class="text-sm text-text-mid mb-4">
+          {manufacturer}が展開する魚種×タイプのランキング
+        </p>
         <div class="flex flex-wrap gap-2">
-          {relatedRankings.slice(0, 12).map(r => (
+          {relatedRankings.slice(0, 16).map(r => (
             <a href={`/ranking/${r.slug}/`} class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm border border-gray-200 hover:border-accent hover:text-accent transition-colors">
               {r.label}
             </a>
