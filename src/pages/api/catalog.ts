@@ -9,25 +9,11 @@ import type { CatalogCard } from '../../lib/catalog-data';
 
 export const prerender = false;
 
-// API token — set via environment variable at build time.
-// Rotates every deploy. Client JS receives it embedded in the page.
-const API_TOKEN = import.meta.env.LDB_API_TOKEN || '';
-
 // Thirty days ago for "is_new" calculation
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
 export const GET: APIRoute = async ({ request, url }) => {
-  // --- Token validation ---
-  // API_TOKEN未設定時はチェックをスキップ（内部APIのため安全）
-  const token = request.headers.get('x-ldb-token');
-  if (API_TOKEN && token !== API_TOKEN) {
-    return new Response(JSON.stringify({ error: 'Forbidden' }), {
-      status: 403,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
-  // --- Referer check (optional, defense in depth) ---
+  // --- Referer check （内部APIのためRefererのみで保護） ---
   const referer = request.headers.get('referer') || '';
   if (referer && !referer.includes('castlog.xyz') && !referer.includes('lure-db.com') && !referer.includes('localhost')) {
     return new Response(JSON.stringify({ error: 'Forbidden' }), {

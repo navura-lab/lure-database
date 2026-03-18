@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60" fill="currentColor">
+  <!-- アジ（マアジ）シルエット - 紡錘形の体形、分かれた尾びれ -->
+  <path d="M15 30 C15 20, 25 12, 45 10 C55 9, 65 10, 75 14 L85 8 C83 14, 82 18, 80 20 C85 22, 88 26, 90 30 C88 34, 85 38, 80 40 C82 42, 83 46, 85 52 L75 46 C65 50, 55 51, 45 50 C25 48, 15 40, 15 30 Z" opacity="0.85"/>
+  <!-- ゼイゴ（稜鱗）- アジの特徴的な線 -->
+  <line x1="55" y1="30" x2="80" y2="30" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+  <!-- 目 -->
+  <circle cx="28" cy="27" r="3" fill="white" opacity="0.6"/>
+</svg>

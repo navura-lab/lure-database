@@ -110,9 +110,6 @@ const popularCompares = popularCompareKeys.map(slug => {
   return entry ? { slug, fishName: entry.fishName, typeName: entry.typeName, count: entry.count } : null;
 }).filter((c): c is NonNullable<typeof c> => c !== null);
 
-// ─── API token（ランダムセクション用）───
-const apiToken = import.meta.env.LDB_API_TOKEN || '';
-
 // ─── JSON-LD: WebSite schema ───
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -403,9 +400,6 @@ const jsonLd = {
 
   </div>
 
-  <script define:vars={{ apiToken }}>
-    window.__LDB_T = apiToken;
-  </script>
 </BaseLayout>
 
 <style>
@@ -419,7 +413,6 @@ const jsonLd = {
 </style>
 
 <script>
-  const TOKEN = (window as any).__LDB_T || '';
   const grid = document.getElementById('random-grid')!;
   const spinner = document.getElementById('random-spinner')!;
   const shuffleBtn = document.getElementById('shuffle-btn')!;
@@ -484,8 +477,8 @@ const jsonLd = {
     shuffleIcon.classList.add('animate-spin');
 
     try {
-      const res = await fetch('/api/catalog?sort=random&limit=8&page=0', {
-        headers: { 'X-LDB-Token': TOKEN, 'Accept': 'application/json' },
+      const res = await fetch('/api/catalog/?sort=random&limit=8&page=0', {
+        headers: { 'Accept': 'application/json' },
       });
       if (!res.ok) throw new Error('API error');
       const data = await res.json();

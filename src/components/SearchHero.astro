@@ -20,12 +20,12 @@ const { seriesCount, colorCount } = Astro.props;
     <div class="flex items-center justify-center gap-8 sm:gap-12 mb-8 animate-fade-up" style="animation-delay: 200ms;">
       <div class="text-center">
         <p class="font-mono text-[28px] sm:text-[36px] font-bold text-text">{seriesCount.toLocaleString()}</p>
-        <p class="font-mono text-[10px] text-text-dim tracking-[2px] uppercase">Series</p>
+        <p class="font-mono text-[10px] text-text-dim tracking-[2px]">シリーズ</p>
       </div>
       <div class="w-px h-10 bg-border"></div>
       <div class="text-center">
         <p class="font-mono text-[28px] sm:text-[36px] font-bold text-text">{colorCount.toLocaleString()}</p>
-        <p class="font-mono text-[10px] text-text-dim tracking-[2px] uppercase">Colors</p>
+        <p class="font-mono text-[10px] text-text-dim tracking-[2px]">カラー</p>
       </div>
     </div>
     <form action="/search/" method="get" class="max-w-xl mx-auto animate-fade-up" style="animation-delay: 300ms;">

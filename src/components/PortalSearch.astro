@@ -32,7 +32,7 @@ const { types, makers, fish, remainingTypeCount, remainingMakerCount, remainingF
 
 // 魚種SVGアイコンの存在マップ（publicディレクトリに配置済み）
 const FISH_SVG_AVAILABLE = new Set([
-  'bass', 'black-bass', 'bluerunner', 'hiramasa', 'hirame',
+  'aji', 'bass', 'black-bass', 'bluerunner', 'hiramasa', 'hirame',
   'madai', 'mebaru', 'seabass', 'trout',
 ]);
 
@@ -100,9 +100,9 @@ function getAvatarColor(name: string): string {
           href={`/type/${t.slug}/`}
           class="group flex flex-col items-center text-center p-3 sm:p-4 rounded-xl border border-transparent bg-bg transition-all duration-200 hover:border-accent hover:shadow-card hover:-translate-y-1"
         >
-          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden flex items-center justify-center mb-2.5 bg-surface group-hover:bg-accent-bg transition-colors duration-200">
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden flex items-center justify-center mb-2.5 bg-surface group-hover:bg-accent-bg transition-colors duration-200">
             {t.image ? (
-              <img src={t.image} alt={t.name} class="w-10 h-10 sm:w-11 sm:h-11 object-contain" loading="lazy" />
+              <img src={t.image} alt={t.name} class="w-full h-full object-contain p-1.5" loading="lazy" />
             ) : (
               <span class="font-mono text-[10px] text-text-dim">{t.slug}</span>
             )}
