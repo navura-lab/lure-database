@@ -19,6 +19,7 @@ import type { LureSeries } from '../../lib/types';
 import { generateAutoDescription } from '../../lib/auto-description';
 import { getLurePaths } from '../../lib/paths/lure-paths';
 import type { LurePathProps } from '../../lib/paths/lure-paths';
+import { editorialReviews } from '../../data/seo/editorials/_index';
 
 export async function getStaticPaths() {
   return getLurePaths('ja');
@@ -32,6 +33,9 @@ const {
 } = Astro.props as LurePathProps;
 
 const hasLimited = series.colors.some(c => c.is_limited);
+
+// エディトリアルレビュー（SEO Pipeline生成コンテンツ）
+const editorial = editorialReviews[series.slug] || null;
 
 const hasPrice = series.price_range.max > 0;
 const priceDisplay = hasPrice
@@ -613,6 +617,96 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
       </div>
     </section>
 
+    <!-- エディトリアルレビュー（SEO Pipeline生成） -->
+    {editorial && (
+      <section class="mb-12">
+        <div class="bg-gradient-to-br from-surface to-bg rounded-2xl border border-border-light p-6 sm:p-8">
+          <!-- キャッチコピー -->
+          <p class="text-lg sm:text-xl font-bold text-text leading-snug mb-6">
+            {editorial.catchcopy}
+          </p>
+
+          <!-- 概要 -->
+          <div class="text-[15px] text-text-mid leading-[1.9] whitespace-pre-line mb-8">
+            {editorial.overview}
+          </div>
+
+          <!-- 強み -->
+          <div class="space-y-6 mb-8">
+            {editorial.strengths.map((s, i) => (
+              <div>
+                <h3 class="text-base font-bold text-text mb-2 flex items-center gap-2">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-accent text-white text-xs font-bold">{i + 1}</span>
+                  {s.title}
+                </h3>
+                <p class="text-[14px] text-text-mid leading-[1.85] whitespace-pre-line">{s.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <!-- 使い方（シーン別） -->
+          <div class="mb-8">
+            <h3 class="text-base font-bold text-text mb-4">シーン別の使い方</h3>
+            <div class="space-y-4">
+              {editorial.usage.map(u => (
+                <div class="bg-bg rounded-xl border border-border-light p-4">
+                  <p class="text-sm font-bold text-accent mb-1.5">{u.scene}</p>
+                  <p class="text-[14px] text-text-mid leading-[1.8]">{u.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- カラー選択ガイド -->
+          <div class="mb-8">
+            <h3 class="text-base font-bold text-text mb-2">カラー選びのポイント</h3>
+            <p class="text-[14px] text-text-mid leading-[1.85] whitespace-pre-line">{editorial.colorGuide}</p>
+          </div>
+
+          <!-- 気になるポイント -->
+          <div class="mb-8">
+            <h3 class="text-base font-bold text-text mb-3">気になるポイント</h3>
+            <div class="space-y-2">
+              {editorial.concerns.map(c => (
+                <div class="flex items-start gap-2 text-[14px] text-text-mid">
+                  <span class="text-warning mt-0.5 shrink-0">▸</span>
+                  <span class="leading-[1.8]">{c}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- おすすめ / おすすめしない -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            <div class="bg-accent-bg rounded-xl p-4">
+              <p class="text-sm font-bold text-accent mb-2">こんな人におすすめ</p>
+              <div class="space-y-1.5">
+                {editorial.recommendation.recommended.map(r => (
+                  <p class="text-[13px] text-text-mid flex items-start gap-1.5">
+                    <span class="text-accent shrink-0">✓</span> {r}
+                  </p>
+                ))}
+              </div>
+            </div>
+            <div class="bg-surface rounded-xl p-4">
+              <p class="text-sm font-bold text-text-dim mb-2">おすすめしない場合</p>
+              <div class="space-y-1.5">
+                {editorial.recommendation.notRecommended.map(r => (
+                  <p class="text-[13px] text-text-mid flex items-start gap-1.5">
+                    <span class="text-text-dim shrink-0">—</span> {r}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <p class="text-xs text-text-faint">
+            ※ CAST/LOGエディトリアルチームによる分析。データベース{series.created_at?.slice(0, 10) || '2026-03-18'}時点の情報に基づく。
+          </p>
+        </div>
+      </section>
+    )}
+
     <!-- カテゴリ内ポジション -->
     {categoryRank > 0 && categoryTotal > 2 && categoryFish && (
       <section class="mb-12">
@@ -803,18 +897,31 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
       </section>
     )}
 
-    <!-- よくある質問（FAQ） -->
-    {faqEntries.length > 0 && (
+    <!-- よくある質問（FAQ） — エディトリアルFAQ優先、なければDB生成FAQ -->
+    {(editorial?.faq || faqEntries.length > 0) && (
       <section class="mb-12">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}のよくある質問</h2>
+        <h2 class="text-xl font-bold text-text mb-4">{series.name}のよくある質問</h2>
         <div class="space-y-2">
-          {faqEntries.map((faq, i) => (
-            <details class="group bg-white rounded-lg border border-gray-100 overflow-hidden" open={i === 0}>
-              <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                <span class="text-sm font-semibold text-gray-900 pr-4">{faq.name}</span>
+          {/* エディトリアルFAQ（PAA対応、より詳細） */}
+          {editorial?.faq.map((faq, i) => (
+            <details class="group bg-bg rounded-xl border border-border-light overflow-hidden" open={i === 0}>
+              <summary class="flex items-center justify-between px-4 py-3.5 cursor-pointer hover:bg-surface transition-colors">
+                <span class="text-sm font-semibold text-text pr-4">{faq.q}</span>
                 <svg class="w-4 h-4 text-text-dim shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </summary>
-              <div class="px-4 pb-3 text-sm text-gray-600 leading-relaxed border-t border-gray-50">
+              <div class="px-4 pb-3.5 text-[14px] text-text-mid leading-[1.8] border-t border-border-light">
+                {faq.a}
+              </div>
+            </details>
+          ))}
+          {/* エディトリアルFAQがない場合はDB生成FAQを表示 */}
+          {!editorial && faqEntries.map((faq, i) => (
+            <details class="group bg-bg rounded-xl border border-border-light overflow-hidden" open={i === 0}>
+              <summary class="flex items-center justify-between px-4 py-3.5 cursor-pointer hover:bg-surface transition-colors">
+                <span class="text-sm font-semibold text-text pr-4">{faq.name}</span>
+                <svg class="w-4 h-4 text-text-dim shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="px-4 pb-3.5 text-[14px] text-text-mid leading-[1.8] border-t border-border-light">
                 {faq.acceptedAnswer.text}
               </div>
             </details>
