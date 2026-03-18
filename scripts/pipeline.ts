@@ -444,6 +444,14 @@ async function processRecord(
       ? scraped.weights
       : [null];
 
+    // weightSpecsマップ（ウェイトごとのprice/length対応）
+    const weightSpecMap = new Map<number, { length: number | null; price: number; model?: string }>();
+    if (scraped.weightSpecs) {
+      for (const ws of scraped.weightSpecs) {
+        weightSpecMap.set(ws.weight, { length: ws.length, price: ws.price, model: ws.model });
+      }
+    }
+
     // Insert into Supabase: one row per color x weight combination
     let rowsInserted = 0;
 
@@ -458,6 +466,11 @@ async function processRecord(
 
         const imageUrl = colorImageMap.get(color.name) || null;
 
+        // weightSpecsがある場合、ウェイトに対応するprice/lengthを使用
+        const spec = weight !== null ? weightSpecMap.get(weight) : undefined;
+        const rowPrice = spec?.price || scraped.price;
+        const rowLength = spec?.length ?? scraped.length;
+
         const row: Record<string, unknown> = {
           name: scraped.name,
           name_kana: scraped.name_kana || scraped.name,
@@ -466,12 +479,12 @@ async function processRecord(
           manufacturer_slug: manufacturerSlug,
           type: scraped.type,
           target_fish: scraped.target_fish?.length ? scraped.target_fish : null,
-          price: scraped.price,
+          price: rowPrice,
           description: scraped.description || null,
           images: imageUrl ? [imageUrl] : null,
           color_name: color.name,
           weight: weight,
-          length: scraped.length,
+          length: rowLength,
           source_url: scraped.sourceUrl || url,
           is_limited: false,
           is_discontinued: false,

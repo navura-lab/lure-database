@@ -173,7 +173,9 @@ export const scrapeZeroDragonPage: ScraperFunction = async (url: string): Promis
     },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-  const html = await res.text();
+  // サイトは EUC-JP エンコーディング。UTF-8でデコードすると文字化けする。
+  const rawBytes = await res.arrayBuffer();
+  const html = new TextDecoder('euc-jp').decode(rawBytes);
 
   // --- Try to extract from Colorme JS object ---
   let colormeName = '';
@@ -183,9 +185,16 @@ export const scrapeZeroDragonPage: ScraperFunction = async (url: string): Promis
   const colormeMatch = html.match(/var\s+Colorme\s*=\s*(\{[\s\S]*?\});/);
   if (colormeMatch) {
     try {
-      // Extract name
+      // Extract name — Colorme JS uses \uXXXX Unicode escapes for Japanese chars.
+      // JSON.parse を使って正しくデコードする。
       const nameMatch = colormeMatch[1].match(/"name"\s*:\s*"([^"]+)"/);
-      if (nameMatch) colormeName = nameMatch[1];
+      if (nameMatch) {
+        try {
+          colormeName = JSON.parse(`"${nameMatch[1]}"`);
+        } catch {
+          colormeName = nameMatch[1];
+        }
+      }
 
       // Extract prices
       const priceMatch = colormeMatch[1].match(/"sales_price"\s*:\s*(\d+)/);

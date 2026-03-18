@@ -95,6 +95,8 @@ const NON_LURE_PATTERNS: RegExp[] = [
   /\b(snapback|trucker|flat\s+bill|ball\s+cap|fitted\s+cap)\b/i,
   // ロッド・リール・コンボ
   /\b(spinning\s+rod|casting\s+rod|rod\s+combo|reel\s+combo|micro\s+combo)\b/i,
+  // ロッド名パターン（フィート/インチ表記: "7'3" Heavy, Fast (Casting)"）
+  /\d+'\d+"\s+(extra[- ]?heavy|heavy|medium|light|moderate)/i,
   // 釣り糸
   /\b(fishing\s+line|bulk\s+spool|filler\s+spool|sinking\s+braid|ghost\s+carbon)\b/i,
   // 収納・バッグ
@@ -104,17 +106,27 @@ const NON_LURE_PATTERNS: RegExp[] = [
   // バンドル・キット・サブスク
   /\b(bundle|starter\s+kit|gift\s+pack|gift\s+kit|subscription|sampler\s+pack|mystery.*hook|garage\s+sale|trading\s+post)\b/i,
   // フック・ウェイト・小物（単体販売）
-  /\b(hook\s+series|dart\s+hook|ewg\s+hook|neko\s+hook|treble\s+hook|dropbarb|maggap)\b/i,
+  /\b(hook\s+series|dart\s+hook|ewg\s+hook|neko\s+hook|treble\s+hook|worm\s+hook|widegap.*hook|dropbarb|maggap)\b/i,
   /\b(tungsten.*weight|nail\s+weight|drop\s*shot\s+weight|flipping\s+weight|split\s+shot\s+\d+\s*pack|peg\s+stopp)/i,
   /\b(swivel|coastlock|duo\s+lock\s+snap|twin\s+lock\s+snap|split\s+ring|welded\s+ring|assist\s+hook)\b/i,
   // パーツ・消耗品
-  /\b(replacement\s+tail|replacement\s+fin|3d\s+eyes|silicone\s+skirt|rigging\s+dots|rigging\s+tool|wacky\s+rigging\s+tool|screen\s+spray|bait\s+cover)\b/i,
+  /\b(replacement\s+tail|replacement\s+fin|3d\s+eyes|silicone\s+skirt|rigging\s+dots|rigging\s+tool|wacky\s+rigging\s+tool|screen\s+spray|bait\s+cover|glass\s+rattl)\b/i,
   // その他非ルアー
   /\b(digital\s+catalog|turkey\s+call|can\s+cooler|sunglass\s+retainer|super\s+stank|scent)\b/i,
 ];
 
+/**
+ * Shopify の product_type で明らかに非ルアーと判定できるもの。
+ * combined テキストへのパターンマッチより先にチェックして確実に弾く。
+ */
+const NON_LURE_PRODUCT_TYPES = /^(terminal\s+tackle|apparel|headwear|apparel\s*&\s*headwear|accessories|rods?|reels?|line|tools?)$/i;
+
 /** 非ルアー商品かどうかを判定する */
 export function isNonLureProduct(name: string, tags: string[], productType: string): boolean {
+  // product_type による早期判定
+  if (productType && NON_LURE_PRODUCT_TYPES.test(productType.trim())) {
+    return true;
+  }
   const combined = `${name} ${tags.join(' ')} ${productType}`;
   return NON_LURE_PATTERNS.some(pattern => pattern.test(combined));
 }

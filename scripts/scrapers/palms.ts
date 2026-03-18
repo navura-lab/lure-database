@@ -17,7 +17,7 @@
 // No worms — all hard baits (jigs, minnows, spoons, spinners, etc.)
 //
 
-import type { ScrapedColor, ScrapedLure } from './types.js';
+import type { ScrapedColor, ScrapedLure, WeightSpec } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Type detection
@@ -130,9 +130,11 @@ export async function scrapePalmsPage(url: string): Promise<ScrapedLure> {
   }
 
   // -- Spec from table.spec
+  // 各行がウェイトバリエーション。行ごとにmodel/weight/length/priceを取得。
   var price = 0;
   var lengthVal: number | null = null;
   var weights: number[] = [];
+  var weightSpecs: WeightSpec[] = [];
 
   var specTableMatch = html.match(/<table[^>]*class="[^"]*spec[^"]*"[^>]*>([\s\S]*?)<\/table>/i);
   if (specTableMatch) {
@@ -141,9 +143,18 @@ export async function scrapePalmsPage(url: string): Promise<ScrapedLure> {
       for (var ri = 0; ri < specRows.length; ri++) {
         var row = specRows[ri];
 
+        // モデル名: th
+        var modelName = '';
+        var thMatch = row.match(/<th[^>]*>([\s\S]*?)<\/th>/i);
+        if (thMatch) modelName = stripTags(thMatch[1]);
+
         // Extract all td cells
         var tds = row.match(/<td[^>]*>([\s\S]*?)<\/td>/gi);
         if (!tds) continue;
+
+        var rowWeight: number | null = null;
+        var rowLength: number | null = null;
+        var rowPrice = 0;
 
         for (var ci = 0; ci < tds.length; ci++) {
           var cellHtml = tds[ci];
@@ -151,26 +162,38 @@ export async function scrapePalmsPage(url: string): Promise<ScrapedLure> {
 
           // Price: td.price "本体価格 ¥850"
           if (/class="[^"]*price[^"]*"/i.test(cellHtml)) {
-            if (price === 0) {
-              var priceMatch = cellText.match(/[¥￥]\s*([\d,]+)/);
-              if (priceMatch) {
-                price = parseInt(priceMatch[1].replace(/,/g, ''), 10);
-              }
+            var priceMatch = cellText.match(/[¥￥]\s*([\d,]+)/);
+            if (priceMatch) {
+              rowPrice = parseInt(priceMatch[1].replace(/,/g, ''), 10);
             }
           } else {
             // Weight: "20g" or "1.9g"
             var gMatch = cellText.match(/^(\d+(?:\.\d+)?)\s*g$/i);
-            if (gMatch) {
-              var w = parseFloat(gMatch[1]);
-              if (w > 0 && weights.indexOf(w) === -1) weights.push(w);
+            if (gMatch && rowWeight === null) {
+              rowWeight = parseFloat(gMatch[1]);
             }
             // Length: "56mm" or "35mm"
             var mmMatch = cellText.match(/^(\d+(?:\.\d+)?)\s*mm$/i);
-            if (mmMatch && !lengthVal) {
-              lengthVal = Math.round(parseFloat(mmMatch[1]));
+            if (mmMatch && rowLength === null) {
+              rowLength = Math.round(parseFloat(mmMatch[1]));
             }
           }
         }
+
+        // 行にウェイトがあればweightSpecsに追加
+        if (rowWeight !== null && rowWeight > 0) {
+          if (weights.indexOf(rowWeight) === -1) weights.push(rowWeight);
+          weightSpecs.push({
+            weight: rowWeight,
+            length: rowLength,
+            price: rowPrice,
+            model: modelName || undefined,
+          });
+        }
+
+        // 代表値（最初の行）
+        if (price === 0 && rowPrice > 0) price = rowPrice;
+        if (lengthVal === null && rowLength !== null) lengthVal = rowLength;
       }
     }
   }
@@ -267,5 +290,6 @@ export async function scrapePalmsPage(url: string): Promise<ScrapedLure> {
     length: lengthVal,
     mainImage: mainImage,
     sourceUrl: url,
+    weightSpecs: weightSpecs.length > 0 ? weightSpecs : undefined,
   };
 }
