@@ -113,7 +113,10 @@ const seoName = optimizeTitleName(series.name);
 const typeInTitle = series.type && !seoName.includes(series.type) ? ` ${series.type}` : '';
 // KP分析: 「[商品名] おすすめ カラー」パターンが20-140/月/商品
 // 「カラー」「一覧」をtitleに含めCTR向上、具体的なカラー数で差別化
-const pageTitle = `${seoName} ${series.manufacturer}${typeInTitle} 全${series.color_count}色カラー一覧 | CAST/LOG`;
+// エディトリアルがある場合はtitleにキャッチコピーのエッセンスを反映
+const pageTitle = editorial
+  ? `${seoName} ${series.manufacturer}${typeInTitle} レビュー＆全${series.color_count}色 | CAST/LOG`
+  : `${seoName} ${series.manufacturer}${typeInTitle} 全${series.color_count}色カラー一覧 | CAST/LOG`;
 
 // --- SEO: Description ---
 const specs = [
@@ -147,7 +150,10 @@ const rankLabel = categoryRank > 0 && categoryRank <= 10 && categoryFish
   : '';
 // E/D: CTR改善 — 「スペック」「使い方」を含め検索意図カバレッジを拡大
 const priceLabel = hasPrice ? `価格${priceDisplay}。` : '';
-const rawDescription = `${seoName}（${series.manufacturer}の${series.type}）のスペック・全${series.color_count}色・使い方を解説。${rankLabel}${effectiveDescription}${priceLabel}`;
+// エディトリアルがある場合はcatchcopyをdescriptionに使用（CTR向上）
+const rawDescription = editorial
+  ? `${seoName}（${series.manufacturer}）${editorial.catchcopy.slice(0, 60)} ${rankLabel}全${series.color_count}色・スペック・使い方を解説。${priceLabel}`
+  : `${seoName}（${series.manufacturer}の${series.type}）のスペック・全${series.color_count}色・使い方を解説。${rankLabel}${effectiveDescription}${priceLabel}`;
 const pageDescription = truncateDescription(rawDescription);
 
 // --- SEO: 自然言語スペック要約（ページ内表示用）---
@@ -389,10 +395,17 @@ if (series.target_fish.length > 0) {
   }
 }
 
-const faqLd = faqEntries.length > 0 ? {
+// エディトリアルFAQがある場合はそちらを優先（PAA対応で質が高い）
+const editorialFaqEntries = editorial?.faq.map(f => ({
+  '@type': 'Question' as const,
+  name: f.q,
+  acceptedAnswer: { '@type': 'Answer' as const, text: f.a },
+})) || [];
+const finalFaqEntries = editorialFaqEntries.length > 0 ? editorialFaqEntries : faqEntries;
+const faqLd = finalFaqEntries.length > 0 ? {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faqEntries,
+  mainEntity: finalFaqEntries,
 } : null;
 
 // VideoObject schema for YouTube embeds（公式 + 関連動画）
