@@ -36,6 +36,16 @@ import { zagger50B1BoneEditorial } from './zagger-50-b1-bone';
 import { crawlUpEditorial } from './crawl-up';
 import { bosogaeruEditorial } from './bosogaeru';
 import { oneUpShad6MonotoneEditorial } from './one-up-shad-6-monotone';
+import { dexCr55sr52Editorial } from './dex-cr55sr-52';
+import { dexSc55f63fEditorial } from './dex-sc55f63f';
+import { jackhammerBabyJackEditorial } from './jackhammerbabyjack';
+import { ds0e32pEditorial } from './ds0e32p';
+import { dkalubeEditorial } from './dkalube';
+import { fullMetalSonicEditorial } from './full-metal-sonic';
+import { charmEditorial } from './charm';
+import { blitzEditorial } from './blitz';
+import { tklmEditorial } from './tklm';
+import { hugePencilEditorial } from './huge-pencil';
 
 /** slug → EditorialReview のマップ */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -67,4 +77,14 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'crawl-up': crawlUpEditorial,
   'bosogaeru': bosogaeruEditorial,
   'one-up-shad-6-monotone': oneUpShad6MonotoneEditorial,
+  'dex-cr55sr-52': dexCr55sr52Editorial,
+  'dex-sc55f63f': dexSc55f63fEditorial,
+  'jackhammerbabyjack': jackhammerBabyJackEditorial,
+  'ds0e32p': ds0e32pEditorial,
+  'dkalube': dkalubeEditorial,
+  'full-metal-sonic': fullMetalSonicEditorial,
+  'charm': charmEditorial,
+  'blitz': blitzEditorial,
+  'tklm': tklmEditorial,
+  'huge-pencil': hugePencilEditorial,
 };
