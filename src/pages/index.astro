@@ -13,6 +13,7 @@ import { contentArticles } from '../data/articles/_index';
 import { seasonalGuides } from '../data/seasonal-guides';
 import { fishingMethods } from '../data/fishing-methods';
 import { curatedRankings } from '../data/curated-rankings';
+import { editorialReviews } from '../data/seo/editorials/_index';
 
 const lures = await fetchAllLures();
 const series = groupLuresBySeries(lures ?? []);
@@ -109,6 +110,15 @@ const popularCompares = popularCompareKeys.map(slug => {
   const entry = crossMap.get(slug);
   return entry ? { slug, fishName: entry.fishName, typeName: entry.typeName, count: entry.count } : null;
 }).filter((c): c is NonNullable<typeof c> => c !== null);
+
+// ─── エディトリアルレビューピックアップ（最新6件）───
+const reviewedLures = Object.entries(editorialReviews)
+  .map(([slug, ed]) => {
+    const s = series.find(s => s.slug === slug);
+    return s ? { series: s, catchcopy: ed.catchcopy } : null;
+  })
+  .filter((r): r is NonNullable<typeof r> => r !== null)
+  .slice(0, 6);
 
 // ─── JSON-LD: WebSite schema ───
 const jsonLd = {
@@ -262,6 +272,25 @@ const jsonLd = {
               </div>
             </a>
           ))}
+        </div>
+      </section>
+    )}
+
+    <!-- エディトリアルレビュー -->
+    {reviewedLures.length > 0 && (
+      <section class="animate-fade-up">
+        <SectionHeading title="エディトリアルレビュー" href="/article/" slashLabel="REVIEWS" />
+        <div class="section-cool rounded-2xl p-6 sm:p-8 -mx-4 sm:mx-0">
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 animate-stagger">
+            {reviewedLures.map(r => (
+              <div>
+                <LureCard series={r.series} isNew={false} />
+                <p class="text-[12px] text-text-mid mt-1.5 line-clamp-1 text-center px-1">
+                  {r.catchcopy}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     )}

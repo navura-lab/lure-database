@@ -7,6 +7,7 @@ import { getTypeSlug, getFishSlug } from '../../lib/category-slugs';
 import { manufacturerDescriptions, manufacturerOfficialUrls } from '../../data/manufacturer-descriptions';
 import { guideArticles } from '../../data/guides';
 import { contentArticles } from '../../data/articles/_index.js';
+import { editorialReviews } from '../../data/seo/editorials/_index';
 import type { LureSeries } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -172,6 +173,9 @@ const summaryText = summaryParts.join('。') + '。';
 const topSeries = [...series]
   .sort((a, b) => b.color_count - a.color_count)
   .slice(0, 5);
+
+// ─── エディトリアルレビュー済みシリーズ ───
+const reviewedSeries = series.filter(s => editorialReviews[s.slug]);
 
 // ─── E-E-A-T 出典表記用 ───
 
@@ -485,6 +489,24 @@ const pageTitle = titleParts.filter(Boolean).join(' | ') + ' - CAST/LOG';
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
           {topSeries.map(s => (
             <LureCard series={s} isNew={false} priority={true} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- エディトリアルレビュー -->
+    {reviewedSeries.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-text mb-4">エディトリアルレビュー</h2>
+        <p class="text-sm text-text-mid mb-4">CAST/LOG編集部が詳しくレビューしたルアー</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {reviewedSeries.map(s => (
+            <div>
+              <LureCard series={s} isNew={false} />
+              <p class="text-[12px] text-text-mid mt-1 line-clamp-1 text-center">
+                {editorialReviews[s.slug]?.catchcopy}
+              </p>
+            </div>
           ))}
         </div>
       </section>

@@ -12,6 +12,7 @@ import { LURE_TYPE_EN, FISH_NAME_EN } from '../../../i18n/dictionaries/fishing-t
 import { getUI, formatPrice, formatPriceRange } from '../../../i18n/lib/t';
 import { rankingDescriptionsEn } from '../../../data/ranking-descriptions-en';
 import { fishTypeUsage } from '../../../data/fish-type-usage';
+import { editorialReviews } from '../../../data/seo/editorials/_index';
 
 export async function getStaticPaths() {
   return getRankingPaths();
@@ -270,6 +271,13 @@ const relatedArticles = contentArticles
       {rankedSeries.map((s, i) => (
         <div class:list={["relative", i === 0 && "sm:col-span-2"]}>
           <LureCard series={s} isNew={false} priority={i < 4} rank={i + 1} locale={locale} />
+          {editorialReviews[s.slug] && (
+            <a href={`/en/${s.manufacturer_slug}/${s.slug}/#editorial`} class="block text-center mt-1">
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-mono font-bold text-accent bg-accent-bg rounded-full hover:bg-accent/10 transition-colors">
+                📝 Review available
+              </span>
+            </a>
+          )}
         </div>
       ))}
     </div>

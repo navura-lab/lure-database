@@ -10,6 +10,7 @@ import { getTypeSlug, getFishSlug } from '../../../lib/category-slugs';
 import { manufacturerDescriptions, manufacturerOfficialUrls } from '../../../data/manufacturer-descriptions';
 import { manufacturerDescriptionsEn } from '../../../data/manufacturer-descriptions-en';
 import { contentArticles } from '../../../data/articles/_index.js';
+import { editorialReviews } from '../../../data/seo/editorials/_index';
 import type { LureSeries } from '../../../lib/types';
 import { LURE_TYPE_EN, FISH_NAME_EN } from '../../../i18n/dictionaries/fishing-terms';
 import { articleTranslationsEn } from '../../../i18n/cache/article-translations-en';
@@ -115,6 +116,9 @@ if (priceRange) {
 const summaryText = summaryParts.join(', ') + '.';
 
 const topSeries = [...series].sort((a, b) => b.color_count - a.color_count).slice(0, 5);
+
+// Editorial reviewed series
+const reviewedSeries = series.filter(s => editorialReviews[s.slug]);
 
 // FAQ
 const faqItems: { q: string; a: string }[] = [];
@@ -302,6 +306,24 @@ const relatedContentArticles = contentArticles
         <h2 class="text-lg font-bold text-gray-900 mb-4">Top 5 Series</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
           {topSeries.map(s => (<LureCard series={s} isNew={false} priority={true} locale={locale} />))}
+        </div>
+      </section>
+    )}
+
+    <!-- Editorial Reviews -->
+    {reviewedSeries.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-text mb-4">Editorial Reviews</h2>
+        <p class="text-sm text-text-mid mb-4">Reviewed by CAST/LOG editorial team</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {reviewedSeries.map(s => (
+            <div>
+              <LureCard series={s} isNew={false} locale={locale} />
+              <p class="text-[12px] text-text-mid mt-1 line-clamp-1 text-center">
+                {editorialReviews[s.slug]?.catchcopy}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
     )}
