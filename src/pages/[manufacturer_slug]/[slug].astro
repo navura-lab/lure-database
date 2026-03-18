@@ -20,6 +20,7 @@ import { generateAutoDescription } from '../../lib/auto-description';
 import { getLurePaths } from '../../lib/paths/lure-paths';
 import type { LurePathProps } from '../../lib/paths/lure-paths';
 import { editorialReviews } from '../../data/seo/editorials/_index';
+import { generateAutoEditorial } from '../../lib/auto-editorial';
 
 export async function getStaticPaths() {
   return getLurePaths('ja');
@@ -34,8 +35,8 @@ const {
 
 const hasLimited = series.colors.some(c => c.is_limited);
 
-// エディトリアルレビュー（SEO Pipeline生成コンテンツ）
-const editorial = editorialReviews[series.slug] || null;
+// エディトリアルレビュー（手書き優先、なければ自動生成）
+const editorial = editorialReviews[series.slug] || generateAutoEditorial(series, colorBreakdown);
 
 // エディトリアル間クロスリンク（同タイプ or 同メーカーのレビュー済みルアー）
 const editorialCrosslinks = editorial ? Object.entries(editorialReviews)
@@ -146,9 +147,12 @@ function truncateDescription(raw: string, maxLen: number = 155): string {
   return raw.slice(0, maxLen - 1) + '…';
 }
 
-// description が null の場合、スペックベースの自動生成文を使う
-const autoDescription = series.description ? null : generateAutoDescription(series);
-const effectiveDescription = series.description || autoDescription!;
+// description が null または英語のみの場合、スペックベースの自動生成文を使う
+// 英語判定: 日本語文字（ひらがな・カタカナ・漢字）を含まない
+const isEnglishOnly = (text: string) => !/[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]/.test(text);
+const needsAutoDesc = !series.description || isEnglishOnly(series.description);
+const autoDescription = needsAutoDesc ? generateAutoDescription(series) : null;
+const effectiveDescription = needsAutoDesc ? (autoDescription || series.description!) : series.description!;
 
 // カテゴリ順位をdescriptionに反映（上位10位以内なら訴求力UP）
 const rankLabel = categoryRank > 0 && categoryRank <= 10 && categoryFish
