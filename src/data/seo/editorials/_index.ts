@@ -46,8 +46,33 @@ import { charmEditorial } from './charm';
 import { blitzEditorial } from './blitz';
 import { tklmEditorial } from './tklm';
 import { hugePencilEditorial } from './huge-pencil';
+import { dexCr53mrEditorial } from './dex-cr53mr';
+import { momopunch3045gEditorial } from './momopunch30g-45g';
+import { usachanJigExEditorial } from './usachanjig-ex';
+import { shiriten50Editorial } from './shiriten50';
+import { boomEditorial } from './boom';
+import { bakureeFish62Editorial } from './bakuree-fish-62';
+import { snecon220sEditorial } from './snecon-220s';
+import { esnalEditorial } from './esnal';
+import { shalldus35Editorial } from './shalldus-35';
+import { rein14gEditorial } from './rein-14g';
+import { surfaceWing95fEditorial } from './surface-wing95f';
+import { greed3040Editorial } from './greed3040';
+import { vivaPotatoEditorial } from './viva-potato';
+import { giopickQrEditorial } from './giopick-qr';
+import { mr35sEditorial } from './35mr-s';
+import { dexChoppoEditorial } from './dex-choppo-90120-90120';
+import { sw133fEditorial } from './sw133f';
+import { gig110sEditorial } from './gig110s-umisakura-sp';
+import { fs430Editorial } from './fs430';
+import { nitroVerticalEditorial } from './nitro-vertical';
+import { moneyBadgerEditorial } from './money-badger-4-5-625-675-725';
+import { troutBtkswimmer35Editorial } from './trout-btkswimmer35';
+import { oneUpShad5TwoToneEditorial } from './one-up-shad-5-2tone';
+import { kaishinBladeEditorial } from './kaishin-blade';
+import { lft145Editorial } from './lft145';
 
-/** slug → EditorialReview のマップ */
+/** slug → EditorialReview のマップ（全61件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   'huggos': huggosEditorial,
   'gillary-01--01': gillary01Editorial,
@@ -87,4 +112,29 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'blitz': blitzEditorial,
   'tklm': tklmEditorial,
   'huge-pencil': hugePencilEditorial,
+  'dex-cr53mr': dexCr53mrEditorial,
+  'momopunch30g-45g': momopunch3045gEditorial,
+  'usachanjig-ex': usachanJigExEditorial,
+  'shiriten50': shiriten50Editorial,
+  'boom': boomEditorial,
+  'bakuree-fish-62': bakureeFish62Editorial,
+  'snecon-220s': snecon220sEditorial,
+  'esnal': esnalEditorial,
+  'shalldus-35': shalldus35Editorial,
+  'rein-14g': rein14gEditorial,
+  'surface-wing95f': surfaceWing95fEditorial,
+  'greed3040': greed3040Editorial,
+  'viva-potato': vivaPotatoEditorial,
+  'giopick-qr': giopickQrEditorial,
+  '35mr-s': mr35sEditorial,
+  'dex-choppo-90120-90120': dexChoppoEditorial,
+  'sw133f': sw133fEditorial,
+  'gig110s-umisakura-sp': gig110sEditorial,
+  'fs430': fs430Editorial,
+  'nitro-vertical': nitroVerticalEditorial,
+  'money-badger-4-5-625-675-725': moneyBadgerEditorial,
+  'trout-btkswimmer35': troutBtkswimmer35Editorial,
+  'one-up-shad-5-2tone': oneUpShad5TwoToneEditorial,
+  'kaishin-blade': kaishinBladeEditorial,
+  'lft145': lft145Editorial,
 };

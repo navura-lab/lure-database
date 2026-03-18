@@ -34,4 +34,16 @@ export const editorialDeployLog: EditorialDeployRecord[] = [
   { slug: 'nichika167f', manufacturerSlug: 'osp', targetKeyword: 'ニチカ167F', deployedAt: '2026-03-18', baselinePosition: 7.4, baselineImpressions: 9, status: 'deployed' },
   { slug: 'toukichirou-lead', manufacturerSlug: 'bozles', targetKeyword: '藤吉郎 鉛', deployedAt: '2026-03-18', baselinePosition: 5.3, baselineImpressions: 11, status: 'deployed' },
   { slug: 'gyokotsu', manufacturerSlug: 'breaden', targetKeyword: 'ブリーデン 魚骨', deployedAt: '2026-03-18', baselinePosition: 8.8, baselineImpressions: 5, status: 'deployed' },
+  // === Batch 3 (2026-03-18) ===
+  { slug: 'dex-cr53mr', manufacturerSlug: 'berkley', targetKeyword: 'DEX CR53MR', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
+  { slug: 'momopunch30g-45g', manufacturerSlug: 'jumprize', targetKeyword: 'モモパンチ', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
+  { slug: 'usachanjig-ex', manufacturerSlug: 'attic', targetKeyword: 'うさちゃんジグEX', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
+  { slug: 'shiriten50', manufacturerSlug: 'madness', targetKeyword: 'シリテン50', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
+  { slug: 'boom', manufacturerSlug: 'engine', targetKeyword: 'エンジン ブーム', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
+  // === Batch 4 (2026-03-18) ===
+  { slug: 'money-badger-4-5-625-675-725', manufacturerSlug: 'berkley', targetKeyword: 'マネーバジャー', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
+  { slug: 'trout-btkswimmer35', manufacturerSlug: 'smith', targetKeyword: 'ボトムノックスイマー35', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
+  { slug: 'one-up-shad-5-2tone', manufacturerSlug: 'sawamura', targetKeyword: 'ワンナップシャッド 5インチ 2トーン', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
+  { slug: 'kaishin-blade', manufacturerSlug: 'noike', targetKeyword: '海神ブレード', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
+  { slug: 'lft145', manufacturerSlug: 'engine', targetKeyword: 'LFT145', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
 ];
