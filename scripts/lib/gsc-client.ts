@@ -12,8 +12,11 @@ const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN!;
 const QUOTA_PROJECT = process.env.GOOGLE_QUOTA_PROJECT || 'plucky-mile-486802-j6';
 
 export const SITE_URL = process.env.GSC_SITE_URL || 'https://www.castlog.xyz/';
-// Search Analytics APIはドメインプロパティ形式が必要（sc-domain:castlog.xyz）
+// 検索データは旧ドメイン（lure-db.com）に蓄積されているため、
+// Analytics APIは旧ドメインのURLプレフィックスプロパティを使用
 export const ANALYTICS_PROPERTY = process.env.GSC_ANALYTICS_PROPERTY || SITE_URL;
+// 旧ドメイン（検索データ取得用）
+export const LEGACY_SITE_URL = 'https://www.lure-db.com/';
 
 export interface SearchAnalyticsRow {
   keys: string[];
@@ -66,14 +69,16 @@ export async function getSearchAnalytics(
   dimensions: string[] = ['query'],
   rowLimit = 50,
   filters?: AnalyticsFilter[],
+  propertyOverride?: string,
 ): Promise<SearchAnalyticsRow[]> {
   const token = await getAccessToken();
   const body: any = { startDate, endDate, dimensions, rowLimit };
   if (filters && filters.length > 0) {
     body.dimensionFilterGroups = [{ filters }];
   }
+  const property = propertyOverride || ANALYTICS_PROPERTY;
   const res = await fetch(
-    `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(ANALYTICS_PROPERTY)}/searchAnalytics/query`,
+    `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(property)}/searchAnalytics/query`,
     {
       method: 'POST',
       headers: gscHeaders(token),
@@ -83,6 +88,17 @@ export async function getSearchAnalytics(
   const data = await res.json() as any;
   if (data.error) throw new Error(`GSC API error: ${JSON.stringify(data.error)}`);
   return data.rows || [];
+}
+
+/** 旧ドメイン（lure-db.com）のSearch Analyticsを取得 */
+export async function getLegacySearchAnalytics(
+  startDate: string,
+  endDate: string,
+  dimensions: string[] = ['query'],
+  rowLimit = 50,
+  filters?: AnalyticsFilter[],
+): Promise<SearchAnalyticsRow[]> {
+  return getSearchAnalytics(startDate, endDate, dimensions, rowLimit, filters, LEGACY_SITE_URL);
 }
 
 // 日付ヘルパー

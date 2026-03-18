@@ -8,10 +8,13 @@
 import type { EditorialReview } from './huggos';
 export type { EditorialReview };
 
-// 個別エディトリアルの遅延インポート
 import { huggosEditorial } from './huggos';
+import { gillary01Editorial } from './gillary-01--01';
+import { lokiEditorial } from './masukurouto-loki';
 
 /** slug → EditorialReview のマップ */
 export const editorialReviews: Record<string, EditorialReview> = {
   'huggos': huggosEditorial,
+  'gillary-01--01': gillary01Editorial,
+  'masukurouto-loki': lokiEditorial,
 };
