@@ -37,6 +37,12 @@ const hasLimited = series.colors.some(c => c.is_limited);
 // エディトリアルレビュー（SEO Pipeline生成コンテンツ）
 const editorial = editorialReviews[series.slug] || null;
 
+// エディトリアル間クロスリンク（同タイプ or 同メーカーのレビュー済みルアー）
+const editorialCrosslinks = editorial ? Object.entries(editorialReviews)
+  .filter(([slug, e]) => slug !== series.slug && e.manufacturerSlug !== series.manufacturer_slug)
+  .map(([slug, e]) => ({ slug, mfr: e.manufacturerSlug, catchcopy: e.catchcopy }))
+  .slice(0, 4) : [];
+
 const hasPrice = series.price_range.max > 0;
 const priceDisplay = hasPrice
   ? series.price_range.min === series.price_range.max
@@ -713,7 +719,22 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
             </div>
           </div>
 
-          <p class="text-xs text-text-faint">
+          {/* 他のレビューへのクロスリンク */}
+          {editorialCrosslinks.length > 0 && (
+            <div class="mt-6 pt-5 border-t border-border-light">
+              <p class="text-xs font-mono text-text-dim uppercase tracking-wider mb-3">他のレビュー</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {editorialCrosslinks.map(cl => (
+                  <a href={`/${cl.mfr}/${cl.slug}/`} class="group flex items-start gap-2 px-3 py-2 rounded-lg hover:bg-surface transition-colors">
+                    <span class="text-accent text-sm shrink-0 mt-0.5">→</span>
+                    <span class="text-[13px] text-text-mid group-hover:text-accent transition-colors line-clamp-1">{cl.catchcopy}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <p class="text-xs text-text-faint mt-4">
             ※ CAST/LOGエディトリアルチームによる分析。データベース{series.created_at?.slice(0, 10) || '2026-03-18'}時点の情報に基づく。
           </p>
         </div>
