@@ -26,6 +26,16 @@ import { toukichirouLeadEditorial } from './toukichirou-lead';
 import { gyokotsuEditorial } from './gyokotsu';
 import { gFlashEditorial } from './g-flash';
 import { rushBellEditorial } from './rush-bell';
+import { fableEditorial } from './fable';
+import { lazySwimmer9inchEditorial } from './lazy-swimmer-9inch';
+import { kasuminokaeruEditorial } from './kasuminokaeru';
+import { vahid80Editorial } from './vahid80-80';
+import { heddonZaraPuppyEditorial } from './heddon-zarapuppy';
+import { ignitedTailFusionEditorial } from './ignited-tail-fusion';
+import { zagger50B1BoneEditorial } from './zagger-50-b1-bone';
+import { crawlUpEditorial } from './crawl-up';
+import { bosogaeruEditorial } from './bosogaeru';
+import { oneUpShad6MonotoneEditorial } from './one-up-shad-6-monotone';
 
 /** slug → EditorialReview のマップ */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -47,4 +57,14 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'gyokotsu': gyokotsuEditorial,
   'g-flash': gFlashEditorial,
   'rush-bell': rushBellEditorial,
+  'fable': fableEditorial,
+  'lazy-swimmer-9inch': lazySwimmer9inchEditorial,
+  'kasuminokaeru': kasuminokaeruEditorial,
+  'vahid80-80': vahid80Editorial,
+  'heddon-zarapuppy': heddonZaraPuppyEditorial,
+  'ignited-tail-fusion': ignitedTailFusionEditorial,
+  'zagger-50-b1-bone': zagger50B1BoneEditorial,
+  'crawl-up': crawlUpEditorial,
+  'bosogaeru': bosogaeruEditorial,
+  'one-up-shad-6-monotone': oneUpShad6MonotoneEditorial,
 };
