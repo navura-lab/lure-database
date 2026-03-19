@@ -161,7 +161,7 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 |-----|---------|---------|------|
 | YouTube Data API v3 | `YOUTUBE_API_KEY` | 10,000ユニット/日（~95ルアー） | ✅ 動作確認済み |
 | Serper.dev | `SERPER_API_KEY` | 2,500クエリ/月（無料枠） | ✅ 動作確認済み |
-| もしもアフィリエイト | `MOSHIMO_AFFILIATE_ID=1181365` | - | ✅ 楽天提携済み |
+| もしもアフィリエイト | `MOSHIMO_AFFILIATE_ID=1182938` | - | ✅ 楽天提携済み、Amazon審査待ち |
 
 ### launchd plist
 全11ジョブ: `~/Library/LaunchAgents/com.fablus.lure-*.plist`
