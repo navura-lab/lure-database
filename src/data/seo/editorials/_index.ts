@@ -17,7 +17,6 @@ import { boomEditorial } from './boom';
 import { bosogaeruEditorial } from './bosogaeru';
 import { briliant12Editorial } from './briliant12';
 import { buttobiKun95sEditorial } from './buttobi-kun95s';
-import { charmEditorial } from './charm';
 import { clearSPopperEditorial } from './clear-s-popper';
 import { crapeaSftEditorial } from './crapea-sft-area';
 import { crawlUpEditorial } from './crawl-up';
@@ -343,8 +342,19 @@ import { teppanLongEditorial } from './teppan-long';
 import { hardcoreSutteEditorial } from './dps-sutte';
 import { stillEditorial } from './smith-still';
 import { saltigaDoradoSliderIIEditorial } from './saltiga-dorado-slider-ii';
+// 2026-03-19 追加分 第21弾（10件）
+import { metalShalldusEditorial } from './metal-shalldus';
+import { xsEditorial } from './xs';
+import { makiSlwEditorial } from './maki-slw';
+import { ospBladeJigEditorial } from './o-s-p-blade-jig';
+import { tGravelEditorial } from './t-gravel';
+import { kosmoEditorial } from './kosmo';
+import { surfaceWanderSaltEditorial } from './surfacewander-salt';
+import { cbSeriesEditorial } from './cb';
+import { bitsyBugMiniCastingJigEditorial } from './bitsy-bug-mini-casting-jig';
+import { slowEmotionFlapEditorial } from './slow-emotion-flap';
 
-/** slug → EditorialReview のマップ（全317件） */
+/** slug → EditorialReview のマップ（全327件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -357,7 +367,6 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'bosogaeru': bosogaeruEditorial,
   'briliant12': briliant12Editorial,
   'buttobi-kun95s': buttobiKun95sEditorial,
-  'charm': charmEditorial,
   'clear-s-popper': clearSPopperEditorial,
   'crapea-sft-area': crapeaSftEditorial,
   'crawl-up': crawlUpEditorial,
@@ -683,4 +692,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'dps-sutte': hardcoreSutteEditorial,
   'trout-still': stillEditorial,
   'saltigadorado-slider-ii': saltigaDoradoSliderIIEditorial,
+  // 2026-03-19 追加分 第21弾（10件）
+  'metal-shalldus': metalShalldusEditorial,
+  'xs': xsEditorial,
+  'maki-slw': makiSlwEditorial,
+  'o-s-p-blade-jig': ospBladeJigEditorial,
+  't-gravel': tGravelEditorial,
+  'kosmo': kosmoEditorial,
+  'surfacewander-salt': surfaceWanderSaltEditorial,
+  'cb': cbSeriesEditorial,
+  'bitsy-bug-mini-casting-jig': bitsyBugMiniCastingJigEditorial,
+  'slow-emotion-flap': slowEmotionFlapEditorial,
 };
