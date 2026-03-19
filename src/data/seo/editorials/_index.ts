@@ -439,8 +439,19 @@ import { hyperVibesEditorial } from './hyper-vibes';
 import { slowEmotionBumpEditorial } from './slow-emotion-bump';
 import { superGrubEditorial } from './bass-supergrub';
 import { ripeJointMetalVibeEditorial } from './ripe-joint-metal-vibe';
+// 2026-03-20 追加分 第30弾（10件）
+import { twinklespoonEditorial } from './tsuinkurusupun';
+import { headDxMiniRTypeEditorial } from './head-dx-mini-r-type';
+import { wanderSlimSaltEditorial } from './wanderslim-salt';
+import { grassHeroJigEditorial } from './grass-hero-jig';
+import { rapalaXRapEditorial } from './rapala-xr';
+import { kyogaJigSemilongEditorial } from './ktkkkzc';
+import { bambluzJigShortEditorial } from './bambluz-jig-short';
+import { naburadekaEditorial } from './nbd';
+import { rollingBaitBottomTuneEditorial } from './roringubeito-botomuchun';
+import { lilSuckerEditorial } from './lil-sucker';
 
-/** slug → EditorialReview のマップ（全405件） */
+/** slug → EditorialReview のマップ（全415件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -875,4 +886,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'slow-emotion-bump': slowEmotionBumpEditorial,
   'bass-supergrub': superGrubEditorial,
   'ripe-joint-metal-vibe-65-80': ripeJointMetalVibeEditorial,
+  // 2026-03-20 追加分 第30弾（10件）
+  'tsuinkurusupun': twinklespoonEditorial,
+  'head-dx-mini-r-type': headDxMiniRTypeEditorial,
+  'wanderslim-salt': wanderSlimSaltEditorial,
+  'grass-hero-jig': grassHeroJigEditorial,
+  'rapala-xr': rapalaXRapEditorial,
+  'ktkkkzc': kyogaJigSemilongEditorial,
+  'bambluz-jig-short': bambluzJigShortEditorial,
+  'nbd': naburadekaEditorial,
+  'roringubeito-botomuchun': rollingBaitBottomTuneEditorial,
+  'lil-sucker': lilSuckerEditorial,
 };
