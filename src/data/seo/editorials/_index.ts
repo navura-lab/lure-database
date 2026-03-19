@@ -1,6 +1,6 @@
 /**
  * エディトリアルレビュー インデックス（自動生成）
- * 全93件のルアーエディトリアルレビュー
+ * 全124件のルアーエディトリアルレビュー
  */
 
 import type { EditorialReview } from './huggos';
@@ -121,8 +121,30 @@ import { easyShinerEditorial } from './easy-shiner';
 import { jackhammerEditorial } from './jackhammer';
 import { bigBackerMetalEditorial } from './bigbackermetal';
 import { bakuryuBinbindamaSlideEditorial } from './bakuryu-pb-binbindama-slide';
+// 2026-03-19 追加分 第2弾（10件）
+import { twinkleEditorial } from './tw';
+import { xrapMagnumEditorial } from './rapala-xrmag';
+import { imoGrubEditorial } from './bass-imo';
+import { bevyShadEditorial } from './bevyshad';
+import { ospJigZeroOneEditorial } from './o-s-p-jig-zero-one';
+import { fSardineEditorial } from './f-sardine';
+import { egiBanchoNormalEditorial } from './egibanchonormal';
+import { rangeVibEditorial } from './renjibaibu';
+import { jpvLsEditorial } from './jpv-ls';
+import { gilling125Editorial } from './gilling125';
+// 2026-03-19 追加分 第3弾（10件）
+import { wanderSaltEditorial } from './wander-salt';
+import { rapalaDtEditorial } from './rapala-dt';
+import { madWagEditorial } from './mad-wag';
+import { varidSaltEditorial } from './varid-salt';
+import { jigaroEditorial } from './jigaro';
+import { metalAdictType04Editorial } from './metal-adict-type04';
+import { saltigaJiveChopperEditorial } from './saltiga-jive-chopper';
+import { wiggleRiderEditorial } from './wigglerider';
+import { swimRiderShortEditorial } from './swimridershort';
+import { surfPointerAyameEditorial } from './surfpointer-salt';
 
-/** slug → EditorialReview のマップ（全114件） */
+/** slug → EditorialReview のマップ（全134件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -239,4 +261,26 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'jackhammer': jackhammerEditorial,
   'bigbackermetal': bigBackerMetalEditorial,
   'bakuryu-pb-binbindama-slide': bakuryuBinbindamaSlideEditorial,
+  // 2026-03-19 追加分 第2弾（10件）
+  'tw': twinkleEditorial,
+  'rapala-xrmag': xrapMagnumEditorial,
+  'bass-imo': imoGrubEditorial,
+  'bevyshad': bevyShadEditorial,
+  'o-s-p-jig-zero-one': ospJigZeroOneEditorial,
+  'f-sardine': fSardineEditorial,
+  'egibanchonormal': egiBanchoNormalEditorial,
+  'renjibaibu-45es55es70es80es90es100es': rangeVibEditorial,
+  'jpv-ls': jpvLsEditorial,
+  'gilling125': gilling125Editorial,
+  // 2026-03-19 追加分 第3弾（10件）
+  'wander-salt': wanderSaltEditorial,
+  'rapala-dt': rapalaDtEditorial,
+  'mad-wag': madWagEditorial,
+  'varid-salt': varidSaltEditorial,
+  'jigaro': jigaroEditorial,
+  'metal-adict-type04-30g40g60g100g125g150g175g200g': metalAdictType04Editorial,
+  'rnfg2fp': saltigaJiveChopperEditorial,
+  'wigglerider': wiggleRiderEditorial,
+  'swimridershort': swimRiderShortEditorial,
+  'surfpointer-salt': surfPointerAyameEditorial,
 };
