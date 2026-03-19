@@ -201,8 +201,30 @@ import { ddPanishEditorial } from './trout-ddpanish';
 import { metalmaruEditorial } from './metalmaru';
 import { masukuroutoWeeperEditorial } from './masukurouto-weeper';
 import { clutchEditorial } from './clutch';
+// 2026-03-19 追加分 第8弾（10件）
+import { kougaBayRubberFreeBetaEditorial } from './kouga-bayrubberfree-beta';
+import { jigParaVerticalTungstenEditorial } from './jigpara-vertical-tungsten';
+import { morethanSwitchHitterDHEditorial } from './morethan-switchhitter-dh';
+import { tgBinBinSwitchEditorial } from './tg-binbin-switch';
+import { bevyVibEditorial } from './bevy-vib';
+import { anchovyMetalTypeZeroEditorial } from './anchovy-metal-type-zero';
+import { saltigaKadlerEditorial } from './saltiga-kadler';
+import { rawlerJigEditorial } from './rawler-jig';
+import { powerBladeEditorial } from './power-blade';
+import { kougaBayRubberFreeBetaHeadEditorial } from './kouga-bayrubberfree-beta-head';
+// 2026-03-19 追加分 第9弾（10件）
+import { bsEditorial } from './bs';
+import { troutPureEditorial } from './trout-pure';
+import { lvEditorial } from './lv';
+import { littlemaxEditorial } from './littlemax';
+import { unfairAreaEditorial } from './unfair-area';
+import { newSlideswimmerEditorial } from './new-slideswimmer';
+import { teppanVibEditorial } from './teppan-vib';
+import { gurasuminoEditorial } from './gurasumino';
+import { alexandraEditorial } from './alexandra';
+import { egiKEditorial } from './egi-k';
 
-/** slug → EditorialReview のマップ（全188件） */
+/** slug → EditorialReview のマップ（全208件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -399,4 +421,26 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'metalmaru': metalmaruEditorial,
   'masukurouto-weeper': masukuroutoWeeperEditorial,
   'clutch': clutchEditorial,
+  // 2026-03-19 追加分 第8弾（10件）
+  'j59lrk3': kougaBayRubberFreeBetaEditorial,
+  'jpvtg': jigParaVerticalTungstenEditorial,
+  'jz4hubt': morethanSwitchHitterDHEditorial,
+  'tgbinbinsuitchi': tgBinBinSwitchEditorial,
+  'bevyvib': bevyVibEditorial,
+  'anchobimetaru-type-zero': anchovyMetalTypeZeroEditorial,
+  'm3ga1db': saltigaKadlerEditorial,
+  'rawler-jig': rawlerJigEditorial,
+  'power-blade-standard-colorado-willow': powerBladeEditorial,
+  'bguc4bu': kougaBayRubberFreeBetaHeadEditorial,
+  // 2026-03-19 追加分 第9弾（10件）
+  'bs': bsEditorial,
+  'trout-pure': troutPureEditorial,
+  'lv': lvEditorial,
+  'littlemax': littlemaxEditorial,
+  'unfair-area': unfairAreaEditorial,
+  'new-slideswimmer': newSlideswimmerEditorial,
+  'teppan-vib-9g-14g-20g-26g': teppanVibEditorial,
+  'gurasumino': gurasuminoEditorial,
+  'alexandra': alexandraEditorial,
+  'egi-k': egiKEditorial,
 };
