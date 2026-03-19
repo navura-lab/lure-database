@@ -277,8 +277,19 @@ import { seaRideMiniEditorial } from './sea-ride-mini';
 import { tinyGilling75Editorial } from './tiny-gilling-75';
 import { shaker325Editorial } from './3-25-shaker';
 import { fusion19BucktailJigsEditorial } from './fusion19-bucktail-jigs';
+// 2026-03-19 追加分 第15弾（10件）
+import { oceanFlashEditorial } from './oshanfurasshu';
+import { jiggingRapEditorial } from './rapala-jgr';
+import { cbNagamasaEditorial } from './salt-cbnagamasa';
+import { rapalaOriginalFloaterEditorial } from './rapala-f';
+import { rollingBaitEditorial } from './rollingbait';
+import { reactionFootballEditorial } from './reactionfootball';
+import { grub4Editorial } from './grub4';
+import { crusaderEditorial } from './d7dln7k';
+import { banjiShotEditorial } from './banjishotto-20304050';
+import { rSardineEditorial } from './r-sardine';
 
-/** slug → EditorialReview のマップ（全257件） */
+/** slug → EditorialReview のマップ（全267件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -551,4 +562,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'tiny-gilling-75': tinyGilling75Editorial,
   '3-25-shaker': shaker325Editorial,
   'fusion19-bucktail-jigs': fusion19BucktailJigsEditorial,
+  // 2026-03-19 追加分 第15弾（10件）
+  'oshanfurasshu': oceanFlashEditorial,
+  'rapala-jgr': jiggingRapEditorial,
+  'salt-cbnagamasa': cbNagamasaEditorial,
+  'rapala-f': rapalaOriginalFloaterEditorial,
+  'rollingbait': rollingBaitEditorial,
+  'reactionfootball': reactionFootballEditorial,
+  'grub4': grub4Editorial,
+  'd7dln7k': crusaderEditorial,
+  'banjishotto-20304050': banjiShotEditorial,
+  'r-sardine': rSardineEditorial,
 };
