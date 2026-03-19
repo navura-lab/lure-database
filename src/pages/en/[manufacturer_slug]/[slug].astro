@@ -17,6 +17,7 @@ import { generateAutoDescriptionEn } from '../../../i18n/generators/auto-descrip
 import { getFieldCompatibilityEn } from '../../../i18n/generators/field-compatibility.en';
 import { generateWeightStrategyEn } from '../../../i18n/generators/weight-strategy.en';
 import { localizeSimilarSeries } from '../../../i18n/generators/similar-series.en';
+import { editorialReviews } from '../../../data/seo/editorials/_index';
 
 const locale = 'en' as const;
 
@@ -40,6 +41,9 @@ const typeEn = LURE_TYPE_EN[series.type] ?? series.type;
 const fishEn = categoryFish ? (FISH_NAME_EN[categoryFish] ?? categoryFish) : '';
 
 const hasLimited = series.colors.some(c => c.is_limited);
+
+// エディトリアルレビュー（SEO Pipeline生成コンテンツ）
+const editorial = editorialReviews[series.slug] || null;
 const hasPrice = series.price_range.max > 0;
 
 // 価格表示（USD換算付き）
@@ -362,6 +366,82 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
         </p>
       </div>
     </section>
+
+    <!-- Editorial Review -->
+    {editorial && (
+      <section class="mb-12">
+        <div class="bg-gradient-to-br from-surface to-bg rounded-2xl border border-border-light p-6 sm:p-8">
+          <p class="text-lg sm:text-xl font-bold text-text leading-snug mb-6">
+            {editorial.catchcopy}
+          </p>
+          <div class="text-[15px] text-text-mid leading-[1.9] whitespace-pre-line mb-8">
+            {editorial.overview}
+          </div>
+          <div class="space-y-6 mb-8">
+            {editorial.strengths.map((s, i) => (
+              <div>
+                <h3 class="text-base font-bold text-text mb-2 flex items-center gap-2">
+                  <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-accent text-white text-xs font-bold">{i + 1}</span>
+                  {s.title}
+                </h3>
+                <p class="text-[14px] text-text-mid leading-[1.85] whitespace-pre-line">{s.body}</p>
+              </div>
+            ))}
+          </div>
+          <div class="mb-8">
+            <h3 class="text-base font-bold text-text mb-4">How to Use</h3>
+            <div class="space-y-4">
+              {editorial.usage.map(u => (
+                <div class="bg-bg rounded-xl border border-border-light p-4">
+                  <p class="text-sm font-bold text-accent mb-1.5">{u.scene}</p>
+                  <p class="text-[14px] text-text-mid leading-[1.8]">{u.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="mb-8">
+            <h3 class="text-base font-bold text-text mb-2">Color Guide</h3>
+            <p class="text-[14px] text-text-mid leading-[1.85] whitespace-pre-line">{editorial.colorGuide}</p>
+          </div>
+          <div class="mb-8">
+            <h3 class="text-base font-bold text-text mb-3">Things to Consider</h3>
+            <div class="space-y-2">
+              {editorial.concerns.map(c => (
+                <div class="flex items-start gap-2 text-[14px] text-text-mid">
+                  <span class="text-warning mt-0.5 shrink-0">▸</span>
+                  <span class="leading-[1.8]">{c}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            <div class="bg-accent-bg rounded-xl p-4">
+              <p class="text-sm font-bold text-accent mb-2">Recommended For</p>
+              <div class="space-y-1.5">
+                {editorial.recommendation.recommended.map(r => (
+                  <p class="text-[13px] text-text-mid flex items-start gap-1.5">
+                    <span class="text-accent shrink-0">✓</span> {r}
+                  </p>
+                ))}
+              </div>
+            </div>
+            <div class="bg-surface rounded-xl p-4">
+              <p class="text-sm font-bold text-text-dim mb-2">Not Recommended For</p>
+              <div class="space-y-1.5">
+                {editorial.recommendation.notRecommended.map(r => (
+                  <p class="text-[13px] text-text-mid flex items-start gap-1.5">
+                    <span class="text-text-dim shrink-0">—</span> {r}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+          <p class="text-xs text-text-faint">
+            ※ CAST/LOG Editorial Review. Based on database analysis as of {series.created_at?.slice(0, 10) || '2026-03-20'}.
+          </p>
+        </div>
+      </section>
+    )}
 
     <!-- Category Position -->
     {categoryRank > 0 && categoryTotal > 2 && fishEn && (

@@ -353,8 +353,30 @@ import { surfaceWanderSaltEditorial } from './surfacewander-salt';
 import { cbSeriesEditorial } from './cb';
 import { bitsyBugMiniCastingJigEditorial } from './bitsy-bug-mini-casting-jig';
 import { slowEmotionFlapEditorial } from './slow-emotion-flap';
+// 2026-03-20 追加分 第22弾（10件）
+import { furittsuEditorial } from './furittsu';
+import { kuttail4Editorial } from './kuttail4';
+import { masukuroutoEditorial } from './masukurouto';
+import { makippaEditorial } from './makippa';
+import { bassZakoEditorial } from './bass-zako';
+import { staggerOriginal4Editorial } from './stagger-original-4';
+import { xrjEditorial } from './xrj';
+import { dzonefryEditorial } from './dzonefry';
+import { legworm25Editorial } from './legworm25';
+import { areasEditorial } from './areas';
+// 2026-03-20 追加分 第23弾（10件）
+import { stingerButterflyPebbleStickEditorial } from './stinger-butterfly-pebblestick';
+import { kougaBladeBreakertgTamagamiEditorial } from './kouga-blade-breaker-tg-tamagami';
+import { varidHWSaltEditorial } from './varid-hw-salt';
+import { scrambleAgraamSakuramasuEditorial } from './scramble-agraam-sakuramasu';
+import { dContactEditorial } from './trout-d-contact';
+import { sengokuBladeEditorial } from './sengoku-blade';
+import { dContactIIEditorial } from './trout-d-contactii';
+import { egiBancho3DEditorial } from './egi-bancho-3d';
+import { curlyTailShadEditorial } from './curly-tail-shad';
+import { saltigaTGBaitEditorial } from './saltiga-tg-bait';
 
-/** slug → EditorialReview のマップ（全327件） */
+/** slug → EditorialReview のマップ（全347件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -703,4 +725,26 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'cb': cbSeriesEditorial,
   'bitsy-bug-mini-casting-jig': bitsyBugMiniCastingJigEditorial,
   'slow-emotion-flap': slowEmotionFlapEditorial,
+  // 2026-03-20 追加分 第22弾（10件）
+  'furittsu': furittsuEditorial,
+  'kuttail4': kuttail4Editorial,
+  'masukurouto': masukuroutoEditorial,
+  'makippa': makippaEditorial,
+  'bass-zako': bassZakoEditorial,
+  'stagger-original-4': staggerOriginal4Editorial,
+  'xrj': xrjEditorial,
+  'dzonefry': dzonefryEditorial,
+  'legworm25': legworm25Editorial,
+  'areas': areasEditorial,
+  // 2026-03-20 追加分 第23弾（10件）
+  'suteingabatafurai-peburusuteikku': stingerButterflyPebbleStickEditorial,
+  'zu6b9rp': kougaBladeBreakertgTamagamiEditorial,
+  'varidhw-salt': varidHWSaltEditorial,
+  'scramble-agraam-sakuramasu-edition-2024': scrambleAgraamSakuramasuEditorial,
+  'trout-d-contact': dContactEditorial,
+  'sengoku-blade': sengokuBladeEditorial,
+  'trout-d-contactii': dContactIIEditorial,
+  'egibanchotyped-2': egiBancho3DEditorial,
+  'kurotailshad': curlyTailShadEditorial,
+  'p6jwzpa': saltigaTGBaitEditorial,
 };
