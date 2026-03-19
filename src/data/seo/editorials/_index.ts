@@ -223,8 +223,30 @@ import { teppanVibEditorial } from './teppan-vib';
 import { gurasuminoEditorial } from './gurasumino';
 import { alexandraEditorial } from './alexandra';
 import { egiKEditorial } from './egi-k';
+// 2026-03-19 追加分 第10弾（10件）
+import { flickerShadEditorial } from './flicker-shad';
+import { evokeEditorial } from './evoke';
+import { tgBaitEditorial } from './tg-bait';
+import { anchovyMetalType2Editorial } from './anchovymetal-type2';
+import { cbMasamuneEditorial } from './cb-masamune';
+import { cbMuramasaEditorial } from './cb-muramasa';
+import { slowBlattREditorial } from './slow-blatt-r';
+import { grassripperEditorial } from './grassripper';
+import { wanderReachSaltEditorial } from './wander-reach-salt';
+import { lcMtoEditorial } from './lc-mto';
+// 2026-03-19 追加分 第11弾（10件）
+import { gulpAliveMinnowEditorial } from './gulp-alive-minnow';
+import { stingerButterflyEasyPebbleEditorial } from './suteingabatafurai-ijipeburu';
+import { twsdEditorial } from './twsd';
+import { levelOndineTwilightXFEditorial } from './level-ondine-twilight-xf';
+import { egiKShallowEditorial } from './egi-k-shallow';
+import { currentRiderEditorial } from './currentrider';
+import { scrambleTurboSLJEditorial } from './scramble-turboslj';
+import { oceanFlashTGEditorial } from './oshanfurasshu-tg';
+import { slowEmotionChaffEditorial } from './slowemotion-chaff-2024';
+import { flapQREditorial } from './flapqr-2024';
 
-/** slug → EditorialReview のマップ（全208件） */
+/** slug → EditorialReview のマップ（全228件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -443,4 +465,26 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'gurasumino': gurasuminoEditorial,
   'alexandra': alexandraEditorial,
   'egi-k': egiKEditorial,
+  // 2026-03-19 追加分 第10弾（10件）
+  'flicker-shad': flickerShadEditorial,
+  'evoke': evokeEditorial,
+  'huz2stf': tgBaitEditorial,
+  'anchovymetal-type-2': anchovyMetalType2Editorial,
+  'salt-masamune': cbMasamuneEditorial,
+  'salt-cbmuramasa': cbMuramasaEditorial,
+  'slow-blatt-r': slowBlattREditorial,
+  'grassripper': grassripperEditorial,
+  'wanderreach-salt': wanderReachSaltEditorial,
+  'lcmto': lcMtoEditorial,
+  // 2026-03-19 追加分 第11弾（10件）
+  'gulp-alive-minnow': gulpAliveMinnowEditorial,
+  'suteingabatafurai-ijipeburu': stingerButterflyEasyPebbleEditorial,
+  'twsd': twsdEditorial,
+  'level-ondine-twillight-xf': levelOndineTwilightXFEditorial,
+  'egi-k-sharo-supasharo': egiKShallowEditorial,
+  'currentrider': currentRiderEditorial,
+  'scramble-turboslj': scrambleTurboSLJEditorial,
+  'oshanfurasshu-tg': oceanFlashTGEditorial,
+  'slowemotion-chaff-2024': slowEmotionChaffEditorial,
+  'flapqr-2024': flapQREditorial,
 };
