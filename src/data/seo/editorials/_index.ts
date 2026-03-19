@@ -245,8 +245,29 @@ import { scrambleTurboSLJEditorial } from './scramble-turboslj';
 import { oceanFlashTGEditorial } from './oshanfurasshu-tg';
 import { slowEmotionChaffEditorial } from './slowemotion-chaff-2024';
 import { flapQREditorial } from './flapqr-2024';
+// 2026-03-19 追加分 第12弾（9件）
+import { hardcoreHeavyShotEditorial } from './hardcore-heavy-shot';
+import { jigaroQREditorial } from './jigaro-qr';
+import { bladecrossEditorial } from './bladecross';
+import { powerbaitAtomicTubesEditorial } from './powerbait-atomic-tubes';
+import { slashBladeEditorial } from './slash-blade';
+import { keitanJigStdEditorial } from './keitan-jig-std';
+import { bfreeze78SaltEditorial } from './bfreeze78-salt';
+import { slowBlattSEditorial } from './slow-blatt-s';
+import { finSFishEditorial } from './fin-s-fish';
+// 2026-03-19 追加分 第13弾（10件）
+import { wantsCraPeaEditorial } from './wantscrapea-area';
+import { burittoEditorial } from './buritto';
+import { airblowAreaEditorial } from './airblow-area';
+import { swingChatterEditorial } from './swing-chatter';
+import { troutBackAndForthEditorial } from './trout-backandforth';
+import { dzoneEditorial } from './dzone';
+import { nzCrawlerEditorial } from './nz-crawler';
+import { knockingJigEditorial } from './knocking-jig';
+import { metalAdict06Editorial } from './metal-adict-06';
+import { wobtyEditorial } from './wobty';
 
-/** slug → EditorialReview のマップ（全228件） */
+/** slug → EditorialReview のマップ（全247件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -487,4 +508,25 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'oshanfurasshu-tg': oceanFlashTGEditorial,
   'slowemotion-chaff-2024': slowEmotionChaffEditorial,
   'flapqr-2024': flapQREditorial,
+  // 2026-03-19 追加分 第12弾（9件）
+  'hardcore-heavy-shot': hardcoreHeavyShotEditorial,
+  'jigaro-qr': jigaroQREditorial,
+  'bladecross': bladecrossEditorial,
+  'powerbait-pre-rigged-atomic-tubes': powerbaitAtomicTubesEditorial,
+  'slash-blade': slashBladeEditorial,
+  'keitan-jig-std': keitanJigStdEditorial,
+  'bfreeze78-salt': bfreeze78SaltEditorial,
+  'slow-blatt-s': slowBlattSEditorial,
+  'fin-s-fish': finSFishEditorial,
+  // 2026-03-19 追加分 第13弾（10件）
+  'wantscrapea-area': wantsCraPeaEditorial,
+  'buritto': burittoEditorial,
+  'airblow-area': airblowAreaEditorial,
+  'swing-chatter': swingChatterEditorial,
+  'trout-backandforth': troutBackAndForthEditorial,
+  'dzone': dzoneEditorial,
+  'nz-crawler': nzCrawlerEditorial,
+  'knocking-jig': knockingJigEditorial,
+  'metal-adict-06': metalAdict06Editorial,
+  'wobty': wobtyEditorial,
 };
