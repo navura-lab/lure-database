@@ -165,8 +165,44 @@ import { k2fEditorial } from './k2f';
 import { tnTrigonEditorial } from './tn-trigon';
 import { switchHitterEditorial } from './p84ie5s';
 import { egiBanchoFastSinkingEditorial } from './egibanchotyped';
+// 2026-03-19 追加分 第6弾（17件）
+import { pjvEditorial } from './pjv';
+import { y2JigEditorial } from './y2-jig';
+import { driftTuneEditorial } from './drift-tune';
+import { valcyanomEditorial } from './valcyanom';
+import { bigbackerEBradeEditorial } from './bigbacker-e-brade';
+import { jpvEditorial } from './jpv';
+import { snaqjigEditorial } from './snaqjig';
+import { betty59incEditorial } from './betty5-9inc';
+import { jointedclaw70Editorial } from './jointedclaw70';
+import { jpmEditorial } from './jpm';
+import { anchovymetalEditorial } from './anchovymetal';
+import { bstraightEditorial } from './bstraight';
+import { squidSeekerEditorial } from './squid-seeker';
+import { stingerButterflyTGGatlingEditorial } from './suteingabatafurai-tggatoringu';
+import { zinxMiniSuperBladeTGEditorial } from './zinx-mini-super-blade-tg';
+import { ksJigEditorial } from './ks-jig';
+import { stingerButterflySardinWeaverEditorial } from './suteingabatafurai-sadein-ueba-100g-500g';
+// 2026-03-19 追加分 第7弾（17件）
+import { buffetFsEditorial } from './bu';
+import { swingImpactFatEditorial } from './swing-impact-fat';
+import { ospJigZeroThreeHuntsEditorial } from './o-s-p-jig-zero-three-hunts';
+import { sinkingWorksEditorial } from './m';
+import { panishEditorial } from './trout-panish';
+import { hardcoreMonsterShotEditorial } from './hardcore-monster-shots';
+import { keitanJigEditorial } from './keitan-jig';
+import { crazyFlapperEditorial } from './crazy-flapper';
+import { c4JigEditorial } from './c4jig';
+import { swingImpactEditorial } from './swing-impact';
+import { irJigEditorial } from './irjig';
+import { centerSardineEditorial } from './sentasadein';
+import { sammyEditorial } from './sammy';
+import { ddPanishEditorial } from './trout-ddpanish';
+import { metalmaruEditorial } from './metalmaru';
+import { masukuroutoWeeperEditorial } from './masukurouto-weeper';
+import { clutchEditorial } from './clutch';
 
-/** slug → EditorialReview のマップ（全154件） */
+/** slug → EditorialReview のマップ（全188件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -327,4 +363,40 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'tn-trigon': tnTrigonEditorial,
   'p84ie5s': switchHitterEditorial,
   'egibanchotyped': egiBanchoFastSinkingEditorial,
+  // 2026-03-19 追加分 第6弾（17件）
+  'pjv': pjvEditorial,
+  'y2-jig': y2JigEditorial,
+  'drift-tune': driftTuneEditorial,
+  'valcyanom': valcyanomEditorial,
+  'bigbacker-e-brade': bigbackerEBradeEditorial,
+  'jpv': jpvEditorial,
+  'snaqjig': snaqjigEditorial,
+  'betty5-9inc': betty59incEditorial,
+  'jointedclaw70': jointedclaw70Editorial,
+  'jpm': jpmEditorial,
+  'anchovymetal': anchovymetalEditorial,
+  'bstraight': bstraightEditorial,
+  'squid-seeker': squidSeekerEditorial,
+  'suteingabatafurai-tggatoringu': stingerButterflyTGGatlingEditorial,
+  'zinx-mini-super-blade-tg': zinxMiniSuperBladeTGEditorial,
+  'ks-jig': ksJigEditorial,
+  'suteingabatafurai-sadein-ueba-100g-500g': stingerButterflySardinWeaverEditorial,
+  // 2026-03-19 追加分 第7弾（17件）
+  'bu': buffetFsEditorial,
+  'swing-impact-fat': swingImpactFatEditorial,
+  'o-s-p-jig-zero-three-hunts': ospJigZeroThreeHuntsEditorial,
+  'm': sinkingWorksEditorial,
+  'trout-panish': panishEditorial,
+  'hardcore-monster-shots': hardcoreMonsterShotEditorial,
+  'keitan-jig': keitanJigEditorial,
+  'crazy-flapper': crazyFlapperEditorial,
+  'c4jig': c4JigEditorial,
+  'swing-impact': swingImpactEditorial,
+  'irjig': irJigEditorial,
+  'sentasadein': centerSardineEditorial,
+  'sammy': sammyEditorial,
+  'trout-ddpanish': ddPanishEditorial,
+  'metalmaru': metalmaruEditorial,
+  'masukurouto-weeper': masukuroutoWeeperEditorial,
+  'clutch': clutchEditorial,
 };
