@@ -321,8 +321,30 @@ import { gallopAssistFallEditorial } from './gallop-assist-fall';
 import { tourGradeSpinnerbaitEditorial } from './tour-grade-spinnerbait';
 import { longWormJackallEditorial } from './long-worm-jackall';
 import { powerBladeCompactDWEditorial } from './power-blade-compact-dw';
+// 2026-03-19 追加分 第19弾（10件）
+import { laserChinookSEditorial } from './ndrt1ch';
+import { masukuroutoTeachEditorial } from './masukurouto-teach';
+import { grandeTheOneEditorial } from './grande-the-one';
+import { gulpAlivePaddleshadEditorial } from './gulp-alive-saltwater-paddleshad';
+import { metalbanchoEditorial } from './metalbancho';
+import { chibipanikuraEditorial } from './chibipanikura';
+import { jigaroMassiveEditorial } from './jigaro-massive';
+import { gekiasashadEditorial } from './gekiasashad';
+import { kougaBladeBreakesTamagamiEditorial } from './1o1f5os';
+import { needleJigEditorial } from './needle-jig';
+// 2026-03-19 追加分 第20弾（10件）
+import { panicraDrEditorial } from './panicra-dr';
+import { pointerEditorial } from './luckycraft-pointer';
+import { sidepress160fEditorial } from './sidepress-160f';
+import { dropDiamondEditorial } from './drop-diamond';
+import { ebf2Editorial } from './ebf-2';
+import { korokoroSutteEditorial } from './korokorosutte';
+import { teppanLongEditorial } from './teppan-long';
+import { hardcoreSutteEditorial } from './dps-sutte';
+import { stillEditorial } from './smith-still';
+import { saltigaDoradoSliderIIEditorial } from './saltiga-dorado-slider-ii';
 
-/** slug → EditorialReview のマップ（全297件） */
+/** slug → EditorialReview のマップ（全317件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -639,4 +661,26 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'tour-grade-spinnerbait': tourGradeSpinnerbaitEditorial,
   'ronguemu': longWormJackallEditorial,
   'power-blade-compact-double-willow': powerBladeCompactDWEditorial,
+  // 2026-03-19 追加分 第19弾（10件）
+  'ndrt1ch': laserChinookSEditorial,
+  'masukurouto-teach': masukuroutoTeachEditorial,
+  'grande-the-one': grandeTheOneEditorial,
+  'gulp-alive-saltwater-paddleshad': gulpAlivePaddleshadEditorial,
+  'metalbancho': metalbanchoEditorial,
+  'chibipanikura': chibipanikuraEditorial,
+  'jigaro-massive': jigaroMassiveEditorial,
+  'gekiasashad': gekiasashadEditorial,
+  '1o1f5os': kougaBladeBreakesTamagamiEditorial,
+  'needle-jig': needleJigEditorial,
+  // 2026-03-19 追加分 第20弾（10件）
+  '2026-02-26-8768': panicraDrEditorial,
+  'luckycraft-pointer': pointerEditorial,
+  'saidopuresu-160f': sidepress160fEditorial,
+  'trout-drop-diamond': dropDiamondEditorial,
+  'ebf-2': ebf2Editorial,
+  'korokorosutte': korokoroSutteEditorial,
+  'teppan-long': teppanLongEditorial,
+  'dps-sutte': hardcoreSutteEditorial,
+  'trout-still': stillEditorial,
+  'saltigadorado-slider-ii': saltigaDoradoSliderIIEditorial,
 };
