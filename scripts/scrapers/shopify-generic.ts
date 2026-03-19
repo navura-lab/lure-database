@@ -113,13 +113,25 @@ const NON_LURE_PATTERNS: RegExp[] = [
   /\b(replacement\s+tail|replacement\s+fin|3d\s+eyes|silicone\s+skirt|rigging\s+dots|rigging\s+tool|wacky\s+rigging\s+tool|screen\s+spray|bait\s+cover|glass\s+rattl)\b/i,
   // その他非ルアー
   /\b(digital\s+catalog|turkey\s+call|can\s+cooler|sunglass\s+retainer|super\s+stank|scent)\b/i,
+  // 日本語: 非ルアー製品
+  /アフターパーツ/,
+  /スペアパーツ/,
+  /カスタムパーツ/,
+  /(?:キャスティング|ジギング|ベイト|スピニング|ショアジギング)ロッド/,
+  /フックユニット/,
+  /アシストフック/,
+  /シンカー/,
+  /グローブ$/,
+  /ショルダーバッグ/,
+  /Tシャツ/,
+  /キャスティングロッド/,
 ];
 
 /**
  * Shopify の product_type で明らかに非ルアーと判定できるもの。
  * combined テキストへのパターンマッチより先にチェックして確実に弾く。
  */
-const NON_LURE_PRODUCT_TYPES = /^(terminal\s+tackle|apparel|headwear|apparel\s*&\s*headwear|accessories|rods?|reels?|line|tools?)$/i;
+const NON_LURE_PRODUCT_TYPES = /^(terminal\s+tackle|apparel|headwear|apparel\s*&\s*headwear|accessories|rods?|reels?|lines?|tools?|hooks?|weights?|sinkers?|bags?|clothing|gear|tackle|parts?)$/i;
 
 /** 非ルアー商品かどうかを判定する */
 export function isNonLureProduct(name: string, tags: string[], productType: string): boolean {

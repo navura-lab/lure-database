@@ -25,6 +25,7 @@ import { getScraper, getRegisteredManufacturers, type ScrapedLure } from './scra
 import { normalizeType } from './lib/normalize-type.js';
 import { parseRegionArg, makeRegionFilter, isUSMaker, type Region } from './lib/regions.js';
 import { slugify } from '../src/lib/slugify.js';
+import { isNonLureProduct } from '../src/lib/fish-type-validation.js';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -387,6 +388,14 @@ async function processRecord(
     // 非ルアー商品の除外（Shopifyブランドが返す '__non_lure__' を検出）
     if (scraped.type === '__non_lure__') {
       const msg = `非ルアー商品をスキップ: ${scraped.name} (${manufacturerSlug})`;
+      log(`⏭️ ${msg}`);
+      await updateAirtableStatus(recordId, 'エラー', msg);
+      return { recordId, lureName, status: 'error', message: msg, colorsProcessed: 0, colorsWithImage: 0, rowsInserted: 0 };
+    }
+
+    // 品質ゲート: 名前パターンによる非ルアー製品チェック（全パイプライン共通）
+    if (isNonLureProduct(scraped.name, scraped.slug)) {
+      const msg = `[品質ゲート] 非ルアー製品をスキップ: ${scraped.name} (${manufacturerSlug})`;
       log(`⏭️ ${msg}`);
       await updateAirtableStatus(recordId, 'エラー', msg);
       return { recordId, lureName, status: 'error', message: msg, colorsProcessed: 0, colorsWithImage: 0, rowsInserted: 0 };

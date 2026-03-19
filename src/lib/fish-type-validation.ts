@@ -129,16 +129,39 @@ export const EXCLUDED_TYPES = new Set(['ルアーアクセサリー']);
 /**
  * 非ルアー製品の名前パターン検出
  * シンカー/ウェイト単体、フック単体、ロッド、交換パーツ等を除外
- * 偽陽性ゼロのパターンのみ（「Blade」「Line」等の曖昧なものは含めない）
+ * 偽陽性ゼロのパターンのみ（「Blade」「Line」「Cover」「Ring」等の曖昧なものは含めない）
  */
 const EXCLUDED_NAME_PATTERNS = [
-  // シンカー/ウェイト単体
-  /\b(?:flipping|drop\s*shot|casting|neko|wacky|splitshot|split\s*ball)\s*weight\b/i,
+  // ===================== 日本語: 確実な非ルアー =====================
+
+  // アフターパーツ・スペアパーツ
+  /アフターパーツ/,
+  /スペアパーツ/,
+  /カスタムパーツ/,
+
+  // ロッド
+  /(?:キャスティング|ジギング|ベイト|スピニング|ショアジギング)ロッド/,
+
+  // フック単体
+  /フックユニット/,
+  /アシストフック/,
+
+  // シンカー
+  /シンカー/,
+  /オフセット.*シンカー/,
+
+  // アパレル
+  /グローブ$/,
+  /ショルダーバッグ/,
+  /Tシャツ/,
+
+  // ===================== 英語: シンカー/ウェイト単体 =====================
+  /\b(?:flipping|drop\s*shot|casting|neko|wacky|splitshot|split\s*ball|lead\s+wacky|nail)\s*weight\b/i,
   /\btungsten\s*worm\s*weight\b/i,
   /dome\s*neko\s*weight/i,
   /offset\s*sinker/i,
-  /オフセット.*シンカー/,
-  // フック単体
+
+  // ===================== 英語: フック単体 =====================
   /keel\s*weighted\s*hook/i,
   /\bswimbait\s*hook\b/i,
   /\bewg\s*hook\b/i,
@@ -146,28 +169,66 @@ const EXCLUDED_NAME_PATTERNS = [
   /\bbandito\s*flippin/i,
   /\blive\s*minnow\s*hook\b/i,
   /\bjugular.*hook\b/i,
-  /フックユニット/,
-  // ジグヘッド単体（ルアーではなくフック+シンカー製品）
-  /\bline.?thru\s*jig\s*head\b/i,
+  /\b(?:dart|treble|worm|widegap|finesse\s+wacky|finesse|toad)\s+hook\b/i,
+  /\bhook\s+\d+\/bag\b/i,
+
+  // ===================== 英語: ジグヘッド単体 =====================
+  /\bline[- ]?thru\s*jig\s*head\b/i,
+  /\blite\s+jig\s+heads?\b/i,
   /\btube\s*jig\b/i,
   /\bned\s*rig\s*jig\b/i,
-  /\bwacky\s*jig\s*head\b/i,
-  // ロッド
-  /\btravel\s*rod\b/i,
-  /ショアジギングロッド/,
-  // 交換パーツ/アクセサリー
-  /\breplacement\s*tail\b/i,
-  /\bsilicone\s*skirt\b/i,
+  /\b(?:wacky|neko)\s*(?:rig\s*)?(?:jig\s*)?head\b/i,
+
+  // ===================== 英語: ロッド =====================
+  /\b(?:spinning|casting|travel)\s+rod\b/i,
+  /^ROD$/i,
+
+  // ===================== 英語: 釣り糸 =====================
+  /\bfishing\s+line\b/i,
+
+  // ===================== 英語: バッグ・ケース =====================
+  /\bgear\s+bag\b/i,
+  /\btackle\s+(?:box|bag)\b/i,
+
+  // ===================== 英語: アパレル =====================
+  /\bapparel\b/i,
+
+  // ===================== 英語: スイベル =====================
+  /\bswivel\b/i,
+
+  // ===================== 英語: 交換パーツ/アクセサリー =====================
+  /\breplacement\s+(?:tail|fin)\b/i,
+  /\bsilicone\s+skirt\b/i,
   /\baccessory\s*kit\b/i,
-  /\bspare\s*parts\b/i,
+  /\bspare\s+parts?\b/i,
   /スペアパーツ/,
   /\bfishing\s*tool\b/i,
+
+  // ===================== 特定型番 =====================
+  /^ZF-/i,  // Zero Dragon ロッド型番
+  /キャスティングロッド/,
 ];
 
 /** スクレイプ時に誤って取り込まれた非ルアー製品のslug */
 const EXCLUDED_SLUGS = new Set([
   'runway-xr',       // XESTAロッド
   'venus-crew-2026', // XESTAレディースウェアブランド
+  // Shimano アフターパーツ
+  'a155f00000cehq0qan',
+  'a155f00000cehnbqan',
+  // Viva
+  'metalmagic-spare-parts',
+  'aw-offset-sinker',
+  'datchak-hookunit',
+  'aw-shoulderbag',
+  'hansude-glove',
+  'spark-assist-hook',
+  // 釣り糸
+  'trout-dsline',
+  // キャップ
+  'north-craft-cap',
+  // バッグ
+  'ice-gear-bag',
 ]);
 
 /** 製品名またはslugが非ルアー（アクセサリー/パーツ/ロッド/ウェア）かどうかを判定 */
