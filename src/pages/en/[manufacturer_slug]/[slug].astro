@@ -295,12 +295,34 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
     {editorial && (
       <section class="mb-10">
         <div class="bg-gradient-to-br from-surface to-bg rounded-2xl border border-border-light p-6 sm:p-8">
-          <p class="text-lg sm:text-xl font-bold text-text leading-snug mb-6">
-            {editorial.catchcopy}
-          </p>
-          <div class="text-[15px] text-text-mid leading-[1.9] whitespace-pre-line mb-8">
-            {editorial.overview}
+          {/* First view: representative image + catchcopy */}
+          <div class="flex flex-col sm:flex-row gap-6 mb-8">
+            {series.representative_image && (
+              <div class="sm:w-2/5 shrink-0">
+                <div class="aspect-[4/3] rounded-xl overflow-hidden bg-white border border-border-light">
+                  <img
+                    src={series.representative_image}
+                    alt={`${series.manufacturer} ${series.name}`}
+                    class="w-full h-full object-scale-down p-4"
+                    loading="eager"
+                  />
+                </div>
+              </div>
+            )}
+            <div class="flex-1">
+              <p class="text-lg sm:text-xl font-bold text-text leading-snug mb-4">
+                {editorial.catchcopy}
+              </p>
+              <p class="text-[15px] text-text-mid leading-[1.9] whitespace-pre-line">
+                {editorial.overview.split('\n\n')[0]}
+              </p>
+            </div>
           </div>
+          {editorial.overview.split('\n\n').length > 1 && (
+            <div class="text-[15px] text-text-mid leading-[1.9] whitespace-pre-line mb-8">
+              {editorial.overview.split('\n\n').slice(1).join('\n\n')}
+            </div>
+          )}
           <div class="space-y-6 mb-8">
             {editorial.strengths.map((s, i) => (
               <div>

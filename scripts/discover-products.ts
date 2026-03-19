@@ -6158,25 +6158,15 @@ async function discoverPozidriveGarage(_page: Page): Promise<Array<{ url: string
 }
 
 // ---- SEA FALCON ----
-// seafalcon.jp — WordPress
-// WP REST API, no Playwright
+// DISABLED: seafalcon.jp has no product pages (only blog posts under /topics/).
+// The shop is at shop.seafalcon.jp (MakeShop) but product names there are
+// marketing-oriented (sale bundles, etc.) and not suitable for the database.
+// Products: Z Slow, Z Slow TG, 特攻野郎, プリッパー, Cast Jig, NOVA Popper, NOVA Prey, etc.
+// If Sea Falcon products are needed, they should be manually curated.
 
 async function discoverSeaFalcon(_page: Page): Promise<Array<{ url: string; name: string }>> {
-  var results: Array<{ url: string; name: string }> = [];
-  var pageNum = 1;
-  while (true) {
-    var res = await fetch('https://seafalcon.jp/wp-json/wp/v2/posts?per_page=100&page=' + pageNum);
-    if (!res.ok) break;
-    var posts: Array<{ link: string; title: { rendered: string } }> = await res.json();
-    if (posts.length === 0) break;
-    for (var p of posts) {
-      results.push({ url: p.link, name: p.title.rendered.replace(/&#\d+;/g, function(m) { return String.fromCharCode(parseInt(m.slice(2, -1))); }) });
-    }
-    if (posts.length < 100) break;
-    pageNum++;
-  }
-  log('[sea-falcon] Discovered ' + results.length + ' products');
-  return results;
+  log('[sea-falcon] DISABLED — seafalcon.jp has no product pages (blog posts only)');
+  return [];
 }
 
 // ---- SHOUT! ----
