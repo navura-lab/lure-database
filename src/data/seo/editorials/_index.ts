@@ -288,8 +288,19 @@ import { grub4Editorial } from './grub4';
 import { crusaderEditorial } from './d7dln7k';
 import { banjiShotEditorial } from './banjishotto-20304050';
 import { rSardineEditorial } from './r-sardine';
+// 2026-03-19 追加分 第16弾（10件）
+import { sBitEditorial } from './s-bit';
+import { jrtEditorial } from './jrt';
+import { pulsecodEditorial } from './pulsecod';
+import { deeperRangeEditorial } from './deeper-range';
+import { tgIeyasuEditorial } from './tg-ieyasu';
+import { squidSeekerMetalEditorial } from './squid-seeker-metal';
+import { saltWavyEditorial } from './salt-wavy';
+import { bassShadshaSwimmerEditorial } from './bass-shadshapeswimmer';
+import { jpmslEditorial } from './jpmsl';
+import { troutNiakisEditorial } from './trout-niakis';
 
-/** slug → EditorialReview のマップ（全267件） */
+/** slug → EditorialReview のマップ（全277件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -573,4 +584,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'd7dln7k': crusaderEditorial,
   'banjishotto-20304050': banjiShotEditorial,
   'r-sardine': rSardineEditorial,
+  // 2026-03-19 追加分 第16弾（10件）
+  's-bit': sBitEditorial,
+  'jrt': jrtEditorial,
+  'pulsecod': pulsecodEditorial,
+  'deeper-range': deeperRangeEditorial,
+  'tg-ieyasu': tgIeyasuEditorial,
+  'squid-seeker-metal': squidSeekerMetalEditorial,
+  'salt-wavy': saltWavyEditorial,
+  'bass-shadshapeswimmer': bassShadshaSwimmerEditorial,
+  'jpmsl': jpmslEditorial,
+  'trout-niakis': troutNiakisEditorial,
 };
