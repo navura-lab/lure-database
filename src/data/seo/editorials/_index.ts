@@ -395,8 +395,30 @@ import { jormuaEditorial } from './jorumua';
 import { eguDamaTypeCoverEditorial } from './egu-dama-type-cover';
 import { laTourCrankEditorial } from './la-tour-crank';
 import { kerollEditorial } from './keroll';
+// 2026-03-20 追加分 第26弾（10件）
+import { shiritenVibe53Editorial } from './shiriten-vibe53';
+import { bladedRawlerJigEditorial } from './bladed-rawler-jig';
+import { masukuroutoRooneyEditorial } from './masukurouto-rooney';
+import { pjcEditorial } from './pjc';
+import { otokoJigEditorial } from './otoko-jig';
+import { sinkingShadEditorial } from './ss';
+import { rbMasamuneEditorial } from './salt-rbmasamune';
+import { crapeaMaxEditorial } from './crapeamax-area';
+import { sarunaEditorial } from './salt-saruna';
+import { staggerWide4Editorial } from './stagger-wide-4';
+// 2026-03-20 追加分 第27弾（10件）
+import { doliveShad4DsEditorial } from './doliveshad4-ds';
+import { saltyCoretubeEditorial } from './keitech-salty-core-tube';
+import { teppanNarrowEditorial } from './teppan-narrow';
+import { gunfishEditorial } from './gunnish';
+import { troutDinciteEditorial } from './trout-dincite';
+import { saltBojinEditorial } from './salt-bojin-100-120-140';
+import { troutDcontact85Editorial } from './trout-d-contact-85';
+import { jpssEditorial } from './jpss';
+import { keitanJigRapidEditorial } from './keitan-jig-rapid';
+import { troutEdgeDiamondEditorial } from './trout-edge-diamond';
 
-/** slug → EditorialReview のマップ（全365件） */
+/** slug → EditorialReview のマップ（全385件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -787,4 +809,26 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'egu-dama-type-cover': eguDamaTypeCoverEditorial,
   'la-tour-crank': laTourCrankEditorial,
   'keroll': kerollEditorial,
+  // 2026-03-20 追加分 第26弾（10件）
+  'shiriten-vibe53': shiritenVibe53Editorial,
+  'bladed-rawler-jig': bladedRawlerJigEditorial,
+  'masukurouto-rooney': masukuroutoRooneyEditorial,
+  'pjc': pjcEditorial,
+  'otoko-jig': otokoJigEditorial,
+  'ss': sinkingShadEditorial,
+  'salt-rbmasamune': rbMasamuneEditorial,
+  'crapeamax-area': crapeaMaxEditorial,
+  'salt-saruna': sarunaEditorial,
+  'stagger-wide-4': staggerWide4Editorial,
+  // 2026-03-20 追加分 第27弾（10件）
+  'doliveshad4-ds': doliveShad4DsEditorial,
+  'keitech-salty-core-tube': saltyCoretubeEditorial,
+  'teppan-narrow': teppanNarrowEditorial,
+  'gunnish': gunfishEditorial,
+  'trout-dincite': troutDinciteEditorial,
+  'salt-bojin-100-120-140': saltBojinEditorial,
+  'trout-d-contact-85': troutDcontact85Editorial,
+  'jpss': jpssEditorial,
+  'keitan-jig-rapid': keitanJigRapidEditorial,
+  'trout-edge-diamond': troutEdgeDiamondEditorial,
 };

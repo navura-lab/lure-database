@@ -100,12 +100,8 @@ function getAvatarColor(name: string): string {
           href={`/type/${t.slug}/`}
           class="group flex flex-col items-center text-center p-3 sm:p-4 rounded-xl border border-transparent bg-bg transition-all duration-200 hover:border-accent hover:shadow-card hover:-translate-y-1"
         >
-          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden flex items-center justify-center mb-2.5 bg-surface group-hover:bg-accent-bg transition-colors duration-200">
-            {t.image ? (
-              <img src={t.image} alt={t.name} class="w-full h-full object-contain p-1.5" loading="lazy" />
-            ) : (
-              <span class="font-mono text-[10px] text-text-dim">{t.slug}</span>
-            )}
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-2.5 bg-surface text-text-dim group-hover:bg-accent-bg group-hover:text-accent transition-colors duration-200">
+            <img src={`/icons/type/${t.slug}.svg`} alt={t.name} class="w-7 h-7 sm:w-8 sm:h-8" loading="lazy" />
           </div>
           <span class="text-[13px] sm:text-[14px] font-bold text-text leading-tight">{t.name}</span>
           <span class="font-mono text-[11px] text-text-faint mt-0.5">{t.count.toLocaleString()}</span>

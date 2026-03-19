@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 細い棒状 -->
+  <path d="M4 24c0-3 2-6 8-6h24c4 0 8 2 8 6s-4 6-8 6H12c-6 0-8-3-8-6z"/>
+  <circle cx="38" cy="22" r="1.5"/>
+  <path d="M44 22c1-1 2 0 2 1"/>
+  <path d="M44 26c1 1 2 0 2-1"/>
+</svg>

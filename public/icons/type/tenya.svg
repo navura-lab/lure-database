@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- テンヤ -->
+  <!-- ヘッド（平たい形状） -->
+  <path d="M12 18c0-3 4-6 12-6s12 3 12 6-4 6-12 6-12-3-12-6z"/>
+  <line x1="24" y1="12" x2="24" y2="8"/>
+  <circle cx="24" cy="7" r="1.5"/>
+  <!-- メインフック -->
+  <path d="M24 24c6 0 12 4 12 8 0 6-6 8-10 8-2 0-4-2-4-4"/>
+  <!-- 孫針 -->
+  <path d="M18 24c-4 2-6 6-6 8 0 3 2 4 4 4"/>
+  <line x1="24" y1="24" x2="18" y2="24"/>
+</svg>

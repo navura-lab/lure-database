@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 丸っこいボディ+大きいリップ -->
+  <ellipse cx="26" cy="24" rx="12" ry="10"/>
+  <path d="M14 24l-8 8"/>
+  <circle cx="32" cy="21" r="1.5"/>
+  <path d="M38 20c2-3 5-2 5 0"/>
+  <path d="M38 28c2 3 5 2 5 0"/>
+  <line x1="26" y1="34" x2="26" y2="38"/>
+</svg>

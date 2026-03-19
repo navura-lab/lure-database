@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- エビ型のエギ -->
+  <path d="M8 22c0-4 4-8 12-8h8c6 0 10 3 10 8s-4 8-10 8h-8c-8 0-12-4-12-8z"/>
+  <circle cx="34" cy="20" r="1.5"/>
+  <!-- テイルフック（傘針） -->
+  <path d="M8 18l-3-4"/>
+  <path d="M8 22l-4-1"/>
+  <path d="M8 26l-3 4"/>
+  <!-- シンカー -->
+  <ellipse cx="28" cy="32" rx="3" ry="2"/>
+  <line x1="28" y1="30" x2="28" y2="28"/>
+  <!-- ヒゲ -->
+  <path d="M38 18c3-2 6-2 7 0"/>
+  <path d="M38 26c3 2 6 2 7 0"/>
+</svg>

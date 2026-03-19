@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 細長い金属ジグ -->
+  <path d="M20 4c-2 0-4 2-4 4l-2 28c0 3 2 6 6 6h4c4 0 6-3 6-6l-2-28c0-2-2-4-4-4z"/>
+  <circle cx="22" cy="8" r="1"/>
+  <line x1="22" y1="4" x2="22" y2="2"/>
+  <circle cx="22" cy="1.5" r="1"/>
+  <path d="M18 42c-2 2-1 4 0 4"/>
+  <path d="M26 42c2 2 1 4 0 4"/>
+</svg>

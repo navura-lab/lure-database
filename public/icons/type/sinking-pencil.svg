@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 細い棒状（下向き矢印付き） -->
+  <path d="M4 20c0-3 2-5 8-5h24c4 0 8 2 8 5s-4 5-8 5H12c-6 0-8-2-8-5z"/>
+  <circle cx="38" cy="18" r="1.5"/>
+  <!-- 下向き矢印 -->
+  <line x1="24" y1="30" x2="24" y2="40"/>
+  <polyline points="20,36 24,40 28,36"/>
+</svg>
