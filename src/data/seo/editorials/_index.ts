@@ -483,8 +483,44 @@ import { debutanJigEditorial } from './debutan-jig';
 import { newHighsiderEditorial } from './newhighsider';
 import { speedSardineJigEditorial } from './supidosadein-jigu-20g60g';
 import { dunk48spEditorial } from './dunk-48-sp';
+// 2026-03-20 追加分 第34弾（11件）
+import { fortenTgEditorial } from './forten-tg';
+import { rapalaSxrEditorial } from './rapala-sxr';
+import { blitzMrEditorial } from './blitz-mr';
+import { spinriderDeepEditorial } from './spinriderdeep';
+import { emeraldasAmorousJointEditorial } from './thtjj6t';
+import { rekuzeEditorial } from './rekuze';
+import { tadamakiEditorial } from './tadamaki';
+import { seaRideLongEditorial } from './sea-ride-long';
+import { danielHeadRockEditorial } from './daniel-head-rock';
+import { highcutSpEditorial } from './highcut-sp';
+import { bentMinnow76fEditorial } from './bent-minnow-76-f';
+// 2026-03-20 追加分 第35弾（11件）
+import { killerJigVEditorial } from './killer-jig-v';
+import { rapalaCountDownJointedEditorial } from './rapala-cdj';
+import { tapdancerEditorial } from './tapdancer';
+import { rapalaSkitterPopEditorial } from './rapala-sp';
+import { troutJadeMdEditorial } from './trout-jademd';
+import { r2JigEditorial } from './r2-jig';
+import { binbinInchikuEditorial } from './binbin-inchiku';
+import { spinRiderEditorial } from './spinrider';
+import { staggerOriginal35Editorial } from './stagger-original-3-5';
+import { looperEditorial } from './looper';
+import { newSlideswimmer250Editorial } from './new-slideswimmer250';
+// 2026-03-20 追加分 第36弾（11件）
+import { redEyedShad12ozEditorial } from './red-eyed-shad-1-2oz';
+import { saltigaSLJigSDEditorial } from './2f7g773';
+import { killerJigVLongEditorial } from './killer-jig-v-long';
+import { gSlasherEditorial } from './g-slasher';
+import { bellowsGillEditorial } from './bellows-gill';
+import { shadowRapJackDeepEditorial } from './rapala-sdrjd';
+import { tgBaitSlimSLJEditorial } from './eejvq2z';
+import { thirteenNutEditorial } from './13-nut';
+import { redEyedShad14ozEditorial } from './red-eyed-shad-1-4oz';
+import { scentedJerkShadzEditorial } from './scented-jerk-shadz';
+import { gulpSaltwaterPaddleshadEditorial } from './gulp-saltwater-paddleshad';
 
-/** slug → EditorialReview のマップ（全445件） */
+/** slug → EditorialReview のマップ（全478件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -963,4 +999,40 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'newhighsider': newHighsiderEditorial,
   'supidosadein-jigu-20g60g': speedSardineJigEditorial,
   'dunk-48-sp': dunk48spEditorial,
+  // 2026-03-20 追加分 第34弾（11件）
+  'forten-tg': fortenTgEditorial,
+  'rapala-sxr': rapalaSxrEditorial,
+  'blitz-mr': blitzMrEditorial,
+  'spinriderdeep': spinriderDeepEditorial,
+  'thtjj6t': emeraldasAmorousJointEditorial,
+  'rekuze': rekuzeEditorial,
+  'tadamaki': tadamakiEditorial,
+  'sea-ride-long': seaRideLongEditorial,
+  'daniel-head-rock': danielHeadRockEditorial,
+  'highcut-sp': highcutSpEditorial,
+  'bent-minnow-76-f': bentMinnow76fEditorial,
+  // 2026-03-20 追加分 第35弾（11件）
+  'killer-jig-v': killerJigVEditorial,
+  'rapala-cdj': rapalaCountDownJointedEditorial,
+  'tapdancer': tapdancerEditorial,
+  'rapala-sp': rapalaSkitterPopEditorial,
+  'trout-jademd': troutJadeMdEditorial,
+  'r2-jig': r2JigEditorial,
+  'binbin-inchiku': binbinInchikuEditorial,
+  'spinrider': spinRiderEditorial,
+  'stagger-original-3-5': staggerOriginal35Editorial,
+  'looper-1-7g-2-1g-2-4g': looperEditorial,
+  'new-slideswimmer250': newSlideswimmer250Editorial,
+  // 2026-03-20 追加分 第36弾（11件）
+  'red-eyed-shad-1-2oz': redEyedShad12ozEditorial,
+  '2f7g773': saltigaSLJigSDEditorial,
+  'killer-jig-v-long': killerJigVLongEditorial,
+  'g-slasher': gSlasherEditorial,
+  'bellows-gill': bellowsGillEditorial,
+  'rapala-sdrjd': shadowRapJackDeepEditorial,
+  'eejvq2z': tgBaitSlimSLJEditorial,
+  '13-nut': thirteenNutEditorial,
+  'red-eyed-shad-1-4oz': redEyedShad14ozEditorial,
+  'scented-jerk-shadz': scentedJerkShadzEditorial,
+  'gulp-saltwater-paddleshad': gulpSaltwaterPaddleshadEditorial,
 };
