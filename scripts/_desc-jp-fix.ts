@@ -241,6 +241,8 @@ function extractTiemcoDescription(html: string): string | null {
     if (/¥|税込/.test(line)) continue;
     if (/Cookie|プライバシー/.test(line)) continue;
     if (/トップページ|お問い合わせ/.test(line)) continue;
+    if (/TIEMCO.*公式サイト|Lure Fishing/i.test(line)) continue; // ページタイトル
+    if (/ルアーフィッシング公式/.test(line)) continue;
     return line.substring(0, 500);
   }
 
@@ -319,7 +321,7 @@ async function resolveForestUrl(slug: string): Promise<string | null> {
 // メーカー→デフォルト対象魚・コンテキスト
 const MAKER_DEFAULTS: Record<string, { targetFish: string; context: string }> = {
   Forest: { targetFish: 'トラウト', context: '管理釣り場やネイティブフィールドのトラウト' },
-  Pazdesign: { targetFish: 'トラウト', context: 'トラウトゲーム' },
+  Pazdesign: { targetFish: '', context: '' },
   JACKALL: { targetFish: 'バス', context: 'バスフィッシング' },
   TIEMCO: { targetFish: '', context: '' },
 };
@@ -466,22 +468,7 @@ async function dryRunOrExecute(execute: boolean): Promise<void> {
         }
         await new Promise((r) => setTimeout(r, 500)); // Pazdesignは少し遅め
       }
-    } else if (maker === 'TIEMCO' && rep.source_url) {
-      const cacheKey = rep.source_url;
-      if (descCache.has(cacheKey)) {
-        newDesc = descCache.get(cacheKey)!;
-        method = 'CACHE';
-      } else {
-        const html = await fetchPageHtml(rep.source_url);
-        if (html) {
-          newDesc = extractTiemcoDescription(html);
-        }
-        if (newDesc) {
-          descCache.set(cacheKey, newDesc);
-          method = 'SCRAPE';
-        }
-        await new Promise((r) => setTimeout(r, 300));
-      }
+    // TIEMCOは公式サイトから説明文を抽出しにくいためスクレイプしない
     } else if (maker === 'JACKALL' && rep.source_url) {
       const cacheKey = rep.source_url;
       if (descCache.has(cacheKey)) {
