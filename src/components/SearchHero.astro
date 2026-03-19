@@ -7,29 +7,44 @@ interface Props {
 const { seriesCount, colorCount } = Astro.props;
 ---
 
-<section class="relative overflow-hidden hero-gradient-bg border-b border-border">
-  <div class="absolute inset-0 opacity-[0.03]"
-       style="background-image: radial-gradient(circle, #1A1A1A 1px, transparent 1px); background-size: 24px 24px;"></div>
-  <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
-    <h1 class="font-mono text-[48px] sm:text-[64px] font-bold tracking-[4px] text-text mb-3 animate-fade-up">
+<section class="relative overflow-hidden">
+  <!-- 背景画像（Unsplash: 釣り風景） -->
+  <div class="absolute inset-0">
+    <img
+      src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&q=80"
+      alt=""
+      class="w-full h-full object-cover"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <!-- 暗めのオーバーレイ -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
+  </div>
+
+  <!-- ドットパターン -->
+  <div class="absolute inset-0 opacity-[0.05]"
+       style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+  <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center">
+    <h1 class="font-mono text-[48px] sm:text-[64px] font-bold tracking-[4px] text-white mb-3 animate-fade-up drop-shadow-lg">
       CAST<span class="text-accent">/</span>LOG
     </h1>
-    <p class="text-[16px] sm:text-[18px] text-text-mid tracking-[2px] mb-6 animate-fade-up" style="animation-delay: 100ms;">
+    <p class="text-[16px] sm:text-[18px] text-white/80 tracking-[2px] mb-8 animate-fade-up drop-shadow" style="animation-delay: 100ms;">
       一投を、資産にする。
     </p>
-    <div class="flex items-center justify-center gap-8 sm:gap-12 mb-8 animate-fade-up" style="animation-delay: 200ms;">
+    <div class="flex items-center justify-center gap-8 sm:gap-12 mb-10 animate-fade-up" style="animation-delay: 200ms;">
       <div class="text-center">
-        <p class="font-mono text-[28px] sm:text-[36px] font-bold text-text">{seriesCount.toLocaleString()}</p>
-        <p class="font-mono text-[10px] text-text-dim tracking-[2px]">シリーズ</p>
+        <p class="font-mono text-[28px] sm:text-[36px] font-bold text-white drop-shadow-lg">{seriesCount.toLocaleString()}</p>
+        <p class="font-mono text-[10px] text-white/60 tracking-[2px]">シリーズ</p>
       </div>
-      <div class="w-px h-10 bg-border"></div>
+      <div class="w-px h-10 bg-white/20"></div>
       <div class="text-center">
-        <p class="font-mono text-[28px] sm:text-[36px] font-bold text-text">{colorCount.toLocaleString()}</p>
-        <p class="font-mono text-[10px] text-text-dim tracking-[2px]">カラー</p>
+        <p class="font-mono text-[28px] sm:text-[36px] font-bold text-white drop-shadow-lg">{colorCount.toLocaleString()}</p>
+        <p class="font-mono text-[10px] text-white/60 tracking-[2px]">カラー</p>
       </div>
     </div>
     <form action="/search/" method="get" class="max-w-xl mx-auto animate-fade-up" style="animation-delay: 300ms;">
-      <div class="relative flex items-center bg-white rounded-full shadow-lg border border-gray-200 hover:border-accent focus-within:border-accent focus-within:ring-2 focus-within:ring-accent/20 transition-all duration-200">
+      <div class="relative flex items-center bg-white/95 backdrop-blur-sm rounded-full shadow-2xl border border-white/20 hover:bg-white focus-within:bg-white transition-all duration-200">
         <svg class="absolute left-5 w-5 h-5 text-text-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
