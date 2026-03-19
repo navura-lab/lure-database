@@ -19,6 +19,7 @@ import { briliant12Editorial } from './briliant12';
 import { buttobiKun95sEditorial } from './buttobi-kun95s';
 import { charmEditorial } from './charm';
 import { clearSPopperEditorial } from './clear-s-popper';
+import { crapeaSftEditorial } from './crapea-sft-area';
 import { crawlUpEditorial } from './crawl-up';
 import { dexChoppoEditorial } from './dex-choppo-90120-90120';
 import { dexCr53mrEditorial } from './dex-cr53mr';
@@ -49,6 +50,7 @@ import { gulpIsomeGokubutoEditorial } from './gulp-saltwater-isome-gokubuto-4inc
 import { gyokotsuEditorial } from './gyokotsu';
 import { heddonZaraPuppyEditorial } from './heddon-zarapuppy';
 import { helterTwisterEditorial } from './helter-twister';
+import { hiBurstEditorial } from './hi-burst';
 import { hugePencilEditorial } from './huge-pencil';
 import { huggosEditorial } from './huggos';
 import { hydram100sEditorial } from './hydram-100s';
@@ -61,10 +63,12 @@ import { kaishinBladeEditorial } from './kaishin-blade';
 import { kasuminokaeruEditorial } from './kasuminokaeru';
 import { kattobiBow130brEditorial } from './kattobi-bow130br';
 import { kingbousougaeruEditorial } from './kingbousougaeru';
+import { kontakutoFeedPopperEditorial } from './kontakuto-fyido-poppa';
 import { lazySwimmer9inchEditorial } from './lazy-swimmer-9inch';
 import { lft145Editorial } from './lft145';
 import { lokiEditorial } from './masukurouto-loki';
 import { messiahSemilongEditorial } from './messiah-semilong';
+import { metalAdictType01Editorial } from './metal-adict-type01';
 import { momopunch3045gEditorial } from './momopunch30g-45g';
 import { moneyBadgerEditorial } from './money-badger-4-5-625-675-725';
 import { nichika167fEditorial } from './nichika167f';
@@ -75,6 +79,7 @@ import { oneUpShad5TwoToneEditorial } from './one-up-shad-5-2tone';
 import { oneUpShad6MonotoneEditorial } from './one-up-shad-6-monotone';
 import { outstar120sEditorial } from './outstar-120s';
 import { overRideEditorial } from './over-ride';
+import { panicraEditorial } from './panicra';
 import { petitBomber70sEditorial } from './petit-bomber70s';
 import { petitBomber70ssSLEditorial } from './petit-bomber70ss-sl';
 import { piccoloEditorial } from './piccolo';
@@ -82,11 +87,15 @@ import { plapanEditorial } from './plapan';
 import { pokopokoCrapeaEditorial } from './pokopokocrapea-area';
 import { powerWiggler55Editorial } from './power-wiggler-55inch-55';
 import { powerfluffyEditorial } from './powerfluffy';
+import { rapalaCountDownEditorial } from './rapala-cd';
+import { rapalaCountDownEliteEditorial } from './rapala-cde';
+import { rapalaShadRapEditorial } from './rapala-sr';
 import { rein14gEditorial } from './rein-14g';
 import { rushBellEditorial } from './rush-bell';
 import { shalldus35Editorial } from './shalldus-35';
 import { shiriten50Editorial } from './shiriten50';
 import { sjPencilEditorial } from './sj-pencil';
+import { slowEmotionSlippyEditorial } from './slow-emotion-slippy';
 import { snecon220sEditorial } from './snecon-220s';
 import { surfaceWing95fEditorial } from './surface-wing95f';
 import { swSliderShad15Editorial } from './sw-slider-shad-15-15';
@@ -94,14 +103,26 @@ import { sw133fEditorial } from './sw133f';
 import { tinyKaishinEditorial } from './tiny-kaishin';
 import { tklmEditorial } from './tklm';
 import { toukichirouLeadEditorial } from './toukichirou-lead';
+import { tricorollGtEditorial } from './tricoroll-gt';
 import { troutBtkswimmer35Editorial } from './trout-btkswimmer35';
 import { usachanJigExEditorial } from './usachanjig-ex';
 import { vahid80Editorial } from './vahid80-80';
 import { vivaPotatoEditorial } from './viva-potato';
 import { yarukinashiStick93Editorial } from './yarukinashi-stick-93';
 import { zagger50B1BoneEditorial } from './zagger-50-b1-bone';
+// 2026-03-19 追加分（10件）
+import { soulShadEditorial } from './soulshad';
+import { bkR2Editorial } from './bk';
+import { tnVibrationEditorial } from './teienubaibureshon';
+import { setupperSDREditorial } from './eopcilx';
+import { imoRipperEditorial } from './imo-ripper';
+import { imokemushiEditorial } from './imokemushi';
+import { easyShinerEditorial } from './easy-shiner';
+import { jackhammerEditorial } from './jackhammer';
+import { bigBackerMetalEditorial } from './bigbackermetal';
+import { bakuryuBinbindamaSlideEditorial } from './bakuryu-pb-binbindama-slide';
 
-/** slug → EditorialReview のマップ（全94件） */
+/** slug → EditorialReview のマップ（全114件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -116,6 +137,7 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'buttobi-kun95s': buttobiKun95sEditorial,
   'charm': charmEditorial,
   'clear-s-popper': clearSPopperEditorial,
+  'crapea-sft-area': crapeaSftEditorial,
   'crawl-up': crawlUpEditorial,
   'dex-choppo-90120-90120': dexChoppoEditorial,
   'dex-cr53mr': dexCr53mrEditorial,
@@ -146,6 +168,7 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'gyokotsu': gyokotsuEditorial,
   'heddon-zarapuppy': heddonZaraPuppyEditorial,
   'helter-twister': helterTwisterEditorial,
+  'hi-burst': hiBurstEditorial,
   'huge-pencil': hugePencilEditorial,
   'huggos': huggosEditorial,
   'hydram-100s': hydram100sEditorial,
@@ -158,10 +181,12 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'kasuminokaeru': kasuminokaeruEditorial,
   'kattobi-bow130br': kattobiBow130brEditorial,
   'kingbousougaeru': kingbousougaeruEditorial,
+  'kontakuto-fyido-poppa': kontakutoFeedPopperEditorial,
   'lazy-swimmer-9inch': lazySwimmer9inchEditorial,
   'lft145': lft145Editorial,
   'masukurouto-loki': lokiEditorial,
   'messiah-semilong': messiahSemilongEditorial,
+  'metal-adict-type01-12g18g30g40g60g80g': metalAdictType01Editorial,
   'momopunch30g-45g': momopunch3045gEditorial,
   'money-badger-4-5-625-675-725': moneyBadgerEditorial,
   'nichika167f': nichika167fEditorial,
@@ -172,6 +197,7 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'one-up-shad-6-monotone': oneUpShad6MonotoneEditorial,
   'outstar-120s': outstar120sEditorial,
   'over-ride': overRideEditorial,
+  'panicra': panicraEditorial,
   'petit-bomber70s': petitBomber70sEditorial,
   'petit-bomber70ss-sl': petitBomber70ssSLEditorial,
   'piccolo': piccoloEditorial,
@@ -179,11 +205,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'pokopokocrapea-area': pokopokoCrapeaEditorial,
   'power-wiggler-55inch-55': powerWiggler55Editorial,
   'powerfluffy': powerfluffyEditorial,
+  'rapala-cd': rapalaCountDownEditorial,
+  'rapala-cde': rapalaCountDownEliteEditorial,
+  'rapala-sr': rapalaShadRapEditorial,
   'rein-14g': rein14gEditorial,
   'rush-bell': rushBellEditorial,
   'shalldus-35': shalldus35Editorial,
   'shiriten50': shiriten50Editorial,
   'sj-pencil': sjPencilEditorial,
+  'slow-emotion-slippy': slowEmotionSlippyEditorial,
   'snecon-220s': snecon220sEditorial,
   'surface-wing95f': surfaceWing95fEditorial,
   'sw-slider-shad-15-15': swSliderShad15Editorial,
@@ -191,10 +221,22 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'tiny-kaishin': tinyKaishinEditorial,
   'tklm': tklmEditorial,
   'toukichirou-lead': toukichirouLeadEditorial,
+  'tricoroll-gt': tricorollGtEditorial,
   'trout-btkswimmer35': troutBtkswimmer35Editorial,
   'usachanjig-ex': usachanJigExEditorial,
   'vahid80-80': vahid80Editorial,
   'viva-potato': vivaPotatoEditorial,
   'yarukinashi-stick-93': yarukinashiStick93Editorial,
   'zagger-50-b1-bone': zagger50B1BoneEditorial,
+  // 2026-03-19 追加分（10件）
+  'soulshad': soulShadEditorial,
+  'bk': bkR2Editorial,
+  'teienubaibureshon-50-60-65-70-80': tnVibrationEditorial,
+  'eopcilx': setupperSDREditorial,
+  'imo-ripper': imoRipperEditorial,
+  'imokemushi': imokemushiEditorial,
+  'easy-shiner': easyShinerEditorial,
+  'jackhammer': jackhammerEditorial,
+  'bigbackermetal': bigBackerMetalEditorial,
+  'bakuryu-pb-binbindama-slide': bakuryuBinbindamaSlideEditorial,
 };
