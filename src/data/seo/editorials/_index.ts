@@ -310,8 +310,19 @@ import { tobisugiDanielEditorial } from './tobisugi-daniel';
 import { jpmswEditorial } from './jpmsw';
 import { silvercreekMinnowEditorial } from './silvercreek-minnow';
 import { ebinemEditorial } from './ebinem';
+// 2026-03-19 追加分 第18弾（10件）
+import { jigParaSlowEditorial } from './jpslow';
+import { kougaBladeBreakertgEditorial } from './kouga-blade-breaker-tg';
+import { wobblinSEditorial } from './salt-wobblin';
+import { nekometalEditorial } from './nekometal';
+import { fortenMediumEditorial } from './foruten-medium';
+import { longWaverEditorial } from './long-waver';
+import { gallopAssistFallEditorial } from './gallop-assist-fall';
+import { tourGradeSpinnerbaitEditorial } from './tour-grade-spinnerbait';
+import { longWormJackallEditorial } from './long-worm-jackall';
+import { powerBladeCompactDWEditorial } from './power-blade-compact-dw';
 
-/** slug → EditorialReview のマップ（全287件） */
+/** slug → EditorialReview のマップ（全297件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -617,4 +628,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'jpmsw': jpmswEditorial,
   'qu68qjg': silvercreekMinnowEditorial,
   'ebinem': ebinemEditorial,
+  // 2026-03-19 追加分 第18弾（10件）
+  'jpslow': jigParaSlowEditorial,
+  'pj6atca': kougaBladeBreakertgEditorial,
+  'salt-wobblin': wobblinSEditorial,
+  'nekometaru-1-2g7g': nekometalEditorial,
+  'fuoruten-mideiamu': fortenMediumEditorial,
+  'rongueba': longWaverEditorial,
+  'gallop-assist-fall-edition': gallopAssistFallEditorial,
+  'tour-grade-spinnerbait': tourGradeSpinnerbaitEditorial,
+  'ronguemu': longWormJackallEditorial,
+  'power-blade-compact-double-willow': powerBladeCompactDWEditorial,
 };
