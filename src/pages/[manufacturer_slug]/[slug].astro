@@ -35,8 +35,9 @@ const {
 
 const hasLimited = series.colors.some(c => c.is_limited);
 
-// エディトリアルレビュー（手書き優先、なければ自動生成）
-const editorial = editorialReviews[series.slug] || generateAutoEditorial(series, colorBreakdown);
+// エディトリアルレビュー（手書きのみ表示。自動生成は手書き化完了まで無効）
+// TODO: 全6,160件の手書き化が完了したら generateAutoEditorial を復活させる
+const editorial = editorialReviews[series.slug] || null;
 
 // エディトリアル間クロスリンク（同タイプ or 同メーカーのレビュー済みルアー）
 const editorialCrosslinks = editorial ? Object.entries(editorialReviews)
