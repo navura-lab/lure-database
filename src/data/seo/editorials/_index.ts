@@ -143,8 +143,30 @@ import { saltigaJiveChopperEditorial } from './saltiga-jive-chopper';
 import { wiggleRiderEditorial } from './wigglerider';
 import { swimRiderShortEditorial } from './swimridershort';
 import { surfPointerAyameEditorial } from './surfpointer-salt';
+// 2026-03-19 追加分 第4弾（10件）
+import { ebfEditorial } from './ebf';
+import { satoujigEditorial } from './satoujig';
+import { gulpSwimmingMulletEditorial } from './gulp-alive-saltwater-swimming-mullet';
+import { coniferEditorial } from './conifer';
+import { troutHeavenEditorial } from './trout-heaven';
+import { ednEditorial } from './edn';
+import { gapjigEditorial } from './gapjig';
+import { jpvqEditorial } from './jpvq';
+import { slowRiderEditorial } from './slowrider';
+import { swimBirdEditorial } from './swimbird';
+// 2026-03-19 追加分 第5弾（10件）
+import { jigParaTungstenEditorial } from './jptg';
+import { feedShallowEditorial } from './fyidosharo';
+import { huskyJerkEditorial } from './rapala-hj';
+import { inTheBaitBassEditorial } from './in-the-bait-bass';
+import { jigParaShortEditorial } from './jps';
+import { highPitcherEditorial } from './high-pitcher';
+import { k2fEditorial } from './k2f';
+import { tnTrigonEditorial } from './tn-trigon';
+import { switchHitterEditorial } from './p84ie5s';
+import { egiBanchoFastSinkingEditorial } from './egibanchotyped';
 
-/** slug → EditorialReview のマップ（全134件） */
+/** slug → EditorialReview のマップ（全154件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -283,4 +305,26 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'wigglerider': wiggleRiderEditorial,
   'swimridershort': swimRiderShortEditorial,
   'surfpointer-salt': surfPointerAyameEditorial,
+  // 2026-03-19 追加分 第4弾（10件）
+  'ebf': ebfEditorial,
+  'satoujig': satoujigEditorial,
+  'gulp-alive-saltwater-swimming-mullet': gulpSwimmingMulletEditorial,
+  'conifer': coniferEditorial,
+  'trout-heaven': troutHeavenEditorial,
+  'edn': ednEditorial,
+  'gapjig': gapjigEditorial,
+  'jpvq': jpvqEditorial,
+  'slowrider': slowRiderEditorial,
+  'swimbird': swimBirdEditorial,
+  // 2026-03-19 追加分 第5弾（10件）
+  'jptg': jigParaTungstenEditorial,
+  'fyidosharo': feedShallowEditorial,
+  'rapala-hj': huskyJerkEditorial,
+  'in-the-bait-bass': inTheBaitBassEditorial,
+  'jps': jigParaShortEditorial,
+  'high-pitcher': highPitcherEditorial,
+  'k2f': k2fEditorial,
+  'tn-trigon': tnTrigonEditorial,
+  'p84ie5s': switchHitterEditorial,
+  'egibanchotyped': egiBanchoFastSinkingEditorial,
 };
