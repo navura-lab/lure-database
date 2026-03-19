@@ -461,8 +461,30 @@ import { dJigEditorial } from './d-jig';
 import { morethanCrossWakeREditorial } from './s0nwnqs';
 import { jigTypeHirahiraEditorial } from './jig-typehirahira';
 import { frittsideEditorial } from './frittside-5jr-5-7-9-5bg';
+// 2026-03-20 追加分 第32弾（10件）
+import { betty59Editorial } from './betty59';
+import { bassMafiaCapoEditorial } from './bass-mafia-capo-deep-diving-crankbait';
+import { flashMetaboTGEditorial } from './furasshumetabo-tg';
+import { bronzeyePop60Editorial } from './bronzeye-pop-60';
+import { saltigaFKJigEditorial } from './f1pwuoe';
+import { kougaJigBasicEditorial } from './uwjv711';
+import { lowhideShienEditorial } from './lowhide-shien';
+import { arEsSenseEditorial } from './trout-aresens';
+import { cbKiyomasaEditorial } from './salt-cbkiyomasa';
+import { makiJigJetEditorial } from './maki-jig-jet';
+// 2026-03-20 追加分 第33弾（10件）
+import { samuraiJigREditorial } from './7c5pl9f';
+import { slowBlattCastOvalEditorial } from './slow-blatt-cast-oval';
+import { dropDiaEditorial } from './trout-dropdia';
+import { oceanFlashSemilongEditorial } from './oshanfurasshusemirongu';
+import { eguDamaTypeKiwamiEditorial } from './egu-dama-type-kiwami';
+import { metaboSwimmerEditorial } from './metabosuima';
+import { debutanJigEditorial } from './debutan-jig';
+import { newHighsiderEditorial } from './newhighsider';
+import { speedSardineJigEditorial } from './supidosadein-jigu-20g60g';
+import { dunk48spEditorial } from './dunk-48-sp';
 
-/** slug → EditorialReview のマップ（全425件） */
+/** slug → EditorialReview のマップ（全445件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -919,4 +941,26 @@ export const editorialReviews: Record<string, EditorialReview> = {
   's0nwnqs': morethanCrossWakeREditorial,
   'jig-typehirahira': jigTypeHirahiraEditorial,
   'frittside-5jr-5-7-9-5bg': frittsideEditorial,
+  // 2026-03-20 追加分 第32弾（10件）
+  'betty59': betty59Editorial,
+  'bass-mafia-capo-deep-diving-crankbait': bassMafiaCapoEditorial,
+  'furasshumetabo-tg': flashMetaboTGEditorial,
+  'bronzeye-pop-60': bronzeyePop60Editorial,
+  'f1pwuoe': saltigaFKJigEditorial,
+  'uwjv711': kougaJigBasicEditorial,
+  'lowhide-shien': lowhideShienEditorial,
+  'trout-aresens': arEsSenseEditorial,
+  'salt-cbkiyomasa': cbKiyomasaEditorial,
+  'maki-jig-jet': makiJigJetEditorial,
+  // 2026-03-20 追加分 第33弾（10件）
+  '7c5pl9f': samuraiJigREditorial,
+  'slow-blatt-cast-oval': slowBlattCastOvalEditorial,
+  'trout-dropdia': dropDiaEditorial,
+  'oshanfurasshusemirongu': oceanFlashSemilongEditorial,
+  'egu-dama-type-kiwami': eguDamaTypeKiwamiEditorial,
+  'metabosuima': metaboSwimmerEditorial,
+  'debutan-jig': debutanJigEditorial,
+  'newhighsider': newHighsiderEditorial,
+  'supidosadein-jigu-20g60g': speedSardineJigEditorial,
+  'dunk-48-sp': dunk48spEditorial,
 };
