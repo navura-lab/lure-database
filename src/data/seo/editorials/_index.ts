@@ -450,8 +450,19 @@ import { bambluzJigShortEditorial } from './bambluz-jig-short';
 import { naburadekaEditorial } from './nbd';
 import { rollingBaitBottomTuneEditorial } from './roringubeito-botomuchun';
 import { lilSuckerEditorial } from './lil-sucker';
+// 2026-03-20 追加分 第31弾（10件）
+import { strobeShakerEditorial } from './strobe-shaker';
+import { airclawAreaEditorial } from './airclaw-area';
+import { bronzeyeFrog65Editorial } from './bronzeye-frog-65';
+import { jigF1MiddoShippuEditorial } from './jig-f-1-middoshippu';
+import { littleJohn50Editorial } from './little-john-50';
+import { rkcrawler55Editorial } from './rkcrawler-55';
+import { dJigEditorial } from './d-jig';
+import { morethanCrossWakeREditorial } from './s0nwnqs';
+import { jigTypeHirahiraEditorial } from './jig-typehirahira';
+import { frittsideEditorial } from './frittside-5jr-5-7-9-5bg';
 
-/** slug → EditorialReview のマップ（全415件） */
+/** slug → EditorialReview のマップ（全425件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -897,4 +908,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'nbd': naburadekaEditorial,
   'roringubeito-botomuchun': rollingBaitBottomTuneEditorial,
   'lil-sucker': lilSuckerEditorial,
+  // 2026-03-20 追加分 第31弾（10件）
+  'strobe-shaker': strobeShakerEditorial,
+  'airclaw-area': airclawAreaEditorial,
+  'bronzeye-frog-65': bronzeyeFrog65Editorial,
+  'jig-f-1-middoshippu': jigF1MiddoShippuEditorial,
+  'little-john-50': littleJohn50Editorial,
+  'rkcrawler-55': rkcrawler55Editorial,
+  'd-jig': dJigEditorial,
+  's0nwnqs': morethanCrossWakeREditorial,
+  'jig-typehirahira': jigTypeHirahiraEditorial,
+  'frittside-5jr-5-7-9-5bg': frittsideEditorial,
 };
