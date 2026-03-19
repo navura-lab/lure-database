@@ -375,8 +375,28 @@ import { dContactIIEditorial } from './trout-d-contactii';
 import { egiBancho3DEditorial } from './egi-bancho-3d';
 import { curlyTailShadEditorial } from './curly-tail-shad';
 import { saltigaTGBaitEditorial } from './saltiga-tg-bait';
+// 2026-03-20 追加分 第24弾（8件）
+import { bambluzJigSemilongEditorial } from './bambluz-jig-semilong';
+import { panicra2Editorial } from './panicra-2';
+import { dContactOldEditorial } from './trout-dcontact';
+import { slowEmotionFlap2024Editorial } from './slow-emotion-flap-2024';
+import { egiBanchoMeisterEditorial } from './egibanchotyped-3';
+import { slowBlattCastSlimEditorial } from './slow-blatt-cast-slim';
+import { coltsniperRockslideEditorial } from './coltsniper-rockslide';
+import { hardcoreMonsterShotSEditorial } from './hardcore-monster-shot-s';
+// 2026-03-20 追加分 第25弾（10件）
+import { trickWormEditorial } from './trick-worm';
+import { minnowzEditorial } from './minnowz';
+import { ospJigZeroFourSynchroEditorial } from './o-s-p-jig-zero-four-synchro';
+import { shorelineshinerZVerticeREditorial } from './0ia3b6l';
+import { fullswingEditorial } from './fullswing';
+import { slowBlattCastLongEditorial } from './slow-blatt-cast-long';
+import { jormuaEditorial } from './jorumua';
+import { eguDamaTypeCoverEditorial } from './egu-dama-type-cover';
+import { laTourCrankEditorial } from './la-tour-crank';
+import { kerollEditorial } from './keroll';
 
-/** slug → EditorialReview のマップ（全347件） */
+/** slug → EditorialReview のマップ（全365件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -747,4 +767,24 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'egibanchotyped-2': egiBancho3DEditorial,
   'kurotailshad': curlyTailShadEditorial,
   'p6jwzpa': saltigaTGBaitEditorial,
+  // 2026-03-20 追加分 第24弾（8件）
+  'bambluz-jig-semilong': bambluzJigSemilongEditorial,
+  'panicra-2': panicra2Editorial,
+  'trout-dcontact': dContactOldEditorial,
+  'slow-emotion-flap-2024': slowEmotionFlap2024Editorial,
+  'egibanchotyped-3': egiBanchoMeisterEditorial,
+  'slow-blatt-cast-slim': slowBlattCastSlimEditorial,
+  'coltsniper-rockslide': coltsniperRockslideEditorial,
+  'hardcore-monster-shot-s': hardcoreMonsterShotSEditorial,
+  // 2026-03-20 追加分 第25弾（10件）
+  'trick-worm': trickWormEditorial,
+  'minnowz': minnowzEditorial,
+  'o-s-p-jig-zero-four-synchro': ospJigZeroFourSynchroEditorial,
+  '0ia3b6l': shorelineshinerZVerticeREditorial,
+  'fullswing': fullswingEditorial,
+  'slow-blatt-cast-long': slowBlattCastLongEditorial,
+  'jorumua': jormuaEditorial,
+  'egu-dama-type-cover': eguDamaTypeCoverEditorial,
+  'la-tour-crank': laTourCrankEditorial,
+  'keroll': kerollEditorial,
 };

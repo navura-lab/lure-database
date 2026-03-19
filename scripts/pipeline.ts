@@ -283,7 +283,22 @@ async function lureExists(
 /**
  * Insert a single lure row into Supabase.
  */
+// 挿入前バリデーション
+import { validateLureData } from './lib/data-validator';
+
 async function insertLure(row: Record<string, unknown>): Promise<void> {
+  // 品質ゲート: 挿入前にバリデーション
+  const issues = validateLureData(row as any);
+  const errors = issues.filter(i => i.severity === 'error');
+  if (errors.length > 0) {
+    console.warn(`[QC BLOCKED] ${row.slug}: ${errors.map(e => e.message).join(', ')}`);
+    return; // 挿入しない
+  }
+  const warnings = issues.filter(i => i.severity === 'warning');
+  if (warnings.length > 0) {
+    console.warn(`[QC WARN] ${row.slug}: ${warnings.map(w => w.category).join(', ')}`);
+  }
+
   const url = `${SUPABASE_URL}/rest/v1/lures`;
   const res = await fetch(url, {
     method: 'POST',

@@ -105,6 +105,8 @@ const NON_LURE_PATTERNS: RegExp[] = [
   /\b(pliers|scissors|braid\s+scissors|bait\s+knife|fish\s+lip\s+grip|digital\s+scale|spooling\s+station|head\s+lamp|spotlight|cap\s+light)\b/i,
   // バンドル・キット・サブスク
   /\b(bundle|starter\s+kit|gift\s+pack|gift\s+kit|subscription|sampler\s+pack|mystery.*hook|garage\s+sale|trading\s+post)\b/i,
+  // 集魚剤・ケミカル・非ルアー消耗品
+  /\b(bite\s+powder|bite\s+liquid|attractant|fish\s+scent|scent\s+spray|dye|dip\s+bait|chum|gulp!\s+alive!\s+attractant)\b/i,
   // フック・ウェイト・小物（単体販売）
   /\b(hook\s+series|dart\s+hook|ewg\s+hook|neko\s+hook|treble\s+hook|worm\s+hook|widegap.*hook|dropbarb|maggap)\b/i,
   /\b(tungsten.*weight|nail\s+weight|drop\s*shot\s+weight|flipping\s+weight|split\s+shot\s+\d+\s*pack|peg\s+stopp)/i,

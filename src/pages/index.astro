@@ -166,7 +166,7 @@ const jsonLd = {
     <!-- 新着ルアー -->
     {newArrivals.length > 0 && (
       <section class="animate-fade-up">
-        <SectionHeading title="新着ルアー" href="/search/" slashLabel="NEW ARRIVALS" />
+        <SectionHeading title="新着ルアー" href="/new/" slashLabel="NEW ARRIVALS" />
         <div class="relative">
           <div class="absolute left-0 top-0 bottom-4 w-8 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none"></div>
           <div class="absolute right-0 top-0 bottom-4 w-8 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none"></div>
@@ -213,69 +213,6 @@ const jsonLd = {
       </section>
     )}
 
-    <!-- ガイド記事 -->
-    {guideArticles.length > 0 && (
-      <section class="animate-fade-up">
-        <SectionHeading title="ガイド記事" href="/guide/" slashLabel="GUIDE" />
-        <div class="section-warm rounded-2xl p-6 sm:p-8 -mx-4 sm:mx-0">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {guideArticles.map(guide => (
-              <a href={`/guide/${guide.slug}/`} class="group block bg-white rounded-lg border border-border-light p-4 hover:border-accent hover:shadow-sm transition-all duration-[0.15s]">
-                <h3 class="text-[14px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s] mb-2 line-clamp-2">
-                  {guide.title}
-                </h3>
-                <p class="text-[12px] text-text-mid leading-relaxed line-clamp-2 mb-2">
-                  {guide.description}
-                </p>
-                <div class="flex items-center gap-2 font-mono text-[10px] text-text-dim">
-                  <time datetime={guide.updatedAt}>{guide.updatedAt}</time>
-                  <span>{guide.targetFish.join('・')}</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- 特集記事 -->
-    {contentArticles.length > 0 && (
-      <section class="animate-fade-up">
-        <SectionHeading title="特集記事" href="/article/" slashLabel="ARTICLE" />
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {contentArticles.slice(-6).reverse().map(a => (
-            <a href={`/article/${a.slug}/`} class="group block bg-white rounded-lg border border-border-light overflow-hidden hover:border-accent hover:shadow-sm transition-all duration-[0.15s]">
-              <div class={`h-1.5 ${
-                a.type === 'color-guide' ? 'bg-gradient-to-r from-blue-400 to-blue-600' :
-                a.type === 'review-analysis' ? 'bg-gradient-to-r from-amber-400 to-amber-600' :
-                a.type === 'howto' ? 'bg-gradient-to-r from-green-400 to-green-600' :
-                'bg-gradient-to-r from-gray-300 to-gray-500'
-              }`}></div>
-              <div class="p-4">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
-                    a.type === 'color-guide' ? 'bg-blue-50 text-blue-600' :
-                    a.type === 'review-analysis' ? 'bg-amber-50 text-amber-600' :
-                    a.type === 'howto' ? 'bg-green-50 text-green-600' :
-                    'bg-gray-50 text-gray-600'
-                  }`}>
-                    {a.type === 'color-guide' ? 'カラー' : a.type === 'review-analysis' ? 'レビュー' : a.type === 'howto' ? 'ハウツー' : '選び方'}
-                  </span>
-                  <span class="text-[10px] text-text-dim font-mono">{a.targetFish.join('・')}</span>
-                </div>
-                <h3 class="text-[14px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s] mb-2 line-clamp-2">
-                  {a.h1}
-                </h3>
-                <p class="text-[12px] text-text-mid leading-relaxed line-clamp-2">
-                  {a.description}
-                </p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-    )}
-
     <!-- エディトリアルレビュー -->
     {reviewedLures.length > 0 && (
       <section class="animate-fade-up">
@@ -294,111 +231,6 @@ const jsonLd = {
         </div>
       </section>
     )}
-
-    <!-- 季節で選ぶ -->
-    {featuredSeasons.length > 0 && (
-      <section class="animate-fade-up">
-        <SectionHeading title="季節で選ぶ" href="/season/" slashLabel="SEASON" />
-        <div class="section-nature rounded-2xl p-6 sm:p-8 -mx-4 sm:mx-0">
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {featuredSeasons.map(g => (
-              <a
-                href={`/season/${g.slug}/`}
-                class="group block bg-white rounded-lg border border-border-light p-4 hover:border-accent hover:shadow-sm transition-all duration-[0.15s]"
-              >
-                <div class="flex items-center gap-2 mb-2">
-                  <span class={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
-                    g.season === '春' ? 'bg-pink-50 text-pink-600' :
-                    g.season === '夏' ? 'bg-sky-50 text-sky-600' :
-                    g.season === '秋' ? 'bg-orange-50 text-orange-600' :
-                    'bg-blue-50 text-blue-600'
-                  }`}>
-                    {g.season}
-                  </span>
-                  <span class="text-[10px] text-text-dim font-mono">{g.fish}</span>
-                </div>
-                <h3 class="text-[13px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s] line-clamp-2">
-                  {g.name}
-                </h3>
-                <p class="text-[11px] text-text-mid mt-1 line-clamp-2">
-                  {g.recommendedTypes.slice(0, 3).join('・')}
-                </p>
-              </a>
-            ))}
-          </div>
-          <div class="mt-3 text-right">
-            <a href="/season/" class="font-mono text-[11px] text-text-dim hover:text-accent tracking-[1px] transition-colors duration-[0.15s]">
-              全{seasonalGuides.length}件の季節ガイドを見る →
-            </a>
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- 釣り方で選ぶ -->
-    {featuredMethods.length > 0 && (
-      <section class="animate-fade-up">
-        <SectionHeading title="釣り方で選ぶ" href="/method/" slashLabel="METHOD" />
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {featuredMethods.map(m => (
-            <a
-              href={`/method/${m.slug}/`}
-              class="group block bg-white rounded-lg border border-border-light p-4 hover:border-accent hover:shadow-sm transition-all duration-[0.15s]"
-            >
-              <h3 class="text-[14px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s] mb-1">
-                {m.name}
-              </h3>
-              <p class="text-[11px] text-text-mid leading-relaxed line-clamp-2 mb-2">
-                {m.description}
-              </p>
-              <div class="flex flex-wrap gap-1">
-                {m.targetFish.slice(0, 3).map(fish => (
-                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-accent-bg text-accent border border-accent">
-                    {fish}
-                  </span>
-                ))}
-              </div>
-            </a>
-          ))}
-        </div>
-        <div class="mt-3 text-right">
-          <a href="/method/" class="font-mono text-[11px] text-text-dim hover:text-accent tracking-[1px] transition-colors duration-[0.15s]">
-            全{fishingMethods.length}件の釣り方を見る →
-          </a>
-        </div>
-      </section>
-    )}
-
-    <!-- 比較して選ぶ -->
-    <section class="animate-fade-up">
-      <SectionHeading title="比較して選ぶ" href="/compare/" slashLabel="COMPARE" />
-      <div class="bg-white rounded-lg border border-border-light p-6">
-        <p class="text-[13px] text-text-mid leading-relaxed mb-4">
-          気になるルアー同士のスペックを横並びで比較。サイズ・重量・価格・カラー数など、購入前の検討に最適です。
-        </p>
-        {popularCompares.length > 0 && (
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-            {popularCompares.map(c => (
-              <a
-                href={`/compare/${c.slug}/`}
-                class="flex items-center justify-between px-3 py-2 bg-gray-50 rounded border border-border-light hover:border-accent hover:bg-white transition-all duration-[0.15s] group"
-              >
-                <span class="text-[12px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s]">
-                  {c.fishName}×{c.typeName}
-                </span>
-                <span class="font-mono text-[10px] text-text-dim">{c.count}</span>
-              </a>
-            ))}
-          </div>
-        )}
-        <a
-          href="/compare/"
-          class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-900 text-white rounded-lg text-[13px] font-medium hover:bg-gray-800 transition-colors duration-[0.15s]"
-        >
-          比較ページを見る →
-        </a>
-      </div>
-    </section>
 
     <!-- ルアーを発見する -->
     <section class="animate-fade-up">

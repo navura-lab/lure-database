@@ -204,6 +204,14 @@ const EXCLUDED_NAME_PATTERNS = [
   /スペアパーツ/,
   /\bfishing\s*tool\b/i,
 
+  // ===================== 集魚剤・ケミカル =====================
+  /\bbite\s+powder\b/i,
+  /\bbite\s+liquid\b/i,
+  /\battractant\b/i,
+  /\bfish\s+scent\b/i,
+  /\bscent\s+spray\b/i,
+  /\bchum\b/i,
+
   // ===================== 特定型番 =====================
   /^ZF-/i,  // Zero Dragon ロッド型番
   /キャスティングロッド/,
@@ -229,6 +237,7 @@ const EXCLUDED_SLUGS = new Set([
   'north-craft-cap',
   // バッグ
   'ice-gear-bag',
+  'bite-powder-or-bite-liquid',
 ]);
 
 /** 製品名またはslugが非ルアー（アクセサリー/パーツ/ロッド/ウェア）かどうかを判定 */
