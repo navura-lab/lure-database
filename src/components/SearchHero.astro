@@ -8,12 +8,12 @@ interface Props {
 const { seriesCount, colorCount, lureImages = [] } = Astro.props;
 ---
 
-<section class="relative overflow-hidden bg-[#0a0a0a]" style="min-height: 520px;">
+<section class="relative overflow-hidden bg-[#080810]" style="min-height: 540px;">
   <!-- Canvas: ルアーネットワークアニメーション -->
   <canvas id="lure-network" class="absolute inset-0 w-full h-full"></canvas>
 
-  <!-- グラデーションオーバーレイ（下部フェード） -->
-  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a]/90"></div>
+  <!-- 下部フェード -->
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#080810]"></div>
 
   <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center z-10">
     <h1 class="font-mono text-[48px] sm:text-[64px] font-bold tracking-[4px] text-white mb-3 animate-fade-up drop-shadow-lg">
@@ -58,7 +58,6 @@ const { seriesCount, colorCount, lureImages = [] } = Astro.props;
   const ctx = canvas.getContext('2d')!;
   const images: string[] = (window as any).__LURE_IMAGES || [];
 
-  // ノード定義
   interface Node {
     x: number;
     y: number;
@@ -68,11 +67,13 @@ const { seriesCount, colorCount, lureImages = [] } = Astro.props;
     img: HTMLImageElement | null;
     loaded: boolean;
     opacity: number;
+    isLure: boolean;
   }
 
-  const ACCENT = '#00C78A';
-  const NODE_COUNT = Math.min(images.length, 16);
-  const CONNECTION_DIST = 200;
+  const LURE_COUNT = Math.min(images.length, 8); // 大きいノード8個
+  const DOT_COUNT = 20; // 小さい光ドット
+  const CONNECTION_DIST = 250;
+  const LURE_RADIUS = 36; // 大きく
   let mouseX = -1000;
   let mouseY = -1000;
   let W = 0;
@@ -87,23 +88,26 @@ const { seriesCount, colorCount, lureImages = [] } = Astro.props;
     canvas.height = H * devicePixelRatio;
     canvas.style.width = W + 'px';
     canvas.style.height = H + 'px';
-    ctx.scale(devicePixelRatio, devicePixelRatio);
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
   }
 
   function init() {
     resize();
-    for (let i = 0; i < NODE_COUNT; i++) {
+
+    // ルアー画像ノード（大きく目立つ）
+    for (let i = 0; i < LURE_COUNT; i++) {
       const img = new Image();
       img.crossOrigin = 'anonymous';
       const node: Node = {
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        radius: 24 + Math.random() * 16,
+        x: (W * 0.1) + Math.random() * (W * 0.8),
+        y: (H * 0.1) + Math.random() * (H * 0.8),
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        radius: LURE_RADIUS + Math.random() * 8,
         img: null,
         loaded: false,
         opacity: 0,
+        isLure: true,
       };
       if (images[i]) {
         img.onload = () => { node.img = img; node.loaded = true; };
@@ -112,17 +116,18 @@ const { seriesCount, colorCount, lureImages = [] } = Astro.props;
       nodes.push(node);
     }
 
-    // 余分のノード（画像なし、光のドットのみ）
-    for (let i = NODE_COUNT; i < NODE_COUNT + 12; i++) {
+    // 光のドット（小さい）
+    for (let i = 0; i < DOT_COUNT; i++) {
       nodes.push({
         x: Math.random() * W,
         y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        radius: 3 + Math.random() * 4,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        radius: 1.5 + Math.random() * 2.5,
         img: null,
         loaded: false,
-        opacity: 0.3 + Math.random() * 0.4,
+        opacity: 0.2 + Math.random() * 0.5,
+        isLure: false,
       });
     }
   }
@@ -130,16 +135,20 @@ const { seriesCount, colorCount, lureImages = [] } = Astro.props;
   function draw() {
     ctx.clearRect(0, 0, W, H);
 
-    // 接続線
+    // 接続線（ルアーノード同士、ルアーとドット）
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const dx = nodes[i].x - nodes[j].x;
         const dy = nodes[i].y - nodes[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < CONNECTION_DIST) {
-          const alpha = (1 - dist / CONNECTION_DIST) * 0.15;
+          // ルアー同士の接続はより明るく太く
+          const bothLure = nodes[i].isLure && nodes[j].isLure;
+          const alpha = (1 - dist / CONNECTION_DIST) * (bothLure ? 0.35 : 0.12);
+          const width = bothLure ? 1.5 : 0.5;
+
           ctx.strokeStyle = `rgba(0, 199, 138, ${alpha})`;
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = width;
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -151,10 +160,10 @@ const { seriesCount, colorCount, lureImages = [] } = Astro.props;
       const mdx = nodes[i].x - mouseX;
       const mdy = nodes[i].y - mouseY;
       const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-      if (mdist < CONNECTION_DIST * 1.5) {
-        const alpha = (1 - mdist / (CONNECTION_DIST * 1.5)) * 0.3;
+      if (mdist < CONNECTION_DIST * 1.2) {
+        const alpha = (1 - mdist / (CONNECTION_DIST * 1.2)) * (nodes[i].isLure ? 0.5 : 0.2);
         ctx.strokeStyle = `rgba(0, 199, 138, ${alpha})`;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = nodes[i].isLure ? 1.5 : 0.5;
         ctx.beginPath();
         ctx.moveTo(nodes[i].x, nodes[i].y);
         ctx.lineTo(mouseX, mouseY);
@@ -164,49 +173,56 @@ const { seriesCount, colorCount, lureImages = [] } = Astro.props;
 
     // ノード描画
     for (const node of nodes) {
-      // フェードイン
-      if (node.opacity < 1) node.opacity = Math.min(1, node.opacity + 0.01);
+      if (node.opacity < 1) node.opacity = Math.min(1, node.opacity + 0.015);
 
-      if (node.loaded && node.img) {
-        // ルアー画像ノード
+      if (node.isLure && node.loaded && node.img) {
+        const r = node.radius;
+
+        // 白い円背景（ルアーが見えるように）
         ctx.save();
-        ctx.globalAlpha = node.opacity * 0.7;
+        ctx.globalAlpha = node.opacity * 0.95;
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowColor = 'rgba(0, 199, 138, 0.3)';
+        ctx.shadowBlur = 20;
         ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, r + 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // ルアー画像
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
         ctx.closePath();
         ctx.clip();
-        ctx.drawImage(
-          node.img,
-          node.x - node.radius,
-          node.y - node.radius,
-          node.radius * 2,
-          node.radius * 2,
-        );
+        ctx.drawImage(node.img, node.x - r, node.y - r, r * 2, r * 2);
         ctx.restore();
 
-        // 光の縁取り
-        ctx.strokeStyle = `rgba(0, 199, 138, ${node.opacity * 0.3})`;
-        ctx.lineWidth = 1;
+        // アクセント縁取り
+        ctx.strokeStyle = `rgba(0, 199, 138, ${node.opacity * 0.6})`;
+        ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius + 2, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, r + 4, 0, Math.PI * 2);
         ctx.stroke();
-      } else {
+
+      } else if (!node.isLure) {
         // 光のドット
-        ctx.fillStyle = `rgba(0, 199, 138, ${node.opacity * 0.6})`;
+        ctx.globalAlpha = node.opacity;
+        ctx.fillStyle = `rgba(0, 199, 138, 0.7)`;
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
         ctx.fill();
+        ctx.globalAlpha = 1;
       }
 
       // 移動
       node.x += node.vx;
       node.y += node.vy;
 
-      // 壁で跳ね返り
-      if (node.x < -50) node.x = W + 50;
-      if (node.x > W + 50) node.x = -50;
-      if (node.y < -50) node.y = H + 50;
-      if (node.y > H + 50) node.y = -50;
+      // ソフトバウンス
+      if (node.x < -30) node.x = W + 30;
+      if (node.x > W + 30) node.x = -30;
+      if (node.y < -30) node.y = H + 30;
+      if (node.y > H + 30) node.y = -30;
     }
 
     requestAnimationFrame(draw);

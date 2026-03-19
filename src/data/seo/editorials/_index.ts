@@ -417,8 +417,30 @@ import { troutDcontact85Editorial } from './trout-d-contact-85';
 import { jpssEditorial } from './jpss';
 import { keitanJigRapidEditorial } from './keitan-jig-rapid';
 import { troutEdgeDiamondEditorial } from './trout-edge-diamond';
+// 2026-03-20 追加分 第28弾（10件）
+import { tricorollRyusinnEditorial } from './tricoroll-ryusinn';
+import { verticeRLaserImpactEditorial } from './b13af5o';
+import { iceFakeEditorial } from './ice-fake';
+import { miuEditorial } from './miu-1-5g-3-5g';
+import { screwTailGrubEditorial } from './salt-screwtail';
+import { flashMinnowTrEditorial } from './flashminnowtr';
+import { newSilentKillerEditorial } from './new-silentkiller';
+import { morethanRealSteelEditorial } from './74d36vu';
+import { tgBinBinSwitchHeadEditorial } from './tgbinbinsuitchi-heddo';
+import { dConceptEditorial } from './trout-d-concept';
+// 2026-03-20 追加分 第29弾（10件）
+import { shadowRapDeepEditorial } from './rapala-sdr';
+import { fieldreamAreaEditorial } from './trout-fieldream-area';
+import { halucaEditorial } from './salt-haluca';
+import { ripstopEditorial } from './rapala-rps';
+import { jpsmlEditorial } from './jps-micro-light';
+import { kickbackCurly3Editorial } from './kickback-curly-3';
+import { hyperVibesEditorial } from './hyper-vibes';
+import { slowEmotionBumpEditorial } from './slow-emotion-bump';
+import { superGrubEditorial } from './bass-supergrub';
+import { ripeJointMetalVibeEditorial } from './ripe-joint-metal-vibe';
 
-/** slug → EditorialReview のマップ（全385件） */
+/** slug → EditorialReview のマップ（全405件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -831,4 +853,26 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'jpss': jpssEditorial,
   'keitan-jig-rapid': keitanJigRapidEditorial,
   'trout-edge-diamond': troutEdgeDiamondEditorial,
+  // 2026-03-20 追加分 第28弾（10件）
+  'tricoroll-ryusinn': tricorollRyusinnEditorial,
+  'b13af5o': verticeRLaserImpactEditorial,
+  'ice-fake': iceFakeEditorial,
+  'miu-1-5g-3-5g': miuEditorial,
+  'salt-screwtail': screwTailGrubEditorial,
+  'flashminnowtr': flashMinnowTrEditorial,
+  'new-silentkiller': newSilentKillerEditorial,
+  '74d36vu': morethanRealSteelEditorial,
+  'tgbinbinsuitchi-heddo': tgBinBinSwitchHeadEditorial,
+  'trout-d-concept': dConceptEditorial,
+  // 2026-03-20 追加分 第29弾（10件）
+  'rapala-sdr': shadowRapDeepEditorial,
+  'trout-fieldream-area': fieldreamAreaEditorial,
+  'salt-haluca': halucaEditorial,
+  'rapala-rps': ripstopEditorial,
+  'jps-micro-light': jpsmlEditorial,
+  'kickback-curly-3': kickbackCurly3Editorial,
+  'hyper-vibes': hyperVibesEditorial,
+  'slow-emotion-bump': slowEmotionBumpEditorial,
+  'bass-supergrub': superGrubEditorial,
+  'ripe-joint-metal-vibe-65-80': ripeJointMetalVibeEditorial,
 };
