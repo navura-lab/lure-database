@@ -99,8 +99,16 @@ const fishLinks = [
 
     </div>
 
-    <!-- 区切り線 + コピーライト -->
-    <div class="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[10px] text-text-dim tracking-[1px]">
+    <!-- 法定ページリンク -->
+    <div class="border-t border-border pt-4 pb-4 flex flex-wrap justify-center gap-4 font-mono text-[10px] text-text-dim tracking-[1px]">
+      <a href="/about/" class="hover:text-text transition-colors">運営者情報</a>
+      <a href="/privacy/" class="hover:text-text transition-colors">プライバシーポリシー</a>
+      <a href="/disclaimer/" class="hover:text-text transition-colors">免責事項</a>
+      <a href="mailto:info@castlog.xyz" class="hover:text-text transition-colors">お問い合わせ</a>
+    </div>
+
+    <!-- コピーライト -->
+    <div class="border-t border-border-light pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[10px] text-text-dim tracking-[1px]">
       <div class="flex items-center gap-3">
         <span class="font-bold text-[14px] tracking-[2px]">CAST<span class="text-accent">/</span>LOG</span>
         <span>{ui.tagline}</span>
