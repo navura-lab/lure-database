@@ -574,6 +574,99 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
               </div>
             ))}
           </div>
+          {/* YouTube公式動画（あれば） */}
+          {embedUrl && (
+            <div class="mb-8">
+              <h3 class="text-base font-bold text-text mb-3">公式動画</h3>
+              <div class="aspect-video rounded-xl overflow-hidden border border-border-light">
+                <iframe
+                  src={embedUrl}
+                  title={`${series.name} 公式動画`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                  class="w-full h-full"
+                ></iframe>
+              </div>
+            </div>
+          )}
+
+          {/* カラーギャラリー（上位4色） */}
+          {series.colors && series.colors.filter(c => c.images?.length > 0).length > 1 && (
+            <div class="mb-8">
+              <h3 class="text-base font-bold text-text mb-3">カラーバリエーション</h3>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {series.colors.filter(c => c.images?.length > 0).slice(0, 4).map(color => (
+                  <div class="bg-white rounded-xl border border-border-light overflow-hidden">
+                    <div class="aspect-square">
+                      <img src={color.images[0]} alt={color.color_name} class="w-full h-full object-scale-down p-2" loading="lazy" />
+                    </div>
+                    <p class="text-[11px] text-text-mid text-center py-1.5 px-1 truncate">{color.color_name}</p>
+                  </div>
+                ))}
+              </div>
+              {series.color_count > 4 && (
+                <p class="text-xs text-text-dim mt-2 text-center">他 {series.color_count - 4}色 → 下のカラー一覧で確認</p>
+              )}
+            </div>
+          )}
+
+          {/* 同カテゴリ比較表 */}
+          {similarSeries.length > 0 && (
+            <div class="mb-8">
+              <h3 class="text-base font-bold text-text mb-3">競合ルアーとの比較</h3>
+              <div class="overflow-x-auto -mx-2">
+                <table class="w-full text-sm border-collapse min-w-[500px]">
+                  <thead>
+                    <tr class="bg-surface">
+                      <th class="px-3 py-2.5 text-left text-xs font-bold text-text-mid border-b border-border">ルアー</th>
+                      <th class="px-3 py-2.5 text-left text-xs font-bold text-text-mid border-b border-border">タイプ</th>
+                      <th class="px-3 py-2.5 text-right text-xs font-bold text-text-mid border-b border-border">カラー数</th>
+                      <th class="px-3 py-2.5 text-right text-xs font-bold text-text-mid border-b border-border">価格</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b border-border-light bg-accent-bg/30">
+                      <td class="px-3 py-2 font-bold text-text">{series.name}</td>
+                      <td class="px-3 py-2 text-text-mid">{series.type}</td>
+                      <td class="px-3 py-2 text-right font-mono text-accent">{series.color_count}</td>
+                      <td class="px-3 py-2 text-right font-mono text-text">{series.price_range.max > 0 ? `¥${series.price_range.min.toLocaleString()}` : '-'}</td>
+                    </tr>
+                    {similarSeries.slice(0, 3).map(sim => (
+                      <tr class="border-b border-border-light hover:bg-surface/50">
+                        <td class="px-3 py-2">
+                          <a href={`/${sim.series.manufacturer_slug}/${sim.series.slug}/`} class="text-accent hover:underline">{sim.series.name}</a>
+                          <span class="text-[10px] text-text-dim ml-1">({sim.series.manufacturer})</span>
+                        </td>
+                        <td class="px-3 py-2 text-text-mid">{sim.series.type}</td>
+                        <td class="px-3 py-2 text-right font-mono text-text-mid">{sim.series.color_count}</td>
+                        <td class="px-3 py-2 text-right font-mono text-text-mid">{sim.series.price_range.max > 0 ? `¥${sim.series.price_range.min.toLocaleString()}` : '-'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* 価格ポジション + カラー傾向 */}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            {pricePosition && series.price_range.max > 0 && (
+              <div class="bg-bg rounded-xl border border-border-light p-4">
+                <p class="text-xs font-mono text-text-dim uppercase tracking-wider mb-1">価格ポジション</p>
+                <p class="text-lg font-bold text-text">¥{series.price_range.min.toLocaleString()}{series.price_range.min !== series.price_range.max ? `〜¥${series.price_range.max.toLocaleString()}` : ''}</p>
+                <p class="text-[13px] text-text-mid mt-1">{pricePosition}</p>
+              </div>
+            )}
+            {colorBreakdown.length > 0 && colorBreakdown[0].id !== 'other' && (
+              <div class="bg-bg rounded-xl border border-border-light p-4">
+                <p class="text-xs font-mono text-text-dim uppercase tracking-wider mb-1">カラー傾向</p>
+                <p class="text-lg font-bold text-text">{series.color_count}色展開</p>
+                <p class="text-[13px] text-text-mid mt-1">{colorBreakdown[0].label}が{colorBreakdown[0].count}色（{colorBreakdown[0].pct}%）で最多</p>
+              </div>
+            )}
+          </div>
+
           <div class="mb-8">
             <h3 class="text-base font-bold text-text mb-4">シーン別の使い方</h3>
             <div class="space-y-4">
