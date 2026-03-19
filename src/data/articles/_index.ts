@@ -218,6 +218,12 @@ import ainameWorm from './ainame-worm.js';
 import kijihataLure from './kijihata-lure.js';
 import rockfishBeginner from './rockfish-beginner.js';
 import rockfishJighead from './rockfish-jighead.js';
+// DB傾向分析記事（第21弾）
+import lureTypeTrends2026 from './lure-type-trends-2026.js';
+import makerDiversityRanking from './maker-diversity-ranking.js';
+import priceAnalysisByType from './price-analysis-by-type.js';
+import bassVsSeabassMarket from './bass-vs-seabass-market.js';
+import troutLureOverview from './trout-lure-overview.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -421,6 +427,12 @@ export const contentArticles: ContentArticle[] = [
   kijihataLure,
   rockfishBeginner,
   rockfishJighead,
+  // DB傾向分析記事（第21弾）
+  lureTypeTrends2026,
+  makerDiversityRanking,
+  priceAnalysisByType,
+  bassVsSeabassMarket,
+  troutLureOverview,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
