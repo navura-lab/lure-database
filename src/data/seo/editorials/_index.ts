@@ -947,6 +947,16 @@ import { jazzAjiMebaArtTailWormEditorial } from './jazz-aji-meba-art-tail-worm';
 import { thirtyFourDiamondHeadEditorial } from './thirty-four-diamond-head';
 import { tiemcoKurosawa53fsEditorial } from './tiemco-kurosawa-53fs';
 import { smithDContact50Editorial } from './smith-d-contact-50';
+import { imaIbis90Editorial } from './ima-ibis-90';
+import { daiwaMorethanScatterRapEditorial } from './daiwa-morethan-scatter-rap';
+import { shimanoExsenceSavageEditorial } from './shimano-exsence-savage';
+import { blueblueSnecon90sEditorial } from './blueblue-snecon-90s';
+import { coremanVj22Editorial } from './coreman-vj-22';
+import { jacksonTeppanVibLongEditorial } from './jackson-teppan-vib-long';
+import { daiwaSaltigaOverThere95sEditorial } from './daiwa-saltiga-over-there-95s';
+import { shimanoColtSniperRockWalk110sEditorial } from './shimano-coltsniper-rock-walk-110s';
+import { duoBeachWalkerWedge95sEditorial } from './duo-beach-walker-wedge-95s';
+import { jacksonSurfDriverEditorial } from './jackson-surf-driver';
 
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1893,4 +1903,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'thirty-four-diamond-head': thirtyFourDiamondHeadEditorial,
   'tiemco-kurosawa-53fs': tiemcoKurosawa53fsEditorial,
   'smith-d-contact-50': smithDContact50Editorial,
+  // 2026-03-21 追加分 第76弾（10件）ソルト全般（シーバス・青物・ヒラメ）
+  'ima-ibis-90': imaIbis90Editorial,
+  'daiwa-morethan-scatter-rap': daiwaMorethanScatterRapEditorial,
+  'shimano-exsence-savage': shimanoExsenceSavageEditorial,
+  'blueblue-snecon-90s': blueblueSnecon90sEditorial,
+  'coreman-vj-22': coremanVj22Editorial,
+  'jackson-teppan-vib-long': jacksonTeppanVibLongEditorial,
+  'daiwa-saltiga-over-there-95s': daiwaSaltigaOverThere95sEditorial,
+  'shimano-coltsniper-rock-walk-110s': shimanoColtSniperRockWalk110sEditorial,
+  'duo-beach-walker-wedge-95s': duoBeachWalkerWedge95sEditorial,
+  'jackson-surf-driver': jacksonSurfDriverEditorial,
 };
