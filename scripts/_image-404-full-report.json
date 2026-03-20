@@ -1,0 +1,4519 @@
+{
+  "timestamp": "2026-03-20T22:30:24.201Z",
+  "total404": 564,
+  "totalLures": 48,
+  "items": [
+    {
+      "id": "007b8dae-779c-4e96-b6fb-788d1f60f504",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#69 トゥーマッチシルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "00841ca2-102d-4397-9ff3-b42372c749c1",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#134N フレイムボマー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "0091b25e-4c3b-4413-8977-4d7b808c7066",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-x",
+      "color_name": "#A120 ゴールデンブルピン／グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-x/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-x/"
+    },
+    {
+      "id": "00a32bb2-5ec8-42a2-9f83-89a417247218",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#67 SGグリーン／シルバーF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "010d1edd-ed5c-4b35-99d1-4e7cdc853684",
+      "manufacturer_slug": "viva",
+      "slug": "ko-denguri-gaeru-namazusp",
+      "color_name": "#299N ポンポンフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/ko-denguri-gaeru-namazusp/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/ko-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "01121c25-1e29-43d2-acf4-904a73d73c2f",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#40 シラスグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "015ce4dd-efb3-4f30-af8f-7dee26c430b9",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-alboroto",
+      "color_name": "#A151 マットピーチO.B.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-alboroto/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-alboroto/"
+    },
+    {
+      "id": "015fb9c1-7ccb-4a9e-a02e-e97cd2ba08e6",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#40 シラスグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "01d94ef8-e876-4126-a69e-f2e088ee0a4c",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#41 GFクリアーオレンジ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "021be791-8e54-42f2-92ea-599979282581",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-delude",
+      "color_name": "A164 スダチクリアー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-delude/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-delude/"
+    },
+    {
+      "id": "02a4adb7-0477-40e3-9523-013959ae3b04",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S51 パールベイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "02f2b4dc-c65b-4cd0-b880-d841ac0406d8",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RB02 イワシP.B.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    },
+    {
+      "id": "03e18002-5d66-40ba-a6ad-92579d7afc5e",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A42 シラウオ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "047ebafa-c97f-4716-92e0-6ef452bf5574",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-vib-dash",
+      "color_name": "#225 LIVEバス",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-vib-dash/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-vib-dash/"
+    },
+    {
+      "id": "04d0a08d-cb38-44d7-a8a9-91e04376539b",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-65s",
+      "color_name": "A105B マットチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-65s/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-65s/"
+    },
+    {
+      "id": "050dbf64-1a47-4af9-96e6-195b69df5c5d",
+      "manufacturer_slug": "viva",
+      "slug": "meat-nail",
+      "color_name": "#064 アカムシ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/meat-nail/09.webp",
+      "source_url": "https://vivanet.co.jp/viva/meat-nail/"
+    },
+    {
+      "id": "05158864-fd3d-4aec-8f84-f277e4d8f4c3",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#68 GFゴージャスピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "05266926-25b9-440e-a223-e5f4dc86c1b4",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S20 ピンクグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "052fcfc1-405c-4365-b5e9-b5f50e1f1bb0",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "A188 くろっきー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/22.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "058e0381-3b40-4f23-a837-310ceb23f28b",
+      "manufacturer_slug": "viva",
+      "slug": "spark-slim-wind-starter-set",
+      "color_name": "#S9 スーパーグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark-slim-wind-starter-set/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark-slim-wind-starter-set/"
+    },
+    {
+      "id": "06cecf06-0973-40f4-99ae-54b4a40da71c",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A158 半生シラス",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/21.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "06d4c82e-ed67-4058-ae1f-30e775dd9990",
+      "manufacturer_slug": "viva",
+      "slug": "step-shad",
+      "color_name": "#217 ゴーストライムチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/step-shad/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/step-shad/"
+    },
+    {
+      "id": "0768af77-cd9f-4c2a-a120-857aafb498a4",
+      "manufacturer_slug": "viva",
+      "slug": "mf-flapper",
+      "color_name": "#1 トノサマガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mf-flapper/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/mf-flapper/"
+    },
+    {
+      "id": "07a0c0cf-0815-4cc8-8ae6-6f57e48f17de",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#159N クマノミ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/13.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "07e4f82e-654b-4998-8676-112419080f7d",
+      "manufacturer_slug": "viva",
+      "slug": "step-shad",
+      "color_name": "#8E ブルーギル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/step-shad/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/step-shad/"
+    },
+    {
+      "id": "09ff2501-979a-4b64-a98e-bc4ea0ac65c2",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S34 ギラッチ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "0a3144b7-3407-4749-8d8c-823c3553736f",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A39A 小鰯／グローベリー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "0b5b4044-e6b2-4be0-9dbd-656239217bb0",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-x",
+      "color_name": "#A96 コスモイワシR.B.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-x/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-x/"
+    },
+    {
+      "id": "0bad379d-2bb9-43ef-9798-b61d38c36a13",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#70 GFえびせん",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "0bf9719d-ce12-46e8-89f5-7e23866f7040",
+      "manufacturer_slug": "viva",
+      "slug": "grown-wriggle-shad",
+      "color_name": "#61 カタクチイワシ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/grown-wriggle-shad/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/grown-wriggle-shad/"
+    },
+    {
+      "id": "0c3dec00-0445-4352-804b-f8e27e82eb86",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A91 生小鰯",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/11.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "0c577a15-be23-48e9-8d17-669fcb48522d",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-80s",
+      "color_name": "A105B マットチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-80s/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-80s/"
+    },
+    {
+      "id": "0c6b83d2-d69e-4498-9499-9aa875250a56",
+      "manufacturer_slug": "viva",
+      "slug": "step-shad",
+      "color_name": "#220 ナチュラルベイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/step-shad/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/step-shad/"
+    },
+    {
+      "id": "0c71927a-77a8-4d51-a743-9fcdcf62b70e",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#170N オレンジグローコーチドッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "0c83ecad-2fbe-4368-8e1b-a3325cc5eb85",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A62 ナトリウムSP",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "0ccfe2ce-377d-46d9-8e9d-50cc0f7c8e02",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A86 生イカナゴ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "0d2ed316-2a55-4051-a601-1bd78740b18b",
+      "manufacturer_slug": "viva",
+      "slug": "namagaeru",
+      "color_name": "#7 マットタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/namagaeru/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/namagaeru/"
+    },
+    {
+      "id": "0dd16657-b67d-4cfb-a612-a9011654a5fe",
+      "manufacturer_slug": "viva",
+      "slug": "metalmagic-hybrid",
+      "color_name": "#A193 チェリーブロッサム",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/metalmagic-hybrid/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/metalmagic-hybrid/"
+    },
+    {
+      "id": "0dda2aa2-fe1f-4650-8250-02ee278f5fc4",
+      "manufacturer_slug": "viva",
+      "slug": "pliezar",
+      "color_name": "#27S グリーンゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pliezar/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/pliezar/"
+    },
+    {
+      "id": "0de9f612-a492-4cac-b9ed-2f36a6a71441",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-z",
+      "color_name": "#A101 パリピなゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-z/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-z/"
+    },
+    {
+      "id": "0ed2321e-5da1-4bbc-b1d2-db88d182976e",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A92 イザヨイ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/14.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "0ee5aaad-a3c6-4b73-ba86-1323327267d3",
+      "manufacturer_slug": "viva",
+      "slug": "mama-namagaeru",
+      "color_name": "#13 WMフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mama-namagaeru/10.webp",
+      "source_url": "https://vivanet.co.jp/viva/mama-namagaeru/"
+    },
+    {
+      "id": "104a4cee-1fe3-4cb1-b818-4935fb5adb42",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A62 ナトリウムSP",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "1099be64-dc25-4284-8d3a-ade34b8db235",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#36 GFクリアーピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "10e950d0-5fdf-4912-ac65-10d840ff12b4",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#272N アメザリ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/14.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "117f058b-b841-4c10-b254-100848369331",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#69 トゥーマッチシルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "12268448-e675-4f91-9a8f-3e49ec066a4c",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S48 ピンクゼブラグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "128e6823-4287-4c48-ba9a-f4028d066c17",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ14 ゼブラグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "13bc074c-bb86-43c4-8441-7300f917c2ba",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S26 クリアーチャートグロー／シルバーF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "13ec5177-6683-4022-b5e2-06f387d2778f",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ19 ピンクバックグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "14905913-d935-47be-9ef8-ff2caa1d905b",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic80",
+      "color_name": "#A80 C.ライムチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic80/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic80/"
+    },
+    {
+      "id": "153e54ee-ecea-44d2-98f6-621f5ed4eef8",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#39 BG小鰯",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "15a01df9-00f8-445a-a752-f63623607f94",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "168535a5-d3ee-4ef7-be8b-e3e20832d594",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K21 アジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "16a1e07f-1511-4f38-bf23-fa4270dc9a56",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall90f",
+      "color_name": "A178 イワシ／グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall90f/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall90f/"
+    },
+    {
+      "id": "16c2c731-798b-4d3e-8205-f46c6158e8f9",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K25 ケイムラブルー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "176560cf-868e-4287-82b1-f5aef3255f1b",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall90f",
+      "color_name": "A30E レッドゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall90f/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall90f/"
+    },
+    {
+      "id": "17ff3157-3bc3-431d-9732-c7f5e18bc3eb",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "18404a5c-bf10-404a-8c75-a1f19a237c26",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#66 UVチャート／ゴールドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "1874825e-4ba6-4893-8bdf-b70410c9953f",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A39A 小鰯／グローベリー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "18ad3875-31bf-4e2a-9112-22a2f6c528c9",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#196N クリムゾンボマー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "18ddc8ff-9c3b-4d40-97e7-35298a141f7d",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "19163453-a75c-4d93-8e99-844a5aadd0da",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A64 仔イカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "196e393f-69cf-4b72-be31-5f7897c24571",
+      "manufacturer_slug": "viva",
+      "slug": "grown-wriggle-shad",
+      "color_name": "#58 キンクロ/レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/grown-wriggle-shad/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/grown-wriggle-shad/"
+    },
+    {
+      "id": "19a5acfb-b400-4b2e-8110-c162ad0a79dc",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall-120f",
+      "color_name": "A167 ほろ酔いマッコリ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall-120f/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall-120f/"
+    },
+    {
+      "id": "1a0aeac2-451b-436f-943d-b81e60b15a3f",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A117 C.ピーチタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/16.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "1c1bbc5b-3249-4ab6-b627-083526499cd2",
+      "manufacturer_slug": "viva",
+      "slug": "viva-gill-35",
+      "color_name": "#030 ウォーターメロン/ブルーMF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/viva-gill-35/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/viva-gill-35/"
+    },
+    {
+      "id": "1c2ebc90-0968-470b-ad60-62b2a686130f",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A115 六花シュリンプ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/14.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "1d0d0f13-ed98-4ad4-a77f-e2f92715b1b2",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A114 焔シュリンプ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/13.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "1d1ef40b-8d3e-4d77-91c4-ba21cb7c309d",
+      "manufacturer_slug": "viva",
+      "slug": "mama-namagaeru",
+      "color_name": "#2 ブラウントノサマ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mama-namagaeru/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/mama-namagaeru/"
+    },
+    {
+      "id": "1df9a018-cefa-44b7-a8b5-10ced4f45836",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#66 UVチャート／ゴールドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "1e2bb609-0986-4742-9f06-97f7d03757eb",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#186N ブルーバックチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/21.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "1e8243e6-cc61-495e-a3ed-2734b9bd8ec0",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#141N レッド・クレイフィッシュ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/09.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "1e91c28e-a3e6-4e89-b15a-dc9b336578db",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ22 ホロチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "1ea76564-635b-40af-b9d2-a174219ec97b",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A117 C.ピーチタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/17.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "1ee02741-f61a-4e79-b124-5e22e5b5b1d3",
+      "manufacturer_slug": "viva",
+      "slug": "pliezar",
+      "color_name": "#33S マットブラック",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pliezar/10.webp",
+      "source_url": "https://vivanet.co.jp/viva/pliezar/"
+    },
+    {
+      "id": "1f865387-91d2-440d-89a2-64971c4b04e5",
+      "manufacturer_slug": "viva",
+      "slug": "mama-namagaeru",
+      "color_name": "#5 ヤマアカガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mama-namagaeru/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/mama-namagaeru/"
+    },
+    {
+      "id": "1f8b903e-3f80-43d5-b702-b2cfae6ca2fe",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#38 UVチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "1ff0cf06-d19a-4052-b909-d4a379f2c9ec",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-80s",
+      "color_name": "A184 UVピンクシグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-80s/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-80s/"
+    },
+    {
+      "id": "2039ba55-e7d0-4464-9de6-0b8a2375e143",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RB02 イワシP.B.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    },
+    {
+      "id": "204694ca-f397-46bb-ba29-74cef7dddc0a",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#292N 鬼ヤドク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/14.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "21382f69-551c-4e88-80c1-e67de53b2902",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#185N メタルシグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/20.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "21c18295-a7a8-4f05-9d8b-031086409f6f",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall-120f",
+      "color_name": "A195 トロピカルイエロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall-120f/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall-120f/"
+    },
+    {
+      "id": "21da94fe-8e31-4bd9-a514-49f00a34e983",
+      "manufacturer_slug": "viva",
+      "slug": "datchak",
+      "color_name": "#TS05 オレンジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak/"
+    },
+    {
+      "id": "21f8f6d8-7694-4174-9cb5-6e4c84a47a22",
+      "manufacturer_slug": "viva",
+      "slug": "viva-gill-35",
+      "color_name": "#026 グリーンパンプキン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/viva-gill-35/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/viva-gill-35/"
+    },
+    {
+      "id": "224a4674-1649-45d0-b623-a02496bb5e40",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#1B パールホワイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "224ee461-ac81-4b57-8923-4a7174e9b864",
+      "manufacturer_slug": "viva",
+      "slug": "grown-wriggle-shad",
+      "color_name": "#60 イワシ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/grown-wriggle-shad/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/grown-wriggle-shad/"
+    },
+    {
+      "id": "228e0e52-8f0a-4673-a9a4-168537226683",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "22a54a4c-9cf0-439a-8c01-5479f85278ea",
+      "manufacturer_slug": "viva",
+      "slug": "meat-nail",
+      "color_name": "#051 グリパンチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/meat-nail/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/meat-nail/"
+    },
+    {
+      "id": "24f574a6-2fef-4dde-8881-ed99c14480f4",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#38 UVチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "24fca72e-1890-4114-8aec-043513c3e76e",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#1B パールホワイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "267eae9c-fe80-422a-bf20-46876ff82f77",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH03 レッドゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "26d39a17-f3dd-4550-9539-fa97ada68576",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#40 シラスグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "270feb95-931f-46df-bdd3-6e31914592b2",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "27a1782d-920a-485c-8722-5afe488f5fcb",
+      "manufacturer_slug": "viva",
+      "slug": "mama-namagaeru",
+      "color_name": "#9 グリパンフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mama-namagaeru/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/mama-namagaeru/"
+    },
+    {
+      "id": "281e4cfd-6ec3-4f77-94bd-400fcffccba4",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#40 シラスグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "28aa8c94-ea1f-4b11-b840-836ac762cb92",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#39 BG小鰯",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "28d54539-fd6f-4f70-ba80-b5f5e07f433c",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#13 SGグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "28de2780-0741-4b3d-980d-5dbd59759748",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#69 トゥーマッチシルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "291eacb3-a3dd-4a80-88ee-0f1fbe771aa2",
+      "manufacturer_slug": "viva",
+      "slug": "little-magic",
+      "color_name": "#A158 半生シラス",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/little-magic/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/little-magic/"
+    },
+    {
+      "id": "29978173-04a4-4a4b-b196-feff8112d352",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#68 GFゴージャスピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "2a905f43-7845-41d9-b0f9-d882215158ea",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-alboroto",
+      "color_name": "#A30C レッドゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-alboroto/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-alboroto/"
+    },
+    {
+      "id": "2aa4af87-a5f4-48ef-b932-1de708dfc278",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall-120f",
+      "color_name": "A179 サイトオレンジ／グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall-120f/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall-120f/"
+    },
+    {
+      "id": "2aae60b2-0743-4958-afbc-f1751da1ec02",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "2ac76ea7-ca87-49a7-af15-80468872c3cc",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-z",
+      "color_name": "#A100 P.B.シグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-z/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-z/"
+    },
+    {
+      "id": "2addfaf1-6aea-4879-856d-c435211b29c6",
+      "manufacturer_slug": "viva",
+      "slug": "pliezar",
+      "color_name": "#30S シルバー／レッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pliezar/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/pliezar/"
+    },
+    {
+      "id": "2b5969d0-336b-4053-b272-45b2b1c56c28",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#195N  ステルスピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "2b7bc95b-6a33-4cfc-ae7c-08ae29f708a0",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#247N ピンクスネーク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/10.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "2c357d7e-6a0a-4fb2-81c6-670036836e08",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-popper",
+      "color_name": "#12A マットタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-popper/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-popper/"
+    },
+    {
+      "id": "2c392c0d-a049-4ca6-b756-a9697e32b7a5",
+      "manufacturer_slug": "viva",
+      "slug": "ko-denguri-gaeru-namazusp",
+      "color_name": "#300N kissガバビー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/ko-denguri-gaeru-namazusp/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/ko-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "2c805799-74a0-4ebd-9432-c56c4fafa24a",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A86 生イカナゴ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "2d03592d-6fd6-4a12-b9ef-9ec67168fd04",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-z",
+      "color_name": "#A111 UVマイクロ鰯",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-z/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-z/"
+    },
+    {
+      "id": "2e0bf19c-da44-4a12-a8c2-d16dc57c23d7",
+      "manufacturer_slug": "viva",
+      "slug": "little-magic",
+      "color_name": "#A156 ほろよいピーチ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/little-magic/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/little-magic/"
+    },
+    {
+      "id": "2e92e797-b4a4-4d78-9362-16d77d8dfb4a",
+      "manufacturer_slug": "viva",
+      "slug": "ko-denguri-gaeru-namazusp",
+      "color_name": "#295N オレンジソーダ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/ko-denguri-gaeru-namazusp/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/ko-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "2f682a0f-f598-416a-b64d-dfadc04f29f6",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-80s",
+      "color_name": "A58A C.レッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-80s/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-80s/"
+    },
+    {
+      "id": "2f94c928-1412-4e14-b383-a59f8fe02d2f",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall90f",
+      "color_name": "A167 ほろ酔いマッコリ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall90f/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall90f/"
+    },
+    {
+      "id": "2fffe2d1-e93f-4fb9-a5d2-8c9471f24756",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A80 C.ライムチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "31776cf6-00a3-4a4b-8b6c-9ee22b515020",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-65s",
+      "color_name": "A199 ミルキーピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-65s/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-65s/"
+    },
+    {
+      "id": "322890ee-bd81-4655-8299-4829f55d7320",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#196N クリムゾンボマー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/11.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "327537a2-84a3-40cc-9642-fa6fdfb64414",
+      "manufacturer_slug": "viva",
+      "slug": "namagaeru",
+      "color_name": "#5 ヤマアカガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/namagaeru/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/namagaeru/"
+    },
+    {
+      "id": "3297e1d9-ff3c-4401-8d1c-83015a49d9e9",
+      "manufacturer_slug": "viva",
+      "slug": "pliezar",
+      "color_name": "#28S ゴールド／レッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pliezar/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/pliezar/"
+    },
+    {
+      "id": "32cf0053-4267-4e48-8371-29f5454d259f",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#183N ピンクセクシーシャッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/18.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "32f8dccd-55c0-49ef-bf7e-6442dee27c8c",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#1B パールホワイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "3318355e-8441-411a-a3b5-bdcf5b712445",
+      "manufacturer_slug": "viva",
+      "slug": "viva-gill-35",
+      "color_name": "#070 セクシーサクラ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/viva-gill-35/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/viva-gill-35/"
+    },
+    {
+      "id": "33d21c9c-9263-4137-a922-814152045169",
+      "manufacturer_slug": "viva",
+      "slug": "meat-nail",
+      "color_name": "#063 シナモンブルー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/meat-nail/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/meat-nail/"
+    },
+    {
+      "id": "33d5aa98-f7c0-4769-9d30-9b94fed5d476",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-65s",
+      "color_name": "A196 ダブルオレンジ／グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-65s/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-65s/"
+    },
+    {
+      "id": "33d980a1-7a6c-40ad-ad1f-e671569fe5de",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "341637b1-8854-4bcd-878a-829c799b2233",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-80s",
+      "color_name": "A167 ほろ酔いマッコリ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-80s/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-80s/"
+    },
+    {
+      "id": "34788d3e-a767-4605-9da6-663af67d12d7",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#66 UVチャート／ゴールドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "3502186f-0996-4f61-9102-193ee5ae9094",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall90f",
+      "color_name": "A183 C.メテオシャワー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall90f/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall90f/"
+    },
+    {
+      "id": "352f33c8-bfe2-4c85-970a-92a1ae237c27",
+      "manufacturer_slug": "viva",
+      "slug": "yawaraka-denguri-gaeru-namazusp",
+      "color_name": "#137N オールドフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/yawaraka-denguri-gaeru-namazusp/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/yawaraka-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "35817b6a-427b-4509-b075-966fe556a65e",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A83 宵孔雀",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "360381f7-152b-4489-aa50-d7dc81f1cfb5",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#68 GFゴージャスピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "371a0e9b-c826-40c4-a937-f1b335f0ad78",
+      "manufacturer_slug": "viva",
+      "slug": "namagaeru",
+      "color_name": "#2 ブラウントノサマ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/namagaeru/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/namagaeru/"
+    },
+    {
+      "id": "383514fb-d465-40ed-a43e-64f51f88f987",
+      "manufacturer_slug": "viva",
+      "slug": "step-shad",
+      "color_name": "#11D キンクロ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/step-shad/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/step-shad/"
+    },
+    {
+      "id": "38370645-2524-42b4-9e36-8dcc15341e5f",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#169N クラウン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/17.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "384054a7-a057-4fda-ac27-0711a127e5ec",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#38 UVチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "394357b3-3e29-451b-9501-bacff71e9c36",
+      "manufacturer_slug": "viva",
+      "slug": "mf-flapper",
+      "color_name": "#36 ちゃアマガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mf-flapper/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/mf-flapper/"
+    },
+    {
+      "id": "3958c0f5-d3c8-437d-89a8-cc59e974841e",
+      "manufacturer_slug": "viva",
+      "slug": "meat-nail",
+      "color_name": "#066 ゴールデンミミズ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/meat-nail/11.webp",
+      "source_url": "https://vivanet.co.jp/viva/meat-nail/"
+    },
+    {
+      "id": "3996606e-35e5-4e31-b27f-6e77bb31e85d",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#40 シラスグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "3bd7f4a4-adab-4a50-8b84-0fca58c835b4",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K23 ディジーグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "3bf2ec6e-d7f7-4179-9974-7318d6f1e99f",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-alboroto",
+      "color_name": "#A152 B.B.クリアーシグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-alboroto/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-alboroto/"
+    },
+    {
+      "id": "3d23b1af-b8a5-4c2b-97b3-f175a6b4557a",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A87 ミミイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "3d4e36a1-cd56-4cf6-bbf5-7432d54baaf0",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#69 トゥーマッチシルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "3d83bc21-6e8b-4783-aa80-1e983415ecba",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "402b694b-76db-44be-810e-272abb1dfe5d",
+      "manufacturer_slug": "viva",
+      "slug": "yawaraka-denguri-gaeru-namazusp",
+      "color_name": "#308N ドハデオレンジ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/yawaraka-denguri-gaeru-namazusp/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/yawaraka-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "4149916c-af98-49cb-a95b-031065983e85",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#67 SGグリーン／シルバーF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "41c6b98d-c34e-4a30-8011-983b1f4aeca4",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic80",
+      "color_name": "#A159 C.マットピンクO.B.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic80/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic80/"
+    },
+    {
+      "id": "41e0963e-c6e9-4452-b544-65e3efee183c",
+      "manufacturer_slug": "viva",
+      "slug": "mama-namagaeru",
+      "color_name": "#7 マットタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mama-namagaeru/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/mama-namagaeru/"
+    },
+    {
+      "id": "42048bfb-8457-4591-9a44-9d9eb8450af8",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#36 GFクリアーピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "42125119-ba32-4178-ae44-6e1cd763380b",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#246N グロースネーク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/13.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "429baf10-0173-42ed-b7c8-2131b39bbf92",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#187N プリスポSP",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/22.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "42a96f3a-a116-43e8-b14b-6923371aed32",
+      "manufacturer_slug": "viva",
+      "slug": "spark-slim-head",
+      "color_name": "#4  グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark-slim-head/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark-slim-head/"
+    },
+    {
+      "id": "436765b9-a841-4b21-8e0f-ddafc32c4ddd",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-x",
+      "color_name": "#A121 マットピンクO.B.／グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-x/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-x/"
+    },
+    {
+      "id": "43f4486b-fd32-4115-918e-975f62498b9e",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#128N パールアユ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "448842dd-0446-4024-aae4-48170fa967ca",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#171N ピンククマノミ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "450c9d5d-a629-49d3-abb1-35043ab95b1b",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "A188 くろっきー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/22.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "452d717a-d14a-4f98-b8fe-ba23be20d6d9",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ12 アカキン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "45df79f4-bcc8-4ad1-aaac-7251f11de9ba",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-z",
+      "color_name": "#A96 コスモイワシR.B.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-z/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-z/"
+    },
+    {
+      "id": "4605e6a6-1aeb-44a7-ad5d-4c4402c3969f",
+      "manufacturer_slug": "viva",
+      "slug": "hafu-a",
+      "color_name": "#62A BGホタルイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/hafu-a/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/hafu-a/"
+    },
+    {
+      "id": "46701019-1b9a-4320-ba63-7e4231564ed2",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "468cdd38-08a3-454e-ab50-09ceca6e9b6d",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A58 C.レッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "46e20c1c-e333-4593-b3b4-029cd9c05268",
+      "manufacturer_slug": "viva",
+      "slug": "slide-bomber-shallow",
+      "color_name": "#270N フレイムボーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/slide-bomber-shallow/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/slide-bomber-shallow/"
+    },
+    {
+      "id": "477ef8ca-21ab-4a2c-aed0-9f11192a5054",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-65s",
+      "color_name": "A198 シャンパンカクテル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-65s/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-65s/"
+    },
+    {
+      "id": "47991371-54b2-4f2e-9d88-047a3143db21",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-vib-dash",
+      "color_name": "#252 ピンクバックチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-vib-dash/10.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-vib-dash/"
+    },
+    {
+      "id": "47caa496-93af-4619-9196-9eb1cd5649bc",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#67 SGグリーン／シルバーF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "47f2bada-7239-4f9e-a241-b0385c546ded",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ12 アカキン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "48847ccb-d9cc-458d-83b7-c822e23502cb",
+      "manufacturer_slug": "viva",
+      "slug": "metalmagic-hybrid",
+      "color_name": "#A107 シルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/metalmagic-hybrid/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/metalmagic-hybrid/"
+    },
+    {
+      "id": "48b53158-2499-4012-b8ed-80c9f9142a0f",
+      "manufacturer_slug": "viva",
+      "slug": "metalmagic-hybrid",
+      "color_name": "#A194 淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/metalmagic-hybrid/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/metalmagic-hybrid/"
+    },
+    {
+      "id": "49ab1d19-0baf-4cd1-a084-b042baafb37a",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#287N ソフトシェル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/16.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "4a65d463-d5a6-4923-ba6b-06fb065eb51c",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-alboroto",
+      "color_name": "#A14C イワシ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-alboroto/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-alboroto/"
+    },
+    {
+      "id": "4af6381e-e330-4dcd-b203-704c18842679",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#41 GFクリアーオレンジ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "4b3f29a5-c312-457c-8a81-de19060cab6a",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A159  C.マットピンクO.B.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/21.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "4b709cf5-02a6-4352-bd3a-eb84398fe7b1",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S51 パールベイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "4c3a3130-13a4-4630-a98f-a2f4c24b5ceb",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#66 UVチャート／ゴールドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "4cb7d9a8-00ad-45fc-b50e-110f2700a775",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#70 GFえびせん",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "4d46840a-2e7b-44f7-bfd0-9c79a1905791",
+      "manufacturer_slug": "viva",
+      "slug": "meat-nail",
+      "color_name": "#026 グリーンパンプキン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/meat-nail/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/meat-nail/"
+    },
+    {
+      "id": "4d6cb701-c4dc-40ed-a808-fd46b5972678",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-80s",
+      "color_name": "A178 イワシ／グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-80s/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-80s/"
+    },
+    {
+      "id": "4d86cdce-3108-4f03-bd9e-9fa6de7a62a5",
+      "manufacturer_slug": "viva",
+      "slug": "little-magic",
+      "color_name": "#A87 ミミイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/little-magic/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/little-magic/"
+    },
+    {
+      "id": "4e40a73d-c69f-4fad-bca5-fb376954d3c4",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A42 シラウオ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "4ea9de9c-3e9a-4b80-a4c0-b2561a46e79f",
+      "manufacturer_slug": "viva",
+      "slug": "step-shad",
+      "color_name": "#3A ゴーストワカサギ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/step-shad/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/step-shad/"
+    },
+    {
+      "id": "4eebce4f-d459-4257-87ff-ccfc950bc524",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-delude",
+      "color_name": "A163 フルメッキシルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-delude/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-delude/"
+    },
+    {
+      "id": "4efcd0b1-932a-438d-9ad1-c2760195ed21",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "4f7fb193-615f-472c-86ff-a6b40c127e0e",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#286N ステルスチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/12.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "4fb04392-c0c9-40d7-81c8-46fd21e8fb8d",
+      "manufacturer_slug": "viva",
+      "slug": "mama-namagaeru",
+      "color_name": "#15 シャドウフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mama-namagaeru/12.webp",
+      "source_url": "https://vivanet.co.jp/viva/mama-namagaeru/"
+    },
+    {
+      "id": "4fc36347-d214-48a5-ba17-24e76f1f843a",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-80s",
+      "color_name": "A183 C.メテオシャワー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-80s/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-80s/"
+    },
+    {
+      "id": "4ff54745-9293-451d-a0b9-e639d96d8fb6",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "A189 レッドグローダブルシャワー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/23.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "50269308-64d3-4f97-9957-fff50414e041",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#194N ナイトメア",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "5148dbbd-e657-49cc-bc6d-d647d8550977",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-vib-dash",
+      "color_name": "#11E キンクロ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-vib-dash/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-vib-dash/"
+    },
+    {
+      "id": "519b74db-2ee0-4299-89a6-71c55d067651",
+      "manufacturer_slug": "viva",
+      "slug": "ko-denguri-gaeru-namazusp",
+      "color_name": "#18CN ブラックボーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/ko-denguri-gaeru-namazusp/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/ko-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "51bac5d0-d07f-41e9-9bc0-f8443174e29a",
+      "manufacturer_slug": "viva",
+      "slug": "viva-gill-35",
+      "color_name": "#034 スカッパノン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/viva-gill-35/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/viva-gill-35/"
+    },
+    {
+      "id": "521e5104-7d9b-4daf-b4a8-5e1ebf3904f1",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#13 SGグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "52563bcc-5990-4458-91d4-5ae7b426c316",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ19 ピンクバックグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "5262a056-9b10-40b1-863e-b0c75cb4225e",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-65s",
+      "color_name": "A178 イワシ／グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-65s/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-65s/"
+    },
+    {
+      "id": "5281c87b-b2d3-4000-a309-5ef156caf808",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A64 仔イカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "52df4fd7-c5cf-462f-8d7c-9608ea19f81e",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-delude",
+      "color_name": "A161 透かしレンズシグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-delude/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-delude/"
+    },
+    {
+      "id": "53a25e7a-4b54-4ff3-b12b-7831c563bc2c",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic80",
+      "color_name": "#A168 チビナゴ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic80/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic80/"
+    },
+    {
+      "id": "53dd2083-d8a5-4641-85b3-8557b650a136",
+      "manufacturer_slug": "viva",
+      "slug": "metalmagic-hybrid",
+      "color_name": "A177 ピンクバック／グローベリー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/metalmagic-hybrid/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/metalmagic-hybrid/"
+    },
+    {
+      "id": "548d6f6f-479f-48b8-9b69-ab407894fa38",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A158 半生シラス",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/20.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "55bb70fa-6bb3-4d2f-a4bb-d87c46095809",
+      "manufacturer_slug": "viva",
+      "slug": "slide-bomber-shallow",
+      "color_name": "#227N LIVEヘラ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/slide-bomber-shallow/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/slide-bomber-shallow/"
+    },
+    {
+      "id": "55ea1804-3f0e-4cd5-8544-6d87fb349372",
+      "manufacturer_slug": "viva",
+      "slug": "spark-slim-head",
+      "color_name": "#2  ゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark-slim-head/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark-slim-head/"
+    },
+    {
+      "id": "56b74353-facd-4c64-8c7a-1359ec5d258e",
+      "manufacturer_slug": "viva",
+      "slug": "pliezar",
+      "color_name": "#32S シルバー／レッド／チャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pliezar/09.webp",
+      "source_url": "https://vivanet.co.jp/viva/pliezar/"
+    },
+    {
+      "id": "570f4d83-cfe7-4bef-9cd9-300a71521266",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#13 SGグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "57215593-e1c4-4224-a0bf-dd230d0ddbb3",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-65s",
+      "color_name": "A197 シトラスグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-65s/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-65s/"
+    },
+    {
+      "id": "575e3453-01d0-4303-94b5-608474c011f8",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ21 グロースケールシグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "583aeb08-87e4-4131-9cc9-1a2d7b8567fd",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RE05 UVクリアーレモン／シルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    },
+    {
+      "id": "58c50d80-b743-46c8-9e57-430d43a61839",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-x",
+      "color_name": "#A30B レッドゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-x/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-x/"
+    },
+    {
+      "id": "58f83074-6f29-43b7-ad75-9f88e813d965",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#138N シルバーミノー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "591b9f2c-a900-443a-99e9-52b08d2e3b1e",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S34 ギラッチ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "5954d137-c493-4a5d-8141-59f081988eb6",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall90f",
+      "color_name": "A181 チャートバックブルーチーク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall90f/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall90f/"
+    },
+    {
+      "id": "5b0cb2e9-2366-457c-b955-342f59ef44fa",
+      "manufacturer_slug": "viva",
+      "slug": "slide-bomber-shallow",
+      "color_name": "#226AN LIVEギル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/slide-bomber-shallow/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/slide-bomber-shallow/"
+    },
+    {
+      "id": "5b1b905a-dbcb-40d8-acfa-c3b3710accfe",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S48 ピンクゼブラグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "5b39e73a-577c-4cea-a45e-9ec289ef04e2",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall-120f",
+      "color_name": "A196 ダブルオレンジ／グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall-120f/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall-120f/"
+    },
+    {
+      "id": "5c1c0c21-8b4b-4b2d-8196-7be910b1fa6e",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S20 ピンクグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "5c212535-ce67-47ac-8576-d3acbd09a6cc",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#67 SGグリーン／シルバーF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "5d36407b-b80a-4bec-980c-1463606f3faa",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RC03 UVピンク／シルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    },
+    {
+      "id": "5e12b0c5-24da-422f-8b09-54478b3ea8d3",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#68 GFゴージャスピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "5e50faf9-536f-411f-813b-081f08813221",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#13 SGグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "5e85d2d5-4332-4654-87d3-05483ac623d8",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#68 GFゴージャスピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "5eb62ba4-90ad-4033-a001-2adbf0b38491",
+      "manufacturer_slug": "viva",
+      "slug": "yawaraka-denguri-gaeru-namazusp",
+      "color_name": "#309N ウスズミチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/yawaraka-denguri-gaeru-namazusp/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/yawaraka-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "5f62e7b9-e698-4c31-8cff-59f9ed6ae7d1",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#13 SGグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "5fd1ff44-bf48-4a8f-8b53-600d4bbae7bf",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#1B パールホワイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "6045eb95-3327-44a9-b6be-b9a649ab4891",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic80",
+      "color_name": "#A166 C.チャートバックシグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic80/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic80/"
+    },
+    {
+      "id": "60907177-6c97-46d9-b515-3aaf55ab2ca9",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A159  C.マットピンクO.B.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/21.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "60a27baa-ab6d-4c9b-9a8f-8031a6010eeb",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "61d41bed-e848-4c55-9fb4-fb17c7bf93f6",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#95N マットチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "62b6aaa2-49b1-47b4-ba85-b755797cd6c0",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#13 SGグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "62f87f84-1d7a-4f73-ad94-535ee6d43624",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A125 ムーンナイトタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/17.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "63a855f2-87a4-429d-a8c7-326b3a892ed5",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K22 ウィステリアパープル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "63b87f83-e847-4f90-bc09-a944ff507dd2",
+      "manufacturer_slug": "viva",
+      "slug": "viva-gill-35",
+      "color_name": "#073 スカッパノン/ブルーMF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/viva-gill-35/09.webp",
+      "source_url": "https://vivanet.co.jp/viva/viva-gill-35/"
+    },
+    {
+      "id": "63e170a4-c949-46a0-960a-c4a95602e88d",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#13 SGグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "64d2d9a1-5ccb-45ae-af8d-654c6cffe645",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A80 C.ライムチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "654a4525-84ef-48c5-ab0d-faae1fc12bc0",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A68 シグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "65eb776f-8cb5-456c-8e2b-5a0d58c83ad8",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall90f",
+      "color_name": "A105B マットチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall90f/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall90f/"
+    },
+    {
+      "id": "664a9ca9-10d3-49ea-baf1-7fab1f453a43",
+      "manufacturer_slug": "viva",
+      "slug": "fune-tachiuo-tenya-akatsuki",
+      "color_name": "#TE6 KEIグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/fune-tachiuo-tenya-akatsuki/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/fune-tachiuo-tenya-akatsuki/"
+    },
+    {
+      "id": "66ec5cb2-e2a5-4565-af18-81966f76614c",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A114 焔シュリンプ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "67252588-0476-4e2c-9994-85fdd3c6e371",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K23 ディジーグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "67801f14-f3dc-4ba1-9a21-4336b4fb25c3",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "681179d4-88e0-402e-8b67-9dab0673c87a",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-65s",
+      "color_name": "A195 トロピカルイエロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-65s/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-65s/"
+    },
+    {
+      "id": "68f720bd-3657-4908-b4be-1b1933fad253",
+      "manufacturer_slug": "viva",
+      "slug": "slide-bomber-shallow",
+      "color_name": "#12N マットタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/slide-bomber-shallow/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/slide-bomber-shallow/"
+    },
+    {
+      "id": "692a501f-55eb-4d7c-96c4-68db2155b4d7",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#13 SGグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "69329bdc-11a4-4334-8763-35a33a88692f",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A68 シグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "694c712a-c08e-4ffe-96d9-b92bda25d661",
+      "manufacturer_slug": "viva",
+      "slug": "hafu-a",
+      "color_name": "#65 グリーンゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/hafu-a/11.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/hafu-a/"
+    },
+    {
+      "id": "69d3ec71-735d-4b6d-9ec1-c1de27e5c93c",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH05 オレンジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "6a9dc4b8-46df-4f9a-9255-69310482e5d9",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A126 ブルーサワー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/18.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "6ad7b1ad-a8f1-4da8-9b29-7a5b8aef95e8",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-popper",
+      "color_name": "#159 クマノミ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-popper/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-popper/"
+    },
+    {
+      "id": "6ad93c7a-f963-47f3-8b85-84d864fd3398",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A83 宵孔雀",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "6af01927-860d-4cd6-9215-21a633eb3fc1",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A116 C.オレンジタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/15.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "6b0dc377-8db7-4cbf-88f5-30139d9af6b5",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#39 BG小鰯",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "6b3a9f53-d7ec-4ef3-beb5-d23c487c06f1",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic80",
+      "color_name": "#A68 シグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic80/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic80/"
+    },
+    {
+      "id": "6b4fd16b-d040-4d9a-a666-fbac1579afc5",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse",
+      "color_name": "#39N REF.イエローボーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse/"
+    },
+    {
+      "id": "6b9bb5bf-1dfd-4aec-ac3f-eee9b72265c3",
+      "manufacturer_slug": "viva",
+      "slug": "ko-denguri-gaeru-namazusp",
+      "color_name": "#262N 絢爛R.H.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/ko-denguri-gaeru-namazusp/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/ko-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "6bb7a21e-5988-4f40-ab98-56601d8ccccb",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-65s",
+      "color_name": "A58A C.レッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-65s/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-65s/"
+    },
+    {
+      "id": "6bc61e24-e0c7-404e-a726-27cbf311e564",
+      "manufacturer_slug": "viva",
+      "slug": "namagaeru",
+      "color_name": "#1 トノサマガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/namagaeru/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/namagaeru/"
+    },
+    {
+      "id": "6caa2bfb-9115-4d59-91e0-ecafdf092477",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ22 ホロチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "6e29eac2-d224-4c13-9624-833c1cec4820",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A58 C.レッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "6ec1a589-1615-4177-bd89-8e614519a745",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#143N コスモブラック",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/10.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "6f785bd8-25cb-4e46-b3d4-32ac91229a2a",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-vib-dash",
+      "color_name": "#131 アカキンタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-vib-dash/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-vib-dash/"
+    },
+    {
+      "id": "6f9dee7e-2ebd-4a60-a1f6-4b2083142f3d",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#66 UVチャート／ゴールドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "6fd09aad-0a50-4410-bb57-47dbe42f07ba",
+      "manufacturer_slug": "viva",
+      "slug": "namagaeru",
+      "color_name": "#11 ダークトノサマ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/namagaeru/11.webp",
+      "source_url": "https://vivanet.co.jp/viva/namagaeru/"
+    },
+    {
+      "id": "70ab0bd3-7075-4384-ad4c-fdfbe636804e",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-80s",
+      "color_name": "A30E レッドゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-80s/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-80s/"
+    },
+    {
+      "id": "70ea01b8-5d6e-42fa-a093-05574400cf6e",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH05 オレンジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "711785ed-1588-493c-aab7-7773f7aaf18d",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#1B パールホワイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "72534acb-8ef8-4fe2-87b3-109253c24eec",
+      "manufacturer_slug": "viva",
+      "slug": "little-magic",
+      "color_name": "#A39A 小鰯／グローベリー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/little-magic/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/little-magic/"
+    },
+    {
+      "id": "7277946a-6955-4241-af45-85669c9515f3",
+      "manufacturer_slug": "viva",
+      "slug": "meat-nail",
+      "color_name": "#067 ドバミミズ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/meat-nail/12.webp",
+      "source_url": "https://vivanet.co.jp/viva/meat-nail/"
+    },
+    {
+      "id": "73045cda-4b4b-45bf-bd2c-121481d7cf0f",
+      "manufacturer_slug": "viva",
+      "slug": "pliezar",
+      "color_name": "#29S ゴールド／ブラック",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pliezar/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/pliezar/"
+    },
+    {
+      "id": "737e786c-bb96-4ce2-9459-5092c0ef2976",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "738beb42-32cb-4e0a-8f1d-6ff85973ee92",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "74241572-6371-4667-b3a7-9780a819bfa9",
+      "manufacturer_slug": "viva",
+      "slug": "hafu-a",
+      "color_name": "#73 ブラックレッドペッパー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/hafu-a/12.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/hafu-a/"
+    },
+    {
+      "id": "747d6ec2-7cd4-4f92-af3e-05c7c9a706f7",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH03 レッドゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "7595ea3d-6c73-47c0-a84a-95e6f6516630",
+      "manufacturer_slug": "viva",
+      "slug": "meat-nail",
+      "color_name": "#004 ウォーターメロンペッパー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/meat-nail/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/meat-nail/"
+    },
+    {
+      "id": "76b713ea-7e67-423b-9123-0d823619e04c",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S26 クリアーチャートグロー／シルバーF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "7704d13a-1ab7-48b1-8cef-0fe988027fe5",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#41 GFクリアーオレンジ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "78abf0e4-ae5e-4498-8cca-baa1eb7c7eaa",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#41 GFクリアーオレンジ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "78c5aca2-474e-4f2e-b2b7-417a4edacdf2",
+      "manufacturer_slug": "viva",
+      "slug": "little-magic",
+      "color_name": "#A157 クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/little-magic/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/little-magic/"
+    },
+    {
+      "id": "78e932a0-10a3-4239-ac2e-bceb66946e74",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#18CN ブラックボーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "791ae7d6-bf26-49d6-984b-5acfedd5a1bb",
+      "manufacturer_slug": "viva",
+      "slug": "namagaeru",
+      "color_name": "#8 アルビノアマガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/namagaeru/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/namagaeru/"
+    },
+    {
+      "id": "7a3ca86a-96e6-4674-952c-fc3ab446212a",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#36 GFクリアーピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "7a3e400c-f52a-45a9-b57e-aef352d63efc",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A125 ムーンナイトタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/13.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "7ae7f75f-29e7-4be3-865a-2466652db01f",
+      "manufacturer_slug": "viva",
+      "slug": "meat-nail",
+      "color_name": "#027 ミミズ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/meat-nail/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/meat-nail/"
+    },
+    {
+      "id": "7be1c9e0-62d6-49e4-a35c-ea3acb67d647",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH02 グリーンゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "7c91e4de-bf52-45aa-b037-6c205353adbc",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-delude",
+      "color_name": "A165 オレンジサンバ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-delude/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-delude/"
+    },
+    {
+      "id": "7d5c7e09-60f8-4f0a-8c48-928c69db4ad3",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A92 イザヨイ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "7e1208e8-c20a-4cab-bb07-8606cbfa4c14",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A117 C.ピーチタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/16.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "7e335fd0-7fcd-403e-9fe7-4d18a2b4ca9b",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-alboroto",
+      "color_name": "#A147 イワシP.B.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-alboroto/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-alboroto/"
+    },
+    {
+      "id": "7ebac50b-4130-4305-b5ce-be1e56a492af",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse",
+      "color_name": "#278N チャートフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse/"
+    },
+    {
+      "id": "7f4de38e-715f-4fb8-87c6-ab734e8c9475",
+      "manufacturer_slug": "viva",
+      "slug": "mf-flapper",
+      "color_name": "#18 オールドフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mf-flapper/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/mf-flapper/"
+    },
+    {
+      "id": "7f87786e-e92d-4eb7-b534-83200e040ee5",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-x",
+      "color_name": "#A122 UVマイクロキビナゴ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-x/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-x/"
+    },
+    {
+      "id": "7fd2de01-0079-4068-8009-3c83cd8f3d4d",
+      "manufacturer_slug": "viva",
+      "slug": "datchak",
+      "color_name": "#TS05 オレンジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak/"
+    },
+    {
+      "id": "80524fe4-147e-4c2e-8e0f-552345cdd02e",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K22 ウィステリアパープル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "80ac97ac-4f0a-418f-9ea0-bcc1e8ff6f46",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH04 ブラックパール",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "816f002f-e7a9-46c9-ad5f-a9ffeb46fbae",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ21 グロースケールシグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "81aee489-1f49-4c22-9062-2f8037b6fb0f",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "8208245f-5850-4e42-bee9-29cb3317471f",
+      "manufacturer_slug": "viva",
+      "slug": "yawaraka-denguri-gaeru-namazusp",
+      "color_name": "#136N ライムグローコーチドッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/yawaraka-denguri-gaeru-namazusp/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/yawaraka-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "8260ee84-548a-46c2-b93e-592bd560d85b",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#12N マットタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "82c1691e-77aa-4a73-a856-eb76524f80e5",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "82d2c2d6-14a8-4fc9-abf0-958f8b2d2ba4",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#36 GFクリアーピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "82f9be39-6e20-40cb-b3ea-5ccb6671803c",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-80s",
+      "color_name": "A179 サイトオレンジ／グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-80s/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-80s/"
+    },
+    {
+      "id": "83570784-747b-4602-af9f-1437274df87c",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#41 GFクリアーオレンジ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "8396019d-7a2d-4ca9-aa5c-4bb3874d5412",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#197N オリーブフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/12.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "8454f87e-1b63-4d5f-b277-f091dbd0abb1",
+      "manufacturer_slug": "viva",
+      "slug": "namagaeru",
+      "color_name": "#4 ピンクアマガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/namagaeru/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/namagaeru/"
+    },
+    {
+      "id": "848c4c99-a383-4cd0-b365-597f257e3d47",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall-120f",
+      "color_name": "A198 シャンパンカクテル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall-120f/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall-120f/"
+    },
+    {
+      "id": "84f87290-a11d-47f7-ab26-ac3aa679f0c6",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#55N アカキン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "8528326d-3685-4b4c-92e5-46e0b761eb00",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall90f",
+      "color_name": "A58A C.レッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall90f/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall90f/"
+    },
+    {
+      "id": "867cf3ae-2e4f-42c1-8015-9fedd76a9cb7",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A117 C.ピーチタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/12.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "86e513d0-e3c2-4fc0-aa9e-17050b9d506f",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#38 UVチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "87ba471e-c86e-4b85-bacd-5dc951334ced",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse",
+      "color_name": "#147N オールドレッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse/"
+    },
+    {
+      "id": "884eff0a-3dd2-4149-97c8-fbe6b6377357",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A64 仔イカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "887fe445-14f2-478f-96fb-c6b6d9fc06e8",
+      "manufacturer_slug": "viva",
+      "slug": "hafu-a",
+      "color_name": "#42 パールグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/hafu-a/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/hafu-a/"
+    },
+    {
+      "id": "88cb3e33-c13e-4e62-a276-419655bbe7b8",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic80",
+      "color_name": "#A187 煌クリスタルネオン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic80/12.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic80/"
+    },
+    {
+      "id": "89980056-effc-4cc6-8ad0-b2185fcd8958",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-vib-dash",
+      "color_name": "#158 カオスバイオレット",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-vib-dash/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-vib-dash/"
+    },
+    {
+      "id": "8a25c7f5-71a4-44cc-a93f-59ef3099e6c1",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A91 生小鰯",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/13.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "8a6f7bdc-ccf0-4258-a777-648284410d47",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#166AN ライムチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/10.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "8afe16ad-ab99-4055-8f7c-e1d2b0db0258",
+      "manufacturer_slug": "viva",
+      "slug": "mf-flapper",
+      "color_name": "#3 アマガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mf-flapper/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/mf-flapper/"
+    },
+    {
+      "id": "8c42fb8a-8717-4c43-961f-3e333870a96b",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic80",
+      "color_name": "#A170 霞海シラス",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic80/11.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic80/"
+    },
+    {
+      "id": "8e20a990-e83d-483e-b347-687d99f3908d",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#69 トゥーマッチシルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "8e25c8ac-4016-4562-8a17-8971d0380038",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-popper",
+      "color_name": "#225 LIVEバス",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-popper/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-popper/"
+    },
+    {
+      "id": "8ec660da-a1b2-4439-ab37-f384b4d32ce0",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#66 UVチャート／ゴールドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "8ec78729-72b5-465d-be2f-b2e71d25995d",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RD04 燻銀",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    },
+    {
+      "id": "8f3c0ebb-2c82-4007-9a6e-4b5b6e325a98",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A115 六花シュリンプ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/14.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "8f949dd8-cb63-4039-9f26-a2260d7089c0",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A42 シラウオ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "916496e0-10e7-470d-b48e-f2006ab4c263",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#41 GFクリアーオレンジ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "92051e7c-7234-454f-b224-77c13e67150a",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-vib-dash",
+      "color_name": "#106A クロームロブスター",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-vib-dash/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-vib-dash/"
+    },
+    {
+      "id": "930ab420-a26e-4691-9b49-cb9a745e04a1",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#18DN ブラックボーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "93c61afd-2d9a-4994-9267-145a50d298f1",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#36 GFクリアーピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "93d7b0cd-fe11-4fb8-a629-68158ac638cb",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "944b4fb2-536e-431a-b8a9-ae40f556ad96",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A125 ムーンナイトタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/18.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "94510551-986f-4e98-99af-690b6e4e662f",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "94747287-ee69-426d-954d-3d645a664439",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A92 イザヨイ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/12.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "94c2eafa-f9c5-4b37-915f-c4f160de9acc",
+      "manufacturer_slug": "viva",
+      "slug": "step-shad",
+      "color_name": "#218 メローシャッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/step-shad/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/step-shad/"
+    },
+    {
+      "id": "94f3f779-2541-4d05-95bb-170bbc40f38f",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#36 GFクリアーピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "952e0f14-ce00-4e9d-816e-922a7634b8b4",
+      "manufacturer_slug": "viva",
+      "slug": "meat-nail",
+      "color_name": "#025 ウォーターメロンペッパー／レッドMF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/meat-nail/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/meat-nail/"
+    },
+    {
+      "id": "956f332b-96a7-4d93-8a52-85c2d33557c6",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K25 ケイムラブルー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "96e423d2-1270-40da-96c6-6c584948648f",
+      "manufacturer_slug": "viva",
+      "slug": "yawaraka-denguri-gaeru-namazusp",
+      "color_name": "#310N サクラモチ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/yawaraka-denguri-gaeru-namazusp/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/yawaraka-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "977430d3-f4a6-42c2-a57f-28c1da329693",
+      "manufacturer_slug": "viva",
+      "slug": "viva-gill-35",
+      "color_name": "#028 ブルーギル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/viva-gill-35/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/viva-gill-35/"
+    },
+    {
+      "id": "983966e1-d846-4317-921f-62d2775e03e6",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A62 ナトリウムSP",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "98d5cd05-caf8-4760-83d2-c0e2ac79e34e",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A42 シラウオ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "98ed66a1-1e60-40da-a2ec-e1217919ee85",
+      "manufacturer_slug": "viva",
+      "slug": "hafu-a",
+      "color_name": "#45A レッドゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/hafu-a/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/hafu-a/"
+    },
+    {
+      "id": "99abb82a-751c-4309-8e81-0de61306426c",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH03 レッドゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "9a0f5c5a-8afd-4c13-b8d9-c1005a893143",
+      "manufacturer_slug": "viva",
+      "slug": "little-magic",
+      "color_name": "A188 くろっきー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/little-magic/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/little-magic/"
+    },
+    {
+      "id": "9a6ea8f9-7f15-4d04-9122-eb721984d7df",
+      "manufacturer_slug": "viva",
+      "slug": "mama-namagaeru",
+      "color_name": "#12 クリアーアマガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mama-namagaeru/09.webp",
+      "source_url": "https://vivanet.co.jp/viva/mama-namagaeru/"
+    },
+    {
+      "id": "9b4bdd08-0255-4524-ba17-57947df2dd3d",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K25 ケイムラブルー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "9b59dc48-38b3-400c-bda1-22cae2d59289",
+      "manufacturer_slug": "viva",
+      "slug": "mama-namagaeru",
+      "color_name": "#3 アマガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mama-namagaeru/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/mama-namagaeru/"
+    },
+    {
+      "id": "9b7a7b66-407e-4eb5-8a6e-12338b232afe",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A39A 小鰯／グローベリー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "9b95fe5f-1af8-4c69-883a-95187d287611",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-65s",
+      "color_name": "A181 チャートバックブルーチーク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-65s/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-65s/"
+    },
+    {
+      "id": "9c191c81-20f5-486f-843e-7ab746fdeb99",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A115 六花シュリンプ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/15.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "9d03c8aa-987a-4495-9851-02313e48be4c",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall90f",
+      "color_name": "A179 サイトオレンジ／グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall90f/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall90f/"
+    },
+    {
+      "id": "9d6f1347-4732-46f2-9fe6-2ef30c518e65",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-z",
+      "color_name": "#A70A ピンクバック",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-z/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-z/"
+    },
+    {
+      "id": "9eb18816-4cd5-42a1-b4b8-9c46c2c42c10",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#70 GFえびせん",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "9ee4cf73-fd3b-40e9-ad70-7a765ddea565",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#38 UVチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "9f35da0a-256d-4988-9115-97a1c9f51359",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "9f42ab68-ce62-4512-8b8b-af7cc62d8028",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#1B パールホワイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "9fe0a0e6-91e4-42e6-81f9-8136a081bfa9",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ22 ホロチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "a001d40a-6368-4d4d-942c-f76f04014b7c",
+      "manufacturer_slug": "viva",
+      "slug": "ko-denguri-gaeru-namazusp",
+      "color_name": "#294N バイオレットフレア",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/ko-denguri-gaeru-namazusp/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/ko-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "a01f7666-cc29-426d-af13-790a945a5c0e",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RD04 燻銀",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    },
+    {
+      "id": "a1f4a443-5b6b-4ccf-97f9-2451a557116d",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ14 ゼブラグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "a3094a56-de2d-4dd1-956b-a70b7824ea77",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A126 ブルーサワー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/19.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "a31ef512-3d4d-499f-8716-27c74ee0a34c",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-x",
+      "color_name": "#A14C イワシ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-x/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-x/"
+    },
+    {
+      "id": "a34df41c-70da-43d4-884d-95e3f4941f9a",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#13 SGグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "a42e2341-31a8-4f36-bcd7-cb9404cbe4ec",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ12 アカキン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "a475ea0e-9496-4300-bc42-471232e48d95",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A82 パールギーゴ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "a5455193-60b2-40d0-be8d-7bdde96ebee3",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH03 レッドゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "a59f8c48-7523-4e8f-bf2e-7a2ecc41f667",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-z",
+      "color_name": "#A30B レッドゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-z/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-z/"
+    },
+    {
+      "id": "a804d0fd-b9ad-4a57-badf-b94971bc6002",
+      "manufacturer_slug": "viva",
+      "slug": "mama-namagaeru",
+      "color_name": "#6 モリアオガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mama-namagaeru/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/mama-namagaeru/"
+    },
+    {
+      "id": "a97b005e-c3f6-45f5-aaf0-51e294ca8f08",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A125 ムーンナイトタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/17.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "a9e98e8c-acec-4242-b254-c0cb79fc57db",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#70 GFえびせん",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "a9ea9242-2b7a-45d9-b6bc-96a22f1f6952",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "aa7da3ed-cf7b-4b20-9310-1580afc1330a",
+      "manufacturer_slug": "viva",
+      "slug": "yawaraka-denguri-gaeru-namazusp",
+      "color_name": "#307N ピンクグロークマノミ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/yawaraka-denguri-gaeru-namazusp/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/yawaraka-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "aa85eb33-4b81-45b2-b8a1-34aba22fbac4",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#70 GFえびせん",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "aa9c8685-57c2-480f-8533-1430e883369a",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S50 パールピンク/シルバーF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "ac9bd6f4-fac4-4d40-8975-21aaae38fad4",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH04 ブラックパール",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "ac9e3bfc-8c9e-4e4e-99dc-961fe971f2b2",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "acfae1a5-45b7-4bf0-ac76-2e530d3f8095",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S50 パールピンク/シルバーF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "ad56eb36-72a4-48e6-adac-7d2f36cbd613",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A86 生イカナゴ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "ae8a1f77-5112-421e-94c2-8125ddbaebb4",
+      "manufacturer_slug": "viva",
+      "slug": "slide-bomber-shallow",
+      "color_name": "#225N LIVEバス",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/slide-bomber-shallow/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/slide-bomber-shallow/"
+    },
+    {
+      "id": "aea9df0e-e0d0-4d5f-ab74-152564ca40be",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-x",
+      "color_name": "#A100 P.B.シグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-x/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-x/"
+    },
+    {
+      "id": "aee33965-a933-40a7-975f-4a8869703332",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A87 ミミイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "af10ca47-7d75-43b2-b9de-d46d54afa370",
+      "manufacturer_slug": "viva",
+      "slug": "hafu-a",
+      "color_name": "#64 プディングロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/hafu-a/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/hafu-a/"
+    },
+    {
+      "id": "af110029-2fe0-4c29-8e86-8d3829951673",
+      "manufacturer_slug": "viva",
+      "slug": "spark-slim-head",
+      "color_name": "#6  リフレクト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark-slim-head/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark-slim-head/"
+    },
+    {
+      "id": "b02a5065-f6d5-4bc3-a8be-db3a2a340e54",
+      "manufacturer_slug": "viva",
+      "slug": "spark-tenya-assist-sabasp",
+      "color_name": "#6",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark-tenya-assist-sabasp/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark-tenya-assist-sabasp/"
+    },
+    {
+      "id": "b290b4e9-0947-41b6-9ac1-6465b71068b3",
+      "manufacturer_slug": "viva",
+      "slug": "spark-tenya-assist-sabasp",
+      "color_name": "#8",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark-tenya-assist-sabasp/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark-tenya-assist-sabasp/"
+    },
+    {
+      "id": "b2f03ca2-f8d4-4e29-aeba-3ecff5230480",
+      "manufacturer_slug": "viva",
+      "slug": "meat-nail",
+      "color_name": "#015 チャートグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/meat-nail/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/meat-nail/"
+    },
+    {
+      "id": "b397b6f0-faf9-4fd2-bea2-2f96c654da88",
+      "manufacturer_slug": "viva",
+      "slug": "little-magic",
+      "color_name": "#A42 シラウオ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/little-magic/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/little-magic/"
+    },
+    {
+      "id": "b46a7884-7759-4b5e-94cd-c5545cc94fe3",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "b5000b3e-ccfe-4e94-8c85-8ff2b9b2351c",
+      "manufacturer_slug": "viva",
+      "slug": "mama-namagaeru",
+      "color_name": "#14 サラマンダー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mama-namagaeru/11.webp",
+      "source_url": "https://vivanet.co.jp/viva/mama-namagaeru/"
+    },
+    {
+      "id": "b516e0a2-2844-4b53-9485-1b3767aac56d",
+      "manufacturer_slug": "viva",
+      "slug": "fune-tachiuo-tenya-akatsuki",
+      "color_name": "#TE7 イワシ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/fune-tachiuo-tenya-akatsuki/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/fune-tachiuo-tenya-akatsuki/"
+    },
+    {
+      "id": "b54b9c74-4985-47fe-858a-1891cbfaf79d",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ21 グロースケールシグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "b62d8240-6f9f-4168-82a2-6d6293af84fd",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#66 UVチャート／ゴールドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "b7fd2add-4c62-4be4-8304-d49e751f0748",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#38 UVチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "b7fea21f-a8f4-4dba-ba70-40794e9a5609",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A115 六花シュリンプ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "b846e743-cfdd-41fb-b608-bb9c9567d1f5",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "b99a255b-2af3-4cc6-90ee-b906296e5d3d",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic80",
+      "color_name": "#A167 ほろ酔いマッコリ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic80/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic80/"
+    },
+    {
+      "id": "ba25e088-7a2e-47c6-b626-826b409108a9",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#287N ソフトシェル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/13.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "ba366322-d826-48ff-b20d-d80934b32b0a",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#36 GFクリアーピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "ba454453-39f2-4071-aaa4-6503250808ce",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse",
+      "color_name": "#159N クマノミ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse/"
+    },
+    {
+      "id": "bc13eba0-fff7-4c9e-8ba8-4dcdd8f4c1f2",
+      "manufacturer_slug": "viva",
+      "slug": "viva-gill-35",
+      "color_name": "#068 グリパンチャート/レインボーMF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/viva-gill-35/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/viva-gill-35/"
+    },
+    {
+      "id": "bc1e8353-3a7b-46a5-9aa0-9724fcf2bd10",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K23 ディジーグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "bc43c7b6-71f1-4442-8797-910d8dd1f0c6",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#70 GFえびせん",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "bc910b68-8bce-4d91-973a-49bc8c388330",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#38 UVチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "bcf7eacc-1b9d-41cc-9f3e-ac38c74f67ec",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-popper",
+      "color_name": "#254 アルビノスネーク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-popper/09.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-popper/"
+    },
+    {
+      "id": "bdb617bf-420d-480e-a5f7-86432486c9ca",
+      "manufacturer_slug": "viva",
+      "slug": "hafu-a",
+      "color_name": "#63 オレンジホヤ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/hafu-a/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/hafu-a/"
+    },
+    {
+      "id": "bdfabde2-40ee-4ca4-887b-efe087092573",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A116 C.オレンジタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/15.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "be714567-2cdf-4060-bd64-de90cdc8c86e",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "be914c02-dfdd-4a6f-8dad-256ddbea81bc",
+      "manufacturer_slug": "viva",
+      "slug": "pliezar",
+      "color_name": "#2S ゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pliezar/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/pliezar/"
+    },
+    {
+      "id": "bf528620-de9e-4e37-963f-f3c21e6ce99e",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-65s",
+      "color_name": "A167 ほろ酔いマッコリ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-65s/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-65s/"
+    },
+    {
+      "id": "bf5c3289-a873-4809-9ee8-727c26f41c2b",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#68 GFゴージャスピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "c00e49da-1576-485c-83e9-18493394cac5",
+      "manufacturer_slug": "viva",
+      "slug": "grown-wriggle-shad",
+      "color_name": "#57 グローピンクバック/シルバーF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/grown-wriggle-shad/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/grown-wriggle-shad/"
+    },
+    {
+      "id": "c083ba58-ccd1-47db-9b4d-1154b5efc6bb",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "c0d2687e-c936-490d-a692-1c894d0b981b",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH05 オレンジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "c0e18bde-423c-4526-9e92-5e5e15f470a4",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ12 アカキン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "c2145f8e-378b-400b-bff7-92b1c1434427",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "c24ac1e0-e865-4dcf-add7-9b0b52b8f219",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A126 ブルーサワー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/18.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "c2bf4b94-ca90-4913-9b53-fca46f666271",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#1B パールホワイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "c344c24f-857e-4332-a53c-cafe734621b2",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RC03 UVピンク／シルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    },
+    {
+      "id": "c3469adb-0a8d-44d2-938a-58f2f088a885",
+      "manufacturer_slug": "viva",
+      "slug": "yawaraka-denguri-gaeru-namazusp",
+      "color_name": "#18EN ブラックボーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/yawaraka-denguri-gaeru-namazusp/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/yawaraka-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "c3b9ecaf-5612-40ed-8826-f98d16d541c9",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#190N パーチ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/23.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "c41914b4-e3ec-493d-b2d9-4ac49565351b",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#140N マットブラウンタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "c4297f8e-cbc0-48dd-8598-6cf42aeec57e",
+      "manufacturer_slug": "viva",
+      "slug": "metalmagic-hybrid",
+      "color_name": "A186 ハワイアンナイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/metalmagic-hybrid/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/metalmagic-hybrid/"
+    },
+    {
+      "id": "c4dae0a3-5a05-4452-b0c8-acc57b8c3e5e",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "c56c5773-063a-420d-becd-24d09f04566d",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#40 シラスグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "c6053fe0-8eab-4576-ae76-d0ff4e9c2fa7",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-vib-dash",
+      "color_name": "#253 グリパンクロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-vib-dash/11.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-vib-dash/"
+    },
+    {
+      "id": "c61b7520-a64e-40d1-9def-d1f18aad04db",
+      "manufacturer_slug": "viva",
+      "slug": "mama-namagaeru",
+      "color_name": "#11 ダークトノサマ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mama-namagaeru/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/mama-namagaeru/"
+    },
+    {
+      "id": "c72bf196-415b-4ef2-8ae9-562c38bc4cba",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#39N REF.イエローボーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "c779315a-7bbf-4089-a386-3a7e5017d26b",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A126 ブルーサワー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/14.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "c7e042ad-a51e-43c6-8109-a50765e50f2f",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#40 シラスグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "c93d29ad-61d4-4294-8db3-d04117b43cdb",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-vib-dash",
+      "color_name": "#251 LIVEパーチ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-vib-dash/09.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-vib-dash/"
+    },
+    {
+      "id": "c982b72f-9603-4fe2-b47b-263d2fcdcd83",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-alboroto",
+      "color_name": "#A148 チャートバックシグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-alboroto/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-alboroto/"
+    },
+    {
+      "id": "c9dec9ba-2327-49c0-b7b4-928623f0b6e0",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K23 ディジーグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "c9e2f2aa-2ec0-456a-8d3e-8d58411e9941",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K22 ウィステリアパープル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "ca68faa2-865d-4803-886d-ce12ff10db77",
+      "manufacturer_slug": "viva",
+      "slug": "little-magic",
+      "color_name": "#A80 C.ライムチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/little-magic/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/little-magic/"
+    },
+    {
+      "id": "cac27ba9-165a-4343-b49e-bbab2446ed8a",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RE05 UVクリアーレモン／シルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    },
+    {
+      "id": "cb5003fe-0ea4-4885-a222-76d8bc506b65",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ22 ホロチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "cc8b553c-ad97-42e3-927d-ac58f8977732",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#38 UVチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "ccb01ec9-b17e-43d7-a071-6ce66b576c6f",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall-120f",
+      "color_name": "A58A C.レッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall-120f/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall-120f/"
+    },
+    {
+      "id": "cd1c479f-9669-469f-ae19-1b9518554872",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S37 オレンジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "cd3d8699-8ff9-4bda-857a-70525673902c",
+      "manufacturer_slug": "viva",
+      "slug": "swaycall-120f",
+      "color_name": "A197 シトラスグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/swaycall-120f/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/swaycall-120f/"
+    },
+    {
+      "id": "cd77c7ef-d67d-41b0-8edc-c509d0f12290",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "cdd73ea2-7e53-4beb-bee8-797bdfd303e7",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#40 シラスグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "cde7c840-5299-4d60-8563-9f4dd61dd017",
+      "manufacturer_slug": "viva",
+      "slug": "fune-tachiuo-tenya-akatsuki",
+      "color_name": "#TE6 KEIグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/fune-tachiuo-tenya-akatsuki/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/fune-tachiuo-tenya-akatsuki/"
+    },
+    {
+      "id": "ce56c90b-b557-43b7-8928-4f5222ae2cf9",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A87 ミミイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "ce64f376-b0e9-45fb-bae5-b1e3920216d7",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse",
+      "color_name": "#12N マットタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse/01.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse/"
+    },
+    {
+      "id": "cf27f149-2fbf-47cf-96a8-c7ddec5c033c",
+      "manufacturer_slug": "viva",
+      "slug": "hafu-a",
+      "color_name": "#46 UVクリアー/レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/hafu-a/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/hafu-a/"
+    },
+    {
+      "id": "cf448953-f85b-4966-a508-2347eeb9130b",
+      "manufacturer_slug": "viva",
+      "slug": "spark-slim-head",
+      "color_name": "#1  シルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark-slim-head/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark-slim-head/"
+    },
+    {
+      "id": "cf4e97ee-2479-4e3a-ad9f-d8e5e8e29f59",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A116 C.オレンジタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/16.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "cf592088-19f2-46f3-b590-eda78f4d43cb",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A58 C.レッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "cfaf4ca4-a3ee-4519-9209-da8d5cf6bc32",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A99 闇シラス",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "cfda61f1-49f0-411e-a6ab-510d2f7e43f5",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RC03 UVピンク／シルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    },
+    {
+      "id": "d01e6294-9bd7-4aa5-a7d4-b76cefb06083",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K22 ウィステリアパープル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "d09a8eac-c180-4c38-8dea-67dcf46d0cf0",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-delude",
+      "color_name": "A160 ピンクイワシ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-delude/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-delude/"
+    },
+    {
+      "id": "d160912b-8ac1-43b5-92b4-33af31cd2379",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#133N サマーデザート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "d19aa3e2-4543-4d34-82bc-a88e0d9c8358",
+      "manufacturer_slug": "viva",
+      "slug": "little-magic",
+      "color_name": "A189 レッドグローダブルシャワー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/little-magic/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/little-magic/"
+    },
+    {
+      "id": "d1b0344c-c43f-445c-ac71-8be23b1aca2f",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A87 ミミイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/12.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "d246a654-b003-4012-879f-44fd8b889bf7",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#246N グロースネーク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/09.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "d249d4f7-8ae4-439a-932e-62988f475bb1",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#149N トロピカルコーチドッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/11.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "d278c7d4-6ac8-46c1-9ff1-49f9ae99e35c",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A80 C.ライムチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "d3240c2a-5883-43fb-abe0-09950d82a3de",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse",
+      "color_name": "#262N 絢爛R.H.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse/05.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse/"
+    },
+    {
+      "id": "d3bff072-80e3-41be-87a2-f84796631404",
+      "manufacturer_slug": "viva",
+      "slug": "grown-wriggle-shad",
+      "color_name": "#62 BGホタルイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/grown-wriggle-shad/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/grown-wriggle-shad/"
+    },
+    {
+      "id": "d3fc8c8b-67a0-432f-832c-859c7fdee1a9",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#41 GFクリアーオレンジ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "d40a6352-521a-4615-8d2f-f607744aaa2c",
+      "manufacturer_slug": "viva",
+      "slug": "yawaraka-denguri-gaeru-namazusp",
+      "color_name": "#150N グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/yawaraka-denguri-gaeru-namazusp/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/yawaraka-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "d40ce477-c856-4562-8999-4614c1fa8643",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A127 ホタルイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/15.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "d47fd57f-9007-4aa3-80c2-f53784da5667",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-popper",
+      "color_name": "#95 マットチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-popper/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-popper/"
+    },
+    {
+      "id": "d4fc48b8-44f8-4de6-8884-2839ecebfff7",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH04 ブラックパール",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "d5f6a182-f322-4b45-b744-e05840fe1eb4",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic80",
+      "color_name": "#A169 幻薄紅ホタル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic80/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic80/"
+    },
+    {
+      "id": "d60ca632-900f-4bdc-9e43-e053b0461a1f",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ21 グロースケールシグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "d63a13e4-1766-40ff-b2d8-20f78c09dfa2",
+      "manufacturer_slug": "viva",
+      "slug": "s-magic",
+      "color_name": "#A127 ホタルイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/s-magic/19.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/s-magic/"
+    },
+    {
+      "id": "d6cd5d48-cf23-426f-92bb-8715c7afb029",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-delude",
+      "color_name": "A14F イワシ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-delude/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-delude/"
+    },
+    {
+      "id": "d6d777ca-7dc4-4cd9-ac88-1e6aa0f88c6c",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH02 グリーンゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "d7b7a331-6d1b-477f-acfa-b73f3e3ad6e2",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ14 ゼブラグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "d7ba2271-03cf-4a37-ba74-c23809c9970b",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#278N チャートフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/15.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "d80f781a-21f1-4ba7-8d32-5b518442b804",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RB02 イワシP.B.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    },
+    {
+      "id": "d8a78bee-4100-46fe-b626-d2f163a1e02c",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#1B パールホワイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "d93a04b8-e022-4b28-a482-ac2fc3f23e12",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ19 ピンクバックグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "da43ca7d-cc48-4547-bf91-1c021fdd036a",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A85 トゥインクルR.H.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "db094810-e076-4c37-8328-b33b17992233",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#150N グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "db99ba57-2cdf-4739-95c4-0379bbca9c87",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-popper",
+      "color_name": "#251 LIVEパーチ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-popper/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-popper/"
+    },
+    {
+      "id": "dbdc2d68-f0dd-4f93-a913-d2a764ee16cc",
+      "manufacturer_slug": "viva",
+      "slug": "metalmagic-hybrid",
+      "color_name": "A80A C.ライムチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/metalmagic-hybrid/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/metalmagic-hybrid/"
+    },
+    {
+      "id": "dc033da4-392f-4e2f-a8db-d6932d11d908",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A58 C.レッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "dd6e7f0a-a00d-4a1a-9ed8-448e6bf3ddb0",
+      "manufacturer_slug": "viva",
+      "slug": "grown-wriggle-shad",
+      "color_name": "#59 オレンジ/ゴールドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/grown-wriggle-shad/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/grown-wriggle-shad/"
+    },
+    {
+      "id": "ddb28f10-9307-4e04-9c32-e88b3456433e",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#147N  オールドレッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/09.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "dddf9e58-e7e1-4c7a-ab4a-2efefdf32b8f",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#70 GFえびせん",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "de171068-0339-493b-9e29-495fce4e9f79",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K21 アジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "de812a5f-1ef4-443e-a114-b7a1b94f4b79",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#272N アメザリ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/11.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "deb7168c-4ae2-4ce5-8a3d-4dff39a86492",
+      "manufacturer_slug": "viva",
+      "slug": "namagaeru",
+      "color_name": "#10 グローフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/namagaeru/10.webp",
+      "source_url": "https://vivanet.co.jp/viva/namagaeru/"
+    },
+    {
+      "id": "dec547cf-ad43-4745-a454-9bf6064c5c5a",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#36 GFクリアーピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "deedf152-a910-4952-a043-45ffb1b51df4",
+      "manufacturer_slug": "viva",
+      "slug": "viva-gill-35",
+      "color_name": "#069 スプレイドグラス",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/viva-gill-35/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/viva-gill-35/"
+    },
+    {
+      "id": "df44d5af-71c1-42e8-9179-3df8204e0882",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#184N パープルギル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/19.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "df7fc891-c77d-4182-93f1-5e5b7d046ff1",
+      "manufacturer_slug": "viva",
+      "slug": "namagaeru",
+      "color_name": "#3 アマガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/namagaeru/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/namagaeru/"
+    },
+    {
+      "id": "dff5269b-a6e0-43a4-a660-9176b7fc9b20",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#40 シラスグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "e00cd761-7f0e-4bfc-a987-126bf632a39b",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#158N カオスバイオレット",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/12.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "e06d37c3-467e-4e47-9ee6-3866121f1d22",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A83 宵孔雀",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "e1180461-d7de-4cf2-923c-c0a23b3273e9",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "e121763a-1e2e-4bf9-89c9-8dcdab738f6d",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-popper",
+      "color_name": "#252 ピンクバックチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-popper/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-popper/"
+    },
+    {
+      "id": "e16a29fa-9d1a-41c5-8ef4-52a2bebba4ef",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#293N 朧（おぼろ）ジャングル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/15.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "e16faf1a-fc43-43fd-ab13-fd7b1baf55e7",
+      "manufacturer_slug": "viva",
+      "slug": "little-magic",
+      "color_name": "#A68A シグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/little-magic/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/little-magic/"
+    },
+    {
+      "id": "e2e56674-e2e6-4675-b4a0-932c2e2fb9f3",
+      "manufacturer_slug": "viva",
+      "slug": "metalmagic-hybrid",
+      "color_name": "A104D グリーンゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/metalmagic-hybrid/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/metalmagic-hybrid/"
+    },
+    {
+      "id": "e335b1f4-8b8d-43c7-a741-5f56421e5d16",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A114 焔シュリンプ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/13.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "e360f7b8-cc33-43c3-a3a2-3fe517b7d956",
+      "manufacturer_slug": "viva",
+      "slug": "metalmagic-hybrid",
+      "color_name": "A68A シグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/metalmagic-hybrid/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/metalmagic-hybrid/"
+    },
+    {
+      "id": "e393a327-3df3-46ba-8172-1a36b0b4e747",
+      "manufacturer_slug": "viva",
+      "slug": "pliezar",
+      "color_name": "#31S シルバー／レッド／イエロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pliezar/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/pliezar/"
+    },
+    {
+      "id": "e3ce45a9-f7a8-4f99-a49d-6534875b9882",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#136N ライムグローコーチドッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "e5c89356-cfad-4bb4-8126-35b003622f1d",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-vib-dash",
+      "color_name": "#102 マッハギル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-vib-dash/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-vib-dash/"
+    },
+    {
+      "id": "e5ca10dc-81d6-4a2f-884b-dbfb3a868185",
+      "manufacturer_slug": "viva",
+      "slug": "bowflap-80s",
+      "color_name": "A182 ファジーグリーン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/bowflap-80s/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/bowflap-80s/"
+    },
+    {
+      "id": "e608e016-dcf4-412d-b4c7-7c316c4a7a1f",
+      "manufacturer_slug": "viva",
+      "slug": "viva-gill-35",
+      "color_name": "#075 ゴールドラッシュ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/viva-gill-35/10.webp",
+      "source_url": "https://vivanet.co.jp/viva/viva-gill-35/"
+    },
+    {
+      "id": "e67f3cf4-b873-47cb-9670-79d56fde8c82",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S39 グローレッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "e6826bf4-fa05-4d78-80b6-47f86f17010e",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#22A クリアー／レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "e68af71f-27b5-40c1-af65-fe2eae882c4c",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#137N オールドフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "e68ba5f7-f499-40a5-a95b-14643d653e8c",
+      "manufacturer_slug": "viva",
+      "slug": "meat-nail",
+      "color_name": "#065 イソメ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/meat-nail/10.webp",
+      "source_url": "https://vivanet.co.jp/viva/meat-nail/"
+    },
+    {
+      "id": "e706c081-215d-431f-83c1-7a94f4027f7a",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#68 GFゴージャスピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "e7a48e58-be03-4053-ba60-c495e6030302",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#41 GFクリアーオレンジ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/09.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "e849d039-a1a5-4beb-8405-8f1a24898a30",
+      "manufacturer_slug": "viva",
+      "slug": "step-shad",
+      "color_name": "#219 リアルワカサギ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/step-shad/07.webp",
+      "source_url": "https://vivanet.co.jp/viva/step-shad/"
+    },
+    {
+      "id": "e8a0d615-1e99-4efc-88c1-caf8677a67fc",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K21 アジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "e8a8f16e-f674-4f43-850d-1eecb5977518",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH02 グリーンゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "e9f0dea2-acef-41e3-aa58-ae1ba591d57f",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic80",
+      "color_name": "#A87 ミミイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic80/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic80/"
+    },
+    {
+      "id": "ea67e82b-6b58-4e61-b278-027c07937803",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "eaa6e49e-e746-45f1-bd89-3af925bbd472",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#68 GFゴージャスピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "eb1eb688-4fe5-4f97-b25a-e6c02ec7c5fc",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH05 オレンジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "eb464b02-7953-4f1e-819e-e4a40cff4b14",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A86 生イカナゴ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/11.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "eb473627-8e8c-491b-bce9-270890e7aaaa",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A127 ホタルイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/20.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "ebc0b70f-4d99-474e-9996-12faccadfcfb",
+      "manufacturer_slug": "viva",
+      "slug": "donguri-mouse",
+      "color_name": "#110N ホーミングタイガー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/donguri-mouse/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/donguri-mouse/"
+    },
+    {
+      "id": "ec476847-ce3f-41a4-8e4a-13bc6ff18c0e",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#36 GFクリアーピンク",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "ec883f67-6ec9-4530-a04e-0ddaa9a17189",
+      "manufacturer_slug": "viva",
+      "slug": "ko-denguri-gaeru-namazusp",
+      "color_name": "#150N グロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/ko-denguri-gaeru-namazusp/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/ko-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "ed42482b-5ac6-465f-9aa3-61e4f89ae0fc",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#38 UVチャート",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "ed61e48d-fea5-44e2-b20b-ff8fa4eed98f",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A158 半生シラス",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/20.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "ed86178b-7e4c-41ef-a8e6-4e81a58dfbce",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A159  C.マットピンクO.B.",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/22.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "ee09fc79-a105-4ac1-b0ed-38785ccd2718",
+      "manufacturer_slug": "viva",
+      "slug": "namagaeru",
+      "color_name": "#6 モリアオガエル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/namagaeru/06.webp",
+      "source_url": "https://vivanet.co.jp/viva/namagaeru/"
+    },
+    {
+      "id": "ee923e44-a995-4ae0-bb49-a66ed8a1bc2d",
+      "manufacturer_slug": "viva",
+      "slug": "viva-gill-35",
+      "color_name": "#071 グリパンサンセット",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/viva-gill-35/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/viva-gill-35/"
+    },
+    {
+      "id": "eeead33e-7b80-43d4-9087-7038deba406f",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ19 ピンクバックグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "efb29d29-8a7f-40fb-acd4-0a7e499001c4",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#1B パールホワイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "efc088ef-de83-42a5-a8f4-b6521da27610",
+      "manufacturer_slug": "viva",
+      "slug": "metalmagic-hybrid",
+      "color_name": "A42A シラウオ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/metalmagic-hybrid/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/metalmagic-hybrid/"
+    },
+    {
+      "id": "f03f515b-beed-4e8f-90ba-dd1ad84d85c1",
+      "manufacturer_slug": "viva",
+      "slug": "pila-pila-pilarin",
+      "color_name": "#70 GFえびせん",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/pila-pila-pilarin/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/pila-pila-pilarin/"
+    },
+    {
+      "id": "f09fd254-1d43-4118-a3fe-59e9d8bb60e4",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#1B パールホワイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "f0c124f9-8013-4dad-b581-1ea5229fcdc0",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A127 ホタルイカ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/19.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "f0d21d83-c633-4924-ac23-1d839d706097",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-x",
+      "color_name": "#A70A ピンクバック",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-x/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-x/"
+    },
+    {
+      "id": "f1f79a52-4e21-4125-a82d-7160b447a674",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S37 オレンジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "f26f082b-6352-4cfc-a4af-6d693bf1b6f4",
+      "manufacturer_slug": "viva",
+      "slug": "oh-donguri-mouse-namazusp",
+      "color_name": "#199N 反射バナナ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/oh-donguri-mouse-namazusp/08.webp",
+      "source_url": "https://vivanet.co.jp/viva/oh-donguri-mouse-namazusp/"
+    },
+    {
+      "id": "f32bb8b4-6042-4bd3-b1e1-a46e1056f252",
+      "manufacturer_slug": "viva",
+      "slug": "step-shad",
+      "color_name": "#169A クラウン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/step-shad/04.webp",
+      "source_url": "https://vivanet.co.jp/viva/step-shad/"
+    },
+    {
+      "id": "f332f223-daee-47f3-8f01-3f58d4237e8c",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic50",
+      "color_name": "#A92 イザヨイ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic50/12.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic50/"
+    },
+    {
+      "id": "f3428c95-9a5a-4e24-8df2-bdc3eb5e1ba4",
+      "manufacturer_slug": "viva",
+      "slug": "fune-tachiuo-tenya-akatsuki",
+      "color_name": "#TE7 イワシ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/fune-tachiuo-tenya-akatsuki/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/fune-tachiuo-tenya-akatsuki/"
+    },
+    {
+      "id": "f3e2da5a-14a0-4316-9c88-5a3882e89d02",
+      "manufacturer_slug": "viva",
+      "slug": "datchak",
+      "color_name": "#TS05 オレンジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak/"
+    },
+    {
+      "id": "f4cc35f0-a42b-4de8-8ce2-0cb5a24a7385",
+      "manufacturer_slug": "viva",
+      "slug": "aji-penpen",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-penpen/08.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-penpen/"
+    },
+    {
+      "id": "f52536df-6c59-4c33-bc6b-ba945db45aff",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#1B パールホワイト",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "f569cb0f-0ad2-4e8c-a55d-f953c57896eb",
+      "manufacturer_slug": "viva",
+      "slug": "datchak",
+      "color_name": "#TS05 オレンジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak/"
+    },
+    {
+      "id": "f5761ddd-0ccc-45fe-92d9-c126ffe68916",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#66 UVチャート／ゴールドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "f57f10d5-a8b6-4b9f-a272-52459c54a558",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#11N キンクロ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "f59caa02-0363-4b36-834e-ec2b42b4d538",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K25 ケイムラブルー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "f66d195c-31a6-493c-9523-8d926ad38b45",
+      "manufacturer_slug": "viva",
+      "slug": "muscle-bug",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/muscle-bug/10.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/muscle-bug/"
+    },
+    {
+      "id": "f6a162ae-a56d-465d-8daa-33b04525f37b",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH02 グリーンゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "f6bb7958-326d-4ba8-84c1-f357ba9fd5fb",
+      "manufacturer_slug": "viva",
+      "slug": "ko-denguri-gaeru-namazusp",
+      "color_name": "#171N ピンククマノミ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/ko-denguri-gaeru-namazusp/03.webp",
+      "source_url": "https://vivanet.co.jp/viva/ko-denguri-gaeru-namazusp/"
+    },
+    {
+      "id": "f7ed50c4-2332-4f9b-945b-66a2a52e2485",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#50 GF淡淡すみれ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/03.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "f7f755db-afda-4607-b977-1964f8b48a00",
+      "manufacturer_slug": "viva",
+      "slug": "hafu-a",
+      "color_name": "#44 フロリダレモン",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/hafu-a/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/hafu-a/"
+    },
+    {
+      "id": "f815befe-17dc-4cb9-9ba2-36c5ae8a19d1",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin",
+      "color_name": "#67 SGグリーン／シルバーF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin/"
+    },
+    {
+      "id": "f88426c6-abcb-41bb-812d-356c2c6cb7e0",
+      "manufacturer_slug": "viva",
+      "slug": "aji-pinpin-old",
+      "color_name": "#41 GFクリアーオレンジ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aji-pinpin-old/07.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aji-pinpin-old/"
+    },
+    {
+      "id": "f8cabd18-f77d-4eef-9fe2-44c4c690aa96",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RE05 UVクリアーレモン／シルバー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/05.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    },
+    {
+      "id": "f9dcef4c-9050-4daf-b923-7ae519b78f54",
+      "manufacturer_slug": "viva",
+      "slug": "aoricks-tr",
+      "color_name": "#K21 アジゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/aoricks-tr/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/aoricks-tr/"
+    },
+    {
+      "id": "fb2f679f-6338-48d3-a051-0fa2b898783d",
+      "manufacturer_slug": "viva",
+      "slug": "carurear",
+      "color_name": "#AJ14 ゼブラグロー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/carurear/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/carurear/"
+    },
+    {
+      "id": "fb5ff6e3-0a04-42e4-9531-7d2e51412867",
+      "manufacturer_slug": "viva",
+      "slug": "tobunder-x",
+      "color_name": "#A101 パリピなゴールド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/tobunder-x/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/tobunder-x/"
+    },
+    {
+      "id": "fbbee68b-446b-41fc-a600-8ce456106e67",
+      "manufacturer_slug": "viva",
+      "slug": "shallow-magic60",
+      "color_name": "#A39A 小鰯／グローベリー",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/shallow-magic60/01.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/shallow-magic60/"
+    },
+    {
+      "id": "fc20d673-e12b-491e-830c-7eb11f66f368",
+      "manufacturer_slug": "viva",
+      "slug": "namagaeru",
+      "color_name": "#9 グリパンフロッグ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/namagaeru/09.webp",
+      "source_url": "https://vivanet.co.jp/viva/namagaeru/"
+    },
+    {
+      "id": "fc37edd0-74e1-420e-af8c-0bd1a689163f",
+      "manufacturer_slug": "viva",
+      "slug": "mid-magic",
+      "color_name": "#A68 シグナル",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mid-magic/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/mid-magic/"
+    },
+    {
+      "id": "fca5426e-f583-466c-9a30-83556a77a7d6",
+      "manufacturer_slug": "viva",
+      "slug": "spark55",
+      "color_name": "#S39 グローレッドヘッド",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/spark55/06.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/spark55/"
+    },
+    {
+      "id": "fd2ce915-0947-4274-aa2c-6210efb7d742",
+      "manufacturer_slug": "viva",
+      "slug": "datchak-head",
+      "color_name": "#TH04 ブラックパール",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/datchak-head/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/datchak-head/"
+    },
+    {
+      "id": "fd3aab59-9021-4c35-82d8-c97052731b4a",
+      "manufacturer_slug": "viva",
+      "slug": "mazzy-vib-dash",
+      "color_name": "#83 チャートバス",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/mazzy-vib-dash/02.webp",
+      "source_url": "https://vivanet.co.jp/viva/mazzy-vib-dash/"
+    },
+    {
+      "id": "ff370da9-685e-49b1-a762-09b43e23fe5d",
+      "manufacturer_slug": "viva",
+      "slug": "grown-wriggle-shad",
+      "color_name": "#46 UVクリアー/レッドF",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/grown-wriggle-shad/02.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/grown-wriggle-shad/"
+    },
+    {
+      "id": "ff52870f-507b-421d-bf4f-a3dc7ae2c520",
+      "manufacturer_slug": "viva",
+      "slug": "kozo-spin",
+      "color_name": "#160N チャート・クレイフィッシュ",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/kozo-spin/14.webp",
+      "source_url": "https://vivanet.co.jp/viva/kozo-spin/"
+    },
+    {
+      "id": "ff5c9ee9-51dc-436a-93c1-cbe30a18c185",
+      "manufacturer_slug": "viva",
+      "slug": "rolling-dancer",
+      "color_name": "RD04 燻銀",
+      "image_url": "https://pub-555da67d0de44f4e89afa8c52ff621a2.r2.dev/viva/rolling-dancer/04.webp",
+      "source_url": "https://vivanet.co.jp/aquawave/rolling-dancer/"
+    }
+  ]
+}

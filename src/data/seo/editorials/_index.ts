@@ -903,6 +903,17 @@ import { noriesLaydownMinnowJustWakeEditorial } from './nories-laydown-minnow-ju
 import { evergreenSidestepperEditorial } from './evergreen-sidestepper';
 import { megabassX80SwEditorial } from './megabass-x-80-sw';
 import { duoTideMinnow120SurfEditorial } from './duo-tide-minnow-120-surf';
+// 2026-03-21 追加分 第72弾（10件）シーバスミノー + シンペン
+import { apiaDover99fEditorial } from './apia-dover-99f';
+import { imaKomomoSf125Editorial } from './ima-komomo-sf-125';
+import { jacksonAthlete12ssEditorial } from './jackson-athlete-12ss';
+import { daiwaMorethanCrosswake111sSrEditorial } from './daiwa-morethan-crosswake-111s-sr';
+import { shimanoExsenceGenma110sEditorial } from './shimano-exsence-genma-110s';
+import { blueblueSnecon130sEditorial } from './blueblue-snecon-130s';
+import { megabassKagelouMd125fEditorial } from './megabass-kagelou-md-125f';
+import { duoTideMinnow125sldFEditorial } from './duo-tide-minnow-125sld-f';
+import { tacklehouseTklm90Editorial } from './tacklehouse-tklm-90';
+import { imaSasuke140sReppaEditorial } from './ima-sasuke-140s-reppa';
 
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1805,4 +1816,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'evergreen-sidestepper': evergreenSidestepperEditorial,
   'megabass-x-80-sw': megabassX80SwEditorial,
   'duo-tide-minnow-120-surf': duoTideMinnow120SurfEditorial,
+  // 2026-03-21 追加分 第72弾（10件）シーバスミノー + シンペン
+  'apia-dover-99f': apiaDover99fEditorial,
+  'ima-komomo-sf-125': imaKomomoSf125Editorial,
+  'jackson-athlete-12ss': jacksonAthlete12ssEditorial,
+  'daiwa-morethan-crosswake-111s-sr': daiwaMorethanCrosswake111sSrEditorial,
+  'shimano-exsence-genma-110s': shimanoExsenceGenma110sEditorial,
+  'blueblue-snecon-130s': blueblueSnecon130sEditorial,
+  'megabass-kagelou-md-125f': megabassKagelouMd125fEditorial,
+  'duo-tide-minnow-125sld-f': duoTideMinnow125sldFEditorial,
+  'tacklehouse-tklm-90': tacklehouseTklm90Editorial,
+  'ima-sasuke-140s-reppa': imaSasuke140sReppaEditorial,
 };

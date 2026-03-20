@@ -132,157 +132,6 @@ async function fetchAllLures(
   return rows;
 }
 
-/** source_urlからメーカー公式画像を再取得してR2にアップロード */
-async function redownloadAndUpload(
-  sourceUrl: string,
-  manufacturerSlug: string,
-  lureSlug: string,
-  colorName: string,
-): Promise<string | null> {
-  const colorSlug = slugify(colorName).substring(0, 40) || 'default';
-  const r2Key = `${manufacturerSlug}/${lureSlug}/${colorSlug}.webp`;
-
-  // まずsource_urlのページから画像を取得する必要があるが、
-  // R2のキーが分かっているので、source_urlの画像を直接フェッチするのではなく
-  // 元のスクレイパーを通す必要がある。
-  // ただし、多くの場合source_urlはShopify等の商品ページで、画像URLパターンは推測可能。
-  //
-  // 代わりの戦略: source_urlをfetchしてog:imageやmainImageを抽出
-  try {
-    log(`  ページ取得: ${sourceUrl}`);
-    const headers: Record<string, string> = {
-      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-    };
-    if (sourceUrl.includes('shimano.com')) {
-      headers['Referer'] = 'https://fish.shimano.com/';
-    }
-
-    const pageRes = await fetch(sourceUrl, { headers, redirect: 'follow' });
-    if (!pageRes.ok) {
-      logError(`  ページ取得失敗: HTTP ${pageRes.status}`);
-      return null;
-    }
-
-    const html = await pageRes.text();
-
-    // 画像URLを探す（優先順位: og:image → メイン画像 → JSON-LD → 最初の大きな画像）
-    let imageUrl: string | null = null;
-
-    // 1. og:image
-    const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
-      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
-    if (ogMatch) {
-      imageUrl = ogMatch[1];
-    }
-
-    // 2. Shopify featured image
-    if (!imageUrl) {
-      const shopifyMatch = html.match(/"featured_image":\s*"([^"]+)"/);
-      if (shopifyMatch) {
-        imageUrl = shopifyMatch[1].replace(/\\\//g, '/');
-      }
-    }
-
-    // 3. JSON-LD image
-    if (!imageUrl) {
-      const jsonLdMatch = html.match(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi);
-      if (jsonLdMatch) {
-        for (const block of jsonLdMatch) {
-          try {
-            const jsonStr = block.replace(/<\/?script[^>]*>/gi, '');
-            const jsonData = JSON.parse(jsonStr);
-            if (jsonData.image) {
-              imageUrl = Array.isArray(jsonData.image) ? jsonData.image[0] : jsonData.image;
-              if (typeof imageUrl === 'object' && imageUrl !== null) {
-                imageUrl = (imageUrl as any).url || null;
-              }
-              break;
-            }
-          } catch { /* skip invalid JSON-LD */ }
-        }
-      }
-    }
-
-    if (!imageUrl) {
-      logError(`  画像URL抽出失敗: ${sourceUrl}`);
-      return null;
-    }
-
-    // 相対URLを絶対URLに変換
-    if (imageUrl.startsWith('//')) {
-      imageUrl = 'https:' + imageUrl;
-    } else if (imageUrl.startsWith('/')) {
-      const base = new URL(sourceUrl);
-      imageUrl = `${base.origin}${imageUrl}`;
-    }
-
-    log(`  画像URL: ${imageUrl}`);
-
-    // ダウンロード
-    const imgRes = await fetch(imageUrl, { headers, redirect: 'follow' });
-    if (!imgRes.ok) {
-      logError(`  画像ダウンロード失敗: HTTP ${imgRes.status}`);
-      return null;
-    }
-
-    const buffer = Buffer.from(await imgRes.arrayBuffer());
-
-    // WebP変換
-    const webpBuffer = await sharp(buffer)
-      .resize({ width: IMAGE_WIDTH, withoutEnlargement: true })
-      .webp({ quality: 80 })
-      .toBuffer();
-
-    // 小さすぎる画像をスキップ
-    if (webpBuffer.length < 5000) {
-      logError(`  画像が小さすぎます (${webpBuffer.length} bytes): プレースホルダーの可能性`);
-      return null;
-    }
-
-    log(`  R2アップロード: ${r2Key} (${(webpBuffer.length / 1024).toFixed(1)} KB)`);
-
-    await s3.send(
-      new PutObjectCommand({
-        Bucket: R2_BUCKET,
-        Key: r2Key,
-        Body: webpBuffer,
-        ContentType: 'image/webp',
-        CacheControl: 'public, max-age=31536000, immutable',
-      }),
-    );
-
-    // アップロード後の検証（HEADリクエスト）
-    const publicUrl = `${R2_PUBLIC_URL}/${r2Key}`;
-    await sleep(500); // R2の反映待ち
-    const verifyStatus = await checkImageExists(publicUrl);
-    if (verifyStatus !== 'ok') {
-      logError(`  アップロード検証失敗: ${publicUrl} → ${verifyStatus}`);
-      // リトライ1回
-      log(`  リトライ中...`);
-      await sleep(2000);
-      await s3.send(
-        new PutObjectCommand({
-          Bucket: R2_BUCKET,
-          Key: r2Key,
-          Body: webpBuffer,
-          ContentType: 'image/webp',
-          CacheControl: 'public, max-age=31536000, immutable',
-        }),
-      );
-      await sleep(1000);
-      const retry = await checkImageExists(publicUrl);
-      if (retry !== 'ok') {
-        logError(`  リトライ後も検証失敗: ${publicUrl}`);
-        return null;
-      }
-    }
-
-    return publicUrl;
-  } catch (err) {
-    logError(`  再取得失敗: ${err instanceof Error ? err.message : String(err)}`);
-    return null;
-  }
-}
 
 // ---------------------------------------------------------------------------
 // Phase 1: サンプリング調査
@@ -488,8 +337,133 @@ async function runFull() {
 }
 
 // ---------------------------------------------------------------------------
-// Phase 3: 修復
+// Phase 3: 修復（スクレイパー再実行方式）
 // ---------------------------------------------------------------------------
+
+/** source_urlから画像をダウンロードしてR2にアップロード */
+async function downloadImageToR2(
+  imageUrl: string,
+  r2Key: string,
+): Promise<string | null> {
+  try {
+    const headers: Record<string, string> = {
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    };
+
+    const res = await fetch(imageUrl, { headers, redirect: 'follow' });
+    if (!res.ok) {
+      logError(`  画像DL失敗: HTTP ${res.status} for ${imageUrl}`);
+      return null;
+    }
+
+    const buffer = Buffer.from(await res.arrayBuffer());
+    const webpBuffer = await sharp(buffer)
+      .resize({ width: IMAGE_WIDTH, withoutEnlargement: true })
+      .webp({ quality: 80 })
+      .toBuffer();
+
+    if (webpBuffer.length < 5000) {
+      logError(`  画像小さすぎ (${webpBuffer.length} bytes): ${imageUrl}`);
+      return null;
+    }
+
+    log(`  R2アップロード: ${r2Key} (${(webpBuffer.length / 1024).toFixed(1)} KB)`);
+    await s3.send(
+      new PutObjectCommand({
+        Bucket: R2_BUCKET,
+        Key: r2Key,
+        Body: webpBuffer,
+        ContentType: 'image/webp',
+        CacheControl: 'public, max-age=31536000, immutable',
+      }),
+    );
+
+    const publicUrl = `${R2_PUBLIC_URL}/${r2Key}`;
+
+    // アップロード検証
+    await sleep(500);
+    const status = await checkImageExists(publicUrl);
+    if (status !== 'ok') {
+      logError(`  アップロード検証失敗、リトライ...`);
+      await sleep(2000);
+      await s3.send(
+        new PutObjectCommand({
+          Bucket: R2_BUCKET,
+          Key: r2Key,
+          Body: webpBuffer,
+          ContentType: 'image/webp',
+          CacheControl: 'public, max-age=31536000, immutable',
+        }),
+      );
+      await sleep(1000);
+      const retry = await checkImageExists(publicUrl);
+      if (retry !== 'ok') {
+        logError(`  リトライ後も検証失敗`);
+        return null;
+      }
+    }
+
+    return publicUrl;
+  } catch (err) {
+    logError(`  DL/アップロードエラー: ${err instanceof Error ? err.message : String(err)}`);
+    return null;
+  }
+}
+
+/** Vivaの商品ページからカラー別画像URLマップを取得 */
+async function scrapeVivaColorImages(sourceUrl: string): Promise<Map<string, string>> {
+  const colorMap = new Map<string, string>();
+  try {
+    const res = await fetch(sourceUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml',
+        'Accept-Language': 'ja,en;q=0.9',
+      },
+    });
+    if (!res.ok) {
+      logError(`  ページ取得失敗: HTTP ${res.status} for ${sourceUrl}`);
+      return colorMap;
+    }
+    const html = await res.text();
+
+    const SITE_BASE = 'https://vivanet.co.jp';
+    function makeAbsolute(href: string): string {
+      if (!href) return '';
+      if (href.startsWith('http://') || href.startsWith('https://')) return href;
+      if (href.startsWith('//')) return 'https:' + href;
+      if (href.startsWith('/')) return SITE_BASE + href;
+      return SITE_BASE + '/' + href;
+    }
+
+    // color_list から各カラー画像を抽出（Vivaスクレイパーと同一ロジック）
+    const colorListMatch = html.match(/<ul[^>]*class=["'][^"']*color_list[^"']*["'][^>]*>([\s\S]*?)<\/ul>/i);
+    if (colorListMatch) {
+      const liMatches = colorListMatch[1].match(/<li[^>]*>[\s\S]*?<\/li>/gi) || [];
+      for (const li of liMatches) {
+        const aHrefMatch = li.match(/<a[^>]+href=["']([^"']+\.(?:jpg|jpeg|png|webp|gif)[^"']*)["']/i);
+        const imgMatch = li.match(/<img[^>]+src=["']([^"']+)["']/i);
+        const pMatch = li.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+        const titleMatch = li.match(/<a[^>]+title=["']([^"']+)["']/i);
+
+        const rawColorText = pMatch ? pMatch[1] : (titleMatch ? titleMatch[1] : '');
+        if (!rawColorText) continue;
+
+        const colorText = rawColorText.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').trim();
+        if (!colorText || colorText.length === 0 || colorText.length > 80) continue;
+        if (/Viva-net|ビバネット|AquaWave|コーモラン|CORMORAN|TOP|HOME/i.test(colorText)) continue;
+
+        const imageUrl = makeAbsolute(aHrefMatch ? aHrefMatch[1] : (imgMatch ? imgMatch[1] : ''));
+        if (imageUrl) {
+          colorMap.set(colorText, imageUrl);
+        }
+      }
+    }
+  } catch (err) {
+    logError(`  スクレイプエラー: ${err instanceof Error ? err.message : String(err)}`);
+  }
+  return colorMap;
+}
 
 async function runFix() {
   log(`=== Phase 3: 404画像修復 ${DRY_RUN ? '(DRY RUN)' : ''} ===`);
@@ -514,7 +488,7 @@ async function runFix() {
 
   log(`修復対象: ${items.length}件`);
 
-  // source_url単位でグルーピング（同じページから複数カラーを取得するため）
+  // source_url単位でグルーピング
   const bySource = new Map<string, typeof items>();
   const noSource: typeof items = [];
   for (const item of items) {
@@ -531,70 +505,93 @@ async function runFix() {
 
   let fixed = 0, failed = 0, skipped = 0;
 
-  // source_urlがあるものを修復
-  // 注意: 同じsource_urlでも各カラーの画像は異なる可能性がある
-  // 現在のR2キー構造: {manufacturer_slug}/{lure_slug}/{color_slug}.webp
-  // source_urlからはメイン画像しか取れないので、全カラー同じ画像になる
-  // → それでもNULL（画像なし）より遥かにマシ
-
-  for (const item of items) {
-    if (!item.source_url) {
-      skipped++;
-      continue;
-    }
-
-    log(`\n修復: ${item.manufacturer_slug}/${item.slug}/${item.color_name}`);
-    log(`  元URL: ${item.image_url}`);
-    log(`  ソース: ${item.source_url}`);
+  // source_url単位で処理（1ページ1回のフェッチで全カラー取得）
+  for (const [sourceUrl, sourceItems] of bySource) {
+    const lureSlug = sourceItems[0].slug;
+    const makerSlug = sourceItems[0].manufacturer_slug;
+    log(`\n--- ${makerSlug}/${lureSlug} (${sourceItems.length}件) ---`);
+    log(`  source: ${sourceUrl}`);
 
     if (DRY_RUN) {
       log(`  [DRY RUN] スキップ`);
+      skipped += sourceItems.length;
       continue;
     }
 
-    const newUrl = await redownloadAndUpload(
-      item.source_url,
-      item.manufacturer_slug,
-      item.slug,
-      item.color_name,
-    );
+    // ページから全カラー画像URLを取得
+    const colorImageMap = await scrapeVivaColorImages(sourceUrl);
+    log(`  カラー画像取得: ${colorImageMap.size}件`);
 
-    if (newUrl) {
-      // Supabase更新
-      const { error } = await sb
-        .from('lures')
-        .update({ images: [newUrl] })
-        .eq('id', item.id);
+    for (const item of sourceItems) {
+      // カラー名でマッチ
+      let originalImageUrl = colorImageMap.get(item.color_name);
 
-      if (error) {
-        logError(`  Supabase更新失敗: ${error.message}`);
+      // 完全一致しない場合、部分一致を試みる
+      if (!originalImageUrl) {
+        for (const [colorName, imgUrl] of colorImageMap) {
+          if (colorName.includes(item.color_name) || item.color_name.includes(colorName)) {
+            originalImageUrl = imgUrl;
+            break;
+          }
+        }
+      }
+
+      if (!originalImageUrl) {
+        log(`  ⚠️ カラー画像見つからず: ${item.color_name}`);
+        // imagesをnullに設定（壊れた404 URLよりマシ）
+        const { error } = await sb
+          .from('lures')
+          .update({ images: null })
+          .eq('id', item.id);
+        if (error) logError(`  Supabase null更新失敗: ${error.message}`);
         failed++;
-      } else {
-        log(`  ✅ 修復完了: ${newUrl}`);
-        fixed++;
+        continue;
       }
-    } else {
-      // source_urlから画像取得失敗 → imagesをnullに設定（壊れたURLよりマシ）
-      log(`  画像取得失敗 → imagesをnullに設定`);
-      const { error } = await sb
-        .from('lures')
-        .update({ images: null })
-        .eq('id', item.id);
 
-      if (error) {
-        logError(`  Supabase更新失敗: ${error.message}`);
+      const colorSlug = slugify(item.color_name).substring(0, 40) || 'default';
+      const r2Key = `${makerSlug}/${lureSlug}/${colorSlug}.webp`;
+
+      log(`  修復: ${item.color_name} → ${originalImageUrl}`);
+
+      const newUrl = await downloadImageToR2(originalImageUrl, r2Key);
+      if (newUrl) {
+        const { error } = await sb
+          .from('lures')
+          .update({ images: [newUrl] })
+          .eq('id', item.id);
+
+        if (error) {
+          logError(`  Supabase更新失敗: ${error.message}`);
+          failed++;
+        } else {
+          log(`  ✅ 修復完了: ${newUrl}`);
+          fixed++;
+        }
+      } else {
+        const { error } = await sb
+          .from('lures')
+          .update({ images: null })
+          .eq('id', item.id);
+        if (error) logError(`  Supabase null更新失敗: ${error.message}`);
+        failed++;
       }
-      failed++;
+
+      await sleep(200); // R2レート制限
     }
 
-    // レート制限（ページフェッチするので長めに）
-    await sleep(1000);
+    await sleep(1000); // ページフェッチ間隔
+  }
+
+  // source_urlなし
+  for (const item of noSource) {
+    log(`  スキップ（source_urlなし）: ${item.manufacturer_slug}/${item.slug}/${item.color_name}`);
+    skipped++;
   }
 
   log(`\n=== 修復完了 ===`);
   log(`修復成功: ${fixed}件`);
   log(`修復失敗: ${failed}件`);
-  log(`スキップ（source_urlなし）: ${skipped}件`);
+  log(`スキップ: ${skipped}件`);
 }
 
 // ---------------------------------------------------------------------------

@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-03-20T22:25:30.865Z",
+  "totalChecked": 1022,
+  "total404": 2,
+  "problemMakers": [
+    {
+      "slug": "viva",
+      "stats": {
+        "total": 1592,
+        "withImages": 1592,
+        "checked": 10,
+        "ok": 8,
+        "notFound": 2,
+        "error": 0,
+        "notFoundIds": [
+          "4efcd0b1-932a-438d-9ad1-c2760195ed21",
+          "450c9d5d-a629-49d3-abb1-35043ab95b1b"
+        ]
+      }
+    }
+  ]
+}
