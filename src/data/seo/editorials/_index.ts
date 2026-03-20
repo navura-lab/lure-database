@@ -1,6 +1,6 @@
 /**
  * エディトリアルレビュー インデックス（自動生成）
- * 全124件のルアーエディトリアルレビュー
+ * 全500件のルアーエディトリアルレビュー
  */
 
 import type { EditorialReview } from './huggos';
@@ -519,8 +519,20 @@ import { thirteenNutEditorial } from './13-nut';
 import { redEyedShad14ozEditorial } from './red-eyed-shad-1-4oz';
 import { scentedJerkShadzEditorial } from './scented-jerk-shadz';
 import { gulpSaltwaterPaddleshadEditorial } from './gulp-saltwater-paddleshad';
+// 2026-03-20 追加分 第37弾（11件）
+import { wanderSuperSlimSaltEditorial } from './wandersuperslim-salt';
+import { sRollerAreaEditorial } from './sroller-area';
+import { giopickEditorial } from './giopick';
+import { cherryBloodSr90Editorial } from './trout-cherrybloodsr';
+import { realizeEditorial } from './realize';
+import { gunship45Editorial } from './salt-gunship45';
+import { tgNobunagaNeoEditorial } from './tg-nobunaga-neo';
+import { taiNomiEditorial } from './tm';
+import { crusaderGekiatsuEditorial } from './xweuuha';
+import { beatriceEditorial } from './beatrice';
+import { flutterJigEditorial } from './flutter-jig';
 
-/** slug → EditorialReview のマップ（全478件） */
+/** slug → EditorialReview のマップ（全500件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1035,4 +1047,16 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'red-eyed-shad-1-4oz': redEyedShad14ozEditorial,
   'scented-jerk-shadz': scentedJerkShadzEditorial,
   'gulp-saltwater-paddleshad': gulpSaltwaterPaddleshadEditorial,
+  // 2026-03-20 追加分 第37弾（11件）
+  'wandersuperslim-salt': wanderSuperSlimSaltEditorial,
+  'sroller-area': sRollerAreaEditorial,
+  'giopick': giopickEditorial,
+  'trout-cherrybloodsr': cherryBloodSr90Editorial,
+  'realize': realizeEditorial,
+  'salt-gunship45': gunship45Editorial,
+  'tg-nobunaga-neo': tgNobunagaNeoEditorial,
+  'tm': taiNomiEditorial,
+  'xweuuha': crusaderGekiatsuEditorial,
+  'beatrice': beatriceEditorial,
+  'flutter-jig': flutterJigEditorial,
 };
