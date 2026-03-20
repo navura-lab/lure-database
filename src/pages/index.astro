@@ -129,11 +129,11 @@ const jsonLd = {
       <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">PICK UP</p>
       <h2 class="text-[18px] font-bold text-text mb-6">今日のピックアップ</h2>
 
-      <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:auto-rows-[1fr]">
         {/* フィーチャー（大きい） */}
         {feature && (
-          <a href={`/${feature.manufacturer_slug}/${feature.slug}/`} class="lg:col-span-3 group block">
-            <div class="relative aspect-[16/10] rounded-2xl overflow-hidden bg-surface">
+          <a href={`/${feature.manufacturer_slug}/${feature.slug}/`} class="lg:col-span-3 lg:row-span-2 group block h-full">
+            <div class="relative h-full min-h-[300px] rounded-2xl overflow-hidden bg-surface">
               <img
                 src={feature.representative_image!}
                 alt={`${feature.manufacturer} ${feature.name}`}
@@ -159,10 +159,10 @@ const jsonLd = {
         )}
 
         {/* サブピック（小さい 2x2） */}
-        <div class="lg:col-span-2 grid grid-cols-2 gap-4">
+        <div class="lg:col-span-2 lg:row-span-2 grid grid-cols-2 gap-4">
           {subPicks.map(s => (
-            <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="group block">
-              <div class="relative aspect-square rounded-xl overflow-hidden bg-surface">
+            <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="group block h-full">
+              <div class="relative h-full min-h-[140px] rounded-xl overflow-hidden bg-surface">
                 <img
                   src={s.representative_image!}
                   alt={`${s.manufacturer} ${s.name}`}
