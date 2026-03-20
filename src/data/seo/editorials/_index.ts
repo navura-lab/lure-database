@@ -630,8 +630,19 @@ import { rapalaScatterRapEditorial } from './rapala-scatter-rap';
 import { arHdEditorial } from './trout-ar-hd';
 import { depsBuzzjetEditorial } from './deps-buzzjet';
 import { cbNaganagaSlimEditorial } from './salt-cb-naganaga-slim';
+// 2026-03-21 追加分 第47弾（10件）
+import { depsDeathAdderEditorial } from './deps-death-adder';
+import { depsBulldozeEditorial } from './deps-bulldoze';
+import { dIncite44Editorial } from './trout-d-incite-44';
+import { cbMusashiEditorial } from './salt-cb-musashi';
+import { rapalaShadowRapEditorial } from './rapala-shadow-rap';
+import { megabassOnetenEditorial } from './megabass-oneten';
+import { megabassItoShinerEditorial } from './megabass-ito-shiner';
+import { megabassPopXEditorial } from './megabass-pop-x';
+import { megabassDogXEditorial } from './megabass-dog-x';
+import { megabassVisionOnetenEditorial } from './megabass-vision-oneten';
 
-/** slug → EditorialReview のマップ（全580件） */
+/** slug → EditorialReview のマップ（全590件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1257,4 +1268,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'trout-ar-hd': arHdEditorial,
   'deps-buzzjet': depsBuzzjetEditorial,
   'salt-cb-naganaga-slim': cbNaganagaSlimEditorial,
+  // 2026-03-21 追加分 第47弾（10件）
+  'deps-death-adder': depsDeathAdderEditorial,
+  'deps-bulldoze': depsBulldozeEditorial,
+  'trout-d-incite-44': dIncite44Editorial,
+  'salt-cb-musashi': cbMusashiEditorial,
+  'rapala-shadow-rap': rapalaShadowRapEditorial,
+  'megabass-oneten': megabassOnetenEditorial,
+  'megabass-ito-shiner': megabassItoShinerEditorial,
+  'megabass-pop-x': megabassPopXEditorial,
+  'megabass-dog-x': megabassDogXEditorial,
+  'megabass-vision-oneten': megabassVisionOnetenEditorial,
 };
