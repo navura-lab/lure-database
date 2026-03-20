@@ -167,6 +167,13 @@ async function processAndUploadImage(
     .webp({ quality: 80 })
     .toBuffer();
 
+  // プレースホルダー画像の検出: 5KB未満の画像はロゴ/空画像の可能性が高い
+  const MIN_IMAGE_SIZE_BYTES = 5000;
+  if (webpBuffer.length < MIN_IMAGE_SIZE_BYTES) {
+    log(`⚠️  画像が小さすぎます (${webpBuffer.length} bytes < ${MIN_IMAGE_SIZE_BYTES}): ${imageUrl} → スキップ`);
+    throw new Error(`Image too small after processing (${webpBuffer.length} bytes): likely a placeholder or logo image`);
+  }
+
   log(`Uploading to R2: ${r2Key} (${(webpBuffer.length / 1024).toFixed(1)} KB)`);
   await s3.send(
     new PutObjectCommand({
