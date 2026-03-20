@@ -749,8 +749,19 @@ import { daiwaTachiuoLeaderWireEditorial } from './daiwa-tachiuo-leader-wire';
 import { shimanoExsenceGoatEditorial } from './shimano-exsence-goat';
 import { daiwaMorethanRealSteelTgEditorial } from './daiwa-morethan-real-steel-tg';
 import { shimanoExsenceStrongAssassinEditorial } from './shimano-exsence-strong-assassin';
+// 2026-03-21 追加分 第58弾（10件）バス釣り定番ワーム・ソフトベイト
+import { garyYamamotoSenko5Editorial } from './gary-yamamoto-senko-5';
+import { garyYamamotoFatIkaEditorial } from './gary-yamamoto-fat-ika';
+import { zoomBrushHogEditorial } from './zoom-brush-hog';
+import { zoomSuperFlukeJrEditorial } from './zoom-super-fluke-jr';
+import { keitechSwingImpactFat38Editorial } from './keitech-swing-impact-fat-38';
+import { jackallCrossWakeEditorial } from './jackall-cross-wake';
+import { megabassDarkSleeperEditorial } from './megabass-dark-sleeper';
+import { dstyleTororoBugEditorial } from './dstyle-tororo-bug';
+import { imakatsuReplicrawEditorial } from './imakatsu-replicraw';
+import { evergreenC4ShrimpEditorial } from './evergreen-c-4-shrimp';
 
-/** slug → EditorialReview のマップ（全610件） */
+/** slug → EditorialReview のマップ（全620件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1497,4 +1508,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'shimano-exsence-goat': shimanoExsenceGoatEditorial,
   'daiwa-morethan-real-steel-tg': daiwaMorethanRealSteelTgEditorial,
   'shimano-exsence-strong-assassin': shimanoExsenceStrongAssassinEditorial,
+  // 2026-03-21 追加分 第58弾（10件）バス釣り定番ワーム・ソフトベイト
+  'gary-yamamoto-senko-5': garyYamamotoSenko5Editorial,
+  'gary-yamamoto-fat-ika': garyYamamotoFatIkaEditorial,
+  'zoom-brush-hog': zoomBrushHogEditorial,
+  'zoom-super-fluke-jr': zoomSuperFlukeJrEditorial,
+  'keitech-swing-impact-fat-38': keitechSwingImpactFat38Editorial,
+  'jackall-cross-wake': jackallCrossWakeEditorial,
+  'megabass-dark-sleeper': megabassDarkSleeperEditorial,
+  'dstyle-tororo-bug': dstyleTororoBugEditorial,
+  'imakatsu-replicraw': imakatsuReplicrawEditorial,
+  'evergreen-c-4-shrimp': evergreenC4ShrimpEditorial,
 };
