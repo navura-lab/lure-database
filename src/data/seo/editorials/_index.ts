@@ -738,8 +738,19 @@ import { shimanoEngetsuFallSliderEditorial } from './shimano-engetsu-fall-slider
 import { daiwaKougaLeaderEditorial } from './daiwa-kouga-leader';
 import { megabassFlapSlapEditorial } from './megabass-flap-slap';
 import { megabassGriffonSrEditorial } from './megabass-griffon-sr';
+// 2026-03-21 追加分 第57弾（10件）チニング + ロックフィッシュ + タチウオ + シーバス
+import { daiwaSilverWolfSkinnyPopEditorial } from './daiwa-silver-wolf-skinny-pop';
+import { jackallChinuMushiEditorial } from './jackall-chinu-mushi';
+import { shimanoBreniousRisePop50fEditorial } from './shimano-brenious-rise-pop-50f';
+import { ecogearBugAnts2Editorial } from './ecogear-bug-ants-2';
+import { ecogearRockMax3Editorial } from './ecogear-rock-max-3';
+import { daiwaHrvRockfishEditorial } from './daiwa-hrv-rockfish';
+import { daiwaTachiuoLeaderWireEditorial } from './daiwa-tachiuo-leader-wire';
+import { shimanoExsenceGoatEditorial } from './shimano-exsence-goat';
+import { daiwaMorethanRealSteelTgEditorial } from './daiwa-morethan-real-steel-tg';
+import { shimanoExsenceStrongAssassinEditorial } from './shimano-exsence-strong-assassin';
 
-/** slug → EditorialReview のマップ（全600件） */
+/** slug → EditorialReview のマップ（全610件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1475,4 +1486,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'daiwa-kouga-leader': daiwaKougaLeaderEditorial,
   'megabass-flap-slap': megabassFlapSlapEditorial,
   'megabass-griffon-sr': megabassGriffonSrEditorial,
+  // 2026-03-21 追加分 第57弾（10件）チニング + ロックフィッシュ + タチウオ + シーバス
+  'daiwa-silver-wolf-skinny-pop': daiwaSilverWolfSkinnyPopEditorial,
+  'jackall-chinu-mushi': jackallChinuMushiEditorial,
+  'shimano-brenious-rise-pop-50f': shimanoBreniousRisePop50fEditorial,
+  'ecogear-bug-ants-2': ecogearBugAnts2Editorial,
+  'ecogear-rock-max-3': ecogearRockMax3Editorial,
+  'daiwa-hrv-rockfish': daiwaHrvRockfishEditorial,
+  'daiwa-tachiuo-leader-wire': daiwaTachiuoLeaderWireEditorial,
+  'shimano-exsence-goat': shimanoExsenceGoatEditorial,
+  'daiwa-morethan-real-steel-tg': daiwaMorethanRealSteelTgEditorial,
+  'shimano-exsence-strong-assassin': shimanoExsenceStrongAssassinEditorial,
 };
