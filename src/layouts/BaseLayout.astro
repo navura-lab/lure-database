@@ -131,7 +131,7 @@ const orgDescription = locale === 'en'
           }
         }
       }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('.animate-fade-up, .animate-scale-in, .animate-stagger')
+      document.querySelectorAll('.animate-fade-up, .animate-stagger')
         .forEach(el => io.observe(el));
 
       // ヘッダースクロール影
@@ -188,7 +188,7 @@ const orgDescription = locale === 'en'
       // ページ読み込み時にお気に入り状態を復元
       document.addEventListener('astro:page-load', () => {
         // Re-init observer for View Transitions
-        document.querySelectorAll('.animate-fade-up, .animate-scale-in, .animate-stagger')
+        document.querySelectorAll('.animate-fade-up, .animate-stagger')
           .forEach(el => { if (!el.classList.contains('is-visible')) io.observe(el); });
 
         const favs = getFavorites();
