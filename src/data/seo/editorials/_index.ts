@@ -793,8 +793,19 @@ import { depsKorriganEditorial } from './deps-korrigan';
 import { jackallPompadourEditorial } from './jackall-pompadour';
 import { megabassIJackEditorial } from './megabass-i-jack';
 import { daiwasteezShad60spEditorial } from './daiwa-steez-shad-60sp';
+// 2026-03-21 追加分 第62弾（10件）ハードベイト・ビッグベイト混合
+import { megabassLboOrochiEditorial } from './megabass-lbo-orochi';
+import { jackallSoulFlatEditorial } from './jackall-soul-flat';
+import { jackallBreakBladeEditorial } from './jackall-break-blade';
+import { daiwasteezPropEditorial } from './daiwa-steez-prop';
+import { imakatsuGillroidEditorial } from './imakatsu-gillroid';
+import { imakatsuAliveChatterEditorial } from './imakatsu-alive-chatter';
+import { megabassHazedongShadEditorial } from './megabass-hazedong-shad';
+import { noriesRoadRunnerVoiceEditorial } from './nories-road-runner-voice';
+import { evergreenDZoneFlyTgEditorial } from './evergreen-d-zone-fly-tg';
+import { depsBasiriskyEditorial } from './deps-basirisky';
 
-/** slug → EditorialReview のマップ（全650件） */
+/** slug → EditorialReview のマップ（全660件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1585,4 +1596,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'jackall-pompadour': jackallPompadourEditorial,
   'megabass-i-jack': megabassIJackEditorial,
   'daiwa-steez-shad-60sp': daiwasteezShad60spEditorial,
+  // 2026-03-21 追加分 第62弾（10件）ハードベイト・ビッグベイト混合
+  'megabass-lbo-orochi': megabassLboOrochiEditorial,
+  'jackall-soul-flat': jackallSoulFlatEditorial,
+  'jackall-break-blade': jackallBreakBladeEditorial,
+  'daiwa-steez-prop': daiwasteezPropEditorial,
+  'imakatsu-gillroid': imakatsuGillroidEditorial,
+  'imakatsu-alive-chatter': imakatsuAliveChatterEditorial,
+  'megabass-hazedong-shad': megabassHazedongShadEditorial,
+  'nories-road-runner-voice': noriesRoadRunnerVoiceEditorial,
+  'evergreen-d-zone-fly-tg': evergreenDZoneFlyTgEditorial,
+  'deps-basirisky': depsBasiriskyEditorial,
 };
