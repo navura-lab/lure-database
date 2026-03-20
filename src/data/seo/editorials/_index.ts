@@ -937,6 +937,17 @@ import { daiwaEmeraldasLightIIEditorial } from './daiwa-emeraldas-light-ii';
 import { jackallGoodMealCruiserEditorial } from './jackall-good-meal-cruiser';
 import { daiwaMonthlyBeamFishEditorial } from './daiwa-monthly-beam-fish';
 
+import { shimanoExsenceStaggard65sEditorial } from './shimano-exsence-staggard-65s';
+import { daiwaKagamiJigBasic30Editorial } from './daiwa-kagami-jig-basic-30';
+import { shimanoEngetsuBbJigTgEditorial } from './shimano-engetsu-bb-jig-tg';
+import { tictBrilliant2Editorial } from './tict-brilliant-2';
+import { daiwaMonthlyAjiBeamEditorial } from './daiwa-monthly-aji-beam';
+import { shimanoSoareRiseShotDmEditorial } from './shimano-soare-rise-shot-dm';
+import { jazzAjiMebaArtTailWormEditorial } from './jazz-aji-meba-art-tail-worm';
+import { thirtyFourDiamondHeadEditorial } from './thirty-four-diamond-head';
+import { tiemcoKurosawa53fsEditorial } from './tiemco-kurosawa-53fs';
+import { smithDContact50Editorial } from './smith-d-contact-50';
+
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
@@ -1871,4 +1882,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'daiwa-emeraldas-light-ii': daiwaEmeraldasLightIIEditorial,
   'jackall-good-meal-cruiser': jackallGoodMealCruiserEditorial,
   'daiwa-monthly-beam-fish': daiwaMonthlyBeamFishEditorial,
+  // 2026-03-21 追加分 第75弾（10件）タチウオ + アジング + メバリング + トラウト
+  'shimano-exsence-staggard-65s': shimanoExsenceStaggard65sEditorial,
+  'daiwa-kagami-jig-basic-30': daiwaKagamiJigBasic30Editorial,
+  'shimano-engetsu-bb-jig-tg': shimanoEngetsuBbJigTgEditorial,
+  'tict-brilliant-2': tictBrilliant2Editorial,
+  'daiwa-monthly-aji-beam': daiwaMonthlyAjiBeamEditorial,
+  'shimano-soare-rise-shot-dm': shimanoSoareRiseShotDmEditorial,
+  'jazz-aji-meba-art-tail-worm': jazzAjiMebaArtTailWormEditorial,
+  'thirty-four-diamond-head': thirtyFourDiamondHeadEditorial,
+  'tiemco-kurosawa-53fs': tiemcoKurosawa53fsEditorial,
+  'smith-d-contact-50': smithDContact50Editorial,
 };
