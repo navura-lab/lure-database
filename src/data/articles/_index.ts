@@ -224,6 +224,8 @@ import makerDiversityRanking from './maker-diversity-ranking.js';
 import priceAnalysisByType from './price-analysis-by-type.js';
 import bassVsSeabassMarket from './bass-vs-seabass-market.js';
 import troutLureOverview from './trout-lure-overview.js';
+// ビッグKW記事
+import seabassLureOsusume from './seabass-lure-osusume.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -433,6 +435,8 @@ export const contentArticles: ContentArticle[] = [
   priceAnalysisByType,
   bassVsSeabassMarket,
   troutLureOverview,
+  // ビッグKW記事
+  seabassLureOsusume,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────

@@ -8,9 +8,19 @@
  *
  * cron で毎日実行する想定。引数不要。
  *
+ * 優先順位:
+ *   1. rewrite-detector書換済みURL（当日分）
+ *   2. 固定ページ（トップ/記事一覧/比較/ランキング等）
+ *   3. 特集記事ページ
+ *   4. 比較/ランキング/メーカーページ
+ *   5. ★ エディトリアルレビュー付きルアーページ（530件）
+ *   6. 通常ルアーページ
+ *   7. 英語版（同じ優先順位）
+ *
  * Usage:
  *   npx tsx scripts/daily-indexing.ts           # 次の200件を送信
  *   npx tsx scripts/daily-indexing.ts --dry-run  # 送信せずに対象URLを表示
+ *   npx tsx scripts/daily-indexing.ts --reset    # offsetを0にリセットして送信
  */
 
 import 'dotenv/config';
@@ -27,6 +37,7 @@ const QUOTA_PROJECT = process.env.GOOGLE_QUOTA_PROJECT || 'plucky-mile-486802-j6
 const SITE_URL = process.env.GSC_SITE_URL || 'https://www.castlog.xyz/';
 
 const DRY_RUN = process.argv.includes('--dry-run');
+const RESET_PROGRESS = process.argv.includes('--reset');
 const BATCH_SIZE = 200;
 
 const LOG_DIR = path.join(import.meta.dirname, '..', 'logs');
@@ -164,6 +175,28 @@ async function fetchAllLureUrls(): Promise<string[]> {
     log('Warning: articles not found, skipping article pages');
   }
 
+  // エディトリアルレビュー付きルアーページ（優先送信）
+  const editorialPaths = new Set<string>();
+  try {
+    const { editorialReviews } = await import('../src/data/seo/editorials/_index.js');
+    for (const [slug, review] of Object.entries(editorialReviews)) {
+      const r = review as any;
+      if (r.manufacturerSlug && r.slug) {
+        const p = `${r.manufacturerSlug}/${r.slug}`;
+        if (allPaths.has(p)) {
+          editorialPaths.add(p);
+        }
+      }
+    }
+    log(`Editorial lure pages: ${editorialPaths.size} (prioritized)`);
+  } catch (e: any) {
+    log(`Warning: editorials not loaded: ${e.message}`);
+  }
+
+  // ルアーパスをエディトリアルあり/なしに分離
+  const nonEditorialPaths = [...allPaths].filter(p => !editorialPaths.has(p)).sort();
+  const sortedEditorialPaths = [...editorialPaths].sort();
+
   // 比較ページ（ランキングと同一slug体系）
   const compareUrls = [...rankingSlugs].sort().map(s => `${SITE_URL}compare/${s}/`);
 
@@ -186,8 +219,10 @@ async function fetchAllLureUrls(): Promise<string[]> {
     ...[...rankingSlugs].sort().map(s => `${SITE_URL}ranking/${s}/`),
     // メーカーページ
     ...[...makerSlugs].sort().map(s => `${SITE_URL}${s}/`),
-    // ルアーページ
-    ...[...allPaths].sort().map(p => `${SITE_URL}${p}/`),
+    // ★ エディトリアル付きルアーページ（優先）
+    ...sortedEditorialPaths.map(p => `${SITE_URL}${p}/`),
+    // 通常ルアーページ
+    ...nonEditorialPaths.map(p => `${SITE_URL}${p}/`),
   ];
 
   // ── 英語URL（日本語の後に追加） ──
@@ -209,11 +244,13 @@ async function fetchAllLureUrls(): Promise<string[]> {
     ...[...rankingSlugs].sort().map(s => `${EN}ranking/${s}/`),
     // メーカーページ
     ...[...makerSlugs].sort().map(s => `${EN}${s}/`),
-    // ルアーページ
-    ...[...allPaths].sort().map(p => `${EN}${p}/`),
+    // ★ エディトリアル付きルアーページ（優先）
+    ...sortedEditorialPaths.map(p => `${EN}${p}/`),
+    // 通常ルアーページ
+    ...nonEditorialPaths.map(p => `${EN}${p}/`),
   ];
 
-  log(`URL breakdown: JA=${jaUrls.length}, EN=${enUrls.length}`);
+  log(`URL breakdown: JA=${jaUrls.length} (editorial lures: ${sortedEditorialPaths.length}), EN=${enUrls.length}`);
   return [...jaUrls, ...enUrls];
 }
 
@@ -338,6 +375,14 @@ async function main() {
 
   // 1. 進捗読み込み
   const progress = loadProgress();
+
+  // --reset: URL順序変更時にoffsetをリセット
+  if (RESET_PROGRESS) {
+    log(`Resetting progress: offset ${progress.lure_offset} → 0`);
+    progress.lure_offset = 0;
+    saveProgress(progress);
+  }
+
   log(`Progress: offset=${progress.lure_offset}, total_submitted=${progress.total_submitted}, last_run=${progress.last_run}`);
 
   // 1.5. Rewrites applied（title書き換え済みURL）を優先送信リストとして取得

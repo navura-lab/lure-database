@@ -564,8 +564,19 @@ import { kaiseyEditorial } from './kaisey';
 import { doughRiderMinnowEditorial } from './dough-rider-minnow';
 import { gulpJerkShadEditorial } from './gulp-alive-saltwater-jerk-shad';
 import { bottomKnockSwimmerIIEditorial } from './trout-bksw-ii';
+// 2026-03-20 追加分 第41弾（10件）
+import { korriganMagnumEditorial } from './korrigan-magnum';
+import { athlete12FsVgEditorial } from './athlete-12-fs-vg';
+import { bottomAttackEditorial } from './trout-bottom-attack';
+import { metalForzeEditorial } from './salt-metal-forze';
+import { flashJSplit4SwEditorial } from './flash-j-split-4-sw';
+import { rapalaXrapEditorial } from './rapala-xrap';
+import { pressoEveEditorial } from './trout-presso-eve';
+import { vibrationXEditorial } from './vibe-x';
+import { coverScatEditorial } from './deps-cover-scat';
+import { arSpinnerEditorial } from './trout-ar-spinner';
 
-/** slug → EditorialReview のマップ（全520件） */
+/** slug → EditorialReview のマップ（全530件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1125,4 +1136,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'dough-rider-minnow': doughRiderMinnowEditorial,
   'gulp-alive-saltwater-jerk-shad': gulpJerkShadEditorial,
   'trout-bksw-ii': bottomKnockSwimmerIIEditorial,
+  // 2026-03-20 追加分 第41弾（10件）
+  'korrigan-magnum': korriganMagnumEditorial,
+  'athlete-12-fs-vg': athlete12FsVgEditorial,
+  'trout-bottom-attack': bottomAttackEditorial,
+  'salt-metal-forze': metalForzeEditorial,
+  'flash-j-split-4-sw': flashJSplit4SwEditorial,
+  'rapala-xrap': rapalaXrapEditorial,
+  'trout-presso-eve': pressoEveEditorial,
+  'vibe-x': vibrationXEditorial,
+  'deps-cover-scat': coverScatEditorial,
+  'trout-ar-spinner': arSpinnerEditorial,
 };
