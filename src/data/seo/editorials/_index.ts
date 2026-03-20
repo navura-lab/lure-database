@@ -696,6 +696,17 @@ import { gancraftJointedClaw148Editorial } from './gancraft-jointed-claw-148';
 import { drtKlashGhostEditorial } from './drt-klash-ghost';
 import { drtTinyKlashEditorial } from './drt-tiny-klash';
 import { noresHulaCrankEditorial } from './nories-hulacrank';
+// 2026-03-21 追加分 第53弾（10件）エギング + ライトゲーム
+import { yamashitaEgiOhLiveEditorial } from './yamashita-egi-oh-live';
+import { yamashitaEgiOhQLiveEditorial } from './yamashita-egi-oh-q-live';
+import { duelEzQCastRattleEditorial } from './duel-ez-q-cast-rattle';
+import { daiwaEmeraldasPeakEditorial } from './daiwa-emeraldas-peak';
+import { tictMCrawEditorial } from './tict-m-craw';
+import { tictFizzy33Editorial } from './tict-fizzy-33';
+import { reinsAjiAdderEditorial } from './reins-aji-adder';
+import { daiwaMonthlyTsukimasariEditorial } from './daiwa-monthly-tsukimasari';
+import { shimanoSoareCi4JigEditorial } from './shimano-soare-ci4-jig';
+import { thirtyFour34StreamerEditorial } from './thirty-four-34-streamer';
 
 /** slug → EditorialReview のマップ（全600件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1389,4 +1400,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'drt-klash-ghost': drtKlashGhostEditorial,
   'drt-tiny-klash': drtTinyKlashEditorial,
   'nories-hulacrank': noresHulaCrankEditorial,
+  // 2026-03-21 追加分 第53弾（10件）エギング + ライトゲーム
+  'yamashita-egi-oh-live': yamashitaEgiOhLiveEditorial,
+  'yamashita-egi-oh-q-live': yamashitaEgiOhQLiveEditorial,
+  'duel-ez-q-cast-rattle': duelEzQCastRattleEditorial,
+  'daiwa-emeraldas-peak': daiwaEmeraldasPeakEditorial,
+  'tict-m-craw': tictMCrawEditorial,
+  'tict-fizzy-33': tictFizzy33Editorial,
+  'reins-aji-adder': reinsAjiAdderEditorial,
+  'daiwa-monthly-tsukimasari': daiwaMonthlyTsukimasariEditorial,
+  'shimano-soare-ci4-jig': shimanoSoareCi4JigEditorial,
+  'thirty-four-34-streamer': thirtyFour34StreamerEditorial,
 };
