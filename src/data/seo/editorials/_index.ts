@@ -804,8 +804,19 @@ import { megabassHazedongShadEditorial } from './megabass-hazedong-shad';
 import { noriesRoadRunnerVoiceEditorial } from './nories-road-runner-voice';
 import { evergreenDZoneFlyTgEditorial } from './evergreen-d-zone-fly-tg';
 import { depsBasiriskyEditorial } from './deps-basirisky';
+// 2026-03-21 追加分 第63弾（10件）ソルト万能 + マルチターゲット
+import { shimanoExsenceTriggerheadEditorial } from './shimano-exsence-triggerhead';
+import { duelHardcoreMinnow130fEditorial } from './duel-hardcore-minnow-130f';
+import { duelHardcoreLiplessMinnowEditorial } from './duel-hardcore-lipless-minnow';
+import { jacksonGallopSwimmerEditorial } from './jackson-gallop-swimmer';
+import { apiaBagrationEditorial } from './apia-bagration';
+import { blueblueJolty15Editorial } from './blueblue-jolty-15';
+import { coremanPowerBladeEditorial } from './coreman-power-blade';
+import { daiwaMorethanGarba73sEditorial } from './daiwa-morethan-garba-73s';
+import { imaSasukeSf95Editorial } from './ima-sasuke-sf-95';
+import { megabassKagelou124fEditorial } from './megabass-kagelou-124f';
 
-/** slug → EditorialReview のマップ（全660件） */
+/** slug → EditorialReview のマップ（全670件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1607,4 +1618,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'nories-road-runner-voice': noriesRoadRunnerVoiceEditorial,
   'evergreen-d-zone-fly-tg': evergreenDZoneFlyTgEditorial,
   'deps-basirisky': depsBasiriskyEditorial,
+  // 2026-03-21 追加分 第63弾（10件）ソルト万能 + マルチターゲット
+  'shimano-exsence-triggerhead': shimanoExsenceTriggerheadEditorial,
+  'duel-hardcore-minnow-130f': duelHardcoreMinnow130fEditorial,
+  'duel-hardcore-lipless-minnow': duelHardcoreLiplessMinnowEditorial,
+  'jackson-gallop-swimmer': jacksonGallopSwimmerEditorial,
+  'apia-foojin-z-beast-fang': apiaBagrationEditorial,
+  'blueblue-jolty-15': blueblueJolty15Editorial,
+  'coreman-power-blade': coremanPowerBladeEditorial,
+  'daiwa-morethan-garba-73s': daiwaMorethanGarba73sEditorial,
+  'ima-sasuke-sf-95': imaSasukeSf95Editorial,
+  'megabass-kagelou-124f': megabassKagelou124fEditorial,
 };
