@@ -707,6 +707,16 @@ import { reinsAjiAdderEditorial } from './reins-aji-adder';
 import { daiwaMonthlyTsukimasariEditorial } from './daiwa-monthly-tsukimasari';
 import { shimanoSoareCi4JigEditorial } from './shimano-soare-ci4-jig';
 import { thirtyFour34StreamerEditorial } from './thirty-four-34-streamer';
+import { shimanoOceaStingerButterflySardineWaverEditorial } from './shimano-ocea-stinger-butterfly-sardine-waver';
+import { shimanoOceaStingerButterflyWingEditorial } from './shimano-ocea-stinger-butterfly-wing';
+import { daiwaSaltigaSkJigEditorial } from './daiwa-saltiga-sk-jig';
+import { daiwaSaltigaTgBaitSlEditorial } from './daiwa-saltiga-tg-bait-sl';
+import { majorcraftJigparaTgLiveEditorial } from './majorcraft-jigpara-tg-live';
+import { ownerGeppuJigEditorial } from './owner-geppu-jig';
+import { ownerGeppuJigUltraSlowEditorial } from './owner-geppu-jig-ultra-slow';
+import { jackallBigBackerJigSlideStickEditorial } from './jackall-big-backer-jig-slide-stick';
+import { xestaAfterBurner6Editorial } from './xesta-after-burner-6';
+import { cbOneBazooEditorial } from './cb-one-bazoo';
 
 /** slug → EditorialReview のマップ（全600件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1411,4 +1421,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'daiwa-monthly-tsukimasari': daiwaMonthlyTsukimasariEditorial,
   'shimano-soare-ci4-jig': shimanoSoareCi4JigEditorial,
   'thirty-four-34-streamer': thirtyFour34StreamerEditorial,
+  // 2026-03-21 追加分 第54弾（10件）オフショアジギング + ショアジギング
+  'shimano-ocea-stinger-butterfly-sardine-waver': shimanoOceaStingerButterflySardineWaverEditorial,
+  'shimano-ocea-stinger-butterfly-wing': shimanoOceaStingerButterflyWingEditorial,
+  'daiwa-saltiga-sk-jig': daiwaSaltigaSkJigEditorial,
+  'daiwa-saltiga-tg-bait-sl': daiwaSaltigaTgBaitSlEditorial,
+  'majorcraft-jigpara-tg-live': majorcraftJigparaTgLiveEditorial,
+  'owner-satou-geppu-jig': ownerGeppuJigEditorial,
+  'owner-satou-geppu-jig-ultra-slow': ownerGeppuJigUltraSlowEditorial,
+  'jackall-big-backer-jig-slide-stick': jackallBigBackerJigSlideStickEditorial,
+  'xesta-after-burner-6': xestaAfterBurner6Editorial,
+  'cb-one-bazoo': cbOneBazooEditorial,
 };
