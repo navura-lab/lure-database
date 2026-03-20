@@ -717,6 +717,16 @@ import { ownerGeppuJigUltraSlowEditorial } from './owner-geppu-jig-ultra-slow';
 import { jackallBigBackerJigSlideStickEditorial } from './jackall-big-backer-jig-slide-stick';
 import { xestaAfterBurner6Editorial } from './xesta-after-burner-6';
 import { cbOneBazooEditorial } from './cb-one-bazoo';
+import { forestMarshalTournamentEditorial } from './forest-marshal-tournament';
+import { forestCrystalEditorial } from './forest-crystal';
+import { noriesMasukuroutoBoonEditorial } from './nories-masukurouto-boon';
+import { valkeinKugaEditorial } from './valkein-kuga';
+import { valkeinShineRideEditorial } from './valkein-shine-ride';
+import { tiemcoInvokerEditorial } from './tiemco-invoker';
+import { luckyCraftMicroCraPeaEditorial } from './lucky-craft-micro-cra-pea';
+import { mukaiZanmuEditorial } from './mukai-zanmu';
+import { smithFieldream45Editorial } from './smith-fieldream-45';
+import { jacksonTroutTune55Editorial } from './jackson-trout-tune-55';
 
 /** slug → EditorialReview のマップ（全600件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1432,4 +1442,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'jackall-big-backer-jig-slide-stick': jackallBigBackerJigSlideStickEditorial,
   'xesta-after-burner-6': xestaAfterBurner6Editorial,
   'cb-one-bazoo': cbOneBazooEditorial,
+  // 2026-03-21 追加分 第55弾（10件）トラウト + エリアフィッシング
+  'forest-marshal-tournament': forestMarshalTournamentEditorial,
+  'forest-crystal': forestCrystalEditorial,
+  'nories-masukurouto-boon': noriesMasukuroutoBoonEditorial,
+  'valkein-kuga': valkeinKugaEditorial,
+  'valkein-shine-ride': valkeinShineRideEditorial,
+  'tiemco-invoker': tiemcoInvokerEditorial,
+  'lucky-craft-micro-cra-pea': luckyCraftMicroCraPeaEditorial,
+  'mukai-zanmu': mukaiZanmuEditorial,
+  'smith-fieldream-45': smithFieldream45Editorial,
+  'jackson-trout-tune-55': jacksonTroutTune55Editorial,
 };
