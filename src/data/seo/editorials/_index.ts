@@ -977,7 +977,6 @@ import { ospHpShadTail31Editorial } from './osp-hp-shad-tail-3-1';
 import { shimanoExsenceCrazySwimmerEditorial } from './shimano-exsence-crazy-swimmer';
 import { daiwaMorethanGarabodyJEditorial } from './daiwa-morethan-garabody-j';
 import { mariaFighter100sEditorial } from './maria-fighter-100s';
-import { duelHardcorePowerLeaderFcEditorial } from './duel-hardcore-power-leader-fc';
 import { yamashitaEgiOhKSuperShallowEditorial } from './yamashita-egi-oh-k-super-shallow';
 
 /** slug → EditorialReview のマップ（全700件） */
@@ -1956,6 +1955,5 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'shimano-exsence-crazy-swimmer': shimanoExsenceCrazySwimmerEditorial,
   'daiwa-morethan-garabody-j': daiwaMorethanGarabodyJEditorial,
   'maria-fighter-100s': mariaFighter100sEditorial,
-  'duel-hardcore-power-leader-fc': duelHardcorePowerLeaderFcEditorial,
   'yamashita-egi-oh-k-super-shallow': yamashitaEgiOhKSuperShallowEditorial,
 };
