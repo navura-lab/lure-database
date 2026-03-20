@@ -1,187 +1,276 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SearchHero from '../components/SearchHero.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import PortalSearch from '../components/PortalSearch.astro';
 import LureCard from '../components/LureCard.astro';
 import { fetchAllLures } from '../lib/fetch-all-lures';
 import { groupLuresBySeries } from '../lib/group-lures';
 import { getTypeSlug, getFishSlug } from '../lib/category-slugs';
 import makerLogos from '../data/maker-logos.json';
-import { guideArticles } from '../data/guides';
-import { contentArticles } from '../data/articles/_index';
-import { seasonalGuides } from '../data/seasonal-guides';
-import { fishingMethods } from '../data/fishing-methods';
-import { curatedRankings } from '../data/curated-rankings';
 import { editorialReviews } from '../data/seo/editorials/_index';
+import type { LureSeries } from '../lib/types';
 
 const lures = await fetchAllLures();
 const series = groupLuresBySeries(lures ?? []);
 const totalColors = lures?.length ?? 0;
 
-// ─── ルアータイプ集計（上位9件）───
-const typeMap = new Map<string, { count: number; image: string | null }>();
-for (const s of series) {
-  if (!s.type) continue;
-  const existing = typeMap.get(s.type);
-  if (existing) {
-    existing.count++;
-    if (!existing.image && s.representative_image) existing.image = s.representative_image;
-  } else {
-    typeMap.set(s.type, { count: 1, image: s.representative_image });
-  }
-}
-const topTypes = [...typeMap.entries()]
-  .sort((a, b) => b[1].count - a[1].count)
-  .slice(0, 9)
-  .map(([name, { count, image }]) => ({ name, slug: getTypeSlug(name), count, image }));
-const remainingTypeCount = typeMap.size - topTypes.length;
-
-// ─── メーカー集計（上位9件）───
+// ─── メーカー集計 ───
 const mfrMap = new Map<string, { name: string; slug: string; count: number }>();
 for (const s of series) {
   const e = mfrMap.get(s.manufacturer_slug);
   if (e) e.count++;
   else mfrMap.set(s.manufacturer_slug, { name: s.manufacturer, slug: s.manufacturer_slug, count: 1 });
 }
-const topMakers = [...mfrMap.values()]
-  .sort((a, b) => b.count - a.count)
-  .slice(0, 9);
-const remainingMakerCount = mfrMap.size - topMakers.length;
+const topMakers = [...mfrMap.values()].sort((a, b) => b.count - a.count).slice(0, 8);
 
-// ─── 対象魚集計（上位9件）───
+// ─── 対象魚集計（上位8件）───
 const fishMap = new Map<string, number>();
 for (const s of series) {
   for (const f of s.target_fish) fishMap.set(f, (fishMap.get(f) || 0) + 1);
 }
 const topFish = [...fishMap.entries()]
   .sort((a, b) => b[1] - a[1])
-  .slice(0, 9)
+  .slice(0, 8)
   .map(([name, count]) => ({ name, slug: getFishSlug(name), count }));
-const remainingFishCount = fishMap.size - topFish.length;
 
-// ─── ランキング集計（上位8件）───
+// ─── タイプ集計（上位8件）───
+const typeMap = new Map<string, { count: number }>();
+for (const s of series) {
+  if (!s.type) continue;
+  const e = typeMap.get(s.type);
+  if (e) e.count++;
+  else typeMap.set(s.type, { count: 1 });
+}
+const topTypes = [...typeMap.entries()]
+  .sort((a, b) => b[1].count - a[1].count)
+  .slice(0, 8)
+  .map(([name, { count }]) => ({ name, slug: getTypeSlug(name), count }));
+
+// ─── ランキング上位（フィードプロンプト用）───
 const crossMap = new Map<string, { fishName: string; typeName: string; count: number }>();
 for (const s of series) {
   if (!s.type) continue;
   for (const fish of s.target_fish) {
-    const fishSlug = getFishSlug(fish);
-    const typeSlug = getTypeSlug(s.type);
-    const key = `${fishSlug}-${typeSlug}`;
-    const existing = crossMap.get(key);
-    if (existing) {
-      existing.count++;
-    } else {
-      crossMap.set(key, { fishName: fish, typeName: s.type, count: 1 });
-    }
+    const key = `${getFishSlug(fish)}-${getTypeSlug(s.type)}`;
+    const e = crossMap.get(key);
+    if (e) e.count++;
+    else crossMap.set(key, { fishName: fish, typeName: s.type, count: 1 });
   }
 }
-const topRankings = [...crossMap.entries()]
-  .filter(([_, v]) => v.count >= 3)
-  .sort((a, b) => b[1].count - a[1].count)
-  .slice(0, 8)
-  .map(([slug, v]) => ({ slug, fishName: v.fishName, typeName: v.typeName, count: v.count }));
 
-// ─── ヒーロー用ルアー画像（カラー数上位20件の代表画像）───
-// ─── ランダムピックアップ（ビルド時にシャッフル、8件）───
-const shuffled = [...series].filter(s => s.representative_image);
-for (let i = shuffled.length - 1; i > 0; i--) {
+// ─── ピックアップ（ビルド時シャッフル）───
+const withImage = series.filter(s => s.representative_image);
+for (let i = withImage.length - 1; i > 0; i--) {
   const j = Math.floor(Math.random() * (i + 1));
-  [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  [withImage[i], withImage[j]] = [withImage[j], withImage[i]];
 }
-const randomPicks = shuffled.slice(0, 8);
 
-// ─── 新着ルアー（直近30日、最大10件）───
+// フィーチャー: エディトリアルありのルアーからランダム1件
+const editorialSlugs = Object.keys(editorialReviews);
+const featureCandidates = withImage.filter(s => editorialSlugs.includes(s.slug));
+const feature = featureCandidates[0] || withImage[0];
+const featureEditorial = editorialReviews[feature?.slug];
+
+// サブピック: 4件
+const subPicks = withImage.filter(s => s.slug !== feature?.slug).slice(0, 4);
+
+// ─── エディトリアルフィード（6件）───
+const editorialFeed = editorialSlugs
+  .map(slug => {
+    const s = series.find(s => s.slug === slug);
+    const ed = editorialReviews[slug];
+    return s && s.representative_image && ed ? { series: s, catchcopy: ed.catchcopy } : null;
+  })
+  .filter((r): r is NonNullable<typeof r> => r !== null);
+// シャッフル
+for (let i = editorialFeed.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [editorialFeed[i], editorialFeed[j]] = [editorialFeed[j], editorialFeed[i]];
+}
+const feedReviews = editorialFeed.slice(0, 6);
+
+// ─── 新着ルアー ───
 const thirtyDaysAgo = new Date();
 thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 const newThreshold = thirtyDaysAgo.toISOString();
-const newArrivals = series
-  .filter(s => s.created_at > newThreshold)
-  .slice(0, 10);
+const newArrivals = series.filter(s => s.created_at > newThreshold && s.representative_image).slice(0, 12);
 
-// ─── 季節ガイド（各季節から代表1-2件、計6件）───
-const seasonOrder = ['春', '夏', '秋', '冬'] as const;
-const seasonEmoji: Record<string, string> = { '春': '🌸', '夏': '☀️', '秋': '🍂', '冬': '❄️' };
-const featuredSeasons = seasonOrder.flatMap(season => {
-  const items = seasonalGuides.filter(g => g.season === season);
-  // 各季節から最大2件（シーバス＋もう1魚種を優先）
-  const seabass = items.find(g => g.fish === 'シーバス');
-  const others = items.filter(g => g.fish !== 'シーバス');
-  return seabass ? [seabass, ...(others.length > 0 ? [others[0]] : [])] : items.slice(0, 1);
-}).slice(0, 8);
+// ─── ランダム発見（8件）───
+const randomPicks = withImage.filter(s => s.slug !== feature?.slug && !subPicks.find(p => p.slug === s.slug)).slice(0, 8);
 
-// ─── 釣り方（人気順6件）───
-const featuredMethods = fishingMethods.slice(0, 6);
-
-// ─── 人気比較ページ（キュレーテッドランキングから上位4件）───
-const popularCompareKeys = Object.keys(curatedRankings).slice(0, 4);
-const popularCompares = popularCompareKeys.map(slug => {
-  const entry = crossMap.get(slug);
-  return entry ? { slug, fishName: entry.fishName, typeName: entry.typeName, count: entry.count } : null;
-}).filter((c): c is NonNullable<typeof c> => c !== null);
-
-// ─── エディトリアルレビューピックアップ（最新6件）───
-const reviewedLures = Object.entries(editorialReviews)
-  .map(([slug, ed]) => {
-    const s = series.find(s => s.slug === slug);
-    return s ? { series: s, catchcopy: ed.catchcopy } : null;
-  })
-  .filter((r): r is NonNullable<typeof r> => r !== null)
-  .slice(0, 6);
-
-// ─── JSON-LD: WebSite schema ───
+// ─── JSON-LD ───
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'CAST/LOG',
   url: 'https://www.castlog.xyz',
-  description: '釣り人のためのルアーデータベース。国内主要メーカーのルアーを網羅的に掲載。',
+  description: `日本最大級のルアーデータベース。${series.length}シリーズ・${totalColors.toLocaleString()}カラーを網羅。`,
   inLanguage: 'ja',
   potentialAction: {
     '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: 'https://www.castlog.xyz/search/?q={search_term_string}',
-    },
+    target: { '@type': 'EntryPoint', urlTemplate: 'https://www.castlog.xyz/search/?q={search_term_string}' },
     'query-input': 'required name=search_term_string',
   },
 };
 ---
 
 <BaseLayout
-  title={`CAST/LOG - ${series.length}シリーズ・${totalColors.toLocaleString()}カラーのルアーデータベース`}
-  description={`国内${mfrMap.size}メーカーのルアーを網羅的に掲載。${series.length}シリーズ・${totalColors.toLocaleString()}カラー登録。ミノー、クランク、ワームなどタイプ別、メーカー別、対象魚別に検索可能。`}
+  title={`CAST/LOG — 日本最大級のルアーデータベース｜${series.length}シリーズ・${totalColors.toLocaleString()}カラー`}
+  description={`日本最大級のルアーデータベース CAST/LOG。${mfrMap.size}メーカー・${series.length}シリーズ・${totalColors.toLocaleString()}カラーを網羅。データで選ぶ。感覚で釣る。`}
   canonicalPath="/"
   jsonLd={jsonLd}
 >
-  <!-- ブランドヒーロー -->
+  <!-- ═══ 1. ヒーロー ═══ -->
   <SearchHero seriesCount={series.length} colorCount={totalColors} />
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- ポータル検索 -->
-    <section class="animate-fade-up">
-      <PortalSearch
-        types={topTypes}
-        makers={topMakers}
-        fish={topFish}
-        remainingTypeCount={remainingTypeCount}
-        remainingMakerCount={remainingMakerCount}
-        remainingFishCount={remainingFishCount}
-        makerLogos={makerLogos as Record<string, string>}
-      />
+    <!-- ═══ 2. ピックアップ（発見 + 好奇心）═══ -->
+    <section class="py-12 animate-fade-up">
+      <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">PICK UP</p>
+      <h2 class="text-[18px] font-bold text-text mb-6">今日のピックアップ</h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
+        {/* フィーチャー（大きい） */}
+        {feature && (
+          <a href={`/${feature.manufacturer_slug}/${feature.slug}/`} class="lg:col-span-3 group block">
+            <div class="relative aspect-[16/10] rounded-2xl overflow-hidden bg-surface">
+              <img
+                src={feature.representative_image!}
+                alt={`${feature.manufacturer} ${feature.name}`}
+                class="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+                loading="eager"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-5">
+                {featureEditorial && (
+                  <p class="text-white/90 text-[14px] leading-relaxed mb-2 line-clamp-2">{featureEditorial.catchcopy}</p>
+                )}
+                <p class="text-white/60 text-xs uppercase tracking-wider">{feature.manufacturer}</p>
+                <p class="text-white text-lg font-bold">{feature.name}</p>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="text-accent text-xs font-mono">{feature.type}</span>
+                  <span class="text-white/40">|</span>
+                  <span class="text-white/60 text-xs font-mono">{feature.color_count}カラー</span>
+                  {featureEditorial && <span class="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-full">📝 レビューあり</span>}
+                </div>
+              </div>
+            </div>
+          </a>
+        )}
+
+        {/* サブピック（小さい 2x2） */}
+        <div class="lg:col-span-2 grid grid-cols-2 gap-4">
+          {subPicks.map(s => (
+            <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="group block">
+              <div class="relative aspect-square rounded-xl overflow-hidden bg-surface">
+                <img
+                  src={s.representative_image!}
+                  alt={`${s.manufacturer} ${s.name}`}
+                  class="w-full h-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-3">
+                  <p class="text-white/60 text-[10px] uppercase tracking-wider">{s.manufacturer}</p>
+                  <p class="text-white text-[13px] font-bold line-clamp-1">{s.name}</p>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
     </section>
 
-    <!-- 新着ルアー -->
+    <!-- ═══ フィードプロンプト: 対象魚 ═══ -->
+    <div class="py-4">
+      <p class="font-mono text-[10px] text-text-dim tracking-[2px] uppercase mb-3">🐟 どんな釣りをする？</p>
+      <div class="flex flex-wrap gap-2">
+        {topFish.map(f => (
+          <a
+            href={`/fish/${f.slug}/`}
+            class="inline-flex items-center gap-1.5 px-4 py-2 bg-surface rounded-full text-[13px] font-bold text-text hover:bg-accent-bg hover:text-accent transition-all duration-200"
+          >
+            {f.name}
+            <span class="font-mono text-[10px] text-text-faint">{f.count.toLocaleString()}</span>
+          </a>
+        ))}
+        <a href="/fish/" class="inline-flex items-center px-4 py-2 bg-surface rounded-full text-[13px] text-text-dim hover:text-accent transition-colors">
+          もっと見る →
+        </a>
+      </div>
+    </div>
+
+    <!-- ═══ 3. エディトリアルフィード（マガジン風）═══ -->
+    <section class="py-12 animate-fade-up">
+      <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">EDITORIAL REVIEW</p>
+      <div class="flex items-end justify-between mb-6">
+        <h2 class="text-[18px] font-bold text-text">CAST/LOGレビュー</h2>
+        <a href="/article/" class="font-mono text-[11px] text-text-dim hover:text-accent tracking-[1px] transition-colors">
+          全{editorialSlugs.length}件 →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {feedReviews.map(r => (
+          <a href={`/${r.series.manufacturer_slug}/${r.series.slug}/`} class="group block">
+            <div class="relative aspect-[4/3] rounded-xl overflow-hidden bg-surface mb-3">
+              <img
+                src={r.series.representative_image!}
+                alt={`${r.series.manufacturer} ${r.series.name}`}
+                class="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute top-3 left-3">
+                <span class="text-[10px] bg-accent text-white px-2 py-1 rounded-full font-bold">📝 REVIEW</span>
+              </div>
+            </div>
+            <p class="text-[14px] text-text-mid leading-relaxed line-clamp-2 mb-1.5">
+              「{r.catchcopy}」
+            </p>
+            <p class="text-xs text-text-dim uppercase tracking-wider">{r.series.manufacturer}</p>
+            <p class="text-[15px] font-bold text-text group-hover:text-accent transition-colors">{r.series.name}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- ═══ フィードプロンプト: タイプ ═══ -->
+    <div class="py-4">
+      <p class="font-mono text-[10px] text-text-dim tracking-[2px] uppercase mb-3">🎣 ルアーのタイプで探す</p>
+      <div class="flex flex-wrap gap-2">
+        {topTypes.map(t => (
+          <a
+            href={`/type/${t.slug}/`}
+            class="inline-flex items-center gap-1.5 px-4 py-2 bg-surface rounded-full text-[13px] font-bold text-text hover:bg-accent-bg hover:text-accent transition-all duration-200"
+          >
+            <img src={`/icons/type/${t.slug}.svg`} alt="" class="w-4 h-4 opacity-60" />
+            {t.name}
+            <span class="font-mono text-[10px] text-text-faint">{t.count.toLocaleString()}</span>
+          </a>
+        ))}
+        <a href="/type/" class="inline-flex items-center px-4 py-2 bg-surface rounded-full text-[13px] text-text-dim hover:text-accent transition-colors">
+          もっと見る →
+        </a>
+      </div>
+    </div>
+
+    <!-- ═══ 4. 新着ルアー（横スクロール）═══ -->
     {newArrivals.length > 0 && (
-      <section class="animate-fade-up">
-        <SectionHeading title="新着ルアー" href="/new/" slashLabel="NEW ARRIVALS" />
+      <section class="py-12 animate-fade-up">
+        <div class="flex items-end justify-between mb-6">
+          <div>
+            <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">NEW ARRIVALS</p>
+            <h2 class="text-[18px] font-bold text-text">新着ルアー</h2>
+          </div>
+          <a href="/new/" class="font-mono text-[11px] text-text-dim hover:text-accent tracking-[1px] transition-colors">
+            すべて見る →
+          </a>
+        </div>
         <div class="relative">
-          <div class="absolute left-0 top-0 bottom-4 w-8 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none"></div>
-          <div class="absolute right-0 top-0 bottom-4 w-8 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none"></div>
-          <div class="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory scrollbar-hide animate-stagger">
+          <div class="absolute right-0 top-0 bottom-4 w-12 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none"></div>
+          <div class="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory scrollbar-hide">
             {newArrivals.map((s, i) => (
-              <div class="snap-start shrink-0 w-56 sm:w-64">
+              <div class="snap-start shrink-0 w-48 sm:w-56">
                 <LureCard series={s} isNew={true} priority={i < 4} />
               </div>
             ))}
@@ -190,73 +279,38 @@ const jsonLd = {
       </section>
     )}
 
-    <!-- ランキング -->
-    {topRankings.length > 0 && (
-      <section class="animate-fade-up">
-        <SectionHeading title="カタログ" href="/ranking/" slashLabel="CATALOG" />
-        <div class="section-cool rounded-2xl p-6 sm:p-8 -mx-4 sm:mx-0">
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 animate-stagger">
-            {topRankings.map(r => (
-              <a
-                href={`/ranking/${r.slug}/`}
-                class="flex items-center justify-between px-4 py-3 bg-white rounded-lg border border-border-light hover:border-accent hover:shadow-sm transition-all duration-[0.15s] group"
-              >
-                <div>
-                  <p class="text-[13px] font-bold text-text group-hover:text-accent transition-colors duration-[0.15s]">
-                    {r.fishName}×{r.typeName}
-                  </p>
-                  <p class="font-mono text-[11px] text-text-dim mt-0.5">
-                    {r.count}シリーズ
-                  </p>
-                </div>
-                <span class="font-mono text-[11px] font-bold text-accent">{r.count}</span>
-              </a>
-            ))}
-          </div>
-          <div class="mt-3 text-right">
-            <a href="/ranking/" class="font-mono text-[11px] text-text-dim hover:text-accent tracking-[1px] transition-colors duration-[0.15s]">
-              全{crossMap.size}カテゴリを見る →
-            </a>
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- エディトリアルレビュー -->
-    {reviewedLures.length > 0 && (
-      <section class="animate-fade-up">
-        <SectionHeading title="エディトリアルレビュー" href="/article/" slashLabel="REVIEWS" />
-        <div class="section-cool rounded-2xl p-6 sm:p-8 -mx-4 sm:mx-0">
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 animate-stagger">
-            {reviewedLures.map(r => (
-              <div>
-                <LureCard series={r.series} isNew={false} />
-                <p class="text-[12px] text-text-mid mt-1.5 line-clamp-1 text-center px-1">
-                  {r.catchcopy}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- ルアーを発見する（ビルド時ランダム） -->
-    <section class="animate-fade-up">
-      <div class="bg-[#111] rounded-2xl p-6 sm:p-8 -mx-4 sm:mx-0">
-        <div class="flex items-end justify-between mb-4">
-          <div>
-            <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">/DISCOVER</p>
-            <h2 class="text-[18px] font-bold text-white">ランダムで探す</h2>
-          </div>
+    <!-- ═══ フィードプロンプト: メーカー ═══ -->
+    <div class="py-4">
+      <p class="font-mono text-[10px] text-text-dim tracking-[2px] uppercase mb-3">🏭 メーカーで探す</p>
+      <div class="flex flex-wrap gap-2">
+        {topMakers.map(m => (
           <a
-            href="/search/"
-            class="inline-flex items-center gap-2 font-mono text-[11px] font-bold text-gray-400 tracking-[1px] px-4 py-2 border border-gray-700 rounded transition-all duration-[0.15s] hover:border-accent hover:text-white"
+            href={`/${m.slug}/`}
+            class="inline-flex items-center gap-1.5 px-4 py-2 bg-surface rounded-full text-[13px] font-bold text-text hover:bg-accent-bg hover:text-accent transition-all duration-200"
           >
+            {m.name}
+            <span class="font-mono text-[10px] text-text-faint">{m.count.toLocaleString()}</span>
+          </a>
+        ))}
+        <a href="/maker/" class="inline-flex items-center px-4 py-2 bg-surface rounded-full text-[13px] text-text-dim hover:text-accent transition-colors">
+          全{mfrMap.size}社 →
+        </a>
+      </div>
+    </div>
+
+    <!-- ═══ 5. ランダム発見 ═══ -->
+    <section class="py-12 animate-fade-up">
+      <div class="bg-[#0a0a0a] rounded-2xl p-6 sm:p-8 -mx-4 sm:mx-0">
+        <div class="flex items-end justify-between mb-6">
+          <div>
+            <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">DISCOVER</p>
+            <h2 class="text-[18px] font-bold text-white">ランダムで発見する</h2>
+          </div>
+          <a href="/search/" class="font-mono text-[11px] text-gray-400 hover:text-accent tracking-[1px] transition-colors">
             もっと見る →
           </a>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 animate-stagger">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {randomPicks.map(s => (
             <LureCard series={s} isNew={false} />
           ))}
@@ -264,8 +318,76 @@ const jsonLd = {
       </div>
     </section>
 
+    <!-- ═══ 6. データインサイト ═══ -->
+    <section class="py-12 animate-fade-up">
+      <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">DATA INSIGHT</p>
+      <h2 class="text-[18px] font-bold text-text mb-6">{series.length.toLocaleString()}シリーズの分析から</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <a href="/article/lure-type-trends-2026/" class="group bg-surface rounded-xl p-6 hover:bg-accent-bg transition-colors duration-200">
+          <p class="font-mono text-[32px] font-bold text-accent mb-1">19.2%</p>
+          <p class="text-[13px] font-bold text-text group-hover:text-accent transition-colors">ワームが最多タイプ</p>
+          <p class="text-[11px] text-text-dim mt-1">タイプ別シェア分析 →</p>
+        </a>
+        <a href="/article/price-analysis-by-type/" class="group bg-surface rounded-xl p-6 hover:bg-accent-bg transition-colors duration-200">
+          <p class="font-mono text-[32px] font-bold text-accent mb-1">¥1,741</p>
+          <p class="text-[13px] font-bold text-text group-hover:text-accent transition-colors">ルアー平均価格</p>
+          <p class="text-[11px] text-text-dim mt-1">価格帯分析 →</p>
+        </a>
+        <a href="/article/maker-diversity-ranking/" class="group bg-surface rounded-xl p-6 hover:bg-accent-bg transition-colors duration-200">
+          <p class="font-mono text-[32px] font-bold text-accent mb-1">{mfrMap.size}</p>
+          <p class="text-[13px] font-bold text-text group-hover:text-accent transition-colors">登録メーカー数</p>
+          <p class="text-[11px] text-text-dim mt-1">メーカー比較 →</p>
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ═══ 7. フッター内部リンク（SEO） ═══ -->
+  <div class="bg-[#0a0a0a] mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 text-sm">
+        <div>
+          <p class="font-mono text-[10px] text-accent tracking-[2px] uppercase mb-3">タイプ別</p>
+          <ul class="space-y-1.5">
+            {topTypes.map(t => (
+              <li><a href={`/type/${t.slug}/`} class="text-gray-400 hover:text-white transition-colors">{t.name}</a></li>
+            ))}
+            <li><a href="/type/" class="text-gray-500 hover:text-white transition-colors">→ 全タイプ</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-mono text-[10px] text-accent tracking-[2px] uppercase mb-3">対象魚別</p>
+          <ul class="space-y-1.5">
+            {topFish.map(f => (
+              <li><a href={`/fish/${f.slug}/`} class="text-gray-400 hover:text-white transition-colors">{f.name}</a></li>
+            ))}
+            <li><a href="/fish/" class="text-gray-500 hover:text-white transition-colors">→ 全魚種</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-mono text-[10px] text-accent tracking-[2px] uppercase mb-3">メーカー</p>
+          <ul class="space-y-1.5">
+            {topMakers.slice(0, 8).map(m => (
+              <li><a href={`/${m.slug}/`} class="text-gray-400 hover:text-white transition-colors">{m.name}</a></li>
+            ))}
+            <li><a href="/maker/" class="text-gray-500 hover:text-white transition-colors">→ 全{mfrMap.size}社</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-mono text-[10px] text-accent tracking-[2px] uppercase mb-3">コンテンツ</p>
+          <ul class="space-y-1.5">
+            <li><a href="/article/" class="text-gray-400 hover:text-white transition-colors">レビュー {editorialSlugs.length}件</a></li>
+            <li><a href="/ranking/" class="text-gray-400 hover:text-white transition-colors">ランキング</a></li>
+            <li><a href="/compare/" class="text-gray-400 hover:text-white transition-colors">比較</a></li>
+            <li><a href="/guide/" class="text-gray-400 hover:text-white transition-colors">ガイド</a></li>
+            <li><a href="/new/" class="text-gray-400 hover:text-white transition-colors">新着</a></li>
+            <li><a href="/season/" class="text-gray-400 hover:text-white transition-colors">季節別</a></li>
+            <li><a href="/method/" class="text-gray-400 hover:text-white transition-colors">釣り方別</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 
 </BaseLayout>
-
-<!-- ランダム表示はビルド時SSGに変更（API不要） -->
