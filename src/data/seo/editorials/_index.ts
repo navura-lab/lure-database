@@ -542,8 +542,19 @@ import { ameJigEditorial } from './70074';
 import { tachijigiStandardEditorial } from './tachijigi-sutandadotaipu';
 import { squareBullEditorial } from './squarebull';
 import { sLegendEditorial } from './s-legend';
+// 2026-03-20 追加分 第39弾（10件）
+import { jig2MebaruchunEditorial } from './jig2-mebaruchun';
+import { directionJigEditorial } from './direction-jig';
+import { tgKeijiEditorial } from './tg-keiji';
+import { theSmeltEditorial } from './the-smelt';
+import { northcraftAogEditorial } from './northcraft-aog';
+import { adAjimetaEditorial } from './ad-ajimeta';
+import { superFlukeEditorial } from './super-fluke';
+import { capriceEdgeEditorial } from './capriceedge';
+import { slowEmotionFlareEditorial } from './slow-emotion-flare';
+import { strikeKingHardlinerEditorial } from './strike-king-hardliner';
 
-/** slug → EditorialReview のマップ（全500件） */
+/** slug → EditorialReview のマップ（全510件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1081,4 +1092,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'tachijigi-sutandadotaipu': tachijigiStandardEditorial,
   'squarebull': squareBullEditorial,
   's-legend': sLegendEditorial,
+  // 2026-03-20 追加分 第39弾（10件）
+  'jig2-mebaruchun': jig2MebaruchunEditorial,
+  'direction-jig': directionJigEditorial,
+  'tg-keiji': tgKeijiEditorial,
+  'the-smelt': theSmeltEditorial,
+  'northcraft-aog': northcraftAogEditorial,
+  'ad-ajimeta': adAjimetaEditorial,
+  'super-fluke': superFlukeEditorial,
+  'capriceedge': capriceEdgeEditorial,
+  'slow-emotion-flare': slowEmotionFlareEditorial,
+  'strike-king-hardliner': strikeKingHardlinerEditorial,
 };
