@@ -925,6 +925,17 @@ import { noriesHulacrank3drEditorial } from './nories-hulacrank-3dr';
 import { depsCoverScat35Editorial } from './deps-cover-scat-3-5';
 import { raidFishroller4Editorial } from './raid-fishroller-4';
 import { dstyleVirola38Editorial } from './dstyle-virola-3-8';
+// 2026-03-21 追加分 第74弾（10件）混合ジャンル（バズベイト + クランク + ワーム + エギ + スッテ + ライトゲーム）
+import { megabassOrochiBuzzEditorial } from './megabass-orochi-buzz';
+import { shimanoBantamSwayFatEditorial } from './shimano-bantam-sway-fat';
+import { daiwaSteezCrank200Editorial } from './daiwa-steez-crank-200';
+import { luckyCraftKellyJEditorial } from './lucky-craft-kelly-j';
+import { jackallDerbyClubEditorial } from './jackall-derby-club';
+import { shimanoClinchLongAppealEditorial } from './shimano-sephia-clinch-long-appeal';
+import { yamashitaNaoryRhEditorial } from './yamashita-naory-rh';
+import { daiwaEmeraldasLightIIEditorial } from './daiwa-emeraldas-light-ii';
+import { jackallGoodMealCruiserEditorial } from './jackall-good-meal-cruiser';
+import { daiwaMonthlyBeamFishEditorial } from './daiwa-monthly-beam-fish';
 
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1849,4 +1860,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'deps-cover-scat-3-5': depsCoverScat35Editorial,
   'raid-fishroller-4': raidFishroller4Editorial,
   'dstyle-virola-3-8': dstyleVirola38Editorial,
+  // 2026-03-21 追加分 第74弾（10件）混合ジャンル
+  'megabass-orochi-buzz': megabassOrochiBuzzEditorial,
+  'shimano-bantam-sway-fat': shimanoBantamSwayFatEditorial,
+  'daiwa-steez-crank-200': daiwaSteezCrank200Editorial,
+  'lucky-craft-kelly-j': luckyCraftKellyJEditorial,
+  'jackall-derby-club': jackallDerbyClubEditorial,
+  'shimano-sephia-clinch-long-appeal': shimanoClinchLongAppealEditorial,
+  'yamashita-naory-rh': yamashitaNaoryRhEditorial,
+  'daiwa-emeraldas-light-ii': daiwaEmeraldasLightIIEditorial,
+  'jackall-good-meal-cruiser': jackallGoodMealCruiserEditorial,
+  'daiwa-monthly-beam-fish': daiwaMonthlyBeamFishEditorial,
 };
