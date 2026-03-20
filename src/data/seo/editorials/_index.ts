@@ -870,6 +870,17 @@ import { cbOneC1HoverEditorial } from './cb-one-c1-hover';
 import { natureBoysLanceEditorial } from './nature-boys-lance';
 import { hotsOntvJigEditorial } from './hots-ontv-jig';
 import { xestaRunwaySvEditorial } from './xesta-runway-sv';
+// 2026-03-21 追加分 第69弾（10件）バイブレーション + メタルバイブ集中
+import { jackallMaskVibEditorial } from './jackall-mask-vib';
+import { megabassVibrationXDynaEditorial } from './megabass-vibration-x-dyna';
+import { ospOverRideJrEditorial } from './osp-over-ride-jr';
+import { daiwaTdVibEditorial } from './daiwa-tdo-chinyu-vib';
+import { noriesTgNorimuEditorial } from './nories-tg-norimu';
+import { luckyCraftLv500MaxEditorial } from './lucky-craft-lv-500-max';
+import { shimanoBantamRattlinSurviveEditorial } from './shimano-bantam-rattlin-survive';
+import { bassdayRangeVib55TgEditorial } from './bassday-range-vib-55-tg';
+import { daiwaMorethanRealSteel18Editorial } from './daiwa-morethan-real-steel-18';
+import { megabassMakippa20Editorial } from './megabass-makippa-20';
 
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1739,4 +1750,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'nature-boys-lance': natureBoysLanceEditorial,
   'hots-ontv-jig': hotsOntvJigEditorial,
   'xesta-runway-sv': xestaRunwaySvEditorial,
+  // 2026-03-21 追加分 第69弾（10件）バイブレーション + メタルバイブ集中
+  'jackall-mask-vib': jackallMaskVibEditorial,
+  'megabass-vibration-x-dyna': megabassVibrationXDynaEditorial,
+  'osp-over-ride-jr': ospOverRideJrEditorial,
+  'daiwa-tdo-chinyu-vib': daiwaTdVibEditorial,
+  'nories-tg-norimu': noriesTgNorimuEditorial,
+  'lucky-craft-lv-500-max': luckyCraftLv500MaxEditorial,
+  'shimano-bantam-rattlin-survive': shimanoBantamRattlinSurviveEditorial,
+  'bassday-range-vib-55-tg': bassdayRangeVib55TgEditorial,
+  'daiwa-morethan-real-steel-18': daiwaMorethanRealSteel18Editorial,
+  'megabass-makippa-20': megabassMakippa20Editorial,
 };
