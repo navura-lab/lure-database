@@ -826,8 +826,19 @@ import { noriesEscapeTwinEditorial } from './nories-escape-twin';
 import { geecrackSpiralBugEditorial } from './geecrack-spiral-bug';
 import { hideupStaggerWideHogEditorial } from './hideup-stagger-wide-hog';
 import { berkleyMaxscentDWormEditorial } from './berkley-powerbait-maxscent-d-worm';
+// 2026-03-21 追加分 第65弾（10件）シーバスバイブ + メタルバイブ + ブレード系
+import { daiwaMorethanMiddieUpperEditorial } from './daiwa-morethan-middie-upper';
+import { shimanoExsenceSalvage70esEditorial } from './shimano-exsence-salvage-70es';
+import { megabassCutVibEditorial } from './megabass-cut-vib';
+import { coremanCa02Editorial } from './coreman-ca-02';
+import { jackallBigBacker107Editorial } from './jackall-big-backer-107';
+import { shimanoExsenceSlideAssassinEditorial } from './shimano-exsence-slide-assassin';
+import { daiwaMorethanSwitchHitter105fEditorial } from './daiwa-morethan-switch-hitter-105f';
+import { imaCalm80Editorial } from './ima-calm-80';
+import { blueblueGachipen160Editorial } from './blueblue-gachipen-160';
+import { jacksonIronPlate26Editorial } from './jackson-iron-plate-26';
 
-/** slug → EditorialReview のマップ（全680件） */
+/** slug → EditorialReview のマップ（全690件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1651,4 +1662,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'geecrack-spiral-bug': geecrackSpiralBugEditorial,
   'hideup-stagger-wide-hog': hideupStaggerWideHogEditorial,
   'berkley-powerbait-maxscent-d-worm': berkleyMaxscentDWormEditorial,
+  // 2026-03-21 追加分 第65弾（10件）シーバスバイブ + メタルバイブ + ブレード系
+  'daiwa-morethan-middie-upper': daiwaMorethanMiddieUpperEditorial,
+  'shimano-exsence-salvage-70es': shimanoExsenceSalvage70esEditorial,
+  'megabass-cut-vib': megabassCutVibEditorial,
+  'coreman-ca-02': coremanCa02Editorial,
+  'jackall-big-backer-107': jackallBigBacker107Editorial,
+  'shimano-exsence-slide-assassin': shimanoExsenceSlideAssassinEditorial,
+  'daiwa-morethan-switch-hitter-105f': daiwaMorethanSwitchHitter105fEditorial,
+  'ima-calm-80': imaCalm80Editorial,
+  'blueblue-gachipen-160': blueblueGachipen160Editorial,
+  'jackson-iron-plate-26': jacksonIronPlate26Editorial,
 };
