@@ -727,6 +727,17 @@ import { luckyCraftMicroCraPeaEditorial } from './lucky-craft-micro-cra-pea';
 import { mukaiZanmuEditorial } from './mukai-zanmu';
 import { smithFieldream45Editorial } from './smith-fieldream-45';
 import { jacksonTroutTune55Editorial } from './jackson-trout-tune-55';
+// 2026-03-21 追加分 第56弾（10件）サーフ + フラットフィッシュ + タイラバ + バスクランク
+import { duoBeachWalkerHaunterEditorial } from './duo-beach-walker-haunter';
+import { shimanoNessaSalvageEditorial } from './shimano-nessa-salvage';
+import { shimanoNessaSpinBeamEditorial } from './shimano-nessa-spin-beam';
+import { jacksonAthlete14ssVgEditorial } from './jackson-athlete-14-ss-vg';
+import { daiwaFlatjunkieJigHeadSsEditorial } from './daiwa-flatjunkie-jig-head-ss';
+import { jackallBinbinTamagoSaltyEditorial } from './jackall-binbin-tamago-salty';
+import { shimanoEngetsuFallSliderEditorial } from './shimano-engetsu-fall-slider';
+import { daiwaKougaLeaderEditorial } from './daiwa-kouga-leader';
+import { megabassFlapSlapEditorial } from './megabass-flap-slap';
+import { megabassGriffonSrEditorial } from './megabass-griffon-sr';
 
 /** slug → EditorialReview のマップ（全600件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1453,4 +1464,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'mukai-zanmu': mukaiZanmuEditorial,
   'smith-fieldream-45': smithFieldream45Editorial,
   'jackson-trout-tune-55': jacksonTroutTune55Editorial,
+  // 2026-03-21 追加分 第56弾（10件）サーフ + フラットフィッシュ + タイラバ + バスクランク
+  'duo-beach-walker-haunter': duoBeachWalkerHaunterEditorial,
+  'shimano-nessa-salvage': shimanoNessaSalvageEditorial,
+  'shimano-nessa-spin-beam': shimanoNessaSpinBeamEditorial,
+  'jackson-athlete-14-ss-vg': jacksonAthlete14ssVgEditorial,
+  'daiwa-flatjunkie-jig-head-ss': daiwaFlatjunkieJigHeadSsEditorial,
+  'jackall-binbin-tamago-salty': jackallBinbinTamagoSaltyEditorial,
+  'shimano-engetsu-fall-slider': shimanoEngetsuFallSliderEditorial,
+  'daiwa-kouga-leader': daiwaKougaLeaderEditorial,
+  'megabass-flap-slap': megabassFlapSlapEditorial,
+  'megabass-griffon-sr': megabassGriffonSrEditorial,
 };
