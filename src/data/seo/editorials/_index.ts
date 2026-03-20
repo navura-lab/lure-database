@@ -892,6 +892,17 @@ import { depsSlitherkEditorial } from './deps-slitherk';
 import { jackallGavachoFrogEditorial } from './jackall-gavacho-frog';
 import { evergreenPopperFrogEditorial } from './evergreen-popper-frog';
 import { raidDuckdiveEditorial } from './raid-duckdive';
+// 2026-03-21 追加分 第71弾（10件）ミノー・シャッド各種
+import { megabassX70Editorial } from './megabass-x-70';
+import { luckyCraftBevyShad60spEditorial } from './lucky-craft-bevy-shad-60sp';
+import { ospPowerDunk57spEditorial } from './osp-power-dunk-57sp';
+import { jackallSquadMinnow80spEditorial } from './jackall-squad-minnow-80sp';
+import { shimanoBantamJerkbait78spEditorial } from './shimano-bantam-jerkbait-78sp';
+import { daiwasteezMinnow110spDrEditorial } from './daiwa-steez-minnow-110sp-dr';
+import { noriesLaydownMinnowJustWakeEditorial } from './nories-laydown-minnow-just-wake';
+import { evergreenSidestepperEditorial } from './evergreen-sidestepper';
+import { megabassX80SwEditorial } from './megabass-x-80-sw';
+import { duoTideMinnow120SurfEditorial } from './duo-tide-minnow-120-surf';
 
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1783,4 +1794,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'jackall-gavacho-frog': jackallGavachoFrogEditorial,
   'evergreen-popper-frog': evergreenPopperFrogEditorial,
   'raid-duckdive': raidDuckdiveEditorial,
+  // 2026-03-21 追加分 第71弾（10件）ミノー・シャッド各種
+  'megabass-x-70': megabassX70Editorial,
+  'lucky-craft-bevy-shad-60sp': luckyCraftBevyShad60spEditorial,
+  'osp-power-dunk-57sp': ospPowerDunk57spEditorial,
+  'jackall-squad-minnow-80sp': jackallSquadMinnow80spEditorial,
+  'shimano-bantam-jerkbait-78sp': shimanoBantamJerkbait78spEditorial,
+  'daiwa-steez-minnow-110sp-dr': daiwasteezMinnow110spDrEditorial,
+  'nories-laydown-minnow-just-wake': noriesLaydownMinnowJustWakeEditorial,
+  'evergreen-sidestepper': evergreenSidestepperEditorial,
+  'megabass-x-80-sw': megabassX80SwEditorial,
+  'duo-tide-minnow-120-surf': duoTideMinnow120SurfEditorial,
 };
