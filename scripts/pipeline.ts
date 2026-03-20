@@ -83,6 +83,48 @@ function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * 画像URLがR2 CDNの正しい形式かどうかを検証する。
+ * R2形式でないURL（外部HTTP/HTTPS、パスのみ等）をDBに保存しない。
+ */
+function isValidR2ImageUrl(url: string): boolean {
+  return url.startsWith(R2_PUBLIC_URL + '/');
+}
+
+/**
+ * images配列をサニタイズ。
+ * - R2 CDN URLのみ許可、外部URLはnullに置換してログ警告
+ * - パスのみのURLはR2フルURLに補完
+ */
+function sanitizeImageUrls(images: string[] | null): string[] | null {
+  if (!images || images.length === 0) return null;
+
+  const sanitized: string[] = [];
+  for (const url of images) {
+    if (!url) continue;
+
+    // パスのみの場合はR2フルURLに補完
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      const cleanPath = url.startsWith('/') ? url.slice(1) : url;
+      const fullUrl = `${R2_PUBLIC_URL}/${cleanPath}`;
+      log(`⚠️  画像URL補完: ${url} → ${fullUrl}`);
+      sanitized.push(fullUrl);
+      continue;
+    }
+
+    // R2 CDN URLならOK
+    if (isValidR2ImageUrl(url)) {
+      sanitized.push(url);
+      continue;
+    }
+
+    // 外部URL → 警告して除外（mixed contentやリンク切れを防止）
+    log(`⚠️  外部画像URLを除外（R2未アップロード）: ${url}`);
+  }
+
+  return sanitized.length > 0 ? sanitized : null;
+}
+
 // ---------------------------------------------------------------------------
 // R2 (S3-compatible) client
 // ---------------------------------------------------------------------------
@@ -505,7 +547,7 @@ async function processRecord(
           target_fish: scraped.target_fish?.length ? scraped.target_fish : null,
           price: rowPrice,
           description: scraped.description || null,
-          images: imageUrl ? [imageUrl] : null,
+          images: sanitizeImageUrls(imageUrl ? [imageUrl] : null),
           color_name: color.name,
           weight: weight,
           length: rowLength,
