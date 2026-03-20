@@ -782,8 +782,19 @@ import { imaGunDeNashiEditorial } from './ima-gun-de-nashi';
 import { megabassMegaDogEditorial } from './megabass-mega-dog';
 import { jacksonPinTailTune6Editorial } from './jackson-pin-tail-tune-6';
 import { daiwaMorethanSwitchHitter65sEditorial } from './daiwa-morethan-switch-hitter-65s';
+// 2026-03-21 追加分 第61弾（10件）バス用ハードベイト定番
+import { megbassSrXGriffonEditorial } from './megabass-sr-x-griffon';
+import { megabassDeepX100Editorial } from './megabass-deep-x-100';
+import { jackallAska60srEditorial } from './jackall-aska-60sr';
+import { luckyCraftLcRtoEditorial } from './lucky-craft-lc-rto';
+import { evergreenWildHunchEditorial } from './evergreen-wild-hunch';
+import { noriesShotOver3Editorial } from './nories-shot-over-3';
+import { depsKorriganEditorial } from './deps-korrigan';
+import { jackallPompadourEditorial } from './jackall-pompadour';
+import { megabassIJackEditorial } from './megabass-i-jack';
+import { daiwasteezShad60spEditorial } from './daiwa-steez-shad-60sp';
 
-/** slug → EditorialReview のマップ（全640件） */
+/** slug → EditorialReview のマップ（全650件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1563,4 +1574,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'megabass-mega-dog': megabassMegaDogEditorial,
   'jackson-pin-tail-tune-6': jacksonPinTailTune6Editorial,
   'daiwa-morethan-switch-hitter-65s': daiwaMorethanSwitchHitter65sEditorial,
+  // 2026-03-21 追加分 第61弾（10件）バス用ハードベイト定番
+  'megabass-sr-x-griffon': megbassSrXGriffonEditorial,
+  'megabass-deep-x-100': megabassDeepX100Editorial,
+  'jackall-aska-60sr': jackallAska60srEditorial,
+  'lucky-craft-lc-rto': luckyCraftLcRtoEditorial,
+  'evergreen-wild-hunch': evergreenWildHunchEditorial,
+  'nories-shot-over-3': noriesShotOver3Editorial,
+  'deps-korrigan': depsKorriganEditorial,
+  'jackall-pompadour': jackallPompadourEditorial,
+  'megabass-i-jack': megabassIJackEditorial,
+  'daiwa-steez-shad-60sp': daiwasteezShad60spEditorial,
 };
