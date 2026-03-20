@@ -575,8 +575,30 @@ import { pressoEveEditorial } from './trout-presso-eve';
 import { vibrationXEditorial } from './vibe-x';
 import { coverScatEditorial } from './deps-cover-scat';
 import { arSpinnerEditorial } from './trout-ar-spinner';
+// 2026-03-21 追加分 第42弾（10件）
+import { anchovymetalType3Editorial } from './anchovymetal-type-3';
+import { nodoEditorial } from './nodo';
+import { tgDropKEditorial } from './tg-drop-k';
+import { supidodebiruEditorial } from './supidodebiru';
+import { pawashaddoEditorial } from './pawashaddo';
+import { fyidoDaibinguoburaEditorial } from './fyido-daibinguobura';
+import { bibibishotto15Editorial } from './bibibishotto-1-5';
+import { spinbitEditorial } from './spinbit';
+import { troutBuchEditorial } from './trout-buch';
+import { bezeruEditorial } from './bezeru';
+// 2026-03-21 追加分 第43弾（10件）
+import { dContactII72Editorial } from './trout-dcontactii-72';
+import { cbKiyomasa180Editorial } from './salt-cbkiyomasa-180';
+import { xrapMagnum30Editorial } from './rapala-xrmag-30';
+import { pureAreaEditorial } from './trout-pure-area';
+import { bomberProLongAEditorial } from './bomber-pro-long-a';
+import { nzCrawlerJrEditorial } from './nz-crawler-jr';
+import { cbSardineEditorial } from './salt-cb-sardine';
+import { fieldream48Editorial } from './trout-fieldream-48';
+import { shadowRapShadEditorial } from './rapala-sssr';
+import { slowEmotionCorochinoEditorial } from './slow-emotion-corochino';
 
-/** slug → EditorialReview のマップ（全530件） */
+/** slug → EditorialReview のマップ（全550件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1147,4 +1169,26 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'vibe-x': vibrationXEditorial,
   'deps-cover-scat': coverScatEditorial,
   'trout-ar-spinner': arSpinnerEditorial,
+  // 2026-03-21 追加分 第42弾（10件）
+  'anchovymetal-type-3': anchovymetalType3Editorial,
+  'nodo': nodoEditorial,
+  'tg-drop-k': tgDropKEditorial,
+  'supidodebiru': supidodebiruEditorial,
+  'pawashaddo': pawashaddoEditorial,
+  'fyido-daibinguobura': fyidoDaibinguoburaEditorial,
+  'bibibishotto-1-5': bibibishotto15Editorial,
+  'spinbit': spinbitEditorial,
+  'trout-buch': troutBuchEditorial,
+  'bezeru': bezeruEditorial,
+  // 2026-03-21 追加分 第43弾（10件）
+  'trout-dcontactii-72': dContactII72Editorial,
+  'salt-cbkiyomasa-180': cbKiyomasa180Editorial,
+  'rapala-xrmag-30': xrapMagnum30Editorial,
+  'trout-pure-area': pureAreaEditorial,
+  'bomber-pro-long-a': bomberProLongAEditorial,
+  'nz-crawler-jr': nzCrawlerJrEditorial,
+  'salt-cb-sardine': cbSardineEditorial,
+  'trout-fieldream-48': fieldream48Editorial,
+  'rapala-sssr': shadowRapShadEditorial,
+  'slow-emotion-corochino': slowEmotionCorochinoEditorial,
 };
