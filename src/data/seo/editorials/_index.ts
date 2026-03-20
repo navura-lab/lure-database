@@ -531,6 +531,17 @@ import { taiNomiEditorial } from './tm';
 import { crusaderGekiatsuEditorial } from './xweuuha';
 import { beatriceEditorial } from './beatrice';
 import { flutterJigEditorial } from './flutter-jig';
+// 2026-03-20 追加分 第38弾（10件）
+import { chinookSEditorial } from './jfssqky';
+import { rsLongEditorial } from './rs-long';
+import { sheadRtypeEditorial } from './shead-rtype';
+import { airBeatleAreaEditorial } from './airbeatle-area';
+import { pelletPelletSsSEditorial } from './perettoperetto-ss-s';
+import { laydownMinnowMid110Editorial } from './laydown-minnow-mid-110';
+import { ameJigEditorial } from './70074';
+import { tachijigiStandardEditorial } from './tachijigi-sutandadotaipu';
+import { squareBullEditorial } from './squarebull';
+import { sLegendEditorial } from './s-legend';
 
 /** slug → EditorialReview のマップ（全500件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1059,4 +1070,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'xweuuha': crusaderGekiatsuEditorial,
   'beatrice': beatriceEditorial,
   'flutter-jig': flutterJigEditorial,
+  // 2026-03-20 追加分 第38弾（10件）
+  'jfssqky': chinookSEditorial,
+  'rs-long': rsLongEditorial,
+  'shead-rtype': sheadRtypeEditorial,
+  'airbeatle-area': airBeatleAreaEditorial,
+  'perettoperetto-ss-s': pelletPelletSsSEditorial,
+  'laydown-minnow-mid-110': laydownMinnowMid110Editorial,
+  '70074': ameJigEditorial,
+  'tachijigi-sutandadotaipu': tachijigiStandardEditorial,
+  'squarebull': squareBullEditorial,
+  's-legend': sLegendEditorial,
 };
