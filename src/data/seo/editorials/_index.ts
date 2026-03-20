@@ -837,8 +837,19 @@ import { daiwaMorethanSwitchHitter105fEditorial } from './daiwa-morethan-switch-
 import { imaCalm80Editorial } from './ima-calm-80';
 import { blueblueGachipen160Editorial } from './blueblue-gachipen-160';
 import { jacksonIronPlate26Editorial } from './jackson-iron-plate-26';
+// 2026-03-21 追加分 第66弾（10件）バス用ジグ + リグ系
+import { evergreenCastingJigSiliconEditorial } from './evergreen-casting-jig-silicon';
+import { ospJigZeroTwoEditorial } from './osp-jig-zero-two';
+import { noriesGunTypeFootballEditorial } from './nories-gun-type-football';
+import { depsHeadLockJigEditorial } from './deps-head-lock-jig';
+import { jackallWeedlessSwimmerEditorial } from './jackall-weedless-swimmer';
+import { megabassSv3Editorial } from './megabass-sv-3';
+import { noriesCrystalSEditorial } from './nories-crystal-s';
+import { evergreenDBladeEditorial } from './evergreen-d-blade';
+import { strikeKingTourGradeJigEditorial } from './strike-king-tour-grade-jig';
+import { strikeKingKvdSwimJigEditorial } from './strike-king-kvd-swim-jig';
 
-/** slug → EditorialReview のマップ（全690件） */
+/** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1673,4 +1684,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'ima-calm-80': imaCalm80Editorial,
   'blueblue-gachipen-160': blueblueGachipen160Editorial,
   'jackson-iron-plate-26': jacksonIronPlate26Editorial,
+  // 2026-03-21 追加分 第66弾（10件）バス用ジグ + リグ系
+  'evergreen-casting-jig-silicon': evergreenCastingJigSiliconEditorial,
+  'osp-jig-zero-two': ospJigZeroTwoEditorial,
+  'nories-gun-type-football': noriesGunTypeFootballEditorial,
+  'deps-head-lock-jig': depsHeadLockJigEditorial,
+  'jackall-weedless-swimmer': jackallWeedlessSwimmerEditorial,
+  'megabass-sv-3': megabassSv3Editorial,
+  'nories-crystal-s': noriesCrystalSEditorial,
+  'evergreen-d-blade': evergreenDBladeEditorial,
+  'strike-king-tour-grade-jig': strikeKingTourGradeJigEditorial,
+  'strike-king-kvd-swim-jig': strikeKingKvdSwimJigEditorial,
 };
