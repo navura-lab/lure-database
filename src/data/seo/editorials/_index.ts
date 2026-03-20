@@ -674,6 +674,17 @@ import { ospDoliveStickEditorial } from './osp-dolive-stick';
 import { ospRudra130Editorial } from './osp-rudra-130';
 import { ospVaruna110Editorial } from './osp-varuna-110';
 import { ospBuzzZeroTwoBeatEditorial } from './osp-buzz-zero-two-beat';
+// 2026-03-21 追加分 第51弾（10件）ソルトウォーター人気ルアー
+import { apiaPunchLine80Editorial } from './apia-punch-line-80';
+import { apiaHydroUpper90sEditorial } from './apia-hydro-upper-90s';
+import { blueblueBlooowin140sEditorial } from './blueblue-blooowin-140s';
+import { blueblueTracy25Editorial } from './blueblue-tracy-25';
+import { blueblueNarage65Editorial } from './blueblue-narage-65';
+import { coremanVj16Editorial } from './coreman-vj-16';
+import { coremanIp26Editorial } from './coreman-ip-26';
+import { jacksonAthlete105vgEditorial } from './jackson-athlete-105vg';
+import { pazdesignBonnie95sEditorial } from './pazdesign-bonnie-95s';
+import { jumprizeRowdy130sEditorial } from './jumprize-rowdy-130s';
 
 /** slug → EditorialReview のマップ（全600件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1345,4 +1356,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'osp-rudra-130': ospRudra130Editorial,
   'osp-varuna-110': ospVaruna110Editorial,
   'osp-buzz-zero-two-beat': ospBuzzZeroTwoBeatEditorial,
+  // 2026-03-21 追加分 第51弾（10件）ソルトウォーター人気ルアー
+  'apia-punch-line-80': apiaPunchLine80Editorial,
+  'apia-hydro-upper-90s': apiaHydroUpper90sEditorial,
+  'blueblue-blooowin-140s': blueblueBlooowin140sEditorial,
+  'blueblue-tracy-25': blueblueTracy25Editorial,
+  'blueblue-narage-65': blueblueNarage65Editorial,
+  'coreman-vj-16': coremanVj16Editorial,
+  'coreman-ip-26': coremanIp26Editorial,
+  'jackson-athlete-105vg': jacksonAthlete105vgEditorial,
+  'pazdesign-bonnie-95s': pazdesignBonnie95sEditorial,
+  'jumprize-rowdy-130s': jumprizeRowdy130sEditorial,
 };
