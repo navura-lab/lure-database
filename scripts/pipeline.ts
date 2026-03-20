@@ -186,7 +186,43 @@ async function processAndUploadImage(
   );
 
   const publicUrl = `${R2_PUBLIC_URL}/${r2Key}`;
-  log(`Uploaded: ${publicUrl}`);
+
+  // アップロード後の検証: HEADリクエストで確認、404なら1回リトライ
+  const MAX_VERIFY_RETRIES = 1;
+  for (let attempt = 0; attempt <= MAX_VERIFY_RETRIES; attempt++) {
+    // R2の反映に少し時間がかかる場合がある
+    await new Promise(resolve => setTimeout(resolve, attempt === 0 ? 500 : 2000));
+    try {
+      const verifyRes = await fetch(publicUrl, { method: 'HEAD' });
+      if (verifyRes.ok) {
+        log(`Verified: ${publicUrl}`);
+        return publicUrl;
+      }
+      if (attempt < MAX_VERIFY_RETRIES) {
+        log(`⚠️  アップロード検証失敗 (HTTP ${verifyRes.status})、リトライ中... (${attempt + 1}/${MAX_VERIFY_RETRIES})`);
+        // 再アップロード
+        await s3.send(
+          new PutObjectCommand({
+            Bucket: R2_BUCKET,
+            Key: r2Key,
+            Body: webpBuffer,
+            ContentType: 'image/webp',
+            CacheControl: 'public, max-age=31536000, immutable',
+          }),
+        );
+      } else {
+        throw new Error(`R2 upload verification failed after ${MAX_VERIFY_RETRIES + 1} attempts: ${publicUrl} returned HTTP ${verifyRes.status}`);
+      }
+    } catch (verifyErr) {
+      if (attempt >= MAX_VERIFY_RETRIES) {
+        const msg = verifyErr instanceof Error ? verifyErr.message : String(verifyErr);
+        throw new Error(`R2 upload verification error: ${msg}`);
+      }
+      log(`⚠️  検証リクエスト失敗、リトライ中...`);
+    }
+  }
+
+  // ここに到達することはないが型安全のため
   return publicUrl;
 }
 

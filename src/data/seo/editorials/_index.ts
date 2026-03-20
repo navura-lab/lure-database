@@ -914,6 +914,17 @@ import { megabassKagelouMd125fEditorial } from './megabass-kagelou-md-125f';
 import { duoTideMinnow125sldFEditorial } from './duo-tide-minnow-125sld-f';
 import { tacklehouseTklm90Editorial } from './tacklehouse-tklm-90';
 import { imaSasuke140sReppaEditorial } from './ima-sasuke-140s-reppa';
+// 2026-03-21 追加分 第73弾（10件）バス用スイムベイト + ビッグベイト + ワーム
+import { depsNewSlideswimmer175Editorial } from './deps-new-slideswimmer-175';
+import { megabassISlide262tEditorial } from './megabass-i-slide-262t';
+import { jackallGantarelEditorial } from './jackall-gantarel';
+import { evergreenTimberFlashEditorial } from './evergreen-timber-flash';
+import { hideupStaggerOriginal5Editorial } from './hideup-stagger-original-5';
+import { ospDoliveShad6Editorial } from './osp-dolive-shad-6';
+import { noriesHulacrank3drEditorial } from './nories-hulacrank-3dr';
+import { depsCoverScat35Editorial } from './deps-cover-scat-3-5';
+import { raidFishroller4Editorial } from './raid-fishroller-4';
+import { dstyleVirola38Editorial } from './dstyle-virola-3-8';
 
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1827,4 +1838,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'duo-tide-minnow-125sld-f': duoTideMinnow125sldFEditorial,
   'tacklehouse-tklm-90': tacklehouseTklm90Editorial,
   'ima-sasuke-140s-reppa': imaSasuke140sReppaEditorial,
+  // 2026-03-21 追加分 第73弾（10件）バス用スイムベイト + ビッグベイト + ワーム
+  'deps-new-slideswimmer-175': depsNewSlideswimmer175Editorial,
+  'megabass-i-slide-262t': megabassISlide262tEditorial,
+  'jackall-gantarel': jackallGantarelEditorial,
+  'evergreen-timber-flash': evergreenTimberFlashEditorial,
+  'hideup-stagger-original-5': hideupStaggerOriginal5Editorial,
+  'osp-dolive-shad-6': ospDoliveShad6Editorial,
+  'nories-hulacrank-3dr': noriesHulacrank3drEditorial,
+  'deps-cover-scat-3-5': depsCoverScat35Editorial,
+  'raid-fishroller-4': raidFishroller4Editorial,
+  'dstyle-virola-3-8': dstyleVirola38Editorial,
 };
