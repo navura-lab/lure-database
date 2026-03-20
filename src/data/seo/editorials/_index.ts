@@ -815,8 +815,19 @@ import { coremanPowerBladeEditorial } from './coreman-power-blade';
 import { daiwaMorethanGarba73sEditorial } from './daiwa-morethan-garba-73s';
 import { imaSasukeSf95Editorial } from './ima-sasuke-sf-95';
 import { megabassKagelou124fEditorial } from './megabass-kagelou-124f';
+// 2026-03-21 追加分 第64弾（10件）ワーム・ソフトベイト各種
+import { ospDoliveCrawEditorial } from './osp-dolive-craw';
+import { depsDeathAdderStick5Editorial } from './deps-deathadder-stick-5';
+import { jackallDbYummyEditorial } from './jackall-db-yummy';
+import { raid2wayEditorial } from './raid-2way';
+import { dstyleSvsbEditorial } from './dstyle-svsb';
+import { bottomupHurryShrimpEditorial } from './bottomup-hurry-shrimp';
+import { noriesEscapeTwinEditorial } from './nories-escape-twin';
+import { geecrackSpiralBugEditorial } from './geecrack-spiral-bug';
+import { hideupStaggerWideHogEditorial } from './hideup-stagger-wide-hog';
+import { berkleyMaxscentDWormEditorial } from './berkley-powerbait-maxscent-d-worm';
 
-/** slug → EditorialReview のマップ（全670件） */
+/** slug → EditorialReview のマップ（全680件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1629,4 +1640,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'daiwa-morethan-garba-73s': daiwaMorethanGarba73sEditorial,
   'ima-sasuke-sf-95': imaSasukeSf95Editorial,
   'megabass-kagelou-124f': megabassKagelou124fEditorial,
+  // 2026-03-21 追加分 第64弾（10件）ワーム・ソフトベイト各種
+  'osp-dolive-craw': ospDoliveCrawEditorial,
+  'deps-deathadder-stick-5': depsDeathAdderStick5Editorial,
+  'jackall-db-yummy': jackallDbYummyEditorial,
+  'raid-2way': raid2wayEditorial,
+  'dstyle-svsb': dstyleSvsbEditorial,
+  'bottomup-hurry-shrimp': bottomupHurryShrimpEditorial,
+  'nories-escape-twin': noriesEscapeTwinEditorial,
+  'geecrack-spiral-bug': geecrackSpiralBugEditorial,
+  'hideup-stagger-wide-hog': hideupStaggerWideHogEditorial,
+  'berkley-powerbait-maxscent-d-worm': berkleyMaxscentDWormEditorial,
 };
