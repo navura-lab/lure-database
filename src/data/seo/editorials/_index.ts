@@ -663,6 +663,17 @@ import { shimanoSephiaClinchFlashBoostEditorial } from './shimano-sephia-clinch-
 import { shimanoOceaJigFlatEditorial } from './shimano-ocea-jig-flat';
 import { daiwaSteezPopperEditorial } from './daiwa-steez-popper';
 import { shimanoBantamWorldMinnowEditorial } from './shimano-bantam-world-minnow';
+// 2026-03-21 追加分 第50弾（10件）JACKALL + O.S.P 人気ルアー
+import { jackallTn60Editorial } from './jackall-tn60';
+import { jackallDeraballEditorial } from './jackall-deraball';
+import { jackallKaeraEditorial } from './jackall-kaera';
+import { jackallFlickShakeEditorial } from './jackall-flick-shake';
+import { jackallSuperCrossTailShadEditorial } from './jackall-super-cross-tail-shad';
+import { ospHp3dWackyEditorial } from './osp-hp-3d-wacky';
+import { ospDoliveStickEditorial } from './osp-dolive-stick';
+import { ospRudra130Editorial } from './osp-rudra-130';
+import { ospVaruna110Editorial } from './osp-varuna-110';
+import { ospBuzzZeroTwoBeatEditorial } from './osp-buzz-zero-two-beat';
 
 /** slug → EditorialReview のマップ（全600件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1323,4 +1334,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'shimano-ocea-jig-flat': shimanoOceaJigFlatEditorial,
   'daiwa-steez-popper': daiwaSteezPopperEditorial,
   'shimano-bantam-world-minnow': shimanoBantamWorldMinnowEditorial,
+  // 2026-03-21 追加分 第50弾（10件）JACKALL + O.S.P 人気ルアー
+  'jackall-tn60': jackallTn60Editorial,
+  'jackall-deraball': jackallDeraballEditorial,
+  'jackall-kaera': jackallKaeraEditorial,
+  'jackall-flick-shake': jackallFlickShakeEditorial,
+  'jackall-super-cross-tail-shad': jackallSuperCrossTailShadEditorial,
+  'osp-hp-3d-wacky': ospHp3dWackyEditorial,
+  'osp-dolive-stick': ospDoliveStickEditorial,
+  'osp-rudra-130': ospRudra130Editorial,
+  'osp-varuna-110': ospVaruna110Editorial,
+  'osp-buzz-zero-two-beat': ospBuzzZeroTwoBeatEditorial,
 };
