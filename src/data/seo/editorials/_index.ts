@@ -771,8 +771,19 @@ import { smithArFsEditorial } from './smith-ar-fs';
 import { forestMariuEditorial } from './forest-mariu';
 import { noriesMasukuroutoTalonEditorial } from './nories-masukurouto-talon';
 import { smithDContact110Editorial } from './smith-d-contact-110';
+// 2026-03-21 追加分 第60弾（10件）青物ショアプラグ + シーバストップ
+import { shimanoColtSniperRockPopEditorial } from './shimano-coltsniper-rock-pop';
+import { shimanoColtSniperRockDriftEditorial } from './shimano-coltsniper-rock-drift';
+import { daiwaSaltigaOverThere109sEditorial } from './daiwa-saltiga-over-there-109s';
+import { jumprizePopoguesEditorial } from './jumprize-popogues';
+import { mariaPopQueenFEditorial } from './maria-pop-queen-f';
+import { mariaLoadedFEditorial } from './maria-loaded-f';
+import { imaGunDeNashiEditorial } from './ima-gun-de-nashi';
+import { megabassMegaDogEditorial } from './megabass-mega-dog';
+import { jacksonPinTailTune6Editorial } from './jackson-pin-tail-tune-6';
+import { daiwaMorethanSwitchHitter65sEditorial } from './daiwa-morethan-switch-hitter-65s';
 
-/** slug → EditorialReview のマップ（全630件） */
+/** slug → EditorialReview のマップ（全640件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1541,4 +1552,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'forest-mariu': forestMariuEditorial,
   'nories-masukurouto-talon': noriesMasukuroutoTalonEditorial,
   'smith-d-contact-110': smithDContact110Editorial,
+  // 2026-03-21 追加分 第60弾（10件）青物ショアプラグ + シーバストップ
+  'shimano-coltsniper-rock-pop': shimanoColtSniperRockPopEditorial,
+  'shimano-coltsniper-rock-drift': shimanoColtSniperRockDriftEditorial,
+  'daiwa-saltiga-over-there-109s': daiwaSaltigaOverThere109sEditorial,
+  'jumprize-popogues': jumprizePopoguesEditorial,
+  'maria-pop-queen-f': mariaPopQueenFEditorial,
+  'maria-loaded-f': mariaLoadedFEditorial,
+  'ima-gun-de-nashi': imaGunDeNashiEditorial,
+  'megabass-mega-dog': megabassMegaDogEditorial,
+  'jackson-pin-tail-tune-6': jacksonPinTailTune6Editorial,
+  'daiwa-morethan-switch-hitter-65s': daiwaMorethanSwitchHitter65sEditorial,
 };
