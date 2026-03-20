@@ -685,6 +685,17 @@ import { coremanIp26Editorial } from './coreman-ip-26';
 import { jacksonAthlete105vgEditorial } from './jackson-athlete-105vg';
 import { pazdesignBonnie95sEditorial } from './pazdesign-bonnie-95s';
 import { jumprizeRowdy130sEditorial } from './jumprize-rowdy-130s';
+// 2026-03-21 追加分 第52弾（10件）バス釣り人気ルアー続き
+import { raidLevelVibEditorial } from './raid-level-vib';
+import { raidLevelMinnowEditorial } from './raid-level-minnow';
+import { raidLevelCrankEditorial } from './raid-level-crank';
+import { bottomupBreavorEditorial } from './bottomup-breavor';
+import { bottomupVolupSwimmerEditorial } from './bottomup-volup-swimmer';
+import { gancraftJointedClaw178Editorial } from './gancraft-jointed-claw-178';
+import { gancraftJointedClaw148Editorial } from './gancraft-jointed-claw-148';
+import { drtKlashGhostEditorial } from './drt-klash-ghost';
+import { drtTinyKlashEditorial } from './drt-tiny-klash';
+import { noresHulaCrankEditorial } from './nories-hulacrank';
 
 /** slug → EditorialReview のマップ（全600件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1367,4 +1378,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'jackson-athlete-105vg': jacksonAthlete105vgEditorial,
   'pazdesign-bonnie-95s': pazdesignBonnie95sEditorial,
   'jumprize-rowdy-130s': jumprizeRowdy130sEditorial,
+  // 2026-03-21 追加分 第52弾（10件）バス釣り人気ルアー続き
+  'raid-level-vib': raidLevelVibEditorial,
+  'raid-level-minnow': raidLevelMinnowEditorial,
+  'raid-level-crank': raidLevelCrankEditorial,
+  'bottomup-breavor': bottomupBreavorEditorial,
+  'bottomup-volup-swimmer': bottomupVolupSwimmerEditorial,
+  'gancraft-jointed-claw-178': gancraftJointedClaw178Editorial,
+  'gancraft-jointed-claw-148': gancraftJointedClaw148Editorial,
+  'drt-klash-ghost': drtKlashGhostEditorial,
+  'drt-tiny-klash': drtTinyKlashEditorial,
+  'nories-hulacrank': noresHulaCrankEditorial,
 };
