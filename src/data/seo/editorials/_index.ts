@@ -608,8 +608,19 @@ import { fieldream60Editorial } from './trout-fieldream-60';
 import { surgerEditorial } from './salt-surger';
 import { dContactII50Editorial } from './trout-dcontactii-50';
 import { xrapCountdownEditorial } from './rapala-xrap-countdown';
+// 2026-03-21 追加分 第45弾（10件）
+import { stayseeEditorial } from './staysee';
+import { dJigCoverEditorial } from './d-jig-cover';
+import { deeprobberEditorial } from './deeprobber-2';
+import { dCompactEditorial } from './trout-d-compact';
+import { tobisugiDanielBladeEditorial } from './salt-tobisugi-daniel-blade';
+import { nativeSignalEditorial } from './trout-native-signal';
+import { metalForzeTgEditorial } from './salt-metal-forze-tg';
+import { ultraLightCrankEditorial } from './rapala-ultra-light-crank';
+import { cherryBloodMdEditorial } from './trout-cherry-blood-md';
+import { cbMasamune210Editorial } from './salt-cbmasamune-210';
 
-/** slug → EditorialReview のマップ（全560件） */
+/** slug → EditorialReview のマップ（全570件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1213,4 +1224,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'salt-surger': surgerEditorial,
   'trout-d-contactii-50': dContactII50Editorial,
   'rapala-xrap-countdown': xrapCountdownEditorial,
+  // 2026-03-21 追加分 第45弾（10件）
+  'staysee': stayseeEditorial,
+  'd-jig-cover': dJigCoverEditorial,
+  'deeprobber-2': deeprobberEditorial,
+  'trout-d-compact': dCompactEditorial,
+  'salt-tobisugi-daniel-blade': tobisugiDanielBladeEditorial,
+  'trout-native-signal': nativeSignalEditorial,
+  'salt-metal-forze-tg': metalForzeTgEditorial,
+  'rapala-ultra-light-crank': ultraLightCrankEditorial,
+  'trout-cherry-blood-md': cherryBloodMdEditorial,
+  'salt-cbmasamune-210': cbMasamune210Editorial,
 };
