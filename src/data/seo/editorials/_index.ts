@@ -968,6 +968,17 @@ import { ospDolivebug3Editorial } from './osp-dolivebug-3';
 import { depsSakamatabig6Editorial } from './deps-sakamatabig-6';
 import { megabassItoVtalemon4Editorial } from './megabass-ito-vtalemon-4';
 import { evergreenKickerBug4Editorial } from './evergreen-kicker-bug-4';
+// 2026-03-21 追加分 第78弾（10件）各ジャンル代表格
+import { megabassCyclingSpoonEditorial } from './megabass-cycling-spoon';
+import { shimanoBantamMacbethEditorial } from './shimano-bantam-macbeth';
+import { daiwaSteezNaturalBait4Editorial } from './daiwa-steez-natural-bait-4';
+import { jackallRhythmWaveEditorial } from './jackall-rhythm-wave';
+import { ospHpShadTail31Editorial } from './osp-hp-shad-tail-3-1';
+import { shimanoExsenceCrazySwimmerEditorial } from './shimano-exsence-crazy-swimmer';
+import { daiwaMorethanGarabodyJEditorial } from './daiwa-morethan-garabody-j';
+import { mariaFighter100sEditorial } from './maria-fighter-100s';
+import { duelHardcorePowerLeaderFcEditorial } from './duel-hardcore-power-leader-fc';
+import { yamashitaEgiOhKSuperShallowEditorial } from './yamashita-egi-oh-k-super-shallow';
 
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1936,4 +1947,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'deps-sakamatabig-6': depsSakamatabig6Editorial,
   'megabass-ito-vtalemon-4': megabassItoVtalemon4Editorial,
   'evergreen-kicker-bug-4': evergreenKickerBug4Editorial,
+  // 2026-03-21 追加分 第78弾（10件）各ジャンル代表格
+  'megabass-cycling-spoon': megabassCyclingSpoonEditorial,
+  'shimano-bantam-macbeth': shimanoBantamMacbethEditorial,
+  'daiwa-steez-natural-bait-4': daiwaSteezNaturalBait4Editorial,
+  'jackall-rhythm-wave': jackallRhythmWaveEditorial,
+  'osp-hp-shad-tail-3-1': ospHpShadTail31Editorial,
+  'shimano-exsence-crazy-swimmer': shimanoExsenceCrazySwimmerEditorial,
+  'daiwa-morethan-garabody-j': daiwaMorethanGarabodyJEditorial,
+  'maria-fighter-100s': mariaFighter100sEditorial,
+  'duel-hardcore-power-leader-fc': duelHardcorePowerLeaderFcEditorial,
+  'yamashita-egi-oh-k-super-shallow': yamashitaEgiOhKSuperShallowEditorial,
 };
