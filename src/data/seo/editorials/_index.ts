@@ -641,8 +641,19 @@ import { megabassItoShinerEditorial } from './megabass-ito-shiner';
 import { megabassPopXEditorial } from './megabass-pop-x';
 import { megabassDogXEditorial } from './megabass-dog-x';
 import { megabassVisionOnetenEditorial } from './megabass-vision-oneten';
+// 2026-03-21 追加分 第48弾（10件）
+import { megabassX80TrickDarterEditorial } from './megabass-x80-trick-darter';
+import { megabassKanataAyuEditorial } from './megabass-kanata-ayu';
+import { duoTideMinnowSlim120Editorial } from './duo-tide-minnow-slim-120';
+import { duoBeachWalkerFlipperEditorial } from './duo-beach-walker-flipper';
+import { duoBayRufSv70Editorial } from './duo-bay-ruf-sv-70';
+import { imaSasuke120ReppaEditorial } from './ima-sasuke-120-reppa';
+import { imaKoume60Editorial } from './ima-koume-60';
+import { imaHoneyTrap70sEditorial } from './ima-honey-trap-70s';
+import { evergreenCombatCrank320Editorial } from './evergreen-combat-crank-320';
+import { evergreenKickerFrogEditorial } from './evergreen-kicker-frog';
 
-/** slug → EditorialReview のマップ（全590件） */
+/** slug → EditorialReview のマップ（全600件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1279,4 +1290,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'megabass-pop-x': megabassPopXEditorial,
   'megabass-dog-x': megabassDogXEditorial,
   'megabass-vision-oneten': megabassVisionOnetenEditorial,
+  // 2026-03-21 追加分 第48弾（10件）
+  'megabass-x80-trick-darter': megabassX80TrickDarterEditorial,
+  'megabass-kanata-ayu': megabassKanataAyuEditorial,
+  'duo-tide-minnow-slim-120': duoTideMinnowSlim120Editorial,
+  'duo-beach-walker-flipper': duoBeachWalkerFlipperEditorial,
+  'duo-bay-ruf-sv-70': duoBayRufSv70Editorial,
+  'ima-sasuke-120-reppa': imaSasuke120ReppaEditorial,
+  'ima-koume-60': imaKoume60Editorial,
+  'ima-honey-trap-70s': imaHoneyTrap70sEditorial,
+  'evergreen-combat-crank-320': evergreenCombatCrank320Editorial,
+  'evergreen-kicker-frog': evergreenKickerFrogEditorial,
 };
