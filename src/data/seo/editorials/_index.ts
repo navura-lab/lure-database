@@ -597,8 +597,19 @@ import { cbSardineEditorial } from './salt-cb-sardine';
 import { fieldream48Editorial } from './trout-fieldream-48';
 import { shadowRapShadEditorial } from './rapala-sssr';
 import { slowEmotionCorochinoEditorial } from './slow-emotion-corochino';
+// 2026-03-21 追加分 第44弾（10件）
+import { metalAdictType03Editorial } from './metal-adict-type03';
+import { orgaLiplessEditorial } from './sol';
+import { slowSkipFreqEditorial } from './slowskip-freq';
+import { carurearEditorial } from './carurear';
+import { shadImpactEditorial } from './shad-impact';
+import { ospJigZeroThreeHuntsStrongEditorial } from './jig-zero-three-hunts-strong';
+import { fieldream60Editorial } from './trout-fieldream-60';
+import { surgerEditorial } from './salt-surger';
+import { dContactII50Editorial } from './trout-dcontactii-50';
+import { xrapCountdownEditorial } from './rapala-xrap-countdown';
 
-/** slug → EditorialReview のマップ（全550件） */
+/** slug → EditorialReview のマップ（全560件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1191,4 +1202,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'trout-fieldream-48': fieldream48Editorial,
   'rapala-sssr': shadowRapShadEditorial,
   'slow-emotion-corochino': slowEmotionCorochinoEditorial,
+  // 2026-03-21 追加分 第44弾（10件）
+  'metal-adict-type03-16g20g30g40g60g': metalAdictType03Editorial,
+  'sol': orgaLiplessEditorial,
+  'surosukippu-freqfurekku': slowSkipFreqEditorial,
+  'carurear': carurearEditorial,
+  'shad-impact': shadImpactEditorial,
+  'o-s-p-jig-zero-three-hunts-strong': ospJigZeroThreeHuntsStrongEditorial,
+  'trout-fieldream-60': fieldream60Editorial,
+  'salt-surger': surgerEditorial,
+  'trout-d-contactii-50': dContactII50Editorial,
+  'rapala-xrap-countdown': xrapCountdownEditorial,
 };
