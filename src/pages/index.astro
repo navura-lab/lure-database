@@ -83,12 +83,6 @@ const topRankings = [...crossMap.entries()]
   .map(([slug, v]) => ({ slug, fishName: v.fishName, typeName: v.typeName, count: v.count }));
 
 // ─── ヒーロー用ルアー画像（カラー数上位20件の代表画像）───
-const heroLureImages = series
-  .filter(s => s.representative_image)
-  .sort((a, b) => b.color_count - a.color_count)
-  .slice(0, 20)
-  .map(s => s.representative_image!);
-
 // ─── ランダムピックアップ（ビルド時にシャッフル、8件）───
 const shuffled = [...series].filter(s => s.representative_image);
 for (let i = shuffled.length - 1; i > 0; i--) {
@@ -161,7 +155,7 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <!-- ブランドヒーロー -->
-  <SearchHero seriesCount={series.length} colorCount={totalColors} lureImages={heroLureImages} />
+  <SearchHero seriesCount={series.length} colorCount={totalColors} />
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
 
