@@ -881,6 +881,17 @@ import { shimanoBantamRattlinSurviveEditorial } from './shimano-bantam-rattlin-s
 import { bassdayRangeVib55TgEditorial } from './bassday-range-vib-55-tg';
 import { daiwaMorethanRealSteel18Editorial } from './daiwa-morethan-real-steel-18';
 import { megabassMakippa20Editorial } from './megabass-makippa-20';
+// 2026-03-21 追加分 第70弾（10件）トップウォーター + フロッグ集中
+import { megabassGiantDogXEditorial } from './megabass-giant-dog-x';
+import { evergreenShowerBlowsEditorial } from './evergreen-shower-blows';
+import { depsBuzzjetJrEditorial } from './deps-buzzjet-jr';
+import { jackallRevoltageRvBuzzbaitEditorial } from './jackall-revoltage-rv-buzzbait';
+import { ospLouder60Editorial } from './osp-louder-60';
+import { megabassPopMaxEditorial } from './megabass-pop-max';
+import { depsSlitherkEditorial } from './deps-slitherk';
+import { jackallGavachoFrogEditorial } from './jackall-gavacho-frog';
+import { evergreenPopperFrogEditorial } from './evergreen-popper-frog';
+import { raidDuckdiveEditorial } from './raid-duckdive';
 
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1761,4 +1772,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'bassday-range-vib-55-tg': bassdayRangeVib55TgEditorial,
   'daiwa-morethan-real-steel-18': daiwaMorethanRealSteel18Editorial,
   'megabass-makippa-20': megabassMakippa20Editorial,
+  // 2026-03-21 追加分 第70弾（10件）トップウォーター + フロッグ集中
+  'megabass-giant-dog-x': megabassGiantDogXEditorial,
+  'evergreen-shower-blows': evergreenShowerBlowsEditorial,
+  'deps-buzzjet-jr': depsBuzzjetJrEditorial,
+  'jackall-revoltage-rv-buzzbait': jackallRevoltageRvBuzzbaitEditorial,
+  'osp-louder-60': ospLouder60Editorial,
+  'megabass-pop-max': megabassPopMaxEditorial,
+  'deps-slitherk': depsSlitherkEditorial,
+  'jackall-gavacho-frog': jackallGavachoFrogEditorial,
+  'evergreen-popper-frog': evergreenPopperFrogEditorial,
+  'raid-duckdive': raidDuckdiveEditorial,
 };
