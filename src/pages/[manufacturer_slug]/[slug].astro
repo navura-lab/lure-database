@@ -35,6 +35,10 @@ const {
 
 const hasLimited = series.colors.some(c => c.is_limited);
 
+// 楽天アフィリエイトリンク
+const RAKUTEN_AFF_ID = '521589db.1417b362.521589dc.750250b8';
+const rakutenSearchUrl = `https://hb.afl.rakuten.co.jp/ichiba/${RAKUTEN_AFF_ID}/?pc=${encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${series.manufacturer} ${series.name}/`)}`;
+
 // エディトリアルレビュー（手書きのみ表示。自動生成は手書き化完了まで無効）
 // TODO: 全6,160件の手書き化が完了したら generateAutoEditorial を復活させる
 const editorial = editorialReviews[series.slug] || null;
@@ -834,6 +838,20 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
     </section>
 
     <!-- エディトリアルは最上部（パンくず直後）に移動済み -->
+
+    <!-- 楽天で探すボタン -->
+    <section class="mb-8">
+      <a
+        href={rakutenSearchUrl}
+        target="_blank"
+        rel="nofollow sponsored noopener"
+        class="inline-flex items-center gap-3 w-full sm:w-auto px-6 py-3.5 bg-[#bf0000] text-white rounded-xl font-bold text-[14px] hover:bg-[#a00000] transition-colors duration-200 shadow-sm"
+      >
+        <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M21 11H3c-.55 0-1 .45-1 1s.45 1 1 1h18c.55 0 1-.45 1-1s-.45-1-1-1zm-9-8C6.48 3 2 7.48 2 13s4.48 10 10 10 10-4.48 10-10S17.52 3 12 3zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+        楽天市場で「{series.manufacturer} {series.name}」を探す
+      </a>
+      <p class="text-[11px] text-text-faint mt-1.5">※ 楽天市場の検索結果に遷移します</p>
+    </section>
 
     <!-- カテゴリ内ポジション -->
     {categoryRank > 0 && categoryTotal > 2 && categoryFish && (

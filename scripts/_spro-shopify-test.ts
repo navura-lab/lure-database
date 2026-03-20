@@ -1,43 +1,40 @@
-// SPROの全商品画像状況をShopify APIから調査
+// Shopify商品で実際に画像が大きい(5KB以上)ものの調査
 async function main() {
   let page = 1;
   let hasMore = true;
-  let total = 0;
-  let withImages = 0;
-  let noImages = 0;
-  const handleToImages: Record<string, number> = {};
+  let bigImageProducts = 0;
+  let smallImageProducts = 0;
   
   while (hasMore) {
     const resp = await fetch(`https://www.spro.com/products.json?limit=250&page=${page}`, {
       headers: { 'User-Agent': 'Mozilla/5.0' },
     });
-    if (!resp.ok) { console.error('Error:', resp.status); break; }
+    if (!resp.ok) break;
     const json = await resp.json() as any;
-    const products = json.products || [];
-    if (products.length === 0) { hasMore = false; break; }
+    if (json.products.length === 0) break;
     
-    for (const p of products) {
-      total++;
-      const imgCount = p.images?.length || 0;
-      if (imgCount > 0) {
-        withImages++;
-        handleToImages[p.handle] = imgCount;
-      } else {
-        noImages++;
-      }
+    // サンプルとして各商品のfirst imageをHEADチェック
+    for (const p of json.products) {
+      if (!p.images || p.images.length === 0) continue;
+      try {
+        const imgResp = await fetch(p.images[0].src, { method: 'HEAD' });
+        const size = parseInt(imgResp.headers.get('content-length') || '0', 10);
+        if (size >= 5000) {
+          bigImageProducts++;
+        } else {
+          smallImageProducts++;
+          if (smallImageProducts <= 5) {
+            console.log(`Small: ${p.handle} → ${size} bytes (${p.images[0].src.substring(0, 80)}...)`);
+          }
+        }
+      } catch {}
     }
     page++;
-    if (products.length < 250) hasMore = false;
+    if (json.products.length < 250) hasMore = false;
   }
   
-  console.log(`=== SPRO Shopify API 全商品統計 ===`);
-  console.log(`Total: ${total}`);
-  console.log(`With images: ${withImages}`);
-  console.log(`No images: ${noImages}`);
-  console.log(`\n画像ありの商品例 (最初の20):`);
-  const entries = Object.entries(handleToImages);
-  for (const [handle, count] of entries.slice(0, 20)) {
-    console.log(`  ${handle}: ${count} images`);
-  }
+  console.log(`\nShopify画像サイズ統計:`);
+  console.log(`  >=5KB: ${bigImageProducts}`);
+  console.log(`  <5KB: ${smallImageProducts}`);
 }
 main();
