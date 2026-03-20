@@ -553,8 +553,19 @@ import { superFlukeEditorial } from './super-fluke';
 import { capriceEdgeEditorial } from './capriceedge';
 import { slowEmotionFlareEditorial } from './slow-emotion-flare';
 import { strikeKingHardlinerEditorial } from './strike-king-hardliner';
+// 2026-03-20 追加分 第40弾（10件）
+import { spinnutsEditorial } from './spinnuts';
+import { korojigBladeEditorial } from './korojiguburedo-30g60g';
+import { taiJigEditorial } from './tj';
+import { trueSpinJigEditorial } from './truespinjig';
+import { miu25KaraEditorial } from './miu25-kara';
+import { palEditorial } from './pal-2016';
+import { kaiseyEditorial } from './kaisey';
+import { doughRiderMinnowEditorial } from './dough-rider-minnow';
+import { gulpJerkShadEditorial } from './gulp-alive-saltwater-jerk-shad';
+import { bottomKnockSwimmerIIEditorial } from './trout-bksw-ii';
 
-/** slug → EditorialReview のマップ（全510件） */
+/** slug → EditorialReview のマップ（全520件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1103,4 +1114,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'capriceedge': capriceEdgeEditorial,
   'slow-emotion-flare': slowEmotionFlareEditorial,
   'strike-king-hardliner': strikeKingHardlinerEditorial,
+  // 2026-03-20 追加分 第40弾（10件）
+  'spinnuts': spinnutsEditorial,
+  'korojiguburedo-30g60g': korojigBladeEditorial,
+  'tj': taiJigEditorial,
+  'truespinjig': trueSpinJigEditorial,
+  'miu25-kara': miu25KaraEditorial,
+  'pal-2016': palEditorial,
+  'kaisey': kaiseyEditorial,
+  'dough-rider-minnow': doughRiderMinnowEditorial,
+  'gulp-alive-saltwater-jerk-shad': gulpJerkShadEditorial,
+  'trout-bksw-ii': bottomKnockSwimmerIIEditorial,
 };
