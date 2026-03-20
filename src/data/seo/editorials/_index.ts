@@ -760,8 +760,19 @@ import { megabassDarkSleeperEditorial } from './megabass-dark-sleeper';
 import { dstyleTororoBugEditorial } from './dstyle-tororo-bug';
 import { imakatsuReplicrawEditorial } from './imakatsu-replicraw';
 import { evergreenC4ShrimpEditorial } from './evergreen-c-4-shrimp';
+// 2026-03-21 追加分 第59弾（10件）渓流トラウト + ネイティブトラウト
+import { smithDContact72Editorial } from './smith-d-contact-72';
+import { jacksonTroutTuneHws55Editorial } from './jackson-trout-tune-hws-55';
+import { daiwaSilverCreekMinnow50sEditorial } from './daiwa-silver-creek-minnow-50s';
+import { duoSpearheadRyuki50sEditorial } from './duo-spearhead-ryuki-50s';
+import { duoSpearheadRyuki70sEditorial } from './duo-spearhead-ryuki-70s';
+import { palmsAlexandra43sEditorial } from './palms-alexandra-43s';
+import { smithArFsEditorial } from './smith-ar-fs';
+import { forestMariuEditorial } from './forest-mariu';
+import { noriesMasukuroutoTalonEditorial } from './nories-masukurouto-talon';
+import { smithDContact110Editorial } from './smith-d-contact-110';
 
-/** slug → EditorialReview のマップ（全620件） */
+/** slug → EditorialReview のマップ（全630件） */
 export const editorialReviews: Record<string, EditorialReview> = {
   '35mr-s': mr35sEditorial,
   '4-front-flapper-curly': frontFlapperCurlyEditorial,
@@ -1519,4 +1530,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'dstyle-tororo-bug': dstyleTororoBugEditorial,
   'imakatsu-replicraw': imakatsuReplicrawEditorial,
   'evergreen-c-4-shrimp': evergreenC4ShrimpEditorial,
+  // 2026-03-21 追加分 第59弾（10件）渓流トラウト + ネイティブトラウト
+  'smith-d-contact-72': smithDContact72Editorial,
+  'jackson-trout-tune-hws-55': jacksonTroutTuneHws55Editorial,
+  'daiwa-silver-creek-minnow-50s': daiwaSilverCreekMinnow50sEditorial,
+  'duo-spearhead-ryuki-50s': duoSpearheadRyuki50sEditorial,
+  'duo-spearhead-ryuki-70s': duoSpearheadRyuki70sEditorial,
+  'palms-alexandra-43s': palmsAlexandra43sEditorial,
+  'smith-ar-fs': smithArFsEditorial,
+  'forest-mariu': forestMariuEditorial,
+  'nories-masukurouto-talon': noriesMasukuroutoTalonEditorial,
+  'smith-d-contact-110': smithDContact110Editorial,
 };
