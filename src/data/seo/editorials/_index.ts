@@ -859,6 +859,17 @@ import { daiwaPressoLumionEditorial } from './daiwa-presso-lumion';
 import { smithFieldream56Editorial } from './smith-fieldream-56';
 import { jacksonQueRa55sEditorial } from './jackson-que-ra-55s';
 import { duoSpearheadRyuki45sEditorial } from './duo-spearhead-ryuki-45s';
+// 2026-03-21 追加分 第68弾（10件）メタルジグ各種（ショア + オフショア）
+import { daiwaSaltigaSdJigEditorial } from './daiwa-saltiga-sd-jig';
+import { shimanoOceaBomberDipEditorial } from './shimano-ocea-bomber-dip';
+import { majorcraftJigparaSurfEditorial } from './majorcraft-jigpara-surf';
+import { jacksonGallopAssistEditorial } from './jackson-gallop-assist';
+import { zeakeRSardineLongEditorial } from './zeake-r-sardine-long';
+import { palmsHexaEditorial } from './palms-hexa';
+import { cbOneC1HoverEditorial } from './cb-one-c1-hover';
+import { natureBoysLanceEditorial } from './nature-boys-lance';
+import { hotsOntvJigEditorial } from './hots-ontv-jig';
+import { xestaRunwaySvEditorial } from './xesta-runway-sv';
 
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1717,4 +1728,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'smith-fieldream-56': smithFieldream56Editorial,
   'jackson-que-ra-55s': jacksonQueRa55sEditorial,
   'duo-spearhead-ryuki-45s': duoSpearheadRyuki45sEditorial,
+  // 2026-03-21 追加分 第68弾（10件）メタルジグ各種（ショア + オフショア）
+  'daiwa-saltiga-sd-jig': daiwaSaltigaSdJigEditorial,
+  'shimano-ocea-bomber-dip': shimanoOceaBomberDipEditorial,
+  'majorcraft-jigpara-surf': majorcraftJigparaSurfEditorial,
+  'jackson-gallop-assist': jacksonGallopAssistEditorial,
+  'zeake-r-sardine-long': zeakeRSardineLongEditorial,
+  'palms-hexa': palmsHexaEditorial,
+  'cb-one-c1-hover': cbOneC1HoverEditorial,
+  'nature-boys-lance': natureBoysLanceEditorial,
+  'hots-ontv-jig': hotsOntvJigEditorial,
+  'xesta-runway-sv': xestaRunwaySvEditorial,
 };
