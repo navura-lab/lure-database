@@ -957,6 +957,17 @@ import { daiwaSaltigaOverThere95sEditorial } from './daiwa-saltiga-over-there-95
 import { shimanoColtSniperRockWalk110sEditorial } from './shimano-coltsniper-rock-walk-110s';
 import { duoBeachWalkerWedge95sEditorial } from './duo-beach-walker-wedge-95s';
 import { jacksonSurfDriverEditorial } from './jackson-surf-driver';
+// 2026-03-21 追加分 第77弾（10件）バス用ワーム
+import { garyYamamotoKuttailWorm4Editorial } from './gary-yamamoto-kuttail-worm-4';
+import { garyYamamotoGrubSingleTail4Editorial } from './gary-yamamoto-grub-single-tail-4';
+import { zoomUTailWorm6Editorial } from './zoom-u-tail-worm-6';
+import { zoomFinesseWorm475Editorial } from './zoom-finesse-worm-4-75';
+import { keitechSuperPpogy4Editorial } from './keitech-super-ppogy-4';
+import { jackallDbf56Editorial } from './jackall-dbf-56';
+import { ospDolivebug3Editorial } from './osp-dolivebug-3';
+import { depsSakamatabig6Editorial } from './deps-sakamatabig-6';
+import { megabassItoVtalemon4Editorial } from './megabass-ito-vtalemon-4';
+import { evergreenKickerBug4Editorial } from './evergreen-kicker-bug-4';
 
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1914,4 +1925,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'shimano-coltsniper-rock-walk-110s': shimanoColtSniperRockWalk110sEditorial,
   'duo-beach-walker-wedge-95s': duoBeachWalkerWedge95sEditorial,
   'jackson-surf-driver': jacksonSurfDriverEditorial,
+  // 2026-03-21 追加分 第77弾（10件）バス用ワーム
+  'gary-yamamoto-kuttail-worm-4': garyYamamotoKuttailWorm4Editorial,
+  'gary-yamamoto-grub-single-tail-4': garyYamamotoGrubSingleTail4Editorial,
+  'zoom-u-tail-worm-6': zoomUTailWorm6Editorial,
+  'zoom-finesse-worm-4-75': zoomFinesseWorm475Editorial,
+  'keitech-super-ppogy-4': keitechSuperPpogy4Editorial,
+  'jackall-dbf-56': jackallDbf56Editorial,
+  'osp-dolivebug-3': ospDolivebug3Editorial,
+  'deps-sakamatabig-6': depsSakamatabig6Editorial,
+  'megabass-ito-vtalemon-4': megabassItoVtalemon4Editorial,
+  'evergreen-kicker-bug-4': evergreenKickerBug4Editorial,
 };
