@@ -848,6 +848,17 @@ import { noriesCrystalSEditorial } from './nories-crystal-s';
 import { evergreenDBladeEditorial } from './evergreen-d-blade';
 import { strikeKingTourGradeJigEditorial } from './strike-king-tour-grade-jig';
 import { strikeKingKvdSwimJigEditorial } from './strike-king-kvd-swim-jig';
+// 2026-03-21 追加分 第67弾（10件）エリアトラウト + 管理釣り場
+import { valkeinDangoEditorial } from './valkein-dango';
+import { forestFactorEditorial } from './forest-factor';
+import { noriesMasukuroutoCrankinEditorial } from './nories-masukurouto-crankin';
+import { luckyCraftRc08Editorial } from './lucky-craft-rc-08';
+import { tiemcoPelmetalEditorial } from './tiemco-pelmetal';
+import { shimanoCardiffRollSwimmerEditorial } from './shimano-cardiff-roll-swimmer';
+import { daiwaPressoLumionEditorial } from './daiwa-presso-lumion';
+import { smithFieldream56Editorial } from './smith-fieldream-56';
+import { jacksonQueRa55sEditorial } from './jackson-que-ra-55s';
+import { duoSpearheadRyuki45sEditorial } from './duo-spearhead-ryuki-45s';
 
 /** slug → EditorialReview のマップ（全700件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1695,4 +1706,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'evergreen-d-blade': evergreenDBladeEditorial,
   'strike-king-tour-grade-jig': strikeKingTourGradeJigEditorial,
   'strike-king-kvd-swim-jig': strikeKingKvdSwimJigEditorial,
+  // 2026-03-21 追加分 第67弾（10件）エリアトラウト + 管理釣り場
+  'valkein-dango': valkeinDangoEditorial,
+  'forest-factor': forestFactorEditorial,
+  'nories-masukurouto-crankin': noriesMasukuroutoCrankinEditorial,
+  'lucky-craft-rc-08': luckyCraftRc08Editorial,
+  'tiemco-pelmetal': tiemcoPelmetalEditorial,
+  'shimano-cardiff-roll-swimmer': shimanoCardiffRollSwimmerEditorial,
+  'daiwa-presso-lumion': daiwaPressoLumionEditorial,
+  'smith-fieldream-56': smithFieldream56Editorial,
+  'jackson-que-ra-55s': jacksonQueRa55sEditorial,
+  'duo-spearhead-ryuki-45s': duoSpearheadRyuki45sEditorial,
 };
