@@ -652,6 +652,17 @@ import { imaKoume60Editorial } from './ima-koume-60';
 import { imaHoneyTrap70sEditorial } from './ima-honey-trap-70s';
 import { evergreenCombatCrank320Editorial } from './evergreen-combat-crank-320';
 import { evergreenKickerFrogEditorial } from './evergreen-kicker-frog';
+// 2026-03-21 追加分 第49弾（10件）DAIWA + SHIMANO 人気ルアー
+import { daiwaShorelineShinerZVerticeEditorial } from './daiwa-shoreline-shiner-z-vertice';
+import { daiwaMorethanGarbaEditorial } from './daiwa-morethan-garba';
+import { daiwaSaltigaDoradoPencilEditorial } from './daiwa-saltiga-dorado-pencil';
+import { daiwaEmeraldasDartIIEditorial } from './daiwa-emeraldas-dart-ii';
+import { shimanoExsenceSilentAssassinEditorial } from './shimano-exsence-silent-assassin';
+import { shimanoExsenceResponderEditorial } from './shimano-exsence-responder';
+import { shimanoSephiaClinchFlashBoostEditorial } from './shimano-sephia-clinch-flash-boost';
+import { shimanoOceaJigFlatEditorial } from './shimano-ocea-jig-flat';
+import { daiwaSteezPopperEditorial } from './daiwa-steez-popper';
+import { shimanoBantamWorldMinnowEditorial } from './shimano-bantam-world-minnow';
 
 /** slug → EditorialReview のマップ（全600件） */
 export const editorialReviews: Record<string, EditorialReview> = {
@@ -1301,4 +1312,15 @@ export const editorialReviews: Record<string, EditorialReview> = {
   'ima-honey-trap-70s': imaHoneyTrap70sEditorial,
   'evergreen-combat-crank-320': evergreenCombatCrank320Editorial,
   'evergreen-kicker-frog': evergreenKickerFrogEditorial,
+  // 2026-03-21 追加分 第49弾（10件）DAIWA + SHIMANO 人気ルアー
+  'daiwa-shoreline-shiner-z-vertice': daiwaShorelineShinerZVerticeEditorial,
+  'daiwa-morethan-garba': daiwaMorethanGarbaEditorial,
+  'daiwa-saltiga-dorado-pencil': daiwaSaltigaDoradoPencilEditorial,
+  'daiwa-emeraldas-dart-ii': daiwaEmeraldasDartIIEditorial,
+  'shimano-exsence-silent-assassin': shimanoExsenceSilentAssassinEditorial,
+  'shimano-exsence-responder': shimanoExsenceResponderEditorial,
+  'shimano-sephia-clinch-flash-boost': shimanoSephiaClinchFlashBoostEditorial,
+  'shimano-ocea-jig-flat': shimanoOceaJigFlatEditorial,
+  'daiwa-steez-popper': daiwaSteezPopperEditorial,
+  'shimano-bantam-world-minnow': shimanoBantamWorldMinnowEditorial,
 };
