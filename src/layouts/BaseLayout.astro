@@ -122,6 +122,15 @@ const orgDescription = locale === 'en'
     <a href="/trap/harvest" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true" tabindex="-1">catalog download</a>
     <Footer locale={locale} />
     <script>
+      // Safari bfcache対応: 戻るボタンでページが壊れる問題を修正
+      // View Transitions (SPA mode) とSafariのbfcacheが干渉するため、
+      // bfcacheから復元された場合はページをリロードする
+      window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+          window.location.reload();
+        }
+      });
+
       // Scroll animation observer
       const io = new IntersectionObserver((entries) => {
         for (const entry of entries) {
