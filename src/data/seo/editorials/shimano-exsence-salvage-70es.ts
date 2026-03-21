@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const shimanoExsenceSalvage70esEditorial: EditorialReview = {
-  slug: 'shimano-exsence-salvage-70es',
+  slug: 'sarubeji-soriddo-60es-70s-70es-85es',
   manufacturerSlug: 'shimano',
 
   catchcopy: '鉄板バイブの完成形。シマノが辿り着いたシーバスバイブレーションの最適解。',

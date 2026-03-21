@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const bassdayRangeVib55TgEditorial: EditorialReview = {
-  slug: 'bassday-range-vib-55-tg',
+  slug: 'renjibaibu-55tg70tg',
   manufacturerSlug: 'bassday',
 
   catchcopy: 'シーバスバイブレーションの金字塔「レンジバイブ」のタングステンモデル。飛距離とレンジ攻略力がさらに進化。',

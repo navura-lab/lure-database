@@ -48,10 +48,11 @@ import { batch10h } from './_batch-10h';
 import { batch10i } from './_batch-10i';
 import { batch10j } from './_batch-10j';
 import { batch11 } from './_batch-11';
+import { batch12 } from './_batch-12';
 
 /**
  * 翻訳済み記事マップ（slug → TranslatedArticle）
- * 173記事の英語翻訳
+ * 178記事の英語翻訳
  */
 export const articleTranslationsEn: Record<string, TranslatedArticle> = {
   ...batch1,
@@ -77,4 +78,5 @@ export const articleTranslationsEn: Record<string, TranslatedArticle> = {
   ...batch10i,
   ...batch10j,
   ...batch11,
+  ...batch12,
 };

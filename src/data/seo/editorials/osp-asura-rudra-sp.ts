@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospAsuraRudraSpEditorial: EditorialReview = {
-  slug: 'osp-asura-rudra-sp',
+  slug: 'asura-o-s-p-rudra-130-s',
   manufacturerSlug: 'osp',
 
   catchcopy:

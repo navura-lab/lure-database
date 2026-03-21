@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const shimanoColtSniperRockPopEditorial: EditorialReview = {
-  slug: 'shimano-coltsniper-rock-pop',
+  slug: 'a155f00000c5csaqaf',
   manufacturerSlug: 'shimano',
 
   catchcopy: '磯のヒラマサを水面で仕留める。シマノが本気で作ったショアキャスティング専用ポッパー。',

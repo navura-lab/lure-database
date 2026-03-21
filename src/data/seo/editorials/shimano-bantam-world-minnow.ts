@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const shimanoBantamWorldMinnowEditorial: EditorialReview = {
-  slug: 'shimano-bantam-world-minnow',
+  slug: 'a155f00000c5czlqaf',
   manufacturerSlug: 'shimano',
 
   catchcopy: 'ジャークベイトの教科書。シマノ・バンタムが提案する、世界基準のミノーイング。',

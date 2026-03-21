@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const shimanoBreniousRisePop50fEditorial: EditorialReview = {
-  slug: 'shimano-brenious-rise-pop-50f',
+  slug: 'raizupoppu-50f-65f',
   manufacturerSlug: 'shimano',
 
   catchcopy: 'チヌが水面を割る興奮。ブレニアスブランドが生んだチニング専用ポッパー。',

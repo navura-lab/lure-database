@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const blueblueBlooowin140sEditorial: EditorialReview = {
-  slug: 'blueblue-blooowin-140s',
+  slug: 'buroin-140s',
   manufacturerSlug: 'blueblue',
 
   catchcopy: 'ランカーシーバスを獲るために生まれた、唯一無二のS字系シンキングミノー。',

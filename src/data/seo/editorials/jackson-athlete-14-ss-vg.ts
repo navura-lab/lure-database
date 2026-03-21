@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jacksonAthlete14ssVgEditorial: EditorialReview = {
-  slug: 'jackson-athlete-14-ss-vg',
+  slug: 'athlete-12ssp-14ssp',
   manufacturerSlug: 'jackson',
 
   catchcopy: 'サーフミノーの定番中の定番。14cmのロングボディが生み出す強波動で、ヒラメを広範囲から引き寄せる。',

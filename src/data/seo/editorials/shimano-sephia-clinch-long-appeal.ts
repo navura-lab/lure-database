@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const shimanoClinchLongAppealEditorial: EditorialReview = {
-  slug: 'shimano-sephia-clinch-long-appeal',
+  slug: 'a155f00000cpdayqa5',
   manufacturerSlug: 'shimano',
 
   catchcopy: 'シャクった後の「フォール時間」を最大化。スローフォールで、じっくり見せて抱かせるエギ。',

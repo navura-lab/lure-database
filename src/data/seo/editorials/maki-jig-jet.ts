@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const makiJigJetEditorial: EditorialReview = {
-  slug: 'maki-jig-jet',
+  slug: 'maki-jet',
   manufacturerSlug: 'majorcraft',
 
   catchcopy: '投げて巻くだけで青物が獲れる。メジャークラフトが提案するジェット巻きジグ。',

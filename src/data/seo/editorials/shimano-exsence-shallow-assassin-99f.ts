@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const shimanoExsenceShallowAssassin99fEditorial: EditorialReview = {
-  slug: 'shimano-exsence-shallow-assassin-99f',
+  slug: 'a155f00000c5cxfqaf',
   manufacturerSlug: 'shimano',
 
   catchcopy: '干潟・シャローの絶対王者。レンジ0〜80cmを支配する、シーバス専用シャローランナー。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const shimanoColtSniperRockDriftEditorial: EditorialReview = {
-  slug: 'shimano-coltsniper-rock-drift',
+  slug: 'a155f00000c5ctsqaf',
   manufacturerSlug: 'shimano',
 
   catchcopy: '沈む、漂う、食わせる。磯の青物を水面直下で騙すシマノのシンキングペンシル。',

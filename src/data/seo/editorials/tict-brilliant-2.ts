@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const tictBrilliant2Editorial: EditorialReview = {
-  slug: 'tict-brilliant-2',
+  slug: 'briliant2',
   manufacturerSlug: 'tict',
 
   catchcopy: 'アジングワームの「素材革命」。もちもち高比重マテリアルが生む飛距離とナチュラルな波動で、ジグ単の釣りが変わる。',
