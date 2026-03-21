@@ -37,6 +37,7 @@ const SUBCATEGORY_TYPE_MAP: Record<string, string> = {
   'blade-bait': 'ブレードベイト',
   'metal-jig': 'メタルジグ',
   'rubber-jig': 'ラバージグ',
+  'soft-bait': 'ワーム',
   'namazu': 'ナマズルアー',
   // Salt shore
   'sea-bass': 'シーバスルアー',
