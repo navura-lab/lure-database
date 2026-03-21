@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassDogXEditorial: EditorialReview = {
-  slug: 'megabass-dog-x',
+  slug: 'dog-x-quick-walker-2',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'ドッグウォークの教科書。左右に首を振る「犬の散歩」を最も美しく表現するペンシルベイト。',

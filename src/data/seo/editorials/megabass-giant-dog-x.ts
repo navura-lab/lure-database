@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassGiantDogXEditorial: EditorialReview = {
-  slug: 'megabass-giant-dog-x',
+  slug: 'giant-dog-x-2',
   manufacturerSlug: 'megabass',
 
   catchcopy: '首振りドッグウォークの完成形。メガバスが「トップの釣り」を一段上のステージに引き上げたペンシルベイト。',

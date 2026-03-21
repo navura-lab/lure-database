@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const apiaBagrationEditorial: EditorialReview = {
-  slug: 'apia-foojin-z-beast-fang',
+  slug: 'bagration',
   manufacturerSlug: 'apia',
 
   catchcopy:

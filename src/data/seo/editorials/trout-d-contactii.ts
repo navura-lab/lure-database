@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const dContactIIEditorial: EditorialReview = {
-  slug: 'trout-d-contactii',
+  slug: 'trout-dcontact85',
   manufacturerSlug: 'smith',
 
   catchcopy:

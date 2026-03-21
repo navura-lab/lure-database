@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallDeraballEditorial: EditorialReview = {
-  slug: 'jackall-deraball',
+  slug: 'deraball',
   manufacturerSlug: 'jackall',
 
   catchcopy: 'コンパクトボディに凝縮されたスピナーベイトの基本性能。デラシリーズらしい「誰でも釣れる」を形にした一本。',

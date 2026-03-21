@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenPopperFrogEditorial: EditorialReview = {
-  slug: 'evergreen-popper-frog',
+  slug: 'popperfrog',
   manufacturerSlug: 'evergreen',
 
   catchcopy: 'エバーグリーンが送り出すポッパー機能搭載フロッグ。カバーの奥でスプラッシュを上げ、出番のないはずの場所でバスを獲る。',

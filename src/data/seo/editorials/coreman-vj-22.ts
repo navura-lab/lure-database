@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const coremanVj22Editorial: EditorialReview = {
-  slug: 'coreman-vj-22',
+  slug: 'vj-22-vibration-jighead',
   manufacturerSlug: 'coreman',
 
   catchcopy: 'デイシーバスの答え。ジグヘッド+ワームの食わせ力とメタルジグの飛距離を両立した唯一無二の存在。',

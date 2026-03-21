@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassX80SwEditorial: EditorialReview = {
-  slug: 'megabass-x-80-sw',
+  slug: 'x-80sw',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'バスルアーの名機がソルトで覚醒。X-80 SWは、シーバスゲームの定番ミノーとして不動の地位を築いた。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsBullshooterEditorial: EditorialReview = {
-  slug: 'deps-bullshooter',
+  slug: 'bullshooter160',
   manufacturerSlug: 'deps',
 
   catchcopy: 'ギルを食うデカバスだけを狙い撃つ。デプスが生んだ究極のギル型ビッグベイトは、ランカーハンターの最終兵器だ。',

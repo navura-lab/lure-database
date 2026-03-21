@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const yamashitaEgiOhLiveEditorial: EditorialReview = {
-  slug: 'yamashita-egi-oh-live',
+  slug: 'ama',
   manufacturerSlug: 'yamashita',
 
   catchcopy: '「温度でカラーが変わるエギ」ではなく、「イカが最も反応する波長を追求し続けた結果のエギ」。エギ王LIVEは、ヤマシタが長年の研究で到達した"釣れるカラー科学"の集大成だ。',

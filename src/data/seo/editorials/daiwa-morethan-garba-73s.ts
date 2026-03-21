@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaMorethanGarba73sEditorial: EditorialReview = {
-  slug: 'daiwa-morethan-garba-73s',
+  slug: 'g37fonx',
   manufacturerSlug: 'daiwa',
 
   catchcopy:

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const blueblueSnecon90sEditorial: EditorialReview = {
-  slug: 'blueblue-snecon-90s',
+  slug: 'snecon-90s',
   manufacturerSlug: 'blueblue',
 
   catchcopy: 'S字の元祖、90mmで手返し重視。港湾のシーバスを虜にする小型シンキングペンシル。',

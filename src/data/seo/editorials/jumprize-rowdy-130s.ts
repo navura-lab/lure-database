@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jumprizeRowdy130sEditorial: EditorialReview = {
-  slug: 'jumprize-rowdy-130s',
+  slug: 'rowdy130f',
   manufacturerSlug: 'jumprize',
 
   catchcopy: '磯ヒラからサーフまで。荒磯の帝王・井上友樹が鍛え上げた、タフコンディション対応のシンキングミノー。',

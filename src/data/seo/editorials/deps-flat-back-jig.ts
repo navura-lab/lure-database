@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsFlatBackJigEditorial: EditorialReview = {
-  slug: 'deps-flat-back-jig',
+  slug: 'flatbackjig',
   manufacturerSlug: 'deps',
 
   catchcopy:

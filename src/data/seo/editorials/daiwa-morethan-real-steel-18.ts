@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaMorethanRealSteel18Editorial: EditorialReview = {
-  slug: 'daiwa-morethan-real-steel-18',
+  slug: '74d36vu',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'メタルバイブの弱点を克服した「鉄板系」の進化形。根掛かりへの強さと食わせ能力を両立したダイワの意欲作。',

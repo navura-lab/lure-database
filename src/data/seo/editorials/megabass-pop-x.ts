@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassPopXEditorial: EditorialReview = {
-  slug: 'megabass-pop-x',
+  slug: 'popx',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'ポッパーの名作にして金字塔。水面で「生命感」を演出できる唯一無二のトップウォータープラグ。',

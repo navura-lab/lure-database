@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenKickerFrogEditorial: EditorialReview = {
-  slug: 'evergreen-kicker-frog',
+  slug: 'kickerfrog',
   manufacturerSlug: 'evergreen',
 
   catchcopy: 'ヘビーカバーの下に潜むビッグバスを引きずり出す。エバーグリーンのフロッグが、他のルアーでは攻められない領域を切り拓く。',

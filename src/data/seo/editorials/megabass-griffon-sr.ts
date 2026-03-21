@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassGriffonSrEditorial: EditorialReview = {
-  slug: 'megabass-griffon-sr',
+  slug: 'sr-x-griffon',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'シャロークランクの金字塔。伊東由樹が生み出した名作が、浅場のバスを攻略し続ける。',

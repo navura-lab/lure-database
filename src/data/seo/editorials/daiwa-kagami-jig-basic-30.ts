@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaKagamiJigBasic30Editorial: EditorialReview = {
-  slug: 'daiwa-kagami-jig-basic-30',
+  slug: 'uwjv711',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'タチウオジギングの「基本」を体現する30g。シンプルな操作で確実に食わせる、ダイワの定番タチウオジグ。',

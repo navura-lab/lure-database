@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassMegaDogEditorial: EditorialReview = {
-  slug: 'megabass-mega-dog',
+  slug: 'megadog',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'メガバスが放つ大型ペンシルベイト。巨大なボディが水面を割って泳ぐ、ショア青物の切り札。',

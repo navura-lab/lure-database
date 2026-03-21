@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassMakippa20Editorial: EditorialReview = {
-  slug: 'megabass-makippa-20',
+  slug: 'makippa',
   manufacturerSlug: 'megabass',
 
   catchcopy: '巻くだけで釣れる、を体現したブレードベイト。初心者からベテランまで、ショアジギングの新定番。',

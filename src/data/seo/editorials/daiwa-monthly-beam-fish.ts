@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaMonthlyBeamFishEditorial: EditorialReview = {
-  slug: 'daiwa-monthly-beam-fish',
+  slug: 'hvs82b5',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'ダイワの月下美人が生んだフィッシュ型ワーム。小魚シルエットで、アジ・メバルの捕食本能を直撃する。',

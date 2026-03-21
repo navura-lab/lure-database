@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const duoTideMinnowSlim120Editorial: EditorialReview = {
-  slug: 'duo-tide-minnow-slim-120',
+  slug: 'tide-minnow-slim-120',
   manufacturerSlug: 'duo',
 
   catchcopy: 'スリムシルエットが生む低活性時の一撃。DUOが磨き上げたシーバスミノーの正統派。',

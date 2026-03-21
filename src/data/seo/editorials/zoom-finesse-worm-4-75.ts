@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const zoomFinesseWorm475Editorial: EditorialReview = {
-  slug: 'zoom-finesse-worm-4-75',
+  slug: 'finesse-worm',
   manufacturerSlug: 'zoom',
 
   catchcopy: 'アメリカのトーナメントで「最後の切り札」と呼ばれたフィネスワーム。4.75インチの細身ボディが、どんな状況でもバイトを絞り出す。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const cbSardineEditorial: EditorialReview = {
-  slug: 'salt-cb-sardine',
+  slug: 'salt-sardinerun',
   manufacturerSlug: 'smith',
 
   catchcopy:

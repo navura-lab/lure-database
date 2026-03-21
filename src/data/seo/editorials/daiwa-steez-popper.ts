@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaSteezPopperEditorial: EditorialReview = {
-  slug: 'daiwa-steez-popper',
+  slug: '5qutxkl',
   manufacturerSlug: 'daiwa',
 
   catchcopy: '水面を割るバイトを量産する。ダイワ最高峰ブランドが磨き上げたバス用ポッパー。',

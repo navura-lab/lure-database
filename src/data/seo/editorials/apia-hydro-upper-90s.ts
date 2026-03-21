@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const apiaHydroUpper90sEditorial: EditorialReview = {
-  slug: 'apia-hydro-upper-90s',
+  slug: 'hydro-upper-90s',
   manufacturerSlug: 'apia',
 
   catchcopy: '流れの中で「勝手に釣れる」シンペン。ドリフト特化設計が河川シーバスの常識を変える。',

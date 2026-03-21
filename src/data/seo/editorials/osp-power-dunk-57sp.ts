@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospPowerDunk57spEditorial: EditorialReview = {
-  slug: 'osp-power-dunk-57sp',
+  slug: 'power-dunk-57-sp',
   manufacturerSlug: 'osp',
 
   catchcopy: 'ボトムを舐めるように泳ぐシャッド。パワーダンク57SPは、障害物回避能力とサスペンドの両立を極めた1本。',

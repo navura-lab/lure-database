@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const athlete12FsVgEditorial: EditorialReview = {
-  slug: 'athlete-12-fs-vg',
+  slug: 'athlete-12-fs-vg-14-fs-vg',
   manufacturerSlug: 'jackson',
 
   catchcopy:

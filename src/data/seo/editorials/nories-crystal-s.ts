@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const noriesCrystalSEditorial: EditorialReview = {
-  slug: 'nories-crystal-s',
+  slug: 'crystal-s',
   manufacturerSlug: 'nories',
 
   catchcopy:

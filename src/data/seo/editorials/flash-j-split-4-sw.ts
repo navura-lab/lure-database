@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const flashJSplit4SwEditorial: EditorialReview = {
-  slug: 'flash-j-split-4-sw',
+  slug: 'flash-j-split-3',
   manufacturerSlug: 'fisharrow',
 
   catchcopy:

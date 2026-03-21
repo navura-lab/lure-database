@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaMorethanGarbaEditorial: EditorialReview = {
-  slug: 'daiwa-morethan-garba',
+  slug: 'g37fonx',
   manufacturerSlug: 'daiwa',
 
   catchcopy: '水面直下をゆらめくS字。バチもマイクロベイトも、ガルバ1本で撃ち抜く。',

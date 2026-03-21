@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const raidLevelMinnowEditorial: EditorialReview = {
-  slug: 'raid-level-minnow',
+  slug: 'level-minnow',
   manufacturerSlug: 'raid',
 
   catchcopy: 'オカッパリのジャークベイト。岸釣りで必要な飛距離とキレのあるダートで、見切られないミノーイングを実現。',

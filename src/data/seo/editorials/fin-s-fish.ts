@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const finSFishEditorial: EditorialReview = {
-  slug: 'fin-s-fish',
+  slug: '5-fin-s-fish',
   manufacturerSlug: 'lunker-city',
 
   catchcopy: 'ランカーシティの名作スイムベイト。細身のシルエットが生み出すナチュラルアクション。',

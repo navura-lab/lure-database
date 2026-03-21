@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaSteezsShad54spMrEditorial: EditorialReview = {
-  slug: 'daiwa-steez-shad-54sp-mr',
+  slug: 'l5x2irh',
   manufacturerSlug: 'daiwa',
 
   catchcopy:

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const garyYamamotoSenko5Editorial: EditorialReview = {
-  slug: 'gary-yamamoto-senko-5',
+  slug: 'senko5',
   manufacturerSlug: 'gary-yamamoto',
 
   catchcopy:

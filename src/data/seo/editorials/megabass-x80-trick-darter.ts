@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassX80TrickDarterEditorial: EditorialReview = {
-  slug: 'megabass-x80-trick-darter',
+  slug: 'x-80-trick-darter',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'シーバスミノーの金字塔。80mmボディに凝縮された重心移動とダートの切れ味が、港湾のタフコンディションを打ち破る。',

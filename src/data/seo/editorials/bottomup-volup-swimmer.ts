@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const bottomupVolupSwimmerEditorial: EditorialReview = {
-  slug: 'bottomup-volup-swimmer',
+  slug: 'volupswimmer33',
   manufacturerSlug: 'bottomup',
 
   catchcopy: 'ソフトスイムベイトの新定番。デッドスローでもしっかり泳ぐテールアクションが、賢いデカバスの口を使わせる。',

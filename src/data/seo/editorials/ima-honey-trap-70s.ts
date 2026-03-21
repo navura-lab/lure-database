@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const imaHoneyTrap70sEditorial: EditorialReview = {
-  slug: 'ima-honey-trap-70s',
+  slug: 'honey-trap-70s',
   manufacturerSlug: 'ima',
 
   catchcopy: '甘い罠にかかるのはシーバス。70mmシンキングペンシルが描く絶妙なS字が、スレた魚の本能を揺さぶる。',

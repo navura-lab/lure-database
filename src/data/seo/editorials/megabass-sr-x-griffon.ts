@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megbassSrXGriffonEditorial: EditorialReview = {
-  slug: 'megabass-sr-x-griffon',
+  slug: 'sr-x-griffon',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'シャロークランクの最高到達点。伊東由樹が追求した「引き感の軽さ」と「アクションの強さ」が共存する稀有な1台。',

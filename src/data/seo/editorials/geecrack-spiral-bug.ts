@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const geecrackSpiralBugEditorial: EditorialReview = {
-  slug: 'geecrack-spiral-bug',
+  slug: 'geecrack-6',
   manufacturerSlug: 'geecrack',
 
   catchcopy: 'スパイラルフォールという禁じ手。ジークラックが生んだ、落とすだけで食わせるバグ系ワーム。',

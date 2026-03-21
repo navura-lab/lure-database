@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospVaruna110Editorial: EditorialReview = {
-  slug: 'osp-varuna-110',
+  slug: 'asura-o-s-p-varuna-110-sp',
   manufacturerSlug: 'osp',
 
   catchcopy: 'ルドラの弟分にして、よりバーサタイルな110mmジャークベイト。扱いやすさとダート性能の絶妙なバランス。',

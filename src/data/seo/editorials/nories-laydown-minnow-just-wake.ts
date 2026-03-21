@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const noriesLaydownMinnowJustWakeEditorial: EditorialReview = {
-  slug: 'nories-laydown-minnow-just-wake',
+  slug: 'laydown-minnow',
   manufacturerSlug: 'nories',
 
   catchcopy: '水面直下を引き波で攻める。レイダウンミノー ジャストウェイクは、サブサーフェスの「見える釣り」を極めた1本。',

@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const dropDiamondEditorial: EditorialReview = {
-  slug: 'trout-drop-diamond',
+  slug: 'trout-dropdia',
   manufacturerSlug: 'smith',
 
   catchcopy: 'ダイヤモンドカットが生むフラッシング。エリアトラウトのスプーンに新たな選択肢を加えるスミスの一枚。',

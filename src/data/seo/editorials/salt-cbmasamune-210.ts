@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const cbMasamune210Editorial: EditorialReview = {
-  slug: 'salt-cbmasamune-210',
+  slug: 'salt-masamune',
   manufacturerSlug: 'smith',
 
   catchcopy: '210mmのロングシルエットが大型シーバスの捕食本能を刺激する。スミスが放つビッグベイトの切り札。',

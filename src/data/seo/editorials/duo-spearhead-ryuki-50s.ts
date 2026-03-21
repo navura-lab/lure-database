@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const duoSpearheadRyuki50sEditorial: EditorialReview = {
-  slug: 'duo-spearhead-ryuki-50s',
+  slug: 'spearhead-ryuki-vib',
   manufacturerSlug: 'duo',
 
   catchcopy: 'コスパと実釣性能を両立した、DUOの渓流ミノー。リュウキ50Sは今の渓流シーンを代表する存在だ。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const imaKoume60Editorial: EditorialReview = {
-  slug: 'ima-koume-60',
+  slug: 'kome-60',
   manufacturerSlug: 'ima',
 
   catchcopy: '小粒でもしっかり飛んで、しっかり泳ぐ。港湾シーバスのマイクロベイトパターンを制する小型バイブレーション。',

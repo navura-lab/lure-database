@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jacksonAthlete105vgEditorial: EditorialReview = {
-  slug: 'jackson-athlete-105vg',
+  slug: 'athlete105ssp',
   manufacturerSlug: 'jackson',
 
   catchcopy: '日本のシーバスミノーの原点。30年以上愛され続ける不朽の名作が、現代仕様で進化した。',

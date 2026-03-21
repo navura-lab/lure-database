@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassItoShinerEditorial: EditorialReview = {
-  slug: 'megabass-ito-shiner',
+  slug: 'ito-shiner',
   manufacturerSlug: 'megabass',
 
   catchcopy: '伊東由樹が本気で作ったシャッド型ジャークベイト。ワンテンより一回り小さく、より繊細に。',

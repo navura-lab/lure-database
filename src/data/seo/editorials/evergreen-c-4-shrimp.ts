@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenC4ShrimpEditorial: EditorialReview = {
-  slug: 'evergreen-c-4-shrimp',
+  slug: 'c4shrimp',
   manufacturerSlug: 'evergreen',
 
   catchcopy:

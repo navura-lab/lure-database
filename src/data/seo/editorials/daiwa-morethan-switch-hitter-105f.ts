@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaMorethanSwitchHitter105fEditorial: EditorialReview = {
-  slug: 'daiwa-morethan-switch-hitter-105f',
+  slug: 'p84ie5s',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'シンペンなのに浮く。流れの中で「止めて食わせる」フローティングの発想。',

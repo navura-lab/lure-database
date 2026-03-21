@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const luckyCraftMicroCraPeaEditorial: EditorialReview = {
-  slug: 'lucky-craft-micro-cra-pea',
+  slug: 'microcrapea-area',
   manufacturerSlug: 'luckycraft',
 
   catchcopy: '小さなボディに詰まった高い基本性能。ラッキークラフトが贈る、エリアクランクの入門機にして本命。',

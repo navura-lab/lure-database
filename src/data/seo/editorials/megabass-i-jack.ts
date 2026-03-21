@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassIJackEditorial: EditorialReview = {
-  slug: 'megabass-i-jack',
+  slug: 'i-jack',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'メガバスが再定義したクローラーベイト。i字系のナチュラルさと羽根モノのアピール力を融合した、新世代のトップウォーター。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const troutDcontact85Editorial: EditorialReview = {
-  slug: 'trout-d-contact-85',
+  slug: 'trout-dcontact85',
   manufacturerSlug: 'smith',
 
   catchcopy: '渓流の名作が本流サイズに。D-Contact 85は、大型トラウトとシーバスの世界への入場券だ。',

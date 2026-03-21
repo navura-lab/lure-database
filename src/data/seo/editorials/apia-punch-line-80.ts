@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const apiaPunchLine80Editorial: EditorialReview = {
-  slug: 'apia-punch-line-80',
+  slug: 'punch-line-80',
   manufacturerSlug: 'apia',
 
   catchcopy: '飛距離と食わせを両立した、港湾シーバスの万能シンペン。迷ったらまずコレを投げろ。',

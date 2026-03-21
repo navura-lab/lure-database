@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const shimanoSephiaClinchFlashBoostEditorial: EditorialReview = {
-  slug: 'shimano-sephia-clinch-flash-boost',
+  slug: 'a155f00000c5d08qaf',
   manufacturerSlug: 'shimano',
 
   catchcopy: 'フォール中も光り続ける。フラッシュブーストが切り拓く、エギングの新次元。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const dstyleVirola38Editorial: EditorialReview = {
-  slug: 'dstyle-virola-3-8',
+  slug: 'virola2-8',
   manufacturerSlug: 'dstyle',
 
   catchcopy:

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallDerbyClubEditorial: EditorialReview = {
-  slug: 'jackall-derby-club',
+  slug: 'beak',
   manufacturerSlug: 'jackall',
 
   catchcopy: 'ジャッカルが放つホッグ系ワーム。テキサスリグでもジグトレーラーでも、カバー攻略の懐刀。',

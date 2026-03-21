@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaSilverCreekMinnow50sEditorial: EditorialReview = {
-  slug: 'daiwa-silver-creek-minnow-50s',
+  slug: 'qu68qjg',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'ダイワが渓流に送り出した定番シンキングミノー。素直な操作性と安定感で、初心者からベテランまで信頼される一本。',

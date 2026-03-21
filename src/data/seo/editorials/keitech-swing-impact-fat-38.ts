@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const keitechSwingImpactFat38Editorial: EditorialReview = {
-  slug: 'keitech-swing-impact-fat-38',
+  slug: 'swing-impact',
   manufacturerSlug: 'keitech',
 
   catchcopy:

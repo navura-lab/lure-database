@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const tobisugiDanielBladeEditorial: EditorialReview = {
-  slug: 'salt-tobisugi-daniel-blade',
+  slug: 'tobisugi-daniel-blade-30g-40g',
   manufacturerSlug: 'jackson',
 
   catchcopy: '飛距離とブレードの集魚力を両立。飛び過ぎダニエルの進化系がショアの攻略レンジを広げる。',

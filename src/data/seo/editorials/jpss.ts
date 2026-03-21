@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jpssEditorial: EditorialReview = {
-  slug: 'jpss',
+  slug: 'jps',
   manufacturerSlug: 'majorcraft',
 
   catchcopy: 'ショアからスロージギング。ジグパラ ショアスローは「巻くだけでヒラヒラ」を実現した、誰でも使えるメタルジグ。',

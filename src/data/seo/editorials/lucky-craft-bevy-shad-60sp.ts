@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const luckyCraftBevyShad60spEditorial: EditorialReview = {
-  slug: 'lucky-craft-bevy-shad-60sp',
+  slug: 'bevyshad',
   manufacturerSlug: 'luckycraft',
 
   catchcopy: '困ったらベビーシャッド。20年以上愛され続けるシャッドの絶対的スタンダード。',

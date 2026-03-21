@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const dstyleSvsbEditorial: EditorialReview = {
-  slug: 'dstyle-svsb',
+  slug: 'svsb',
   manufacturerSlug: 'dstyle',
 
   catchcopy: '青木大介が求めた「巻けるスティックベイト」。SVSBはシェイクでもスイミングでも魚を呼ぶ。',

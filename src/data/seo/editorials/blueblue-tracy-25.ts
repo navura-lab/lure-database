@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const blueblueTracy25Editorial: EditorialReview = {
-  slug: 'blueblue-tracy-25',
+  slug: 'tracy',
   manufacturerSlug: 'blueblue',
 
   catchcopy: 'シーバスデイゲームの最終兵器。圧倒的な飛距離とタイトバイブレーションで、鉄板バイブの概念を覆す。',

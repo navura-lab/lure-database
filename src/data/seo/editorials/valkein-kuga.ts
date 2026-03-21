@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const valkeinKugaEditorial: EditorialReview = {
-  slug: 'valkein-kuga',
+  slug: 'kuga',
   manufacturerSlug: 'valkein',
 
   catchcopy: 'スプーンで獲れない魚をクランクで獲る。ヴァルケインが送り出すエリア専用設計のマイクロクランク。',

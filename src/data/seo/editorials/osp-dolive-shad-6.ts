@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospDoliveShad6Editorial: EditorialReview = {
-  slug: 'osp-dolive-shad-6',
+  slug: 'doliveshad-sw',
   manufacturerSlug: 'osp',
 
   catchcopy:

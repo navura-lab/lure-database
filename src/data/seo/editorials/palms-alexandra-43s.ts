@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const palmsAlexandra43sEditorial: EditorialReview = {
-  slug: 'palms-alexandra-43s',
+  slug: 'alexandra',
   manufacturerSlug: 'palms',
 
   catchcopy: '43mmの小さなボディに、源流域の戦闘力を凝縮。パームスのアレキサンドラは、小場所のスペシャリスト。',

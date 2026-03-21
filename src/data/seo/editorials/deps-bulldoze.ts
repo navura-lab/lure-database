@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsBulldozeEditorial: EditorialReview = {
-  slug: 'deps-bulldoze',
+  slug: 'bulldoze160',
   manufacturerSlug: 'deps',
 
   catchcopy: 'デカバス専用設計のスピナーベイト。ワイヤーの強さとブレードの水押しが、ビッグフィッシュだけを選んで連れてくる。',

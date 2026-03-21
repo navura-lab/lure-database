@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenShowerBlowsEditorial: EditorialReview = {
-  slug: 'evergreen-shower-blows',
+  slug: 'showerblows',
   manufacturerSlug: 'evergreen',
 
   catchcopy: '清水盛三が生んだペンシルベイトの名作。水面直下のロールアクションでスレたバスの口を使わせる。',

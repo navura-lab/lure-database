@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaSteezCrawlerEditorial: EditorialReview = {
-  slug: 'daiwa-steez-crawler',
+  slug: 'c6ycsto',
   manufacturerSlug: 'daiwa',
 
   catchcopy: '羽根モノの正解がここにある。スティーズブランドが到達した、デッドスロー特化型クローラーベイトの完成形。',

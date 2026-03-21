@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsBasiriskyEditorial: EditorialReview = {
-  slug: 'deps-basirisky',
+  slug: 'basirisky',
   manufacturerSlug: 'deps',
 
   catchcopy: 'ヘビーカバーの奥に潜むモンスターを引きずり出す。デプスが放つフロッグの決定版。',

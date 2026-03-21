@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const noriesMasukuroutoTalonEditorial: EditorialReview = {
-  slug: 'nories-masukurouto-talon',
+  slug: 'masukurouto',
   manufacturerSlug: 'nories',
 
   catchcopy: 'ノリーズ「鱒玄人」シリーズのスプーン。TALONの爪型ボディが、渓流に独自のアプローチを刻む。',

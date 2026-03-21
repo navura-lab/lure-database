@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaMorethanSwitchHitter65sEditorial: EditorialReview = {
-  slug: 'daiwa-morethan-switch-hitter-65s',
+  slug: 'p84ie5s',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'スイッチヒッターの小型モデル。マイクロベイトパターンやフィネスなシーバスゲームに最適な65mm。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsBuzzjetJrEditorial: EditorialReview = {
-  slug: 'deps-buzzjet-jr',
+  slug: 'buzzjet-jr',
   manufacturerSlug: 'deps',
 
   catchcopy: 'バズジェットのDNAを受け継いだダウンサイズモデル。タフコンディションでもトップの爆発力を失わない。',

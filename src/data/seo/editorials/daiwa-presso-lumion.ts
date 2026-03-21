@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaPressoLumionEditorial: EditorialReview = {
-  slug: 'daiwa-presso-lumion',
+  slug: 'tc7tk5j',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'ダイワの本気がエリアクランクに詰まった。ルミオンは発光ボディで「見えない魚」を振り向かせる。',

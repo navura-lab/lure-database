@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const gancraftJointedClaw178Editorial: EditorialReview = {
-  slug: 'gancraft-jointed-claw-178',
+  slug: 'jointedclaw178',
   manufacturerSlug: 'gancraft',
 
   catchcopy: 'S字系ビッグベイトの原点にして頂点。ジョイクロ178が生み出した「巻かない釣り」は、ビッグバスフィッシングの概念を変えた。',

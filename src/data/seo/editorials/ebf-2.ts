@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ebf2Editorial: EditorialReview = {
-  slug: 'ebf-2',
+  slug: 'tm-2',
   manufacturerSlug: 'majorcraft',
 
   catchcopy: 'フェザー素材がイカの抱きを長引かせる。餌木蔵シリーズの第2弾フェザーエギ。',

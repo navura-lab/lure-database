@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const mukaiZanmuEditorial: EditorialReview = {
-  slug: 'mukai-zanmu',
+  slug: 'zanmu35mrkomaya',
   manufacturerSlug: 'mukai',
 
   catchcopy: '1g台の極薄スプーンが切り拓く、超スローの世界。ムカイが到達した、エリアスプーンの極致。',

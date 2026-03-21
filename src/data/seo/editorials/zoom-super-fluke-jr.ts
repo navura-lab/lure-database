@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const zoomSuperFlukeJrEditorial: EditorialReview = {
-  slug: 'zoom-super-fluke-jr',
+  slug: 'super-fluke-jr',
   manufacturerSlug: 'zoom',
 
   catchcopy:

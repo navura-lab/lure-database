@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const blueblueSnecon130sEditorial: EditorialReview = {
-  slug: 'blueblue-snecon-130s',
+  slug: 'snecon-130s',
   manufacturerSlug: 'blueblue',
 
   catchcopy:

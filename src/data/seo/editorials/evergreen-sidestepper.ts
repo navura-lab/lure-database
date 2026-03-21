@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenSidestepperEditorial: EditorialReview = {
-  slug: 'evergreen-sidestepper',
+  slug: 'sidestep',
   manufacturerSlug: 'evergreen',
 
   catchcopy: 'I字系ミノーの元祖にして到達点。サイドステッパーは、「何もしない」ことで魚を狂わせる。',

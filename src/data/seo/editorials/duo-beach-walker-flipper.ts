@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const duoBeachWalkerFlipperEditorial: EditorialReview = {
-  slug: 'duo-beach-walker-flipper',
+  slug: 'beach-walker-flipper-32',
   manufacturerSlug: 'duo',
 
   catchcopy: 'サーフのヒラメ攻略に欠かせないシンペン。飛距離とスローフォールのバランスが、ボトム付近のヒラメを確実に仕留める。',

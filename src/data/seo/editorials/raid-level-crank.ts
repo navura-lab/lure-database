@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const raidLevelCrankEditorial: EditorialReview = {
-  slug: 'raid-level-crank',
+  slug: 'level-crank-4',
   manufacturerSlug: 'raid',
 
   catchcopy: 'オカッパリのクランクベイト。誰が巻いても釣れるアクションと、根がかり回避能力を両立させたレイドジャパンの巻き物。',

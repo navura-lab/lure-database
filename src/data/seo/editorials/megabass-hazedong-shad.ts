@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassHazedongShadEditorial: EditorialReview = {
-  slug: 'megabass-hazedong-shad',
+  slug: 'hazedong-shad-3inch',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'ハゼの動きを完全再現。メガバスが送る小魚系シャッドテールワームの新基準。',

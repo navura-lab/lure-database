@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const drtKlashGhostEditorial: EditorialReview = {
-  slug: 'drt-klash-ghost',
+  slug: 'klash-ghost',
   manufacturerSlug: 'drt',
 
   catchcopy: '入手困難の超人気ビッグベイト。DRTが追求する「生命感」は、見た瞬間に分かるレベルの水中存在感を持つ。',

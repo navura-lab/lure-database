@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallBreakBladeEditorial: EditorialReview = {
-  slug: 'jackall-break-blade',
+  slug: 'break-blade',
   manufacturerSlug: 'jackall',
 
   catchcopy: 'ブレードが水を切り裂く強烈バイブレーション。ジャッカルが送るチャターベイトの新定番。',

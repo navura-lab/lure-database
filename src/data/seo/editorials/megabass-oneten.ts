@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassOnetenEditorial: EditorialReview = {
-  slug: 'megabass-oneten',
+  slug: 'vision-oneten-jr-sw',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'ジャークベイトの金字塔。110mmが切り開いた「ワンテンクラス」という新カテゴリー。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallBigBackerJigSlideStickEditorial: EditorialReview = {
-  slug: 'jackall-big-backer-jig-slide-stick',
+  slug: 'bigbacker-jig-slide-stick',
   manufacturerSlug: 'jackall',
 
   catchcopy: 'スティック形状が生む独自のスライドフォール。ジャッカルが提案する「横に逃げるジグ」で青物を翻弄する。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospOverRideJrEditorial: EditorialReview = {
-  slug: 'osp-over-ride-jr',
+  slug: 'over-ride',
   manufacturerSlug: 'osp',
 
   catchcopy: 'メタルバイブの常識を超えた「巻ける」メタル。冬のリフト&フォールだけでなく、巻き物としても成立するO.S.P.の傑作。',

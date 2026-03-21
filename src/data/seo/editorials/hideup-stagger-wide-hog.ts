@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const hideupStaggerWideHogEditorial: EditorialReview = {
-  slug: 'hideup-stagger-wide-hog',
+  slug: 'stagger-wide-hog-4-0inch',
   manufacturerSlug: 'hideup',
 
   catchcopy: '琵琶湖ガイドが通い詰めた末の回答。スタッガーワイドホグはビッグバスを引きずり出すホグ系。',

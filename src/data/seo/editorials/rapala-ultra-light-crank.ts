@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ultraLightCrankEditorial: EditorialReview = {
-  slug: 'rapala-ultra-light-crank',
+  slug: 'rapala-ulc',
   manufacturerSlug: 'rapala',
 
   catchcopy: 'トラウトが思わず口を使う、バルサが生むナチュラルアクション。ラパラの伝統が詰まった超小型クランク。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenJackHammerStealthEditorial: EditorialReview = {
-  slug: 'evergreen-jack-hammer-stealth',
+  slug: 'jackhammer',
   manufacturerSlug: 'evergreen',
 
   catchcopy:

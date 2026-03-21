@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const xrapCountdownEditorial: EditorialReview = {
-  slug: 'rapala-xrap-countdown',
+  slug: 'rapala-xrcd',
   manufacturerSlug: 'rapala',
 
   catchcopy: 'X-RAPのダートアクションに「沈む」を足した。中層〜ボトムの魚に確実に届くカウントダウンモデル。',

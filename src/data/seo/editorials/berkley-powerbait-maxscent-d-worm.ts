@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const berkleyMaxscentDWormEditorial: EditorialReview = {
-  slug: 'berkley-powerbait-maxscent-d-worm',
+  slug: 'powerbait-maxscent-d-worm-45inch45',
   manufacturerSlug: 'berkley',
 
   catchcopy: '科学が証明した集魚力。バークレーのマックスセントは、匂いでバスを寄せて味で離さない。',

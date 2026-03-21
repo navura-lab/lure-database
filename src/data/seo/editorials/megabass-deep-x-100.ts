@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassDeepX100Editorial: EditorialReview = {
-  slug: 'megabass-deep-x-100',
+  slug: 'deep-x100-lbo',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'ディープクランクの教科書。3〜4mレンジを正確にトレースし続ける、メガバスが誇るミドルダイバーの金字塔。',

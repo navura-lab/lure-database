@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassVibrationXDynaEditorial: EditorialReview = {
-  slug: 'megabass-vibration-x-dyna',
+  slug: 'vibration-x-dyna',
   manufacturerSlug: 'megabass',
 
   catchcopy: '伊東由樹が追求した「巻いて獲る」バイブレーション。ただ巻きの振動質にこだわり抜いたメガバスの自信作。',

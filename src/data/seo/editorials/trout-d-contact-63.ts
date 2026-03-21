@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const dContact63Editorial: EditorialReview = {
-  slug: 'trout-d-contact-63',
+  slug: 'trout-dcontact85',
   manufacturerSlug: 'smith',
 
   catchcopy: '渓流ヘビーシンキングミノーの金字塔。Dコンタクトの63mmが切り拓いた「流れを制する釣り」は、今なお渓流ルアーの基準点であり続ける。',

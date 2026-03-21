@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const imakatsuGillroidEditorial: EditorialReview = {
-  slug: 'imakatsu-gillroid',
+  slug: 'gill-roid-minnie',
   manufacturerSlug: 'imakatsu',
 
   catchcopy: 'ブルーギルを喰うバスだけが反応する。イマカツが生んだギル型ビッグベイトの金字塔。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const saltyCoretubeEditorial: EditorialReview = {
-  slug: 'keitech-salty-core-tube',
+  slug: 'salty-core-tube',
   manufacturerSlug: 'keitech',
 
   catchcopy: '塩詰めチューブの元祖。テントウを触れば分かる異次元の比重感が、スモラバのトレーラーを変える。',

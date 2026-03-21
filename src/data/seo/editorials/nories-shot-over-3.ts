@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const noriesShotOver3Editorial: EditorialReview = {
-  slug: 'nories-shot-over-3',
+  slug: 'shot-over-3',
   manufacturerSlug: 'nories',
 
   catchcopy: '田辺哲男が「3m」にこだわった理由。日本のバスフィッシングで最も使用頻度の高いレンジを制圧するクランクベイト。',

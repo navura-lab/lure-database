@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const bottomupBreavorEditorial: EditorialReview = {
-  slug: 'bottomup-breavor',
+  slug: 'breavor-micro30',
   manufacturerSlug: 'bottomup',
 
   catchcopy: 'ビーバー系ワームの完成形。水を掴むパドルテールとフラットボディが生む圧倒的な水押しで、カバーの奥のバスを引きずり出す。',

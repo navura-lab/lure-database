@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const smithDContact110Editorial: EditorialReview = {
-  slug: 'smith-d-contact-110',
+  slug: 'trout-dcontact110',
   manufacturerSlug: 'smith',
 
   catchcopy: 'D-Contact最大の110mm。本流の大型サクラマスからシーバスまで、ヘビーシンキングの切れ味でねじ伏せる。',

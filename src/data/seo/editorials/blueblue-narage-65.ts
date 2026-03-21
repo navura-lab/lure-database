@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const blueblueNarage65Editorial: EditorialReview = {
-  slug: 'blueblue-narage-65',
+  slug: 'narage-65',
   manufacturerSlug: 'blueblue',
 
   catchcopy: '「ポップ音」と「スプラッシュ」を自在に操る、シーバストップウォーターの新定番ポッパー。',

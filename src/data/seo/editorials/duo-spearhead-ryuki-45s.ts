@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const duoSpearheadRyuki45sEditorial: EditorialReview = {
-  slug: 'duo-spearhead-ryuki-45s',
+  slug: 'spearhead-ryuki-vib',
   manufacturerSlug: 'duo',
 
   catchcopy: '渓流ミノーの代名詞がエリアでも無双する。リュウキ45Sは小さなボディに凝縮された圧倒的な飛びとキレ。',

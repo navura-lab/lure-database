@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassFlapSlapEditorial: EditorialReview = {
-  slug: 'megabass-flap-slap',
+  slug: 'flapslap',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'メガバスが放つハイレスポンスクランクベイト。キレのあるウォブリングで、タフコンディションのバスを仕留める。',

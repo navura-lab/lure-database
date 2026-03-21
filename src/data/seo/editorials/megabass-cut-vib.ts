@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassCutVibEditorial: EditorialReview = {
-  slug: 'megabass-cut-vib',
+  slug: 'cutvib-55-heavy-weight',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'メタルバイブの新基準。切れ味鋭いダートで、リアクションバイトを量産する。',

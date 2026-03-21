@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallSoulFlatEditorial: EditorialReview = {
-  slug: 'jackall-soul-flat',
+  slug: 'soulflat',
   manufacturerSlug: 'jackall',
 
   catchcopy: 'フラットサイドの明滅フラッシング。タフコンディションのバスを食わせるジャッカルの切り札。',

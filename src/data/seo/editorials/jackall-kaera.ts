@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallKaeraEditorial: EditorialReview = {
-  slug: 'jackall-kaera',
+  slug: 'kaera',
   manufacturerSlug: 'jackall',
 
   catchcopy: 'カエル系フロッグの完成形。水面に浮かぶ姿のリアルさと、フッキング率の高さを両立させたジャッカルの自信作。',

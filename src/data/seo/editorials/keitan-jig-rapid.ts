@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const keitanJigRapidEditorial: EditorialReview = {
-  slug: 'keitan-jig-rapid',
+  slug: 'keitan-jig',
   manufacturerSlug: 'hots',
 
   catchcopy: '速い。重い。それが正義。KEITAN JIG RAPIDは高速ジャークで大型回遊魚の闘争本能を引き出す。',

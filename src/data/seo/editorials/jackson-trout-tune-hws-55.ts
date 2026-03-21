@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jacksonTroutTuneHws55Editorial: EditorialReview = {
-  slug: 'jackson-trout-tune-hws-55',
+  slug: 'trout-tune',
   manufacturerSlug: 'jackson',
 
   catchcopy: '渓流の深場を直撃する、ジャクソンのヘビーウェイトシンキングミノー。',

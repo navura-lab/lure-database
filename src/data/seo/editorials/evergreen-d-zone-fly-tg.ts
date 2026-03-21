@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenDZoneFlyTgEditorial: EditorialReview = {
-  slug: 'evergreen-d-zone-fly-tg',
+  slug: 'dzone',
   manufacturerSlug: 'evergreen',
 
   catchcopy: 'タングステンヘッドが実現した圧倒的感度。Dゾーンフライの最終進化形。',

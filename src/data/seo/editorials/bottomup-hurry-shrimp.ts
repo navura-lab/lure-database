@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const bottomupHurryShrimpEditorial: EditorialReview = {
-  slug: 'bottomup-hurry-shrimp',
+  slug: 'hurryshrimp40',
   manufacturerSlug: 'bottomup',
 
   catchcopy: 'エビが逃げる、あの動き。ボトムアップがホグ系に持ち込んだ「逃走アクション」という回答。',

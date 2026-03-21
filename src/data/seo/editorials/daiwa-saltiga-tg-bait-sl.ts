@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaSaltigaTgBaitSlEditorial: EditorialReview = {
-  slug: 'daiwa-saltiga-tg-bait-sl',
+  slug: 'huz2stf',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'タングステンの圧倒的コンパクトシルエットをSLJ専用に最適化。小さいのに飛ぶ、沈む、釣れるの三拍子。',

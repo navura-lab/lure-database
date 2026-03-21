@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospRudra130Editorial: EditorialReview = {
-  slug: 'osp-rudra-130',
+  slug: 'asura-o-s-p-rudra-130-s',
   manufacturerSlug: 'osp',
 
   catchcopy: 'ビッグミノーの金字塔。130mmの存在感とジャークで生まれる破綻のないダートが、デカバスだけを選んで獲る。',

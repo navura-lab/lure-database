@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const palmsHexaEditorial: EditorialReview = {
-  slug: 'palms-hexa',
+  slug: 'sylpher_4th',
   manufacturerSlug: 'palms',
 
   catchcopy: '六角形ボディが生む多面フラッシング。パームスが形状で差別化した異色のショアジギングジグ。',

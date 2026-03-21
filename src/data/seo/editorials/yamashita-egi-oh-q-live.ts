@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const yamashitaEgiOhQLiveEditorial: EditorialReview = {
-  slug: 'yamashita-egi-oh-q-live',
+  slug: 'ama',
   manufacturerSlug: 'yamashita',
 
   catchcopy: 'ダートの鋭さが、スレイカのスイッチを入れる。エギ王Q LIVEは「跳ね」に特化した攻撃型エギだ。',

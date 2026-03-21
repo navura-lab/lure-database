@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const noriesCrankinPupaEditorial: EditorialReview = {
-  slug: 'nories-crankin-pupa',
+  slug: 'crankin-pupa',
   manufacturerSlug: 'nories',
 
   catchcopy:

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const troutEdgeDiamondEditorial: EditorialReview = {
-  slug: 'trout-edge-diamond',
+  slug: 'trout-edgedia',
   manufacturerSlug: 'smith',
 
   catchcopy: 'ダイヤモンドカットが生む乱反射。エッジダイヤモンドは、トラウトの視覚を刺激し続けるスプーンだ。',

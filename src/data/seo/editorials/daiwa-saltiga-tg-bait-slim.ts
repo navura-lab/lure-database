@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaSaltigaTgBaitSlimEditorial: EditorialReview = {
-  slug: 'daiwa-saltiga-tg-bait-slim',
+  slug: 'huz2stf',
   manufacturerSlug: 'daiwa',
 
   catchcopy:

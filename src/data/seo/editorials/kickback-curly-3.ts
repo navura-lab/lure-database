@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const kickbackCurly3Editorial: EditorialReview = {
-  slug: 'kickback-curly-3',
+  slug: 'geecrack-6',
   manufacturerSlug: 'geecrack',
 
   catchcopy: 'カーリーテールの基本に忠実、かつジークラック品質。キックバックカーリー3"はバスワームの万能選手。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallBigBackerSoftVibEditorial: EditorialReview = {
-  slug: 'jackall-big-backer-soft-vib',
+  slug: 'bicbacker-soft-vib',
   manufacturerSlug: 'jackall',
 
   catchcopy:

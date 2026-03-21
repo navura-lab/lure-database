@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const raid2wayEditorial: EditorialReview = {
-  slug: 'raid-2way',
+  slug: '2way',
   manufacturerSlug: 'raid',
 
   catchcopy: '虫にもエビにもなるワーム。レイドジャパンが辿り着いた「2つの顔」で食わせる新機軸。',

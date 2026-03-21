@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const duelHardcoreMinnow130fEditorial: EditorialReview = {
-  slug: 'duel-hardcore-minnow-130f',
+  slug: 'hardcore-minnow-flat',
   manufacturerSlug: 'duel',
 
   catchcopy:

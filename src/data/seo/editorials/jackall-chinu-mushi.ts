@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallChinuMushiEditorial: EditorialReview = {
-  slug: 'jackall-chinu-mushi',
+  slug: 'chibichinumushi',
   manufacturerSlug: 'jackall',
 
   catchcopy: '甲殻類そのものの存在感。ボトムに置くだけで食わせるチニングの大定番ワーム。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaMorethanCrosswake75fEditorial: EditorialReview = {
-  slug: 'daiwa-morethan-crosswake-75f',
+  slug: 'we674ps',
   manufacturerSlug: 'daiwa',
 
   catchcopy:

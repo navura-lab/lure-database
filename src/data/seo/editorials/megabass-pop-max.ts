@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassPopMaxEditorial: EditorialReview = {
-  slug: 'megabass-pop-max',
+  slug: 'popmax',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'メガバスが本気で作ったポッパーの最高峰。スプラッシュ、ポップ音、ダイブ——すべてが規格外。',

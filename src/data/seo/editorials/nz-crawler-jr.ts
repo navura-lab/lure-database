@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const nzCrawlerJrEditorial: EditorialReview = {
-  slug: 'nz-crawler-jr',
+  slug: 'nz-crawler',
   manufacturerSlug: 'deps',
 
   catchcopy:

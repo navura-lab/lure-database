@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaTdVibEditorial: EditorialReview = {
-  slug: 'daiwa-tdo-chinyu-vib',
+  slug: 'j8nnuqm',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'バス釣りバイブレーションの原点にして到達点。四半世紀以上愛され続けるダイワの超定番。',

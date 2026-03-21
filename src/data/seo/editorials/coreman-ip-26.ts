@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const coremanIp26Editorial: EditorialReview = {
-  slug: 'coreman-ip-26',
+  slug: 'ip-26-ironplate-sc',
   manufacturerSlug: 'coreman',
 
   catchcopy: '鉄板バイブの原点にして頂点。シーバスデイゲームの教科書的ルアー。',

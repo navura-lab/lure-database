@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const cherryBloodMdEditorial: EditorialReview = {
-  slug: 'trout-cherry-blood-md',
+  slug: 'trout-cherrybloodsr',
   manufacturerSlug: 'smith',
 
   catchcopy: '中層を制する者が渓流を制す。チェリーブラッドのMDが深いレンジのトラウトを引き出す。',

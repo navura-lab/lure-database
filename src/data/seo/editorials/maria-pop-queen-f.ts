@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const mariaPopQueenFEditorial: EditorialReview = {
-  slug: 'maria-pop-queen-f',
+  slug: 'poppukuin-f200',
   manufacturerSlug: 'maria',
 
   catchcopy: '青物ポッパーの定番中の定番。マリアが磨き上げた実績と信頼のポップクイーン。',

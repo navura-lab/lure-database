@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ecogearRockMax3Editorial: EditorialReview = {
-  slug: 'ecogear-rock-max-3',
+  slug: 'rokkumakkusu',
   manufacturerSlug: 'ecogear',
 
   catchcopy: 'スイミングで根魚を引きずり出す。テールが生む強波動シャッド。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const noriesMasukuroutoCrankinEditorial: EditorialReview = {
-  slug: 'nories-masukurouto-crankin',
+  slug: 'masukurouto',
   manufacturerSlug: 'nories',
 
   catchcopy: 'スプーンで獲れない魚をクランクで獲る。鱒玄人クランキンは、エリアの「もう1匹」を引き出す切り札。',

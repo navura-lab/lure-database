@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const raidLevelVibEditorial: EditorialReview = {
-  slug: 'raid-level-vib',
+  slug: 'level-vib',
   manufacturerSlug: 'raid',
 
   catchcopy: '岸釣り専用設計のバイブレーション。飛距離と立ち上がりの早さで、オカッパリの「届かない」を解決する。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const forestFactorEditorial: EditorialReview = {
-  slug: 'forest-factor',
+  slug: 'factor',
   manufacturerSlug: 'forest',
 
   catchcopy: '「巻けば釣れる」を体現するエリアスプーンの教科書。フォレスト・ファクターは管釣り入門の第一歩。',

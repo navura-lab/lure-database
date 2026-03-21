@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const zeakeRSardineLongEditorial: EditorialReview = {
-  slug: 'zeake-r-sardine-long',
+  slug: 'r-sardine',
   manufacturerSlug: 'zeake',
 
   catchcopy: 'ロングボディが生む圧倒的な水押しとフラッシング。ゼアクが磨き上げたロングジグの完成形。',

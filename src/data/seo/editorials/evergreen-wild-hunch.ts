@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenWildHunchEditorial: EditorialReview = {
-  slug: 'evergreen-wild-hunch',
+  slug: 'wildhunch',
   manufacturerSlug: 'evergreen',
 
   catchcopy: '清水盛三が求めた「ハンチ（予感）」を形にしたクランクベイト。ワイドウォブルの強波動で、濁りの中からバスを引きずり出す。',

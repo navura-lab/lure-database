@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallFlickShakeEditorial: EditorialReview = {
-  slug: 'jackall-flick-shake',
+  slug: 'flick-shake-sight-magic3-84-8',
   manufacturerSlug: 'jackall',
 
   catchcopy: '釣れすぎて反則と呼ばれたワーム。カーブフォールの魔力で、初心者からトーナメンターまで全員の武器になる超定番。',

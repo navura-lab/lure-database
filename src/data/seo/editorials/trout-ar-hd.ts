@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const arHdEditorial: EditorialReview = {
-  slug: 'trout-ar-hd',
+  slug: 'trout-ars',
   manufacturerSlug: 'smith',
 
   catchcopy: 'AR-Sの操作性はそのままに、飛距離とレンジをヘビーデューティ化。本流の大場所で戦うための、渓流アングラーの切り札。',

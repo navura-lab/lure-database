@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassKanataAyuEditorial: EditorialReview = {
-  slug: 'megabass-kanata-ayu',
+  slug: 'kanata',
   manufacturerSlug: 'megabass',
 
   catchcopy: '160mmの大型ボディが水面直下をゆらりと泳ぐ。落ち鮎パターンのシーバスを仕留めるために生まれたビッグミノー。',

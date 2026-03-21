@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const doliveShad4DsEditorial: EditorialReview = {
-  slug: 'doliveshad4-ds',
+  slug: 'doliveshad',
   manufacturerSlug: 'osp',
 
   catchcopy: 'シャッドテールの常識を変えた自発アクション。ダウンショットで使うドライブシャッドは、放置でも勝手に釣れる。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospHpShadTail31Editorial: EditorialReview = {
-  slug: 'osp-hp-shad-tail-3-1',
+  slug: 'hp-shadtail-sw',
   manufacturerSlug: 'osp',
 
   catchcopy: 'ハイピッチなテールアクションと圧倒的な実績。OSPが磨き上げた、シャッドテールのスタンダード。',

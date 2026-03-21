@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospLouder60Editorial: EditorialReview = {
-  slug: 'osp-louder-60',
+  slug: 'louder60',
   manufacturerSlug: 'osp',
 
   catchcopy: '並木敏成が求めた「食わせのポッパー」。控えめなポップ音と水面直下ダイブで、見切るバスの口をこじ開ける。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwasteezPropEditorial: EditorialReview = {
-  slug: 'daiwa-steez-prop',
+  slug: 'igyamz9',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'プロペラが水面を引き裂く。STEEZクオリティで仕上げたダイワのプロップベイト。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const noriesMasukuroutoBoonEditorial: EditorialReview = {
-  slug: 'nories-masukurouto-boon',
+  slug: 'masukurouto-boon',
   manufacturerSlug: 'nories',
 
   catchcopy: 'ボトムの魚を浮かせて食わす。ノリーズが提案する、スプーンの新しい使い方。',

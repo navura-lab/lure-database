@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const sidepress160fEditorial: EditorialReview = {
-  slug: 'saidopuresu-160f',
+  slug: 'saidopuresu-160f-raimuchatokonoshiro',
   manufacturerSlug: 'pickup',
 
   catchcopy: '160mmのビッグミノーが生み出す強烈な水押し。ランカーシーバスを狙い撃つための選択肢。',

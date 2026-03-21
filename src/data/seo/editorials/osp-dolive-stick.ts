@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospDoliveStickEditorial: EditorialReview = {
-  slug: 'osp-dolive-stick',
+  slug: 'dolivestick',
   manufacturerSlug: 'osp',
 
   catchcopy: 'ノーシンカーの常識を変えたスティックベイト。自発的ロールフォールとダートで、放置でも動かしても釣れる万能ワーム。',

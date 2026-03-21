@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaEmeraldasDartIIEditorial: EditorialReview = {
-  slug: 'daiwa-emeraldas-dart-ii',
+  slug: 'pfpygsw',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'キレのあるダート＆安定フォール。ダイワ・エギングの王道を更新した定番エギ。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsSlitherkEditorial: EditorialReview = {
-  slug: 'deps-slitherk',
+  slug: 'slitherk',
   manufacturerSlug: 'deps',
 
   catchcopy: 'フロッグの概念を変えた異形のクローラーフロッグ。ヘビーカバーの奥で、他のルアーでは出せない水面攪拌を生む。',

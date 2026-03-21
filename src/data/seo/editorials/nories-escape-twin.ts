@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const noriesEscapeTwinEditorial: EditorialReview = {
-  slug: 'nories-escape-twin',
+  slug: 'escape-twin',
   manufacturerSlug: 'nories',
 
   catchcopy: '琵琶湖のデカバス攻略に欠かせない定番ホグ。エスケープツインの「パタパタ」は唯一無二。',

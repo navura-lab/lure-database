@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const duoBeachWalkerWedge95sEditorial: EditorialReview = {
-  slug: 'duo-beach-walker-wedge-95s',
+  slug: 'beach-walker-wedge-95s',
   manufacturerSlug: 'duo',
 
   catchcopy: 'サーフのヒラメ攻略、ここに完成。飛距離・レンジキープ・食わせの三拍子が揃ったミノー。',

@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ecogearBugAnts2Editorial: EditorialReview = {
-  slug: 'ecogear-bug-ants-2',
+  slug: 'baguantsu',
   manufacturerSlug: 'ecogear',
 
   catchcopy: 'ロックフィッシュの歴史を変えた一匹。甲殻類パターンの絶対的エース。',

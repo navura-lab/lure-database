@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jacksonGallopAssistEditorial: EditorialReview = {
-  slug: 'jackson-gallop-assist',
+  slug: 'gallop-assist-fall-edition',
   manufacturerSlug: 'jackson',
 
   catchcopy: 'ショアからオフショアまで。ジャクソンが送り出す、あらゆるジギングシーンに対応するアシスト付きメタルジグ。',

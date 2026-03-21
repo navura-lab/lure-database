@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallPompadourEditorial: EditorialReview = {
-  slug: 'jackall-pompadour',
+  slug: 'pompadour',
   manufacturerSlug: 'jackall',
 
   catchcopy: '水面炸裂。ジャッカルが生んだクローラーベイトの代名詞。羽根モノの楽しさと釣果を両立する、トップウォーターの決定版。',

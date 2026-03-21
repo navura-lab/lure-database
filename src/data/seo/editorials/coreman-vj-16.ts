@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const coremanVj16Editorial: EditorialReview = {
-  slug: 'coreman-vj-16',
+  slug: 'vj-16-vibration-jighead',
   manufacturerSlug: 'coreman',
 
   catchcopy: 'ジグヘッド＋ワームの食わせ力に、バイブレーションの手返しを融合。シーバスデイゲームの革命児。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const apiaDover99fEditorial: EditorialReview = {
-  slug: 'apia-dover-99f',
+  slug: 'dover99f',
   manufacturerSlug: 'apia',
 
   catchcopy:

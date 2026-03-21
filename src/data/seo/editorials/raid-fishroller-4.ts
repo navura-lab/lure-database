@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const raidFishroller4Editorial: EditorialReview = {
-  slug: 'raid-fishroller-4',
+  slug: 'fishroller',
   manufacturerSlug: 'raid',
 
   catchcopy:

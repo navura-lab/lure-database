@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const pointerEditorial: EditorialReview = {
-  slug: 'luckycraft-pointer',
+  slug: 'surfpointer-salt',
   manufacturerSlug: 'luckycraft',
 
   catchcopy: 'ジャークベイトの世界基準。アメリカのトーナメントシーンで揉まれ続けてきた、ラッキークラフトの代名詞。',

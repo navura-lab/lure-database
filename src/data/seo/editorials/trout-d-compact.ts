@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const dCompactEditorial: EditorialReview = {
-  slug: 'trout-d-compact',
+  slug: 'trout-dcompact',
   manufacturerSlug: 'smith',
 
   catchcopy: '渓流ミノーの完成形。スミスが磨き上げた45mmに、トラウトを騙す全てが詰まっている。',

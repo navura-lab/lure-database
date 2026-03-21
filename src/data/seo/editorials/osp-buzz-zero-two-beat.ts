@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospBuzzZeroTwoBeatEditorial: EditorialReview = {
-  slug: 'osp-buzz-zero-two-beat',
+  slug: 'o-s-p-buzz-zero-two-beat',
   manufacturerSlug: 'osp',
 
   catchcopy: 'クラッカーサウンドが水面を叩く。並木敏成がバズベイトに求めた「音」と「超デッドスロー」を形にした最終回答。',

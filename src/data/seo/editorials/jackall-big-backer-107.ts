@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallBigBacker107Editorial: EditorialReview = {
-  slug: 'jackall-big-backer-107',
+  slug: 'bigbacker107buricustom',
   manufacturerSlug: 'jackall',
 
   catchcopy: '青物を岸から獲る。ジャッカルが放つショアジギング対応の万能ヘビーミノー。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const cbNaganagaEditorial: EditorialReview = {
-  slug: 'salt-cb-naganaga',
+  slug: 'salt-cbnagamasa',
   manufacturerSlug: 'smith',
 
   catchcopy: '細長いシルエットが生む唯一無二の波動。バチ・サヨリパターンのシーバスを、他のジグでは出せないアクションで仕留める。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const metalForzeTgEditorial: EditorialReview = {
-  slug: 'salt-metal-forze-tg',
+  slug: 'salt-metalforcast',
   manufacturerSlug: 'smith',
 
   catchcopy: 'タングステンの小粒が飛距離と感度を変える。スミスが送るショアジギングの精密兵器。',

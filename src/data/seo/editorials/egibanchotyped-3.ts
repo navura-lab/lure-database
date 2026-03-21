@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const egiBanchoMeisterEditorial: EditorialReview = {
-  slug: 'egibanchotyped-3',
+  slug: 'egibanchotypexs',
   manufacturerSlug: 'evergreen',
 
   catchcopy: 'エギ番長の最上位モデル。マイスターが求めたのは「操作感」と「フォール姿勢」の極致。',

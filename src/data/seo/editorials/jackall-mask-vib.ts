@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallMaskVibEditorial: EditorialReview = {
-  slug: 'jackall-mask-vib',
+  slug: 'mask-vibe-gene',
   manufacturerSlug: 'jackall',
 
   catchcopy: 'リアクション特化のバイブレーション。水温が下がりきった冬のタフコンディションで、バスの口を使わせる最後の切り札。',

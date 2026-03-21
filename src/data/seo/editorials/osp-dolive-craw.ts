@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospDoliveCrawEditorial: EditorialReview = {
-  slug: 'osp-dolive-craw',
+  slug: 'dolivecraw',
   manufacturerSlug: 'osp',
 
   catchcopy: '着底した瞬間から勝負が始まる。自発的アクションで誘い続けるクローワームの決定版。',

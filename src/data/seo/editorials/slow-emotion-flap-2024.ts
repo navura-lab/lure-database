@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const slowEmotionFlap2024Editorial: EditorialReview = {
-  slug: 'slow-emotion-flap-2024',
+  slug: 'slow-emotion-flare',
   manufacturerSlug: 'xesta',
 
   catchcopy: 'フラップ系スロージグの完成形。2024年モデルは「飛ばし」と「食わせ」の両面を磨き上げた。',

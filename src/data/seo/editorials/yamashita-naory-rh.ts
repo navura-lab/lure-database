@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const yamashitaNaoryRhEditorial: EditorialReview = {
-  slug: 'yamashita-naory-rh',
+  slug: 'ama',
   manufacturerSlug: 'yamashita',
 
   catchcopy: 'イカメタルゲームの必需品。ヤマシタが誇るドロッパー用スッテの決定版。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const gancraftJointedClaw148Editorial: EditorialReview = {
-  slug: 'gancraft-jointed-claw-148',
+  slug: 'jointedclaw148',
   manufacturerSlug: 'gancraft',
 
   catchcopy: 'ジョイクロのダウンサイジング。148mmの食わせサイズで、S字系ビッグベイトのハードルを一気に下げた。',

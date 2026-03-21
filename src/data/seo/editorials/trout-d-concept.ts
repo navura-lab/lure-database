@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const dConceptEditorial: EditorialReview = {
-  slug: 'trout-d-concept',
+  slug: 'trout-dconcept',
   manufacturerSlug: 'smith',
 
   catchcopy: 'D-Contactの進化系。スミスのD-Conceptは、渓流ヘビーシンキングミノーの新たな基準を打ち立てる。',

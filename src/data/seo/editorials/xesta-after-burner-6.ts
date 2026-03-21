@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const xestaAfterBurner6Editorial: EditorialReview = {
-  slug: 'xesta-after-burner-6',
+  slug: 'after-burner',
   manufacturerSlug: 'xesta',
 
   catchcopy: '六角形断面が空気を切り裂く。ゼスタが生んだ飛距離モンスターは、ショアジギングの到達点を塗り替える。',

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenCombatCrank320Editorial: EditorialReview = {
-  slug: 'evergreen-combat-crank-320',
+  slug: 'combatcrank320',
   manufacturerSlug: 'evergreen',
 
   catchcopy: 'バス釣りのシャロークランクを語るなら避けて通れない。エバーグリーンの名作クランクベイトが、1〜2mのシャローレンジを制圧する。',

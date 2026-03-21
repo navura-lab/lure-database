@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassX70Editorial: EditorialReview = {
-  slug: 'megabass-x-70',
+  slug: 'x-70',
   manufacturerSlug: 'megabass',
 
   catchcopy: '70mmに詰め込まれたジャーキングの教科書。X-70は「巻いて良し、跳ばして良し」の万能ミノーだ。',

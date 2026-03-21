@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const egiBancho3DEditorial: EditorialReview = {
-  slug: 'egibanchotyped-2',
+  slug: 'egibanchotypexs',
   manufacturerSlug: 'evergreen',
 
   catchcopy:

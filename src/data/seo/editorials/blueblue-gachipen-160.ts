@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const blueblueGachipen160Editorial: EditorialReview = {
-  slug: 'blueblue-gachipen-160',
+  slug: 'gachpen-160',
   manufacturerSlug: 'blueblue',
 
   catchcopy: 'ガチで使えるペンシル。ブルーブルーが本気で作ったショアキャスティング対応160mmペンシルベイト。',

@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const cbOneC1HoverEditorial: EditorialReview = {
-  slug: 'cb-one-c1-hover',
+  slug: 'c1',
   manufacturerSlug: 'cb-one',
 
   catchcopy: 'フォール中に「止まる」メタルジグ。CB ONEが生み出したホバリングフォールで、見切る魚を仕留める。',

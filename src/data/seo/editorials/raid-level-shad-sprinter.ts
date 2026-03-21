@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const raidLevelShadSprinterEditorial: EditorialReview = {
-  slug: 'raid-level-shad-sprinter',
+  slug: 'level-shad-sprinter-68sr',
   manufacturerSlug: 'raid',
 
   catchcopy:

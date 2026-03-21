@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const bottomKnockSwimmerIIEditorial: EditorialReview = {
-  slug: 'trout-bksw-ii',
+  slug: 'trout-btkswimmer41',
   manufacturerSlug: 'smith',
 
   catchcopy: 'ボトムを叩いて、泳いで、食わせる。スミスが進化させたエリアトラウトの異端児スプーン。',

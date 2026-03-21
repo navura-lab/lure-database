@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const troutJadeEditorial: EditorialReview = {
-  slug: 'trout-jade',
+  slug: 'salt-jadesw',
   manufacturerSlug: 'smith',
 
   catchcopy: '渓流シャッドという選択肢。流れの中でも安定したレンジキープ力が、ミノーでは攻めきれないレンジのトラウトを引き出す。',

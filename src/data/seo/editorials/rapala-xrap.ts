@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const rapalaXrapEditorial: EditorialReview = {
-  slug: 'rapala-xrap',
+  slug: 'rapala-xr',
   manufacturerSlug: 'rapala',
 
   catchcopy:

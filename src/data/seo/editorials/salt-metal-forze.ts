@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const metalForzeEditorial: EditorialReview = {
-  slug: 'salt-metal-forze',
+  slug: 'salt-metalforcast',
   manufacturerSlug: 'smith',
 
   catchcopy:

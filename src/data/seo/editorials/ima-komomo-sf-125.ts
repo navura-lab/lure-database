@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const imaKomomoSf125Editorial: EditorialReview = {
-  slug: 'ima-komomo-sf-125',
+  slug: 'komomo-sf-125',
   manufacturerSlug: 'ima',
 
   catchcopy:

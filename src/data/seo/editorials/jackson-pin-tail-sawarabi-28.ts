@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jacksonPinTailSawarabi28Editorial: EditorialReview = {
-  slug: 'jackson-pin-tail-sawarabi-28',
+  slug: 'pintail-sawara-tune',
   manufacturerSlug: 'jackson',
 
   catchcopy: 'サワラの歯に負けないメタルジグ。ジャクソン ピンテール サワラビ28は、サワラ特化設計のワイヤーアシスト+高速巻きで確実に仕留める。',

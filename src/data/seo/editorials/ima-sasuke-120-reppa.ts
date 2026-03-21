@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const imaSasuke120ReppaEditorial: EditorialReview = {
-  slug: 'ima-sasuke-120-reppa',
+  slug: 'sasuke-120',
   manufacturerSlug: 'ima',
 
   catchcopy: 'シーバスミノーの絶対的スタンダード。表層直下をキレのあるウォブンロールで泳ぐ裂波は、初心者からエキスパートまで全員のボックスに入るべき1本。',

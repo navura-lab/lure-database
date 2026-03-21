@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const forestMarshalTournamentEditorial: EditorialReview = {
-  slug: 'forest-marshal-tournament',
+  slug: 'marshal-tournament',
   manufacturerSlug: 'forest',
 
   catchcopy: 'トーナメントシーンで磨き抜かれた操作性。フォレストが誇る、エリアスプーンの完成形。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jpsmlEditorial: EditorialReview = {
-  slug: 'jps-micro-light',
+  slug: 'jps',
   manufacturerSlug: 'majorcraft',
 
   catchcopy: 'ライトゲームの懐刀。ジグパラ ショート マイクロライトは、アジ・メバルを手軽にメタルジグで攻略する。',

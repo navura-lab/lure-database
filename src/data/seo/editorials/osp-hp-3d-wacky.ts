@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospHp3dWackyEditorial: EditorialReview = {
-  slug: 'osp-hp-3d-wacky',
+  slug: 'hp3dwacky',
   manufacturerSlug: 'osp',
 
   catchcopy: 'ワッキーリグ専用設計という贅沢。3D構造のボディが生む独自のロールアクションで、バスの警戒心をすり抜ける。',

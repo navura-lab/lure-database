@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const valkeinShineRideEditorial: EditorialReview = {
-  slug: 'valkein-shine-ride',
+  slug: 'shine-ride',
   manufacturerSlug: 'valkein',
 
   catchcopy: '光を味方につけるスプーン。ヴァルケインが磨き上げた、フラッシングの最適解。',

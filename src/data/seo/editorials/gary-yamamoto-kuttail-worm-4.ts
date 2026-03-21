@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const garyYamamotoKuttailWorm4Editorial: EditorialReview = {
-  slug: 'gary-yamamoto-kuttail-worm-4',
+  slug: 'worm4',
   manufacturerSlug: 'gary-yamamoto',
 
   catchcopy: 'ネコリグの代名詞。塩入り高比重マテリアルが生む自発的アクションで、タフコンディションでもバイトを引き出す不朽の定番ワーム。',

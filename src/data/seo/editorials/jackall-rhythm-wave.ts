@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallRhythmWaveEditorial: EditorialReview = {
-  slug: 'jackall-rhythm-wave',
+  slug: 'rhythmwave',
   manufacturerSlug: 'jackall',
 
   catchcopy: 'シャッドテールの最適解。ただ巻きだけでバスを反応させる、リズミカルなテールアクションが武器。',

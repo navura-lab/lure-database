@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaMonthlyTsukimasariEditorial: EditorialReview = {
-  slug: 'daiwa-monthly-tsukimasari',
+  slug: 'g4670m4',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'ダイワの月下美人ブランドが生んだ、「漂わせて食わせる」ためのフィネスワーム。澪示威は、潮に乗せるだけで仕事をする。',

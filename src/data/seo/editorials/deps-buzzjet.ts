@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsBuzzjetEditorial: EditorialReview = {
-  slug: 'deps-buzzjet',
+  slug: 'buzzjet',
   manufacturerSlug: 'deps',
 
   catchcopy: '水面を割って出る快感。ビッグバスの捕食本能を水面で爆発させる、デプスのサーフェスクランキング。',

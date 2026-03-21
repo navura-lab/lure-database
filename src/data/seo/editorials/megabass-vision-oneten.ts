@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassVisionOnetenEditorial: EditorialReview = {
-  slug: 'megabass-vision-oneten',
+  slug: 'vision-oneten',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'ワンテンの正統進化形。LBO搭載で飛距離を獲得し、110mmジャークベイトの新基準へ。',

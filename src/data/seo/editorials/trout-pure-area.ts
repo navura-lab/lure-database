@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const pureAreaEditorial: EditorialReview = {
-  slug: 'trout-pure-area',
+  slug: 'trout-pure',
   manufacturerSlug: 'smith',
 
   catchcopy:

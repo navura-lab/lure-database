@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const hardcoreMonsterShotSEditorial: EditorialReview = {
-  slug: 'hardcore-monster-shot-s',
+  slug: 'hardcore-monster-shots',
   manufacturerSlug: 'duel',
 
   catchcopy: '飛距離もレンジも妥協しない。モンスターショット(S)125は、シンペンの飛距離とミノーの泳ぎを融合した。',

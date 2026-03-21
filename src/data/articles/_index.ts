@@ -226,6 +226,10 @@ import bassVsSeabassMarket from './bass-vs-seabass-market.js';
 import troutLureOverview from './trout-lure-overview.js';
 // ビッグKW記事
 import seabassLureOsusume from './seabass-lure-osusume.js';
+import bassLureOsusume from './bass-lure-osusume.js';
+import troutLureOsusume from './trout-lure-osusume.js';
+import egingEgiOsusume from './eging-egi-osusume.js';
+import shoreJiggingOsusume from './shore-jigging-osusume.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -437,6 +441,10 @@ export const contentArticles: ContentArticle[] = [
   troutLureOverview,
   // ビッグKW記事
   seabassLureOsusume,
+  bassLureOsusume,
+  troutLureOsusume,
+  egingEgiOsusume,
+  shoreJiggingOsusume,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const drtTinyKlashEditorial: EditorialReview = {
-  slug: 'drt-tiny-klash',
+  slug: 'tinyklash-hi',
   manufacturerSlug: 'drt',
 
   catchcopy: 'DRTのダウンサイジングビッグベイト。リップ付きでただ巻きでも使え、S字系の敷居を大きく下げた実戦派。',

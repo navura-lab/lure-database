@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenTimberFlashEditorial: EditorialReview = {
-  slug: 'evergreen-timber-flash',
+  slug: 'timberflash',
   manufacturerSlug: 'evergreen',
 
   catchcopy:

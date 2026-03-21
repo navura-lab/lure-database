@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaShorelineShinerZVerticeEditorial: EditorialReview = {
-  slug: 'daiwa-shoreline-shiner-z-vertice',
+  slug: '0ia3b6l',
   manufacturerSlug: 'daiwa',
 
   catchcopy: '飛距離と泳ぎを両立した、ダイワが辿り着いたシーバスミノーの到達点。',

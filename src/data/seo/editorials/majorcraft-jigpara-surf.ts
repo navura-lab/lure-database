@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const majorcraftJigparaSurfEditorial: EditorialReview = {
-  slug: 'majorcraft-jigpara-surf',
+  slug: 'jrsurf',
   manufacturerSlug: 'majorcraft',
 
   catchcopy: 'サーフのヒラメ・マゴチ狙いに最適化された、ジグパラシリーズのサーフ専用モデル。飛距離とスローフォールを両立。',

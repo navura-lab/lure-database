@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const dIncite44Editorial: EditorialReview = {
-  slug: 'trout-d-incite-44',
+  slug: 'trout-dincite',
   manufacturerSlug: 'smith',
 
   catchcopy: 'ヘビーシンキングミノーの操作性を極限まで高めた、渓流トラウトの必携ルアー。',

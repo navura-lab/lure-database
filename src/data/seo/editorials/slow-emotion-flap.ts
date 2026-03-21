@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const slowEmotionFlapEditorial: EditorialReview = {
-  slug: 'slow-emotion-flap',
+  slug: 'slow-emotion-flare',
   manufacturerSlug: 'xesta',
 
   catchcopy: 'スローピッチジャークの申し子。ゼスタが追求した、フラップアクションで食わせるメタルジグ。',

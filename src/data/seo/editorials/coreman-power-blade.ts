@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const coremanPowerBladeEditorial: EditorialReview = {
-  slug: 'coreman-power-blade',
+  slug: 'pb-13-powerblade',
   manufacturerSlug: 'coreman',
 
   catchcopy:

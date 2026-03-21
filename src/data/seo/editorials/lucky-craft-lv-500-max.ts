@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const luckyCraftLv500MaxEditorial: EditorialReview = {
-  slug: 'lucky-craft-lv-500-max',
+  slug: 'lv',
   manufacturerSlug: 'luckycraft',
 
   catchcopy: 'バイブレーション界のロングセラー「LVシリーズ」の最大モデル。ビッグプロファイルで広大なフィールドを制圧する。',

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaSteezCrank200Editorial: EditorialReview = {
-  slug: 'daiwa-steez-crank-200',
+  slug: '2mxzejr',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'ダイワ・スティーズの名を冠したクランクベイト。SR200の潜行レンジで、シャローを丁寧に刻む。',

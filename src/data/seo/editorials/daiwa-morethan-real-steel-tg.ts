@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwaMorethanRealSteelTgEditorial: EditorialReview = {
-  slug: 'daiwa-morethan-real-steel-tg',
+  slug: 'kth66pg',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'タングステンが生むコンパクト×ヘビー。リアルスティールの深攻め特化モデル。',

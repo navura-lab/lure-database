@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const saltigaTGBaitEditorial: EditorialReview = {
-  slug: 'p6jwzpa',
+  slug: 'huz2stf',
   manufacturerSlug: 'daiwa',
 
   catchcopy:

@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const yamashitaEgiOhKSuperShallowEditorial: EditorialReview = {
-  slug: 'yamashita-egi-oh-k-super-shallow',
+  slug: 'egi-k',
   manufacturerSlug: 'yamashita',
 
   catchcopy: 'シャローを制する者がエギングを制す。エギ王Kの実績にスーパーシャロー性能を加えた、浅場特化のエギ。',

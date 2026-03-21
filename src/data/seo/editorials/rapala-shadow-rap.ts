@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const rapalaShadowRapEditorial: EditorialReview = {
-  slug: 'rapala-shadow-rap',
+  slug: 'rapala-sdr',
   manufacturerSlug: 'rapala',
 
   catchcopy: 'ジャーク一発でスライドし、ピタッと止まる。水中で影のように消えるサスペンドジャークベイト。',

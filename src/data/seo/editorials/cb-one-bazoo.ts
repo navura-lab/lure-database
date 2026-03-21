@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const cbOneBazooEditorial: EditorialReview = {
-  slug: 'cb-one-bazoo',
+  slug: 'bazoo',
   manufacturerSlug: 'cb-one',
 
   catchcopy: 'GT・マグロと渡り合うために造られた、CB ONEのフラッグシップペンシル。大型青物を「水面で獲る」ための最終兵器。',

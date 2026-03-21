@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallGavachoFrogEditorial: EditorialReview = {
-  slug: 'jackall-gavacho-frog',
+  slug: 'gavachofrog',
   manufacturerSlug: 'jackall',
 
   catchcopy: 'ポッパー×フロッグの革命児。カバーの上で「ポコッ」と鳴らせる唯一無二のポッピングフロッグ。',

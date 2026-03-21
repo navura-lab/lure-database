@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const duoSpearheadRyuki70sEditorial: EditorialReview = {
-  slug: 'duo-spearhead-ryuki-70s',
+  slug: 'spearhead-ryuki-vib',
   manufacturerSlug: 'duo',
 
   catchcopy: 'リュウキの本流バージョン。70mmのボリュームで、サクラマスや大型ヤマメの射程に入る。',

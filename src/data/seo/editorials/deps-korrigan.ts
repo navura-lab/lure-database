@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsKorriganEditorial: EditorialReview = {
-  slug: 'deps-korrigan',
+  slug: 'korrigan-magnum',
   manufacturerSlug: 'deps',
 
   catchcopy: 'デプスが本気で作ったフラットサイドクランク。タイトピッチの繊細なアクションで、ハイプレッシャーバスの口を使わせる。',

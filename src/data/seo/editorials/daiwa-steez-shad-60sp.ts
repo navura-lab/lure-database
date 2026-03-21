@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const daiwasteezShad60spEditorial: EditorialReview = {
-  slug: 'daiwa-steez-shad-60sp',
+  slug: 'l5x2irh',
   manufacturerSlug: 'daiwa',
 
   catchcopy: 'サスペンドシャッドの最高峰。ダイワSTEEZブランドが誇る60mmが、タフコンディションの切り札になる理由。',

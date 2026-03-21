@@ -107,6 +107,13 @@ const fishLinks = [
       <a href="mailto:info@castlog.xyz" class="hover:text-text transition-colors">お問い合わせ</a>
     </div>
 
+    <!-- アフィリエイト表記 -->
+    <div class="border-t border-border pt-3 pb-3 text-center font-mono text-[10px] text-text-faint tracking-[0.5px]">
+      {locale === 'en'
+        ? 'This site participates in the Rakuten Affiliate Program.'
+        : '当サイトは楽天アフィリエイトプログラムに参加しています。'}
+    </div>
+
     <!-- コピーライト -->
     <div class="border-t border-border-light pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[10px] text-text-dim tracking-[1px]">
       <div class="flex items-center gap-3">

@@ -9,7 +9,7 @@
 import type { EditorialReview } from './huggos';
 
 export const dContactII50Editorial: EditorialReview = {
-  slug: 'trout-d-contactii-50',
+  slug: 'trout-dcontact',
   manufacturerSlug: 'smith',
 
   catchcopy: '名作D-Contactの血統を受け継ぐ50mmモデル。小規模渓流で「ダート+フォール」の王道を貫く。',
