@@ -2,10 +2,14 @@
   "trailingSlash": true,
   "redirects": [
     {
-      "source": "/:path((?!api/|_astro/|images/|icons/|favicon\\.svg|robots\\.txt|sitemap).*[^/])",
+      "source": "/:path((?!api/|_astro/|pagefind/|images/|icons/|favicon\\.svg|robots\\.txt|sitemap).*[^/])",
       "destination": "/:path/",
       "permanent": true
     },
+    { "source": "/hideup/stagger_wide_3.3/", "destination": "/hideup/stagger-wide-3-3/", "permanent": true },
+    { "source": "/hideup/stagger_wide_2.7/", "destination": "/hideup/stagger-wide-2-7/", "permanent": true },
+    { "source": "/gancraft/shape-s4.0/", "destination": "/gancraft/shape-s/", "permanent": true },
+    { "source": "/gancraft/shape-s2.5/", "destination": "/gancraft/shape-s/", "permanent": true },
     { "source": "/type/lure/", "destination": "/type/", "permanent": true },
     { "source": "/type/plug/", "destination": "/type/", "permanent": true },
     { "source": "/type/shore-jigging/", "destination": "/type/metal-jig/", "permanent": true },
@@ -136,6 +140,12 @@
       "source": "/_astro/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/pagefind/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600" }
       ]
     },
     {
