@@ -284,16 +284,22 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
   jsonLd={combinedJsonLd}
   locale={locale}
 >
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-pagefind-body>
 
     <!-- Breadcrumb -->
-    <nav class="text-sm text-text-mid mb-8">
+    <nav class="text-sm text-text-mid mb-8" data-pagefind-ignore>
       <a href="/en/" class="hover:text-accent transition-colors">Home</a>
       <span class="mx-2">/</span>
       <a href={`/en/${series.manufacturer_slug}/`} class="hover:text-accent transition-colors">{series.manufacturer}</a>
       <span class="mx-2">/</span>
       <span class="text-gray-900">{series.name}</span>
     </nav>
+
+    <!-- Pagefind metadata (for build-time indexing) -->
+    <span data-pagefind-meta="title" class="sr-only">{series.manufacturer} {series.name}</span>
+    {series.representative_image && (
+      <span data-pagefind-meta={`image:${series.representative_image}`} class="sr-only"></span>
+    )}
 
     <!-- Editorial Review (top position) -->
     {editorial && (

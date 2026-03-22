@@ -127,3 +127,63 @@ html {
 .header-scrolled {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
+
+/* ─── Pagefind UI カスタムスタイル ─── */
+/* CAST/LOGデザイントークンに合わせてオーバーライド */
+#pagefind-ui {
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-primary: #00C78A;
+  --pagefind-ui-text: #1A1A1A;
+  --pagefind-ui-background: #FFFFFF;
+  --pagefind-ui-border: #E8E8E8;
+  --pagefind-ui-tag: #F0FBF7;
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 12px;
+  --pagefind-ui-image-border-radius: 8px;
+  --pagefind-ui-image-box-ratio: 3 / 4;
+  --pagefind-ui-font: inherit;
+}
+
+#pagefind-ui .pagefind-ui__search-input {
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-border);
+  padding: 0.625rem 1.25rem;
+  font-size: 0.9375rem;
+  background: #F7F7F7;
+  transition: border-color 0.15s;
+}
+
+#pagefind-ui .pagefind-ui__search-input:focus {
+  border-color: #00C78A;
+  outline: none;
+  background: #FFFFFF;
+}
+
+#pagefind-ui .pagefind-ui__result {
+  border-bottom: 1px solid var(--color-border-light);
+  padding: 1rem 0;
+}
+
+#pagefind-ui .pagefind-ui__result-title {
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+#pagefind-ui .pagefind-ui__result-title a:hover {
+  color: #00C78A;
+}
+
+#pagefind-ui .pagefind-ui__button {
+  background: #00C78A;
+  color: #FFFFFF;
+  border-radius: 9999px;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+#pagefind-ui .pagefind-ui__button:hover {
+  opacity: 0.85;
+}

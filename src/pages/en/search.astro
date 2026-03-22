@@ -129,6 +129,16 @@ const breadcrumbLd = {
     </div>
   </section>
 
+  <!-- Pagefind Full-text Search -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-border" id="pagefind-section">
+    <h2 class="text-lg font-bold text-gray-900 mb-1">Full-text Search</h2>
+    <p class="text-sm text-text-mid mb-4">Search across product descriptions, specs, and reviews</p>
+    <div id="pagefind-ui" class="pagefind-custom"></div>
+  </section>
+
+  <!-- Pagefind CSS -->
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+
   <script define:vars={{ apiToken }}>
     window.__LDB_T = apiToken;
   </script>
@@ -359,4 +369,42 @@ const breadcrumbLd = {
 
   readUrlParams();
   applyFilters();
+</script>
+
+<script>
+  // Pagefind UI initialization (only available after build)
+  async function initPagefind() {
+    const el = document.getElementById('pagefind-ui');
+    if (!el) return;
+
+    try {
+      // Load via Function to exclude from Vite bundle — pagefind is generated after build
+      const pagefindUrl = '/pagefind/pagefind-ui.js';
+      const { PagefindUI } = await new Function('u', 'return import(u)')(pagefindUrl);
+      new PagefindUI({
+        element: '#pagefind-ui',
+        showImages: true,
+        showEmptyFilters: false,
+        resetStyles: false,
+        translations: {
+          placeholder: 'Search by lure name, maker, specs...',
+          zero_results: 'No results for [SEARCH_TERM]',
+          many_results: '[COUNT] results',
+          one_result: '1 result',
+          load_more: 'Load more',
+          search_label: 'Full-text search',
+          filters_label: 'Filters',
+          clear_search: 'Clear',
+          loading: 'Searching...',
+        },
+      });
+    } catch {
+      // Hide section in dev environment before build
+      const section = document.getElementById('pagefind-section');
+      if (section) section.style.display = 'none';
+    }
+  }
+
+  document.addEventListener('astro:page-load', initPagefind);
+  initPagefind();
 </script>

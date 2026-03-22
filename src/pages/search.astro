@@ -61,6 +61,16 @@ const breadcrumbLd = {
     </div>
   </section>
 
+  <!-- Pagefind フルテキスト検索 -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-border" id="pagefind-section">
+    <h2 class="text-lg font-bold text-gray-900 mb-1">フルテキスト検索</h2>
+    <p class="text-sm text-text-mid mb-4">商品説明・スペック・レビュー内容を全文検索します</p>
+    <div id="pagefind-ui" class="pagefind-custom"></div>
+  </section>
+
+  <!-- Pagefind CSS -->
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+
   <script define:vars={{ apiToken }}>
     window.__LDB_T = apiToken;
   </script>
@@ -302,4 +312,44 @@ const breadcrumbLd = {
   // --- Initialize: read URL params and load first page ---
   readUrlParams();
   applyFilters();
+</script>
+
+<script>
+  // Pagefind UI初期化（ビルド後にのみ利用可能）
+  async function initPagefind() {
+    const el = document.getElementById('pagefind-ui');
+    if (!el) return;
+
+    try {
+      // 動的importをViteバンドルから除外するためFunction経由でロード
+      // pagefindはビルド後にdist/client/pagefind/に生成される静的ファイル
+      const pagefindUrl = '/pagefind/pagefind-ui.js';
+      const { PagefindUI } = await new Function('u', 'return import(u)')(pagefindUrl);
+      new PagefindUI({
+        element: '#pagefind-ui',
+        showImages: true,
+        showEmptyFilters: false,
+        resetStyles: false,
+        translations: {
+          placeholder: 'ルアー名・メーカー・スペックで検索...',
+          zero_results: '[SEARCH_TERM]の検索結果はありません',
+          many_results: '[COUNT]件の検索結果',
+          one_result: '1件の検索結果',
+          load_more: 'さらに読み込む',
+          search_label: 'フルテキスト検索',
+          filters_label: '絞り込み',
+          clear_search: 'クリア',
+          loading: '検索中...',
+        },
+      });
+    } catch {
+      // dev環境やビルド前はPagefindが存在しないため非表示
+      const section = document.getElementById('pagefind-section');
+      if (section) section.style.display = 'none';
+    }
+  }
+
+  // astro:page-load でView Transitions対応
+  document.addEventListener('astro:page-load', initPagefind);
+  initPagefind();
 </script>
