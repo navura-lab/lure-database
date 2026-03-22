@@ -2,16 +2,22 @@ User-agent: Googlebot
 Allow: /
 Disallow: /api/
 Disallow: /trap/
+Disallow: /search/
+Disallow: /og/
 
 User-agent: Bingbot
 Allow: /
 Disallow: /api/
 Disallow: /trap/
+Disallow: /search/
+Disallow: /og/
 
 User-agent: *
 Allow: /
 Crawl-delay: 2
 Disallow: /api/
 Disallow: /trap/
+Disallow: /search/
+Disallow: /og/
 
 Sitemap: https://www.castlog.xyz/sitemap-index.xml
