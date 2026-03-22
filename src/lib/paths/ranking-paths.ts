@@ -50,7 +50,7 @@ export async function getRankingPaths() {
     const data = crossMap.get(slug)!;
 
     // ソート: キュレーテッド優先 → アルゴリズムスコア
-    const curatedOrder = getCuratedRanking(slug);
+    const curatedOrder = getCuratedRanking(slug) ?? [];
     const scores = computeRankingScores(data.series);
     const isCurated = curatedOrder.length > 0;
 

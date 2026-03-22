@@ -50,7 +50,7 @@ export async function getComparePaths() {
 
       const curatedSeries: LureSeries[] = [];
       const curatedKeys = new Set<string>();
-      for (const key of curatedOrder) {
+      for (const key of curatedOrder ?? []) {
         const s = seriesMap.get(key);
         if (s) { curatedSeries.push(s); curatedKeys.add(key); }
       }
