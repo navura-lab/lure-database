@@ -113,6 +113,7 @@ interface ScrapedProduct {
   categoryIds: number[];
   specRows: SpecRow[];
   featuredImageUrl: string | null;
+  colorImageMap: Map<string, string>;  // カラー名→画像URLマッピング
 }
 
 // ---------------------------------------------------------------------------
@@ -453,6 +454,94 @@ function parseSpecTables(html: string): SpecRow[] {
   return rows;
 }
 
+/**
+ * カラー画像テーブルからカラー名→画像URLのマッピングを抽出する。
+ * HTML構造: <table> の1行目が画像セル、2行目がカラー名テキストの2行ペア。
+ * カラー名は "#01 グローホワイト" 形式。specRowsのカラー名とマッチングする。
+ */
+function parseColorImages(html: string): Map<string, string> {
+  const colorMap = new Map<string, string>();
+
+  // カラー画像テーブルを検出: 2行ペアで1行目=img, 2行目=テキスト
+  const tables = [...html.matchAll(/<table[^>]*>([\s\S]*?)<\/table>/gi)];
+
+  for (const tableMatch of tables) {
+    const tableHtml = tableMatch[1];
+    // スペックテーブル（JAN/価格を含む）はスキップ
+    if (/JAN/i.test(tableHtml) && /価格/.test(tableHtml)) continue;
+
+    const trs = [...tableHtml.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)];
+
+    // 2行ペアで処理（1行目=画像、2行目=カラー名）
+    for (let i = 0; i < trs.length - 1; i += 2) {
+      const imgRow = trs[i][1];
+      const textRow = trs[i + 1][1];
+
+      // 画像行からimg srcを抽出
+      const imgUrls = [...imgRow.matchAll(/<img[^>]+src="([^"]+)"[^>]*>/gi)]
+        .map(m => m[1]);
+
+      // テキスト行からカラー名を抽出
+      const textCells = [...textRow.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)]
+        .map(m => stripTags(m[1]).trim());
+
+      // 画像とカラー名をペアリング
+      for (let j = 0; j < Math.min(imgUrls.length, textCells.length); j++) {
+        const colorText = textCells[j];
+        const imgUrl = imgUrls[j];
+        if (!colorText || !imgUrl) continue;
+
+        // カラー名を正規化して格納（"#01 グローホワイト" → "グローホワイト" 等）
+        // specRowsのカラー名とマッチングするため、番号付き・番号なし両方で登録
+        colorMap.set(colorText, imgUrl);
+
+        // "#01 グローホワイト" → "#01" でも登録
+        const numMatch = colorText.match(/^(#?\d+)\s+/);
+        if (numMatch) {
+          colorMap.set(numMatch[1], imgUrl);
+          // 番号なしカラー名でも登録
+          const nameOnly = colorText.replace(/^#?\d+\s+/, '').trim();
+          if (nameOnly) colorMap.set(nameOnly, imgUrl);
+        }
+      }
+    }
+  }
+
+  return colorMap;
+}
+
+/**
+ * specRowsのカラー名に対応するカラー画像URLを検索する。
+ * カラー名の部分一致・番号一致・正規化マッチングを行う。
+ */
+function findColorImageUrl(colorName: string, colorImageMap: Map<string, string>): string {
+  // 完全一致
+  if (colorImageMap.has(colorName)) return colorImageMap.get(colorName)!;
+
+  // カラー名の番号部分（例: "01" → "#01"）でマッチ
+  const numMatch = colorName.match(/^#?(\d+)/);
+
+  // カラーマップのエントリを走査して部分一致
+  for (const [key, url] of colorImageMap) {
+    // カラー名がキーに含まれる、またはキーがカラー名に含まれる
+    if (key.includes(colorName) || colorName.includes(key)) return url;
+
+    // 番号マッチ: specRowのカラー名 "01 グローホワイト" ↔ テーブルの "#01 グロー ホワイト"
+    if (numMatch) {
+      const keyNumMatch = key.match(/^#?(\d+)/);
+      if (keyNumMatch && keyNumMatch[1] === numMatch[1]) return url;
+    }
+  }
+
+  // スペースを除去して比較
+  const normalizedColor = colorName.replace(/\s+/g, '');
+  for (const [key, url] of colorImageMap) {
+    if (key.replace(/\s+/g, '') === normalizedColor) return url;
+  }
+
+  return '';
+}
+
 function parseFeaturedImage(product: WPProduct): string | null {
   if (product._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
     return product._embedded['wp:featuredmedia'][0].source_url;
@@ -475,6 +564,7 @@ function scrapeProduct(product: WPProduct): ScrapedProduct {
   const description = parseDescription(html);
   const specRows = parseSpecTables(html);
   const featuredImageUrl = parseFeaturedImage(product);
+  const colorImageMap = parseColorImages(html);
 
   return {
     name,
@@ -484,6 +574,7 @@ function scrapeProduct(product: WPProduct): ScrapedProduct {
     categoryIds,
     specRows,
     featuredImageUrl,
+    colorImageMap,
   };
 }
 
@@ -549,6 +640,9 @@ export const scrapeCrazyOceanPage: ScraperFunction = async (url: string): Promis
     const ogMatch = html.match(/<meta[^>]+property="og:image"[^>]+content="([^"]+)"/i);
     const mainImage = ogMatch ? ogMatch[1] : '';
 
+    // カラー画像マッピングを構築
+    const colorImageMap = parseColorImages(contentHtml);
+
     // Collect unique colors and weights
     const colorSet = new Map<string, ScrapedColorType>();
     const weightSet = new Set<number>();
@@ -556,7 +650,8 @@ export const scrapeCrazyOceanPage: ScraperFunction = async (url: string): Promis
     let length: number | null = null;
     for (const row of specRows) {
       if (row.colorName && !colorSet.has(row.colorName)) {
-        colorSet.set(row.colorName, { name: row.colorName, imageUrl: '' });
+        const imgUrl = findColorImageUrl(row.colorName, colorImageMap);
+        colorSet.set(row.colorName, { name: row.colorName, imageUrl: imgUrl });
       }
       if (row.weight !== null) weightSet.add(row.weight);
       if (row.price > 0 && price === 0) price = Math.round(row.price * 1.1);
@@ -592,7 +687,8 @@ export const scrapeCrazyOceanPage: ScraperFunction = async (url: string): Promis
   let length: number | null = null;
   for (const row of product.specRows) {
     if (row.colorName && !colorSet.has(row.colorName)) {
-      colorSet.set(row.colorName, { name: row.colorName, imageUrl: '' });
+      const imgUrl = findColorImageUrl(row.colorName, product.colorImageMap);
+      colorSet.set(row.colorName, { name: row.colorName, imageUrl: imgUrl });
     }
     if (row.weight !== null) weightSet.add(row.weight);
     if (row.price > 0 && price === 0) price = Math.round(row.price * 1.1);
