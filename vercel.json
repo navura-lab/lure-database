@@ -2858,12 +2858,12 @@
     },
     {
       "source": "/6th-sense/divine-jig-heads-:color*/",
-      "destination": "/6th-sense/divine-jig-heads/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/masterclass-dome-jig-head-:color*/",
-      "destination": "/6th-sense/masterclass-dome-jig-head/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
@@ -2883,12 +2883,12 @@
     },
     {
       "source": "/6th-sense/underspin-:color*/",
-      "destination": "/6th-sense/underspin/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/masterclass-juggle-head-:color*/",
-      "destination": "/6th-sense/masterclass-juggle-head/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
@@ -2898,12 +2898,12 @@
     },
     {
       "source": "/6th-sense/axle-swimbait-jig-heads-:color*/",
-      "destination": "/6th-sense/axle-swimbait-jig-heads/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/finesse-minnow-jighead-:color*/",
-      "destination": "/6th-sense/finesse-minnow-jighead/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
@@ -2918,27 +2918,27 @@
     },
     {
       "source": "/6th-sense/masterclass-juggle-spin-head-:color*/",
-      "destination": "/6th-sense/masterclass-juggle-spin-head/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/axle-swingshaker-:color*/",
-      "destination": "/6th-sense/axle-swingshaker/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/masterclass-shakey-head-:color*/",
-      "destination": "/6th-sense/masterclass-shakey-head/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/finesse-jig-heads-:color*/",
-      "destination": "/6th-sense/finesse-jig-heads/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/tusk-swing-head-:color*/",
-      "destination": "/6th-sense/tusk-swing-head/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
@@ -2953,27 +2953,27 @@
     },
     {
       "source": "/6th-sense/cake-pop-:color*/",
-      "destination": "/6th-sense/cake-pop/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/treble-harness-head-:color*/",
-      "destination": "/6th-sense/treble-harness-head/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/divine-shakey-head-:color*/",
-      "destination": "/6th-sense/divine-shakey-head/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/dome-jighead-:color*/",
-      "destination": "/6th-sense/dome-jighead/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/axle-underspin-:color*/",
-      "destination": "/6th-sense/axle-underspin/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
@@ -2988,12 +2988,12 @@
     },
     {
       "source": "/6th-sense/axle-mag-swingshaker-:color*/",
-      "destination": "/6th-sense/axle-mag-swingshaker/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/ned-rig-football-head-:color*/",
-      "destination": "/6th-sense/ned-rig-football-head/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
@@ -3003,7 +3003,7 @@
     },
     {
       "source": "/6th-sense/divine-ned-rig-football-heads-:color*/",
-      "destination": "/6th-sense/divine-ned-rig-football-heads/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
@@ -3013,17 +3013,172 @@
     },
     {
       "source": "/6th-sense/divine-umbrella-rig-8-blade-6-5-:color*/",
-      "destination": "/6th-sense/divine-umbrella-rig-8-blade-6-5/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/divine-umbrella-rig-4-8-finesse-series-:color*/",
-      "destination": "/6th-sense/divine-umbrella-rig-4-8-finesse-series/",
+      "destination": "/6th-sense/",
       "permanent": true
     },
     {
       "source": "/6th-sense/movement-60wk-:color*/",
       "destination": "/6th-sense/movement-60wk/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-finesse-jig-:path*/",
+      "destination": "/6th-sense/axle-hybrid-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-jig-:path*/",
+      "destination": "/6th-sense/axle-hybrid-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-:path*/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crappie-jig-heads-:path*/",
+      "destination": "/6th-sense/crappie-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-:path*/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ballhead-finesse-jig-:path*/",
+      "destination": "/6th-sense/divine-ballhead-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-scrape-grass-jig-:path*/",
+      "destination": "/6th-sense/divine-scrape-grass-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-spinnerbait-:path*/",
+      "destination": "/6th-sense/divine-spinnerbait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/dogma-:path*/",
+      "destination": "/6th-sense/dogma/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-flock-hair-jig-:path*/",
+      "destination": "/6th-sense/finesse-flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-:path*/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flock-blade-series-:path*/",
+      "destination": "/6th-sense/flock-blade-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flock-hair-jig-:path*/",
+      "destination": "/6th-sense/flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/jigsaw-bladed-jig-:path*/",
+      "destination": "/6th-sense/jigsaw-bladed-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-:path*/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/magdog-fw-:path*/",
+      "destination": "/6th-sense/magdog-fw/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-:path*/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/movement-60wk-:path*/",
+      "destination": "/6th-sense/movement-60wk/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/movement-wake-series-:path*/",
+      "destination": "/6th-sense/movement-wake-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/oh-braid-swim-jig-:path*/",
+      "destination": "/6th-sense/oh-braid-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/party-prop-:path*/",
+      "destination": "/6th-sense/party-prop/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pluck-hair-jig-:path*/",
+      "destination": "/6th-sense/pluck-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-:path*/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-:path*/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/spangle-tinsel-jigs-:path*/",
+      "destination": "/6th-sense/spangle-tinsel-jigs/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-:path*/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-:path*/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-7-25-:path*/",
+      "destination": "/6th-sense/trace-7-25/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/cake-pop-3-wire/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/cake-pop-4-mono/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/cake-pop-4-wire/",
+      "destination": "/6th-sense/",
       "permanent": true
     }
   ],
