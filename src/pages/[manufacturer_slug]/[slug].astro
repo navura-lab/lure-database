@@ -634,7 +634,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
                 {series.colors.filter(c => c.images?.length > 0).slice(0, 4).map(color => (
                   <div class="bg-white rounded-xl border border-border-light overflow-hidden">
                     <div class="aspect-square">
-                      <img src={color.images[0]} alt={color.color_name} class="w-full h-full object-scale-down p-2" loading="lazy" />
+                      <img src={color.images[0]} alt={`${series.name} ${color.color_name} ${makerJa}`} class="w-full h-full object-scale-down p-2" loading="lazy" />
                     </div>
                     <p class="text-[11px] text-text-mid text-center py-1.5 px-1 truncate">{color.color_name}</p>
                   </div>
@@ -779,7 +779,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
           <div class="flex gap-2 overflow-x-auto py-3 scrollbar-hide">
             {series.colors.filter(c => c.images?.length > 0).slice(0, 12).map((color, i) => (
               <div class="shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent hover:border-accent transition-colors cursor-pointer">
-                <img src={color.images[0]} alt={color.color_name} class="w-full h-full object-cover" loading="lazy" />
+                <img src={color.images[0]} alt={`${series.name} ${color.color_name}`} class="w-full h-full object-cover" loading="lazy" />
               </div>
             ))}
           </div>
