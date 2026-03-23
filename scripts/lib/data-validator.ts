@@ -56,11 +56,30 @@ const NON_LURE_NAME_PATTERNS = [
   // アパレル
   { pattern: /\b(hoodie|t-?shirt|jacket|hat\b|cap\b|beanie|glove|shorts|pants)\b/i, category: 'apparel' },
   // パーツ
-  { pattern: /アフターパーツ|スペアパーツ|\breplacement\s+(?:tail|fin)\b|\bspare\s+parts?\b/i, category: 'parts' },
+  { pattern: /アフターパーツ|スペアパーツ|補修部材|替え串|替え針|\breplacement\s+(?:tail|fin)\b|\bspare\s+parts?\b/i, category: 'parts' },
   // ライン
   { pattern: /\b(fishing\s+line|bulk\s+spool|braid\s+line)\b/i, category: 'line' },
+  { pattern: /PEライン|フロロライン|ナイロンライン|ブレイデッドライン|エステルライン/i, category: 'line' },
   // バッグ・ツール
   { pattern: /\b(tackle\s+box|backpack|pliers|scissors|fish\s+grip)\b/i, category: 'tool' },
+  // 仕掛け（JP）
+  { pattern: /仕掛け?[　\s]|五目仕掛|サビキ|天秤|オモリ|ハリス|幹糸|枝糸|ウキ止め/i, category: 'rig' },
+  // 針・フック（JP）
+  { pattern: /アシストフック|フェザーフック|替え針|替えフック|がまかつ.*針|オーナー.*針/i, category: 'hook' },
+  // シンカー・ウェイト（JP）
+  { pattern: /シンカー|ジグヘッド用ウェイト|ネイルシンカー|バレットシンカー|ドロップショットシンカー/i, category: 'weight' },
+  // アパレル（JP）
+  { pattern: /シューズ|ブーツ|ウェーダー|グローブ|キャップ|ハット|ジャケット|レインウェア|Tシャツ/i, category: 'apparel' },
+  // ロッド（JP）
+  { pattern: /パックロッド|ロッドケース|竿袋|ティップカバー/i, category: 'rod' },
+  // リール（JP）
+  { pattern: /スプール|ドラグノブ|ハンドルノブ|ベアリング/i, category: 'reel_parts' },
+  // 食品（まさかの）
+  { pattern: /キムチ|調味料|食品/i, category: 'food' },
+  // セット・バンドル
+  { pattern: /\bbundle\b|アソートセット|ルアーセット|お買い得セット/i, category: 'bundle' },
+  // サングラス・その他
+  { pattern: /サングラス|偏光グラス|\bsunglasses?\b/i, category: 'eyewear' },
 ];
 
 // ========== カラー別slug検出パターン ==========
