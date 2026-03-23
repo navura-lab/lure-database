@@ -900,6 +900,2131 @@
       "source": "/valleyhill/takoya/",
       "destination": "/valleyhill/",
       "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-finesse-jig-black-n-blue-spice/",
+      "destination": "/6th-sense/axle-hybrid-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-finesse-jig-craw-juice/",
+      "destination": "/6th-sense/axle-hybrid-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-finesse-jig-craw-spawn/",
+      "destination": "/6th-sense/axle-hybrid-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-finesse-jig-gravel-craw/",
+      "destination": "/6th-sense/axle-hybrid-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-finesse-jig-green-pumpkin/",
+      "destination": "/6th-sense/axle-hybrid-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-finesse-jig-nirvana/",
+      "destination": "/6th-sense/axle-hybrid-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-finesse-jig-pbandj/",
+      "destination": "/6th-sense/axle-hybrid-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-finesse-jig-plum-bug/",
+      "destination": "/6th-sense/axle-hybrid-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-finesse-jig-tipped-craw/",
+      "destination": "/6th-sense/axle-hybrid-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-jig-black-n-blue/",
+      "destination": "/6th-sense/axle-hybrid-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-jig-blacklight/",
+      "destination": "/6th-sense/axle-hybrid-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-jig-candy-bluegill/",
+      "destination": "/6th-sense/axle-hybrid-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-jig-darkwater-craw/",
+      "destination": "/6th-sense/axle-hybrid-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-jig-grass-mutant/",
+      "destination": "/6th-sense/axle-hybrid-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-jig-green-pumpkin-blue-crush/",
+      "destination": "/6th-sense/axle-hybrid-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-mag-swingshaker-black/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-mag-swingshaker-green-pumpkin/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swimbait-jig-heads-baby-bluegill/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swimbait-jig-heads-baby-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swimbait-jig-heads-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swimbait-jig-heads-sungill/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-4k-bluegill/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-4k-shad/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-black-n-blue/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-blacklight/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-bluegill-fire/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-bluegill-magic/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-candy-bluegill/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-grass-smash/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-green-pumpkin-gill/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-pro-blue-shad/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-sexified-shad/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-shad-ice/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-shad-treuse/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swingshaker-black/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swingshaker-green-pumpkin/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swingshaker-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-underspin-baby-bluegill/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-underspin-baby-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/big-worm-bundle/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/core-x-jig-head/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crappie-jig-heads-baby-shad/",
+      "destination": "/6th-sense/crappie-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crappie-jig-heads-black-neon/",
+      "destination": "/6th-sense/crappie-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crappie-jig-heads-black-rose/",
+      "destination": "/6th-sense/crappie-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crappie-jig-heads-black-shad/",
+      "destination": "/6th-sense/crappie-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crappie-jig-heads-chartreuse-minnow/",
+      "destination": "/6th-sense/crappie-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crappie-jig-heads-multi-pack-variety/",
+      "destination": "/6th-sense/crappie-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crappie-jig-heads-pink-treuse/",
+      "destination": "/6th-sense/crappie-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crappie-jig-heads-silver-shad/",
+      "destination": "/6th-sense/crappie-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crube-scent-sponge/",
+      "destination": "/6th-sense/crube/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-4k-bluegill/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-4k-crawfish/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-4k-shad/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-baby-bluegill/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-baby-shad/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-backwater-bluegill/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-black-magic/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-black-n-blue-craw/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-bleeding-shad/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-blue-treuse-shad/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-bluegill-candy/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-bluegill-fire/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-bluegill-magic/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-bluegill-spawn/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-bluegilla/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-boiled-crawfish/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-candy-citrus-shad/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-chartreuse-black-back/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-chartreuse-black-pearl/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-chartreuse-pro-blue/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-chrome-magic/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-chrome-threadfin/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-craw-bomb/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-crimson-craw/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-custom-bluegill/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-ghost-pro-shad/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-ghost-sexified-shad/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-ghost-shad-scales/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-ghost-threadfin-shad/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-ghost-tipped-craw/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-gilliken/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-green-pumpkin-gill/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-jaint-juice/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-lava-treuse/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-live-shiner/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-radiation-craw/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-sexified-chartreuse-shad/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-shad-burst/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-shad-craft/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-shad-greens/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-shad-pro/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-shad-scales/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-shad-sense/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-shad-treuse-scales/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-sobs-juice/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-spanish-pearl/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-spring-bluegill/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-threadfin-shad/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-tipped-crawfish/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-wild-lava-craw/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-wild-shad/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ballhead-finesse-jig-black-n-blue/",
+      "destination": "/6th-sense/divine-ballhead-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ballhead-finesse-jig-brown-n-orange-craw/",
+      "destination": "/6th-sense/divine-ballhead-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ballhead-finesse-jig-brownie/",
+      "destination": "/6th-sense/divine-ballhead-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ballhead-finesse-jig-green-pumpkin-blue/",
+      "destination": "/6th-sense/divine-ballhead-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ballhead-finesse-jig-green-pumpkin-legend/",
+      "destination": "/6th-sense/divine-ballhead-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ballhead-finesse-jig-green-pumpkin-orange/",
+      "destination": "/6th-sense/divine-ballhead-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ballhead-finesse-jig-magic-blue-craw/",
+      "destination": "/6th-sense/divine-ballhead-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ballhead-finesse-jig-natural-craw/",
+      "destination": "/6th-sense/divine-ballhead-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ballhead-finesse-jig-river-craw/",
+      "destination": "/6th-sense/divine-ballhead-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-jig-heads-baby-bluegill/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-jig-heads-baby-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-jig-heads-live-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-jig-heads-sexified-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-jig-heads-silver-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-jig-heads-sungill/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ned-rig-football-heads-black/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ned-rig-football-heads-green-pumpkin/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-scrape-grass-jig-back-water-special/",
+      "destination": "/6th-sense/divine-scrape-grass-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-scrape-grass-jig-black-n-blue/",
+      "destination": "/6th-sense/divine-scrape-grass-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-scrape-grass-jig-bluegill-fire/",
+      "destination": "/6th-sense/divine-scrape-grass-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-scrape-grass-jig-california-420/",
+      "destination": "/6th-sense/divine-scrape-grass-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-scrape-grass-jig-candy-bluegill/",
+      "destination": "/6th-sense/divine-scrape-grass-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-scrape-grass-jig-dark-okeechobee-craw/",
+      "destination": "/6th-sense/divine-scrape-grass-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-scrape-grass-jig-grass-theory/",
+      "destination": "/6th-sense/divine-scrape-grass-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-shakey-head-black/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-shakey-head-green-pumpkin/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-spinnerbait-blue-treuse-flash/",
+      "destination": "/6th-sense/divine-spinnerbait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-spinnerbait-bone-treuse-pearl/",
+      "destination": "/6th-sense/divine-spinnerbait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-spinnerbait-chartreuse-flash/",
+      "destination": "/6th-sense/divine-spinnerbait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-spinnerbait-lavender-shad/",
+      "destination": "/6th-sense/divine-spinnerbait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-spinnerbait-shad-ice/",
+      "destination": "/6th-sense/divine-spinnerbait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-spinnerbait-shad-pro/",
+      "destination": "/6th-sense/divine-spinnerbait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-swimbait-starter-kit/",
+      "destination": "/6th-sense/divine-swimbait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-umbrella-rig-4-8-finesse-series-4k-shad/",
+      "destination": "/6th-sense/divine-umbrella-rig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-umbrella-rig-4-8-finesse-series-baby-minnow/",
+      "destination": "/6th-sense/divine-umbrella-rig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-umbrella-rig-4k-shad/",
+      "destination": "/6th-sense/divine-umbrella-rig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-umbrella-rig-8-blade-6-5-4k-shad/",
+      "destination": "/6th-sense/divine-umbrella-rig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-umbrella-rig-8-blade-6-5-spanish-pearl/",
+      "destination": "/6th-sense/divine-umbrella-rig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-umbrella-rig-jig-heads-raw/",
+      "destination": "/6th-sense/divine-umbrella-rig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-umbrella-rig-spanish-pearl/",
+      "destination": "/6th-sense/divine-umbrella-rig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/dogma-4k-shad/",
+      "destination": "/6th-sense/dogma/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/dogma-black-magic/",
+      "destination": "/6th-sense/dogma/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/dogma-bleeding-shad/",
+      "destination": "/6th-sense/dogma/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/dogma-french-bone-pearl/",
+      "destination": "/6th-sense/dogma/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/dogma-shad-burst/",
+      "destination": "/6th-sense/dogma/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/dome-jighead-matte-brown/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/dome-jighead-matte-green-pumpkin/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-flock-hair-jig-gizzard-shad/",
+      "destination": "/6th-sense/finesse-flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-flock-hair-jig-morning-dawn/",
+      "destination": "/6th-sense/finesse-flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-flock-hair-jig-pro-blue/",
+      "destination": "/6th-sense/finesse-flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-flock-hair-jig-shad-ice/",
+      "destination": "/6th-sense/finesse-flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-jig-heads-baby-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-jig-heads-perch-gill/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-jig-heads-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-minnow-jighead-american-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-minnow-jighead-gizzard-flash/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-minnow-jighead-pro-green-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-minnow-jighead-smoke-6/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-baby-speck/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-chrome/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-croaker-blood/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-flamingo/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-gold/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-gold-croaker/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-golden-chicken/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-golden-roach/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-live-croaker/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-live-mullet/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-menhaden-shad/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-pink-chrome/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flock-blade-series-chartruese-and-white/",
+      "destination": "/6th-sense/flock-blade-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flock-blade-series-morning-dawn/",
+      "destination": "/6th-sense/flock-blade-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flock-blade-series-pro-blue/",
+      "destination": "/6th-sense/flock-blade-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flock-hair-jig-gizzard-shad/",
+      "destination": "/6th-sense/flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flock-hair-jig-morning-dawn/",
+      "destination": "/6th-sense/flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flock-hair-jig-pro-blue/",
+      "destination": "/6th-sense/flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flock-hair-jig-shad-ice/",
+      "destination": "/6th-sense/flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flush-7-5-wakasagi/",
+      "destination": "/6th-sense/flush-7-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/inshore-jig-heads-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/jigsaw-bladed-jig-baby-bream/",
+      "destination": "/6th-sense/jigsaw-bladed-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/jigsaw-bladed-jig-bluegill-fire/",
+      "destination": "/6th-sense/jigsaw-bladed-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/jigsaw-bladed-jig-bluegill-magic/",
+      "destination": "/6th-sense/jigsaw-bladed-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/juggle-lock-head/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-4k-bluegill/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-4k-shad/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-black-n-blue/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-candy-bluegill/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-green-pumpkin/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-junebug-gill/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-lavender-shad/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-pro-blue-shad/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-sexified-shad/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-white-ice/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-white-neon/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/magdog-fw-4k-shad/",
+      "destination": "/6th-sense/magdog-fw/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/magdog-fw-spanish-bone/",
+      "destination": "/6th-sense/magdog-fw/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-dome-jig-head-black/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-dome-jig-head-black-3-16-1/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-dome-jig-head-green-pumpkin/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-dome-jig-head-green-pumpkin-3-16-1/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-dome-jig-head-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-dome-jig-head-raw-3-16-1/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-hd-lead-ball-jig-head-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-juggle-head-4k-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-juggle-head-american-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-juggle-head-minnow-juice/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-juggle-head-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-juggle-head-smoke-6/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-juggle-spin-head-4k-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-juggle-spin-head-american-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-juggle-spin-head-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-juggle-spin-head-smoke-6/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-lead-ball-jig-head-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-shakey-head-black/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-shakey-head-green-pumpkin/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-shakey-head-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-tungsten-ball-jig-head-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-algae-glow/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-aqua-glow/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-black-neon/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-chartreuse-minnow/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-ghost-ice-minnow/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-ghost-minnow/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-green-gizzard/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-monkey-milk/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-paranormal/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-pro-chicken/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-spanish-bone/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-threadfin-shad/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-wakasagi/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/movement-60wk-live-gizzard-flash/",
+      "destination": "/6th-sense/movement-60wk/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/movement-60wk-pros-choice/",
+      "destination": "/6th-sense/movement-60wk/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/movement-wake-series-4k-shad/",
+      "destination": "/6th-sense/movement-wake-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/movement-wake-series-spanish-bone/",
+      "destination": "/6th-sense/movement-wake-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/mystery-exclusive-soft-plastic-bundle-pack/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/ned-rig-football-head-matte-brown/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/ned-rig-football-head-matte-green-pumpkin/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/ned-rig-kit/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/oh-braid-swim-jig-bloody-shad/",
+      "destination": "/6th-sense/oh-braid-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/oh-braid-swim-jig-shad-ice/",
+      "destination": "/6th-sense/oh-braid-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/only-frogs/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/party-prop-ayu/",
+      "destination": "/6th-sense/party-prop/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/party-prop-black/",
+      "destination": "/6th-sense/party-prop/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/party-prop-chrome-black-back/",
+      "destination": "/6th-sense/party-prop/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/party-prop-ghost-bone-minnow/",
+      "destination": "/6th-sense/party-prop/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/party-prop-ghost-yellow-perch/",
+      "destination": "/6th-sense/party-prop/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/party-prop-matte-minnow/",
+      "destination": "/6th-sense/party-prop/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pluck-hair-jig-black-neon/",
+      "destination": "/6th-sense/pluck-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pluck-hair-jig-chartreuse-minnow/",
+      "destination": "/6th-sense/pluck-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pluck-hair-jig-gum-minnow/",
+      "destination": "/6th-sense/pluck-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pluck-hair-jig-ice-minnow/",
+      "destination": "/6th-sense/pluck-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pluck-hair-jig-pro-chicken/",
+      "destination": "/6th-sense/pluck-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pluck-hair-jig-pro-minnow/",
+      "destination": "/6th-sense/pluck-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pluck-hair-jig-royal-minnow/",
+      "destination": "/6th-sense/pluck-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-4k-shad/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-blue-treuse-shad/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-brown-eye/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-chartreuse-crappie/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-chartreuse-pro-blue/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-citrus-6/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-clearwater-shad/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-ghost-gizzard/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-ghost-pro-blue/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-golden-gizzard/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-green-threadfin/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-heater-shad/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-live-bluegill/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-matte-ghostified/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-matte-natural/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-morning-dawn/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-profit-shad/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-shad-world/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-smoke-6/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-tennessee-shad/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-wild-lava-craw/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/provoke-106-series-herring-shad/",
+      "destination": "/6th-sense/provoke-106-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/provoke-106x-chartreuse-phobia/",
+      "destination": "/6th-sense/provoke-106x/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/saltwater-treble-head-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/shakey-head-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/shindo-6-0-saltwater/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-4k-bluegill/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-4k-shad/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-electric-shad/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-fire-perch/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-gold-reactor/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-jaint-juice/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-profit-shad/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-shad-hammer/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-shad-scales/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-spanish-pearl/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-wild-lava-craw/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/soft-plastic-sampler/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/spangle-tinsel-jigs-black-neon/",
+      "destination": "/6th-sense/spangle-tinsel-jigs/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/spangle-tinsel-jigs-black-rose/",
+      "destination": "/6th-sense/spangle-tinsel-jigs/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/spangle-tinsel-jigs-chartreuse-minnow/",
+      "destination": "/6th-sense/spangle-tinsel-jigs/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/spangle-tinsel-jigs-ghost-ice-minnow/",
+      "destination": "/6th-sense/spangle-tinsel-jigs/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/spangle-tinsel-jigs-pro-chicken/",
+      "destination": "/6th-sense/spangle-tinsel-jigs/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/spangle-tinsel-jigs-pro-minnow/",
+      "destination": "/6th-sense/spangle-tinsel-jigs/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/spangle-tinsel-jigs-royal-minnow/",
+      "destination": "/6th-sense/spangle-tinsel-jigs/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/spangle-tinsel-jigs-shad-treuse/",
+      "destination": "/6th-sense/spangle-tinsel-jigs/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/speed-glide-100-saltwater-bone-flash/",
+      "destination": "/6th-sense/speed-glide-100-saltwater/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/swimbait-eater-loden/",
+      "destination": "/6th-sense/swimbait-eater/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/swimbaits-only/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-4k-shad/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-blue-shiner/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-bone-pearl/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-clearwater-shad/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-ghost-bone-shad/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-ghost-gizzard/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-ghost-hitch/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-ghost-pro-shiner/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-green-shiner/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-live-barfish/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-live-bluegill/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-live-crappie/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-live-gizzard/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-live-shad/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-live-shiner/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-live-tilapia/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-pro-blue/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-shad-clone/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-4k-bluegill/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-4k-gizzard/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-4k-shad/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-baby-sunfish/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-blueback-herring/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-bluegill-spawn/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-bluegilla/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-bone-pearl/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-cajun-gill/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-chrome-gizzard/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-chrome-threadfin/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-clearwater-shad/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-electric-shad/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-ghost-gizzard/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-gilliken/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-gizzard-shad/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-glass-shad/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-gold-reactor/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-heater-shad/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-lavender-citrus/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-live-bluegill/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-live-gizzard-flash/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-live-shad/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-live-shiner/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-live-threadfin-shad/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-matte-natural/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-profit-shad/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-pros-choice/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-rayburn-ghost/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-shad-burst/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-shad-hammer/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-shad-sense/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-tilapia/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-wild-shad/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-7-25-4k-shad/",
+      "destination": "/6th-sense/trace-7-25/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-7-25-bone-pearl/",
+      "destination": "/6th-sense/trace-7-25/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-7-25-chrome-gizzard/",
+      "destination": "/6th-sense/trace-7-25/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-7-25-ghost-gizzard/",
+      "destination": "/6th-sense/trace-7-25/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-7-25-live-gizzard-flash/",
+      "destination": "/6th-sense/trace-7-25/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-7-25-live-shad/",
+      "destination": "/6th-sense/trace-7-25/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-7-25-pros-choice/",
+      "destination": "/6th-sense/trace-7-25/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/treble-harness-head-baby-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/treble-harness-head-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/tusk-swing-head-matte-black/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/tusk-swing-head-matte-green-pumpkin/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/tusk-swing-head-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/umbrella-rig-jig-heads/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/underspin-baby-bluegill/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/underspin-baby-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/underspin-blueback-herring/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/underspin-sexified-shad/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/underspin-shad-treuse/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/wig-hair-jig/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-series-:color*/",
+      "destination": "/6th-sense/crush-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-6-:color*/",
+      "destination": "/6th-sense/trace-6/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pressure-series-:color*/",
+      "destination": "/6th-sense/pressure-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-option-:color*/",
+      "destination": "/6th-sense/the-option/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/micro-fiction-1-5-:color*/",
+      "destination": "/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swinging-swim-jig-:color*/",
+      "destination": "/6th-sense/axle-swinging-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/fling-spoon-:color*/",
+      "destination": "/6th-sense/fling-spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/slice-blade-bait-:color*/",
+      "destination": "/6th-sense/slice-blade-bait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/konda-finesse-swim-jig-:color*/",
+      "destination": "/6th-sense/konda-finesse-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-finesse-jig-:color*/",
+      "destination": "/6th-sense/axle-hybrid-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ballhead-finesse-jig-:color*/",
+      "destination": "/6th-sense/divine-ballhead-finesse-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/spangle-tinsel-jigs-:color*/",
+      "destination": "/6th-sense/spangle-tinsel-jigs/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crappie-jig-heads-:color*/",
+      "destination": "/6th-sense/crappie-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/pluck-hair-jig-:color*/",
+      "destination": "/6th-sense/pluck-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-scrape-grass-jig-:color*/",
+      "destination": "/6th-sense/divine-scrape-grass-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/trace-7-25-:color*/",
+      "destination": "/6th-sense/trace-7-25/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-jig-heads-:color*/",
+      "destination": "/6th-sense/divine-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-dome-jig-head-:color*/",
+      "destination": "/6th-sense/masterclass-dome-jig-head/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-hybrid-jig-:color*/",
+      "destination": "/6th-sense/axle-hybrid-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-spinnerbait-:color*/",
+      "destination": "/6th-sense/divine-spinnerbait/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/party-prop-:color*/",
+      "destination": "/6th-sense/party-prop/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/underspin-:color*/",
+      "destination": "/6th-sense/underspin/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-juggle-head-:color*/",
+      "destination": "/6th-sense/masterclass-juggle-head/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/dogma-:color*/",
+      "destination": "/6th-sense/dogma/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swimbait-jig-heads-:color*/",
+      "destination": "/6th-sense/axle-swimbait-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-minnow-jighead-:color*/",
+      "destination": "/6th-sense/finesse-minnow-jighead/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-flock-hair-jig-:color*/",
+      "destination": "/6th-sense/finesse-flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flock-hair-jig-:color*/",
+      "destination": "/6th-sense/flock-hair-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-juggle-spin-head-:color*/",
+      "destination": "/6th-sense/masterclass-juggle-spin-head/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-swingshaker-:color*/",
+      "destination": "/6th-sense/axle-swingshaker/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/masterclass-shakey-head-:color*/",
+      "destination": "/6th-sense/masterclass-shakey-head/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/finesse-jig-heads-:color*/",
+      "destination": "/6th-sense/finesse-jig-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/tusk-swing-head-:color*/",
+      "destination": "/6th-sense/tusk-swing-head/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/jigsaw-bladed-jig-:color*/",
+      "destination": "/6th-sense/jigsaw-bladed-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flock-blade-series-:color*/",
+      "destination": "/6th-sense/flock-blade-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/cake-pop-:color*/",
+      "destination": "/6th-sense/cake-pop/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/treble-harness-head-:color*/",
+      "destination": "/6th-sense/treble-harness-head/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-shakey-head-:color*/",
+      "destination": "/6th-sense/divine-shakey-head/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/dome-jighead-:color*/",
+      "destination": "/6th-sense/dome-jighead/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-underspin-:color*/",
+      "destination": "/6th-sense/axle-underspin/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/oh-braid-swim-jig-:color*/",
+      "destination": "/6th-sense/oh-braid-swim-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/magdog-fw-:color*/",
+      "destination": "/6th-sense/magdog-fw/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/axle-mag-swingshaker-:color*/",
+      "destination": "/6th-sense/axle-mag-swingshaker/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/ned-rig-football-head-:color*/",
+      "destination": "/6th-sense/ned-rig-football-head/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/movement-wake-series-:color*/",
+      "destination": "/6th-sense/movement-wake-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-ned-rig-football-heads-:color*/",
+      "destination": "/6th-sense/divine-ned-rig-football-heads/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-umbrella-rig-:color*/",
+      "destination": "/6th-sense/divine-umbrella-rig/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-umbrella-rig-8-blade-6-5-:color*/",
+      "destination": "/6th-sense/divine-umbrella-rig-8-blade-6-5/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-umbrella-rig-4-8-finesse-series-:color*/",
+      "destination": "/6th-sense/divine-umbrella-rig-4-8-finesse-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/movement-60wk-:color*/",
+      "destination": "/6th-sense/movement-60wk/",
+      "permanent": true
     }
   ],
   "headers": [
