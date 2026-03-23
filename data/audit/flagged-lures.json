@@ -1,0 +1,1144 @@
+{
+  "scan_date": "2026-03-23",
+  "total_scanned": 7943,
+  "flagged": 63,
+  "by_rule": {
+    "rule1": 35,
+    "rule2": 8,
+    "rule3": 8,
+    "rule4": 12,
+    "rule5": 0
+  },
+  "flags": [
+    {
+      "slug": "majorcraft/jpvtg",
+      "name": "ジグパラ バーチカル タングステン",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量150g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "マダイ",
+        "ロックフィッシュ"
+      ],
+      "type": "メタルジグ",
+      "weight": "150g",
+      "length": "(なし)",
+      "price": "5500円"
+    },
+    {
+      "slug": "majorcraft/tm-head",
+      "name": "替乃実",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "タイラバがバス用"
+      ],
+      "target_fish": [
+        "青物",
+        "シーバス"
+      ],
+      "type": "タイラバ",
+      "weight": "250g",
+      "length": "(なし)",
+      "price": "1122円"
+    },
+    {
+      "slug": "duel/saltybait",
+      "name": "ソルティー・ベイト™",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量100g（≥100g）"
+      ],
+      "target_fish": [
+        "シーバス"
+      ],
+      "type": "ワーム",
+      "weight": "100g",
+      "length": "(なし)",
+      "price": "0円"
+    },
+    {
+      "slug": "majorcraft/edn",
+      "name": "エデン",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "タイラバがバス用"
+      ],
+      "target_fish": [
+        "青物",
+        "シーバス"
+      ],
+      "type": "タイラバ",
+      "weight": "7g",
+      "length": "45mm",
+      "price": "1089円"
+    },
+    {
+      "slug": "jazz/basic",
+      "name": "爆釣JIG",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量50g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "ロックフィッシュ（カサゴ、アイナメ等）"
+      ],
+      "type": "メタルジグ",
+      "weight": "50g",
+      "length": "(なし)",
+      "price": "500円"
+    },
+    {
+      "slug": "viva/aji-pinpin",
+      "name": "Aji PinPin（アジピンピン）",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "アジング用で重量41g（≥30g）"
+      ],
+      "target_fish": [
+        "アジ",
+        "メバル"
+      ],
+      "type": "ワーム",
+      "weight": "41g",
+      "length": "(なし)",
+      "price": "440円"
+    },
+    {
+      "slug": "bozles/tg-nobunaga-neo",
+      "name": "TGノブナガネオ",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量140g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "type": "メタルジグ",
+      "weight": "140g",
+      "length": "(なし)",
+      "price": "4600円"
+    },
+    {
+      "slug": "drt/super-shuttle",
+      "name": "SUPER SHUTTLE",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量113g（≥100g）"
+      ],
+      "target_fish": [
+        "ブラックバス"
+      ],
+      "type": "ワーム",
+      "weight": "113g",
+      "length": "(なし)",
+      "price": "0円"
+    },
+    {
+      "slug": "livetarget/rainbow-smelt-jerkbait-shallow-dive",
+      "name": "Rainbow Smelt Jerkbait Shallow Dive",
+      "rules": [
+        "rule2"
+      ],
+      "details": [
+        "トラウト用で全長203mm（≥200mm）"
+      ],
+      "target_fish": [
+        "ブラックバス",
+        "ウォールアイ",
+        "トラウト"
+      ],
+      "type": "ミノー",
+      "weight": "(なし)",
+      "length": "203mm",
+      "price": "2249円"
+    },
+    {
+      "slug": "duel/saltyrubber-slidehead",
+      "name": "ソルティー・ラバー® スライドヘッド",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "タイラバがバス用"
+      ],
+      "target_fish": [
+        "シーバス"
+      ],
+      "type": "タイラバ",
+      "weight": "60g",
+      "length": "(なし)",
+      "price": "0円"
+    },
+    {
+      "slug": "viva/muscle-bug",
+      "name": "Muscle BUG（マッスルバグ）",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "アジング用で重量36g（≥30g）"
+      ],
+      "target_fish": [
+        "アジ",
+        "メバル"
+      ],
+      "type": "ワーム",
+      "weight": "36g",
+      "length": "(なし)",
+      "price": "440円"
+    },
+    {
+      "slug": "pazdesign/hanto",
+      "name": "海晴ハント",
+      "rules": [
+        "rule2"
+      ],
+      "details": [
+        "トラウト用で全長200mm（≥200mm）"
+      ],
+      "target_fish": [
+        "トラウト"
+      ],
+      "type": "メタルジグ",
+      "weight": "350g",
+      "length": "200mm",
+      "price": "0円"
+    },
+    {
+      "slug": "viva/aji-penpen",
+      "name": "Aji PenPen",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "アジング用で重量36g（≥30g）"
+      ],
+      "target_fish": [
+        "アジ",
+        "メバル"
+      ],
+      "type": "ワーム",
+      "weight": "36g",
+      "length": "(なし)",
+      "price": "440円"
+    },
+    {
+      "slug": "bozles/tg-keiji",
+      "name": "TGケイジ",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量150g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "type": "メタルジグ",
+      "weight": "150g",
+      "length": "(なし)",
+      "price": "4300円"
+    },
+    {
+      "slug": "strike-king/lil-sucker",
+      "name": "Lil Sucker",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量170.1g（≥100g）"
+      ],
+      "target_fish": [
+        "ブラックバス"
+      ],
+      "type": "ワーム",
+      "weight": "170.1g",
+      "length": "(なし)",
+      "price": "674円"
+    },
+    {
+      "slug": "viva/aji-pinpin-old",
+      "name": "Aji PinPin（アジピンピン）",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "アジング用で重量41g（≥30g）"
+      ],
+      "target_fish": [
+        "アジ",
+        "メバル"
+      ],
+      "type": "ワーム",
+      "weight": "41g",
+      "length": "(なし)",
+      "price": "440円"
+    },
+    {
+      "slug": "viva/pila-pila-pilarin",
+      "name": "Pila Pila Pilarin（ピラピラ ピラリン）",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量70g（≥50g）"
+      ],
+      "target_fish": [
+        "メバル"
+      ],
+      "type": "ワーム",
+      "weight": "70g",
+      "length": "(なし)",
+      "price": "440円"
+    },
+    {
+      "slug": "yamashita/ten-ya-taipu",
+      "name": "猛追太刀魚テンヤ船 鰯タイプ",
+      "rules": [
+        "rule3"
+      ],
+      "details": [
+        "エギ専門メーカー(yamashita)だがtype=テンヤ"
+      ],
+      "target_fish": [
+        "タチウオ"
+      ],
+      "type": "テンヤ",
+      "weight": "(なし)",
+      "length": "(なし)",
+      "price": "0円"
+    },
+    {
+      "slug": "jazz/jig-f-1-middoshippu",
+      "name": "爆釣JIG F-1 ミッドシップ",
+      "rules": [
+        "rule3"
+      ],
+      "details": [
+        "ライトゲーム専門メーカー(jazz)だがバス分類"
+      ],
+      "target_fish": [
+        "青物",
+        "シーバス"
+      ],
+      "type": "メタルジグ",
+      "weight": "120g",
+      "length": "108mm",
+      "price": "90080円"
+    },
+    {
+      "slug": "bozles/nobunaga-light",
+      "name": "ノブナガライト",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量60g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "type": "メタルジグ",
+      "weight": "60g",
+      "length": "(なし)",
+      "price": "1100円"
+    },
+    {
+      "slug": "bozles/tg-ranmaru",
+      "name": "TGランマル",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量120g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "type": "メタルジグ",
+      "weight": "120g",
+      "length": "(なし)",
+      "price": "3400円"
+    },
+    {
+      "slug": "bozles/tg-nobunaga",
+      "name": "TGノブナガ",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量150g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "type": "メタルジグ",
+      "weight": "150g",
+      "length": "(なし)",
+      "price": "4800円"
+    },
+    {
+      "slug": "lunkerhunt/micro-tube",
+      "name": "Micro Tube",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量170.1g（≥100g）"
+      ],
+      "target_fish": [
+        "ブラックバス",
+        "パイク"
+      ],
+      "type": "ワーム",
+      "weight": "170.1g",
+      "length": "(なし)",
+      "price": "824円"
+    },
+    {
+      "slug": "rapala/luhrjensen-3700",
+      "name": "COWBELL LAKE TROLL",
+      "rules": [
+        "rule2"
+      ],
+      "details": [
+        "トラウト用で全長685.8mm（≥200mm）"
+      ],
+      "target_fish": [
+        "トラウト",
+        "サーモン"
+      ],
+      "type": "スピナー",
+      "weight": "31.5g",
+      "length": "685.8mm",
+      "price": "2189円"
+    },
+    {
+      "slug": "breaden/cathymersey",
+      "name": "13VIB/CathyMersey",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "アジング用で重量40g（≥30g）"
+      ],
+      "target_fish": [
+        "メバル",
+        "アジ",
+        "カサゴ"
+      ],
+      "type": "バイブレーション",
+      "weight": "40g",
+      "length": "57mm",
+      "price": "1320円"
+    },
+    {
+      "slug": "jazz/bluegrass",
+      "name": "BlueGrass",
+      "rules": [
+        "rule3"
+      ],
+      "details": [
+        "ライトゲーム専門メーカー(jazz)だがバス分類"
+      ],
+      "target_fish": [
+        "青物",
+        "シーバス"
+      ],
+      "type": "メタルジグ",
+      "weight": "60g",
+      "length": "(なし)",
+      "price": "900円"
+    },
+    {
+      "slug": "daiwa/dkalube",
+      "name": "ロックローバー MV",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量200g（≥100g）"
+      ],
+      "target_fish": [
+        "ブラックバス"
+      ],
+      "type": "ワーム",
+      "weight": "200g",
+      "length": "75.5mm",
+      "price": "1320円"
+    },
+    {
+      "slug": "bozles/yukimura-slim",
+      "name": "幸村スリム",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量260g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "type": "メタルジグ",
+      "weight": "260g",
+      "length": "(なし)",
+      "price": "2680円"
+    },
+    {
+      "slug": "rapala/storm-dosh",
+      "name": "DOCAN SNAPPER BALL HEAD",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "タイラバがバス用"
+      ],
+      "target_fish": [
+        "ブラックバス"
+      ],
+      "type": "タイラバ",
+      "weight": "150g",
+      "length": "(なし)",
+      "price": "792円"
+    },
+    {
+      "slug": "duel/sliderubber",
+      "name": "スライドラバー™",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "タイラバがバス用"
+      ],
+      "target_fish": [
+        "シーバス"
+      ],
+      "type": "タイラバ",
+      "weight": "(なし)",
+      "length": "(なし)",
+      "price": "0円"
+    },
+    {
+      "slug": "strike-king/maxie-waxie",
+      "name": "Maxie Waxie",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量113.4g（≥100g）"
+      ],
+      "target_fish": [
+        "ブラックバス"
+      ],
+      "type": "ワーム",
+      "weight": "113.4g",
+      "length": "(なし)",
+      "price": "674円"
+    },
+    {
+      "slug": "jackall/binbin-inchiku",
+      "name": "ビンビンインチク",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量80g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "マダイ",
+        "ロックフィッシュ"
+      ],
+      "type": "インチク",
+      "weight": "80g",
+      "length": "(なし)",
+      "price": "1265円"
+    },
+    {
+      "slug": "livetarget/rainbow-smelt-banana-bait-shallow-dive",
+      "name": "Rainbow Smelt Banana Bait Shallow Dive",
+      "rules": [
+        "rule2"
+      ],
+      "details": [
+        "トラウト用で全長203mm（≥200mm）"
+      ],
+      "target_fish": [
+        "ブラックバス",
+        "ウォールアイ",
+        "トラウト"
+      ],
+      "type": "スイムベイト",
+      "weight": "(なし)",
+      "length": "203mm",
+      "price": "2249円"
+    },
+    {
+      "slug": "duel/sliderubber-curly",
+      "name": "スライドラバー カーリー™",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "タイラバがバス用"
+      ],
+      "target_fish": [
+        "シーバス"
+      ],
+      "type": "タイラバ",
+      "weight": "(なし)",
+      "length": "(なし)",
+      "price": "0円"
+    },
+    {
+      "slug": "bozles/tg-taiko-hideyoshi",
+      "name": "TG太閤ヒデヨシ",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量250g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "type": "メタルジグ",
+      "weight": "250g",
+      "length": "(なし)",
+      "price": "8500円"
+    },
+    {
+      "slug": "jazz/beat12",
+      "name": "Beat12",
+      "rules": [
+        "rule3"
+      ],
+      "details": [
+        "ライトゲーム専門メーカー(jazz)だがバス分類"
+      ],
+      "target_fish": [
+        "シーバス"
+      ],
+      "type": "ビッグベイト",
+      "weight": "20g",
+      "length": "120mm",
+      "price": "1900円"
+    },
+    {
+      "slug": "duel/saltybait-wave",
+      "name": "ソルティー・ベイト™ ウェーブ",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量100g（≥100g）"
+      ],
+      "target_fish": [
+        "シーバス"
+      ],
+      "type": "ワーム",
+      "weight": "100g",
+      "length": "(なし)",
+      "price": "0円"
+    },
+    {
+      "slug": "maria/riraizu-s130",
+      "name": "リライズ S130",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "アジング用で重量70g（≥30g）"
+      ],
+      "target_fish": [
+        "アジ"
+      ],
+      "type": "シンキングペンシル",
+      "weight": "70g",
+      "length": "130mm",
+      "price": "0円"
+    },
+    {
+      "slug": "littlejack/forma-heads",
+      "name": "FORMA HEADS",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量52g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "ロックフィッシュ"
+      ],
+      "type": "シンキングペンシル",
+      "weight": "52g",
+      "length": "105mm",
+      "price": "2178円"
+    },
+    {
+      "slug": "geecrack/gs-bladon",
+      "name": "GS-BLADON",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量113.4g（≥100g）"
+      ],
+      "target_fish": [
+        "ブラックバス"
+      ],
+      "type": "ワーム",
+      "weight": "113.4g",
+      "length": "318mm",
+      "price": "1078円"
+    },
+    {
+      "slug": "jazz/deka",
+      "name": "デカ暴君",
+      "rules": [
+        "rule3"
+      ],
+      "details": [
+        "ライトゲーム専門メーカー(jazz)だがバス分類"
+      ],
+      "target_fish": [
+        "シーバス",
+        "青物"
+      ],
+      "type": "メタルジグ",
+      "weight": "30g",
+      "length": "70mm",
+      "price": "850円"
+    },
+    {
+      "slug": "bozles/gou",
+      "name": "ゴウ",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量200g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "type": "メタルジグ",
+      "weight": "200g",
+      "length": "(なし)",
+      "price": "3100円"
+    },
+    {
+      "slug": "madness/ebeech48",
+      "name": "shiriten EBEECH 48",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "エギがバス用"
+      ],
+      "target_fish": [
+        "シーバス"
+      ],
+      "type": "エギ",
+      "weight": "3.5g",
+      "length": "48mm",
+      "price": "1540円"
+    },
+    {
+      "slug": "megabass/taco-le-soft",
+      "name": "TACO-LE Soft",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "エギがバス用"
+      ],
+      "target_fish": [
+        "ブラックバス"
+      ],
+      "type": "エギ",
+      "weight": "14g",
+      "length": "60mm",
+      "price": "1793円"
+    },
+    {
+      "slug": "jazz/gf-80",
+      "name": "GF-暴君80",
+      "rules": [
+        "rule3"
+      ],
+      "details": [
+        "ライトゲーム専門メーカー(jazz)だがバス分類"
+      ],
+      "target_fish": [
+        "シーバス"
+      ],
+      "type": "バイブレーション",
+      "weight": "28g",
+      "length": "80mm",
+      "price": "1000円"
+    },
+    {
+      "slug": "rapala/rapala-fxsk22",
+      "name": "Flash-X Skitter",
+      "rules": [
+        "rule2"
+      ],
+      "details": [
+        "トラウト用で全長220mm（≥200mm）"
+      ],
+      "target_fish": [
+        "シーバス",
+        "トラウト"
+      ],
+      "type": "ペンシルベイト",
+      "weight": "33g",
+      "length": "220mm",
+      "price": "0円"
+    },
+    {
+      "slug": "bozles/yukimura",
+      "name": "幸村",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量280g（≥50g）"
+      ],
+      "target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "type": "メタルジグ",
+      "weight": "280g",
+      "length": "(なし)",
+      "price": "3280円"
+    },
+    {
+      "slug": "z-man/flashback-mini",
+      "name": "Flashback® Mini",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量170.1g（≥100g）"
+      ],
+      "target_fish": [
+        "ブラックバス",
+        "クラッピー",
+        "トラウト",
+        "パンフィッシュ",
+        "パーチ"
+      ],
+      "type": "ワーム",
+      "weight": "170.1g",
+      "length": "(なし)",
+      "price": "749円"
+    },
+    {
+      "slug": "xesta/abare-iwashi",
+      "name": "ABARE IWASHI",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "メバル用で重量62g（≥50g）",
+        "アジング用で重量62g（≥30g）"
+      ],
+      "target_fish": [
+        "アジ",
+        "メバル"
+      ],
+      "type": "ワーム",
+      "weight": "62g",
+      "length": "(なし)",
+      "price": "682円"
+    },
+    {
+      "slug": "livetarget/rainbow-smelt-jerkbait-deep-dive",
+      "name": "Rainbow Smelt Jerkbait Deep Dive",
+      "rules": [
+        "rule2"
+      ],
+      "details": [
+        "トラウト用で全長203mm（≥200mm）"
+      ],
+      "target_fish": [
+        "ブラックバス",
+        "ウォールアイ",
+        "トラウト"
+      ],
+      "type": "ミノー",
+      "weight": "(なし)",
+      "length": "203mm",
+      "price": "2249円"
+    },
+    {
+      "slug": "duel/saltyrubber-slide",
+      "name": "ソルティー・ラバー® スライド",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "タイラバがバス用"
+      ],
+      "target_fish": [
+        "シーバス"
+      ],
+      "type": "タイラバ",
+      "weight": "60g",
+      "length": "(なし)",
+      "price": "0円"
+    },
+    {
+      "slug": "jazz/hirabazz",
+      "name": "ヒラバズ",
+      "rules": [
+        "rule3"
+      ],
+      "details": [
+        "ライトゲーム専門メーカー(jazz)だがバス分類"
+      ],
+      "target_fish": [
+        "ブラックバス"
+      ],
+      "type": "バズベイト",
+      "weight": "4g",
+      "length": "20mm",
+      "price": "850円"
+    },
+    {
+      "slug": "jazz/strange-saltedition",
+      "name": "strange SALTedition",
+      "rules": [
+        "rule3"
+      ],
+      "details": [
+        "ライトゲーム専門メーカー(jazz)だがバス分類"
+      ],
+      "target_fish": [
+        "シーバス"
+      ],
+      "type": "ミノー",
+      "weight": "7g",
+      "length": "78mm",
+      "price": "1680円"
+    },
+    {
+      "slug": "livetarget/rainbow-smelt-jointed-bait",
+      "name": "Rainbow Smelt Jointed Bait",
+      "rules": [
+        "rule2"
+      ],
+      "details": [
+        "トラウト用で全長203mm（≥200mm）"
+      ],
+      "target_fish": [
+        "ブラックバス",
+        "ウォールアイ",
+        "トラウト"
+      ],
+      "type": "スイムベイト",
+      "weight": "(なし)",
+      "length": "203mm",
+      "price": "2698円"
+    },
+    {
+      "slug": "berkley-us/gulp-alive-crawler",
+      "name": "Gulp! Alive!® Crawler",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量436.6g（≥100g）"
+      ],
+      "target_fish": [
+        "ブラックバス",
+        "ウォールアイ",
+        "トラウト",
+        "パンフィッシュ"
+      ],
+      "type": "ワーム",
+      "weight": "436.6g",
+      "length": "(なし)",
+      "price": "749円"
+    },
+    {
+      "slug": "maria/riraizu-s105",
+      "name": "リライズ S105",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "アジング用で重量40g（≥30g）"
+      ],
+      "target_fish": [
+        "アジ"
+      ],
+      "type": "シンキングペンシル",
+      "weight": "40g",
+      "length": "105mm",
+      "price": "0円"
+    },
+    {
+      "slug": "rapala/storm-dos",
+      "name": "DOCAN TAIRABA SNAPPER BALL",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "タイラバがバス用"
+      ],
+      "target_fish": [
+        "ブラックバス"
+      ],
+      "type": "タイラバ",
+      "weight": "(なし)",
+      "length": "(なし)",
+      "price": "0円"
+    },
+    {
+      "slug": "majorcraft/sqid",
+      "name": "ライブスクイッド",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "エギがバス用"
+      ],
+      "target_fish": [
+        "青物",
+        "シーバス"
+      ],
+      "type": "エギ",
+      "weight": "(なし)",
+      "length": "(なし)",
+      "price": "726円"
+    },
+    {
+      "slug": "berkley-us/gulp-alive-leech",
+      "name": "Gulp! Alive!® Leech",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量311.8g（≥100g）"
+      ],
+      "target_fish": [
+        "ブラックバス",
+        "ウォールアイ"
+      ],
+      "type": "ワーム",
+      "weight": "311.8g",
+      "length": "(なし)",
+      "price": "702円"
+    },
+    {
+      "slug": "rapala/storm-doss",
+      "name": "DOCAN SNAPPER BALL DOCKING SYSTEM SET",
+      "rules": [
+        "rule4"
+      ],
+      "details": [
+        "タイラバがバス用"
+      ],
+      "target_fish": [
+        "ブラックバス"
+      ],
+      "type": "タイラバ",
+      "weight": "(なし)",
+      "length": "(なし)",
+      "price": "842円"
+    },
+    {
+      "slug": "maria/riraizu-ss130suroshinkingu",
+      "name": "リライズ SS130（スローシンキング）",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "アジング用で重量55g（≥30g）"
+      ],
+      "target_fish": [
+        "アジ"
+      ],
+      "type": "ミノー",
+      "weight": "55g",
+      "length": "130mm",
+      "price": "0円"
+    },
+    {
+      "slug": "livetarget/rainbow-smelt-banana-bait-deep-dive",
+      "name": "Rainbow Smelt Banana Bait Deep Dive",
+      "rules": [
+        "rule2"
+      ],
+      "details": [
+        "トラウト用で全長203mm（≥200mm）"
+      ],
+      "target_fish": [
+        "ウォールアイ",
+        "トラウト"
+      ],
+      "type": "クランクベイト",
+      "weight": "(なし)",
+      "length": "203mm",
+      "price": "2249円"
+    },
+    {
+      "slug": "berkley-us/gulp-alive-grub",
+      "name": "Gulp! Alive!® Grub",
+      "rules": [
+        "rule1"
+      ],
+      "details": [
+        "バス用ワームで重量292g（≥100g）"
+      ],
+      "target_fish": [
+        "ブラックバス",
+        "ウォールアイ"
+      ],
+      "type": "ワーム",
+      "weight": "292g",
+      "length": "(なし)",
+      "price": "899円"
+    }
+  ]
+}

@@ -19,6 +19,10 @@
  *   const report = await runFullAudit(supabase);
  */
 
+import { readFileSync, existsSync } from 'fs';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
 export interface ValidationIssue {
   severity: 'error' | 'warning';
   category: string;
@@ -40,6 +44,37 @@ interface LureRecord {
   price?: number;
   weight?: number;
   target_fish?: string[];
+}
+
+// ========== type×target_fish ルール読み込み ==========
+// config/type-fish-rules.json の形式:
+// { [type]: { valid_fish: string[], invalid_fish: string[] } }
+type TypeFishRulesConfig = Record<string, { valid_fish: string[]; invalid_fish: string[] }>;
+
+// 重量×対象魚ルール（コード内定義、頻繁に変わらない）
+const WEIGHT_FISH_LIMITS: Array<{ targetFish: string; maxWeight: number; reason: string }> = [
+  { targetFish: 'メバル', maxWeight: 20, reason: 'メバル用ルアーで20g超は非現実的' },
+  { targetFish: 'アジ', maxWeight: 15, reason: 'アジング用ルアーで15g超は非現実的' },
+  { targetFish: 'トラウト', maxWeight: 30, reason: 'トラウト用ルアーで30g超は非現実的（レイクトラウト除く）' },
+];
+
+let _typeFishRules: TypeFishRulesConfig | null = null;
+let _typeFishRulesLoaded = false;
+
+function loadTypeFishRules(): TypeFishRulesConfig | null {
+  if (_typeFishRulesLoaded) return _typeFishRules;
+  _typeFishRulesLoaded = true;
+
+  try {
+    const __dirname = dirname(fileURLToPath(import.meta.url));
+    const rulesPath = resolve(__dirname, '../../config/type-fish-rules.json');
+    if (!existsSync(rulesPath)) return null;
+    const raw = readFileSync(rulesPath, 'utf-8');
+    _typeFishRules = JSON.parse(raw) as TypeFishRulesConfig;
+    return _typeFishRules;
+  } catch {
+    return null;
+  }
 }
 
 // ========== 非ルアー検出パターン ==========
@@ -197,6 +232,42 @@ export function validateLureData(lure: LureRecord): ValidationIssue[] {
           manufacturer: lure.manufacturer_slug,
           suggestion: `typeを「${correctType}」に変更するか、descriptionを確認`,
         });
+      }
+    }
+  }
+
+  // 8. type×target_fish妥当性チェック（config/type-fish-rules.jsonベース）
+  const rules = loadTypeFishRules();
+  if (rules && lure.type && lure.target_fish && lure.target_fish.length > 0) {
+    const typeRule = rules[lure.type];
+    if (typeRule) {
+      for (const fish of lure.target_fish) {
+        if (typeRule.invalid_fish.includes(fish)) {
+          issues.push({
+            severity: 'warning',
+            category: 'invalid-type-fish',
+            message: `type「${lure.type}」× target_fish「${fish}」は不正な組み合わせ (${lure.name})`,
+            slug: lure.slug,
+            manufacturer: lure.manufacturer_slug,
+            suggestion: `target_fishから「${fish}」を除去`,
+          });
+        }
+      }
+    }
+
+    // 9. 重量×対象魚の妥当性チェック
+    if (lure.weight && lure.weight > 0) {
+      for (const wRule of WEIGHT_FISH_LIMITS) {
+        if (lure.target_fish.includes(wRule.targetFish) && lure.weight > wRule.maxWeight) {
+          issues.push({
+            severity: 'warning',
+            category: 'weight-fish-mismatch',
+            message: `重量${lure.weight}g × target_fish「${wRule.targetFish}」は不正: ${wRule.reason} (${lure.name})`,
+            slug: lure.slug,
+            manufacturer: lure.manufacturer_slug,
+            suggestion: `target_fishから「${wRule.targetFish}」を除去するか、重量を確認`,
+          });
+        }
       }
     }
   }

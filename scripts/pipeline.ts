@@ -371,15 +371,37 @@ async function lureExists(
 // 挿入前バリデーション
 import { validateLureData } from './lib/data-validator';
 
+// Phase 6 ガードレール: パイプライン完了時の検証結果を蓄積
+const pipelineValidationLog: Array<{ slug: string; manufacturer: string; category: string; message: string }> = [];
+
 async function insertLure(row: Record<string, unknown>): Promise<void> {
-  // 品質ゲート: 挿入前にバリデーション
+  // Phase 6: target_fish自動判定ガードレール
+  // type×target_fishルール違反の場合、target_fishを空にしてwarning
   const issues = validateLureData(row as any);
-  const errors = issues.filter(i => i.severity === 'error');
+  const typeFishIssues = issues.filter(i => i.category === 'invalid-type-fish' || i.category === 'weight-fish-mismatch');
+  if (typeFishIssues.length > 0) {
+    for (const issue of typeFishIssues) {
+      console.warn(`[Phase6 GUARDRAIL] ${row.slug}: ${issue.message}`);
+      pipelineValidationLog.push({
+        slug: row.slug as string,
+        manufacturer: (row.manufacturer_slug as string) || '',
+        category: issue.category,
+        message: issue.message,
+      });
+    }
+    // ルール違反のtarget_fishを空にする（AIが推測で決めた対象魚を信用しない）
+    row.target_fish = null;
+    log(`⚠️ target_fish cleared for ${row.slug} due to type-fish rule violation`);
+  }
+
+  // 品質ゲート: 挿入前にバリデーション（再実行: target_fishクリア後の状態で）
+  const finalIssues = typeFishIssues.length > 0 ? validateLureData(row as any) : issues;
+  const errors = finalIssues.filter(i => i.severity === 'error');
   if (errors.length > 0) {
     console.warn(`[QC BLOCKED] ${row.slug}: ${errors.map(e => e.message).join(', ')}`);
     return; // 挿入しない
   }
-  const warnings = issues.filter(i => i.severity === 'warning');
+  const warnings = finalIssues.filter(i => i.severity === 'warning');
   if (warnings.length > 0) {
     console.warn(`[QC WARN] ${row.slug}: ${warnings.map(w => w.category).join(', ')}`);
   }
@@ -794,6 +816,16 @@ async function main(): Promise<void> {
     log(`  [${icon}] ${result.lureName}: ${result.message}`);
   }
 
+  // 4.5 Phase 6: パイプライン完了時の検証結果ログ出力
+  if (pipelineValidationLog.length > 0) {
+    log('========================================');
+    log(`Phase 6 検証結果: ${pipelineValidationLog.length}件のルール違反を検出（target_fishクリア済み）`);
+    log('========================================');
+    for (const entry of pipelineValidationLog) {
+      log(`  [${entry.category}] ${entry.manufacturer}/${entry.slug}: ${entry.message}`);
+    }
+  }
+
   // 5. Check for unpushed commits (warn if local is ahead of remote)
   try {
     const { execSync } = await import('child_process');
@@ -826,6 +858,7 @@ async function main(): Promise<void> {
       name: r.lureName,
       message: r.message,
     })),
+    phase6Violations: pipelineValidationLog,
   };
   const { writeFileSync } = await import('fs');
   // region別のサマリファイル（allの場合は従来通り pipeline-last-run.json）

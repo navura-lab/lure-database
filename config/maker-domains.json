@@ -1,0 +1,932 @@
+{
+  "6th-sense": {
+    "domain": "6thsensefishing.com",
+    "type": "us_bass",
+    "specialty": [
+      "バス",
+      "パンフィッシュ"
+    ]
+  },
+  "apia": {
+    "domain": "www.apiajapan.com",
+    "type": "jp_salt",
+    "specialty": [
+      "シーバス",
+      "ロックフィッシュ",
+      "クロダイ",
+      "ヒラメ",
+      "アジ",
+      "メバル"
+    ]
+  },
+  "attic": {
+    "domain": "attic.ne.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "トラウト",
+      "シーバス"
+    ]
+  },
+  "baitbreath": {
+    "domain": "www.baitbreath.net",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "bassday": {
+    "domain": "www.bassday.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "トラウト",
+      "バス",
+      "シーバス",
+      "メバル",
+      "青物",
+      "アジ"
+    ]
+  },
+  "beat": {
+    "domain": "beat-jig.com",
+    "type": "jp_salt",
+    "specialty": [
+      "青物"
+    ]
+  },
+  "berkley": {
+    "domain": "www.purefishing.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "ヒラメ"
+    ]
+  },
+  "berkley-us": {
+    "domain": "www.berkley-fishing.com",
+    "type": "us_multi",
+    "specialty": [
+      "バス",
+      "ウォールアイ",
+      "ストライパー",
+      "トラウト",
+      "パンフィッシュ"
+    ]
+  },
+  "blueblue": {
+    "domain": "www.bluebluefishing.com",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "青物",
+      "タチウオ"
+    ]
+  },
+  "bottomup": {
+    "domain": "bottomup.info",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "bozles": {
+    "domain": null,
+    "type": "jp_salt",
+    "specialty": [
+      "マダイ",
+      "青物"
+    ]
+  },
+  "breaden": {
+    "domain": "breaden.net",
+    "type": "jp_salt",
+    "specialty": [
+      "メバル",
+      "アジ",
+      "ロックフィッシュ",
+      "イカ",
+      "青物"
+    ]
+  },
+  "carpenter": {
+    "domain": null,
+    "type": "jp_salt",
+    "specialty": [
+      "青物"
+    ]
+  },
+  "cb-one": {
+    "domain": null,
+    "type": "jp_salt",
+    "specialty": [
+      "青物"
+    ]
+  },
+  "coreman": {
+    "domain": "www.coreman.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "シーバス"
+    ]
+  },
+  "crazy-ocean": {
+    "domain": "crazy-ocean.com",
+    "type": "jp_salt",
+    "specialty": [
+      "マダイ",
+      "青物",
+      "イカ",
+      "アジ",
+      "メバル"
+    ]
+  },
+  "d-claw": {
+    "domain": "d-claw.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "青物",
+      "タチウオ"
+    ]
+  },
+  "daiwa": {
+    "domain": "www.daiwa.com",
+    "type": "jp_multi",
+    "specialty": [
+      "青物",
+      "バス",
+      "シーバス",
+      "トラウト",
+      "マダイ",
+      "メバル",
+      "イカ",
+      "アジ",
+      "クロダイ"
+    ]
+  },
+  "deepliner": {
+    "domain": null,
+    "type": "jp_salt",
+    "specialty": [
+      "青物"
+    ]
+  },
+  "deps": {
+    "domain": "www.depsweb.co.jp",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "dranckrazy": {
+    "domain": "dranckrazy.com",
+    "type": "jp_salt",
+    "specialty": [
+      "バス",
+      "ロックフィッシュ",
+      "メバル"
+    ]
+  },
+  "dreemup": {
+    "domain": "dreem-up.com",
+    "type": "jp_salt",
+    "specialty": [
+      "アジ",
+      "メバル",
+      "バス",
+      "シーバス",
+      "ヒラメ",
+      "青物",
+      "ロックフィッシュ",
+      "クロダイ"
+    ]
+  },
+  "drt": {
+    "domain": null,
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "dstyle": {
+    "domain": "dstyle-lure.co.jp",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "duel": {
+    "domain": "www.duel.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "青物",
+      "マダイ",
+      "トラウト"
+    ]
+  },
+  "duo": {
+    "domain": "www.duo-inc.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "青物",
+      "ヒラメ",
+      "アジ",
+      "メバル",
+      "トラウト",
+      "クロダイ"
+    ]
+  },
+  "ecogear": {
+    "domain": "ecogear.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "メバル",
+      "イカ",
+      "クロダイ"
+    ]
+  },
+  "engine": {
+    "domain": "engine.rings-fishing.jp",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "evergreen": {
+    "domain": "www.evergreen-fishing.com",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "イカ",
+      "シーバス",
+      "青物"
+    ]
+  },
+  "fisharrow": {
+    "domain": "fisharrow.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "ヒラメ"
+    ]
+  },
+  "flash-union": {
+    "domain": null,
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "forest": {
+    "domain": null,
+    "type": "jp_trout",
+    "specialty": [
+      "トラウト"
+    ]
+  },
+  "gamakatsu": {
+    "domain": "www.gamakatsu.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "イカ",
+      "アジ",
+      "トラウト",
+      "バス",
+      "シーバス",
+      "メバル",
+      "マダイ",
+      "青物",
+      "タチウオ"
+    ]
+  },
+  "gancraft": {
+    "domain": "gancraft.com",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "トラウト"
+    ]
+  },
+  "gary-yamamoto": {
+    "domain": "www.gary-yamamoto.com",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "geecrack": {
+    "domain": "www.geecrack.com",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "イカ"
+    ]
+  },
+  "god-hands": {
+    "domain": "god-hands.jp",
+    "type": "jp_trout",
+    "specialty": [
+      "トラウト"
+    ]
+  },
+  "googan-baits": {
+    "domain": "googansquad.com",
+    "type": "us_bass",
+    "specialty": [
+      "バス",
+      "パンフィッシュ"
+    ]
+  },
+  "grassroots": {
+    "domain": "grassroots-kms.com",
+    "type": "jp_salt",
+    "specialty": [
+      "青物"
+    ]
+  },
+  "harimitsu": {
+    "domain": "harimitsu.co.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "イカ"
+    ]
+  },
+  "hayabusa": {
+    "domain": "hayabusa.co.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "青物",
+      "マダイ"
+    ]
+  },
+  "hideup": {
+    "domain": "hideup.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "ヒラメ"
+    ]
+  },
+  "hmkl": {
+    "domain": null,
+    "type": "jp_multi",
+    "specialty": [
+      "トラウト",
+      "バス"
+    ]
+  },
+  "hots": {
+    "domain": "hots.co.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "青物"
+    ]
+  },
+  "ima": {
+    "domain": "www.ima-ams.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "トラウト",
+      "マダイ",
+      "メバル"
+    ]
+  },
+  "imakatsu": {
+    "domain": "www.imakatsu.co.jp",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "issei": {
+    "domain": "issei.tv",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "イカ"
+    ]
+  },
+  "itocraft": {
+    "domain": "itocraft.com",
+    "type": "jp_trout",
+    "specialty": [
+      "トラウト"
+    ]
+  },
+  "ja-do": {
+    "domain": "ja-do.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "シーバス"
+    ]
+  },
+  "jackall": {
+    "domain": "www.jackall.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "青物",
+      "バス",
+      "トラウト"
+    ]
+  },
+  "jackson": {
+    "domain": "jackson.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "トラウト",
+      "バス",
+      "シーバス",
+      "青物",
+      "ヒラメ",
+      "クロダイ",
+      "メバル"
+    ]
+  },
+  "jazz": {
+    "domain": "www.jazz-lure.com",
+    "type": "jp_multi",
+    "specialty": [
+      "メバル",
+      "アジ",
+      "青物",
+      "バス",
+      "シーバス",
+      "ロックフィッシュ",
+      "ヒラメ"
+    ]
+  },
+  "jumprize": {
+    "domain": "www.jumprize.com",
+    "type": "jp_salt",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "ヒラメ",
+      "青物"
+    ]
+  },
+  "keitech": {
+    "domain": "keitech.co.jp",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "littlejack": {
+    "domain": "www.little-jack-lure.com",
+    "type": "jp_multi",
+    "specialty": [
+      "青物",
+      "バス",
+      "シーバス",
+      "ロックフィッシュ",
+      "ヒラメ",
+      "マダイ"
+    ]
+  },
+  "livetarget": {
+    "domain": "livetargetlures.com",
+    "type": "us_multi",
+    "specialty": [
+      "バス",
+      "ストライパー",
+      "パイク",
+      "ウォールアイ",
+      "トラウト"
+    ]
+  },
+  "longin": {
+    "domain": "www.longin.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "青物",
+      "ヒラメ",
+      "クロダイ",
+      "トラウト"
+    ]
+  },
+  "luckycraft": {
+    "domain": "www.luckycraft.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "トラウト",
+      "シーバス"
+    ]
+  },
+  "lunker-city": {
+    "domain": "lunkercity.com",
+    "type": "us_multi",
+    "specialty": [
+      "バス",
+      "ストライパー",
+      "トラウト",
+      "パイク"
+    ]
+  },
+  "lunkerhunt": {
+    "domain": "lunkerhunt.com",
+    "type": "us_multi",
+    "specialty": [
+      "バス",
+      "ストライパー",
+      "ウォールアイ",
+      "パンフィッシュ"
+    ]
+  },
+  "madness": {
+    "domain": "www.madness.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス"
+    ]
+  },
+  "majorcraft": {
+    "domain": "www.majorcraft.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "青物",
+      "バス",
+      "シーバス",
+      "タチウオ",
+      "ロックフィッシュ",
+      "イカ",
+      "マダイ"
+    ]
+  },
+  "maria": {
+    "domain": "www.yamaria.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "青物",
+      "バス",
+      "シーバス",
+      "アジ",
+      "イカ"
+    ]
+  },
+  "mc-works": {
+    "domain": "www.mcworks.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "青物"
+    ]
+  },
+  "megabass": {
+    "domain": "www.megabass.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "青物",
+      "クロダイ"
+    ]
+  },
+  "missile-baits": {
+    "domain": "www.missilebaits.store",
+    "type": "us_bass",
+    "specialty": [
+      "バス",
+      "パイク"
+    ]
+  },
+  "mukai": {
+    "domain": "www.mukai-fishing.jp",
+    "type": "jp_trout",
+    "specialty": [
+      "トラウト"
+    ]
+  },
+  "nature-boys": {
+    "domain": "www.e-natureboys.com",
+    "type": "jp_salt",
+    "specialty": [
+      "青物"
+    ]
+  },
+  "noike": {
+    "domain": "noike-m.com",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "nories": {
+    "domain": "nories.com",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "トラウト"
+    ]
+  },
+  "north-craft": {
+    "domain": null,
+    "type": "jp_salt",
+    "specialty": [
+      "シーバス"
+    ]
+  },
+  "obasslive": {
+    "domain": "obasslive.com",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "osp": {
+    "domain": "www.o-s-p.net",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス"
+    ]
+  },
+  "palms": {
+    "domain": "www.palmsjapan.com",
+    "type": "jp_multi",
+    "specialty": [
+      "青物",
+      "バス",
+      "シーバス",
+      "トラウト"
+    ]
+  },
+  "pazdesign": {
+    "domain": "pazdesign.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "トラウト",
+      "バス",
+      "シーバス",
+      "マダイ",
+      "青物"
+    ]
+  },
+  "pickup": {
+    "domain": "pickup-m.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "青物",
+      "バス",
+      "シーバス"
+    ]
+  },
+  "pozidrive-garage": {
+    "domain": "pdg.co.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "バス",
+      "シーバス"
+    ]
+  },
+  "raid": {
+    "domain": "raidjapan.com",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "rapala": {
+    "domain": "rapala.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "トラウト",
+      "バス",
+      "シーバス"
+    ]
+  },
+  "reins": {
+    "domain": "www.reinsfishing.com",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "riot-baits": {
+    "domain": "riotbaits.com",
+    "type": "us_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "sawamura": {
+    "domain": "karil.co.jp",
+    "type": "jp_bass",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "seafloor-control": {
+    "domain": "seafloor-control.com",
+    "type": "jp_salt",
+    "specialty": [
+      "マダイ",
+      "青物"
+    ]
+  },
+  "shimano": {
+    "domain": "fish.shimano.com",
+    "type": "jp_multi",
+    "specialty": [
+      "青物",
+      "トラウト",
+      "バス",
+      "シーバス",
+      "ロックフィッシュ",
+      "イカ",
+      "ヒラメ"
+    ]
+  },
+  "smith": {
+    "domain": "www.smith.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "トラウト",
+      "バス",
+      "シーバス"
+    ]
+  },
+  "souls": {
+    "domain": "souls.jp",
+    "type": "jp_trout",
+    "specialty": [
+      "トラウト"
+    ]
+  },
+  "spro": {
+    "domain": "www.spro.com",
+    "type": "us_multi",
+    "specialty": [
+      "バス"
+    ]
+  },
+  "strike-king": {
+    "domain": "www.strikeking.com",
+    "type": "us_bass",
+    "specialty": [
+      "バス",
+      "パンフィッシュ"
+    ]
+  },
+  "tacklehouse": {
+    "domain": "tacklehouse.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "トラウト"
+    ]
+  },
+  "thirtyfour": {
+    "domain": "34net.jp",
+    "type": "jp_light",
+    "specialty": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  "tict": {
+    "domain": "tict-net.com",
+    "type": "jp_light",
+    "specialty": [
+      "アジ",
+      "メバル"
+    ]
+  },
+  "tiemco": {
+    "domain": "www.tiemco.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "トラウト",
+      "ナマズ"
+    ]
+  },
+  "valkein": {
+    "domain": null,
+    "type": "jp_trout",
+    "specialty": [
+      "トラウト"
+    ]
+  },
+  "valleyhill": {
+    "domain": "valleyhill1.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "イカ",
+      "タチウオ",
+      "青物"
+    ]
+  },
+  "viva": {
+    "domain": "vivanet.co.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "メバル",
+      "シーバス",
+      "アジ",
+      "トラウト"
+    ]
+  },
+  "xesta": {
+    "domain": "xesta.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "青物",
+      "マダイ",
+      "アジ"
+    ]
+  },
+  "xzone-lures": {
+    "domain": "xzonelures.com",
+    "type": "us_multi",
+    "specialty": [
+      "バス",
+      "ウォールアイ",
+      "レッドフィッシュ",
+      "パイク"
+    ]
+  },
+  "yamashita": {
+    "domain": "www.yamaria.co.jp",
+    "type": "jp_salt",
+    "specialty": [
+      "イカ"
+    ]
+  },
+  "yarie": {
+    "domain": "www.etanba.co.jp",
+    "type": "jp_trout",
+    "specialty": [
+      "トラウト"
+    ]
+  },
+  "z-man": {
+    "domain": "zmanfishing.com",
+    "type": "us_multi",
+    "specialty": [
+      "バス",
+      "ストライパー",
+      "レッドフィッシュ",
+      "トラウト",
+      "パンフィッシュ",
+      "パイク",
+      "ヒラメ"
+    ]
+  },
+  "zeake": {
+    "domain": "zeake.jp",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "ヒラメ",
+      "青物"
+    ]
+  },
+  "zero-dragon": {
+    "domain": "zero-dragon.com",
+    "type": "jp_salt",
+    "specialty": [
+      "マダイ",
+      "イカ"
+    ]
+  },
+  "zipbaits": {
+    "domain": "www.zipbaits.com",
+    "type": "jp_multi",
+    "specialty": [
+      "バス",
+      "シーバス",
+      "トラウト",
+      "クロダイ",
+      "メバル",
+      "アジ",
+      "ヒラメ"
+    ]
+  },
+  "zoom": {
+    "domain": "order.zoombait.com",
+    "type": "us_bass",
+    "specialty": [
+      "バス"
+    ]
+  }
+}
