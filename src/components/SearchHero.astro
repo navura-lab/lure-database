@@ -10,13 +10,18 @@ const { seriesCount, colorCount } = Astro.props;
 <section class="relative overflow-hidden" style="min-height: 520px;">
   <!-- 背景画像: 釣りキャスティング -->
   <div class="absolute inset-0">
-    <img
-      src="/images/hero-fishing.jpg"
-      alt="釣り人がキャストしている風景"
-      class="w-full h-full object-cover"
-      loading="eager"
-      fetchpriority="high"
-    />
+    <picture>
+      <source srcset="/images/hero-fishing.webp" type="image/webp" />
+      <img
+        src="/images/hero-fishing.jpg"
+        alt="釣り人がキャストしている風景"
+        class="w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        width="1920"
+        height="1080"
+      />
+    </picture>
     <!-- ダークオーバーレイ -->
     <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-[#00000069] to-black/80"></div>
   </div>
