@@ -57,6 +57,134 @@ function logV(msg: string) { if (VERBOSE) log(msg); }
 function sleep(ms: number) { return new Promise(r => setTimeout(r, ms)); }
 function todayStr() { return new Date().toISOString().split('T')[0]; }
 
+// ─── タイトル一致フィルタ ─────────────────────────────
+
+import { getManufacturerNameJa } from '../src/lib/manufacturer-names-ja';
+
+/**
+ * 文字列の正規化（比較用）
+ * - 全角英数字→半角、小文字化
+ * - 全角スペース→半角スペース
+ * - 連続スペース→単一スペース
+ * - HTMLエンティティのデコード（&amp; → & 等）
+ */
+function normalizeForMatch(s: string): string {
+  return s
+    // HTMLエンティティをデコード
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    // 全角英数字→半角
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, ch =>
+      String.fromCharCode(ch.charCodeAt(0) - 0xFEE0)
+    )
+    // 全角スペース→半角
+    .replace(/\u3000/g, ' ')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * slugをスペース区切りの単語列に変換
+ * 例: "silenten-50" → "silenten 50"
+ */
+function slugToWords(slug: string): string {
+  return slug.replace(/-/g, ' ').toLowerCase();
+}
+
+/**
+ * ルアー名からスペース・記号を除去した圧縮形式を作る
+ * 例: "シリテン 50" → "シリテン50"
+ * タイトル中で「シリテン50」とスペースなしで書かれるケースに対応
+ */
+function compactForm(s: string): string {
+  return s.replace(/[\s\-・]+/g, '');
+}
+
+/**
+ * ルアー名のトークン（2文字以上の単語）を抽出
+ * 「フラットジャンキー ロデム R シャッド スペアボディ」
+ *   → ["フラットジャンキー", "ロデム", "シャッド", "スペアボディ"]
+ * 1文字トークン（"R", "S", "F" 等）は無視（ノイズが多い）
+ */
+function extractTokens(s: string): string[] {
+  return s.split(/[\s\-・/()（）]+/)
+    .map(t => t.trim())
+    .filter(t => t.length >= 2);
+}
+
+/**
+ * YouTube動画タイトルにルアー名が含まれるかフィルタ
+ *
+ * 条件（いずれかに合致すれば採用）:
+ * 1. ルアー名（日本語）がタイトルに含まれる（完全一致 or 圧縮形式）
+ * 2. ルアーslug（英語名）がタイトルに含まれる（スペース区切り or 圧縮形式）
+ * 3. メーカー名（日本語 or 英語） + ルアー名のベース部分がタイトルに含まれる
+ * 4. ルアー名の主要トークンの過半数がタイトルに含まれる（長い名前用）
+ */
+function filterVideosByTitle(
+  videos: YouTubeVideo[],
+  lureName: string,
+  slug: string,
+  manufacturerSlug: string,
+): YouTubeVideo[] {
+  const makerJa = getManufacturerNameJa(manufacturerSlug);
+  const makerJaNorm = normalizeForMatch(makerJa);
+  const makerEn = manufacturerSlug.replace(/-/g, ' ');
+  const slugWords = slugToWords(slug);
+  const slugCompact = slug.replace(/-/g, '');
+
+  // ルアー名の正規化形式
+  const nameNorm = normalizeForMatch(lureName);
+  const nameCompact = compactForm(nameNorm);
+
+  // ルアー名から数字・サイズ部分を除いた「ベース名」を作る
+  // 例: "シリテン50" → "シリテン", "VJ-28" → "VJ"
+  const baseName = nameNorm
+    .replace(/[\s\-]?\d+(\.\d+)?(mm|cm|g|oz|s|f|sp)?$/i, '')
+    .trim();
+
+  // トークンマッチ用（長い名前のルアー向け）
+  const nameTokens = extractTokens(nameNorm);
+
+  return videos.filter(video => {
+    const titleNorm = normalizeForMatch(video.title);
+    const titleCompact = compactForm(titleNorm);
+
+    // 条件1: ルアー名がタイトルに含まれる（通常形式 or 圧縮形式）
+    if (titleNorm.includes(nameNorm)) return true;
+    if (nameCompact.length >= 3 && titleCompact.includes(nameCompact)) return true;
+
+    // 条件2: slug（英語名）がタイトルに含まれる
+    if (slugWords.length >= 3 && titleNorm.includes(slugWords)) return true;
+    if (slugCompact.length >= 3 && titleCompact.includes(slugCompact)) return true;
+
+    // 条件3: メーカー名 + ベース名がタイトルに含まれる
+    if (baseName && baseName.length >= 2 && baseName !== nameNorm) {
+      const hasMaker = titleNorm.includes(makerJaNorm)
+        || titleNorm.includes(makerEn);
+      const hasBase = titleNorm.includes(baseName)
+        || titleCompact.includes(compactForm(baseName));
+      if (hasMaker && hasBase) return true;
+    }
+
+    // 条件4: トークン過半数マッチ（3トークン以上の長い名前用）
+    // 「フラットジャンキー ロデム R シャッド」→ 主要トークンの半数以上がタイトルにあればOK
+    if (nameTokens.length >= 3) {
+      const matchCount = nameTokens.filter(t =>
+        titleNorm.includes(t) || titleCompact.includes(compactForm(t))
+      ).length;
+      // 過半数（切り上げ）以上が一致
+      if (matchCount >= Math.ceil(nameTokens.length / 2)) return true;
+    }
+
+    return false;
+  });
+}
+
 // ─── YouTube API ──────────────────────────────────────
 
 interface YouTubeVideo {
@@ -301,8 +429,12 @@ async function main() {
 
     try {
       log(`[${i + 1}/${targets.length}] 検索: 「${searchQuery}」`);
-      const videos = await searchYouTube(searchQuery);
+      const rawVideos = await searchYouTube(searchQuery);
       unitCount += 105; // 検索100 + 詳細5
+
+      // タイトル一致フィルタ
+      const videos = filterVideosByTitle(rawVideos, lure.name, lure.slug, lure.manufacturer_slug);
+      const filtered = rawVideos.length - videos.length;
 
       const entry: LureVideos = {
         lureName: lure.name,
@@ -314,10 +446,16 @@ async function main() {
       };
       results.push(entry);
 
-      logV(`  → ${videos.length}件の動画取得`);
-      if (VERBOSE && videos.length > 0) {
+      logV(`  → ${rawVideos.length}件取得 → ${filtered}件除外 → ${videos.length}件採用`);
+      if (VERBOSE) {
+        if (filtered > 0) {
+          const removedTitles = rawVideos
+            .filter(v => !videos.some(a => a.videoId === v.videoId))
+            .map(v => v.title);
+          removedTitles.forEach(t => logV(`    [除外] ${t}`));
+        }
         videos.forEach(v => {
-          logV(`    📹 ${v.title} (${v.channelTitle}) - ${v.viewCount?.toLocaleString() || '?'}回再生`);
+          logV(`    [採用] ${v.title} (${v.channelTitle}) - ${v.viewCount?.toLocaleString() || '?'}回再生`);
         });
       }
 
