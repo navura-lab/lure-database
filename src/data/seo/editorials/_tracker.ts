@@ -63,7 +63,17 @@ export const editorialDeployLog: EditorialDeployRecord[] = [
   { slug: 'furifuri-usachan-jig', manufacturerSlug: 'attic', targetKeyword: 'ふりふりうさちゃんじぐ アティック', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
   { slug: 'yarukinashi-stick-93', manufacturerSlug: 'valleyhill', targetKeyword: 'ヤルキナシスティック93', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
   { slug: 'over-ride', manufacturerSlug: 'osp', targetKeyword: 'オーバーライド O.S.P', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
-  { slug: 'flesh-back-80sp', manufacturerSlug: 'palms', targetKeyword: 'フレッシュバック80SP パームス', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
   { slug: 'i-fish-ft', manufacturerSlug: 'forest', targetKeyword: 'iFish FT フォレスト', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
   { slug: 'one-up-shad-3-2tone', manufacturerSlug: 'sawamura', targetKeyword: 'ワンナップシャッド 3インチ 2トーン', deployedAt: '2026-03-18', baselinePosition: null, baselineImpressions: null, status: 'deployed' },
+  // === Batch 7 (2026-03-23) — 需要Aランク10件 ===
+  { slug: 'raxma-55s', manufacturerSlug: 'valkein', targetKeyword: 'ラグマ 55S', deployedAt: '2026-03-23', baselinePosition: null, baselineImpressions: 127, status: 'deployed' },
+  { slug: 'hadesu-75f', manufacturerSlug: 'bassday', targetKeyword: 'ハーデス75F', deployedAt: '2026-03-23', baselinePosition: null, baselineImpressions: 77, status: 'deployed' },
+  { slug: 'uzvycfp', manufacturerSlug: 'daiwa', targetKeyword: 'MGリトルスピン', deployedAt: '2026-03-23', baselinePosition: null, baselineImpressions: 50, status: 'deployed' },
+  { slug: 'sobat-100', manufacturerSlug: 'ima', targetKeyword: 'sobat 100', deployedAt: '2026-03-23', baselinePosition: null, baselineImpressions: 43, status: 'deployed' },
+  { slug: 'usahuwa', manufacturerSlug: 'attic', targetKeyword: 'うさふわ', deployedAt: '2026-03-23', baselinePosition: null, baselineImpressions: 41, status: 'deployed' },
+  { slug: 'sauza-s60', manufacturerSlug: 'maria', targetKeyword: 'サウザー S60', deployedAt: '2026-03-23', baselinePosition: null, baselineImpressions: 18, status: 'deployed' },
+  { slug: 'powerbait-maxscent-flatworm-36inch-36', manufacturerSlug: 'berkley', targetKeyword: 'MaxScent フラットワーム', deployedAt: '2026-03-23', baselinePosition: null, baselineImpressions: 17, status: 'deployed' },
+  { slug: 'crush-series', manufacturerSlug: '6th-sense', targetKeyword: '6th Sense Crush', deployedAt: '2026-03-23', baselinePosition: null, baselineImpressions: 0, status: 'deployed' },
+  { slug: 'jns3ciz', manufacturerSlug: 'daiwa', targetKeyword: 'ソルティガ マダージグ', deployedAt: '2026-03-23', baselinePosition: null, baselineImpressions: 13, status: 'deployed' },
+  { slug: 'astrar', manufacturerSlug: 'valkein', targetKeyword: 'アストラル スプーン', deployedAt: '2026-03-23', baselinePosition: null, baselineImpressions: 7, status: 'deployed' },
 ];
