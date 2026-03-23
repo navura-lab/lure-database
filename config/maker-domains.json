@@ -1,9 +1,12 @@
 {
   "6th-sense": {
     "domain": "6thsensefishing.com",
-    "type": "us_bass",
+    "type": "us_multi",
     "specialty": [
       "バス",
+      "レッドフィッシュ",
+      "シートラウト",
+      "ヒラメ",
       "パンフィッシュ"
     ]
   },
@@ -181,7 +184,7 @@
   },
   "dranckrazy": {
     "domain": "dranckrazy.com",
-    "type": "jp_salt",
+    "type": "jp_multi",
     "specialty": [
       "バス",
       "ロックフィッシュ",
@@ -316,9 +319,11 @@
   },
   "gary-yamamoto": {
     "domain": "www.gary-yamamoto.com",
-    "type": "jp_bass",
+    "type": "jp_multi",
     "specialty": [
-      "バス"
+      "バス",
+      "シーバス",
+      "ロックフィッシュ"
     ]
   },
   "geecrack": {
