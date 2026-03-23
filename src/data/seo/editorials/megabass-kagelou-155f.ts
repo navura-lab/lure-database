@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassKagelou155fEditorial: EditorialReview = {
-  slug: 'megabass-kagelou-155f',
+  slug: 'kagelou155f',
   manufacturerSlug: 'megabass',
 
   catchcopy: '巨体が水面をS字で這う。バチ抜けもコノシロも食わせる、メガバスが作ったシーバス最強ミノー。',

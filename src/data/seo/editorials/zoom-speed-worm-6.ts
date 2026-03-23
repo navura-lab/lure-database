@@ -5,7 +5,7 @@
 import type { EditorialReview } from './huggos';
 
 export const zoomSpeedWorm6Editorial: EditorialReview = {
-  slug: 'zoom-speed-worm-6',
+  slug: 'speed-worm',
   manufacturerSlug: 'zoom',
 
   catchcopy: '長年アメリカのトーナメントシーンを支えてきた、テキサスリグの原点にして最強クラスの6インチワーム。',

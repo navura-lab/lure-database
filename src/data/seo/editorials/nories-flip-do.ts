@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const noriesFlipDoEditorial: EditorialReview = {
-  slug: 'nories-flip-do',
+  slug: '3-flip-dom',
   manufacturerSlug: 'nories',
 
   catchcopy: 'テキサスリグの完成形。カバーに撃ち込んで、落とすだけ。それだけで釣れてしまう圧倒的な食わせ力。',

@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallGavachoFrogBuzzEditorial: EditorialReview = {
-  slug: 'jackall-gavacho-frog-buzz',
+  slug: 'gavachofrog',
   manufacturerSlug: 'jackall',
 
   catchcopy: 'フロッグにバズを融合。水面爆発系の新感覚フロッグが、カバーに潜む大型バスを引き出す。',

@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsBasiriskyJrEditorial: EditorialReview = {
-  slug: 'deps-basirisky-jr',
+  slug: 'basirisky',
   manufacturerSlug: 'deps',
 
   catchcopy: '強風・激流・ウィードマット。どんな悪条件でも浮いて走る小型フロッグの絶対王者。',

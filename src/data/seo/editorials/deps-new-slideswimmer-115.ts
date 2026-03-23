@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsNewSlideswimmer115Editorial: EditorialReview = {
-  slug: 'deps-new-slideswimmer-115',
+  slug: 'new-slideswimmer115',
   manufacturerSlug: 'deps',
 
   catchcopy: '水面直下をS字で漂う115mm。デカバスが「見切れない」スピードとシルエットの絶妙なバランス。',

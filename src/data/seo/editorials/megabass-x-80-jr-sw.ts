@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassX80JrSwEditorial: EditorialReview = {
-  slug: 'megabass-x-80-jr-sw',
+  slug: 'x-80jr-sw',
   manufacturerSlug: 'megabass',
 
   catchcopy: '淡水の名作が海を征く。X-80 Jr SWは、バスで証明されたデッドスロー設計をそのままシーバスに転用した。',

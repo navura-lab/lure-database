@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassKanataPluS160fEditorial: EditorialReview = {
-  slug: 'megabass-kanata-plus-160f',
+  slug: 'kanata-plus1',
   manufacturerSlug: 'megabass',
 
   catchcopy: '160mmの大型シルエットで、コノシロパターンの怪物シーバスだけを選んで釣る。KANATA+は本気の一撃必殺ミノー。',

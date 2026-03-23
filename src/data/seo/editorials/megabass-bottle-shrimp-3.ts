@@ -5,7 +5,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassBottleShrimp3Editorial: EditorialReview = {
-  slug: 'megabass-bottle-shrimp-3',
+  slug: 'bottle-shrimp',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'エビそのものの形、エビそのものの動き。メガバスの「ボトルシュリンプ3"」は、フィネスの頂点でバスを狂わせる。',

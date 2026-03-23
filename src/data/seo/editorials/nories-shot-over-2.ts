@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const noriesShotOver2Editorial: EditorialReview = {
-  slug: 'nories-shot-over-2',
+  slug: 'shot-over-2',
   manufacturerSlug: 'nories',
 
   catchcopy: '2mレンジを真剣に攻めるための、ノリーズの答え。川村光大郎が育てたミドルクランクの傑作。',

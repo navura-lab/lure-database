@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospPowerDunk57fEditorial: EditorialReview = {
-  slug: 'osp-power-dunk-57f',
+  slug: 'power-dunk-57-f',
   manufacturerSlug: 'osp',
 
   catchcopy: '57mmのボディに詰め込んだ、シャローのすべて。OSPが作ったシャロークランクの教科書。',

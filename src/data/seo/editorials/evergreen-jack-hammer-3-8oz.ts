@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenJackHammer38ozEditorial: EditorialReview = {
-  slug: 'evergreen-jack-hammer-3-8oz',
+  slug: 'jackhammer',
   manufacturerSlug: 'evergreen',
 
   catchcopy: 'アメリカの年間賞金王が手にした伝説のチャターベイト、日本のフィールドに最適化された3/8ozで全解放。',

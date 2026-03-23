@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospDoliveCrawSwEditorial: EditorialReview = {
-  slug: 'osp-dolive-craw-sw',
+  slug: 'dolivecraw-sw',
   manufacturerSlug: 'osp',
 
   catchcopy: 'バスで実績を積んだDoLive Crawが海へ。塩分・耐久性を強化したSW仕様で、ロックフィッシュの穴奥まで届く。',

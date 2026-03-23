@@ -1,7 +1,7 @@
 import type { EditorialReview } from './huggos';
 
 export const windrangeEditorial: EditorialReview = {
-  slug: 'nories-windrange',
+  slug: 'wind-range',
   manufacturerSlug: 'nories',
 
   catchcopy: '風の中でも安定するブレード回転。田辺哲男が突き詰めた、巻いて釣るためのスピナーベイト。',

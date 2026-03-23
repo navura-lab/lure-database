@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenKickerFrogJrEditorial: EditorialReview = {
-  slug: 'evergreen-kicker-frog-jr',
+  slug: 'kickerfrogjr',
   manufacturerSlug: 'evergreen',
 
   catchcopy: 'キッカーフロッグの実績そのままに、ひと回り小さく。スモールバスもビッグバスも本気にさせる万能フロッグ。',

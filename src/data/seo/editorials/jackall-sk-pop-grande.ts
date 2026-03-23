@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallSkPopGrandeEditorial: EditorialReview = {
-  slug: 'jackall-sk-pop-grande',
+  slug: 'sk-pop-grande-hiramura-custom',
   manufacturerSlug: 'jackall',
 
   catchcopy: '大口カップが生む爆音と飛沫。ビッグバスをシャローの奥から引き出すための、攻撃的なポッパー。',

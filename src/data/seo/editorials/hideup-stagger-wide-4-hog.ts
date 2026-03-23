@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const hideupStaggerWide4HogEditorial: EditorialReview = {
-  slug: 'hideup-stagger-wide-4-hog',
+  slug: 'stagger-wide-4',
   manufacturerSlug: 'hideup',
 
   catchcopy: '4本の大型アームが水を押す。フォール中から着底後まで、一瞬たりとも止まらないホグワームの新基準。',

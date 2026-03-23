@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const imaSasukeSs95Editorial: EditorialReview = {
-  slug: 'ima-sasuke-ss-95',
+  slug: 'sasuke-ss-95',
   manufacturerSlug: 'ima',
 
   catchcopy: '遠浅サーフを制する専用設計。岸から20m先の第1サンドバー越えを、ただ巻きで攻略する。',

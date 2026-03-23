@@ -1,7 +1,7 @@
 import type { EditorialReview } from './huggos';
 
 export const semiLongEditorial: EditorialReview = {
-  slug: 'cb-one-semi-long',
+  slug: 'c1-semilong',
   manufacturerSlug: 'cb-one',
 
   catchcopy: '信頼のCB ONE品質。セミロング形状が生む絶妙なフォールバランスで、青物を確実に仕留める。',

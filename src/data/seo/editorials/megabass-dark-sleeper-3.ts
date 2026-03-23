@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassDarkSleeper3Editorial: EditorialReview = {
-  slug: 'megabass-dark-sleeper-3',
+  slug: 'dark-sleeper',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'ハゼそのもの。ボトムに立つリアルシェイプが、見切られないバイトを生む。',

@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospJigZeroOneStrongEditorial: EditorialReview = {
-  slug: 'osp-jig-zero-one-strong',
+  slug: 'o-s-p-jig-zero-one-strong',
   manufacturerSlug: 'osp',
 
   catchcopy: 'ヘビーカバーをぶち抜くために生まれた、JIG ZERO ONEシリーズの「強化版」。タフな状況で妥協したくないアングラーへ。',

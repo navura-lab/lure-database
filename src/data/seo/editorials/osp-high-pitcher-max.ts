@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospHighPitcherMaxEditorial: EditorialReview = {
-  slug: 'osp-high-pitcher-max',
+  slug: 'high-pitcher-max',
   manufacturerSlug: 'osp',
 
   catchcopy: 'デカバスに照準を絞った、ハイピッチャーの最終形態。1ozクラスの重量でもブレードが安定回転し続ける。',

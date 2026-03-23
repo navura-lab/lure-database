@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospIWaver74fEditorial: EditorialReview = {
-  slug: 'osp-i-waver-74f',
+  slug: 'i-waver-74-f',
   manufacturerSlug: 'osp',
 
   catchcopy: 'i字の教科書。OSPが完成させた「泳がせないことで釣る」プラグの、バスフィッシング界の答え合わせ。',

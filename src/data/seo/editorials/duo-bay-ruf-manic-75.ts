@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const duoBayRufManic75Editorial: EditorialReview = {
-  slug: 'duo-bay-ruf-manic-75',
+  slug: 'bay-ruf-manic-75',
   manufacturerSlug: 'duo',
 
   catchcopy: 'マニックが証明した。ただ流すだけのシンペンがシーバスゲームを根本から変えた。',

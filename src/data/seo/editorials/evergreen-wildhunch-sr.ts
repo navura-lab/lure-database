@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenWildhunchSrEditorial: EditorialReview = {
-  slug: 'evergreen-wildhunch-sr',
+  slug: 'wildhunchsr',
   manufacturerSlug: 'evergreen',
 
   catchcopy: 'シャロークランクの教科書。ワイルドハンチSRが泳ぐ水深30〜60cmは、バスが最も飢えている激浅エリアだ。',

@@ -1,7 +1,7 @@
 import type { EditorialReview } from './huggos';
 
 export const binbinRocketEditorial: EditorialReview = {
-  slug: 'jackall-binbin-rocket',
+  slug: 'binbin-rocket-2',
   manufacturerSlug: 'jackall',
 
   catchcopy: 'ロケットのように落ちて、真鯛を撃ち抜く。ジャッカルが生んだ高速フォール特化のタイラバ。',

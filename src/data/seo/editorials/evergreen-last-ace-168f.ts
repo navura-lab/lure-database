@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenLastAce168fEditorial: EditorialReview = {
-  slug: 'evergreen-last-ace-168f',
+  slug: 'lastace168',
   manufacturerSlug: 'evergreen',
 
   catchcopy: '168mmのフローティングビッグベイトが切り開く、水面直下の大型バス専用ゲーム。',

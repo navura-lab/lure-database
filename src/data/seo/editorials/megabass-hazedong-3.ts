@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassHazedong3Editorial: EditorialReview = {
-  slug: 'megabass-hazedong-3',
+  slug: 'hazedong',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'ハゼのように底を這わせろ。バスが一番よく食べているものを、そのままワームにした。',

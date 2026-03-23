@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const deeplinerSpyCEditorial: EditorialReview = {
-  slug: 'deepliner-spy-c',
+  slug: 'spy-c',
   manufacturerSlug: 'deepliner',
 
   catchcopy:

@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassSiglettEditorial: EditorialReview = {
-  slug: 'megabass-siglett',
+  slug: 'siglett-2',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'メガバスがフロッグで出した答え。リアルフォルムと精密なウォーキングで、見えバスを本気にさせる。',

@@ -226,19 +226,88 @@ export const scrapeDreemupPage: ScraperFunction = async (url: string): Promise<S
   log(`Slug: ${slug}`);
 
   // --- Main image ---
+  // 釣果写真・バナー・ロッド画像を除外し、商品画像を優先して選択する
   let mainImage = '';
+
+  // 除外パターン: 釣果写真、バナー、ロッド、会社紹介、ロゴ、スタッフ
+  const EXCLUDE_IMAGE_PATTERN = /catch|fish|photo|staffbn|company|banner|logo|rod(?:traum|88h|80mh)|road81|manoma|fabicon|takeda|sato|post\d+ic|S__\d+/i;
+  // カラー画像パターン: _c01, _c02 等
+  const COLOR_IMAGE_PATTERN = /_c\d{2}|_\d+\.\d+inch_c\d+/i;
+  // サイズ指示子付き画像（リサイズ版）は除外
+  const RESIZED_PATTERN = /-\d+x\d+\.(jpg|png|jpeg|webp)/i;
+
+  // HTML内の全 img src を抽出
+  const allImgSrcs: string[] = [];
+  const imgTagRegex = /<img[^>]+src=["']([^"']+)["']/gi;
+  let imgTagMatch: RegExpExecArray | null;
+  while ((imgTagMatch = imgTagRegex.exec(html)) !== null) {
+    allImgSrcs.push(imgTagMatch[1]);
+  }
+
+  // カラーセクション以前の画像のみを対象とする
+  // カラーセクションの開始位置を特定
+  const colorSectionStart = html.search(/(?:Color|カラー|COLOR)[\s\S]{0,200}(?:pb-widget-image|_c\d{2})/i);
+  const preColorHtml = colorSectionStart > 0 ? html.substring(0, colorSectionStart) : html;
+
+  // preColorHtml 内の img src を抽出
+  const preColorImgs: string[] = [];
+  const preColorImgRegex = /<img[^>]+src=["']([^"']+)["']/gi;
+  let preMatch: RegExpExecArray | null;
+  while ((preMatch = preColorImgRegex.exec(preColorHtml)) !== null) {
+    preColorImgs.push(preMatch[1]);
+  }
+
+  // 候補画像をフィルタリング: 除外パターン・カラー画像・リサイズ版を除く
+  const candidateImages = preColorImgs.filter(src => {
+    const filename = src.split('/').pop() || '';
+    if (EXCLUDE_IMAGE_PATTERN.test(filename)) return false;
+    if (COLOR_IMAGE_PATTERN.test(filename)) return false;
+    if (RESIZED_PATTERN.test(filename)) return false;
+    // wp-content/uploads 配下の画像のみを対象
+    if (!src.includes('/wp-content/uploads/')) return false;
+    return true;
+  });
+
+  // 優先度1: og:image
   const ogImageMatch = html.match(/<meta\s+(?:property|name)=["']og:image["']\s+content=["']([^"']+)["']/i)
     || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:image["']/i);
   if (ogImageMatch) mainImage = ogImageMatch[1];
-  // TCD Page Builder: 最初の pb-widget-image 内の大きい画像をメイン画像として使用
+
+  // 優先度2: ファイル名に _top を含む画像（商品トップバナー）
   if (!mainImage) {
-    const pbImgMatch = html.match(/pb-widget-image[^>]*>\s*<img[^>]+src=["']([^"']+)["']/i);
-    if (pbImgMatch) mainImage = pbImgMatch[1];
+    const topImg = candidateImages.find(src => /_top[_.]/.test(src.split('/').pop() || ''));
+    if (topImg) mainImage = topImg;
   }
+
+  // 優先度3: slugキーワードを含む画像（例: lean_xxx.jpg, dmac_xxx.jpg）
+  if (!mainImage && slug) {
+    // slug から検索用キーワードを生成（lean-shad → lean, deka-maccam → maccam/dmac 等）
+    const slugParts = slug.split('-').filter(p => p.length >= 3);
+    const slugImg = candidateImages.find(src => {
+      const filename = (src.split('/').pop() || '').toLowerCase();
+      return slugParts.some(part => filename.includes(part));
+    });
+    if (slugImg) mainImage = slugImg;
+  }
+
+  // 優先度4: 候補画像の最初の1枚
+  if (!mainImage && candidateImages.length > 0) {
+    mainImage = candidateImages[0];
+  }
+
+  // 優先度5: フォールバック — entry-content 内の最初の画像（除外パターンを適用）
   if (!mainImage) {
-    const contentImgMatch = html.match(/entry-content[\s\S]*?<img[^>]+src=["']([^"']+)["']/i);
-    if (contentImgMatch) mainImage = contentImgMatch[1];
+    const contentImgRegex = /entry-content[\s\S]*?<img[^>]+src=["']([^"']+)["']/gi;
+    let contentMatch: RegExpExecArray | null;
+    while ((contentMatch = contentImgRegex.exec(html)) !== null) {
+      const filename = (contentMatch[1].split('/').pop() || '');
+      if (!EXCLUDE_IMAGE_PATTERN.test(filename) && !COLOR_IMAGE_PATTERN.test(filename)) {
+        mainImage = contentMatch[1];
+        break;
+      }
+    }
   }
+
   mainImage = makeAbsolute(mainImage);
   log(`Main image: ${mainImage}`);
 

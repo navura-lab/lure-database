@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const zoomOlMonsterEditorial: EditorialReview = {
-  slug: 'zoom-ol-monster',
+  slug: 'ol-monster',
   manufacturerSlug: 'zoom',
 
   catchcopy: '10.5インチの圧倒的存在感。デカバス専用設計の大型ワームが、ビッグフィッシュだけを選んで連れてくる。',

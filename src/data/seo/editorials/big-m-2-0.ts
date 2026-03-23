@@ -1,7 +1,7 @@
 import type { EditorialReview } from './huggos';
 
 export const bigM20Editorial: EditorialReview = {
-  slug: 'megabass-big-m-2-0',
+  slug: 'big-m20',
   manufacturerSlug: 'megabass',
 
   catchcopy: '7mの深淵に届くディープクランク。メガバスが本気で作った、ボートアングラー待望の一撃。',

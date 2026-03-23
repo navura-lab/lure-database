@@ -1,7 +1,7 @@
 import type { EditorialReview } from './huggos';
 
 export const coike3Editorial: EditorialReview = {
-  slug: 'hideup-coike-3',
+  slug: 'coike',
   manufacturerSlug: 'hideup',
 
   catchcopy: 'エビそのものの姿と動き。ボトムでピクピク動く脚が、バスの食性を直撃する。',

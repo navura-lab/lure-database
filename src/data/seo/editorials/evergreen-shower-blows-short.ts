@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenShowerBlowsShortEditorial: EditorialReview = {
-  slug: 'evergreen-shower-blows-short',
+  slug: 'showerblowsshorty',
   manufacturerSlug: 'evergreen',
 
   catchcopy: 'シャワーブローズの肉感ウォーキングを、野池サイズに凝縮。短くて太いシルエットが、スレバスの本能を揺さぶる。',

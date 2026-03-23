@@ -1,7 +1,7 @@
 import type { EditorialReview } from './huggos';
 
 export const kagelou100fEditorial: EditorialReview = {
-  slug: 'megabass-kagelou-100f',
+  slug: 'kagelou100f',
   manufacturerSlug: 'megabass',
 
   catchcopy: 'レンジ30cmの極薄レンジを、誰にも真似できないローリングで泳ぐ。シャローランナーの最高峰。',

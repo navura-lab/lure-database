@@ -1,7 +1,7 @@
 import type { EditorialReview } from './huggos';
 
 export const troutTune88Editorial: EditorialReview = {
-  slug: 'jackson-trout-tune-88',
+  slug: 'trout-tune',
   manufacturerSlug: 'jackson',
 
   catchcopy: '渓流ミノーイングの入門最適解。手頃な価格で本格的な泳ぎ、ジャクソンの実力派。',

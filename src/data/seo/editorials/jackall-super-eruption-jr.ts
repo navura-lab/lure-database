@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const jackallSuperEruptionJrEditorial: EditorialReview = {
-  slug: 'jackall-super-eruption-jr',
+  slug: 'super-eruption-jr',
   manufacturerSlug: 'jackall',
 
   catchcopy: '通常サイズでは届かないタイトなスポットに入り込む、コンパクトスピナーベイトの決定版。',

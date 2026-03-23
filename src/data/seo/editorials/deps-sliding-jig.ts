@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsSlidingJigEditorial: EditorialReview = {
-  slug: 'deps-sliding-jig',
+  slug: 'slidingjig',
   manufacturerSlug: 'deps',
 
   catchcopy: '「スライドして食わせる」——デプスが追求した、フォール中に横に逃げるジグの新しい動き。',

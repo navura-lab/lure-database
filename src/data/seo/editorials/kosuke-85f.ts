@@ -1,7 +1,7 @@
 import type { EditorialReview } from './huggos';
 
 export const kosuke85fEditorial: EditorialReview = {
-  slug: 'ima-kosuke-85f',
+  slug: 'kosuke-85f',
   manufacturerSlug: 'ima',
 
   catchcopy: 'リップレスミノーの原点。流れに乗せて漂わせるだけで、シーバスが勝手に食ってくる。',

@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const blueblueTracy15Editorial: EditorialReview = {
-  slug: 'blueblue-tracy-15',
+  slug: 'tracy',
   manufacturerSlug: 'blueblue',
 
   catchcopy: 'BlueBlueが作ったメタルバイブ。15gというジャスト感が、港湾シーバスの攻略域をすべてカバーする。',

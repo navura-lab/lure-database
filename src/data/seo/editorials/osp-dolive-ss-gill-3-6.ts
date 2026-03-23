@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospDoliveSsGill36Editorial: EditorialReview = {
-  slug: 'osp-dolive-ss-gill-3-6',
+  slug: 'dolivessgill',
   manufacturerSlug: 'osp',
 
   catchcopy: 'ギルを完コピした究極のフォールベイト。バスが最も執着する"天敵"の動きを3.6インチに凝縮。',

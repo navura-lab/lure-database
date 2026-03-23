@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const depsBCustomChatterEditorial: EditorialReview = {
-  slug: 'deps-b-custom-chatter',
+  slug: 'bcustom-chatter',
   manufacturerSlug: 'deps',
 
   catchcopy: 'デプスのビッグバス哲学がチャターベイトに宿る。大型専用設計のヘビーチャターで、デカバスだけを選んで狙う。',

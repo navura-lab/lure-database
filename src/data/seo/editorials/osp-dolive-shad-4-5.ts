@@ -7,7 +7,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospDoliveShadEditorial: EditorialReview = {
-  slug: 'osp-dolive-shad-4-5',
+  slug: 'doliveshad',
   manufacturerSlug: 'osp',
 
   catchcopy: 'スイムベイトジャンルを国内に根付かせた4.5インチ。ただ巻きで生きた魚が泳ぐ、OSPが辿り着いたテールアクションの完成形。',

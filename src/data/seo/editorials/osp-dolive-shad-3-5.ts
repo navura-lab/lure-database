@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospDoliveShadEditorial: EditorialReview = {
-  slug: 'osp-dolive-shad-3-5',
+  slug: 'doliveshad',
   manufacturerSlug: 'osp',
 
   catchcopy: '自発的に動くテールが生み出す「本物の魚感」。ノーシンカーリグで漂わせるだけで、バスが食ってくる。',

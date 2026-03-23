@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassSCrank15Editorial: EditorialReview = {
-  slug: 'megabass-s-crank-1-5',
+  slug: 's-crank',
   manufacturerSlug: 'megabass',
 
   catchcopy: '浅くて速い。シャローのバスを広く拾う、メガバスのスタンダードシャロークランク。',

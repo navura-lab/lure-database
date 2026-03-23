@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const raidOkaebiEditorial: EditorialReview = {
-  slug: 'raid-okaebi',
+  slug: 'oka-ebi',
   manufacturerSlug: 'raid',
 
   catchcopy: '岸際のエビは、バスの一番好きな食べ物だ。その真実をそのまま形にしたのがOKAEBIだ。',

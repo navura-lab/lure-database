@@ -1,7 +1,7 @@
 import type { EditorialReview } from './huggos';
 
 export const metalShaldus15Editorial: EditorialReview = {
-  slug: 'blueblue-metal-shalldus-15',
+  slug: 'metal-shalldus',
   manufacturerSlug: 'blueblue',
 
   catchcopy: 'メタルボディにブレードの閃光。飛距離とフラッシングの二刀流で、デイシーバスを制する。',

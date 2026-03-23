@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospBlitzExDrEditorial: EditorialReview = {
-  slug: 'osp-blitz-ex-dr',
+  slug: 'blitz-ex-dr',
   manufacturerSlug: 'osp',
 
   catchcopy: 'ディープクランクの常識を変えた。OSPが作り上げた、高比重ボディと狂ったウォブリングの最深部攻略機。',

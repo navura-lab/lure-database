@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospDoliveBeaver35Editorial: EditorialReview = {
-  slug: 'osp-dolive-beaver-3-5',
+  slug: 'dolivebeaver',
   manufacturerSlug: 'osp',
 
   catchcopy: 'パドルテールが水を掴んで離さない。カバー撃ちの切り札として、多くのトーナメンターが密かに信頼する実力派ビーバーワーム。',

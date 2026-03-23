@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const evergreenCombatCrank480Editorial: EditorialReview = {
-  slug: 'evergreen-combat-crank-480',
+  slug: 'combatcrank480',
   manufacturerSlug: 'evergreen',
 
   catchcopy: '琵琶湖で磨かれた4.8mの到達力。エバーグリーンが作った、日本最深クラスのディープクランク。',

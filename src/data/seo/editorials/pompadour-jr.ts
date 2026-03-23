@@ -1,7 +1,7 @@
 import type { EditorialReview } from './huggos';
 
 export const pompadourJrEditorial: EditorialReview = {
-  slug: 'jackall-pompadour-jr',
+  slug: 'pompadour',
   manufacturerSlug: 'jackall',
 
   catchcopy: '小さなボディに宿る集魚力。ダウンサイズしても羽根モノの本質を失わない、ジャッカルの回答。',

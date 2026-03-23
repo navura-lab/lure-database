@@ -10,7 +10,7 @@
 import type { EditorialReview } from './huggos';
 
 export const megabassBabyPopXEditorial: EditorialReview = {
-  slug: 'megabass-baby-pop-x',
+  slug: 'baby-popx-2',
   manufacturerSlug: 'megabass',
 
   catchcopy: '名作POP-Xの血を引く最小のポッパー。スモールバスも大型バスも、この音には抗えない。',

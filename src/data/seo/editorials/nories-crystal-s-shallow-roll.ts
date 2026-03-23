@@ -6,7 +6,7 @@
 import type { EditorialReview } from './huggos';
 
 export const noriesCrystalSShallowRollEditorial: EditorialReview = {
-  slug: 'nories-crystal-s-shallow-roll',
+  slug: 'shallow-roll',
   manufacturerSlug: 'nories',
 
   catchcopy: 'シャローエリア専用設計のスピナーベイト。水深1m未満の超シャロー帯を、根掛かりなしで引き通す。',

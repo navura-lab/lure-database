@@ -8,7 +8,7 @@
 import type { EditorialReview } from './huggos';
 
 export const cbOneC1LonglideEditorial: EditorialReview = {
-  slug: 'cb-one-c1-longlide',
+  slug: 'c1-longlide',
   manufacturerSlug: 'cb-one',
 
   catchcopy: '1回のジャークで最大限に距離を稼ぐ。スライドジグの進化形が生む、水平フォールという新しい食わせの間。',

@@ -5,7 +5,7 @@
 import type { EditorialReview } from './huggos';
 
 export const ospDolivehog3Editorial: EditorialReview = {
-  slug: 'osp-dolive-hog-3',
+  slug: 'dolivehog',
   manufacturerSlug: 'osp',
 
   catchcopy: 'ザリガニとホグが融合した生命感。OSPの「ドライブホッグ3"」は、フリーリグ全盛時代の主役を張り続けるクローワームだ。',

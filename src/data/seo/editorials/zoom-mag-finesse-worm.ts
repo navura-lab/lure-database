@@ -5,7 +5,7 @@
 import type { EditorialReview } from './huggos';
 
 export const zoomMagFinesseWormEditorial: EditorialReview = {
-  slug: 'zoom-mag-finesse-worm',
+  slug: 'finesse-worm',
   manufacturerSlug: 'zoom',
 
   catchcopy: 'スモールマウスからラージマウスまで。フィネスの「マグナム」版が、プレッシャーフィールドの難関バスをこじ開ける。',
