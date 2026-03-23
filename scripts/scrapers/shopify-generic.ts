@@ -519,14 +519,29 @@ export function createShopifyScraper(config: ShopifyBrandConfig): ScraperFunctio
     // これが原因でGoogle「重複ページ - 別のcanonicalを選択」が発生する。
     // 対策: " - " でベース名とカラー名を分離し、ベース名のslugで統合する。
     //
+    // 統合条件:
+    //   (a) カラーが0〜1色の場合（元の条件: 1URL=1カラー商品）
+    //   (b) Colorオプションがなく、バリアントtitleからカラーを作った場合
+    //       → "Trace® 6" - Live Shad" のように Model/Sink Rate のみで
+    //         Color optionがない商品。バリアントtitleはサイズ/仕様で色ではない。
+    //
     let finalName = name;
     let finalColors = colors;
     const dashSplit = name.match(/^(.+?)\s+[-–]\s+(.+)$/);
-    if (dashSplit && finalColors.length <= 1) {
-      const baseName = dashSplit[1].trim();
-      const colorFromTitle = dashSplit[2].trim();
-      // ベース名が3文字以上で、カラー名がサイズ表記でない場合のみ
-      if (baseName.length >= 3 && !/^\d/.test(colorFromTitle)) {
+    const shouldConsolidate = dashSplit && (
+      finalColors.length <= 1 || colorOptionKey === null
+    );
+    if (shouldConsolidate) {
+      const baseName = dashSplit![1].trim();
+      const colorFromTitle = dashSplit![2].trim();
+      // ベース名が3文字以上で、カラー名が純粋なサイズ表記でない場合のみ
+      // サイズ表記: "4.5"", "3/4 oz", "12mm" 等の数値+単位パターン
+      // "4K Bluegill" のような数字始まりのカラー名は許可する
+      const isSizeNotation = /^\d+(?:\.\d+)?\s*["'″]/.test(colorFromTitle)
+        || /^\d+(?:\.\d+)?\s*(?:oz|mm|cm|inch|g\b)/i.test(colorFromTitle)
+        || /^\d+\/\d+\s*oz/i.test(colorFromTitle)
+        || /^\d+(?:\.\d+)?$/.test(colorFromTitle);  // 純粋数値
+      if (baseName.length >= 3 && !isSizeNotation) {
         finalName = baseName;
         // カラーをタイトルのカラー部分に置き換え
         const img = finalColors.length > 0 ? finalColors[0].imageUrl : mainImage;
