@@ -180,12 +180,20 @@ const effectiveDescription = needsAutoDesc ? (autoDescription || series.descript
 const rankLabel = categoryRank > 0 && categoryRank <= 10 && categoryFish
   ? `${categoryFish}向け${series.type}${categoryTotal}選中${categoryRank}位。`
   : '';
-// E/D: CTR改善 — 「スペック」「使い方」を含め検索意図カバレッジを拡大
-const priceLabel = hasPrice ? `価格${priceDisplay}。` : '';
+// E/D: CTR改善 — スペック情報+対象魚+差別化文言で検索意図カバレッジを拡大
+const priceLabel = hasPrice ? `価格${priceDisplay}` : '';
+const specLabel = [
+  weightDisplay ? `重さ${weightDisplay}` : null,
+  lengthDisplay ? `全長${lengthDisplay}` : null,
+  priceLabel,
+].filter(Boolean).join('・');
+const fishLabel = series.target_fish?.length > 0
+  ? `${series.target_fish.slice(0, 3).join('・')}対応。`
+  : '';
 // エディトリアルがある場合はcatchcopyをdescriptionに使用（CTR向上）
 const rawDescription = editorial
-  ? `${seoName}（${makerDisplay}）${editorial.catchcopy.slice(0, 60)} ${rankLabel}全${series.color_count}色・スペック・使い方を解説。${priceLabel}`
-  : `${seoName}（${makerDisplay}の${series.type}）のスペック・全${series.color_count}色・使い方を解説。${rankLabel}${effectiveDescription}${priceLabel}`;
+  ? `${seoName}（${makerJa}）${editorial.catchcopy.slice(0, 50)} ${specLabel ? specLabel + '。' : ''}${fishLabel}${rankLabel}全${series.color_count}色カラー一覧。`
+  : `${seoName}は${makerJa}の${series.type}。${specLabel ? specLabel + '。' : ''}${fishLabel}${rankLabel}全${series.color_count}色のカラー・スペックを掲載。`;
 const pageDescription = truncateDescription(rawDescription);
 
 // --- SEO: 自然言語スペック要約（ページ内表示用）---
