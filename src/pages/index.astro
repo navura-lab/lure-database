@@ -323,17 +323,17 @@ const jsonLd = {
       <p class="font-mono text-[10px] font-bold text-accent tracking-[2px] uppercase mb-1">DATA INSIGHT</p>
       <h2 class="text-[18px] font-bold text-text mb-6">{series.length.toLocaleString()}シリーズの分析から</h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <a href="/article/lure-type-trends-2026/" class="group bg-surface rounded-xl p-6 hover:bg-accent-bg transition-colors duration-200">
+        <a href="/type/" class="group bg-surface rounded-xl p-6 hover:bg-accent-bg transition-colors duration-200">
           <p class="font-mono text-[32px] font-bold text-accent mb-1">19.2%</p>
           <p class="text-[13px] font-bold text-text group-hover:text-accent transition-colors">ワームが最多タイプ</p>
           <p class="text-[11px] text-text-dim mt-1">タイプ別シェア分析 →</p>
         </a>
-        <a href="/article/price-analysis-by-type/" class="group bg-surface rounded-xl p-6 hover:bg-accent-bg transition-colors duration-200">
+        <a href="/ranking/" class="group bg-surface rounded-xl p-6 hover:bg-accent-bg transition-colors duration-200">
           <p class="font-mono text-[32px] font-bold text-accent mb-1">¥1,741</p>
           <p class="text-[13px] font-bold text-text group-hover:text-accent transition-colors">ルアー平均価格</p>
           <p class="text-[11px] text-text-dim mt-1">価格帯分析 →</p>
         </a>
-        <a href="/article/maker-diversity-ranking/" class="group bg-surface rounded-xl p-6 hover:bg-accent-bg transition-colors duration-200">
+        <a href="/maker/" class="group bg-surface rounded-xl p-6 hover:bg-accent-bg transition-colors duration-200">
           <p class="font-mono text-[32px] font-bold text-accent mb-1">{mfrMap.size}</p>
           <p class="text-[13px] font-bold text-text group-hover:text-accent transition-colors">登録メーカー数</p>
           <p class="text-[11px] text-text-dim mt-1">メーカー比較 →</p>
@@ -341,53 +341,6 @@ const jsonLd = {
       </div>
     </section>
 
-  </div>
-
-  <!-- ═══ 7. フッター内部リンク（SEO） ═══ -->
-  <div class="bg-[#0a0a0a] mt-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 text-sm">
-        <div>
-          <p class="font-mono text-[10px] text-accent tracking-[2px] uppercase mb-3">タイプ別</p>
-          <ul class="space-y-1.5">
-            {topTypes.map(t => (
-              <li><a href={`/type/${t.slug}/`} class="text-gray-400 hover:text-white transition-colors">{t.name}</a></li>
-            ))}
-            <li><a href="/type/" class="text-gray-500 hover:text-white transition-colors">→ 全タイプ</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="font-mono text-[10px] text-accent tracking-[2px] uppercase mb-3">対象魚別</p>
-          <ul class="space-y-1.5">
-            {topFish.map(f => (
-              <li><a href={`/fish/${f.slug}/`} class="text-gray-400 hover:text-white transition-colors">{f.name}</a></li>
-            ))}
-            <li><a href="/fish/" class="text-gray-500 hover:text-white transition-colors">→ 全魚種</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="font-mono text-[10px] text-accent tracking-[2px] uppercase mb-3">メーカー</p>
-          <ul class="space-y-1.5">
-            {topMakers.slice(0, 8).map(m => (
-              <li><a href={`/${m.slug}/`} class="text-gray-400 hover:text-white transition-colors">{m.name}</a></li>
-            ))}
-            <li><a href="/maker/" class="text-gray-500 hover:text-white transition-colors">→ 全{mfrMap.size}社</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="font-mono text-[10px] text-accent tracking-[2px] uppercase mb-3">コンテンツ</p>
-          <ul class="space-y-1.5">
-            <li><a href="/article/" class="text-gray-400 hover:text-white transition-colors">レビュー {editorialSlugs.length}件</a></li>
-            <li><a href="/ranking/" class="text-gray-400 hover:text-white transition-colors">ランキング</a></li>
-            <li><a href="/compare/" class="text-gray-400 hover:text-white transition-colors">比較</a></li>
-            <li><a href="/guide/" class="text-gray-400 hover:text-white transition-colors">ガイド</a></li>
-            <li><a href="/new/" class="text-gray-400 hover:text-white transition-colors">新着</a></li>
-            <li><a href="/season/" class="text-gray-400 hover:text-white transition-colors">季節別</a></li>
-            <li><a href="/method/" class="text-gray-400 hover:text-white transition-colors">釣り方別</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
   </div>
 
 </BaseLayout>
