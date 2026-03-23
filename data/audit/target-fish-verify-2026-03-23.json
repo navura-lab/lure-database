@@ -1,0 +1,3666 @@
+{
+  "scan_date": "2026-03-23",
+  "total_scanned": 50,
+  "api_calls": 50,
+  "mismatches": 34,
+  "results": [
+    {
+      "slug": "majorcraft/jpvtg",
+      "name": "ジグパラ バーチカル タングステン",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "マダイ",
+        "ロックフィッシュ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "サワラ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "jigging-soul.com",
+            "www.youtube.com",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "jigging-soul.com",
+            "www.youtube.com",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "jigging-soul.com",
+            "www.youtube.com",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "jigging-soul.com",
+            "www.youtube.com",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "jigging-soul.com",
+            "www.youtube.com",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "アジ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.youtube.com",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "ヒラメ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "jigging-soul.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "jigging-soul.com"
+          ]
+        },
+        {
+          "fish": "メバル",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "タチウオ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lurenewsr.com"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": true,
+      "missing_in_db": [
+        "アジ"
+      ],
+      "extra_in_db": [
+        "マダイ",
+        "ロックフィッシュ"
+      ],
+      "recommendation": "追加検討(中確度): アジ / 削除検討: マダイ, ロックフィッシュ（釣果報告で確認できず）"
+    },
+    {
+      "slug": "majorcraft/tm-head",
+      "name": "替乃実",
+      "type": "タイラバ",
+      "db_target_fish": [
+        "マダイ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "マダイ",
+          "count": 7,
+          "confidence": "high",
+          "sources": [
+            "www.lurenewsr.com",
+            "www.youtube.com",
+            "www.naturum.co.jp"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.lurenewsr.com",
+            "fishingmax.co.jp"
+          ]
+        },
+        {
+          "fish": "マゴチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.point-i.jp"
+          ]
+        },
+        {
+          "fish": "ハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "ブリ"
+      ],
+      "extra_in_db": [],
+      "recommendation": "追加検討(中確度): ブリ"
+    },
+    {
+      "slug": "duel/saltybait",
+      "name": "ソルティー・ベイト™",
+      "type": "ワーム",
+      "db_target_fish": [
+        "シーバス"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 6,
+          "confidence": "high",
+          "sources": [
+            "tsuri-tohoku.com",
+            "www.duel.co.jp",
+            "duelmagazine.jp"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "tsuri-tohoku.com",
+            "www.duel.co.jp",
+            "duelmagazine.jp"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "tsuri-tohoku.com",
+            "www.duel.co.jp",
+            "duelmagazine.jp"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "tsuri-tohoku.com",
+            "www.duel.co.jp",
+            "duelmagazine.jp"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "tsuri-tohoku.com",
+            "www.duel.co.jp",
+            "duelmagazine.jp"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "duelmagazine.jp",
+            "tsuri-tohoku.com",
+            "www.duel.co.jp"
+          ]
+        },
+        {
+          "fish": "ハタ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "duelmagazine.jp",
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "アジ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.duel.co.jp"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "anglers.jp",
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "キジハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "duelmagazine.jp"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsuri-tohoku.com"
+          ]
+        },
+        {
+          "fish": "ヒラメ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsuri-tohoku.com"
+          ]
+        },
+        {
+          "fish": "アオリイカ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.duel.co.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "ブリ",
+        "ヒラマサ",
+        "カンパチ",
+        "サワラ",
+        "シイラ",
+        "マダイ",
+        "ハタ",
+        "アジ",
+        "カサゴ"
+      ],
+      "extra_in_db": [
+        "シーバス"
+      ],
+      "recommendation": "追加推奨(高確度): ブリ, ヒラマサ, カンパチ, サワラ, シイラ, マダイ, ハタ / 追加検討(中確度): アジ, カサゴ / 削除検討: シーバス（釣果報告で確認できず）"
+    },
+    {
+      "slug": "majorcraft/edn",
+      "name": "エデン",
+      "type": "タイラバ",
+      "db_target_fish": [
+        "マダイ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "シーバス",
+          "count": 10,
+          "confidence": "high",
+          "sources": [
+            "nagoya-eden.com",
+            "www.chowari.jp",
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "クロダイ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "nagoya-eden.com",
+            "www.chowari.jp"
+          ]
+        },
+        {
+          "fish": "マゴチ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.chowari.jp",
+            "funemaga.com"
+          ]
+        },
+        {
+          "fish": "ヒラメ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.chowari.jp"
+          ]
+        },
+        {
+          "fish": "キジハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.chowari.jp"
+          ]
+        },
+        {
+          "fish": "ハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.chowari.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "シーバス",
+        "クロダイ",
+        "マゴチ"
+      ],
+      "extra_in_db": [
+        "マダイ"
+      ],
+      "recommendation": "追加推奨(高確度): シーバス, クロダイ, マゴチ / 削除検討: マダイ（釣果報告で確認できず）"
+    },
+    {
+      "slug": "jazz/basic",
+      "name": "爆釣JIG",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "ロックフィッシュ（カサゴ、アイナメ等）"
+      ],
+      "detected_fish": [
+        {
+          "fish": "カンパチ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.jazz-lure.com",
+            "www.casterhouse.co.jp",
+            "www.amazon.co.jp"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.jazz-lure.com",
+            "www.casterhouse.co.jp",
+            "www.amazon.co.jp"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.jazz-lure.com",
+            "www.casterhouse.co.jp",
+            "www.amazon.co.jp"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.jazz-lure.com",
+            "www.casterhouse.co.jp",
+            "www.amazon.co.jp"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.jazz-lure.com",
+            "www.casterhouse.co.jp",
+            "www.amazon.co.jp"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.jazz-lure.com",
+            "www.naturum.co.jp"
+          ]
+        },
+        {
+          "fish": "アジ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.point-i.jp",
+            "www.naturum.co.jp"
+          ]
+        },
+        {
+          "fish": "メバル",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.naturum.co.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "マダイ",
+        "アジ"
+      ],
+      "extra_in_db": [
+        "ロックフィッシュ（カサゴ、アイナメ等）"
+      ],
+      "recommendation": "追加検討(中確度): マダイ, アジ / 削除検討: ロックフィッシュ（カサゴ、アイナメ等）（釣果報告で確認できず）"
+    },
+    {
+      "slug": "viva/aji-pinpin",
+      "name": "Aji PinPin（アジピンピン）",
+      "type": "ワーム",
+      "db_target_fish": [
+        "アジ",
+        "メバル"
+      ],
+      "detected_fish": [
+        {
+          "fish": "アジ",
+          "count": 10,
+          "confidence": "high",
+          "sources": [
+            "www.duo-inc.co.jp",
+            "fishinglover-tokai.com",
+            "www.tsurisoku.com"
+          ]
+        },
+        {
+          "fish": "ブラックバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "fishinglover-tokai.com"
+          ]
+        },
+        {
+          "fish": "カマス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.ishiguro-gr.com"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [],
+      "extra_in_db": [
+        "メバル"
+      ],
+      "recommendation": "削除検討: メバル（釣果報告で確認できず）"
+    },
+    {
+      "slug": "bozles/tg-nobunaga-neo",
+      "name": "TGノブナガネオ",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "jigging-soul.com",
+            "lurebank.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "jigging-soul.com",
+            "lurebank.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "jigging-soul.com",
+            "lurebank.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "jigging-soul.com",
+            "lurebank.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "jigging-soul.com",
+            "lurebank.com"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lurenewsr.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [],
+      "extra_in_db": [
+        "マダイ",
+        "根魚"
+      ],
+      "recommendation": "削除検討: マダイ, 根魚（釣果報告で確認できず）"
+    },
+    {
+      "slug": "drt/super-shuttle",
+      "name": "SUPER SHUTTLE",
+      "type": "ワーム",
+      "db_target_fish": [
+        "ブラックバス"
+      ],
+      "detected_fish": [],
+      "search_results_count": 10,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "livetarget/rainbow-smelt-jerkbait-shallow-dive",
+      "name": "Rainbow Smelt Jerkbait Shallow Dive",
+      "type": "ミノー",
+      "db_target_fish": [
+        "ブラックバス",
+        "ウォールアイ",
+        "トラウト"
+      ],
+      "detected_fish": [
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "duel/saltyrubber-slidehead",
+      "name": "ソルティー・ラバー® スライドヘッド",
+      "type": "タイラバ",
+      "db_target_fish": [
+        "マダイ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "マダイ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "www.duel.co.jp",
+            "www.youtube.com",
+            "www.amazon.co.jp"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "アオリイカ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "viva/muscle-bug",
+      "name": "Muscle BUG（マッスルバグ）",
+      "type": "ワーム",
+      "db_target_fish": [
+        "アジ",
+        "メバル"
+      ],
+      "detected_fish": [
+        {
+          "fish": "メバル",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "anglers.jp",
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "アジ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "クロダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "nanbuno.ti-da.net"
+          ]
+        },
+        {
+          "fish": "アオリイカ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "カマス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.johshuya.co.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [],
+      "extra_in_db": [
+        "アジ"
+      ],
+      "recommendation": "削除検討: アジ（釣果報告で確認できず）"
+    },
+    {
+      "slug": "pazdesign/hanto",
+      "name": "海晴ハント",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "トラウト"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "www.instagram.com",
+            "www.fimosw.com",
+            "tackledb.uosoku.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.instagram.com",
+            "www.fimosw.com",
+            "tackledb.uosoku.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.instagram.com",
+            "www.fimosw.com",
+            "tackledb.uosoku.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.instagram.com",
+            "www.fimosw.com",
+            "tackledb.uosoku.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.instagram.com",
+            "www.fimosw.com",
+            "tackledb.uosoku.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.instagram.com",
+            "www.johshuya.co.jp"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.fimosw.com"
+          ]
+        },
+        {
+          "fish": "ヒラメ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.fimosw.com"
+          ]
+        },
+        {
+          "fish": "マゴチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.fimosw.com"
+          ]
+        },
+        {
+          "fish": "メバル",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.fimosw.com"
+          ]
+        },
+        {
+          "fish": "クロダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.fimosw.com"
+          ]
+        },
+        {
+          "fish": "アオリイカ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.fimosw.com"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "キジハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "ハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "クロマグロ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "ブリ",
+        "ヒラマサ",
+        "カンパチ",
+        "サワラ",
+        "シイラ",
+        "マダイ"
+      ],
+      "extra_in_db": [
+        "トラウト"
+      ],
+      "recommendation": "追加推奨(高確度): ブリ, ヒラマサ, カンパチ, サワラ, シイラ / 追加検討(中確度): マダイ / 削除検討: トラウト（釣果報告で確認できず）"
+    },
+    {
+      "slug": "viva/aji-penpen",
+      "name": "Aji PenPen",
+      "type": "ワーム",
+      "db_target_fish": [
+        "アジ",
+        "メバル"
+      ],
+      "detected_fish": [
+        {
+          "fish": "アジ",
+          "count": 9,
+          "confidence": "high",
+          "sources": [
+            "fishinglover-tokai.com",
+            "anglers.jp",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.instagram.com",
+            "ameblo.jp"
+          ]
+        },
+        {
+          "fish": "ブラックバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "fishinglover-tokai.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "サバ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "ameblo.jp"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "ameblo.jp"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "ameblo.jp"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "ameblo.jp"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "ameblo.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "シイラ"
+      ],
+      "extra_in_db": [
+        "メバル"
+      ],
+      "recommendation": "追加検討(中確度): シイラ / 削除検討: メバル（釣果報告で確認できず）"
+    },
+    {
+      "slug": "bozles/tg-keiji",
+      "name": "TGケイジ",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 6,
+          "confidence": "high",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "lurebank.com",
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 6,
+          "confidence": "high",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "lurebank.com",
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 6,
+          "confidence": "high",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "lurebank.com",
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 6,
+          "confidence": "high",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "lurebank.com",
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 6,
+          "confidence": "high",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "lurebank.com",
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "タチウオ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.instagram.com",
+            "www.youtube.com",
+            "www.johshuya.co.jp"
+          ]
+        },
+        {
+          "fish": "アジ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "lurebank.com",
+            "jigging-soul.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "lurebank.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "タチウオ",
+        "アジ"
+      ],
+      "extra_in_db": [
+        "マダイ",
+        "根魚"
+      ],
+      "recommendation": "追加推奨(高確度): タチウオ / 追加検討(中確度): アジ / 削除検討: マダイ, 根魚（釣果報告で確認できず）"
+    },
+    {
+      "slug": "strike-king/lil-sucker",
+      "name": "Lil Sucker",
+      "type": "ワーム",
+      "db_target_fish": [
+        "ブラックバス"
+      ],
+      "detected_fish": [
+        {
+          "fish": "マダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.facebook.com"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.tiktok.com"
+          ]
+        },
+        {
+          "fish": "ブラックバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.tiktok.com"
+          ]
+        },
+        {
+          "fish": "メバル",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.tiktok.com"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "viva/aji-pinpin-old",
+      "name": "Aji PinPin（アジピンピン）",
+      "type": "ワーム",
+      "db_target_fish": [
+        "アジ",
+        "メバル"
+      ],
+      "detected_fish": [
+        {
+          "fish": "アジ",
+          "count": 10,
+          "confidence": "high",
+          "sources": [
+            "www.duo-inc.co.jp",
+            "bunbun-fishing.com",
+            "fishinglover-tokai.com"
+          ]
+        },
+        {
+          "fish": "ブラックバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "fishinglover-tokai.com"
+          ]
+        },
+        {
+          "fish": "カマス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.ishiguro-gr.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [],
+      "extra_in_db": [
+        "メバル"
+      ],
+      "recommendation": "削除検討: メバル（釣果報告で確認できず）"
+    },
+    {
+      "slug": "viva/pila-pila-pilarin",
+      "name": "Pila Pila Pilarin（ピラピラ ピラリン）",
+      "type": "ワーム",
+      "db_target_fish": [
+        "メバル"
+      ],
+      "detected_fish": [
+        {
+          "fish": "アジ",
+          "count": 6,
+          "confidence": "high",
+          "sources": [
+            "www.lurenewsr.com",
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "メバル",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.lurenewsr.com",
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "vivanet.co.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "アジ"
+      ],
+      "extra_in_db": [],
+      "recommendation": "追加推奨(高確度): アジ"
+    },
+    {
+      "slug": "yamashita/ten-ya-taipu",
+      "name": "猛追太刀魚テンヤ船 鰯タイプ",
+      "type": "テンヤ",
+      "db_target_fish": [
+        "タチウオ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "タチウオ",
+          "count": 10,
+          "confidence": "high",
+          "sources": [
+            "www.yamaria.co.jp",
+            "tachiuo.net",
+            "www.tsurisoku.com"
+          ]
+        },
+        {
+          "fish": "アオリイカ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.yamaria.co.jp"
+          ]
+        },
+        {
+          "fish": "タコ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.yamaria.co.jp"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tachiuo.net"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tachiuo.net"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tachiuo.net"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tachiuo.net"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tachiuo.net"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "jazz/jig-f-1-middoshippu",
+      "name": "爆釣JIG F-1 ミッドシップ",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "シーバス"
+      ],
+      "detected_fish": [
+        {
+          "fish": "トラウト",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "masuhei.cocolog-nifty.com"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "masuhei.cocolog-nifty.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "masuhei.cocolog-nifty.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "masuhei.cocolog-nifty.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "masuhei.cocolog-nifty.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "masuhei.cocolog-nifty.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.jazz-lure.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "bozles/nobunaga-light",
+      "name": "ノブナガライト",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "detected_fish": [
+        {
+          "fish": "マダイ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.e-expert.co.jp",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "akebono.hamazo.tv",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "perfection-salt.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "perfection-salt.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "perfection-salt.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "perfection-salt.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "perfection-salt.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "タチウオ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "ヒラメ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.e-expert.co.jp"
+          ]
+        },
+        {
+          "fish": "アジ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "akebono.hamazo.tv"
+          ]
+        },
+        {
+          "fish": "クロダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "akebono.hamazo.tv"
+          ]
+        },
+        {
+          "fish": "タコ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "akebono.hamazo.tv"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "アイナメ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "キジハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "ハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "blues-maru.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "シーバス"
+      ],
+      "extra_in_db": [
+        "根魚"
+      ],
+      "recommendation": "追加検討(中確度): シーバス / 削除検討: 根魚（釣果報告で確認できず）"
+    },
+    {
+      "slug": "bozles/tg-ranmaru",
+      "name": "TGランマル",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "ハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": true,
+      "missing_in_db": [],
+      "extra_in_db": [
+        "根魚"
+      ],
+      "recommendation": "削除検討: 根魚（釣果報告で確認できず）"
+    },
+    {
+      "slug": "bozles/tg-nobunaga",
+      "name": "TGノブナガ",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "www.lurenewsr.com",
+            "lurebank.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "www.lurenewsr.com",
+            "lurebank.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "www.lurenewsr.com",
+            "lurebank.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "www.lurenewsr.com",
+            "lurebank.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "www.lurenewsr.com",
+            "lurebank.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.lurenewsr.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lurenewsr.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [],
+      "extra_in_db": [
+        "根魚"
+      ],
+      "recommendation": "削除検討: 根魚（釣果報告で確認できず）"
+    },
+    {
+      "slug": "lunkerhunt/micro-tube",
+      "name": "Micro Tube",
+      "type": "ワーム",
+      "db_target_fish": [
+        "ブラックバス",
+        "パイク"
+      ],
+      "detected_fish": [
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "fishing-you.com"
+          ]
+        },
+        {
+          "fish": "ブラックバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "トラウト",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.reddit.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "rapala/luhrjensen-3700",
+      "name": "COWBELL LAKE TROLL",
+      "type": "スピナー",
+      "db_target_fish": [
+        "トラウト",
+        "サーモン"
+      ],
+      "detected_fish": [
+        {
+          "fish": "トラウト",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.johshuya.co.jp",
+            "item.rakuten.co.jp",
+            "anglers.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [],
+      "extra_in_db": [
+        "サーモン"
+      ],
+      "recommendation": "削除検討: サーモン（釣果報告で確認できず）"
+    },
+    {
+      "slug": "breaden/cathymersey",
+      "name": "13VIB/CathyMersey",
+      "type": "バイブレーション",
+      "db_target_fish": [
+        "メバル",
+        "アジ",
+        "カサゴ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 9,
+          "confidence": "high",
+          "sources": [
+            "anglers.jp",
+            "webinthelife.com",
+            "store.castingnet.jp"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 6,
+          "confidence": "high",
+          "sources": [
+            "store.castingnet.jp",
+            "ec.jal.co.jp",
+            "store.shopping.yahoo.co.jp"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "go-fish.jp"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "go-fish.jp"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "go-fish.jp"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "go-fish.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "ブリ",
+        "シーバス"
+      ],
+      "extra_in_db": [
+        "メバル",
+        "アジ",
+        "カサゴ"
+      ],
+      "recommendation": "追加推奨(高確度): ブリ, シーバス / 削除検討: メバル, アジ, カサゴ（釣果報告で確認できず）"
+    },
+    {
+      "slug": "jazz/bluegrass",
+      "name": "BlueGrass",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "シーバス"
+      ],
+      "detected_fish": [
+        {
+          "fish": "アオリイカ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "moch3636.exblog.jp",
+            "anglers.jp",
+            "www.yamaria.co.jp"
+          ]
+        },
+        {
+          "fish": "トラウト",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.jazz-lure.com",
+            "www.aso-minawa.jp"
+          ]
+        },
+        {
+          "fish": "タチウオ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "アジ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "アオリイカ",
+        "トラウト"
+      ],
+      "extra_in_db": [
+        "青物",
+        "シーバス"
+      ],
+      "recommendation": "追加推奨(高確度): アオリイカ / 追加検討(中確度): トラウト / 削除検討: 青物, シーバス（釣果報告で確認できず）"
+    },
+    {
+      "slug": "daiwa/dkalube",
+      "name": "ロックローバー MV",
+      "type": "ワーム",
+      "db_target_fish": [
+        "ブラックバス"
+      ],
+      "detected_fish": [],
+      "search_results_count": 10,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "bozles/yukimura-slim",
+      "name": "幸村スリム",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.instagram.com",
+            "www.threads.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.instagram.com",
+            "www.threads.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.instagram.com",
+            "www.threads.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.instagram.com",
+            "www.threads.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.instagram.com",
+            "www.threads.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "blues-maru.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [],
+      "extra_in_db": [
+        "マダイ",
+        "根魚"
+      ],
+      "recommendation": "削除検討: マダイ, 根魚（釣果報告で確認できず）"
+    },
+    {
+      "slug": "rapala/storm-dosh",
+      "name": "DOCAN SNAPPER BALL HEAD",
+      "type": "タイラバ",
+      "db_target_fish": [
+        "マダイ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "マダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.instagram.com"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "duel/sliderubber",
+      "name": "スライドラバー™",
+      "type": "タイラバ",
+      "db_target_fish": [
+        "マダイ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "マダイ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "duelmagazine.jp",
+            "www.youtube.com",
+            "www.duel.co.jp"
+          ]
+        },
+        {
+          "fish": "ソイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "タコ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "sevenslide.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "strike-king/maxie-waxie",
+      "name": "Maxie Waxie",
+      "type": "ワーム",
+      "db_target_fish": [
+        "ブラックバス"
+      ],
+      "detected_fish": [],
+      "search_results_count": 10,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "jackall/binbin-inchiku",
+      "name": "ビンビンインチク",
+      "type": "インチク",
+      "db_target_fish": [
+        "青物",
+        "マダイ",
+        "ロックフィッシュ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "マダイ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "tsurihack.com",
+            "www.youtube.com"
+          ]
+        },
+        {
+          "fish": "アオリイカ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "ameblo.jp",
+            "tsurihack.com",
+            "www.taikabura.com"
+          ]
+        },
+        {
+          "fish": "タコ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "tsurihack.com",
+            "ryo1974.naturum.ne.jp"
+          ]
+        },
+        {
+          "fish": "ハタ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "tsurihack.com",
+            "ryo1974.naturum.ne.jp"
+          ]
+        },
+        {
+          "fish": "ヒラメ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "マゴチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "キジハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "ryo1974.naturum.ne.jp"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": true,
+      "missing_in_db": [
+        "アオリイカ",
+        "タコ"
+      ],
+      "extra_in_db": [
+        "青物"
+      ],
+      "recommendation": "追加推奨(高確度): アオリイカ / 追加検討(中確度): タコ / 削除検討: 青物（釣果報告で確認できず）"
+    },
+    {
+      "slug": "livetarget/rainbow-smelt-banana-bait-shallow-dive",
+      "name": "Rainbow Smelt Banana Bait Shallow Dive",
+      "type": "スイムベイト",
+      "db_target_fish": [
+        "ブラックバス",
+        "ウォールアイ",
+        "トラウト"
+      ],
+      "detected_fish": [
+        {
+          "fish": "トラウト",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.lure-db.com",
+            "www.hedaugroup.com",
+            "tracebee.com"
+          ]
+        },
+        {
+          "fish": "ブラックバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.lure-db.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [],
+      "extra_in_db": [
+        "ブラックバス",
+        "ウォールアイ"
+      ],
+      "recommendation": "削除検討: ブラックバス, ウォールアイ（釣果報告で確認できず）"
+    },
+    {
+      "slug": "duel/sliderubber-curly",
+      "name": "スライドラバー カーリー™",
+      "type": "タイラバ",
+      "db_target_fish": [
+        "マダイ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "マダイ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "duelmagazine.jp",
+            "www.duel.co.jp",
+            "www.hayabusa.co.jp"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "bozles/tg-taiko-hideyoshi",
+      "name": "TG太閤ヒデヨシ",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 5,
+          "confidence": "high",
+          "sources": [
+            "perfection-salt.com",
+            "ameblo.jp",
+            "jigging-soul.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "perfection-salt.com",
+            "ameblo.jp",
+            "jigging-soul.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "perfection-salt.com",
+            "ameblo.jp",
+            "jigging-soul.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "perfection-salt.com",
+            "ameblo.jp",
+            "jigging-soul.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "perfection-salt.com",
+            "ameblo.jp",
+            "jigging-soul.com"
+          ]
+        },
+        {
+          "fish": "アオリイカ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.johshuya.co.jp",
+            "ameblo.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "アオリイカ"
+      ],
+      "extra_in_db": [
+        "マダイ",
+        "根魚"
+      ],
+      "recommendation": "追加検討(中確度): アオリイカ / 削除検討: マダイ, 根魚（釣果報告で確認できず）"
+    },
+    {
+      "slug": "jazz/beat12",
+      "name": "Beat12",
+      "type": "ビッグベイト",
+      "db_target_fish": [
+        "シーバス"
+      ],
+      "detected_fish": [
+        {
+          "fish": "アオリイカ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "jp.mercari.com"
+          ]
+        },
+        {
+          "fish": "トラウト",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "store.shopping.yahoo.co.jp"
+          ]
+        },
+        {
+          "fish": "ブラックバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "item.fril.jp"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "duel/saltybait-wave",
+      "name": "ソルティー・ベイト™ ウェーブ",
+      "type": "ワーム",
+      "db_target_fish": [
+        "シーバス"
+      ],
+      "detected_fish": [
+        {
+          "fish": "マダイ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "tsuri-tohoku.com",
+            "www.duel.co.jp",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "duelmagazine.jp",
+            "www.duel.co.jp",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "tsuri-tohoku.com",
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.duel.co.jp",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.duel.co.jp",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.duel.co.jp",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.duel.co.jp",
+            "www.lurenewsr.com"
+          ]
+        },
+        {
+          "fish": "トラウト",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.duel.co.jp"
+          ]
+        },
+        {
+          "fish": "ハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": true,
+      "missing_in_db": [
+        "マダイ",
+        "ブリ",
+        "カサゴ",
+        "ヒラマサ",
+        "カンパチ",
+        "サワラ",
+        "シイラ"
+      ],
+      "extra_in_db": [
+        "シーバス"
+      ],
+      "recommendation": "追加推奨(高確度): マダイ, ブリ / 追加検討(中確度): カサゴ, ヒラマサ, カンパチ, サワラ, シイラ / 削除検討: シーバス（釣果報告で確認できず）"
+    },
+    {
+      "slug": "maria/riraizu-s130",
+      "name": "リライズ S130",
+      "type": "シンキングペンシル",
+      "db_target_fish": [
+        "アジ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.yamaria.co.jp",
+            "www.lurenewsr.com",
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 4,
+          "confidence": "high",
+          "sources": [
+            "www.lurenewsr.com",
+            "www.yamaria.co.jp",
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.lurenewsr.com",
+            "www.yamaria.co.jp",
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.lurenewsr.com",
+            "www.yamaria.co.jp",
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.lurenewsr.com",
+            "www.yamaria.co.jp",
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "メバル",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": true,
+      "missing_in_db": [
+        "ブリ",
+        "ヒラマサ",
+        "カンパチ",
+        "サワラ",
+        "シイラ"
+      ],
+      "extra_in_db": [
+        "アジ"
+      ],
+      "recommendation": "追加推奨(高確度): ブリ, ヒラマサ, カンパチ, サワラ, シイラ / 削除検討: アジ（釣果報告で確認できず）"
+    },
+    {
+      "slug": "littlejack/forma-heads",
+      "name": "FORMA HEADS",
+      "type": "シンキングペンシル",
+      "db_target_fish": [
+        "青物",
+        "ロックフィッシュ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "クロマグロ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.facebook.com"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tsurihack.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "geecrack/gs-bladon",
+      "name": "GS-BLADON",
+      "type": "ワーム",
+      "db_target_fish": [
+        "ブラックバス"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブラックバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.youtube.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    },
+    {
+      "slug": "jazz/deka",
+      "name": "デカ暴君",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "シーバス",
+        "青物"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.jazz-lure.com",
+            "www.fimosw.com",
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.fimosw.com",
+            "www.lure-db.com",
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.fimosw.com",
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "メバル",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.fimosw.com",
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "アオリイカ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.fimosw.com",
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.fimosw.com",
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.fimosw.com",
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.fimosw.com",
+            "www.lure-db.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.jazz-lure.com"
+          ]
+        },
+        {
+          "fish": "クロマグロ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "ヒラメ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.fimosw.com"
+          ]
+        },
+        {
+          "fish": "マゴチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.fimosw.com"
+          ]
+        },
+        {
+          "fish": "クロダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.fimosw.com"
+          ]
+        },
+        {
+          "fish": "アジ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": true,
+      "missing_in_db": [
+        "メバル",
+        "アオリイカ"
+      ],
+      "extra_in_db": [],
+      "recommendation": "追加検討(中確度): メバル, アオリイカ"
+    },
+    {
+      "slug": "bozles/gou",
+      "name": "ゴウ",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "anglers.jp",
+            "trip4031.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "anglers.jp",
+            "trip4031.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "anglers.jp",
+            "trip4031.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "anglers.jp",
+            "trip4031.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "anglers.jp",
+            "trip4031.com"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "ヒラメ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "マゴチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "クロダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.ishiguro-gr.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "trip4031.com"
+          ]
+        },
+        {
+          "fish": "アオリイカ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "trip4031.com"
+          ]
+        },
+        {
+          "fish": "メバル",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "1st-2.com"
+          ]
+        },
+        {
+          "fish": "タチウオ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "1st-2.com"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "x.com"
+          ]
+        },
+        {
+          "fish": "ハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "x.com"
+          ]
+        },
+        {
+          "fish": "サバ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "x.com"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": true,
+      "missing_in_db": [],
+      "extra_in_db": [
+        "マダイ",
+        "根魚"
+      ],
+      "recommendation": "削除検討: マダイ, 根魚（釣果報告で確認できず）"
+    },
+    {
+      "slug": "madness/ebeech48",
+      "name": "shiriten EBEECH 48",
+      "type": "エギ",
+      "db_target_fish": [
+        "アオリイカ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "メバル",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "yamaga-blanks.com",
+            "calm8.exblog.jp"
+          ]
+        },
+        {
+          "fish": "マゴチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.point-i.jp"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": true,
+      "missing_in_db": [
+        "メバル"
+      ],
+      "extra_in_db": [
+        "アオリイカ"
+      ],
+      "recommendation": "追加検討(中確度): メバル / 削除検討: アオリイカ（釣果報告で確認できず）"
+    },
+    {
+      "slug": "megabass/taco-le-soft",
+      "name": "TACO-LE Soft",
+      "type": "エギ",
+      "db_target_fish": [
+        "ブラックバス"
+      ],
+      "detected_fish": [
+        {
+          "fish": "タコ",
+          "count": 9,
+          "confidence": "high",
+          "sources": [
+            "www.megabass.co.jp",
+            "www.youtube.com",
+            "www.fimosw.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "タコ"
+      ],
+      "extra_in_db": [
+        "ブラックバス"
+      ],
+      "recommendation": "追加推奨(高確度): タコ / 削除検討: ブラックバス（釣果報告で確認できず）"
+    },
+    {
+      "slug": "jazz/gf-80",
+      "name": "GF-暴君80",
+      "type": "バイブレーション",
+      "db_target_fish": [
+        "シーバス"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ヒラメ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.alphatackle.com",
+            "www.jazz-lure.com"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.jazz-lure.com",
+            "anglr.me"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.jazz-lure.com"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.jazz-lure.com"
+          ]
+        },
+        {
+          "fish": "タチウオ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.jazz-lure.com"
+          ]
+        }
+      ],
+      "search_results_count": 9,
+      "mismatch": true,
+      "missing_in_db": [
+        "ヒラメ"
+      ],
+      "extra_in_db": [],
+      "recommendation": "追加検討(中確度): ヒラメ"
+    },
+    {
+      "slug": "rapala/rapala-fxsk22",
+      "name": "Flash-X Skitter",
+      "type": "ペンシルベイト",
+      "db_target_fish": [
+        "シーバス",
+        "トラウト"
+      ],
+      "detected_fish": [
+        {
+          "fish": "シイラ",
+          "count": 3,
+          "confidence": "high",
+          "sources": [
+            "www.amazon.co.jp",
+            "tackledb.uosoku.com",
+            "rapala.co.jp"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "tackledb.uosoku.com",
+            "rapala.co.jp"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "tackledb.uosoku.com",
+            "rapala.co.jp"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "tackledb.uosoku.com",
+            "rapala.co.jp"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "tackledb.uosoku.com",
+            "rapala.co.jp"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "store.castingnet.jp"
+          ]
+        },
+        {
+          "fish": "ブラックバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "web.tsuribito.co.jp"
+          ]
+        },
+        {
+          "fish": "アジ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "tackledb.uosoku.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "シイラ",
+        "ブリ",
+        "ヒラマサ",
+        "カンパチ",
+        "サワラ"
+      ],
+      "extra_in_db": [
+        "シーバス",
+        "トラウト"
+      ],
+      "recommendation": "追加推奨(高確度): シイラ / 追加検討(中確度): ブリ, ヒラマサ, カンパチ, サワラ / 削除検討: シーバス, トラウト（釣果報告で確認できず）"
+    },
+    {
+      "slug": "bozles/yukimura",
+      "name": "幸村",
+      "type": "メタルジグ",
+      "db_target_fish": [
+        "青物",
+        "マダイ",
+        "根魚"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.ishiguro-gr.com",
+            "blues-maru.com"
+          ]
+        },
+        {
+          "fish": "マダイ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "blues-maru.com",
+            "www.happyyukimaru.com"
+          ]
+        },
+        {
+          "fish": "カサゴ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "anglers.jp",
+            "www.happyyukimaru.com"
+          ]
+        },
+        {
+          "fish": "アオリイカ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "minnaga.com"
+          ]
+        },
+        {
+          "fish": "アジ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "anglers.jp"
+          ]
+        },
+        {
+          "fish": "クロダイ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.happyyukimaru.com"
+          ]
+        },
+        {
+          "fish": "ハタ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.happyyukimaru.com"
+          ]
+        }
+      ],
+      "search_results_count": 8,
+      "mismatch": true,
+      "missing_in_db": [
+        "カサゴ"
+      ],
+      "extra_in_db": [
+        "根魚"
+      ],
+      "recommendation": "追加検討(中確度): カサゴ / 削除検討: 根魚（釣果報告で確認できず）"
+    },
+    {
+      "slug": "z-man/flashback-mini",
+      "name": "Flashback® Mini",
+      "type": "ワーム",
+      "db_target_fish": [
+        "ブラックバス",
+        "クラッピー",
+        "トラウト",
+        "パンフィッシュ",
+        "パーチ"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブラックバス",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "anglers.jp",
+            "www.reddit.com"
+          ]
+        },
+        {
+          "fish": "シーバス",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.sumlures.co.jp"
+          ]
+        },
+        {
+          "fish": "ブリ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.yamaria.co.jp"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.yamaria.co.jp"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.yamaria.co.jp"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.yamaria.co.jp"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.yamaria.co.jp"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [],
+      "extra_in_db": [
+        "クラッピー",
+        "トラウト",
+        "パンフィッシュ",
+        "パーチ"
+      ],
+      "recommendation": "削除検討: クラッピー, トラウト, パンフィッシュ, パーチ（釣果報告で確認できず）"
+    },
+    {
+      "slug": "xesta/abare-iwashi",
+      "name": "ABARE IWASHI",
+      "type": "ワーム",
+      "db_target_fish": [
+        "アジ",
+        "メバル"
+      ],
+      "detected_fish": [
+        {
+          "fish": "ブリ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.trolling.jp",
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "サワラ",
+          "count": 2,
+          "confidence": "medium",
+          "sources": [
+            "www.instagram.com",
+            "www.ztv.ne.jp"
+          ]
+        },
+        {
+          "fish": "ヒラマサ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "カンパチ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "シイラ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "www.instagram.com"
+          ]
+        },
+        {
+          "fish": "タチウオ",
+          "count": 1,
+          "confidence": "low",
+          "sources": [
+            "raitorua.com"
+          ]
+        }
+      ],
+      "search_results_count": 10,
+      "mismatch": true,
+      "missing_in_db": [
+        "ブリ",
+        "サワラ"
+      ],
+      "extra_in_db": [
+        "アジ",
+        "メバル"
+      ],
+      "recommendation": "追加検討(中確度): ブリ, サワラ / 削除検討: アジ, メバル（釣果報告で確認できず）"
+    },
+    {
+      "slug": "livetarget/rainbow-smelt-jerkbait-deep-dive",
+      "name": "Rainbow Smelt Jerkbait Deep Dive",
+      "type": "ミノー",
+      "db_target_fish": [
+        "ブラックバス",
+        "ウォールアイ",
+        "トラウト"
+      ],
+      "detected_fish": [],
+      "search_results_count": 10,
+      "mismatch": false,
+      "missing_in_db": [],
+      "extra_in_db": [],
+      "recommendation": "target_fishは妥当"
+    }
+  ]
+}
