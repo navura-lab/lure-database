@@ -6,152 +6,971 @@
       "destination": "/:path/",
       "permanent": true
     },
-    { "source": "/hideup/stagger_wide_3.3/", "destination": "/hideup/stagger-wide-3-3/", "permanent": true },
-    { "source": "/hideup/stagger_wide_2.7/", "destination": "/hideup/stagger-wide-2-7/", "permanent": true },
-    { "source": "/gancraft/shape-s4.0/", "destination": "/gancraft/shape-s/", "permanent": true },
-    { "source": "/gancraft/shape-s2.5/", "destination": "/gancraft/shape-s/", "permanent": true },
-    { "source": "/type/lure/", "destination": "/type/", "permanent": true },
-    { "source": "/type/plug/", "destination": "/type/", "permanent": true },
-    { "source": "/type/shore-jigging/", "destination": "/type/metal-jig/", "permanent": true },
-    { "source": "/type/area-crank/", "destination": "/type/crankbait/", "permanent": true },
-    { "source": "/type/wire-bait/", "destination": "/type/spinnerbait/", "permanent": true },
-    { "source": "/type/trout-lure/", "destination": "/type/", "permanent": true },
-    { "source": "/type/ajing/", "destination": "/type/", "permanent": true },
-    { "source": "/type/floating-minnow/", "destination": "/type/minnow/", "permanent": true },
-    { "source": "/type/casting-plug/", "destination": "/type/diving-pencil/", "permanent": true },
-    { "source": "/type/jig/", "destination": "/type/metal-jig/", "permanent": true },
-    { "source": "/type/area-spoon/", "destination": "/type/spoon/", "permanent": true },
-    { "source": "/type/seabass-lure/", "destination": "/type/", "permanent": true },
-    { "source": "/type/surf-lure/", "destination": "/type/", "permanent": true },
-    { "source": "/type/mebaring/", "destination": "/type/", "permanent": true },
-    { "source": "/type/chining/", "destination": "/type/", "permanent": true },
-    { "source": "/type/blade-jig/", "destination": "/type/metal-jig/", "permanent": true },
-    { "source": "/type/area-trout-lure/", "destination": "/type/spoon/", "permanent": true },
-    { "source": "/type/rockfish-lure/", "destination": "/type/worm/", "permanent": true },
-    { "source": "/type/metal-sutte/", "destination": "/type/sutte/", "permanent": true },
-    { "source": "/type/sinking-minnow/", "destination": "/type/minnow/", "permanent": true },
-    { "source": "/type/vibration-jighead/", "destination": "/type/jighead/", "permanent": true },
-    { "source": "/type/metal-vibration/", "destination": "/type/metal-vib/", "permanent": true },
-    { "source": "/type/hitotsu-tenya/", "destination": "/type/tenya/", "permanent": true },
-    { "source": "/type/float/", "destination": "/type/other/", "permanent": true },
-    { "source": "/type/octopus-bait/", "destination": "/type/egi/", "permanent": true },
-    { "source": "/type/area-minnow/", "destination": "/type/minnow/", "permanent": true },
-    { "source": "/type/pencil/", "destination": "/type/pencilbait/", "permanent": true },
-    { "source": "/type/ayu-lure/", "destination": "/type/minnow/", "permanent": true },
-    { "source": "/type/tachiuo-lure/", "destination": "/type/metal-jig/", "permanent": true },
-    { "source": "/type/lure-parts/", "destination": "/type/other/", "permanent": true },
-    { "source": "/type/rolling-jighead/", "destination": "/type/jighead/", "permanent": true },
-    { "source": "/type/spintail-jig/", "destination": "/type/spintail/", "permanent": true },
-    { "source": "/type/octopus-egi/", "destination": "/type/egi/", "permanent": true },
-    { "source": "/type/catfish-lure/", "destination": "/type/topwater/", "permanent": true },
-    { "source": "/type/iron-jighead/", "destination": "/type/jighead/", "permanent": true },
-    { "source": "/type/dodger/", "destination": "/type/other/", "permanent": true },
-    { "source": "/type/area-topwater/", "destination": "/type/topwater/", "permanent": true },
-    { "source": "/type/jig-minnow/", "destination": "/type/minnow/", "permanent": true },
-    { "source": "/type/swim-jig/", "destination": "/type/rubber-jig/", "permanent": true },
-    { "source": "/type/sinker/", "destination": "/type/other/", "permanent": true },
-    { "source": "/type/tai-raba/", "destination": "/type/tai-rubber/", "permanent": true },
-    { "source": "/type/keimura/", "destination": "/type/other/", "permanent": true },
-    { "source": "/type/wakebait/", "destination": "/type/topwater/", "permanent": true },
-    { "source": "/type/feather-jig/", "destination": "/type/spoon/", "permanent": true },
-    { "source": "/type/skipbait/", "destination": "/type/topwater/", "permanent": true },
-    { "source": "/type/spin-jig/", "destination": "/type/rubber-jig/", "permanent": true },
-    { "source": "/type/chata-bait/", "destination": "/type/chatterbait/", "permanent": true },
-    { "source": "/type/native-minnow/", "destination": "/type/minnow/", "permanent": true },
-    { "source": "/type/hook/", "destination": "/type/other/", "permanent": true },
-    { "source": "/spro/response-76-medium-heavy-moderate-fast-spinning/", "destination": "/spro/", "permanent": true },
-    { "source": "/spro/team-6-76-medium-light-moderate-spinning/", "destination": "/spro/", "permanent": true },
-    { "source": "/spro/team-6-73-medium-heavy-moderate-casting/", "destination": "/spro/", "permanent": true },
-
-    { "source": "/dstyle/virola-hard_50/", "destination": "/dstyle/virola-hardvyirorahado-50/", "permanent": true },
-    { "source": "/dstyle/virola-hard_60/", "destination": "/dstyle/virola-hardvyirorahado-60/", "permanent": true },
-    { "source": "/blueblue/blowin-%EF%BC%81140s/", "destination": "/blueblue/buroin-140s/", "permanent": true },
-    { "source": "/crazy-ocean/%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88%E3%83%A9%E3%83%B3%E3%83%8A%E3%83%BC/", "destination": "/crazy-ocean/kyasutoranna/", "permanent": true },
-    { "source": "/engine/babylike%E3%82%A8%E3%83%A9%E3%82%B9%E3%83%88%E3%83%9E%E3%83%BC/", "destination": "/engine/babylikerasutoma/", "permanent": true },
-    { "source": "/megabass/vision_oneten_sr/", "destination": "/megabass/vision-oneten/", "permanent": true },
-    { "source": "/ecogear/aji_shokunin_aji_must-lb/", "destination": "/ecogear/", "permanent": true },
-    { "source": "/issei/girufurattosuima/", "destination": "/issei/girufuratto/", "permanent": true },
-    { "source": "/hideup/HU-Minnow111SS/", "destination": "/hideup/hu-minnow-111s/", "permanent": true },
-    { "source": "/hideup/HU-PERRER248/", "destination": "/hideup/hu-perrer-248/", "permanent": true },
-    { "source": "/hideup/coike_fish_L_ELASTOMER/", "destination": "/hideup/coike-fish-l-elastomer/", "permanent": true },
-    { "source": "/hideup/coike_straight_110/", "destination": "/hideup/coike-straight-elastomer-110mm/", "permanent": true },
-    { "source": "/hideup/judy_fish_52/", "destination": "/hideup/judy-fish-5-2inch/", "permanent": true },
-    { "source": "/hideup/stagger_craw65/", "destination": "/hideup/stagger-craw-5inch/", "permanent": true },
-    { "source": "/jackson/metal-effect-sagoshi-tune/", "destination": "/jackson/metal-effect-bait-tune/", "permanent": true },
-    { "source": "/engine/baby-chin1-5/", "destination": "/engine/baby-chin1-5erasutomer/", "permanent": true },
-    { "source": "/berkley/dex-vb60r/", "destination": "/berkley/dex-vb60s-60/", "permanent": true },
-    { "source": "/osp/rudra_sp_sw/", "destination": "/osp/asura-o-s-p-rudra-130-sp-sw/", "permanent": true },
-    { "source": "/jumprize/petit-bomber70ss-sl/", "destination": "/jumprize/petit-bomber70s/", "permanent": true },
-    { "source": "/bassday/99/", "destination": "/bassday/", "permanent": true },
-    { "source": "/tiemco/3105033/", "destination": "/tiemco/", "permanent": true },
-    { "source": "/zipbaits/80/", "destination": "/zipbaits/", "permanent": true },
-    { "source": "/jungle-gym/2834/", "destination": "/jungle-gym/", "permanent": true },
-    { "source": "/jungle-gym/323/", "destination": "/jungle-gym/", "permanent": true },
-    { "source": "/pickup/2034/", "destination": "/pickup/", "permanent": true },
-    { "source": "/sea-falcon/2327/", "destination": "/sea-falcon/", "permanent": true },
-    { "source": "/breaden/gyokotsu/", "destination": "/breaden/", "permanent": true },
-    { "source": "/seafloor-control/s-legend/", "destination": "/seafloor-control/", "permanent": true },
-    { "source": "/berkley/vahid80-80/", "destination": "/berkley/", "permanent": true },
-    { "source": "/geecrack/tairaba-super-curly/", "destination": "/geecrack/", "permanent": true },
-
-    { "source": "/ranking/seabass-tai-rubber/", "destination": "/ranking/", "permanent": true },
-    { "source": "/ranking/seabass-sutte/", "destination": "/ranking/", "permanent": true },
-    { "source": "/ranking/seabass-frog/", "destination": "/ranking/", "permanent": true },
-    { "source": "/ranking/trout-crawler-bait/", "destination": "/ranking/", "permanent": true },
-    { "source": "/ranking/black-bass-tai-rubber/", "destination": "/ranking/", "permanent": true },
-    { "source": "/ranking/bluerunner-sutte/", "destination": "/ranking/", "permanent": true },
-    { "source": "/ranking/bluerunner-tenya/", "destination": "/ranking/", "permanent": true },
-    { "source": "/ranking/saltwater-:slug*/", "destination": "/ranking/", "permanent": true },
-    { "source": "/ranking/offshore-:slug*/", "destination": "/ranking/", "permanent": true },
-    { "source": "/compare/seabass-tai-rubber/", "destination": "/compare/", "permanent": true },
-    { "source": "/compare/seabass-sutte/", "destination": "/compare/", "permanent": true },
-    { "source": "/compare/seabass-frog/", "destination": "/compare/", "permanent": true },
-    { "source": "/compare/trout-crawler-bait/", "destination": "/compare/", "permanent": true },
-    { "source": "/compare/black-bass-tai-rubber/", "destination": "/compare/", "permanent": true },
-    { "source": "/compare/bluerunner-sutte/", "destination": "/compare/", "permanent": true },
-    { "source": "/compare/bluerunner-tenya/", "destination": "/compare/", "permanent": true },
-    { "source": "/compare/saltwater-:slug*/", "destination": "/compare/", "permanent": true },
-    { "source": "/compare/offshore-:slug*/", "destination": "/compare/", "permanent": true }
+    {
+      "source": "/hideup/stagger_wide_3.3/",
+      "destination": "/hideup/stagger-wide-3-3/",
+      "permanent": true
+    },
+    {
+      "source": "/hideup/stagger_wide_2.7/",
+      "destination": "/hideup/stagger-wide-2-7/",
+      "permanent": true
+    },
+    {
+      "source": "/gancraft/shape-s4.0/",
+      "destination": "/gancraft/shape-s/",
+      "permanent": true
+    },
+    {
+      "source": "/gancraft/shape-s2.5/",
+      "destination": "/gancraft/shape-s/",
+      "permanent": true
+    },
+    {
+      "source": "/type/lure/",
+      "destination": "/type/",
+      "permanent": true
+    },
+    {
+      "source": "/type/plug/",
+      "destination": "/type/",
+      "permanent": true
+    },
+    {
+      "source": "/type/shore-jigging/",
+      "destination": "/type/metal-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/type/area-crank/",
+      "destination": "/type/crankbait/",
+      "permanent": true
+    },
+    {
+      "source": "/type/wire-bait/",
+      "destination": "/type/spinnerbait/",
+      "permanent": true
+    },
+    {
+      "source": "/type/trout-lure/",
+      "destination": "/type/",
+      "permanent": true
+    },
+    {
+      "source": "/type/ajing/",
+      "destination": "/type/",
+      "permanent": true
+    },
+    {
+      "source": "/type/floating-minnow/",
+      "destination": "/type/minnow/",
+      "permanent": true
+    },
+    {
+      "source": "/type/casting-plug/",
+      "destination": "/type/diving-pencil/",
+      "permanent": true
+    },
+    {
+      "source": "/type/jig/",
+      "destination": "/type/metal-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/type/area-spoon/",
+      "destination": "/type/spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/type/seabass-lure/",
+      "destination": "/type/",
+      "permanent": true
+    },
+    {
+      "source": "/type/surf-lure/",
+      "destination": "/type/",
+      "permanent": true
+    },
+    {
+      "source": "/type/mebaring/",
+      "destination": "/type/",
+      "permanent": true
+    },
+    {
+      "source": "/type/chining/",
+      "destination": "/type/",
+      "permanent": true
+    },
+    {
+      "source": "/type/blade-jig/",
+      "destination": "/type/metal-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/type/area-trout-lure/",
+      "destination": "/type/spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/type/rockfish-lure/",
+      "destination": "/type/worm/",
+      "permanent": true
+    },
+    {
+      "source": "/type/metal-sutte/",
+      "destination": "/type/sutte/",
+      "permanent": true
+    },
+    {
+      "source": "/type/sinking-minnow/",
+      "destination": "/type/minnow/",
+      "permanent": true
+    },
+    {
+      "source": "/type/vibration-jighead/",
+      "destination": "/type/jighead/",
+      "permanent": true
+    },
+    {
+      "source": "/type/metal-vibration/",
+      "destination": "/type/metal-vib/",
+      "permanent": true
+    },
+    {
+      "source": "/type/hitotsu-tenya/",
+      "destination": "/type/tenya/",
+      "permanent": true
+    },
+    {
+      "source": "/type/float/",
+      "destination": "/type/other/",
+      "permanent": true
+    },
+    {
+      "source": "/type/octopus-bait/",
+      "destination": "/type/egi/",
+      "permanent": true
+    },
+    {
+      "source": "/type/area-minnow/",
+      "destination": "/type/minnow/",
+      "permanent": true
+    },
+    {
+      "source": "/type/pencil/",
+      "destination": "/type/pencilbait/",
+      "permanent": true
+    },
+    {
+      "source": "/type/ayu-lure/",
+      "destination": "/type/minnow/",
+      "permanent": true
+    },
+    {
+      "source": "/type/tachiuo-lure/",
+      "destination": "/type/metal-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/type/lure-parts/",
+      "destination": "/type/other/",
+      "permanent": true
+    },
+    {
+      "source": "/type/rolling-jighead/",
+      "destination": "/type/jighead/",
+      "permanent": true
+    },
+    {
+      "source": "/type/spintail-jig/",
+      "destination": "/type/spintail/",
+      "permanent": true
+    },
+    {
+      "source": "/type/octopus-egi/",
+      "destination": "/type/egi/",
+      "permanent": true
+    },
+    {
+      "source": "/type/catfish-lure/",
+      "destination": "/type/topwater/",
+      "permanent": true
+    },
+    {
+      "source": "/type/iron-jighead/",
+      "destination": "/type/jighead/",
+      "permanent": true
+    },
+    {
+      "source": "/type/dodger/",
+      "destination": "/type/other/",
+      "permanent": true
+    },
+    {
+      "source": "/type/area-topwater/",
+      "destination": "/type/topwater/",
+      "permanent": true
+    },
+    {
+      "source": "/type/jig-minnow/",
+      "destination": "/type/minnow/",
+      "permanent": true
+    },
+    {
+      "source": "/type/swim-jig/",
+      "destination": "/type/rubber-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/type/sinker/",
+      "destination": "/type/other/",
+      "permanent": true
+    },
+    {
+      "source": "/type/tai-raba/",
+      "destination": "/type/tai-rubber/",
+      "permanent": true
+    },
+    {
+      "source": "/type/keimura/",
+      "destination": "/type/other/",
+      "permanent": true
+    },
+    {
+      "source": "/type/wakebait/",
+      "destination": "/type/topwater/",
+      "permanent": true
+    },
+    {
+      "source": "/type/feather-jig/",
+      "destination": "/type/spoon/",
+      "permanent": true
+    },
+    {
+      "source": "/type/skipbait/",
+      "destination": "/type/topwater/",
+      "permanent": true
+    },
+    {
+      "source": "/type/spin-jig/",
+      "destination": "/type/rubber-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/type/chata-bait/",
+      "destination": "/type/chatterbait/",
+      "permanent": true
+    },
+    {
+      "source": "/type/native-minnow/",
+      "destination": "/type/minnow/",
+      "permanent": true
+    },
+    {
+      "source": "/type/hook/",
+      "destination": "/type/other/",
+      "permanent": true
+    },
+    {
+      "source": "/spro/response-76-medium-heavy-moderate-fast-spinning/",
+      "destination": "/spro/",
+      "permanent": true
+    },
+    {
+      "source": "/spro/team-6-76-medium-light-moderate-spinning/",
+      "destination": "/spro/",
+      "permanent": true
+    },
+    {
+      "source": "/spro/team-6-73-medium-heavy-moderate-casting/",
+      "destination": "/spro/",
+      "permanent": true
+    },
+    {
+      "source": "/dstyle/virola-hard_50/",
+      "destination": "/dstyle/virola-hardvyirorahado-50/",
+      "permanent": true
+    },
+    {
+      "source": "/dstyle/virola-hard_60/",
+      "destination": "/dstyle/virola-hardvyirorahado-60/",
+      "permanent": true
+    },
+    {
+      "source": "/blueblue/blowin-%EF%BC%81140s/",
+      "destination": "/blueblue/buroin-140s/",
+      "permanent": true
+    },
+    {
+      "source": "/crazy-ocean/%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88%E3%83%A9%E3%83%B3%E3%83%8A%E3%83%BC/",
+      "destination": "/crazy-ocean/kyasutoranna/",
+      "permanent": true
+    },
+    {
+      "source": "/engine/babylike%E3%82%A8%E3%83%A9%E3%82%B9%E3%83%88%E3%83%9E%E3%83%BC/",
+      "destination": "/engine/babylikerasutoma/",
+      "permanent": true
+    },
+    {
+      "source": "/megabass/vision_oneten_sr/",
+      "destination": "/megabass/vision-oneten/",
+      "permanent": true
+    },
+    {
+      "source": "/ecogear/aji_shokunin_aji_must-lb/",
+      "destination": "/ecogear/",
+      "permanent": true
+    },
+    {
+      "source": "/issei/girufurattosuima/",
+      "destination": "/issei/girufuratto/",
+      "permanent": true
+    },
+    {
+      "source": "/hideup/HU-Minnow111SS/",
+      "destination": "/hideup/hu-minnow-111s/",
+      "permanent": true
+    },
+    {
+      "source": "/hideup/HU-PERRER248/",
+      "destination": "/hideup/hu-perrer-248/",
+      "permanent": true
+    },
+    {
+      "source": "/hideup/coike_fish_L_ELASTOMER/",
+      "destination": "/hideup/coike-fish-l-elastomer/",
+      "permanent": true
+    },
+    {
+      "source": "/hideup/coike_straight_110/",
+      "destination": "/hideup/coike-straight-elastomer-110mm/",
+      "permanent": true
+    },
+    {
+      "source": "/hideup/judy_fish_52/",
+      "destination": "/hideup/judy-fish-5-2inch/",
+      "permanent": true
+    },
+    {
+      "source": "/hideup/stagger_craw65/",
+      "destination": "/hideup/stagger-craw-5inch/",
+      "permanent": true
+    },
+    {
+      "source": "/jackson/metal-effect-sagoshi-tune/",
+      "destination": "/jackson/metal-effect-bait-tune/",
+      "permanent": true
+    },
+    {
+      "source": "/engine/baby-chin1-5/",
+      "destination": "/engine/baby-chin1-5erasutomer/",
+      "permanent": true
+    },
+    {
+      "source": "/berkley/dex-vb60r/",
+      "destination": "/berkley/dex-vb60s-60/",
+      "permanent": true
+    },
+    {
+      "source": "/osp/rudra_sp_sw/",
+      "destination": "/osp/asura-o-s-p-rudra-130-sp-sw/",
+      "permanent": true
+    },
+    {
+      "source": "/jumprize/petit-bomber70ss-sl/",
+      "destination": "/jumprize/petit-bomber70s/",
+      "permanent": true
+    },
+    {
+      "source": "/bassday/99/",
+      "destination": "/bassday/",
+      "permanent": true
+    },
+    {
+      "source": "/tiemco/3105033/",
+      "destination": "/tiemco/",
+      "permanent": true
+    },
+    {
+      "source": "/zipbaits/80/",
+      "destination": "/zipbaits/",
+      "permanent": true
+    },
+    {
+      "source": "/jungle-gym/2834/",
+      "destination": "/jungle-gym/",
+      "permanent": true
+    },
+    {
+      "source": "/jungle-gym/323/",
+      "destination": "/jungle-gym/",
+      "permanent": true
+    },
+    {
+      "source": "/pickup/2034/",
+      "destination": "/pickup/",
+      "permanent": true
+    },
+    {
+      "source": "/sea-falcon/2327/",
+      "destination": "/sea-falcon/",
+      "permanent": true
+    },
+    {
+      "source": "/breaden/gyokotsu/",
+      "destination": "/breaden/",
+      "permanent": true
+    },
+    {
+      "source": "/seafloor-control/s-legend/",
+      "destination": "/seafloor-control/",
+      "permanent": true
+    },
+    {
+      "source": "/berkley/vahid80-80/",
+      "destination": "/berkley/",
+      "permanent": true
+    },
+    {
+      "source": "/geecrack/tairaba-super-curly/",
+      "destination": "/geecrack/",
+      "permanent": true
+    },
+    {
+      "source": "/ranking/seabass-tai-rubber/",
+      "destination": "/ranking/",
+      "permanent": true
+    },
+    {
+      "source": "/ranking/seabass-sutte/",
+      "destination": "/ranking/",
+      "permanent": true
+    },
+    {
+      "source": "/ranking/seabass-frog/",
+      "destination": "/ranking/",
+      "permanent": true
+    },
+    {
+      "source": "/ranking/trout-crawler-bait/",
+      "destination": "/ranking/",
+      "permanent": true
+    },
+    {
+      "source": "/ranking/black-bass-tai-rubber/",
+      "destination": "/ranking/",
+      "permanent": true
+    },
+    {
+      "source": "/ranking/bluerunner-sutte/",
+      "destination": "/ranking/",
+      "permanent": true
+    },
+    {
+      "source": "/ranking/bluerunner-tenya/",
+      "destination": "/ranking/",
+      "permanent": true
+    },
+    {
+      "source": "/ranking/saltwater-:slug*/",
+      "destination": "/ranking/",
+      "permanent": true
+    },
+    {
+      "source": "/ranking/offshore-:slug*/",
+      "destination": "/ranking/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/seabass-tai-rubber/",
+      "destination": "/compare/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/seabass-sutte/",
+      "destination": "/compare/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/seabass-frog/",
+      "destination": "/compare/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/trout-crawler-bait/",
+      "destination": "/compare/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/black-bass-tai-rubber/",
+      "destination": "/compare/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/bluerunner-sutte/",
+      "destination": "/compare/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/bluerunner-tenya/",
+      "destination": "/compare/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/saltwater-:slug*/",
+      "destination": "/compare/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/offshore-:slug*/",
+      "destination": "/compare/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/dreem-con-three-62l/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/dreem-con-three-81sf/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/dreem-con-three-80mh/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/dreem-con-three-56ul/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/dreem-con-three-810h-ra/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/dreem-con-three-96hh/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/dreem-con-three-88h/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/dreem-con-three-710mh-ra/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/dreem-con-three-72l/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/86sf-ra-keyaki/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/oceanic-times-s72m/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/oceanic-times-76h/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dreemup/oceanic-times-b74h-solid/",
+      "destination": "/dreemup/",
+      "permanent": true
+    },
+    {
+      "source": "/dranckrazy/infinity-black-unchain/",
+      "destination": "/dranckrazy/",
+      "permanent": true
+    },
+    {
+      "source": "/dranckrazy/infinity-black-cutlass/",
+      "destination": "/dranckrazy/",
+      "permanent": true
+    },
+    {
+      "source": "/dranckrazy/infinity-black-flicker/",
+      "destination": "/dranckrazy/",
+      "permanent": true
+    },
+    {
+      "source": "/itocraft/wd-shoes/",
+      "destination": "/itocraft/",
+      "permanent": true
+    },
+    {
+      "source": "/itocraft/goods/",
+      "destination": "/itocraft/",
+      "permanent": true
+    },
+    {
+      "source": "/valleyhill/headhunter-srv/",
+      "destination": "/valleyhill/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-marina-speckled-senses/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/6th-sense-pro-fishing-shears-red/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/marina-fishdown-jacket/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/6-customs-crappie-special-70-medium-light-moderate-fast-spinning/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/sense-it/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/the-show-raised-6/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/jr-frog-eater-youth-kids/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/dome-neko-weights/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/egg-sinkers-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/lead-nail-weights-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/neko-keeper/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/divine-worm-weights-raw/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/drivo/",
+      "destination": "/6th-sense/",
+      "permanent": true
+    },
+    {
+      "source": "/googan-baits/green-series-micro-ultra-light-spinning-rod/",
+      "destination": "/googan-baits/",
+      "permanent": true
+    },
+    {
+      "source": "/googan-baits/turbulent-topwater-bundle/",
+      "destination": "/googan-baits/",
+      "permanent": true
+    },
+    {
+      "source": "/googan-baits/grey-heather-hooded-long-sleeve/",
+      "destination": "/googan-baits/",
+      "permanent": true
+    },
+    {
+      "source": "/googan-baits/gold-series-lunker-weedless-wacky-hook/",
+      "destination": "/googan-baits/",
+      "permanent": true
+    },
+    {
+      "source": "/spro/spro-box-3700-deep-waterproof-no-dividers/",
+      "destination": "/spro/",
+      "permanent": true
+    },
+    {
+      "source": "/spro/rat-50-replacement-tail/",
+      "destination": "/spro/",
+      "permanent": true
+    },
+    {
+      "source": "/spro/g-box-3200-slit-foam-case/",
+      "destination": "/spro/",
+      "permanent": true
+    },
+    {
+      "source": "/z-man/ez-skirt/",
+      "destination": "/z-man/",
+      "permanent": true
+    },
+    {
+      "source": "/z-man/banded-skirtz/",
+      "destination": "/z-man/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/takobe/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/lptako-orora/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/panikkubeito-ako/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/panikkubeito-ako-l/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/panikkubeito-mebaru/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/panikkubeitotachiuo/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/panikkubeito-madako/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/panikkubeito-hirame-bs/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/sakana-ka/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/tagurasu-karafuru/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/kiratto/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/mashumaroboru-akamutsu-sp/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/mashumaroboru-sp/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/yamashita/safu-2/",
+      "destination": "/yamashita/",
+      "permanent": true
+    },
+    {
+      "source": "/daiwa/fxo43ai/",
+      "destination": "/daiwa/",
+      "permanent": true
+    },
+    {
+      "source": "/daiwa/wh7rvi3/",
+      "destination": "/daiwa/",
+      "permanent": true
+    },
+    {
+      "source": "/daiwa/y5stmof/",
+      "destination": "/daiwa/",
+      "permanent": true
+    },
+    {
+      "source": "/gary-yamamoto/grub-guard-gurabugado/",
+      "destination": "/gary-yamamoto/",
+      "permanent": true
+    },
+    {
+      "source": "/issei/g-c-hasufuratto-180-hadoteru/",
+      "destination": "/issei/",
+      "permanent": true
+    },
+    {
+      "source": "/jackall/esakipa/",
+      "destination": "/jackall/",
+      "permanent": true
+    },
+    {
+      "source": "/jackall/jackall-slj-nekutai/",
+      "destination": "/jackall/",
+      "permanent": true
+    },
+    {
+      "source": "/littlejack/butterfly-fishing-tool/",
+      "destination": "/littlejack/",
+      "permanent": true
+    },
+    {
+      "source": "/littlejack/panicking-survivor/",
+      "destination": "/littlejack/",
+      "permanent": true
+    },
+    {
+      "source": "/megabass/taco-le-flasher/",
+      "destination": "/megabass/",
+      "permanent": true
+    },
+    {
+      "source": "/megabass/taco-le-rubber/",
+      "destination": "/megabass/",
+      "permanent": true
+    },
+    {
+      "source": "/mukai/2021-2-000/",
+      "destination": "/mukai/",
+      "permanent": true
+    },
+    {
+      "source": "/palms/sylpher_4th/",
+      "destination": "/palms/",
+      "permanent": true
+    },
+    {
+      "source": "/raid/ghost-wire/",
+      "destination": "/raid/",
+      "permanent": true
+    },
+    {
+      "source": "/raid/ghost-wire-nexst-level/",
+      "destination": "/raid/",
+      "permanent": true
+    },
+    {
+      "source": "/raid/muscle-wire/",
+      "destination": "/raid/",
+      "permanent": true
+    },
+    {
+      "source": "/rapala/5100-020-030jensen-dodger/",
+      "destination": "/rapala/",
+      "permanent": true
+    },
+    {
+      "source": "/shimano/a155f00000dprdyqad/",
+      "destination": "/shimano/",
+      "permanent": true
+    },
+    {
+      "source": "/tiemco/shirikonsukato/",
+      "destination": "/tiemco/",
+      "permanent": true
+    },
+    {
+      "source": "/valleyhill/takoya/",
+      "destination": "/valleyhill/",
+      "permanent": true
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
       ]
     },
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "private, no-store, no-cache, must-revalidate" },
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store, no-cache, must-revalidate"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
       ]
     },
     {
       "source": "/sitemap(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600"
+        }
       ]
     },
     {
       "source": "/_astro/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/pagefind/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600"
+        }
       ]
     },
     {
       "source": "/favicon(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
       ]
     }
   ]
