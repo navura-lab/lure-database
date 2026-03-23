@@ -13,7 +13,7 @@
  *
  *   // 単体バリデーション（スクレイプ時）
  *   const issues = validateLureData(lure);
- *   if (issues.length > 0) { /* reject or warn */ }
+ *   if (issues.length > 0) { ... }
  *
  *   // 全件監査（定期実行）
  *   const report = await runFullAudit(supabase);

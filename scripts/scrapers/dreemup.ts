@@ -230,9 +230,10 @@ export const scrapeDreemupPage: ScraperFunction = async (url: string): Promise<S
   const ogImageMatch = html.match(/<meta\s+(?:property|name)=["']og:image["']\s+content=["']([^"']+)["']/i)
     || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:image["']/i);
   if (ogImageMatch) mainImage = ogImageMatch[1];
+  // TCD Page Builder: 最初の pb-widget-image 内の大きい画像をメイン画像として使用
   if (!mainImage) {
-    const wpImgMatch = html.match(/<img[^>]+class=["'][^"']*wp-post-image[^"']*["'][^>]+src=["']([^"']+)["']/i);
-    if (wpImgMatch) mainImage = wpImgMatch[1];
+    const pbImgMatch = html.match(/pb-widget-image[^>]*>\s*<img[^>]+src=["']([^"']+)["']/i);
+    if (pbImgMatch) mainImage = pbImgMatch[1];
   }
   if (!mainImage) {
     const contentImgMatch = html.match(/entry-content[\s\S]*?<img[^>]+src=["']([^"']+)["']/i);
@@ -242,15 +243,35 @@ export const scrapeDreemupPage: ScraperFunction = async (url: string): Promise<S
   log(`Main image: ${mainImage}`);
 
   // --- Description ---
+  // TCD Page Builder: 最初の pb-widget-editor 内の長い <p> を取得
   let description = '';
-  const contentMatch = html.match(/<div[^>]*class=["'][^"']*entry-content[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
-  if (contentMatch) {
-    const pMatches = contentMatch[1].match(/<p[^>]*>([\s\S]*?)<\/p>/gi) || [];
+  const editorBlocks = html.match(/<div[^>]*pb-widget-editor[^>]*>([\s\S]*?)<\/div>/gi) || [];
+  for (const block of editorBlocks) {
+    const pMatches = block.match(/<p[^>]*>([\s\S]*?)<\/p>/gi) || [];
     for (const p of pMatches) {
       const text = stripHtml(p).trim();
-      if (text.length > 30 && !/spec|スペック|カラー|color|価格|price|weight|重量/i.test(text.substring(0, 30))) {
+      // 30文字以上の説明文で、スペック・カラー一覧でないもの
+      // 「カラー」は説明文中に出現することがあるため、先頭30文字のみでフィルタ
+      const head30 = text.substring(0, 30);
+      if (text.length > 30 && !/spec|スペック|価格|price|weight|重量/i.test(head30) &&
+          !/^カラー|<script/i.test(text)) {
         description = text.replace(/\s+/g, ' ').substring(0, 500);
         break;
+      }
+    }
+    if (description) break;
+  }
+  // フォールバック: entry-content（他のWordPressテーマの場合）
+  if (!description) {
+    const contentMatch = html.match(/<div[^>]*class=["'][^"']*entry-content[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+    if (contentMatch) {
+      const pMatches = contentMatch[1].match(/<p[^>]*>([\s\S]*?)<\/p>/gi) || [];
+      for (const p of pMatches) {
+        const text = stripHtml(p).trim();
+        if (text.length > 30 && !/spec|スペック|カラー|color|価格|price|weight|重量/i.test(text.substring(0, 30))) {
+          description = text.replace(/\s+/g, ' ').substring(0, 500);
+          break;
+        }
       }
     }
   }
@@ -329,20 +350,49 @@ export const scrapeDreemupPage: ScraperFunction = async (url: string): Promise<S
   const colors: ScrapedColor[] = [];
   const seenColors = new Set<string>();
 
-  const figMatches = html.match(/<figure[^>]*>[\s\S]*?<\/figure>/gi) || [];
-  for (const fig of figMatches) {
-    const imgMatch = fig.match(/<img[^>]+(?:data-src|src)=["']([^"']+)["']/i);
-    const captionMatch = fig.match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/i);
-    if (imgMatch && captionMatch) {
-      const colorName = stripHtml(captionMatch[1]).trim();
-      if (colorName && colorName.length < 50 && !seenColors.has(colorName) &&
-          !/spec|スペック|price|価格/i.test(colorName)) {
+  // TCD Page Builder パターン:
+  // "Color Chart" ヘッドライン以降の pb-widget-image + pb-widget-editor ペアを抽出
+  // カラーセクションの開始: "Color" or "カラー" を含むヘッドライン
+  // カラーセクションの終了: 次のヘッドライン（別製品セクション）or ページ終了
+  const colorSectionMatch = html.match(
+    /pb-widget-headline[^>]*>[\s\S]*?(?:Color|カラー|COLOR)[\s\S]*?<\/div>([\s\S]*?)(?:<div[^>]*pb-widget-headline|$)/i
+  );
+  if (colorSectionMatch) {
+    const colorSection = colorSectionMatch[1];
+    // pb-widget-image の img と、直後の pb-widget-editor の p テキストをペアリング
+    // パターン: <div class="...pb-widget-image">...<img src="...">...</div> <div class="...pb-widget-editor"><p>カラー名</p></div>
+    const pairRegex = /pb-widget-image[^>]*>\s*<img[^>]+src=["']([^"']+)["'][^>]*>\s*<\/div>\s*<div[^>]*pb-widget-editor[^>]*>\s*<p[^>]*>([\s\S]*?)<\/p>/gi;
+    let pairMatch: RegExpExecArray | null;
+    while ((pairMatch = pairRegex.exec(colorSection)) !== null) {
+      const imageUrl = pairMatch[1];
+      const colorName = stripHtml(pairMatch[2]).trim();
+      if (colorName && colorName.length > 0 && colorName.length < 50 &&
+          !seenColors.has(colorName) &&
+          !/spec|スペック|price|価格|^\d+[\.\d]*\s*[gｇ]$/i.test(colorName)) {
         seenColors.add(colorName);
-        colors.push({ name: colorName, imageUrl: makeAbsolute(imgMatch[1]) });
+        colors.push({ name: colorName, imageUrl: makeAbsolute(imageUrl) });
       }
     }
   }
 
+  // フォールバック1: figure + figcaption パターン（他のWordPressテーマ）
+  if (colors.length === 0) {
+    const figMatches = html.match(/<figure[^>]*>[\s\S]*?<\/figure>/gi) || [];
+    for (const fig of figMatches) {
+      const imgMatch = fig.match(/<img[^>]+(?:data-src|src)=["']([^"']+)["']/i);
+      const captionMatch = fig.match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/i);
+      if (imgMatch && captionMatch) {
+        const colorName = stripHtml(captionMatch[1]).trim();
+        if (colorName && colorName.length < 50 && !seenColors.has(colorName) &&
+            !/spec|スペック|price|価格/i.test(colorName)) {
+          seenColors.add(colorName);
+          colors.push({ name: colorName, imageUrl: makeAbsolute(imgMatch[1]) });
+        }
+      }
+    }
+  }
+
+  // フォールバック2: color/col_ を含むファイル名の画像
   if (colors.length === 0) {
     const colorImgMatches = html.match(/<img[^>]+src=["'][^"']*(?:color|col_|カラー)[^"']*["'][^>]*>/gi) || [];
     for (const imgTag of colorImgMatches) {

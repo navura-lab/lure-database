@@ -61,6 +61,7 @@ interface WPPost {
   link: string;
   slug: string;
   categories: number[];
+  featured_media: number;
 }
 
 interface ColorVariant {
@@ -209,7 +210,7 @@ async function airtableUpdateRecord(tableId: string, recordId: string, fields: R
 async function fetchAllPosts(): Promise<WPPost[]> {
   const all: WPPost[] = [];
   for (let page = 1; page <= 5; page++) {
-    const url = `${API_BASE}/posts?categories=4&per_page=100&page=${page}&_fields=id,title,content,link,slug,categories`;
+    const url = `${API_BASE}/posts?categories=4&per_page=100&page=${page}&_fields=id,title,content,link,slug,categories,featured_media`;
     const res = await fetch(url, {
       headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
     });
@@ -385,6 +386,87 @@ function extractMainImage(html: string): string | null {
 }
 
 // ---------------------------------------------------------------------------
+// WP media API: featured image & attached media fallback
+// ---------------------------------------------------------------------------
+
+interface WPMediaItem {
+  id: number;
+  source_url: string;
+  media_details?: {
+    width: number;
+    height: number;
+  };
+}
+
+/** featured_media IDから画像URLを取得 */
+async function fetchFeaturedImageUrl(mediaId: number): Promise<string | null> {
+  if (mediaId <= 0) return null;
+  try {
+    const url = `${API_BASE}/media/${mediaId}?_fields=id,source_url`;
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+    });
+    if (!res.ok) return null;
+    const media = await res.json() as WPMediaItem;
+    return media.source_url?.replace('mukai-finshing.jp', 'mukai-fishing.jp') || null;
+  } catch {
+    return null;
+  }
+}
+
+/** 投稿に添付されたメディアから最初の画像URLを取得 */
+async function fetchAttachedMediaUrl(postId: number): Promise<string | null> {
+  try {
+    const url = `${API_BASE}/media?parent=${postId}&per_page=5&_fields=id,source_url,media_details`;
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
+    });
+    if (!res.ok) return null;
+    const items = await res.json() as WPMediaItem[];
+    if (items.length === 0) return null;
+    // 最も大きい画像を選択（ロゴ等の小さい画像を回避）
+    const sorted = items
+      .filter(m => m.source_url && /\.(jpe?g|png|webp)$/i.test(m.source_url))
+      .sort((a, b) => {
+        const aSize = (a.media_details?.width || 0) * (a.media_details?.height || 0);
+        const bSize = (b.media_details?.width || 0) * (b.media_details?.height || 0);
+        return bSize - aSize;
+      });
+    if (sorted.length === 0) return null;
+    return sorted[0].source_url.replace('mukai-finshing.jp', 'mukai-fishing.jp');
+  } catch {
+    return null;
+  }
+}
+
+/** content.rendered → featured_media → attached media の順で画像を取得 */
+async function resolveMainImage(
+  html: string,
+  featuredMediaId: number,
+  postId: number,
+): Promise<string | null> {
+  // 1) content.rendered内の画像
+  const fromContent = extractMainImage(html);
+  if (fromContent) return fromContent;
+
+  // 2) featured_media（アイキャッチ画像）
+  const fromFeatured = await fetchFeaturedImageUrl(featuredMediaId);
+  if (fromFeatured) {
+    log(`  Featured image fallback: ${fromFeatured.substring(fromFeatured.lastIndexOf('/') + 1)}`);
+    return fromFeatured;
+  }
+
+  // 3) 投稿に添付されたメディア
+  const fromAttached = await fetchAttachedMediaUrl(postId);
+  if (fromAttached) {
+    log(`  Attached media fallback: ${fromAttached.substring(fromAttached.lastIndexOf('/') + 1)}`);
+    return fromAttached;
+  }
+
+  return null;
+}
+
+// ---------------------------------------------------------------------------
 // HTML parsing: description
 // ---------------------------------------------------------------------------
 
@@ -408,7 +490,7 @@ function extractDescription(html: string): string {
 // Scrape a single WP post
 // ---------------------------------------------------------------------------
 
-function scrapePost(post: WPPost): ScrapedProduct | null {
+async function scrapePost(post: WPPost): Promise<ScrapedProduct | null> {
   const html = post.content.rendered;
   if (!html || html.length < 100) return null;
 
@@ -423,7 +505,8 @@ function scrapePost(post: WPPost): ScrapedProduct | null {
   const description = extractDescription(html);
   const { weight, length, price, weights } = extractSpecs(html);
   const colors = extractColorsFromTable(html);
-  const mainImageUrl = extractMainImage(html);
+  // 3段階フォールバック: content画像 → featured_media → 添付メディア
+  const mainImageUrl = await resolveMainImage(html, post.featured_media, post.id);
 
   // 画像フォールバック: カラー別画像がないものにメイン画像を割り当て
   if (mainImageUrl) {
@@ -457,13 +540,13 @@ function scrapePost(post: WPPost): ScrapedProduct | null {
 
 export const scrapeMukaiPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
   // Try to extract post slug or ID from the URL
-  // URLs like: https://www.mukai-fishing.jp/xxxx/ or https://www.mukai-fishing.jp/?p=1234
-  const postIdMatch = url.match(/[?&]p=(\d+)/);
+  // URLs: /?p=1234, /archives/1234.html, /xxxx/
+  const postIdMatch = url.match(/[?&]p=(\d+)/) || url.match(/\/archives\/(\d+)\.html/);
   let apiPost: WPPost | null = null;
 
   if (postIdMatch) {
     // Fetch via WP REST API using post ID
-    const apiUrl = `${API_BASE}/posts/${postIdMatch[1]}?_fields=id,title,content,link,slug,categories`;
+    const apiUrl = `${API_BASE}/posts/${postIdMatch[1]}?_fields=id,title,content,link,slug,categories,featured_media`;
     const res = await fetch(apiUrl, {
       headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
     });
@@ -477,7 +560,7 @@ export const scrapeMukaiPage: ScraperFunction = async (url: string): Promise<Scr
     // Extract slug from URL: https://www.mukai-fishing.jp/SLUG/ or /archives/1234
     const pathMatch = url.match(/mukai-fishing\.jp\/([^/?#]+)\/?$/);
     if (pathMatch && pathMatch[1] !== 'archives') {
-      const apiUrl = `${API_BASE}/posts?slug=${encodeURIComponent(pathMatch[1])}&_fields=id,title,content,link,slug,categories`;
+      const apiUrl = `${API_BASE}/posts?slug=${encodeURIComponent(pathMatch[1])}&_fields=id,title,content,link,slug,categories,featured_media`;
       const res = await fetch(apiUrl, {
         headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' },
       });
@@ -514,7 +597,8 @@ export const scrapeMukaiPage: ScraperFunction = async (url: string): Promise<Scr
     const description = extractDescription(contentHtml);
     const { weight, length, price, weights } = extractSpecs(contentHtml);
     const colors = extractColorsFromTable(contentHtml);
-    const mainImageUrl = extractMainImage(contentHtml);
+    // HTMLフォールバック時もmedia APIを試す
+    const mainImageUrl = await resolveMainImage(contentHtml, 0, postId);
 
     const typedColors: ScrapedColorType[] = colors.map(c => ({
       name: c.name,
@@ -540,9 +624,31 @@ export const scrapeMukaiPage: ScraperFunction = async (url: string): Promise<Scr
   }
 
   // We have API data — use existing scrapePost logic
-  const product = scrapePost(apiPost);
+  const product = await scrapePost(apiPost);
   if (!product) {
-    throw new Error(`Could not parse product from API data for ${url}`);
+    // テーブルなし or カラーなし: APIデータから最低限の情報を構築
+    const html = apiPost.content.rendered;
+    const name = stripTags(apiPost.title.rendered).trim();
+    const slug = generateSlug(name, apiPost.id);
+    const description = extractDescription(html);
+    const { weight, length, price, weights: specWeights } = extractSpecs(html);
+    const mainImageUrl = await resolveMainImage(html, apiPost.featured_media, apiPost.id);
+    return {
+      name,
+      name_kana: '',
+      slug,
+      manufacturer: MANUFACTURER,
+      manufacturer_slug: MANUFACTURER_SLUG,
+      type: getLureType(apiPost.categories),
+      target_fish: ['トラウト'],
+      description,
+      price: price || 0,
+      colors: [],
+      weights: specWeights.length > 0 ? specWeights : (weight ? [weight] : []),
+      length,
+      mainImage: mainImageUrl || '',
+      sourceUrl: url,
+    };
   }
 
   const typedColors: ScrapedColorType[] = product.colors.map(c => ({
@@ -634,7 +740,7 @@ async function main(): Promise<void> {
 
     let product: ScrapedProduct | null = null;
     try {
-      product = scrapePost(post);
+      product = await scrapePost(post);
     } catch (e) {
       logError(`Parse failed: ${e}`);
       totalErrors++;
