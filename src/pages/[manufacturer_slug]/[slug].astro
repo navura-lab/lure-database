@@ -21,6 +21,7 @@ import { getLurePaths } from '../../lib/paths/lure-paths';
 import type { LurePathProps } from '../../lib/paths/lure-paths';
 import { editorialReviews } from '../../data/seo/editorials/_index';
 import { generateAutoEditorial } from '../../lib/auto-editorial';
+import { getManufacturerForTitle } from '../../lib/manufacturer-names-ja';
 
 export async function getStaticPaths() {
   return getLurePaths('ja');
@@ -129,14 +130,22 @@ const seoName = (
   && optimizedName === series.name  // optimizeTitleNameが変換しなかった
   && /^[A-Za-z0-9\s.'\-/&#+®™()]+$/.test(series.name)  // 名前が英語のみ
 ) ? `${series.name_kana}（${series.name}）` : optimizedName;
+// メーカー名: カタカナ（検索対策）+ 正式名称を保持
+const makerJa = getManufacturerForTitle(series.manufacturer_slug, series.manufacturer);
+const makerDisplay = makerJa !== series.manufacturer ? `${makerJa}（${series.manufacturer}）` : series.manufacturer;
 // type（エギ、ミノー等）をtitleに含めてロングテールクエリに対応
 const typeInTitle = series.type && !seoName.includes(series.type) ? ` ${series.type}` : '';
-// KP分析: 「[商品名] おすすめ カラー」パターンが20-140/月/商品
-// 「カラー」「一覧」をtitleに含めCTR向上、具体的なカラー数で差別化
-// エディトリアルがある場合はtitleにキャッチコピーのエッセンスを反映
-const pageTitle = editorial
-  ? `${seoName} ${series.manufacturer}${typeInTitle} レビュー＆全${series.color_count}色 | CAST/LOG`
-  : `${seoName} ${series.manufacturer}${typeInTitle} 全${series.color_count}色カラー一覧 | CAST/LOG`;
+// title文字数最適化: Google表示上限は約30-32全角文字（60バイト）
+// 重要KWを先頭に配置し、50文字以内を目標
+const fullTitle = editorial
+  ? `${seoName} ${makerDisplay}${typeInTitle} レビュー＆全${series.color_count}色 | CAST/LOG`
+  : `${seoName} ${makerDisplay}${typeInTitle} 全${series.color_count}色 | CAST/LOG`;
+// 50文字超えたらメーカー名を短縮（カタカナのみ）
+const pageTitle = fullTitle.length > 55
+  ? (editorial
+    ? `${seoName} ${makerJa}${typeInTitle} レビュー＆全${series.color_count}色 | CAST/LOG`
+    : `${seoName} ${makerJa}${typeInTitle} 全${series.color_count}色 | CAST/LOG`)
+  : fullTitle;
 
 // --- SEO: Description ---
 const specs = [
@@ -175,8 +184,8 @@ const rankLabel = categoryRank > 0 && categoryRank <= 10 && categoryFish
 const priceLabel = hasPrice ? `価格${priceDisplay}。` : '';
 // エディトリアルがある場合はcatchcopyをdescriptionに使用（CTR向上）
 const rawDescription = editorial
-  ? `${seoName}（${series.manufacturer}）${editorial.catchcopy.slice(0, 60)} ${rankLabel}全${series.color_count}色・スペック・使い方を解説。${priceLabel}`
-  : `${seoName}（${series.manufacturer}の${series.type}）のスペック・全${series.color_count}色・使い方を解説。${rankLabel}${effectiveDescription}${priceLabel}`;
+  ? `${seoName}（${makerDisplay}）${editorial.catchcopy.slice(0, 60)} ${rankLabel}全${series.color_count}色・スペック・使い方を解説。${priceLabel}`
+  : `${seoName}（${makerDisplay}の${series.type}）のスペック・全${series.color_count}色・使い方を解説。${rankLabel}${effectiveDescription}${priceLabel}`;
 const pageDescription = truncateDescription(rawDescription);
 
 // --- SEO: 自然言語スペック要約（ページ内表示用）---
