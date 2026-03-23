@@ -120,7 +120,15 @@ function optimizeTitleName(name: string): string {
   return name;
 }
 
-const seoName = optimizeTitleName(series.name);
+const optimizedName = optimizeTitleName(series.name);
+// name_kanaがあり、nameが英語のみでoptimizeTitleNameが変換しなかった場合、カタカナを追加
+// 例: "Crush Series" → "クラッシュシリーズ（Crush Series）"
+const seoName = (
+  series.name_kana
+  && series.name_kana !== series.name
+  && optimizedName === series.name  // optimizeTitleNameが変換しなかった
+  && /^[A-Za-z0-9\s.'\-/&#+®™()]+$/.test(series.name)  // 名前が英語のみ
+) ? `${series.name_kana}（${series.name}）` : optimizedName;
 // type（エギ、ミノー等）をtitleに含めてロングテールクエリに対応
 const typeInTitle = series.type && !seoName.includes(series.type) ? ` ${series.type}` : '';
 // KP分析: 「[商品名] おすすめ カラー」パターンが20-140/月/商品

@@ -147,6 +147,7 @@ export function groupLuresBySeries(lures: Lure[]): LureSeries[] {
     result.push({
       slug,
       name: cleanName || rep.name,
+      name_kana: rep.name_kana || null,
       manufacturer: rep.manufacturer,
       manufacturer_slug: rep.manufacturer_slug,
       type: rep.type,

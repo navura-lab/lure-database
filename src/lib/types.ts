@@ -18,6 +18,7 @@ export type ColorVariant = {
 export type LureSeries = {
   slug: string;
   name: string;
+  name_kana: string | null;
   manufacturer: string;
   manufacturer_slug: string;
   type: string;
