@@ -6445,12 +6445,14 @@ async function discoverYarie(_page: Page): Promise<Array<{ url: string; name: st
 // Fetch-only, no Playwright
 
 async function discoverZeroDragon(_page: Page): Promise<Array<{ url: string; name: string }>> {
-  var results: Array<{ url: string; name: string }> = [];
+  var allVariants: Array<{ url: string; name: string }> = [];
   var siteBase = 'https://zero-dragon.com';
   var seenUrls = new Set<string>();
 
   // Rod model patterns: EJ632, EJ5113HP, ESJ633, SH753, UMV-, ZL- etc.
-  var rodPattern = /\b(EJ\d|ESJ\d|SH\d|UMV|ZL\d)/i;
+  var rodPattern = /\b(EJ\d|ESJ\d|SH\d|UMV|ZL\d|ZF\d)/i;
+  // 非ルアーパターン: リール、ロッド関連パーツ等
+  var nonLurePattern = /リール|ワインド|ガイド|巻き上げ|ロッド|1ピース/i;
 
   log('[zero-dragon] Fetching product listing pages...');
 
@@ -6462,24 +6464,27 @@ async function discoverZeroDragon(_page: Page): Promise<Array<{ url: string; nam
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LureDB/1.0)' },
     });
     if (!res.ok) break;
-    var html = await res.text();
+    // EUC-JPデコード
+    var rawBytes = await res.arrayBuffer();
+    var html = new TextDecoder('euc-jp').decode(rawBytes);
 
     // Match product links: href="/?pid=NNNNN" or href="https://zero-dragon.com/?pid=NNNNN"
-    var linkRegex = /<a\s+[^>]*href="((?:https?:\/\/zero-dragon\.com)?\/?[?&]pid=(\d+))"[^>]*>([^<]*)/gi;
+    var linkRegex = /<a\s+[^>]*href="((?:https?:\/\/zero-dragon\.com)?\/?[?&]pid=(\d+))"[^>]*>([\s\S]*?)<\/a>/gi;
     var match: RegExpExecArray | null;
     var foundOnPage = 0;
 
     while ((match = linkRegex.exec(html)) !== null) {
-      var href = match[1];
       var pid = match[2];
-      var linkName = match[3].trim();
+      var linkName = match[3].replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, ' ').trim();
       var fullUrl = siteBase + '/?pid=' + pid;
       if (seenUrls.has(fullUrl)) continue;
       seenUrls.add(fullUrl);
       if (!linkName) linkName = 'Product ' + pid;
-      // Skip rod products (model numbers like EJ632, ESJ633, SH753, UMV, ZL)
+      // Skip rod products
       if (rodPattern.test(linkName)) continue;
-      results.push({ url: fullUrl, name: linkName });
+      // Skip non-lure products
+      if (nonLurePattern.test(linkName)) continue;
+      allVariants.push({ url: fullUrl, name: linkName });
       foundOnPage++;
     }
 
@@ -6488,7 +6493,27 @@ async function discoverZeroDragon(_page: Page): Promise<Array<{ url: string; nam
     await sleep(500);
   }
 
-  log('[zero-dragon] Discovered ' + results.length + ' products');
+  log('[zero-dragon] Found ' + allVariants.length + ' product variants (before grouping)');
+
+  // カラーバリアントをベース名でグループ化し、各グループから1つだけURLを返す
+  // スクレイパー側が商品一覧から兄弟バリアントを自動検出するため、
+  // discoverは各商品につき1URLだけ返せばよい
+  var baseNameMap = new Map<string, { url: string; name: string }>();
+  for (var v = 0; v < allVariants.length; v++) {
+    var variant = allVariants[v];
+    // ベース名を抽出（カラー名を除去）
+    var normalized = variant.name.replace(/\u3000/g, ' ').trim();
+    // パターン: "{BaseName} {Weight}g {ColorName}" → ウェイト部分までがベース名
+    var weightMatch = normalized.match(/^(.+?\s+\d+(?:\.\d+)?\s*g)\s+.+$/i);
+    var baseName = weightMatch ? weightMatch[1].trim() : normalized;
+
+    if (!baseNameMap.has(baseName)) {
+      baseNameMap.set(baseName, { url: variant.url, name: baseName });
+    }
+  }
+
+  var results = Array.from(baseNameMap.values());
+  log('[zero-dragon] Discovered ' + results.length + ' unique products (grouped from ' + allVariants.length + ' variants)');
   return results;
 }
 

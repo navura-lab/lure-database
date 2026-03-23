@@ -8,6 +8,12 @@
 // Product images from img02.shop-pro.jp
 // Types: メタルジグ, タイラバ
 // Target fish: マダイ, 青物
+//
+// ⚠️ カラー分裂問題対策（2026-03-23）:
+// このサイトは1カラー=1商品ページ（別pid）。
+// 商品名に「Valgo 60g ピンク（P）」のようにカラー名が含まれる。
+// スクレイパーはサイトの商品一覧から同一ベース名の全カラーを収集し、
+// 1つのScrapedLureとして返す。
 
 import type { ScraperFunction, ScrapedColor, ScrapedLure } from './types.js';
 
@@ -19,6 +25,12 @@ const MANUFACTURER = 'ZERO DRAGON';
 const MANUFACTURER_SLUG = 'zero-dragon';
 const SITE_BASE = 'https://zero-dragon.com';
 const DEFAULT_TARGET_FISH = ['マダイ', '青物'];
+
+const FETCH_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  'Accept': 'text/html,application/xhtml+xml',
+  'Accept-Language': 'ja,en;q=0.9',
+};
 
 // ---------------------------------------------------------------------------
 // Type detection
@@ -159,111 +171,242 @@ function deriveTargetFish(name: string, description: string): string[] {
 }
 
 // ---------------------------------------------------------------------------
+// カラー分裂対策: 商品名からベース名とカラー名を分離
+// ---------------------------------------------------------------------------
+
+/**
+ * 商品名からカラー部分を除去してベース名を返す。
+ *
+ * パターン例:
+ *   "Valgo　200g　オレンジホロ（OH）" → base="Valgo 200g", color="オレンジホロ（OH）"
+ *   "DENJIG MIMIC 230g シルバー背腹グロー（SGCW)" → base="DENJIG MIMIC 230g", color="シルバー背腹グロー（SGCW)"
+ *   "DENJIG LEAF 400g　オレンジゼブラ" → base="DENJIG LEAF 400g", color="オレンジゼブラ"
+ */
+function parseBaseName(fullName: string): { baseName: string; colorName: string } {
+  // 全角スペースを半角に正規化
+  const normalized = fullName.replace(/\u3000/g, ' ').trim();
+
+  // パターン1: "{BaseName} {Weight}g {ColorName}（{Code}）" or "{BaseName} {Weight}g {ColorName}"
+  // ウェイト(Ng)の後のテキストをカラーとして分離
+  const weightColorMatch = normalized.match(
+    /^(.+?\s+\d+(?:\.\d+)?\s*g)\s+(.+)$/i
+  );
+  if (weightColorMatch) {
+    return {
+      baseName: weightColorMatch[1].trim(),
+      colorName: weightColorMatch[2].trim(),
+    };
+  }
+
+  // パターン2: 末尾に括弧でカラーコード「{Name}（{Code}）」
+  const trailingParenMatch = normalized.match(
+    /^(.+?)\s+([^\s]+[（(][^）)]+[）)])\s*$/
+  );
+  if (trailingParenMatch) {
+    return {
+      baseName: trailingParenMatch[1].trim(),
+      colorName: trailingParenMatch[2].trim(),
+    };
+  }
+
+  // カラー分離できない場合はそのまま返す
+  return { baseName: normalized, colorName: '' };
+}
+
+// ---------------------------------------------------------------------------
+// EUC-JPページを取得してデコード
+// ---------------------------------------------------------------------------
+
+async function fetchEucJpPage(url: string): Promise<string> {
+  const res = await fetch(url, { headers: FETCH_HEADERS });
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+  const rawBytes = await res.arrayBuffer();
+  return new TextDecoder('euc-jp').decode(rawBytes);
+}
+
+// ---------------------------------------------------------------------------
+// Colorme JS からプロダクト名・価格を抽出
+// ---------------------------------------------------------------------------
+
+interface ColormeData {
+  name: string;
+  price: number;
+  priceIncTax: number;
+}
+
+function extractColormeData(html: string): ColormeData {
+  const result: ColormeData = { name: '', price: 0, priceIncTax: 0 };
+
+  const colormeMatch = html.match(/var\s+Colorme\s*=\s*(\{[\s\S]*?\});/);
+  if (!colormeMatch) return result;
+
+  try {
+    const nameMatch = colormeMatch[1].match(/"name"\s*:\s*"([^"]+)"/);
+    if (nameMatch) {
+      try {
+        result.name = JSON.parse(`"${nameMatch[1]}"`);
+      } catch {
+        result.name = nameMatch[1];
+      }
+    }
+
+    const priceMatch = colormeMatch[1].match(/"sales_price"\s*:\s*(\d+)/);
+    if (priceMatch) result.price = parseInt(priceMatch[1], 10);
+
+    const priceIncMatch = colormeMatch[1].match(/"sales_price_including_tax"\s*:\s*(\d+)/);
+    if (priceIncMatch) result.priceIncTax = parseInt(priceIncMatch[1], 10);
+  } catch { /* ignore parse errors */ }
+
+  return result;
+}
+
+// ---------------------------------------------------------------------------
+// 商品一覧ページから全商品(pid, name)を取得
+// ---------------------------------------------------------------------------
+
+interface ProductEntry {
+  pid: string;
+  name: string;
+  url: string;
+}
+
+async function fetchAllProducts(): Promise<ProductEntry[]> {
+  const products: ProductEntry[] = [];
+  const seenPids = new Set<string>();
+
+  log('Fetching product listing to find color variants...');
+
+  for (let pageNum = 1; pageNum <= 10; pageNum++) {
+    const listUrl = `${SITE_BASE}/?mode=srh&sort=n&page=${pageNum}`;
+    let html: string;
+    try {
+      // 商品一覧もEUC-JPの可能性があるが、リンクテキストのpidだけ取れればよい
+      const res = await fetch(listUrl, { headers: FETCH_HEADERS });
+      if (!res.ok) break;
+      const rawBytes = await res.arrayBuffer();
+      html = new TextDecoder('euc-jp').decode(rawBytes);
+    } catch {
+      break;
+    }
+
+    // 各商品ページのリンクとColorme名を取得
+    // リンクパターン: href="/?pid=NNNN" with テキスト
+    const linkRegex = /<a\s+[^>]*href="(?:https?:\/\/zero-dragon\.com)?\/?[?&]pid=(\d+)"[^>]*>([\s\S]*?)<\/a>/gi;
+    let match: RegExpExecArray | null;
+    let foundOnPage = 0;
+
+    while ((match = linkRegex.exec(html)) !== null) {
+      const pid = match[1];
+      if (seenPids.has(pid)) continue;
+      seenPids.add(pid);
+
+      const linkText = stripHtml(match[2]).trim();
+      if (!linkText) continue;
+
+      products.push({
+        pid,
+        name: linkText,
+        url: `${SITE_BASE}/?pid=${pid}`,
+      });
+      foundOnPage++;
+    }
+
+    if (foundOnPage === 0) break;
+
+    // 適度な遅延
+    if (pageNum < 10) {
+      await new Promise(r => setTimeout(r, 300));
+    }
+  }
+
+  log(`Found ${products.length} total products in listing`);
+  return products;
+}
+
+// ---------------------------------------------------------------------------
+// 同一ベース名の兄弟バリアントを検出
+// ---------------------------------------------------------------------------
+
+function findSiblingVariants(
+  allProducts: ProductEntry[],
+  baseName: string,
+): ProductEntry[] {
+  // ベース名でフィルタ: 各商品名をparseBaseNameして同一ベース名のものを収集
+  return allProducts.filter(p => {
+    const parsed = parseBaseName(p.name);
+    return parsed.baseName === baseName;
+  });
+}
+
+// ---------------------------------------------------------------------------
+// 1つの商品ページからメイン画像を取得
+// ---------------------------------------------------------------------------
+
+function extractMainImage(html: string): string {
+  // Shop-Pro商品画像: /product/ パスを含むURLを優先
+  // ロゴ画像（PA01317983.jpg等）ではなく商品固有画像（product/NNNNN.jpg）を取得
+  const productImgRegex = /<img[^>]+src=["'](https?:\/\/img\d+\.shop-pro\.jp\/[^"']*\/product\/[^"']+)["']/gi;
+  let productImgMatch: RegExpExecArray | null;
+  while ((productImgMatch = productImgRegex.exec(html)) !== null) {
+    return productImgMatch[1];
+  }
+
+  // フォールバック: og:image
+  const ogImageMatch = html.match(/<meta\s+(?:property|name)=["']og:image["']\s+content=["']([^"']+)["']/i)
+    || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:image["']/i);
+  if (ogImageMatch) return ogImageMatch[1];
+
+  // フォールバック: 任意のshop-pro画像（ロゴも含む）
+  const shopProImg = html.match(/<img[^>]+src=["'](https?:\/\/img\d+\.shop-pro\.jp\/[^"']+)["']/i);
+  if (shopProImg) return shopProImg[1];
+
+  const imgMatch = html.match(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png|webp))["']/i);
+  if (imgMatch) return imgMatch[1];
+
+  return '';
+}
+
+// ---------------------------------------------------------------------------
 // Main scraper
 // ---------------------------------------------------------------------------
 
 export const scrapeZeroDragonPage: ScraperFunction = async (url: string): Promise<ScrapedLure> => {
   log(`Starting scrape: ${url}`);
 
-  const res = await fetch(url, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      'Accept': 'text/html,application/xhtml+xml',
-      'Accept-Language': 'ja,en;q=0.9',
-    },
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-  // サイトは EUC-JP エンコーディング。UTF-8でデコードすると文字化けする。
-  const rawBytes = await res.arrayBuffer();
-  const html = new TextDecoder('euc-jp').decode(rawBytes);
+  // --- 1) メインページを取得 ---
+  const html = await fetchEucJpPage(url);
+  const colorme = extractColormeData(html);
 
-  // --- Try to extract from Colorme JS object ---
-  let colormeName = '';
-  let colormePrice = 0;
-  let colormePriceInc = 0;
-
-  const colormeMatch = html.match(/var\s+Colorme\s*=\s*(\{[\s\S]*?\});/);
-  if (colormeMatch) {
-    try {
-      // Extract name — Colorme JS uses \uXXXX Unicode escapes for Japanese chars.
-      // JSON.parse を使って正しくデコードする。
-      const nameMatch = colormeMatch[1].match(/"name"\s*:\s*"([^"]+)"/);
-      if (nameMatch) {
-        try {
-          colormeName = JSON.parse(`"${nameMatch[1]}"`);
-        } catch {
-          colormeName = nameMatch[1];
-        }
-      }
-
-      // Extract prices
-      const priceMatch = colormeMatch[1].match(/"sales_price"\s*:\s*(\d+)/);
-      if (priceMatch) colormePrice = parseInt(priceMatch[1], 10);
-
-      const priceIncMatch = colormeMatch[1].match(/"sales_price_including_tax"\s*:\s*(\d+)/);
-      if (priceIncMatch) colormePriceInc = parseInt(priceIncMatch[1], 10);
-    } catch { /* ignore parse errors */ }
-  }
-
-  // --- Product name ---
-  let name = colormeName || '';
-  if (!name) {
+  // --- 2) 商品名を取得 ---
+  let rawName = colorme.name || '';
+  if (!rawName) {
     const h1Match = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
-    if (h1Match) name = stripHtml(h1Match[1]).trim();
+    if (h1Match) rawName = stripHtml(h1Match[1]).trim();
   }
-  if (!name) {
+  if (!rawName) {
     const h2Match = html.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
-    if (h2Match) name = stripHtml(h2Match[1]).trim();
+    if (h2Match) rawName = stripHtml(h2Match[1]).trim();
   }
-  if (!name) {
+  if (!rawName) {
     const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-    if (titleMatch) name = stripHtml(titleMatch[1]).replace(/\s*[|｜–—].*$/, '').replace(/\s*ZERODRAGON.*$/i, '').replace(/\s*ZERO DRAGON.*$/i, '').trim();
+    if (titleMatch) rawName = stripHtml(titleMatch[1]).replace(/\s*[|｜–—].*$/, '').replace(/\s*ZERODRAGON.*$/i, '').replace(/\s*ZERO DRAGON.*$/i, '').trim();
   }
-  if (!name) {
-    const ogMatch = html.match(/<meta\s+property=["']og:title["']\s+content=["']([^"']+)["']/i);
-    if (ogMatch) name = stripHtml(ogMatch[1]).replace(/\s*[|｜–—].*$/, '').trim();
-  }
-  if (!name) name = 'Unknown';
-  log(`Product name: ${name}`);
+  if (!rawName) rawName = 'Unknown';
+  log(`Raw product name: ${rawName}`);
 
-  // --- Slug from URL or product name ---
-  let slug = '';
-  // Try to extract pid from URL: ?pid=166544727
-  const pidMatch = url.match(/[?&]pid=(\d+)/);
-  if (pidMatch) {
-    // Create slug from product name + pid for uniqueness
-    const nameSlug = slugify(name);
-    slug = nameSlug || `zero-dragon-${pidMatch[1]}`;
-  }
-  if (!slug) {
-    try {
-      const urlObj = new URL(url);
-      const segments = urlObj.pathname.split('/').filter(Boolean);
-      const lastSegment = segments[segments.length - 1] || '';
-      slug = lastSegment.replace(/\.html?$/i, '').toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/^-+|-+$/g, '');
-    } catch { /* ignore */ }
-  }
-  if (!slug) slug = slugify(name);
+  // --- 3) ベース名とカラー名を分離 ---
+  const { baseName, colorName: currentColor } = parseBaseName(rawName);
+  log(`Base name: "${baseName}", Color: "${currentColor}"`);
+
+  // --- 4) slug はベース名から生成（カラー名を含めない） ---
+  const slug = slugify(baseName) || 'zero-dragon-unknown';
   log(`Slug: ${slug}`);
 
-  // --- Main image ---
-  let mainImage = '';
-  // Shop-Pro images: img02.shop-pro.jp/PAxxxxx/xxx/product/{pid}.jpg
-  const shopProImg = html.match(/<img[^>]+src=["'](https?:\/\/img\d+\.shop-pro\.jp\/[^"']+)["']/i);
-  if (shopProImg) mainImage = shopProImg[1];
-  if (!mainImage) {
-    const ogImageMatch = html.match(/<meta\s+(?:property|name)=["']og:image["']\s+content=["']([^"']+)["']/i)
-      || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:image["']/i);
-    if (ogImageMatch) mainImage = ogImageMatch[1];
-  }
-  if (!mainImage) {
-    const imgMatch = html.match(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png|webp))["']/i);
-    if (imgMatch) mainImage = imgMatch[1];
-  }
-  mainImage = makeAbsolute(mainImage);
+  // --- 5) メイン画像 ---
+  const mainImage = makeAbsolute(extractMainImage(html));
   log(`Main image: ${mainImage}`);
 
-  // --- Description ---
+  // --- 6) 説明文 ---
   let description = '';
   const metaDescMatch = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)
     || html.match(/<meta\s+content=["']([^"']+)["']\s+name=["']description["']/i);
@@ -271,7 +414,6 @@ export const scrapeZeroDragonPage: ScraperFunction = async (url: string): Promis
     description = stripHtml(metaDescMatch[1]).substring(0, 500);
   }
   if (!description) {
-    // Shop-Pro description area
     const descAreaMatch = html.match(/<div[^>]*class=["'][^"']*(?:product_description|product-detail|item_description)[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
     if (descAreaMatch) {
       description = stripHtml(descAreaMatch[1]).substring(0, 500);
@@ -289,92 +431,99 @@ export const scrapeZeroDragonPage: ScraperFunction = async (url: string): Promis
   }
   log(`Description: ${description.substring(0, 80)}...`);
 
-  // --- Price from Colorme or body text ---
-  let price = colormePriceInc || colormePrice || 0;
+  // --- 7) 価格 ---
+  let price = colorme.priceIncTax || colorme.price || 0;
   if (price === 0) price = parsePrice(stripHtml(html));
 
-  // --- Weights from product name and body ---
-  // ZERO DRAGON product names often include weight: "DENJIG MIMIC 280g"
+  // --- 8) ウェイト（ベース名から） ---
   const bodyText = stripHtml(html);
-  let weights = parseWeights(name);
+  let weights = parseWeights(baseName);
   if (weights.length === 0) weights = parseWeights(bodyText);
-
-  // --- Length ---
-  let length = parseLength(bodyText);
-
   weights = Array.from(new Set(weights)).sort((a, b) => a - b);
+
+  // --- 9) 長さ ---
+  const length = parseLength(bodyText);
   log(`Weights: [${weights.join(', ')}], Length: ${length}mm, Price: ${price}`);
 
-  // --- Colors ---
-  // ZERO DRAGON embeds color name in product title: "DENJIG MIMIC 280g センターピンクライン（CPL）"
+  // --- 10) カラー収集: 商品一覧から同一ベース名の全バリアントを取得 ---
   const colors: ScrapedColor[] = [];
   const seenColors = new Set<string>();
 
-  // Try to extract color from product name parenthetical
-  const colorInName = name.match(/[（(]([^）)]+)[）)]\s*$/);
-  if (colorInName) {
-    const colorName = colorInName[1].trim();
-    if (colorName && !seenColors.has(colorName)) {
-      seenColors.add(colorName);
-      colors.push({ name: colorName, imageUrl: mainImage });
-    }
+  // まずメインページのカラーを追加
+  if (currentColor) {
+    // カラー名から括弧内のコードを除去して表示名にする
+    // 例: "オレンジホロ（OH）" → "オレンジホロ" をカラー名に、コードも保持
+    const cleanColorName = currentColor.replace(/\s*[（(][^）)]*[）)]\s*$/, '').trim() || currentColor;
+    seenColors.add(cleanColorName);
+    colors.push({ name: cleanColorName, imageUrl: mainImage });
   }
 
-  // Also try the text after weight: "280g センターピンクライン" -> "センターピンクライン"
-  if (colors.length === 0) {
-    const afterWeightMatch = name.match(/\d+\s*g\s+(.+?)(?:\s*[（(]|$)/);
-    if (afterWeightMatch) {
-      const colorName = afterWeightMatch[1].trim();
-      if (colorName && colorName.length > 1 && !seenColors.has(colorName)) {
-        seenColors.add(colorName);
-        colors.push({ name: colorName, imageUrl: mainImage });
+  // 商品一覧ページから兄弟バリアントを検索
+  if (currentColor) {
+    // カラーが分離できた場合のみ兄弟検索を実行
+    try {
+      const allProducts = await fetchAllProducts();
+      const siblings = findSiblingVariants(allProducts, baseName);
+      log(`Found ${siblings.length} sibling variants for "${baseName}"`);
+
+      // 兄弟バリアントの各ページからカラー名と画像を取得
+      for (const sibling of siblings) {
+        const siblingParsed = parseBaseName(sibling.name);
+        if (!siblingParsed.colorName) continue;
+
+        const sibColorClean = siblingParsed.colorName.replace(/\s*[（(][^）)]*[）)]\s*$/, '').trim() || siblingParsed.colorName;
+        if (seenColors.has(sibColorClean)) continue;
+        seenColors.add(sibColorClean);
+
+        // 各バリアントページから画像を取得
+        try {
+          log(`Fetching sibling: ${sibling.name} (${sibling.url})`);
+          const sibHtml = await fetchEucJpPage(sibling.url);
+          const sibImage = makeAbsolute(extractMainImage(sibHtml));
+          colors.push({ name: sibColorClean, imageUrl: sibImage });
+
+          // 適度な遅延
+          await new Promise(r => setTimeout(r, 200));
+        } catch (err) {
+          log(`Failed to fetch sibling ${sibling.url}: ${err}`);
+          // 画像なしでもカラー名は登録
+          colors.push({ name: sibColorClean, imageUrl: '' });
+        }
       }
+    } catch (err) {
+      log(`Failed to fetch product listing: ${err}`);
     }
   }
 
-  // Pattern: figure + figcaption
-  const figureMatches = html.match(/<figure[^>]*>[\s\S]*?<\/figure>/gi) || [];
-  for (const fig of figureMatches) {
-    const imgMatch = fig.match(/<img[^>]+src=["']([^"']+)["']/i);
-    const captionMatch = fig.match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/i);
-    if (imgMatch && captionMatch) {
-      const colorName = stripHtml(captionMatch[1]).trim();
-      if (colorName && !seenColors.has(colorName)) {
-        seenColors.add(colorName);
-        colors.push({ name: colorName, imageUrl: makeAbsolute(imgMatch[1]) });
-      }
-    }
-  }
-
-  // Pattern: gallery/color items
+  // カラーが1つも取れなかった場合のフォールバック
   if (colors.length === 0) {
-    const colorImgMatches = html.match(/<img[^>]+alt=["']([^"']+)["'][^>]+src=["']([^"']+)["'][^>]*>/gi) || [];
-    for (const imgTag of colorImgMatches) {
-      const altMatch = imgTag.match(/alt=["']([^"']+)["']/i);
-      const srcMatch = imgTag.match(/src=["']([^"']+\.(?:jpg|jpeg|png|webp))["']/i);
-      if (altMatch && srcMatch) {
-        const colorName = altMatch[1].trim();
-        if (colorName && colorName.length > 1 && colorName.length < 60
-            && !seenColors.has(colorName) && !/logo|banner|icon|arrow|cart|button/i.test(colorName)) {
-          seenColors.add(colorName);
-          colors.push({ name: colorName, imageUrl: makeAbsolute(srcMatch[1]) });
+    // ページ内のfigure/img等からカラーを試行
+    const figureMatches = html.match(/<figure[^>]*>[\s\S]*?<\/figure>/gi) || [];
+    for (const fig of figureMatches) {
+      const imgMatch = fig.match(/<img[^>]+src=["']([^"']+)["']/i);
+      const captionMatch = fig.match(/<figcaption[^>]*>([\s\S]*?)<\/figcaption>/i);
+      if (imgMatch && captionMatch) {
+        const cName = stripHtml(captionMatch[1]).trim();
+        if (cName && !seenColors.has(cName)) {
+          seenColors.add(cName);
+          colors.push({ name: cName, imageUrl: makeAbsolute(imgMatch[1]) });
         }
       }
     }
   }
 
-  log(`Colors: ${colors.length}`);
+  log(`Colors: ${colors.length} [${colors.map(c => c.name).join(', ')}]`);
 
-  // --- Type detection ---
-  const type = detectType(name, description);
+  // --- 11) Type detection ---
+  const type = detectType(baseName, description);
   log(`Type: ${type}`);
 
-  // --- Target fish ---
-  const target_fish = deriveTargetFish(name, description);
+  // --- 12) Target fish ---
+  const target_fish = deriveTargetFish(baseName, description);
   log(`Target fish: [${target_fish.join(', ')}]`);
 
   const result: ScrapedLure = {
-    name,
+    name: baseName,
     name_kana: '',
     slug,
     manufacturer: MANUFACTURER,
@@ -390,6 +539,6 @@ export const scrapeZeroDragonPage: ScraperFunction = async (url: string): Promis
     sourceUrl: url,
   };
 
-  log(`Done: ${name} | type=${type} | colors=${colors.length} | weights=[${weights.join(',')}] | length=${length}mm | price=${price}`);
+  log(`Done: ${baseName} | type=${type} | colors=${colors.length} | weights=[${weights.join(',')}] | length=${length}mm | price=${price}`);
   return result;
 };
