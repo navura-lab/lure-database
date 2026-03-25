@@ -118,7 +118,7 @@ if (lengthDisplay) specParts.push(`${lengthDisplay} long`);
 if (series.diving_depth) specParts.push(`diving depth ${series.diving_depth}`);
 if (series.action_type) specParts.push(`${ACTION_TYPE_EN[series.action_type] ?? series.action_type} action`);
 if (hasPrice) specParts.push(`priced at ${priceDisplay}`);
-const targetFishEn = series.target_fish.slice(0, 5).map(f => FISH_NAME_EN[f] ?? f);
+const targetFishEn = (series.target_fish || []).slice(0, 5).map(f => FISH_NAME_EN[f] ?? f);
 const specsSummary = `The ${series.name} is a ${specParts.join(', ')}. Available in ${series.color_count} colors${targetFishEn.length > 0 ? `, designed for ${targetFishEn.join(', ')}` : ''}.`;
 
 // --- JSON-LD ---
@@ -195,7 +195,7 @@ if (series.target_fish.length > 0) {
 }
 
 if (series.color_count > 0) {
-  const sampleColors = series.colors.slice(0, 5).map(c => c.color_name).join(', ');
+  const sampleColors = (series.colors || []).slice(0, 5).map(c => c.color_name).join(', ');
   const topCat = colorBreakdown.length > 0 && colorBreakdown[0].id !== 'other'
     ? ` The most prominent color category is ${COLOR_CATEGORY_EN[colorBreakdown[0].label] ?? colorBreakdown[0].label} with ${colorBreakdown[0].count} colors (${colorBreakdown[0].pct}%).`
     : '';
