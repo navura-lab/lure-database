@@ -111,7 +111,10 @@ const orgDescription = locale === 'en'
         document.head.appendChild(s);
       });
     </script>
-    <ViewTransitions fallback="swap" />
+    <!-- ViewTransitions無効化: モバイルの戻るボタンが1ページスキップする問題の根本原因
+         SPAモードのクライアントサイドナビゲーションがブラウザのhistory stackを破壊するため削除
+         プリフェッチはdata-astro-prefetchで個別に設定可能 -->
+    <!-- <ViewTransitions fallback="swap" /> -->
     <title>{title}</title>
   </head>
   <body class="bg-bg text-text font-sans min-h-screen flex flex-col">

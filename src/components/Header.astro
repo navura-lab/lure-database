@@ -115,20 +115,36 @@ const navLinks = [
 </header>
 
 <script>
-  const btn = document.getElementById('mobile-menu-btn')!;
-  const menu = document.getElementById('mobile-menu')!;
-  const iconOpen = document.getElementById('menu-icon-open')!;
-  const iconClose = document.getElementById('menu-icon-close')!;
+  // ViewTransitions対応: ページ遷移後も動作するようにastro:page-loadで再バインド
+  function initMobileMenu() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+    if (!btn || !menu || !iconOpen || !iconClose) return;
 
-  btn.addEventListener('click', () => {
-    const isOpen = !menu.classList.contains('hidden');
-    menu.classList.toggle('hidden');
-    iconOpen.classList.toggle('hidden');
-    iconClose.classList.toggle('hidden');
-    btn.setAttribute('aria-expanded', String(!isOpen));
-    // aria-labelはlocaleに依存するためdata属性で管理
-    const openLabel = btn.dataset.labelOpen || 'Open menu';
-    const closeLabel = btn.dataset.labelClose || 'Close menu';
-    btn.setAttribute('aria-label', isOpen ? openLabel : closeLabel);
-  });
+    // 既存リスナー重複防止
+    const newBtn = btn.cloneNode(true) as HTMLElement;
+    btn.parentNode?.replaceChild(newBtn, btn);
+
+    newBtn.addEventListener('click', () => {
+      const isOpen = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+      newBtn.setAttribute('aria-expanded', String(!isOpen));
+      const openLabel = newBtn.dataset.labelOpen || 'Open menu';
+      const closeLabel = newBtn.dataset.labelClose || 'Close menu';
+      newBtn.setAttribute('aria-label', isOpen ? openLabel : closeLabel);
+    });
+
+    // ページ遷移時にメニューを閉じる
+    menu.classList.add('hidden');
+    iconOpen.classList.remove('hidden');
+    iconClose.classList.add('hidden');
+  }
+
+  // 初回ロード + ViewTransitionsのページ遷移後に実行
+  initMobileMenu();
+  document.addEventListener('astro:page-load', initMobileMenu);
 </script>
