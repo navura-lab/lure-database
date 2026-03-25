@@ -123,12 +123,19 @@ const orgDescription = locale === 'en'
     <a href="/trap/harvest" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true" tabindex="-1">catalog download</a>
     <Footer locale={locale} />
     <script>
-      // Safari bfcache対応: 戻るボタンでページが壊れる問題を修正
-      // View Transitions (SPA mode) とSafariのbfcacheが干渉するため、
-      // bfcacheから復元された場合はページをリロードする
+      // Safari bfcache対応: ViewTransitionsとbfcacheの干渉を修正
+      // location.reload()は履歴スタックを壊すため使用禁止
+      // 代わりにAstroのnavigate()で現在ページを再取得する
       window.addEventListener('pageshow', (event) => {
         if (event.persisted) {
-          window.location.reload();
+          // ViewTransitionsのnavigate APIが利用可能ならそれを使う
+          // 利用不可なら何もしない（bfcacheからの復元をそのまま使う）
+          const navigate = (window as any).navigation;
+          if (navigate && typeof navigate.reload === 'function') {
+            navigate.reload();
+          }
+          // フォールバック: DOMの状態をリフレッシュ（リロードせず）
+          document.dispatchEvent(new Event('astro:page-load'));
         }
       });
 
