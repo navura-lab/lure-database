@@ -410,9 +410,9 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
             <Placeholder type={series.type} />
           )}
         </div>
-        {series.colors && series.colors.filter(c => c.images?.length > 0).length > 1 && (
+        {series.colors && (series.colors || []).filter(c => c.images?.length > 0).length > 1 && (
           <div class="flex gap-2 overflow-x-auto py-3 scrollbar-hide">
-            {series.colors.filter(c => c.images?.length > 0).slice(0, 12).map((color, i) => (
+            {(series.colors || []).filter(c => c.images?.length > 0).slice(0, 12).map((color, i) => (
               <div class="shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent hover:border-accent transition-colors cursor-pointer">
                 <img src={color.images[0]} alt={color.color_name} class="w-full h-full object-cover" loading="lazy" />
               </div>
@@ -688,7 +688,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
         <span class="text-sm text-text-mid">{series.color_count} colors</span>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {series.colors.map(color => (
+        {(series.colors || []).map(color => (
           <div class="group">
             <div class="aspect-square rounded-xl overflow-hidden border border-gray-100 bg-white mb-2 transition-all duration-200 group-hover:border-accent group-hover:shadow-card-hover">
               {color.images && color.images.length > 0 ? (
@@ -700,7 +700,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
             <p class="text-sm font-medium text-gray-900 truncate">{color.color_name}</p>
             {color.weights.length > 0 && (
               <div class="flex flex-wrap gap-1 mt-1">
-                {color.weights.map(w => (
+                {(color.weights || []).map(w => (
                   <span class="px-2 py-0.5 bg-gray-50 text-xs text-gray-600 rounded-full border border-gray-100">
                     {w.weight && `${w.weight}g`}{w.weight && w.length && ' / '}{w.length && `${w.length}mm`}
                   </span>
@@ -763,7 +763,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
       <section class="mb-12">
         <h2 class="text-xl font-bold text-gray-900 mb-4">Target Fish for {series.name}</h2>
         <div class="flex flex-wrap gap-2">
-          {series.target_fish.map(fish => (
+          {(series.target_fish || []).map(fish => (
             <a href={`/en/fish/${getFishSlug(fish)}/`} class="px-3 py-1.5 bg-gray-50 text-gray-700 rounded-full text-sm border border-gray-100 hover:bg-gray-100 transition-colors">
               {FISH_NAME_EN[fish] ?? fish}
             </a>
