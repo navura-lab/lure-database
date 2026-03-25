@@ -3,18 +3,53 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'AboutPage',
-  name: '運営者情報',
-  url: 'https://www.castlog.xyz/about/',
+  '@graph': [
+    {
+      '@type': 'AboutPage',
+      name: '運営者情報',
+      url: 'https://www.castlog.xyz/about/',
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://www.castlog.xyz/#organization',
+      name: 'CAST/LOG（ファブラス）',
+      alternateName: 'キャストログ',
+      url: 'https://www.castlog.xyz/',
+      logo: 'https://www.castlog.xyz/favicon.svg',
+      email: 'info@castlog.xyz',
+      foundingDate: '2026',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: '大阪市',
+        addressRegion: '大阪府',
+        addressCountry: 'JP',
+      },
+      founder: {
+        '@type': 'Person',
+        name: '小林 太一',
+      },
+      sameAs: [],
+      description: '日本最大級の釣りルアー専門データベース。104社・8,000シリーズ以上のルアー情報をメーカー公式サイトから収集・整理。',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.castlog.xyz/#website',
+      url: 'https://www.castlog.xyz/',
+      name: 'CAST/LOG',
+      publisher: { '@id': 'https://www.castlog.xyz/#organization' },
+      inLanguage: 'ja-JP',
+    },
+  ],
 };
 ---
 
-<BaseLayout title="運営者情報 | CAST/LOG" description="CAST/LOG（キャストログ）の運営者情報。ルアーデータベースの運営体制について。" canonicalPath="/about/" jsonLd={jsonLd}>
+<BaseLayout title="運営者情報 | CAST/LOG" description="CAST/LOG（キャストログ）の運営者情報。ルアーデータベースの運営体制・データ収集方針・品質管理について。" canonicalPath="/about/" jsonLd={jsonLd}>
   <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
     <h1 class="text-2xl sm:text-3xl font-bold text-text mb-8">運営者情報</h1>
 
-    <div class="bg-surface rounded-xl border border-border p-6 sm:p-8 mb-8">
+    <!-- 運営者テーブル -->
+    <div class="bg-surface rounded-lg border border-border p-6 sm:p-8 mb-8">
       <table class="w-full text-sm">
         <tbody class="divide-y divide-border-light">
           <tr>
@@ -27,7 +62,7 @@ const jsonLd = {
           </tr>
           <tr>
             <th class="py-3 pr-4 text-left text-text-mid font-medium">運営</th>
-            <td class="py-3 text-text">CAST/LOG 運営事務局</td>
+            <td class="py-3 text-text">ファブラス</td>
           </tr>
           <tr>
             <th class="py-3 pr-4 text-left text-text-mid font-medium">代表者</th>
@@ -45,21 +80,102 @@ const jsonLd = {
       </table>
     </div>
 
+    <!-- サイト紹介 -->
     <section class="mb-8">
       <h2 class="text-xl font-bold text-text mb-4">CAST/LOGについて</h2>
       <div class="text-[15px] text-text-mid leading-[1.9] space-y-4">
         <p>
-          CAST/LOG（キャストログ）は、日本国内の主要ルアーメーカーの製品情報を網羅的に収集・整理した釣りルアー専門のデータベースサイトです。
-        </p>
-        <p>
-          6,160シリーズ・159,000以上のカラーバリエーションを登録しており、タイプ別・メーカー別・対象魚別にルアーを検索・比較できます。各ルアーの詳細ページでは、スペック情報に加え、データベースの分析に基づいたエディトリアルレビューやカラー選択ガイドを掲載しています。
-        </p>
-        <p>
-          当サイトの情報はメーカー公式サイト・販売店の公開情報をもとに収集しており、定期的に更新しています。掲載情報の正確性には万全を期しておりますが、最新の商品情報・価格は各メーカーおよび販売店にてご確認ください。
+          CAST/LOG（キャストログ）は、国内外の主要ルアーメーカーの製品情報を網羅的に収集・整理した釣りルアー専門のデータベースサイトです。「一投を、資産にする。」をコンセプトに、アングラーが正確なルアー情報にすばやくアクセスできる環境を提供しています。
         </p>
       </div>
     </section>
 
+    <!-- 実績 -->
+    <section class="mb-8">
+      <h2 class="text-xl font-bold text-text mb-4">データベースの規模</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <div class="bg-surface rounded-lg border border-border p-4 text-center">
+          <p class="font-mono text-2xl font-bold text-text">104</p>
+          <p class="text-xs text-text-mid mt-1">対応メーカー</p>
+        </div>
+        <div class="bg-surface rounded-lg border border-border p-4 text-center">
+          <p class="font-mono text-2xl font-bold text-text">8,000+</p>
+          <p class="text-xs text-text-mid mt-1">ルアーシリーズ</p>
+        </div>
+        <div class="bg-surface rounded-lg border border-border p-4 text-center">
+          <p class="font-mono text-2xl font-bold text-text">159,000+</p>
+          <p class="text-xs text-text-mid mt-1">カラーバリエーション</p>
+        </div>
+        <div class="bg-surface rounded-lg border border-border p-4 text-center">
+          <p class="font-mono text-2xl font-bold text-text">毎日</p>
+          <p class="text-xs text-text-mid mt-1">自動更新</p>
+        </div>
+      </div>
+      <div class="text-[15px] text-text-mid leading-[1.9] space-y-4">
+        <p>
+          タイプ別・メーカー別・対象魚別にルアーを検索・比較でき、各ルアーの詳細ページではスペック情報とカラー一覧を掲載しています。
+        </p>
+      </div>
+    </section>
+
+    <!-- データの出典と品質方針 -->
+    <section class="mb-8">
+      <h2 class="text-xl font-bold text-text mb-4">データの出典と品質方針</h2>
+      <div class="text-[15px] text-text-mid leading-[1.9] space-y-4">
+        <p>
+          当サイトに掲載しているルアー情報は、すべてメーカー公式サイトおよび公式販売ページから自動収集しています。独自の収集パイプラインにより、各メーカーサイトを定期巡回し、新商品の検出・既存商品の更新を行っています。
+        </p>
+        <p>
+          データの正確性を最優先としており、以下の品質管理方針を実施しています。
+        </p>
+      </div>
+      <ul class="mt-4 space-y-3 text-[15px] text-text-mid leading-[1.9]">
+        <li class="flex items-start gap-3">
+          <span class="text-accent font-mono text-sm font-bold mt-0.5 shrink-0">01</span>
+          <span><strong class="text-text">公式データのみ使用</strong> — スペック・カラー・価格はメーカー公式情報のみを出典とし、推測や二次情報による補完は行いません。</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-accent font-mono text-sm font-bold mt-0.5 shrink-0">02</span>
+          <span><strong class="text-text">根拠のない評価の排除</strong> — 実データに基づかないランキング・おすすめ・主観的評価は掲載しません。</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-accent font-mono text-sm font-bold mt-0.5 shrink-0">03</span>
+          <span><strong class="text-text">定期的な検証</strong> — 登録データはカテゴリ分類・対象魚・説明文を含め定期的に検証し、誤りが発見され次第修正しています。</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-accent font-mono text-sm font-bold mt-0.5 shrink-0">04</span>
+          <span><strong class="text-text">わからないなら書かない</strong> — 情報が不明確な場合は空欄とし、不正確な情報を推測で埋めることはしません。</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 更新頻度 -->
+    <section class="mb-8">
+      <h2 class="text-xl font-bold text-text mb-4">更新頻度</h2>
+      <div class="text-[15px] text-text-mid leading-[1.9] space-y-4">
+        <p>
+          国内メーカーは毎時（0:00-7:00 JST）、海外メーカーは毎日1回のスケジュールで自動スクレイプを実行しています。新商品の検知は国内メーカーが週次、海外メーカーが日次で行っています。
+        </p>
+        <p>
+          掲載情報の正確性には万全を期しておりますが、最新の商品情報・価格は各メーカーおよび販売店にてご確認ください。
+        </p>
+      </div>
+    </section>
+
+    <!-- お問い合わせ -->
+    <section class="mb-8">
+      <h2 class="text-xl font-bold text-text mb-4">お問い合わせ</h2>
+      <div class="text-[15px] text-text-mid leading-[1.9] space-y-4">
+        <p>
+          掲載内容の誤り、データの追加リクエスト、その他お問い合わせは下記メールアドレスまでご連絡ください。
+        </p>
+        <p>
+          <a href="mailto:info@castlog.xyz" class="text-accent hover:underline font-mono text-sm">info@castlog.xyz</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 関連ページ -->
     <section>
       <h2 class="text-xl font-bold text-text mb-4">関連ページ</h2>
       <div class="flex flex-col gap-2">

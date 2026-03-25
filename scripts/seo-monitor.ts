@@ -235,6 +235,15 @@ interface DailyData {
     total_submitted: number;
     last_run: string;
   };
+  // インデックス推移追跡（サイトマップ + indexing-progress統合）
+  indexCoverage?: {
+    sitemapSubmitted: number;   // サイトマップ送信URL数
+    sitemapIndexed: number;     // インデックス済みURL数（GSCサイトマップから）
+    indexingApiSubmitted: number; // Indexing API送信済み件数
+    indexingApiOffset: number;    // 現在のオフセット
+    deltaSubmitted: number;     // 前日比（送信数）
+    deltaIndexed: number;       // 前日比（インデックス数）
+  };
   // URL検査（--inspect 時）
   inspections?: Record<string, any>;
 }
@@ -282,6 +291,53 @@ function loadIndexingProgress(): { lure_offset: number; total_submitted: number;
     }
   } catch { /* ignore */ }
   return null;
+}
+
+// ─── インデックス推移追跡 ────────────────────────────
+
+interface IndexCoverage {
+  sitemapSubmitted: number;
+  sitemapIndexed: number;
+  indexingApiSubmitted: number;
+  indexingApiOffset: number;
+  deltaSubmitted: number;
+  deltaIndexed: number;
+}
+
+function buildIndexCoverage(
+  sitemaps: any[],
+  indexingProgress: { lure_offset: number; total_submitted: number; last_run: string } | null,
+  previousData: DailyData | null,
+): IndexCoverage {
+  // サイトマップから送信URL数・インデックス済み数を集計
+  let sitemapSubmitted = 0;
+  let sitemapIndexed = 0;
+
+  for (const sm of sitemaps) {
+    if (sm.contents && Array.isArray(sm.contents)) {
+      for (const c of sm.contents) {
+        sitemapSubmitted += parseInt(c.submitted || '0', 10);
+        sitemapIndexed += parseInt(c.indexed || '0', 10);
+      }
+    }
+  }
+
+  const indexingApiSubmitted = indexingProgress?.total_submitted || 0;
+  const indexingApiOffset = indexingProgress?.lure_offset || 0;
+
+  // 前日比を計算
+  const prevCoverage = previousData?.indexCoverage;
+  const deltaSubmitted = prevCoverage ? sitemapSubmitted - prevCoverage.sitemapSubmitted : 0;
+  const deltaIndexed = prevCoverage ? sitemapIndexed - prevCoverage.sitemapIndexed : 0;
+
+  return {
+    sitemapSubmitted,
+    sitemapIndexed,
+    indexingApiSubmitted,
+    indexingApiOffset,
+    deltaSubmitted,
+    deltaIndexed,
+  };
 }
 
 // ─── インデックスカバレッジサンプリング ──────────────
@@ -461,8 +517,22 @@ function buildReport(current: DailyData, previous: DailyData | null): string {
     lines.push('');
   }
 
-  // ── インデックス進捗 ──
-  if (current.indexingProgress) {
+  // ── インデックス推移 ──
+  if (current.indexCoverage) {
+    const ic = current.indexCoverage;
+    lines.push('*── インデックス推移 ──*');
+    lines.push(`  サイトマップ送信URL: ${ic.sitemapSubmitted.toLocaleString()}件${ic.deltaSubmitted !== 0 ? ` (前日比: ${delta(ic.sitemapSubmitted, ic.sitemapSubmitted - ic.deltaSubmitted)})` : ''}`);
+    lines.push(`  インデックス済み: ${ic.sitemapIndexed.toLocaleString()}件${ic.deltaIndexed !== 0 ? ` (前日比: ${delta(ic.sitemapIndexed, ic.sitemapIndexed - ic.deltaIndexed)})` : ''}`);
+    if (ic.sitemapSubmitted > 0) {
+      const rate = (ic.sitemapIndexed / ic.sitemapSubmitted * 100).toFixed(1);
+      lines.push(`  インデックス率: ${rate}%`);
+    }
+    lines.push(`  Indexing API送信済み: ${ic.indexingApiSubmitted.toLocaleString()}件 (offset: ${ic.indexingApiOffset})`);
+    lines.push('');
+  }
+
+  // ── インデックス送信進捗（後方互換） ──
+  if (!current.indexCoverage && current.indexingProgress) {
     const ip = current.indexingProgress;
     lines.push('*── インデックス送信進捗 ──*');
     lines.push(`  送信済み: ${ip.lure_offset}件 / 総送信: ${ip.total_submitted}件`);
@@ -558,6 +628,13 @@ function checkAlerts(current: DailyData, previous: DailyData | null): string[] {
     }
   }
 
+  // インデックス数が前日比で大幅減少
+  if (current.indexCoverage && previous?.indexCoverage) {
+    if (current.indexCoverage.deltaIndexed < -100) {
+      alerts.push(`インデックス数が急減: ${previous.indexCoverage.sitemapIndexed} → ${current.indexCoverage.sitemapIndexed} (${current.indexCoverage.deltaIndexed})`);
+    }
+  }
+
   // インデックス送信が3日以上止まっている
   if (current.indexingProgress) {
     const lastRun = current.indexingProgress.last_run;
@@ -642,7 +719,14 @@ async function main() {
   // 8. インデックス送信進捗
   const indexingProgress = loadIndexingProgress();
 
-  // 9. URL検査（オプション）
+  // 9. 前回データ読み込み（indexCoverage計算用に先に取得）
+  const previous = loadPreviousData();
+
+  // 10. インデックス推移追跡
+  const indexCoverage = buildIndexCoverage(sitemaps, indexingProgress, previous);
+  log(`Index coverage: submitted=${indexCoverage.sitemapSubmitted} indexed=${indexCoverage.sitemapIndexed} apiSent=${indexCoverage.indexingApiSubmitted}`);
+
+  // 11. URL検査（オプション）
   let inspections: CoverageSample[] | undefined;
   if (DO_INSPECT) {
     log('Running indexing coverage sampling...');
@@ -664,11 +748,9 @@ async function main() {
     sitemaps,
     weeklyComparison,
     indexingProgress: indexingProgress || undefined,
+    indexCoverage,
     inspections: inspections as any,
   };
-
-  // 前回データ読み込み
-  const previous = loadPreviousData();
 
   // レポート生成
   const report = buildReport(currentData, previous);
