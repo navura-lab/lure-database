@@ -54,8 +54,8 @@ export function findSimilarSeries(
     score += 5;
 
     // 同魚種: +3 per overlap
-    const currentFish = new Set(current.target_fish);
-    for (const fish of candidate.target_fish) {
+    const currentFish = new Set(current.target_fish || []);
+    for (const fish of (candidate.target_fish || [])) {
       if (currentFish.has(fish)) score += 3;
     }
 

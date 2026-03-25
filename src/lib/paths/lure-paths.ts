@@ -193,7 +193,7 @@ export async function getLurePaths(locale: 'ja' | 'en' = 'ja') {
       .slice(0, 6);
 
     for (const s of relatedByMaker) usedSlugs.add(`${s.manufacturer_slug}/${s.slug}`);
-    const primaryFish = series.target_fish[0];
+    const primaryFish = (series.target_fish || [])[0];
     const relatedByFish = primaryFish
       ? (byFish.get(primaryFish) || [])
           .filter(s => !usedSlugs.has(`${s.manufacturer_slug}/${s.slug}`))

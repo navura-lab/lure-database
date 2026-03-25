@@ -224,8 +224,8 @@ export function generateAutoEditorial(
   if (!series.type || !series.description) return null;
 
   const template = TYPE_TEMPLATES[series.type] || DEFAULT_TEMPLATE;
-  const fishCtx = series.target_fish.length > 0
-    ? FISH_CONTEXT[series.target_fish[0]] || `${series.target_fish[0]}狙いの`
+  const fishCtx = (series.target_fish || []).length > 0
+    ? FISH_CONTEXT[(series.target_fish || [])[0]] || `${(series.target_fish || [])[0]}狙いの`
     : '';
 
   const hasWeight = series.weight_range.min != null || series.weight_range.max != null;
@@ -299,7 +299,7 @@ export function generateAutoEditorial(
   }));
 
   // ─── カラーガイド ───
-  const colorGuide = generateColorAdvice(series.colors, series.color_count);
+  const colorGuide = generateColorAdvice(series.colors || [], series.color_count);
 
   // ─── 気になるポイント ───
   const concerns: string[] = [];
@@ -311,7 +311,7 @@ export function generateAutoEditorial(
   // ─── おすすめ ───
   const recommendation = {
     recommended: [
-      `${series.target_fish.length > 0 ? series.target_fish[0] + '狙いの' : ''}アングラーに`,
+      `${(series.target_fish || []).length > 0 ? (series.target_fish || [])[0] + '狙いの' : ''}アングラーに`,
       `${series.manufacturer}のルアーが好きな方に`,
       `${series.type}の引き出しを増やしたい中級者に`,
     ],

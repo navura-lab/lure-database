@@ -39,8 +39,8 @@ function normalize(value: number, max: number): number {
 /** シリーズのユニーク重量バリエーション数を算出 */
 function countWeightVariants(series: LureSeries): number {
   const weights = new Set<number>();
-  for (const color of series.colors) {
-    for (const w of color.weights) {
+  for (const color of (series.colors || [])) {
+    for (const w of (color.weights || [])) {
       if (w.weight != null) weights.add(w.weight);
     }
   }

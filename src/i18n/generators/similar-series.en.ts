@@ -79,7 +79,7 @@ export function localizeSimilarSeries(
   entries: SimilarSeriesEntry[],
   current: LureSeries,
 ): SimilarSeriesEntry[] {
-  return entries.map(entry => ({
+  return (entries || []).map(entry => ({
     ...entry,
     comparisonText: generateComparisonTextEn(current, entry.series),
   }));

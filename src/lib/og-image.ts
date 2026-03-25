@@ -102,8 +102,8 @@ export async function generateOgImage(series: LureSeries): Promise<Buffer> {
 
   const weight = formatWeight(series);
   const price = formatPrice(series);
-  const fishList = series.target_fish.length > 0
-    ? truncate(series.target_fish.join(', '), 30)
+  const fishList = (series.target_fish || []).length > 0
+    ? truncate((series.target_fish || []).join(', '), 30)
     : null;
 
   // 外部画像をfetch → PNGデータURI化

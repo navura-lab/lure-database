@@ -18,7 +18,7 @@ const { series, isNew, priority = false, rank, locale = 'ja' } = Astro.props;
 const ui = getUI(locale);
 const prefix = getBasePrefix(locale);
 
-const hasLimited = series.colors.some(c => c.is_limited);
+const hasLimited = (series.colors || []).some(c => c.is_limited);
 const hasPrice = series.price_range.max > 0;
 const priceDisplay = hasPrice
   ? formatPriceRange(series.price_range.min, series.price_range.max, locale)

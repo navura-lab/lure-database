@@ -36,8 +36,8 @@ const SALTWATER_FISH = ['シーバス', 'ヒラメ', '青物', 'マダイ', 'タ
 export function generateWeightStrategyEn(series: LureSeries): WeightStrategyEntry[] {
   // 実ウェイトを収集
   const weights = new Set<number>();
-  for (const color of series.colors) {
-    for (const w of color.weights) {
+  for (const color of (series.colors || [])) {
+    for (const w of (color.weights || [])) {
       if (w.weight && w.weight > 0) weights.add(w.weight);
     }
   }
@@ -46,7 +46,7 @@ export function generateWeightStrategyEn(series: LureSeries): WeightStrategyEntr
   const sorted = [...weights].sort((a, b) => a - b);
 
   // ソルト/フレッシュ判定
-  const isSaltwater = series.target_fish.some(f => SALTWATER_FISH.includes(f));
+  const isSaltwater = (series.target_fish || []).some(f => SALTWATER_FISH.includes(f));
   const weightMap = isSaltwater ? SALTWATER_WEIGHT_MAP_EN : FRESHWATER_WEIGHT_MAP_EN;
 
   // 重量をグループ化

@@ -124,7 +124,7 @@ const specsSummary = `The ${series.name} is a ${specParts.join(', ')}. Available
 // --- JSON-LD ---
 const productImages: string[] = [];
 if (series.representative_image) productImages.push(series.representative_image);
-for (const color of series.colors) {
+for (const color of (series.colors || [])) {
   if (color.images && color.images.length > 0) productImages.push(color.images[0]);
   if (productImages.length >= 9) break;
 }
@@ -151,7 +151,7 @@ const jsonLd: Record<string, unknown> = {
     ...(series.length_range.min ? [{ '@type': 'PropertyValue', name: 'Length', value: lengthDisplay }] : []),
     ...(series.diving_depth ? [{ '@type': 'PropertyValue', name: 'Diving Depth', value: series.diving_depth }] : []),
     ...(series.action_type ? [{ '@type': 'PropertyValue', name: 'Action', value: ACTION_TYPE_EN[series.action_type] ?? series.action_type }] : []),
-    ...(series.target_fish.length > 0 ? [{ '@type': 'PropertyValue', name: 'Target Fish', value: targetFishEn.join(', ') }] : []),
+    ...((series.target_fish || []).length > 0 ? [{ '@type': 'PropertyValue', name: 'Target Fish', value: targetFishEn.join(', ') }] : []),
     ...(series.color_count > 0 ? [{ '@type': 'PropertyValue', name: 'Color Count', value: `${series.color_count}` }] : []),
   ],
 };
@@ -218,7 +218,7 @@ if (weightStrategyEn.length >= 2) {
   faqEntries.push({ '@type': 'Question', name: `How do I choose the right weight for the ${series.name}?`, acceptedAnswer: { '@type': 'Answer', text: `The ${series.name} covers ${weightStrategyEn.length} weight categories: ${wsText}. Choose based on water depth and current conditions.` } });
 }
 
-if (series.target_fish.length > 0) {
+if ((series.target_fish || []).length > 0) {
   const seasonMap: Record<string, string> = {
     'シーバス': 'Year-round (peak during spring post-spawn and fall gizzard shad patterns)',
     'ヒラメ': 'Fall through spring (Oct-Apr, with late fall to early winter being prime)',
@@ -234,7 +234,7 @@ if (series.target_fish.length > 0) {
     'チヌ': 'Year-round (spring through fall has highest activity)',
     'ロックフィッシュ': 'Year-round (fall through winter is prime, tolerates cold water)',
   };
-  const fish = series.target_fish[0];
+  const fish = (series.target_fish || [])[0];
   const season = seasonMap[fish];
   if (season) {
     faqEntries.push({ '@type': 'Question', name: `When is the best season to use the ${series.name}?`, acceptedAnswer: { '@type': 'Answer', text: `The primary target of the ${series.name}, ${FISH_NAME_EN[fish] ?? fish}, can be targeted: ${season}. Conditions vary by region and water temperature.` } });
@@ -511,7 +511,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
     )}
 
     <!-- Spec Analysis -->
-    {specComparison.length > 0 && fishEn && (
+    {(specComparison || []).length > 0 && fishEn && (
       <section class="mb-12">
         <h2 class="text-xl font-bold text-gray-900 mb-3">{series.name} Spec Analysis</h2>
         <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
@@ -536,7 +536,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
     )}
 
     <!-- Price Position (fallback) -->
-    {pricePosition && !(specComparison.length > 0 && fishEn) && hasPrice && (
+    {pricePosition && !((specComparison || []).length > 0 && fishEn) && hasPrice && (
       <section class="mb-12">
         <h2 class="text-xl font-bold text-gray-900 mb-3">Price Position</h2>
         <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
@@ -698,7 +698,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
               )}
             </div>
             <p class="text-sm font-medium text-gray-900 truncate">{color.color_name}</p>
-            {color.weights.length > 0 && (
+            {(color.weights || []).length > 0 && (
               <div class="flex flex-wrap gap-1 mt-1">
                 {(color.weights || []).map(w => (
                   <span class="px-2 py-0.5 bg-gray-50 text-xs text-gray-600 rounded-full border border-gray-100">
@@ -711,8 +711,8 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
               {color.is_limited && <Badge label="Limited" variant="limited" />}
               {color.is_discontinued && <Badge label="Discontinued" variant="discontinued" />}
             </div>
-            {color.weights.length === 1 && color.weights[0].price > 0 && (
-              <p class="text-sm font-bold text-gray-900 mt-1">{yen}{color.weights[0].price.toLocaleString()}</p>
+            {(color.weights || []).length === 1 && (color.weights || [])[0]?.price > 0 && (
+              <p class="text-sm font-bold text-gray-900 mt-1">{yen}{(color.weights || [])[0]?.price.toLocaleString()}</p>
             )}
           </div>
         ))}
@@ -777,7 +777,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
       <section class="mb-12">
         <div class="flex items-baseline justify-between mb-4">
           <h2 class="text-xl font-bold text-gray-900">More {FISH_NAME_EN[(series.target_fish || [])[0]] ?? (series.target_fish || [])[0]} Lures</h2>
-          <a href={`/en/fish/${getFishSlug(series.target_fish[0])}/`} class="text-sm text-accent hover:text-accent-dark transition-colors">See all &rarr;</a>
+          <a href={`/en/fish/${getFishSlug((series.target_fish || [])[0])}/`} class="text-sm text-accent hover:text-accent-dark transition-colors">See all &rarr;</a>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {relatedByFish.map(s => (<LureCard series={s} isNew={false} locale={locale} />))}

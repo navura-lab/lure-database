@@ -10,8 +10,8 @@ import { formatPrice } from '../lib/t';
 
 export function generateAutoDescriptionEn(series: LureSeries): string {
   const typeEn = LURE_TYPE_EN[series.type] ?? series.type;
-  const fishEn = series.target_fish.length > 0
-    ? series.target_fish.slice(0, 3).map(f => FISH_NAME_EN[f] ?? f).join(', ')
+  const fishEn = (series.target_fish || []).length > 0
+    ? (series.target_fish || []).slice(0, 3).map(f => FISH_NAME_EN[f] ?? f).join(', ')
     : '';
 
   const parts: string[] = [];

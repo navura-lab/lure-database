@@ -34,7 +34,7 @@ const {
   fieldCompat, weightStrategy, similarSeries,
 } = Astro.props as LurePathProps;
 
-const hasLimited = series.colors.some(c => c.is_limited);
+const hasLimited = (series.colors || []).some(c => c.is_limited);
 
 // 楽天アフィリエイトリンク
 const RAKUTEN_AFF_ID = '521589db.1417b362.521589dc.750250b8';
@@ -187,8 +187,8 @@ const specLabel = [
   lengthDisplay ? `全長${lengthDisplay}` : null,
   priceLabel,
 ].filter(Boolean).join('・');
-const fishLabel = series.target_fish?.length > 0
-  ? `${series.target_fish.slice(0, 3).join('・')}対応。`
+const fishLabel = (series.target_fish || []).length > 0
+  ? `${(series.target_fish || []).slice(0, 3).join('・')}対応。`
   : '';
 // エディトリアルがある場合はcatchcopyをdescriptionに使用（CTR向上）
 const rawDescription = editorial
@@ -204,13 +204,13 @@ if (lengthDisplay) specParts.push(`全長${lengthDisplay}`);
 if (series.diving_depth) specParts.push(`潜行深度${series.diving_depth}`);
 if (series.action_type) specParts.push(`${series.action_type}タイプ`);
 if (hasPrice) specParts.push(`価格は${priceDisplay}`);
-const specsSummary = `${series.name}とは、${specParts.join('、')}のルアーである。全${series.color_count}カラーをラインナップ${series.target_fish.length > 0 ? `し、${series.target_fish.slice(0, 5).join('・')}などをターゲットとする` : ''}。`;
+const specsSummary = `${series.name}とは、${specParts.join('、')}のルアーである。全${series.color_count}カラーをラインナップ${(series.target_fish || []).length > 0 ? `し、${(series.target_fish || []).slice(0, 5).join('・')}などをターゲットとする` : ''}。`;
 
 // --- SEO: JSON-LD Product schema ---
 // 画像配列: メイン画像 + カラー画像（最大8枚）
 const productImages: string[] = [];
 if (series.representative_image) productImages.push(series.representative_image);
-for (const color of series.colors) {
+for (const color of (series.colors || [])) {
   if (color.images && color.images.length > 0) {
     productImages.push(color.images[0]);
   }
@@ -273,10 +273,10 @@ const jsonLd: Record<string, unknown> = {
       name: 'アクション',
       value: series.action_type,
     }] : []),
-    ...(series.target_fish.length > 0 ? [{
+    ...((series.target_fish || []).length > 0 ? [{
       '@type': 'PropertyValue',
       name: '対象魚',
-      value: series.target_fish.join('、'),
+      value: (series.target_fish || []).join('、'),
     }] : []),
     ...(series.color_count > 0 ? [{
       '@type': 'PropertyValue',
@@ -352,20 +352,20 @@ if (hasPrice) {
 }
 
 // Q3: 対象魚（GEO対応: タイプ情報・用途文脈を追加）
-if (series.target_fish.length > 0) {
+if ((series.target_fish || []).length > 0) {
   const fishContext = series.type && series.type !== 'その他'
     ? `${series.type}として設計されており、`
     : '';
   faqEntries.push({
     '@type': 'Question',
     name: `${series.name}で釣れる魚は？`,
-    acceptedAnswer: { '@type': 'Answer', text: `${series.name}は${fishContext}${series.target_fish.join('、')}などをターゲットにしたルアーです。${series.target_fish.length >= 3 ? `特に${series.target_fish[0]}での使用実績が多い。` : ''}` },
+    acceptedAnswer: { '@type': 'Answer', text: `${series.name}は${fishContext}${(series.target_fish || []).join('、')}などをターゲットにしたルアーです。${(series.target_fish || []).length >= 3 ? `特に${(series.target_fish || [])[0]}での使用実績が多い。` : ''}` },
   });
 }
 
 // Q4: カラーバリエーション（GEO対応: カラー系統分析データを反映）
 if (series.color_count > 0) {
-  const sampleColors = series.colors.slice(0, 5).map(c => c.color_name).join('、');
+  const sampleColors = (series.colors || []).slice(0, 5).map(c => c.color_name).join('、');
   const topCategory = colorBreakdown.length > 0 && colorBreakdown[0].id !== 'other'
     ? `カラー系統では${colorBreakdown[0].label}が${colorBreakdown[0].count}色（${colorBreakdown[0].pct}%）と最も多い構成です。`
     : '';
@@ -408,7 +408,7 @@ if (weightStrategy.length >= 2) {
 }
 
 // Q8: シーズン（魚種ベースの推奨時期）
-if (series.target_fish.length > 0) {
+if ((series.target_fish || []).length > 0) {
   const seasonMap: Record<string, string> = {
     'シーバス': '通年（特に春の産卵後と秋のコノシロパターンが最盛期）',
     'ヒラメ': '秋〜春（10月〜4月。特に晩秋〜初冬が好期）',
@@ -424,7 +424,7 @@ if (series.target_fish.length > 0) {
     'チヌ': '通年（春〜秋が活性が高い）',
     'ロックフィッシュ': '通年（秋〜冬が好期。低水温に強い）',
   };
-  const fish = series.target_fish[0];
+  const fish = (series.target_fish || [])[0];
   const season = seasonMap[fish];
   if (season) {
     faqEntries.push({
@@ -488,7 +488,7 @@ if (aiGuide) {
   usageTextParts.push(`${series.name}は${series.manufacturer}の${series.type}。`);
 
   // 魚種×タイプ特化アドバイスがあれば優先
-  const fishSlug = series.target_fish[0] ? getFishSlug(series.target_fish[0]) : '';
+  const fishSlug = (series.target_fish || [])[0] ? getFishSlug((series.target_fish || [])[0]) : '';
   const ftUsageKey = `${fishSlug}|${typeSlug}`;
   const ftUsage = fishTypeUsage[ftUsageKey];
   if (ftUsage) {
@@ -499,7 +499,7 @@ if (aiGuide) {
   }
   if (series.action_type) usageTextParts.push(`アクションタイプは${series.action_type}。`);
   if (series.diving_depth) usageTextParts.push(`潜行深度は${series.diving_depth}。`);
-  if (series.target_fish.length > 0) usageTextParts.push(`${series.target_fish.slice(0, 3).join('・')}をターゲットに使用できる。`);
+  if ((series.target_fish || []).length > 0) usageTextParts.push(`${(series.target_fish || []).slice(0, 3).join('・')}をターゲットに使用できる。`);
   usageText = usageTextParts.join('');
 }
 
@@ -628,11 +628,11 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
           )}
 
           {/* カラーギャラリー（上位4色） */}
-          {series.colors && series.colors.filter(c => c.images?.length > 0).length > 1 && (
+          {(series.colors || []).filter(c => c.images?.length > 0).length > 1 && (
             <div class="mb-8">
               <h3 class="text-base font-bold text-text mb-3">カラーバリエーション</h3>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {series.colors.filter(c => c.images?.length > 0).slice(0, 4).map(color => (
+                {(series.colors || []).filter(c => c.images?.length > 0).slice(0, 4).map(color => (
                   <div class="bg-white rounded-xl border border-border-light overflow-hidden">
                     <div class="aspect-square">
                       <img src={color.images[0]} alt={`${series.name} ${color.color_name} ${makerJa}`} class="w-full h-full object-scale-down p-2" loading="lazy" />
@@ -776,9 +776,9 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
             <Placeholder type={series.type} />
           )}
         </div>
-        {series.colors && series.colors.filter(c => c.images?.length > 0).length > 1 && (
+        {(series.colors || []).filter(c => c.images?.length > 0).length > 1 && (
           <div class="flex gap-2 overflow-x-auto py-3 scrollbar-hide">
-            {series.colors.filter(c => c.images?.length > 0).slice(0, 12).map((color, i) => (
+            {(series.colors || []).filter(c => c.images?.length > 0).slice(0, 12).map((color, i) => (
               <div class="shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent hover:border-accent transition-colors cursor-pointer">
                 <img src={color.images[0]} alt={`${series.name} ${color.color_name}`} class="w-full h-full object-cover" loading="lazy" />
               </div>
@@ -1152,7 +1152,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
         <span class="text-sm text-text-mid">{series.color_count}色</span>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {series.colors.map(color => (
+        {(series.colors || []).map(color => (
           <div class="group">
             <div class="aspect-square rounded-xl overflow-hidden border border-gray-100 bg-white mb-2 transition-all duration-200 group-hover:border-accent group-hover:shadow-card-hover">
               {color.images && color.images.length > 0 ? (
@@ -1171,9 +1171,9 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
             </div>
             <p class="text-sm font-medium text-gray-900 truncate">{color.color_name}</p>
             <!-- ウェイトバッジ横並び -->
-            {color.weights.length > 0 && (
+            {(color.weights || []).length > 0 && (
               <div class="flex flex-wrap gap-1 mt-1">
-                {color.weights.map(w => (
+                {(color.weights || []).map(w => (
                   <span class="px-2 py-0.5 bg-gray-50 text-xs text-gray-600 rounded-full border border-gray-100">
                     {w.weight && `${w.weight}g`}{w.weight && w.length && ' / '}{w.length && `${w.length}mm`}
                   </span>
@@ -1184,8 +1184,8 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
               {color.is_limited && <Badge label="限定" variant="limited" />}
               {color.is_discontinued && <Badge label="廃盤" variant="discontinued" />}
             </div>
-            {color.weights.length === 1 && color.weights[0].price > 0 && (
-              <p class="text-sm font-bold text-gray-900 mt-1">¥{color.weights[0].price.toLocaleString()}</p>
+            {(color.weights || []).length === 1 && (color.weights || [])[0]?.price > 0 && (
+              <p class="text-sm font-bold text-gray-900 mt-1">¥{(color.weights || [])[0]?.price.toLocaleString()}</p>
             )}
           </div>
         ))}
@@ -1319,11 +1319,11 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
     )}
 
     <!-- 対象魚 -->
-    {series.target_fish.length > 0 && (
+    {(series.target_fish || []).length > 0 && (
       <section class="mb-12">
         <h2 class="text-xl font-bold text-gray-900 mb-4">{series.name}で狙える魚種</h2>
         <div class="flex flex-wrap gap-2">
-          {series.target_fish.map(fish => (
+          {(series.target_fish || []).map(fish => (
             <a href={`/fish/${getFishSlug(fish)}/`} class="px-3 py-1.5 bg-gray-50 text-gray-700 rounded-full text-sm border border-gray-100 hover:bg-gray-100 transition-colors">
               {fish}
             </a>
@@ -1333,14 +1333,14 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
     )}
 
     <!-- 関連ルアー: 同ターゲット魚 -->
-    {relatedByFish.length > 0 && series.target_fish[0] && (
+    {relatedByFish.length > 0 && (series.target_fish || [])[0] && (
       <section class="mb-12">
         <div class="flex items-baseline justify-between mb-4">
           <h2 class="text-xl font-bold text-gray-900">
-            {series.target_fish[0]}向けルアー
+            {(series.target_fish || [])[0]}向けルアー
           </h2>
-          <a href={`/fish/${getFishSlug(series.target_fish[0])}/`} class="text-sm text-accent hover:text-accent-dark transition-colors">
-            {series.target_fish[0]}向けルアーをもっと見る →
+          <a href={`/fish/${getFishSlug((series.target_fish || [])[0])}/`} class="text-sm text-accent hover:text-accent-dark transition-colors">
+            {(series.target_fish || [])[0]}向けルアーをもっと見る →
           </a>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -1470,7 +1470,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
     <!-- 関連ガイド記事 -->
     {(() => {
       const guides = guideArticles.filter(g =>
-        g.targetFish.some(f => series.target_fish.includes(f)) ||
+        g.targetFish.some(f => (series.target_fish || []).includes(f)) ||
         g.targetTypes.includes(series.type)
       );
       return guides.length > 0 ? (

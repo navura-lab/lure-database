@@ -8,8 +8,8 @@ export function generateAutoDescription(series: LureSeries): string {
   const parts: string[] = [];
 
   // メーカー名 + ルアー名 + タイプ + 対象魚種
-  const fishLabel = series.target_fish.length > 0
-    ? series.target_fish.slice(0, 3).join('・') + 'を対象とした'
+  const fishLabel = (series.target_fish || []).length > 0
+    ? (series.target_fish || []).slice(0, 3).join('・') + 'を対象とした'
     : '';
   parts.push(`${series.manufacturer}の${series.name}は、${fishLabel}${series.type}`);
 
