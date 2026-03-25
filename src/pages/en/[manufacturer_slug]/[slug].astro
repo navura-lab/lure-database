@@ -40,7 +40,7 @@ const similarSeriesEn = localizeSimilarSeries(similarSeries, series);
 const typeEn = LURE_TYPE_EN[series.type] ?? series.type;
 const fishEn = categoryFish ? (FISH_NAME_EN[categoryFish] ?? categoryFish) : '';
 
-const hasLimited = series.colors.some(c => c.is_limited);
+const hasLimited = (series.colors || []).some(c => c.is_limited);
 
 // 楽天アフィリエイトリンク
 const RAKUTEN_AFF_ID = '521589db.1417b362.521589dc.750250b8';
@@ -189,9 +189,9 @@ if (hasPrice) {
   faqEntries.push({ '@type': 'Question', name: `How much does the ${series.name} cost?`, acceptedAnswer: { '@type': 'Answer', text: `The ${series.name} is priced at ${priceDisplay} (tax included).` } });
 }
 
-if (series.target_fish.length > 0) {
+if ((series.target_fish || []).length > 0) {
   const fishList = targetFishEn.join(', ');
-  faqEntries.push({ '@type': 'Question', name: `What fish can you catch with the ${series.name}?`, acceptedAnswer: { '@type': 'Answer', text: `The ${series.name} is designed as a ${typeEn.toLowerCase()} targeting ${fishList}.${series.target_fish.length >= 3 ? ` It has the most proven track record for ${targetFishEn[0]}.` : ''}` } });
+  faqEntries.push({ '@type': 'Question', name: `What fish can you catch with the ${series.name}?`, acceptedAnswer: { '@type': 'Answer', text: `The ${series.name} is designed as a ${typeEn.toLowerCase()} targeting ${fishList}.${ (series.target_fish || []).length >= 3 ? ` It has the most proven track record for ${targetFishEn[0]}.` : ''}` } });
 }
 
 if (series.color_count > 0) {
@@ -517,7 +517,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
         <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <p class="text-xs text-text-dim mb-3">Compared against {categoryTotal} {typeEn.toLowerCase()} series for {fishEn}</p>
           <div class="space-y-2">
-            {specComparison.map(line => (
+            {(specComparison || []).map(line => (
               <div class="flex items-start gap-2 text-sm text-gray-700">
                 <span class="text-accent mt-0.5 shrink-0">&#9656;</span>
                 <span>{line}</span>
@@ -759,7 +759,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
     )}
 
     <!-- Target Fish -->
-    {series.target_fish.length > 0 && (
+    {(series.target_fish || []).length > 0 && (
       <section class="mb-12">
         <h2 class="text-xl font-bold text-gray-900 mb-4">Target Fish for {series.name}</h2>
         <div class="flex flex-wrap gap-2">
@@ -773,10 +773,10 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
     )}
 
     <!-- Related: Same Target Fish -->
-    {relatedByFish.length > 0 && series.target_fish[0] && (
+    {relatedByFish.length > 0 && (series.target_fish || [])[0] && (
       <section class="mb-12">
         <div class="flex items-baseline justify-between mb-4">
-          <h2 class="text-xl font-bold text-gray-900">More {FISH_NAME_EN[series.target_fish[0]] ?? series.target_fish[0]} Lures</h2>
+          <h2 class="text-xl font-bold text-gray-900">More {FISH_NAME_EN[(series.target_fish || [])[0]] ?? (series.target_fish || [])[0]} Lures</h2>
           <a href={`/en/fish/${getFishSlug(series.target_fish[0])}/`} class="text-sm text-accent hover:text-accent-dark transition-colors">See all &rarr;</a>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">

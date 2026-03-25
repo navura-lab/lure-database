@@ -208,12 +208,12 @@ export async function getLurePaths(locale: 'ja' | 'en' = 'ja') {
       s => s.slug === series.slug && s.manufacturer_slug === series.manufacturer_slug
     ) + 1;
 
-    const colorBreakdown = computeColorBreakdown(series.colors.map(c => c.color_name));
+    const colorBreakdown = computeColorBreakdown((series.colors || []).map(c => c.color_name));
 
     const directArticles = articlesByLureSlug.get(series.slug) || [];
     const topicArticles = contentArticles.filter(a =>
       !directArticles.includes(a) && (
-        a.targetFish.some(f => series.target_fish.includes(f)) ||
+        a.targetFish.some(f => (series.target_fish || []).includes(f)) ||
         a.targetTypes.includes(series.type)
       )
     ).slice(0, 3);
