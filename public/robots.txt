@@ -4,6 +4,7 @@ Disallow: /api/
 Disallow: /trap/
 Disallow: /search/
 Disallow: /og/
+Disallow: /en/
 
 User-agent: Bingbot
 Allow: /
@@ -11,6 +12,7 @@ Disallow: /api/
 Disallow: /trap/
 Disallow: /search/
 Disallow: /og/
+Disallow: /en/
 
 User-agent: *
 Allow: /
@@ -19,5 +21,6 @@ Disallow: /api/
 Disallow: /trap/
 Disallow: /search/
 Disallow: /og/
+Disallow: /en/
 
 Sitemap: https://www.castlog.xyz/sitemap-index.xml

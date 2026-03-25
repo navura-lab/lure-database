@@ -29,7 +29,7 @@ export default defineConfig({
     },
     lastmod: new Date(),
     entryLimit: 5000, // 11,000+URLを3分割 → Googlebot回遊効率化
-    filter: (page) => !page.includes('/search/') && !page.includes('/trap/'),
+    filter: (page) => !page.includes('/search/') && !page.includes('/trap/') && !page.includes('/en/'),
     serialize: (item) => {
       const url = item.url;
       // ホームページ: 最高優先度・毎日更新

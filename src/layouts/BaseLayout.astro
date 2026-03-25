@@ -57,10 +57,11 @@ const orgDescription = locale === 'en'
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    {noindex
+    {(noindex || locale === 'en')
       ? <meta name="robots" content="noindex, nofollow" />
       : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
     }
+    {/* /en/ページは一時的にnoindex化。英語コンテンツの品質を担保した上で将来的に再開 */}
     <meta name="google-site-verification" content="D7Q80KgtUENvvxm2yGZ2xlpOjgCHHvRkMzonRL_bFS8" />
     <link rel="preload" href={fontKana} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={fontLatin} as="font" type="font/woff2" crossorigin />

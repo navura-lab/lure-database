@@ -546,6 +546,7 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
   canonicalPath={canonicalPathOverride || `/${series.manufacturer_slug}/${series.slug}/`}
   ogImage={`https://www.castlog.xyz/og/${series.manufacturer_slug}/${series.slug}/`}
   ogType="product"
+  noindex={series.color_count <= 1 && (!series.description || series.description.length < 30)}
   jsonLd={combinedJsonLd}
 >
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-pagefind-body>
