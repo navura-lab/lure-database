@@ -128,13 +128,8 @@ const orgDescription = locale === 'en'
       // 代わりにAstroのnavigate()で現在ページを再取得する
       window.addEventListener('pageshow', (event) => {
         if (event.persisted) {
-          // ViewTransitionsのnavigate APIが利用可能ならそれを使う
-          // 利用不可なら何もしない（bfcacheからの復元をそのまま使う）
-          const navigate = (window as any).navigation;
-          if (navigate && typeof navigate.reload === 'function') {
-            navigate.reload();
-          }
-          // フォールバック: DOMの状態をリフレッシュ（リロードせず）
+          // bfcacheから復元された場合、DOMの状態をリフレッシュ
+          // location.reload()やnavigation.reload()は履歴スタックを壊すため使用禁止
           document.dispatchEvent(new Event('astro:page-load'));
         }
       });
