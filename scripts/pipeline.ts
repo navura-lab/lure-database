@@ -366,6 +366,28 @@ async function lureExists(
 }
 
 /**
+ * slug単位で既存レコードのtypeを取得する（type上書き防止用）。
+ * 同一slugの全レコードは同じtypeを持つはずなので、1件取得すれば十分。
+ * 既存レコードがない場合はnullを返す。
+ */
+async function fetchExistingType(slug: string): Promise<string | null> {
+  const queryParams = `slug=eq.${encodeURIComponent(slug)}&select=type&limit=1`;
+  const url = `${SUPABASE_URL}/rest/v1/lures?${queryParams}`;
+  const res = await fetch(url, {
+    headers: {
+      'apikey': SUPABASE_SERVICE_ROLE_KEY,
+      'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+    },
+  });
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`Supabase query error (fetchExistingType) ${res.status}: ${body}`);
+  }
+  const rows = (await res.json()) as Array<{ type: string }>;
+  return rows.length > 0 ? rows[0].type : null;
+}
+
+/**
  * Insert a single lure row into Supabase.
  */
 // 挿入前バリデーション
@@ -586,6 +608,15 @@ async function processRecord(
     // Insert into Supabase: one row per color x weight combination
     let rowsInserted = 0;
 
+    // type上書き防止: 既存レコードのtypeをプリフェッチ
+    // 手動修正済みのtypeがスクレイパーのtypeで上書きされるのを防ぐ
+    const existingType = await fetchExistingType(scraped.slug);
+    let effectiveType = scraped.type;
+    if (existingType !== null && existingType !== scraped.type) {
+      log(`🛡️ type上書きスキップ: ${scraped.slug} 既存=${existingType} スクレイパー=${scraped.type}`);
+      effectiveType = existingType;
+    }
+
     for (const color of scraped.colors) {
       for (const weight of weights) {
         // Check if exists
@@ -608,7 +639,7 @@ async function processRecord(
           slug: scraped.slug,
           manufacturer: manufacturerName,
           manufacturer_slug: manufacturerSlug,
-          type: scraped.type,
+          type: effectiveType,
           target_fish: scraped.target_fish?.length ? scraped.target_fish : null,
           price: rowPrice,
           description: scraped.description || null,
