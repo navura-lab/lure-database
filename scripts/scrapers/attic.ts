@@ -223,7 +223,13 @@ export const scrapeAtticPage: ScraperFunction = async (url: string): Promise<Scr
   let mainImage = '';
   const ogImageMatch = html.match(/<meta\s+(?:property|name)=["']og:image["']\s+content=["']([^"']+)["']/i)
     || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:image["']/i);
-  if (ogImageMatch) mainImage = ogImageMatch[1];
+  if (ogImageMatch) {
+    const ogUrl = ogImageMatch[1];
+    // サイト共通画像（topview, banner, logo等）はスキップ
+    if (!/topview|banner|logo|header|favicon/i.test(ogUrl)) {
+      mainImage = ogUrl;
+    }
+  }
   if (!mainImage) {
     // Look for first real product image inside post_content, excluding logos
     const contentMatch = html.match(/<div\s+class="post_content[^"]*">([\s\S]*?)<\/article>/i);
