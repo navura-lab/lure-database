@@ -77,7 +77,28 @@ function loadTypeFishRules(): TypeFishRulesConfig | null {
   }
 }
 
-// ========== 非ルアー検出パターン ==========
+// ========== 非ルアー検出パターン（description用） ==========
+// descriptionの文脈から非ルアーを検出する。名前だけでは判定できないものを補完
+const NON_LURE_DESC_PATTERNS = [
+  // ツール・アクセサリー
+  { pattern: /特許取得ツール|挿入ツール|insertion\s+tool|rigging\s+tool/i, category: 'tool' },
+  { pattern: /\b(tool|ツール)\b.*\b(insert|挿入|punch|押し込)\b/i, category: 'tool' },
+  // ウェイト・シンカー（descriptionでの自称）
+  { pattern: /タングステン.*ウェイト|tungsten.*spike|nail.*weight|ネイルウェイト/i, category: 'weight' },
+  { pattern: /ドロップショット.*ウェイト|フリッピング.*ウェイト|ウェイト.*挿入/i, category: 'weight' },
+  // スカート・パーツ
+  { pattern: /交換用スカート|replacement\s+skirt|spare\s+skirt|カスタムスカート/i, category: 'parts' },
+  { pattern: /交換用テール|replacement\s+tail|spare\s+tail/i, category: 'parts' },
+  // 帽子・サングラス
+  { pattern: /\b(snapback|snap\s+back)\s+(hat|cap)\b/i, category: 'apparel' },
+  { pattern: /\b(sunglasses|sunglass|偏光グラス|サングラス)\b/i, category: 'apparel' },
+  // ストレージ・ケース
+  { pattern: /\b(storage|ストレージ|tackle\s+bag|タックルバッグ)\b/i, category: 'tool' },
+  // ラトル（ルアーに入れるパーツ）
+  { pattern: /ラトル.*挿入|rattle.*insert|グラスラトル\d+個付属/i, category: 'parts' },
+];
+
+// ========== 非ルアー検出パターン（名前用） ==========
 const NON_LURE_NAME_PATTERNS = [
   // 集魚剤・ケミカル
   { pattern: /\b(bite\s+powder|bite\s+liquid|attractant|fish\s+scent|scent\s+spray|chum|dip\s+bait)\b/i, category: 'chemical' },
@@ -143,6 +164,23 @@ export function validateLureData(lure: LureRecord): ValidationIssue[] {
         manufacturer: lure.manufacturer_slug,
         suggestion: `DBから削除し、isNonLureProduct()にパターン追加`,
       });
+    }
+  }
+
+  // 1b. 非ルアー製品チェック（description版）
+  if (lure.description) {
+    for (const { pattern, category } of NON_LURE_DESC_PATTERNS) {
+      if (pattern.test(lure.description)) {
+        issues.push({
+          severity: 'error',
+          category: 'non-lure',
+          message: `非ルアー製品（${category}、description検出）: ${lure.name}`,
+          slug: lure.slug,
+          manufacturer: lure.manufacturer_slug,
+          suggestion: `descriptionに「${category}」関連の記述あり。DBから削除を検討`,
+        });
+        break; // 1件見つかれば十分
+      }
     }
   }
 
