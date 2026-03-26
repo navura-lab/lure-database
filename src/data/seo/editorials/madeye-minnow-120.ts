@@ -16,7 +16,7 @@ export const madeyeMinnow120Editorial: EditorialReview = {
 
   overview: `Madeye Minnow 120はSPROが展開するウォールアイ向けのトローリングミノーだ。120mm・1/2oz（約14g）、価格2,249円。カラーは27色で、TRIPLE FLASH、CHART PINK、LEMON LIME、SAGINAW BAY GOLD、GHOST PURPLE PERCH、CHICKEN WING、CHAMPAGNE、CHROME PERCH PURPLE、BLACK DOT、WHITESTONE GOBY、GOLD PURPLE PERCH、PERCH、PINK LEMONADE、MARBLE BROWN、ICY BARBIEなど豊富なラインナップだ。
 
-SPROのプロアングラーRob Ruckmanが「最高のコールドウォータートローリングウォールアイベイト」と絶賛するルアーで、特筆すべきは「時速0.8マイル（約1.3km/h）という超スローなトローリングでも独特のローリング&ウォブリングアクションを維持する」点だ。
+SPROのプロアングラーRob Ruckmanが「優れたコールドウォータートローリングウォールアイベイト」と絶賛するルアーで、特筆すべきは「時速0.8マイル（約1.3km/h）という超スローなトローリングでも独特のローリング&ウォブリングアクションを維持する」点だ。
 
 真冬の深場に潜む大型ウォールアイ（眼が光るから和名はウォールアイ）は非常に動きが遅いため、超スローなトローリングに対応できるルアーが必要になる。100フィート（約30m）の10lbモノを使用した場合20フィート（約6m）の深場に到達できる設計で、Gamakatsuトレブルフック3本装備、大きなノッキングサウンドも特徴だ。`,
 

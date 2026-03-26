@@ -12,7 +12,7 @@ export const xrjEditorial: EditorialReview = {
   slug: 'xrj',
   manufacturerSlug: 'majorcraft',
 
-  catchcopy: 'ショアジギングの入門に最適。メジャークラフトのコスパ最強メタルジグ。',
+  catchcopy: 'ショアジギングの入門に最適。メジャークラフトのコストパフォーマンスが高いメタルジグ。',
 
   overview: `クロスライドジグ ヘビーメタルは、メジャークラフトが展開するショアジギング向けメタルジグだ。メジャークラフトといえばコストパフォーマンスに優れた製品を多く輩出するメーカーとして知られるが、このジグもその期待を裏切らない。
 

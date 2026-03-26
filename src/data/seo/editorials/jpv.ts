@@ -12,7 +12,7 @@ export const jpvEditorial: EditorialReview = {
   slug: 'jpv',
   manufacturerSlug: 'majorcraft',
 
-  catchcopy: 'タチウオジギングの入門機。メジャークラフトのコスパ最強バーチカルショートジグ。',
+  catchcopy: 'タチウオジギングの入門機。メジャークラフトのコストパフォーマンスが高いバーチカルショートジグ。',
 
   overview: `ジグパラ バーチカル ショート（JPV）は、メジャークラフトの人気メタルジグシリーズ「ジグパラ」のバーチカルジギング向けショートモデルだ。タチウオをメインターゲットに設計されており、ショートボディの高いフォールレスポンスが特徴。
 

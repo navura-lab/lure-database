@@ -9,7 +9,7 @@ export const makiJetEditorial: EditorialReview = {
   slug: 'maki-jet',
   manufacturerSlug: 'majorcraft',
 
-  catchcopy: '「巻くだけ」でOKのメジャークラフト製ショアジグ。フライングシェイプ採用で超ぶっ飛び、初心者から上級者まで扱いやすいジグ。',
+  catchcopy: '「巻くだけ」でOKのメジャークラフト製ショアジグ。フライングシェイプ採用で超ぶっ飛び、幅広いレベルの釣り人に扱いやすいジグ。',
 
   overview: `マキジグ ジェット（MAKI JIG JET）は、メジャークラフトが「ショアジグからSLJまで」対応する「巻くだけジグ」として開発したメタルジグだ。「フライングシェイプ」を採用したことで超ぶっ飛びの飛距離を実現しており、ただ巻きするだけでアクションが出る使いやすさが特徴。
 
