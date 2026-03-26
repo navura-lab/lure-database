@@ -57,7 +57,7 @@ export const stiezPopperEditorial: EditorialReview = {
       '70mmのコンパクトサイズでブルーギルパターンやスモールベイトを意識した場面',
       'スティーズシリーズで統一したいDAIWAユーザー',
     ],
-    notRecommered: [
+    notRecommended: [
       'PEラインでのオープンウォーター・遠距離ポッピングがメイン（設計思想がフロロ向き）',
       '大きめのルアーで派手なアピールを重視する場合（70mmは控えめなサイズ）',
     ],
