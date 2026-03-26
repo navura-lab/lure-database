@@ -115,36 +115,19 @@ const navLinks = [
 </header>
 
 <script>
-  // ViewTransitions対応: ページ遷移後も動作するようにastro:page-loadで再バインド
-  function initMobileMenu() {
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    const iconOpen = document.getElementById('menu-icon-open');
-    const iconClose = document.getElementById('menu-icon-close');
-    if (!btn || !menu || !iconOpen || !iconClose) return;
+  // ハンバーガーメニュー初期化（MPAモード — ViewTransitions無効化済み）
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
 
-    // 既存リスナー重複防止
-    const newBtn = btn.cloneNode(true) as HTMLElement;
-    btn.parentNode?.replaceChild(newBtn, btn);
-
-    newBtn.addEventListener('click', () => {
+  if (btn && menu && iconOpen && iconClose) {
+    btn.addEventListener('click', () => {
       const isOpen = !menu.classList.contains('hidden');
       menu.classList.toggle('hidden');
       iconOpen.classList.toggle('hidden');
       iconClose.classList.toggle('hidden');
-      newBtn.setAttribute('aria-expanded', String(!isOpen));
-      const openLabel = newBtn.dataset.labelOpen || 'Open menu';
-      const closeLabel = newBtn.dataset.labelClose || 'Close menu';
-      newBtn.setAttribute('aria-label', isOpen ? openLabel : closeLabel);
+      btn.setAttribute('aria-expanded', String(!isOpen));
     });
-
-    // ページ遷移時にメニューを閉じる
-    menu.classList.add('hidden');
-    iconOpen.classList.remove('hidden');
-    iconClose.classList.add('hidden');
   }
-
-  // 初回ロード + ViewTransitionsのページ遷移後に実行
-  initMobileMenu();
-  document.addEventListener('astro:page-load', initMobileMenu);
 </script>
