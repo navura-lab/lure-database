@@ -161,7 +161,8 @@ export const TYPE_RULES: TypeRule[] = [
   { keywords: /lipless|rattl/i, type: 'バイブレーション' },
   // ジグ
   { keywords: /jighead|jig\s*head|shroomz|finesse\s*shroomz|power\s*finesse/i, type: 'ジグヘッド' },
-  { keywords: /jig\b(?!.*head)/i, type: 'ラバージグ' },
+  { keywords: /metal\s*jig|banana\s*jig|inchiku|slow\s*pitch|speed\s*jig|knife\s*jig|butterfly\s*jig|vertical\s*jig|bucktail\s*jig|squidtail|marabou\s*jig|steelhead\s*jig|salmon\s*jig/i, type: 'メタルジグ' },
+  { keywords: /jig\b(?!.*head)(?!.*saw)/i, type: 'ラバージグ' },
   { keywords: /spoon/i, type: 'スプーン' },
   { keywords: /spinner/i, type: 'スピナー' },
   // ソフトベイト
