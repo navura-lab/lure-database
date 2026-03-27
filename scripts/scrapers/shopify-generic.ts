@@ -186,6 +186,12 @@ export function detectType(
     return '__non_lure__';
   }
 
+  // product_type直接マッピング（最優先 — Shopify公式カテゴリは最も信頼度が高い）
+  const ptNorm = productType.trim();
+  if (ptNorm && PRODUCT_TYPE_MAP[ptNorm]) {
+    return PRODUCT_TYPE_MAP[ptNorm];
+  }
+
   const rules = extraRules ? [...extraRules, ...TYPE_RULES] : TYPE_RULES;
 
   for (const rule of rules) {
@@ -661,3 +667,23 @@ export function createShopifyDiscover(config: {
     return results;
   };
 }
+
+// ─── Product Type 直接マッピング（キーワードマッチより優先） ───
+// Shopifyのproduct_typeフィールドは公式カテゴリなので最も信頼度が高い
+export const PRODUCT_TYPE_MAP: Record<string, string> = {
+  'Swimbait': 'スイムベイト',
+  'Soft Plastic': 'ワーム',
+  'Crankbait': 'クランクベイト',
+  'Jerkbait': 'ミノー',
+  'Spinnerbait': 'スピナーベイト',
+  'Buzzbait': 'バズベイト',
+  'Chatterbait': 'チャターベイト',
+  'Topwater': 'トップウォーター',
+  'Frog': 'フロッグ',
+  'Jig': 'ラバージグ',
+  'Spoon': 'スプーン',
+  'Blade Bait': 'ブレードベイト',
+  'Metal Jig': 'メタルジグ',
+  'Spinner': 'スピナー',
+  'Worm': 'ワーム',
+};

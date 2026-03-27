@@ -291,6 +291,16 @@ export async function scrapePazdesignPage(url: string): Promise<ScrapedLure> {
       const thumbImgs = document.querySelectorAll('ul.thumb li img, .thumb li img');
       const seenSrcs = new Set<string>();
 
+      // 釣果画像のインデックスを特定（itemリストで「釣果」ラベルが付いてるもの）
+      const catchImageIndices = new Set<number>();
+      const itemElements = document.querySelectorAll('li[class^="item"]');
+      itemElements.forEach((item, idx) => {
+        const text = item.textContent || '';
+        if (text.includes('釣果') || text.includes('catch') || text.includes('実釣')) {
+          catchImageIndices.add(idx);
+        }
+      });
+
       // Track color index separately (only for actual color images)
       let colorIndex = 0;
 
@@ -302,6 +312,9 @@ export async function scrapePazdesignPage(url: string): Promise<ScrapedLure> {
         // Only accept color images: img/{digits}.jpg pattern
         // Skip catch reports (img/a1.jpg), product shots (img/image.jpg), etc.
         if (!/img\/\d+\.jpg$/i.test(src)) continue;
+
+        // Skip catch/fishing report images (detected from item labels)
+        if (catchImageIndices.has(i)) continue;
 
         seenSrcs.add(src);
         colorIndex++;
