@@ -16,7 +16,8 @@ export type ArticleType =
   | 'color-guide'       // カラーガイド記事
   | 'review-analysis'   // レビュー・分析記事
   | 'selection-guide'   // 選び方ガイド記事
-  | 'howto';            // ハウツー記事
+  | 'howto'             // ハウツー記事
+  | 'data-analysis';    // データ分析記事（DB統計ベース）
 
 /** 記事セクション */
 export interface ArticleSection {

@@ -19,11 +19,21 @@
 import type { ContentArticle } from './_types.js';
 
 // ─── 記事インポート ───────────────────────────────────
-// （全記事削除済み — 新パイプラインで再生成予定）
+import lure_price_analysis from './lure-price-analysis.js';
+import lure_color_count_ranking from './lure-color-count-ranking.js';
+import maker_product_count_ranking from './maker-product-count-ranking.js';
+import lure_type_share from './lure-type-share.js';
+import lures_under_1000_yen from './lures-under-1000-yen.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
-export const contentArticles: ContentArticle[] = [];
+export const contentArticles: ContentArticle[] = [
+  lure_price_analysis,
+  lure_color_count_ranking,
+  maker_product_count_ranking,
+  lure_type_share,
+  lures_under_1000_yen,
+];
 
 // ─── ヘルパー ─────────────────────────────────────────
 
