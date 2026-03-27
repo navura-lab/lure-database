@@ -208,7 +208,9 @@ export const scrapeSoulsPage: ScraperFunction = async (url: string): Promise<Scr
   let mainImage = '';
   const ogImageMatch = html.match(/<meta\s+(?:property|name)=["']og:image["']\s+content=["']([^"']+)["']/i)
     || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:image["']/i);
-  if (ogImageMatch) mainImage = ogImageMatch[1];
+  if (ogImageMatch && !/no_img|noimage|placeholder|logo|topview|banner/i.test(ogImageMatch[1])) {
+    mainImage = ogImageMatch[1];
+  }
   if (!mainImage) {
     // Look for product images in slider/gallery sections
     const imgMatch = html.match(/<img[^>]+src=["']([^"']+(?:product|slider|gallery|wp-content\/uploads)[^"']*)["']/i);
