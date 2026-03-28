@@ -218,6 +218,10 @@ async function fetchAllLureUrls(): Promise<string[]> {
     ...compareUrls,
     // ランキングページ
     ...[...rankingSlugs].sort().map(s => `${SITE_URL}ranking/${s}/`),
+    // タイプ詳細ページ（カテゴリハブ: クロール促進効果高）
+    ...[...typeSlugs].sort().map(s => `${SITE_URL}type/${s}/`),
+    // 魚種詳細ページ（カテゴリハブ: クロール促進効果高）
+    ...[...fishSlugs].sort().map(s => `${SITE_URL}fish/${s}/`),
     // メーカーページ
     ...[...makerSlugs].sort().map(s => `${SITE_URL}${s}/`),
     // ★ エディトリアル付きルアーページ（優先）
