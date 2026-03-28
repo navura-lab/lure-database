@@ -64,7 +64,7 @@ export default defineConfig({
       locales: { ja: 'ja-JP', en: 'en-US' },
     },
     lastmod: buildDate,
-    entryLimit: 5000, // 11,000+URLを3分割 → Googlebot回遊効率化
+    entryLimit: 50000, // 後処理スクリプト(generate-sitemaps.ts)で種別分割するため1ファイルにまとめる
     filter: (page) => !page.includes('/search/') && !page.includes('/trap/') && !page.includes('/en/'),
     serialize: (item) => {
       const url = item.url;
@@ -86,15 +86,15 @@ export default defineConfig({
         const articleSlug = articleMatch[1];
         const dateStr = articleDateMap.get(articleSlug);
         const lastmod = dateStr ? new Date(dateStr) : item.lastmod;
-        return { ...item, lastmod, changefreq: 'monthly', priority: 0.6 };
+        return { ...item, lastmod, changefreq: 'monthly', priority: 0.9 };
       }
-      // ガイド・釣り方・季節詳細: 月次（先にマッチさせてメーカー詳細と混同させない）
+      // ガイド・釣り方・季節詳細: 月次
       if (url.match(/\/(guide|method|season)\/[a-z0-9-]+\//)) {
-        return { ...item, changefreq: 'monthly', priority: 0.6 };
+        return { ...item, changefreq: 'monthly', priority: 0.9 };
       }
       // カテゴリ詳細（タイプ/対象魚/ランキング/比較）: 週次、lastmodはビルド日時
       if (url.match(/\/(type|fish|ranking|compare)\/[a-z0-9-]+\//)) {
-        return { ...item, lastmod: buildDate, changefreq: 'weekly', priority: 0.6 };
+        return { ...item, lastmod: buildDate, changefreq: 'weekly', priority: 0.8 };
       }
       // ルアー詳細ページ: DBのupdated_atを使用
       // URL形式: https://www.castlog.xyz/{manufacturer_slug}/{slug}/
@@ -106,7 +106,7 @@ export default defineConfig({
           const key = `${makerSlug}/${lureSlug}`;
           const dbDate = lureLastmodMap.get(key);
           const lastmod = dbDate ? new Date(dbDate) : item.lastmod;
-          return { ...item, lastmod, changefreq: 'monthly', priority: 0.5 };
+          return { ...item, lastmod, changefreq: 'monthly', priority: 0.7 };
         }
       }
       // メーカー詳細ページ: 配下ルアーの最新updated_atを使用
@@ -116,11 +116,11 @@ export default defineConfig({
         if (!['type', 'fish', 'ranking', 'guide', 'new', 'maker', 'compare', 'method', 'article', 'season', 'search', 'about', 'privacy', 'disclaimer'].includes(makerSlug)) {
           const dbDate = makerLastmodMap.get(makerSlug);
           const lastmod = dbDate ? new Date(dbDate) : item.lastmod;
-          return { ...item, lastmod, changefreq: 'weekly', priority: 0.7 };
+          return { ...item, lastmod, changefreq: 'weekly', priority: 0.6 };
         }
       }
-      // その他: ビルド日時
-      return { ...item, changefreq: 'monthly', priority: 0.5 };
+      // その他（静的ページ）: ビルド日時
+      return { ...item, changefreq: 'monthly', priority: 0.3 };
     },
   })],
   vite: {
