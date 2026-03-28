@@ -34,7 +34,8 @@ const CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN!;
 const QUOTA_PROJECT = process.env.GOOGLE_QUOTA_PROJECT || 'plucky-mile-486802-j6';
-const SITE_URL = process.env.GSC_SITE_URL || 'https://www.castlog.xyz/';
+// Indexing APIはGSCプロパティIDではなく実URLが必要（sc-domain:は使えない）
+const SITE_URL = 'https://www.castlog.xyz/';
 
 const DRY_RUN = process.argv.includes('--dry-run');
 const RESET_PROGRESS = process.argv.includes('--reset');
