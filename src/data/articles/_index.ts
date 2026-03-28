@@ -24,6 +24,9 @@ import lure_color_count_ranking from './lure-color-count-ranking.js';
 import maker_product_count_ranking from './maker-product-count-ranking.js';
 import lure_type_share from './lure-type-share.js';
 import lures_under_1000_yen from './lures-under-1000-yen.js';
+import spring_bass_lures_2026 from './spring-bass-lures-2026.js';
+import spring_seabass_lures_2026 from './spring-seabass-lures-2026.js';
+import gw_fishing_lures_2026 from './gw-fishing-lures-2026.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -33,6 +36,9 @@ export const contentArticles: ContentArticle[] = [
   maker_product_count_ranking,
   lure_type_share,
   lures_under_1000_yen,
+  spring_bass_lures_2026,
+  spring_seabass_lures_2026,
+  gw_fishing_lures_2026,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
