@@ -5545,6 +5545,16 @@
       "source": "/6th-sense/trace-7-25-:path*/",
       "destination": "/6th-sense/trace-7-25/",
       "permanent": true
+    },
+    {
+      "source": "/ranking/madai-jighead/",
+      "destination": "/type/jighead/",
+      "permanent": true
+    },
+    {
+      "source": "/en/ranking/madai-jighead/",
+      "destination": "/en/type/jighead/",
+      "permanent": true
     }
   ],
   "headers": [
