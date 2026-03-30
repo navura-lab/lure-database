@@ -177,15 +177,19 @@ async function fetchAllLureUrls(): Promise<string[]> {
   }
 
   // エディトリアルレビュー付きルアーページ（優先送信）
+  // import.meta.glob は tsx 実行不可のため fs.readdirSync でファイル名から slug を取得
   const editorialPaths = new Set<string>();
   try {
-    const { editorialReviews } = await import('../src/data/seo/editorials/_index.js');
-    for (const [slug, review] of Object.entries(editorialReviews)) {
-      const r = review as any;
-      if (r.manufacturerSlug && r.slug) {
-        const p = `${r.manufacturerSlug}/${r.slug}`;
-        if (allPaths.has(p)) {
+    const editorialDir = path.join(import.meta.dirname, '..', 'src', 'data', 'seo', 'editorials');
+    const editorialFiles = (await import('fs')).readdirSync(editorialDir)
+      .filter(f => f.endsWith('.ts') && !f.startsWith('_') && f !== 'huggos.ts');
+    for (const file of editorialFiles) {
+      const editorialSlug = file.replace('.ts', '');
+      // allPaths の中から一致するパスを探す（slug が末尾に一致するもの）
+      for (const p of allPaths) {
+        if (p.split('/')[1] === editorialSlug) {
           editorialPaths.add(p);
+          break;
         }
       }
     }
