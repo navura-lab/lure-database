@@ -7,6 +7,91 @@
       "permanent": true
     },
     {
+      "source": "/6th-sense/flush-5-2-wakasagi/",
+      "destination": "/6th-sense/flush-5-2/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/snatch-70x-shad-burst/",
+      "destination": "/6th-sense/snatch-70x/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/gyro-tail-spinner-4k-shad/",
+      "destination": "/6th-sense/gyro-tail-spinner/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crush-dd-series-wild-shad/",
+      "destination": "/6th-sense/crush-dd-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/judo-freshwater-series-shad-fetch/",
+      "destination": "/6th-sense/judo-freshwater-series/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/scramble-80-matte-black/",
+      "destination": "/6th-sense/scramble-80/",
+      "permanent": true
+    },
+    {
+      "source": "/en/6th-sense/micro-fiction-1-5-wakasagi/",
+      "destination": "/en/6th-sense/micro-fiction-1-5/",
+      "permanent": true
+    },
+    {
+      "source": "/article/tako-egi/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aomono-metaljig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-pencilbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/article/price-analysis-by-type/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-vibration/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/redfish-jerkbait/",
+      "destination": "/compare/",
+      "permanent": true
+    },
+    {
+      "source": "/shimano/a155f00000cehq0qan/",
+      "destination": "/shimano/",
+      "permanent": true
+    },
+    {
+      "source": "/en/itocraft/wd-shoes/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/en/grassroots/basslure-redcub/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/ranking/%E6%A0%B9%E9%AD%9A%EF%BC%88%E3%83%AD%E3%83%83%E3%82%AF%E3%83%95%E3%82%A3%E3%83%83%E3%82%B7%E3%83%A5%EF%BC%89-metal-jig/",
+      "destination": "/ranking/rockfish-metal-jig/",
+      "permanent": true
+    },
+    {
       "source": "/hideup/stagger_wide_3.3/",
       "destination": "/hideup/stagger-wide-3-3/",
       "permanent": true
