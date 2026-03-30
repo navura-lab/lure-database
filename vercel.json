@@ -7,6 +7,2276 @@
       "permanent": true
     },
     {
+      "source": "/article/ainame-worm/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/ainame-worm/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aji-jighead/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/aji-jighead/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aji-metal-jig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/aji-metal-jig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aji-night-game/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/aji-night-game/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aji-plug/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/aji-plug/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aji-worm/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/aji-worm/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/ajing-beginner/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/ajing-beginner/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/ajing-color-guide/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/ajing-color-guide/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aomono-diving-pencil/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/aomono-diving-pencil/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aomono-minnow/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/aomono-minnow/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aomono-popper/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/aomono-popper/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aomono-sinkingpencil/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/aomono-sinkingpencil/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aomono-tairaba/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/aomono-tairaba/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/aomono-worm/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/aomono-worm/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/autumn-bass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/autumn-bass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/autumn-seabass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/autumn-seabass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-bigbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-bigbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-buzzbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-buzzbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-chatterbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-chatterbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-crankbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-crankbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-fishing-beginner/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-fishing-beginner/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-frog/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-frog/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-jighead/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-jighead/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-jointedbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-jointedbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-metal-vib/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-metal-vib/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-minnow/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-minnow/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-pencilbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-pencilbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-popper/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-popper/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-rubberjig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-rubberjig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-shad/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-shad/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-sight-fishing/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-sight-fishing/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-spinnerbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-spinnerbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-swimbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-swimbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-topwater/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-topwater/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-vibration/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-vibration/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-vs-seabass-market/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-vs-seabass-market/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/bass-worm-texas-rig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/bass-worm-texas-rig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/blitz-vs-wildhunch/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/blitz-vs-wildhunch/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/buri-metaljig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/buri-metaljig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/buttobi-vs-punchline/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/buttobi-vs-punchline/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/chimu-topwater/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/chimu-topwater/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/chining-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/chining-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/chining-worm/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/chining-worm/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/daiwa-eging-egi/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/daiwa-eging-egi/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/daiwa-gekka-bijin/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/daiwa-gekka-bijin/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/daiwa-seabass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/daiwa-seabass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/daiwa-shore-jigging/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/daiwa-shore-jigging/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/day-ajing/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/day-ajing/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/deepx300-vs-blitzexdr/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/deepx300-vs-blitzexdr/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/deps-bass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/deps-bass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/diving-pencil/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/diving-pencil/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/doliveshad-vs-dolivecraw/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/doliveshad-vs-dolivecraw/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/dolivessgill-vs-fatika/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/dolivessgill-vs-fatika/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/drivestick-vs-senko/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/drivestick-vs-senko/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/duel-eging-egi/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/duel-eging-egi/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/duel-seabass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/duel-seabass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/duo-seabass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/duo-seabass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/eging-autumn-howto/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/eging-autumn-howto/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/eging-beginner/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/eging-beginner/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/eging-egi-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/eging-egi-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/egiohk-vs-egiohlive/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/egiohk-vs-egiohlive/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/egiohk-vs-emeraldas/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/egiohk-vs-emeraldas/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/feed-popper-color/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/feed-popper-color/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/flatfish-jighead/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/flatfish-jighead/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/flick-shake-review/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/flick-shake-review/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/griffon-vs-peanuts/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/griffon-vs-peanuts/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/hata-worm/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/hata-worm/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/hiramasa-metaljig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/hiramasa-metaljig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/hirame-metaljig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/hirame-metaljig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/hirame-minnow/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/hirame-minnow/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/hirame-minnow-guide/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/hirame-minnow-guide/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/hirame-vibration/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/hirame-vibration/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/hirame-worm/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/hirame-worm/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/ika-egi/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/ika-egi/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/ika-metal-guide/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/ika-metal-guide/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/ima-seabass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/ima-seabass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/ip26-vs-realsteel/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/ip26-vs-realsteel/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/ip26-vs-teppanvib/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/ip26-vs-teppanvib/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/jackall-aji-mebaru/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/jackall-aji-mebaru/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/jackall-bass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/jackall-bass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/jackall-seabass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/jackall-seabass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/jigpara-micro-slim-review/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/jigpara-micro-slim-review/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/jigpara-vertical-short-color/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/jigpara-vertical-short-color/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/jigpara-vs-bigbacker/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/jigpara-vs-bigbacker/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/jigpara-vs-makimaki/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/jigpara-vs-makimaki/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/jigpara-vs-tgbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/jigpara-vs-tgbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/kagelou-review/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/kagelou-review/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/kagelou-vs-blowin/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/kagelou-vs-blowin/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/kanpachi-metaljig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/kanpachi-metaljig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/kasago-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/kasago-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/keiryu-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/keiryu-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/kijihata-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/kijihata-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/kohga-bay-rubber-color/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/kohga-bay-rubber-color/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/kurodai-rubber-jig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/kurodai-rubber-jig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/light-game-beginner/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/light-game-beginner/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/lure-color-guide-general/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/lure-color-guide-general/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/lure-fishing-beginner/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/lure-fishing-beginner/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/lure-type-trends-2026/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/lure-type-trends-2026/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/madai-metal-jig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/madai-metal-jig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/madai-metaljig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/madai-metaljig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/madai-tairaba/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/madai-tairaba/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/magochi-worm/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/magochi-worm/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/maguro-metaljig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/maguro-metaljig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/majorcraft-shore-jigging/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/majorcraft-shore-jigging/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/maker-diversity-ranking/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/maker-diversity-ranking/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/mebaring-beginner/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/mebaring-beginner/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/mebaru-jighead/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/mebaru-jighead/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/mebaru-minnow/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/mebaru-minnow/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/mebaru-worm/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/mebaru-worm/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/megabass-bass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/megabass-bass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/megabass-seabass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/megabass-seabass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/metalmaru-review/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/metalmaru-review/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/miu-vs-pal/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/miu-vs-pal/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/miu-vs-tiaro/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/miu-vs-tiaro/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/monster-shot-review/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/monster-shot-review/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/namazu-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/namazu-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/onimaru-review/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/onimaru-review/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/osp-bass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/osp-bass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/rangevib-vs-mient/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/rangevib-vs-mient/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/rangevib-vs-salvage/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/rangevib-vs-salvage/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/rockfish-beginner/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/rockfish-beginner/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/rockfish-jighead/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/rockfish-jighead/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/rockfish-worm/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/rockfish-worm/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/rolling-bait-color/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/rolling-bait-color/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/sa-vs-sasuke/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/sa-vs-sasuke/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/sa-vs-setupper/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/sa-vs-setupper/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/sa99-vs-kagelou/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/sa99-vs-kagelou/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/sakuramasu-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/sakuramasu-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/sasuke-120-color/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/sasuke-120-color/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/sawara-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/sawara-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-beginner/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-beginner/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-jighead/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-jighead/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-metaljig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-metaljig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-minnow/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-minnow/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-night-game/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-night-game/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-popper/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-popper/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-shad/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-shad/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-sinkingpencil/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-sinkingpencil/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-swimbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-swimbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/seabass-worm/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-worm/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/senko-vs-cuttail/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/senko-vs-cuttail/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/setupper-vs-blowin/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/setupper-vs-blowin/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/shimano-cardiff-spoon/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/shimano-cardiff-spoon/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/shimano-seabass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/shimano-seabass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/shimano-shore-jigging/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/shimano-shore-jigging/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/shimano-trout-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/shimano-trout-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/shore-jigging-beginner/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/shore-jigging-beginner/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/shore-jigging-guide/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/shore-jigging-guide/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/shore-jigging-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/shore-jigging-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/silent-assassin-color/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/silent-assassin-color/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/snecon-vs-manic/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/snecon-vs-manic/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/spring-bass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/spring-bass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/spring-eging-egi/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/spring-eging-egi/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/spring-mebaring/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/spring-mebaring/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/spring-seabass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/spring-seabass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/summer-bass-topwater/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/summer-bass-topwater/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/summer-seabass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/summer-seabass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/surf-hirame-howto/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/surf-hirame-howto/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/switch-hitter-color/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/switch-hitter-color/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/switchhitter-vs-buttobi/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/switchhitter-vs-buttobi/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/switchhitter-vs-wander/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/switchhitter-vs-wander/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/tachiuo-metaljig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/tachiuo-metaljig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/tachiuo-winding/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/tachiuo-winding/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/tgbait-vs-samuraijig/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/tgbait-vs-samuraijig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/trout-crankbait/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/trout-crankbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/trout-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/trout-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/trout-lure-overview/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/trout-lure-overview/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/trout-minnow/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/trout-minnow/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/trout-spoon/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/trout-spoon/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/trout-worm/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/trout-worm/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/vj-16-review/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/vj-16-review/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/wildhunch-vs-shotover/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/wildhunch-vs-shotover/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/winter-bass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/winter-bass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/winter-mebaru/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/winter-mebaru/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/winter-seabass-lure/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/winter-seabass-lure/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/article/x80sw-vs-komomo/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/x80sw-vs-komomo/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/method/ajing/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/method/ajing/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/method/bass-fishing/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/method/bass-fishing/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/method/eging/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/method/eging/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/method/mebaring/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/method/mebaring/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/method/offshore-casting/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/method/offshore-casting/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/method/rockfish-game/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/method/rockfish-game/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/method/seabass-game/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/method/seabass-game/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/method/shore-jigging/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/method/shore-jigging/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/method/surf-fishing/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/method/surf-fishing/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/method/tairaba/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/method/tairaba/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/autumn-aomono/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/autumn-aomono/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/autumn-bass/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/autumn-bass/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/autumn-eging/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/autumn-eging/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/autumn-hirame/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/autumn-hirame/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/autumn-seabass/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/autumn-seabass/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/spring-bass/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/spring-bass/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/spring-hirame/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/spring-hirame/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/spring-mebaru/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/spring-mebaru/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/spring-seabass/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/spring-seabass/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/spring-trout/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/spring-trout/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/summer-aomono/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/summer-aomono/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/summer-bass/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/summer-bass/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/summer-eging/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/summer-eging/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/summer-seabass/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/summer-seabass/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/winter-bass/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/winter-bass/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/winter-hirame/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/winter-hirame/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/winter-mebaru/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/winter-mebaru/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/winter-seabass/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/winter-seabass/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/season/winter-trout/",
+      "destination": "/season/",
+      "permanent": true
+    },
+    {
+      "source": "/en/season/winter-trout/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/ajing-worm-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/ajing-worm-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/area-trout-spoon-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/area-trout-spoon-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/bass-lure-beginner/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/bass-lure-beginner/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/bass-worm-rig-guide/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/bass-worm-rig-guide/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/bigbait-guide/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/bigbait-guide/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/chining-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/chining-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/eging-egi-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/eging-egi-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/hirame-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/hirame-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/light-game-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/light-game-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/mebaring-worm-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/mebaring-worm-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/offshore-jigging-guide/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/offshore-jigging-guide/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/rockfish-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/rockfish-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/seabass-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/seabass-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/seabass-night-game-guide/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/seabass-night-game-guide/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/shore-jigging-metal-jig-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/shore-jigging-metal-jig-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/surf-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/surf-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/tachiuo-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/tachiuo-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/topwater-bass-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/topwater-bass-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/trout-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/trout-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/vibration-lure-osusume/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide/vibration-lure-osusume/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
       "source": "/6th-sense/flush-5-2-wakasagi/",
       "destination": "/6th-sense/flush-5-2/",
       "permanent": true
@@ -3249,21 +5519,6 @@
     {
       "source": "/6th-sense/trace-7-25-:path*/",
       "destination": "/6th-sense/trace-7-25/",
-      "permanent": true
-    },
-    {
-      "source": "/6th-sense/cake-pop-3-wire/",
-      "destination": "/6th-sense/",
-      "permanent": true
-    },
-    {
-      "source": "/6th-sense/cake-pop-4-mono/",
-      "destination": "/6th-sense/",
-      "permanent": true
-    },
-    {
-      "source": "/6th-sense/cake-pop-4-wire/",
-      "destination": "/6th-sense/",
       "permanent": true
     }
   ],
