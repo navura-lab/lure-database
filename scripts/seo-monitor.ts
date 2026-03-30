@@ -28,7 +28,10 @@ const CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 const REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN!;
 const QUOTA_PROJECT = process.env.GOOGLE_QUOTA_PROJECT || 'plucky-mile-486802-j6';
-const SITE_URL = process.env.GSC_SITE_URL || 'sc-domain:castlog.xyz';
+// 旧ドメイン（主）: Googleインデックスの主体。2026/09まで301リダイレクト継続
+const SITE_URL = process.env.GSC_SITE_URL || 'https://www.lure-db.com/';
+// 新ドメイン（副）: インデックス移行状況を別途監視
+const SITE_URL_NEW = process.env.GSC_SITE_URL_NEW || 'sc-domain:castlog.xyz';
 const SLACK_WEBHOOK = process.env.SLACK_SEO_WEBHOOK; // オプション
 
 const DATA_DIR = path.join(import.meta.dirname, '..', 'logs', 'seo-data');
@@ -726,7 +729,25 @@ async function main() {
   const indexCoverage = buildIndexCoverage(sitemaps, indexingProgress, previous);
   log(`Index coverage: submitted=${indexCoverage.sitemapSubmitted} indexed=${indexCoverage.sitemapIndexed} apiSent=${indexCoverage.indexingApiSubmitted}`);
 
-  // 11. URL検査（オプション）
+  // 11. 新ドメイン(castlog.xyz)のサマリーも取得（移行進捗確認用）
+  log('Fetching new domain (castlog.xyz) summary...');
+  const newSiteRows = await (async () => {
+    const res = await fetch(
+      `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(SITE_URL_NEW)}/searchAnalytics/query`,
+      {
+        method: 'POST',
+        headers: gscHeaders(token),
+        body: JSON.stringify({ startDate, endDate, rowLimit: 1 }),
+      },
+    );
+    const data = await res.json() as any;
+    return data.rows || [];
+  })();
+  const newSiteClicks = newSiteRows[0]?.clicks ?? 0;
+  const newSiteImpressions = newSiteRows[0]?.impressions ?? 0;
+  logV(`New domain: clicks=${newSiteClicks} imp=${newSiteImpressions}`);
+
+  // 12. URL検査（オプション）
   let inspections: CoverageSample[] | undefined;
   if (DO_INSPECT) {
     log('Running indexing coverage sampling...');
@@ -771,7 +792,11 @@ async function main() {
     `\n${report}\n${'='.repeat(60)}\n`,
   );
 
-  log(`=== SEO Monitor v2 Complete (clicks:${totalClicks} imp:${totalImpressions} queries:${topQueries.length} pageTypes:${pageTypeBreakdown.length}) ===`);
+  // castlog.xyz移行進捗ログ
+  log(`=== SEO Monitor v2 Complete ===`);
+  log(`[lure-db.com]  clicks:${totalClicks} imp:${totalImpressions} (主ドメイン)`);
+  log(`[castlog.xyz]  clicks:${newSiteClicks} imp:${newSiteImpressions} (移行中)`);
+  log(`queries:${topQueries.length} pageTypes:${pageTypeBreakdown.length}`);
 }
 
 main().catch(e => {
