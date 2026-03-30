@@ -7,6 +7,31 @@
       "permanent": true
     },
     {
+      "source": "/en/article/aomono-metaljig/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/price-analysis-by-type/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-pencilbait/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/seabass-vibration/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/en/article/tako-egi/",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
       "source": "/article/ainame-worm/",
       "destination": "/",
       "permanent": true

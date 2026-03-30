@@ -10,7 +10,9 @@
     "discover": "tsx scripts/discover-products.ts",
     "discover:dry": "tsx scripts/discover-products.ts --dry-run",
     "pipeline": "tsx scripts/pipeline.ts",
-    "pipeline:one": "tsx scripts/pipeline.ts --limit 1"
+    "pipeline:one": "tsx scripts/pipeline.ts --limit 1",
+    "check:redirects": "npx tsx scripts/check-missing-redirects.ts",
+    "fix:redirects": "npx tsx scripts/check-missing-redirects.ts --fix"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
