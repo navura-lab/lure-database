@@ -13,7 +13,7 @@
  *   sitemap-index.xml     — 上記を束ねるインデックス
  */
 
-import { readFileSync, writeFileSync, readdirSync, unlinkSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, unlinkSync, existsSync, copyFileSync } from 'fs';
 import { join } from 'path';
 
 const DIST_DIR = join(process.cwd(), 'dist', 'client');
@@ -263,6 +263,20 @@ function main() {
   // 6. サイトマップインデックス
   writeFileSync(join(DIST_DIR, 'sitemap-index.xml'), buildSitemapIndex(outputFiles, lastmod));
   console.log(`[sitemap-split] ✓ sitemap-index.xml (${outputFiles.length} サイトマップ)`);
+
+  // 7. Vercel出力ディレクトリにもコピー（存在する場合）
+  const vercelStaticDir = join(process.cwd(), '.vercel', 'output', 'static');
+  if (existsSync(vercelStaticDir)) {
+    const allOutputFiles = [...outputFiles, 'sitemap-index.xml'];
+    for (const filename of allOutputFiles) {
+      const src = join(DIST_DIR, filename);
+      const dst = join(vercelStaticDir, filename);
+      if (existsSync(src)) {
+        copyFileSync(src, dst);
+      }
+    }
+    console.log(`[sitemap-split] ✓ .vercel/output/static にコピー完了 (${allOutputFiles.length} ファイル)`);
+  }
 
   console.log('[sitemap-split] 完了');
 }
