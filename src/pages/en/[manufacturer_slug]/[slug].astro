@@ -29,7 +29,7 @@ const {
   series, relatedByType, relatedByMaker, relatedByFish, canonicalPathOverride,
   categoryRank, categoryTotal, categoryFish, colorBreakdown, relatedContentArticles,
   categoryComparisonPeers, specComparison, pricePosition,
-  fieldCompat, weightStrategy, similarSeries,
+  fieldCompat, weightStrategy, similarSeries, typeComparison,
 } = Astro.props as LurePathProps;
 
 // 英語版生成データで上書き
@@ -531,6 +531,39 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
             </div>
           )}
           <p class="text-xs text-text-faint mt-3 border-t border-gray-50 pt-3">Based on CAST/LOG database statistical analysis.</p>
+        </div>
+      </section>
+    )}
+
+    <!-- Category Position Comparison (type-wide, regardless of fish) -->
+    {typeComparison && (
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-gray-900 mb-3">Position in {typeComparison.type} Category</h2>
+        <div class="bg-white rounded-xl border border-border-light p-5 shadow-sm">
+          <p class="text-xs text-text-dim mb-4">Compared to {typeComparison.totalCount} series in the {typeComparison.type} category on CAST/LOG</p>
+          <ul class="space-y-3">
+            {typeComparison.weightLabel && (
+              <li class="flex items-start gap-3 text-sm text-gray-700">
+                <span class="shrink-0 font-mono text-text-dim w-20">Weight</span>
+                <span>{typeComparison.weightLabel}</span>
+              </li>
+            )}
+            {typeComparison.colorLabel && (
+              <li class="flex items-start gap-3 text-sm text-gray-700">
+                <span class="shrink-0 font-mono text-text-dim w-20">Colors</span>
+                <span>{typeComparison.colorLabel}</span>
+              </li>
+            )}
+            {typeComparison.priceLabel && (
+              <li class="flex items-start gap-3 text-sm text-gray-700">
+                <span class="shrink-0 font-mono text-text-dim w-20">Price</span>
+                <span>{typeComparison.priceLabel}</span>
+              </li>
+            )}
+          </ul>
+          <p class="text-xs text-text-faint mt-4 border-t border-gray-50 pt-3">
+            Statistics based on CAST/LOG database. No AI opinions or estimates.
+          </p>
         </div>
       </section>
     )}

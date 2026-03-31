@@ -33,6 +33,19 @@ export interface LurePathProps {
   fieldCompat: FieldCompatibility[];
   weightStrategy: WeightStrategyEntry[];
   similarSeries: SimilarSeriesEntry[];
+  typeComparison: TypeComparisonData | null;
+}
+
+/** typeのみ（魚種問わず）での集計結果 */
+export interface TypeComparisonData {
+  type: string;
+  totalCount: number;
+  avgWeight: number | null;
+  avgColorCount: number;
+  avgPrice: number | null;
+  weightLabel: string | null;
+  colorLabel: string | null;
+  priceLabel: string | null;
 }
 
 /** カテゴリ平均値との比較テキストを生成 */
@@ -82,6 +95,114 @@ function generateSpecComparison(series: LureSeries, peers: LureSeries[]): string
     lines.push(`${series.manufacturer}は同カテゴリに${sameManufacturer.length}シリーズを展開`);
   }
   return lines;
+}
+
+/** type全体（魚種問わず）での集計 */
+function computeTypeComparison(series: LureSeries, typeGroup: LureSeries[]): TypeComparisonData | null {
+  if (typeGroup.length < 5) return null;
+
+  const totalCount = typeGroup.length;
+
+  // 平均カラー数
+  const avgColorCount = Math.round(typeGroup.reduce((s, p) => s + p.color_count, 0) / totalCount);
+
+  // カラーラベル
+  let colorLabel: string | null = null;
+  if (avgColorCount > 0) {
+    const diff = series.color_count - avgColorCount;
+    const pct = Math.round((diff / avgColorCount) * 100);
+    if (Math.abs(pct) >= 15) {
+      colorLabel = diff > 0
+        ? `${series.color_count}色（カテゴリ平均${avgColorCount}色より${Math.abs(pct)}%多い）`
+        : `${series.color_count}色（カテゴリ平均${avgColorCount}色より${Math.abs(pct)}%少ない）`;
+    } else {
+      colorLabel = `${series.color_count}色（カテゴリ平均${avgColorCount}色とほぼ同等）`;
+    }
+  }
+
+  // 平均重量（weight_range.minとmaxの中央値を使用）
+  const peerWeights = typeGroup
+    .map(p => {
+      const min = p.weight_range.min ?? 0;
+      const max = p.weight_range.max ?? 0;
+      return min > 0 && max > 0 ? (min + max) / 2 : min > 0 ? min : max > 0 ? max : 0;
+    })
+    .filter(w => w > 0);
+  const avgWeight = peerWeights.length >= 5
+    ? Math.round(peerWeights.reduce((s, w) => s + w, 0) / peerWeights.length * 10) / 10
+    : null;
+
+  // 重量ラベル
+  let weightLabel: string | null = null;
+  const seriesAvgWeight = (() => {
+    const min = series.weight_range.min ?? 0;
+    const max = series.weight_range.max ?? 0;
+    if (min > 0 && max > 0) return (min + max) / 2;
+    if (min > 0) return min;
+    if (max > 0) return max;
+    return 0;
+  })();
+
+  if (avgWeight !== null && seriesAvgWeight > 0) {
+    const diff = seriesAvgWeight - avgWeight;
+    const pct = Math.round((diff / avgWeight) * 100);
+    if (Math.abs(pct) >= 15) {
+      weightLabel = diff > 0
+        ? `${seriesAvgWeight}g（カテゴリ平均${avgWeight}gより重め）`
+        : `${seriesAvgWeight}g（カテゴリ平均${avgWeight}gより軽め）`;
+    } else {
+      weightLabel = `${seriesAvgWeight}g（カテゴリ平均${avgWeight}gとほぼ同等）`;
+    }
+  }
+
+  // 平均価格
+  const peerPrices = typeGroup
+    .map(p => {
+      const min = p.price_range.min ?? 0;
+      const max = p.price_range.max ?? 0;
+      return min > 0 && max > 0 ? (min + max) / 2 : min > 0 ? min : max > 0 ? max : 0;
+    })
+    .filter(p => p > 0);
+  const avgPrice = peerPrices.length >= 5
+    ? Math.round(peerPrices.reduce((s, p) => s + p, 0) / peerPrices.length)
+    : null;
+
+  // 価格ラベル
+  let priceLabel: string | null = null;
+  const seriesAvgPrice = (() => {
+    const min = series.price_range.min ?? 0;
+    const max = series.price_range.max ?? 0;
+    if (min > 0 && max > 0) return (min + max) / 2;
+    if (min > 0) return min;
+    if (max > 0) return max;
+    return 0;
+  })();
+
+  if (avgPrice !== null && seriesAvgPrice > 0) {
+    const diff = seriesAvgPrice - avgPrice;
+    const pct = Math.round((diff / avgPrice) * 100);
+    if (Math.abs(pct) >= 20) {
+      priceLabel = diff > 0
+        ? `¥${seriesAvgPrice.toLocaleString()}（カテゴリ平均¥${avgPrice.toLocaleString()}より高め）`
+        : `¥${seriesAvgPrice.toLocaleString()}（カテゴリ平均¥${avgPrice.toLocaleString()}よりお手頃）`;
+    } else {
+      priceLabel = `¥${seriesAvgPrice.toLocaleString()}（カテゴリ平均¥${avgPrice.toLocaleString()}と同等）`;
+    }
+  }
+
+  // 少なくとも1つ表示可能なラベルがある場合のみ返す
+  if (!colorLabel && !weightLabel && !priceLabel) return null;
+
+  return {
+    type: series.type,
+    totalCount,
+    avgWeight,
+    avgColorCount,
+    avgPrice,
+    weightLabel,
+    colorLabel,
+    priceLabel,
+  };
 }
 
 /** 英語版カテゴリ平均値比較テキスト */
@@ -234,6 +355,10 @@ export async function getLurePaths(locale: 'ja' | 'en' = 'ja') {
     const weightStrategy = generateWeightStrategy(series);
     const similarSeries = findSimilarSeries(series, similarTypeIndex, 3);
 
+    // type全体（魚種問わず）での集計
+    const typeGroup = byType.get(series.type) || [];
+    const typeComparison = computeTypeComparison(series, typeGroup);
+
     let pricePosition = '';
     if (series.price_range.max > 0 && categoryPeers.length >= 3) {
       const peersWithPrice = categoryPeers.filter(p => p.price_range.max > 0);
@@ -273,6 +398,7 @@ export async function getLurePaths(locale: 'ja' | 'en' = 'ja') {
         fieldCompat,
         weightStrategy,
         similarSeries,
+        typeComparison,
       } as LurePathProps,
     };
   });
