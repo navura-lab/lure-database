@@ -1743,12 +1743,12 @@
     },
     {
       "source": "/article/trout-worm/",
-      "destination": "/",
+      "destination": "/article/trout-lures-2026/",
       "permanent": true
     },
     {
       "source": "/en/article/trout-worm/",
-      "destination": "/en/",
+      "destination": "/en/article/trout-lures-2026/",
       "permanent": true
     },
     {
