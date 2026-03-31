@@ -27,6 +27,14 @@ import lures_under_1000_yen from './lures-under-1000-yen.js';
 import spring_bass_lures_2026 from './spring-bass-lures-2026.js';
 import spring_seabass_lures_2026 from './spring-seabass-lures-2026.js';
 import gw_fishing_lures_2026 from './gw-fishing-lures-2026.js';
+import mebaru_lures_2026 from './mebaru-lures-2026.js';
+import aji_lures_2026 from './aji-lures-2026.js';
+import hirame_lures_2026 from './hirame-lures-2026.js';
+import seabass_lures_2026 from './seabass-lures-2026.js';
+import bass_worm_2026 from './bass-worm-2026.js';
+import offshore_lures_2026 from './offshore-lures-2026.js';
+import rockfish_lures_2026 from './rockfish-lures-2026.js';
+import eging_lures_2026 from './eging-lures-2026.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -39,6 +47,14 @@ export const contentArticles: ContentArticle[] = [
   spring_bass_lures_2026,
   spring_seabass_lures_2026,
   gw_fishing_lures_2026,
+  mebaru_lures_2026,
+  aji_lures_2026,
+  hirame_lures_2026,
+  seabass_lures_2026,
+  bass_worm_2026,
+  offshore_lures_2026,
+  rockfish_lures_2026,
+  eging_lures_2026,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
