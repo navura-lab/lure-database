@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.castlog.seo-optimizer</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/user/ウェブサイト/lure-database/ops/run-agent.sh</string>
+        <string>seo-optimizer</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/user/ウェブサイト/lure-database</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/Users/user/.nvm/versions/node/v22.22.0/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>6</integer>
+        <key>Minute</key>
+        <integer>30</integer>
+    </dict>
+    <key>RunAtLoad</key>
+    <false/>
+    <key>StandardOutPath</key>
+    <string>/Users/user/ウェブサイト/lure-database/ops/logs/seo-optimizer.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/user/ウェブサイト/lure-database/ops/logs/seo-optimizer.error.log</string>
+</dict>
+</plist>
