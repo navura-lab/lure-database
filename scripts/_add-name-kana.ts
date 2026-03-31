@@ -508,6 +508,12 @@ const MANUAL_MAP: Record<string, string> = {
   'Utahime': 'ウタヒメ',
   // crazy-ocean
   'S-GLIDE': 'Sグライド',
+  // 追加
+  'GRAVEL': 'グラベル',
+  'KLASH FRENZY': 'クラッシュフレンジー',
+  'K-0 WAKEMINNOW 115 SALT WATER Ver.': 'K-0ウェイクミノー115ソルトウォーターバージョン',
+  'Straight Buzz Minnow': 'ストレートバズミノー',
+  'SURFISH220F': 'サーフィッシュ220F',
   // d-claw
   'Beacon NEO 200': 'ビーコンNEO200',
   'SWIMMING PENCIL D\'abs230': 'スイミングペンシルダブス230',
