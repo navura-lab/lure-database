@@ -144,13 +144,7 @@ ${raw}
 ## 出力
 リライトした説明文のみ出力すること（前置き・コメント不要）。`;
 
-  const res = await anthropic.messages.create({
-    model: 'claude-sonnet-4-5',
-    max_tokens: 512,
-    messages: [{ role: 'user', content: prompt }],
-  });
-  const text = res.content[0].type === 'text' ? res.content[0].text.trim() : '';
-  return text;
+  return callClaude(prompt);
 }
 
 // ---------------------------------------------------------------------------
