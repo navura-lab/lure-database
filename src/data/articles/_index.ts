@@ -35,6 +35,11 @@ import bass_worm_2026 from './bass-worm-2026.js';
 import offshore_lures_2026 from './offshore-lures-2026.js';
 import rockfish_lures_2026 from './rockfish-lures-2026.js';
 import eging_lures_2026 from './eging-lures-2026.js';
+import trout_lures_2026 from './trout-lures-2026.js';
+import chinu_lures_2026 from './chinu-lures-2026.js';
+import tachiuo_sawara_lures_2026 from './tachiuo-sawara-lures-2026.js';
+import flatfish_lures_2026 from './flatfish-lures-2026.js';
+import seabass_swimbait_2026 from './seabass-swimbait-2026.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -55,6 +60,11 @@ export const contentArticles: ContentArticle[] = [
   offshore_lures_2026,
   rockfish_lures_2026,
   eging_lures_2026,
+  trout_lures_2026,
+  chinu_lures_2026,
+  tachiuo_sawara_lures_2026,
+  flatfish_lures_2026,
+  seabass_swimbait_2026,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
