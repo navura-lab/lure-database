@@ -55,19 +55,29 @@ async function main() {
   }> = [];
 
   for (const maker of makers) {
-    const { data, error } = await sb
-      .from('lures')
-      .select('slug, name, description, type, target_fish')
-      .eq('manufacturer_slug', maker);
+    // ページネーションで全件取得（Supabase 1000件上限対策）
+    let allData: any[] = [];
+    let offset = 0;
+    while (true) {
+      const { data, error } = await sb
+        .from('lures')
+        .select('slug, name, description, type, target_fish')
+        .eq('manufacturer_slug', maker)
+        .range(offset, offset + 999);
 
-    if (error) {
-      console.error(`❌ ${maker}: ${error.message}`);
-      continue;
+      if (error) {
+        console.error(`❌ ${maker}: ${error.message}`);
+        break;
+      }
+      if (!data?.length) break;
+      allData = [...allData, ...data];
+      offset += data.length;
+      if (data.length < 1000) break;
     }
 
     // slug単位で重複排除
-    const unique = new Map<string, (typeof data)[0]>();
-    for (const r of data || []) {
+    const unique = new Map<string, any>();
+    for (const r of allData) {
       if (!unique.has(r.slug)) unique.set(r.slug, r);
     }
 
