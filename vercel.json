@@ -5555,6 +5555,31 @@
       "source": "/en/ranking/madai-jighead/",
       "destination": "/en/type/jighead/",
       "permanent": true
+    },
+    {
+      "source": "/valleyhill/buzzslater-g3/",
+      "destination": "/valleyhill/",
+      "permanent": true
+    },
+    {
+      "source": "/smith/trout-quicklurechanger/",
+      "destination": "/smith/",
+      "permanent": true
+    },
+    {
+      "source": "/smith/trout-quickrodholder/",
+      "destination": "/smith/",
+      "permanent": true
+    },
+    {
+      "source": "/crazy-ocean/jr/",
+      "destination": "/crazy-ocean/",
+      "permanent": true
+    },
+    {
+      "source": "/crazy-ocean/product-%E6%B5%B7%E6%AF%9B%E8%99%AB/",
+      "destination": "/crazy-ocean/",
+      "permanent": true
     }
   ],
   "headers": [
