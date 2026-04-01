@@ -8,6 +8,11 @@
 ### Phase 1: データ収集（現状把握）
 
 ```bash
+echo "=== 0. KPI積み上げ記録 ==="
+npx tsx scripts/collect-daily-kpi.ts 2>/dev/null
+npx tsx scripts/collect-daily-kpi.ts --report 2>/dev/null
+
+echo ""
 echo "=== 1. エージェント実行ログ（直近24時間） ==="
 sqlite3 ops/db/agents.db "SELECT agent_name, status, duration_seconds, started_at, summary FROM agent_runs WHERE started_at > datetime('now', '-1 day', 'localtime') ORDER BY started_at DESC;"
 
