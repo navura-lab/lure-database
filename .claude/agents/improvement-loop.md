@@ -30,7 +30,7 @@ npx tsx scripts/audit-editorials.ts 2>/dev/null | tail -10
 
 echo ""
 echo "=== 6. 前回のネタ帳 ==="
-cat logs/improvement-backlog.md 2>/dev/null || echo "ネタ帳なし（初回実行）"
+cat /Users/user/clawd/obsidian/10_プロジェクト/CASTLOG/improvement-backlog.md 2>/dev/null || echo "ネタ帳なし（初回実行）"
 ```
 
 ### Phase 2: 分析（課題抽出）
@@ -45,7 +45,7 @@ cat logs/improvement-backlog.md 2>/dev/null || echo "ネタ帳なし（初回実
 
 ### Phase 3: ネタ帳更新
 
-`logs/improvement-backlog.md` に以下の形式で追記：
+`/Users/user/clawd/obsidian/10_プロジェクト/CASTLOG/improvement-backlog.md` に以下の形式で追記：
 
 ```markdown
 ## YYYY-MM-DD レポート
@@ -84,7 +84,7 @@ cat logs/improvement-backlog.md 2>/dev/null || echo "ネタ帳なし（初回実
 
 ```bash
 git pull --rebase origin main 2>/dev/null || true
-git add logs/improvement-backlog.md src/data/seo/editorials/ 2>/dev/null || true
+git add /Users/user/clawd/obsidian/10_プロジェクト/CASTLOG/improvement-backlog.md src/data/seo/editorials/ 2>/dev/null || true
 git status --short
 # 変更があれば
 git commit -m "chore: 自律改善ループ - $(date +%Y-%m-%d)
