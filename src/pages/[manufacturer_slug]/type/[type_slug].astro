@@ -67,6 +67,54 @@ const topFish = [...fishCount.entries()]
 // シリーズをカラー数降順ソート（代表性の高い順）
 const sortedSeries = [...series].sort((a, b) => b.color_count - a.color_count);
 
+// ─── 追加集計（コンテンツ濃度向上） ───
+
+// 重量統計
+const weights = series.flatMap(s => [s.weight_range.min, s.weight_range.max].filter(Boolean)) as number[];
+const weightStats = weights.length > 0 ? {
+  min: Math.min(...weights),
+  max: Math.max(...weights),
+  avg: Math.round(weights.reduce((a, b) => a + b, 0) / weights.length * 10) / 10,
+} : null;
+
+// サイズ統計
+const lengths = series.flatMap(s => [s.length_range.min, s.length_range.max].filter(Boolean)) as number[];
+const lengthStats = lengths.length > 0 ? {
+  min: Math.min(...lengths),
+  max: Math.max(...lengths),
+  avg: Math.round(lengths.reduce((a, b) => a + b, 0) / lengths.length),
+} : null;
+
+// 価格帯分布（ヒストグラム用）
+const priceBands = [
+  { label: '〜¥1,000', min: 0, max: 1000, count: 0 },
+  { label: '¥1,001〜2,000', min: 1001, max: 2000, count: 0 },
+  { label: '¥2,001〜3,000', min: 2001, max: 3000, count: 0 },
+  { label: '¥3,001〜5,000', min: 3001, max: 5000, count: 0 },
+  { label: '¥5,001〜', min: 5001, max: 999999, count: 0 },
+];
+for (const s of series) {
+  const p = s.price_range.min > 0 ? s.price_range.min : s.price_range.max;
+  if (p > 0) {
+    const band = priceBands.find(b => p >= b.min && p <= b.max);
+    if (band) band.count++;
+  }
+}
+const priceBandsFiltered = priceBands.filter(b => b.count > 0);
+const maxBandCount = Math.max(...priceBandsFiltered.map(b => b.count), 1);
+
+// ハイライト（最も○○なモデル）
+const mostColors = sortedSeries[0];
+const cheapest = [...series].filter(s => s.price_range.min > 0).sort((a, b) => a.price_range.min - b.price_range.min)[0];
+const heaviest = [...series].filter(s => s.weight_range.max).sort((a, b) => (b.weight_range.max || 0) - (a.weight_range.max || 0))[0];
+const lightest = [...series].filter(s => s.weight_range.min && s.weight_range.min > 0).sort((a, b) => (a.weight_range.min || 999) - (b.weight_range.min || 999))[0];
+
+// 各モデルのdescription抜粋（先頭80文字）
+const descSnippets = series
+  .filter(s => s.description && s.description.length >= 30)
+  .slice(0, 5)
+  .map(s => ({ name: s.name, slug: s.slug, snippet: s.description!.slice(0, 80) + (s.description!.length > 80 ? '...' : '') }));
+
 // ─── SEO ───
 
 const currentYear = new Date().getFullYear();
@@ -175,13 +223,33 @@ const jsonLd = [breadcrumbLd, itemListLd, faqLd] as unknown as Record<string, un
 
 // ─── データストーリー（仮テキスト: 後で data-story.ts と接続） ───
 
-const storyP1 = `${manufacturerNameJa}は${typeName}カテゴリで${totalCount}モデルをラインナップ。${topFish.length > 0 ? `主なターゲットは${topFish.join('・')}で、` : ''}幅広いシチュエーションに対応するモデルが揃っている。`;
+// ─── データストーリー（濃化版：全てDBクエリ結果） ───
 
-const storyP2 = avgPrice > 0
-  ? `価格帯は平均約\u00A5${avgPrice.toLocaleString()}で、1モデルあたり平均${avgColorCount}色を展開。カラーラインナップは${colorBreakdown.filter(e => e.id !== 'other').slice(0, 2).map(e => e.label).join('と')}が中心だ。`
-  : `1モデルあたり平均${avgColorCount}色を展開。カラーラインナップは${colorBreakdown.filter(e => e.id !== 'other').slice(0, 2).map(e => e.label).join('と')}が中心となっている。`;
+const storyP1 = `${manufacturerNameJa}の${typeName}は全${totalCount}モデル。${topFish.length > 0 ? `主なターゲットは${topFish.join('・')}。` : ''}${mostColors ? `カラー展開が最も豊富なのは${mostColors.name}（${mostColors.color_count}色）。` : ''}1モデルあたり平均${avgColorCount}色を展開している。`;
 
-const storyP3 = `各モデルの詳細なスペック・カラー一覧は下の商品テーブルからチェックできる。${otherTypes.length > 0 ? `${manufacturerNameJa}は${typeName}のほかにも${otherTypes.slice(0, 3).map(t => t.typeName).join('・')}なども展開中。` : ''}`;
+const storyP2Parts: string[] = [];
+if (avgPrice > 0 && prices.length > 0) {
+  const minP = Math.min(...prices);
+  const maxP = Math.max(...prices);
+  const topBand = priceBandsFiltered.sort((a, b) => b.count - a.count)[0];
+  storyP2Parts.push(`価格帯は¥${minP.toLocaleString()}〜¥${maxP.toLocaleString()}${topBand ? `で、${topBand.label}の価格帯に${topBand.count}モデル（${Math.round(topBand.count / totalCount * 100)}%）が集中` : ''}。平均価格は¥${avgPrice.toLocaleString()}`);
+}
+if (cheapest && cheapest.price_range.min > 0) {
+  storyP2Parts.push(`最も手頃なのは${cheapest.name}（¥${cheapest.price_range.min.toLocaleString()}〜）`);
+}
+const storyP2 = storyP2Parts.join('。') + '。';
+
+const storyP3Parts: string[] = [];
+if (weightStats) storyP3Parts.push(`重量は${weightStats.min}g〜${weightStats.max}gの範囲で平均${weightStats.avg}g`);
+if (lengthStats) storyP3Parts.push(`全長は${lengthStats.min}mm〜${lengthStats.max}mm`);
+if (lightest && heaviest && lightest.slug !== heaviest.slug) {
+  storyP3Parts.push(`最軽量は${lightest.name}（${lightest.weight_range.min}g）、最重量は${heaviest.name}（${heaviest.weight_range.max}g）`);
+}
+const colorTop = colorBreakdown.filter(e => e.id !== 'other').slice(0, 3);
+if (colorTop.length > 0) {
+  storyP3Parts.push(`カラー系統は${colorTop.map(c => `${c.label}${c.pct}%`).join('、')}の構成`);
+}
+const storyP3 = storyP3Parts.length > 0 ? storyP3Parts.join('。') + '。' : '';
 ---
 
 <BaseLayout
@@ -240,6 +308,85 @@ const storyP3 = `各モデルの詳細なスペック・カラー一覧は下の
       <p class="text-sm text-text-mid leading-relaxed mt-2">{storyP2}</p>
       <p class="text-sm text-text-mid leading-relaxed mt-2">{storyP3}</p>
     </div>
+
+    <!-- ハイライト（最も○○なモデル） -->
+    {(mostColors || cheapest || heaviest || lightest) && (
+      <section class="mb-8">
+        <h2 class="text-lg font-bold text-text mb-4">データで見る注目モデル</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {mostColors && (
+            <a href={`/${mostColors.manufacturer_slug}/${mostColors.slug}/`} class="bg-white rounded-lg border border-border p-4 hover:border-accent transition-colors group">
+              <p class="text-xs font-mono text-accent uppercase mb-1">MOST COLORS</p>
+              <p class="text-sm font-bold text-text group-hover:text-accent transition-colors">{mostColors.name}</p>
+              <p class="text-2xl font-bold text-text mt-1">{mostColors.color_count}<span class="text-sm text-text-mid font-normal">色</span></p>
+            </a>
+          )}
+          {cheapest && cheapest.price_range.min > 0 && (
+            <a href={`/${cheapest.manufacturer_slug}/${cheapest.slug}/`} class="bg-white rounded-lg border border-border p-4 hover:border-accent transition-colors group">
+              <p class="text-xs font-mono text-accent uppercase mb-1">LOWEST PRICE</p>
+              <p class="text-sm font-bold text-text group-hover:text-accent transition-colors">{cheapest.name}</p>
+              <p class="text-2xl font-bold text-text mt-1">¥{cheapest.price_range.min.toLocaleString()}<span class="text-sm text-text-mid font-normal">〜</span></p>
+            </a>
+          )}
+          {lightest && lightest.weight_range.min && lightest.weight_range.min > 0 && (
+            <a href={`/${lightest.manufacturer_slug}/${lightest.slug}/`} class="bg-white rounded-lg border border-border p-4 hover:border-accent transition-colors group">
+              <p class="text-xs font-mono text-accent uppercase mb-1">LIGHTEST</p>
+              <p class="text-sm font-bold text-text group-hover:text-accent transition-colors">{lightest.name}</p>
+              <p class="text-2xl font-bold text-text mt-1">{lightest.weight_range.min}<span class="text-sm text-text-mid font-normal">g</span></p>
+            </a>
+          )}
+          {heaviest && heaviest.weight_range.max && (
+            <a href={`/${heaviest.manufacturer_slug}/${heaviest.slug}/`} class="bg-white rounded-lg border border-border p-4 hover:border-accent transition-colors group">
+              <p class="text-xs font-mono text-accent uppercase mb-1">HEAVIEST</p>
+              <p class="text-sm font-bold text-text group-hover:text-accent transition-colors">{heaviest.name}</p>
+              <p class="text-2xl font-bold text-text mt-1">{heaviest.weight_range.max}<span class="text-sm text-text-mid font-normal">g</span></p>
+            </a>
+          )}
+        </div>
+      </section>
+    )}
+
+    <!-- 価格帯分布 -->
+    {priceBandsFiltered.length > 1 && (
+      <section class="mb-8">
+        <h2 class="text-lg font-bold text-text mb-4">価格帯分布</h2>
+        <div class="bg-white rounded-lg border border-border p-5">
+          <div class="space-y-2">
+            {priceBandsFiltered.map(band => (
+              <div class="flex items-center gap-3">
+                <span class="w-28 text-xs text-text-mid shrink-0 font-mono">{band.label}</span>
+                <div class="flex-1 bg-gray-100 rounded h-5 overflow-hidden">
+                  <div
+                    style={`width:${Math.max((band.count / maxBandCount) * 100, 5)}%`}
+                    class="h-5 rounded bg-accent/70 transition-all duration-150 flex items-center justify-end pr-1"
+                  >
+                    {band.count >= 3 && <span class="text-[10px] text-white font-mono">{band.count}</span>}
+                  </div>
+                </div>
+                <span class="text-xs text-text-dim w-16 text-right shrink-0 font-mono">{band.count}モデル</span>
+                <span class="text-xs text-text-faint w-10 text-right shrink-0 font-mono">{Math.round(band.count / totalCount * 100)}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- 代表モデルの公式説明 -->
+    {descSnippets.length > 0 && (
+      <section class="mb-8">
+        <h2 class="text-lg font-bold text-text mb-4">代表モデルの特徴</h2>
+        <div class="space-y-3">
+          {descSnippets.map(d => (
+            <a href={`/${manufacturerSlug}/${d.slug}/`} class="block bg-white rounded-lg border border-border p-4 hover:border-accent transition-colors group">
+              <p class="text-sm font-bold text-text group-hover:text-accent transition-colors mb-1">{d.name}</p>
+              <p class="text-xs text-text-mid leading-relaxed">{d.snippet}</p>
+            </a>
+          ))}
+        </div>
+        <p class="text-xs text-text-faint mt-2">※ 各メーカー公式サイトの商品説明より抜粋</p>
+      </section>
+    )}
 
     <!-- 商品一覧テーブル -->
     <section class="mb-12">
