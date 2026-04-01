@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.castlog.youtube-collector</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/user/.nvm/versions/node/v22.22.0/bin/npx</string>
+        <string>tsx</string>
+        <string>/Users/user/ウェブサイト/lure-database/scripts/youtube-collector.ts</string>
+        <string>--limit</string>
+        <string>50</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/user/ウェブサイト/lure-database</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/Users/user/.nvm/versions/node/v22.22.0/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>HOME</key>
+        <string>/Users/user</string>
+    </dict>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>3</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/Users/user/ウェブサイト/lure-database/ops/logs/youtube-collector.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/user/ウェブサイト/lure-database/ops/logs/youtube-collector.error.log</string>
+</dict>
+</plist>
