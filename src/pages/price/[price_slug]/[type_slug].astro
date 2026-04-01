@@ -1,0 +1,533 @@
+---
+/**
+ * 価格帯×タイプ組み合わせページ — /price/[price_slug]/[type_slug]/
+ *
+ * 特定価格帯の特定タイプのルアーを一覧表示し、
+ * サマリー・メーカー分布・カラー系統分析・FAQ・内部リンクを提供する。
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getManufacturerNameJa } from '../../../lib/manufacturer-names-ja';
+import { getPriceTypePaths } from '../../../lib/paths/price-type-paths';
+import type { PriceTypePathProps } from '../../../lib/paths/price-type-paths';
+import type { LureSeries } from '../../../lib/types';
+import type { ColorBreakdownEntry } from '../../../lib/color-categories';
+
+export async function getStaticPaths() {
+  return getPriceTypePaths();
+}
+
+const {
+  priceLabel,
+  priceSlug,
+  priceMin,
+  priceMax,
+  typeName,
+  typeSlug,
+  series,
+  totalCount,
+  colorBreakdown,
+  topMakers,
+  otherTypes,
+  otherPriceBands,
+} = Astro.props as PriceTypePathProps;
+
+// ─── ヘルパー ───
+
+function fmtPrice(p: { min: number; max: number }): string {
+  if (p.min <= 0 && p.max <= 0) return '\u2014';
+  if (p.min === p.max) return `\u00A5${p.min.toLocaleString()}`;
+  return `\u00A5${p.min.toLocaleString()}\u301C\u00A5${p.max.toLocaleString()}`;
+}
+
+function fmtRange(r: { min: number | null; max: number | null }, unit: string): string {
+  if (r.min == null && r.max == null) return '\u2014';
+  if (r.min === r.max) return `${r.min}${unit}`;
+  if (r.min == null) return `\u301C${r.max}${unit}`;
+  if (r.max == null) return `${r.min}${unit}\u301C`;
+  return `${r.min}\u2013${r.max}${unit}`;
+}
+
+// ─── 集計 ───
+
+const prices = series.flatMap(s => [s.price_range.min, s.price_range.max]).filter(p => p > 0);
+const avgPrice = prices.length > 0 ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
+const avgColorCount = Math.round(series.reduce((sum, s) => sum + s.color_count, 0) / totalCount);
+
+// 主要対象魚（上位3）
+const fishCount = new Map<string, number>();
+for (const s of series) {
+  for (const f of s.target_fish) {
+    fishCount.set(f, (fishCount.get(f) || 0) + 1);
+  }
+}
+const topFish = [...fishCount.entries()]
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 3)
+  .map(([name]) => name);
+
+// シリーズをカラー数降順ソート（代表性の高い順）
+const sortedSeries = [...series].sort((a, b) => b.color_count - a.color_count);
+
+// ─── 追加集計 ───
+
+// 重量統計
+const weights = series.flatMap(s => [s.weight_range.min, s.weight_range.max].filter(Boolean)) as number[];
+const weightStats = weights.length > 0 ? {
+  min: Math.min(...weights),
+  max: Math.max(...weights),
+  avg: Math.round(weights.reduce((a, b) => a + b, 0) / weights.length * 10) / 10,
+} : null;
+
+// サイズ統計
+const lengths = series.flatMap(s => [s.length_range.min, s.length_range.max].filter(Boolean)) as number[];
+const lengthStats = lengths.length > 0 ? {
+  min: Math.min(...lengths),
+  max: Math.max(...lengths),
+  avg: Math.round(lengths.reduce((a, b) => a + b, 0) / lengths.length),
+} : null;
+
+// ハイライト（最も○○なモデル）
+const mostColors = sortedSeries[0];
+const heaviest = [...series].filter(s => s.weight_range.max).sort((a, b) => (b.weight_range.max || 0) - (a.weight_range.max || 0))[0];
+const lightest = [...series].filter(s => s.weight_range.min && s.weight_range.min > 0).sort((a, b) => (a.weight_range.min || 999) - (b.weight_range.min || 999))[0];
+
+// メーカー分布バー用データ
+const makerTotal = topMakers.reduce((sum, m) => sum + m.count, 0);
+const othersCount = totalCount - makerTotal;
+const maxMakerCount = Math.max(...topMakers.map(m => m.count), 1);
+
+// 代表モデルのdescription抜粋（先頭80文字）
+const descSnippets = series
+  .filter(s => s.description && s.description.length >= 30)
+  .slice(0, 5)
+  .map(s => ({ name: s.name, slug: s.slug, manufacturerSlug: s.manufacturer_slug, snippet: s.description!.slice(0, 80) + (s.description!.length > 80 ? '...' : '') }));
+
+// ─── SEO ───
+
+const currentYear = new Date().getFullYear();
+const shouldNoindex = totalCount < 10;
+
+const pageTitle = `${priceLabel}の${typeName}一覧【全${totalCount}モデル】 | CAST/LOG`;
+const pageDescription = `${priceLabel}の${typeName}${totalCount}モデルを一覧比較。${topMakers.length > 0 ? `${topMakers.slice(0, 3).map(m => m.name).join('・')}など${topMakers.length}メーカーが展開。` : ''}${topFish.length > 0 ? `主な対象魚は${topFish.join('・')}。` : ''}価格・重量・カラー展開をチェックして最適な1本を見つけよう。`;
+
+const canonicalPath = `/price/${priceSlug}/${typeSlug}/`;
+
+// BreadcrumbList
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '\u30C8\u30C3\u30D7', item: 'https://www.castlog.xyz/' },
+    { '@type': 'ListItem', position: 2, name: priceLabel, item: `https://www.castlog.xyz/price/${priceSlug}/` },
+    { '@type': 'ListItem', position: 3, name: typeName, item: `https://www.castlog.xyz/price/${priceSlug}/${typeSlug}/` },
+  ],
+};
+
+// ItemList
+const itemListLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `${priceLabel}の${typeName}一覧`,
+  numberOfItems: totalCount,
+  itemListElement: sortedSeries.slice(0, 30).map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `https://www.castlog.xyz/${s.manufacturer_slug}/${s.slug}/`,
+    name: s.name,
+    ...(s.representative_image ? { image: s.representative_image } : {}),
+  })),
+};
+
+// FAQ構造化データ（5問: データ駆動で自動生成）
+const faqEntries: { '@type': string; name: string; acceptedAnswer: { '@type': string; text: string } }[] = [];
+
+// Q1: ラインナップ概要
+faqEntries.push({
+  '@type': 'Question',
+  name: `${priceLabel}の${typeName}は何モデルある？`,
+  acceptedAnswer: {
+    '@type': 'Answer',
+    text: `${priceLabel}の価格帯で購入できる${typeName}は${totalCount}モデル。${topMakers.slice(0, 3).map(m => `${m.name}（${m.count}モデル）`).join('、')}などが展開している。`,
+  },
+});
+
+// Q2: メーカー
+if (topMakers.length > 0) {
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${priceLabel}の${typeName}を作っているメーカーは？`,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: `${topMakers.slice(0, 5).map(m => m.name).join('、')}など${topMakers.length}メーカーが${priceLabel}の${typeName}を展開している。最も多いのは${topMakers[0].name}の${topMakers[0].count}モデル。`,
+    },
+  });
+}
+
+// Q3: 対象魚
+if (topFish.length > 0) {
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${priceLabel}の${typeName}はどんな魚に使える？`,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: `${priceLabel}の${typeName}は主に${topFish.join('、')}をターゲットにしたモデルが多い。モデルによって対応する魚種が異なるため、各商品ページで詳細を確認しよう。`,
+    },
+  });
+}
+
+// Q4: カラー展開
+if (colorBreakdown.length > 0) {
+  const topColors = colorBreakdown.filter(e => e.id !== 'other').slice(0, 3);
+  faqEntries.push({
+    '@type': 'Question',
+    name: `${priceLabel}の${typeName}のカラー展開の特徴は？`,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: `${priceLabel}の${typeName}全体では${topColors.map(c => `${c.label}（${c.pct}%）`).join('、')}が多い。1モデルあたり平均${avgColorCount}色展開。`,
+    },
+  });
+}
+
+// Q5: 価格帯の特徴
+faqEntries.push({
+  '@type': 'Question',
+  name: `${priceLabel}の${typeName}の選び方は？`,
+  acceptedAnswer: {
+    '@type': 'Answer',
+    text: `${priceLabel}の${typeName}を選ぶ際は、ターゲットとなる魚種・使用するフィールド・重量・カラー展開を基準に比較するのがおすすめ。${avgPrice > 0 ? `この価格帯の平均価格は約\u00A5${avgPrice.toLocaleString()}。` : ''}`,
+  },
+});
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqEntries,
+};
+
+const jsonLd = [breadcrumbLd, itemListLd, faqLd] as unknown as Record<string, unknown>;
+
+// ─── データストーリー ───
+
+const storyP1 = (() => {
+  const parts: string[] = [];
+  parts.push(`${priceLabel}の価格帯で購入できる${typeName}は全${totalCount}モデル`);
+  if (topMakers.length > 0) {
+    parts.push(`${topMakers.slice(0, 3).map(m => m.name).join('・')}を中心に${topMakers.length}メーカーが展開`);
+  }
+  if (topFish.length > 0) {
+    parts.push(`主なターゲットは${topFish.join('・')}`);
+  }
+  return parts.join('。') + '。';
+})();
+
+const storyP2 = (() => {
+  const parts: string[] = [];
+  if (weightStats) parts.push(`重量は${weightStats.min}g〜${weightStats.max}gの範囲で平均${weightStats.avg}g`);
+  if (lengthStats) parts.push(`全長は${lengthStats.min}mm〜${lengthStats.max}mm`);
+  if (mostColors) parts.push(`カラー展開が最も豊富なのは${mostColors.name}（${mostColors.color_count}色）`);
+  parts.push(`1モデルあたり平均${avgColorCount}色を展開`);
+  return parts.join('。') + '。';
+})();
+
+const storyP3 = (() => {
+  const colorTop = colorBreakdown.filter(e => e.id !== 'other').slice(0, 3);
+  const parts: string[] = [];
+  if (colorTop.length > 0) {
+    parts.push(`カラー系統は${colorTop.map(c => `${c.label}${c.pct}%`).join('、')}の構成`);
+  }
+  if (topMakers.length >= 2) {
+    const top2 = topMakers.slice(0, 2);
+    parts.push(`メーカー別では${top2.map(m => `${m.name}が${m.count}モデル（${Math.round(m.count / totalCount * 100)}%）`).join('、')}`);
+  }
+  return parts.length > 0 ? parts.join('。') + '。' : '';
+})();
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath={canonicalPath}
+  noindex={shouldNoindex}
+  jsonLd={jsonLd}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-text-mid mb-8">
+      <a href="/" class="hover:text-accent transition-colors duration-150">トップ</a>
+      <span class="mx-2">/</span>
+      <span class="text-text-mid">{priceLabel}</span>
+      <span class="mx-2">/</span>
+      <span class="text-text">{typeName}</span>
+    </nav>
+
+    <!-- ヘッダー -->
+    <div class="mb-6">
+      <p class="text-xs font-mono text-accent uppercase tracking-wider mb-1">PRICE &times; TYPE</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-text">
+        {priceLabel}の{typeName}一覧<span class="text-lg sm:text-xl text-text-mid font-normal ml-2">全{totalCount}モデル</span>
+      </h1>
+    </div>
+
+    <!-- サマリーカード -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white rounded-lg border border-border p-4">
+        <p class="text-xs font-mono text-text-dim uppercase tracking-wider mb-1">MODELS</p>
+        <p class="text-2xl font-bold text-text">{totalCount}</p>
+        <p class="text-xs text-text-mid">モデル数</p>
+      </div>
+      <div class="bg-white rounded-lg border border-border p-4">
+        <p class="text-xs font-mono text-text-dim uppercase tracking-wider mb-1">AVG PRICE</p>
+        <p class="text-2xl font-bold text-text">{avgPrice > 0 ? `\u00A5${avgPrice.toLocaleString()}` : '\u2014'}</p>
+        <p class="text-xs text-text-mid">平均価格</p>
+      </div>
+      <div class="bg-white rounded-lg border border-border p-4">
+        <p class="text-xs font-mono text-text-dim uppercase tracking-wider mb-1">AVG COLORS</p>
+        <p class="text-2xl font-bold text-text">{avgColorCount}<span class="text-base font-normal text-text-mid">色</span></p>
+        <p class="text-xs text-text-mid">平均カラー数</p>
+      </div>
+      <div class="bg-white rounded-lg border border-border p-4">
+        <p class="text-xs font-mono text-text-dim uppercase tracking-wider mb-1">MAKERS</p>
+        <p class="text-sm font-bold text-text leading-tight">{topMakers.slice(0, 3).map(m => m.name).join('・')}</p>
+        <p class="text-xs text-text-mid mt-1">主要メーカー</p>
+      </div>
+    </div>
+
+    <!-- データストーリー -->
+    <div class="bg-white rounded-lg border border-border p-5 sm:p-6 mb-8">
+      <p class="text-sm text-text-mid leading-relaxed">{storyP1}</p>
+      <p class="text-sm text-text-mid leading-relaxed mt-2">{storyP2}</p>
+      {storyP3 && <p class="text-sm text-text-mid leading-relaxed mt-2">{storyP3}</p>}
+    </div>
+
+    <!-- ハイライト（最も○○なモデル） -->
+    {(mostColors || heaviest || lightest || topMakers.length > 0) && (
+      <section class="mb-8">
+        <h2 class="text-lg font-bold text-text mb-4">データで見る注目モデル</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {mostColors && (
+            <a href={`/${mostColors.manufacturer_slug}/${mostColors.slug}/`} class="bg-white rounded-lg border border-border p-4 hover:border-accent transition-colors group">
+              <p class="text-xs font-mono text-accent uppercase mb-1">MOST COLORS</p>
+              <p class="text-sm font-bold text-text group-hover:text-accent transition-colors">{mostColors.name}</p>
+              <p class="text-2xl font-bold text-text mt-1">{mostColors.color_count}<span class="text-sm text-text-mid font-normal">色</span></p>
+            </a>
+          )}
+          {topMakers.length > 0 && (
+            <a href={`/${topMakers[0].slug}/type/${typeSlug}/`} class="bg-white rounded-lg border border-border p-4 hover:border-accent transition-colors group">
+              <p class="text-xs font-mono text-accent uppercase mb-1">TOP MAKER</p>
+              <p class="text-sm font-bold text-text group-hover:text-accent transition-colors">{topMakers[0].name}</p>
+              <p class="text-2xl font-bold text-text mt-1">{topMakers[0].count}<span class="text-sm text-text-mid font-normal">モデル</span></p>
+            </a>
+          )}
+          {lightest && lightest.weight_range.min && lightest.weight_range.min > 0 && (
+            <a href={`/${lightest.manufacturer_slug}/${lightest.slug}/`} class="bg-white rounded-lg border border-border p-4 hover:border-accent transition-colors group">
+              <p class="text-xs font-mono text-accent uppercase mb-1">LIGHTEST</p>
+              <p class="text-sm font-bold text-text group-hover:text-accent transition-colors">{lightest.name}</p>
+              <p class="text-2xl font-bold text-text mt-1">{lightest.weight_range.min}<span class="text-sm text-text-mid font-normal">g</span></p>
+            </a>
+          )}
+          {heaviest && heaviest.weight_range.max && (
+            <a href={`/${heaviest.manufacturer_slug}/${heaviest.slug}/`} class="bg-white rounded-lg border border-border p-4 hover:border-accent transition-colors group">
+              <p class="text-xs font-mono text-accent uppercase mb-1">HEAVIEST</p>
+              <p class="text-sm font-bold text-text group-hover:text-accent transition-colors">{heaviest.name}</p>
+              <p class="text-2xl font-bold text-text mt-1">{heaviest.weight_range.max}<span class="text-sm text-text-mid font-normal">g</span></p>
+            </a>
+          )}
+        </div>
+      </section>
+    )}
+
+    <!-- メーカー分布バー -->
+    {topMakers.length > 1 && (
+      <section class="mb-8">
+        <h2 class="text-lg font-bold text-text mb-4">メーカー分布</h2>
+        <div class="bg-white rounded-lg border border-border p-5">
+          <div class="space-y-2">
+            {topMakers.map(maker => (
+              <div class="flex items-center gap-3">
+                <a href={`/${maker.slug}/`} class="w-28 text-xs text-text-mid shrink-0 truncate hover:text-accent transition-colors duration-150">{maker.name}</a>
+                <div class="flex-1 bg-gray-100 rounded h-5 overflow-hidden">
+                  <div
+                    style={`width:${Math.max((maker.count / maxMakerCount) * 100, 5)}%`}
+                    class="h-5 rounded bg-accent/70 transition-all duration-150 flex items-center justify-end pr-1"
+                  >
+                    {maker.count >= 3 && <span class="text-[10px] text-white font-mono">{maker.count}</span>}
+                  </div>
+                </div>
+                <span class="text-xs text-text-dim w-16 text-right shrink-0 font-mono">{maker.count}モデル</span>
+                <span class="text-xs text-text-faint w-10 text-right shrink-0 font-mono">{Math.round(maker.count / totalCount * 100)}%</span>
+              </div>
+            ))}
+            {othersCount > 0 && (
+              <div class="mt-2 pt-2 border-t border-gray-100">
+                <span class="text-xs text-text-faint">その他: {othersCount}モデル（{Math.round(othersCount / totalCount * 100)}%）</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- 代表モデルの公式説明 -->
+    {descSnippets.length > 0 && (
+      <section class="mb-8">
+        <h2 class="text-lg font-bold text-text mb-4">代表モデルの特徴</h2>
+        <div class="space-y-3">
+          {descSnippets.map(d => (
+            <a href={`/${d.manufacturerSlug}/${d.slug}/`} class="block bg-white rounded-lg border border-border p-4 hover:border-accent transition-colors group">
+              <p class="text-sm font-bold text-text group-hover:text-accent transition-colors mb-1">{d.name}</p>
+              <p class="text-xs text-text-mid leading-relaxed">{d.snippet}</p>
+            </a>
+          ))}
+        </div>
+        <p class="text-xs text-text-faint mt-2">※ 各メーカー公式サイトの商品説明より抜粋</p>
+      </section>
+    )}
+
+    <!-- 商品一覧テーブル -->
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-text mb-4">全{totalCount}モデル一覧</h2>
+      <div class="overflow-x-auto -mx-4 px-4">
+        <table class="w-full text-sm border-collapse min-w-[640px]">
+          <thead>
+            <tr class="border-b-2 border-border">
+              <th class="py-3 pr-4 text-left text-xs font-semibold text-text-dim">商品名</th>
+              <th class="py-3 px-2 text-left text-xs font-semibold text-text-dim">メーカー</th>
+              <th class="py-3 px-2 text-right text-xs font-semibold text-text-dim">価格帯</th>
+              <th class="py-3 px-2 text-right text-xs font-semibold text-text-dim">重量</th>
+              <th class="py-3 px-2 text-right text-xs font-semibold text-text-dim">全長</th>
+              <th class="py-3 px-2 text-right text-xs font-semibold text-text-dim">カラー数</th>
+              <th class="py-3 pl-2 text-right text-xs font-semibold text-text-dim"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedSeries.map((s, i) => (
+              <tr class={`border-b border-gray-100 ${i % 2 === 0 ? 'bg-surface/50' : ''} hover:bg-surface transition-colors duration-150`}>
+                <td class="py-3 pr-4">
+                  <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="text-sm font-semibold text-text hover:text-accent transition-colors duration-150">
+                    {s.name}
+                  </a>
+                  {s.target_fish.length > 0 && (
+                    <span class="block text-xs text-text-dim mt-0.5">{s.target_fish.slice(0, 3).join('・')}</span>
+                  )}
+                </td>
+                <td class="py-3 px-2">
+                  <a href={`/${s.manufacturer_slug}/`} class="text-xs text-text-mid hover:text-accent transition-colors duration-150">{getManufacturerNameJa(s.manufacturer_slug, s.manufacturer)}</a>
+                </td>
+                <td class="py-3 px-2 text-right text-sm text-text-mid font-mono whitespace-nowrap">{fmtPrice(s.price_range)}</td>
+                <td class="py-3 px-2 text-right text-sm text-text-mid font-mono whitespace-nowrap">{fmtRange(s.weight_range, 'g')}</td>
+                <td class="py-3 px-2 text-right text-sm text-text-mid font-mono whitespace-nowrap">{fmtRange(s.length_range, 'mm')}</td>
+                <td class="py-3 px-2 text-right text-sm text-text-mid font-mono">{s.color_count}色</td>
+                <td class="py-3 pl-2 text-right">
+                  <a href={`/${s.manufacturer_slug}/${s.slug}/`} class="text-xs text-accent hover:underline whitespace-nowrap">詳細→</a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- カラー系統分析バー -->
+    {colorBreakdown.filter(e => e.id !== 'other').length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-lg font-bold text-text mb-4">カラー系統分析</h2>
+        <p class="text-sm text-text-mid mb-4">
+          {priceLabel}の{typeName}全{totalCount}モデルのカラーラインナップを系統別に集計。
+        </p>
+        <div class="bg-white rounded-lg border border-border p-5">
+          <div class="space-y-2">
+            {colorBreakdown.filter(e => e.id !== 'other').map(cat => {
+              const maxPct = Math.max(...colorBreakdown.filter(e => e.id !== 'other').map(e => e.pct), 1);
+              return (
+                <div class="flex items-center gap-3">
+                  <span class="w-24 text-xs text-text-mid shrink-0 truncate">{cat.label}</span>
+                  <div class="flex-1 bg-gray-100 rounded h-4 overflow-hidden">
+                    <div
+                      style={`width:${Math.max((cat.pct / maxPct) * 100, 3)}%;background-color:${cat.cssColor}`}
+                      class="h-4 rounded transition-all duration-150"
+                    />
+                  </div>
+                  <span class="text-xs text-text-dim w-12 text-right shrink-0 font-mono">{cat.pct}%</span>
+                  <span class="text-xs text-text-dim w-10 text-right shrink-0 font-mono">{cat.count}色</span>
+                </div>
+              );
+            })}
+            {colorBreakdown.some(e => e.id === 'other' && e.count > 0) && (
+              <div class="mt-2 pt-2 border-t border-gray-100">
+                <span class="text-xs text-text-faint">その他: {colorBreakdown.find(e => e.id === 'other')?.count}色（{colorBreakdown.find(e => e.id === 'other')?.pct}%）</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- よくある質問 -->
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-text mb-4">よくある質問</h2>
+      <div class="space-y-2">
+        {faqEntries.map((faq, i) => (
+          <details class="group bg-white rounded-lg border border-border overflow-hidden" open={i === 0}>
+            <summary class="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-surface transition-colors duration-150">
+              <span class="text-sm font-semibold text-text pr-4">{faq.name}</span>
+              <svg class="w-4 h-4 text-text-dim shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-4 pb-3 text-sm text-text-mid leading-relaxed border-t border-gray-50">
+              {faq.acceptedAnswer.text}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- 内部リンク -->
+    <section class="mt-12 pt-8 border-t border-border">
+      <h2 class="text-lg font-bold text-text mb-4">関連ページ</h2>
+
+      {/* 同価格帯の他タイプ */}
+      {otherTypes.length > 0 && (
+        <div class="mb-6">
+          <h3 class="text-sm font-semibold text-text-mid mb-3">{priceLabel}の他のタイプ</h3>
+          <div class="flex flex-wrap gap-2">
+            {otherTypes.slice(0, 12).map(t => (
+              <a
+                href={`/price/${priceSlug}/${t.typeSlug}/`}
+                class="px-3 py-1.5 bg-white text-text-mid rounded border border-border text-xs hover:border-accent hover:text-accent transition-colors duration-150"
+              >
+                {t.typeName}（{t.count}）
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 同タイプの他価格帯 */}
+      {otherPriceBands.length > 0 && (
+        <div class="mb-6">
+          <h3 class="text-sm font-semibold text-text-mid mb-3">{typeName}の他の価格帯</h3>
+          <div class="flex flex-wrap gap-2">
+            {otherPriceBands.map(pb => (
+              <a
+                href={`/price/${pb.priceSlug}/${typeSlug}/`}
+                class="px-3 py-1.5 bg-white text-text-mid rounded border border-border text-xs hover:border-accent hover:text-accent transition-colors duration-150"
+              >
+                {pb.priceLabel}（{pb.count}）
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ナビゲーションボタン */}
+      <div class="flex flex-wrap gap-3 mt-4">
+        <a href={`/type/${typeSlug}/`} class="px-4 py-2 bg-accent text-white rounded text-sm font-medium hover:opacity-90 transition-opacity duration-150">
+          {typeName}のルアー一覧→
+        </a>
+      </div>
+    </section>
+
+  </div>
+</BaseLayout>
