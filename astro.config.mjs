@@ -6,6 +6,8 @@ import { contentArticles } from './src/data/articles/_index.js';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
+import react from '@astrojs/react';
+
 // 記事slugから最新更新日へのマップ（sitemap lastmod用）
 const articleDateMap = new Map(
   contentArticles.map(a => [a.slug, a.updatedAt || a.publishedAt])
@@ -122,7 +124,7 @@ export default defineConfig({
       // その他（静的ページ）: ビルド日時
       return { ...item, changefreq: 'monthly', priority: 0.3 };
     },
-  })],
+  }), react()],
   vite: {
     plugins: [tailwindcss()]
   }
