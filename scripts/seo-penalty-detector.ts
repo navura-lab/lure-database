@@ -233,6 +233,59 @@ function notifyDiscord(alerts: Alert[]) {
 }
 
 // ─── メイン ──────────────────────────────────────────
+// ─── GA4データチェック ──────────────────────────────
+function checkGA4Anomalies(): Alert[] {
+  const alerts: Alert[] = [];
+  const ga4Dir = path.join(import.meta.dirname, '..', 'logs', 'ga4-data');
+
+  if (!fs.existsSync(ga4Dir)) return alerts;
+
+  const files = fs.readdirSync(ga4Dir)
+    .filter(f => f.startsWith('ga4-') && f.endsWith('.json'))
+    .sort()
+    .slice(-7);
+
+  if (files.length < 2) return alerts;
+
+  try {
+    const latest = JSON.parse(fs.readFileSync(path.join(ga4Dir, files[files.length - 1]), 'utf8'));
+    const prev = JSON.parse(fs.readFileSync(path.join(ga4Dir, files[files.length - 2]), 'utf8'));
+
+    const todayPV = latest.daily?.reduce((s: number, d: any) => s + (d.pageviews || 0), 0) || 0;
+    const prevPV = prev.daily?.reduce((s: number, d: any) => s + (d.pageviews || 0), 0) || 0;
+    const todayUsers = latest.daily?.reduce((s: number, d: any) => s + (d.users || 0), 0) || 0;
+    const prevUsers = prev.daily?.reduce((s: number, d: any) => s + (d.users || 0), 0) || 0;
+
+    if (prevPV > 0) {
+      const pvChange = (todayPV - prevPV) / prevPV;
+      if (pvChange <= -0.40) {
+        alerts.push({
+          level: pvChange <= -0.60 ? 'critical' : 'warning',
+          metric: 'ga4_pv_drop',
+          message: `GA4 PV急落: ${prevPV}→${todayPV}（${(pvChange * 100).toFixed(1)}%）`,
+          current: todayPV, previous: prevPV, changePercent: pvChange * 100,
+        });
+      }
+    }
+
+    if (prevUsers > 0) {
+      const userChange = (todayUsers - prevUsers) / prevUsers;
+      if (userChange <= -0.40) {
+        alerts.push({
+          level: 'warning',
+          metric: 'ga4_user_drop',
+          message: `GA4 ユーザー急落: ${prevUsers}→${todayUsers}（${(userChange * 100).toFixed(1)}%）`,
+          current: todayUsers, previous: prevUsers, changePercent: userChange * 100,
+        });
+      }
+    }
+
+    log(`GA4データ: PV=${todayPV}(前回${prevPV}) Users=${todayUsers}(前回${prevUsers})`);
+  } catch { /* GA4データ読み込みエラー、スキップ */ }
+
+  return alerts;
+}
+
 async function main() {
   log('=== SEOペナルティ検知 開始 ===');
 
@@ -245,6 +298,10 @@ async function main() {
   }
 
   const alerts = detectAnomalies(data);
+
+  // GA4チェック追加
+  const ga4Alerts = checkGA4Anomalies();
+  alerts.push(...ga4Alerts);
 
   // 結果表示
   const critical = alerts.filter(a => a.level === 'critical');

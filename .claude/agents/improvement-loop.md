@@ -25,6 +25,11 @@ echo "=== 4. GSC最新データ ==="
 cat logs/seo-data/$(ls logs/seo-data/ | grep '^2026' | sort | tail -1) 2>/dev/null | head -10
 
 echo ""
+echo "=== 4.5. GA4実データ ==="
+python3 scripts/ga4-daily-report.py --json 2>/dev/null | tail -5
+python3 scripts/ga4-daily-report.py 2>/dev/null | head -15
+
+echo ""
 echo "=== 5. 品質監査 ==="
 npx tsx scripts/audit-editorials.ts 2>/dev/null | tail -10
 
