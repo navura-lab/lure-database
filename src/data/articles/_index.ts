@@ -46,6 +46,7 @@ import lightgame_jighead_2026 from './lightgame-jighead-2026.js';
 import bass_crankbait_2026 from './bass-crankbait-2026.js';
 import offshore_metal_jig_2026 from './offshore-metal-jig-2026.js';
 import seabass_sinking_pencil_2026 from './seabass-sinking-pencil-2026.js';
+import trout_spoon_2026 from './trout-spoon-2026.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -77,6 +78,7 @@ export const contentArticles: ContentArticle[] = [
   bass_crankbait_2026,
   offshore_metal_jig_2026,
   seabass_sinking_pencil_2026,
+  trout_spoon_2026,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
