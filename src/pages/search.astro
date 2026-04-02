@@ -290,17 +290,11 @@ const breadcrumbLd = {
 
     // まだフィルタ結果がなければフィルタ実行
     if (currentPage === 0) {
-      if (indexLoaded) {
-        // インメモリ検索（高速）
-        allResults = filterIndex(query, mfr, type, fish);
-      } else if (query || mfr || type || fish) {
-        // API検索（search-index.json未ロード時のフォールバック）
-        allResults = await apiSearch(query, mfr, type, fish);
-      } else {
-        // フィルタなし＋インデックス未ロード → インデックス読み込みを待つ
+      // 常にsearch-index.jsonの読み込みを待つ（確実にヒットする）
+      if (!indexLoaded) {
         await loadSearchIndex();
-        allResults = filterIndex(query, mfr, type, fish);
       }
+      allResults = filterIndex(query, mfr, type, fish);
       totalCount = allResults.length;
     }
 
