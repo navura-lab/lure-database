@@ -47,11 +47,32 @@ npx tsx /tmp/_editorial-candidates.ts 2>/dev/null
 - recommendation (recommended 3-4, notRecommended 2-3)
 - faq (5問), meta (generatedAt, targetKeyword, competitorAnalysis)
 
-### Step 3: ビルド確認
+### Step 3: TypeScript構文チェック + ビルド確認
+
+**push前に必ず構文チェックを行う。エラーがあるファイルはpushしない。**
+
 ```bash
+# 構文チェック（ビルドより高速、10秒以内）
+npx tsc --noEmit --pretty 2>&1 | grep -E "error TS" | head -20
+if [ $? -eq 0 ]; then
+  echo "❌ TypeScriptエラーあり。該当ファイルを修正または削除"
+  # エラーファイルを特定して削除
+  npx tsc --noEmit 2>&1 | grep "src/data/seo/editorials" | sed 's/(.*//' | sort -u | while read f; do
+    echo "削除: $f"
+    rm -f "$f"
+  done
+fi
+
+# ビルド確認（構文チェック通過後のみ）
 npm run build 2>&1 | tail -10
 ```
-ビルドエラーが出た場合、該当ファイルを修正して再ビルド。修正不能なら該当ファイルを削除。
+
+ビルドエラーが出た場合:
+1. エラーメッセージからファイル名を特定
+2. 該当ファイルを削除（修正は試みない）
+3. 再ビルド
+
+**ビルド成功するまでgit pushしない。**
 
 ### Step 4: git pull → commit → push
 ```bash
