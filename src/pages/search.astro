@@ -1,17 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FilterBar from '../components/FilterBar.astro';
-import { fetchAllLures } from '../lib/fetch-all-lures';
-import { groupLuresBySeries } from '../lib/group-lures';
-
-const lures = await fetchAllLures();
-const series = groupLuresBySeries(lures ?? []);
-
-const manufacturers = [...new Set(series.map(s => s.manufacturer))].sort();
-const types = [...new Set(series.map(s => s.type))].sort();
-const targetFish = [...new Set(series.flatMap(s => s.target_fish))].sort();
-
-const apiToken = import.meta.env.LDB_API_TOKEN || '';
 
 const breadcrumbLd = {
   '@context': 'https://schema.org',
@@ -25,7 +14,7 @@ const breadcrumbLd = {
 
 <BaseLayout
   title="ルアー検索 - CAST/LOG"
-  description={`国内主要メーカーのルアーを検索。${series.length}シリーズ・${lures?.length ?? 0}カラー登録。`}
+  description="国内主要メーカーのルアーを検索。スペック・カラー・価格を比較。"
   canonicalPath="/search/"
   noindex={true}
   jsonLd={breadcrumbLd as unknown as Record<string, unknown>}
@@ -39,7 +28,7 @@ const breadcrumbLd = {
     <h1 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">ルアー検索</h1>
   </div>
 
-  <FilterBar manufacturers={manufacturers} types={types} targetFish={targetFish} />
+  <FilterBar manufacturers={[]} types={[]} targetFish={[]} />
 
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <p id="results-count" class="text-sm text-text-mid mb-6"></p>
@@ -71,9 +60,6 @@ const breadcrumbLd = {
   <!-- Pagefind CSS -->
   <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
 
-  <script define:vars={{ apiToken }}>
-    window.__LDB_T = apiToken;
-  </script>
 </BaseLayout>
 
 <script>
@@ -88,8 +74,6 @@ const breadcrumbLd = {
   const searchInput = document.querySelector<HTMLInputElement>('[data-filter-search]')!;
   const clearBtn = document.querySelector<HTMLButtonElement>('[data-filter-clear]')!;
   const resetBtn = document.querySelector<HTMLButtonElement>('[data-filter-reset]');
-
-  const TOKEN = (window as any).__LDB_T || '';
 
   interface CardData {
     slug: string;
@@ -106,19 +90,81 @@ const breadcrumbLd = {
     has_limited: boolean;
   }
 
-  interface CatalogResponse {
-    items: CardData[];
-    total: number;
-    page: number;
-    hasMore: boolean;
+  // --- 検索インデックス（インメモリ） ---
+  type IndexItem = { s:string; n:string; k:string; m:string; ms:string; t:string; f:string[]; i:string; c:number; p:number };
+  let searchIndex: IndexItem[] = [];
+  let indexLoaded = false;
+
+  async function loadSearchIndex(): Promise<void> {
+    if (indexLoaded) return;
+    const res = await fetch('/search-index.json');
+    searchIndex = await res.json();
+    indexLoaded = true;
+    populateFilterOptions();
+  }
+
+  /** search-index.jsonからフィルタのselectオプションを動的生成 */
+  function populateFilterOptions() {
+    const manufacturers = [...new Set(searchIndex.map(i => i.m))].sort();
+    const types = [...new Set(searchIndex.map(i => i.t))].sort();
+    const fishes = [...new Set(searchIndex.flatMap(i => i.f))].sort();
+
+    fillSelect(manufacturerSelect, manufacturers);
+    fillSelect(typeSelect, types);
+    fillSelect(targetFishSelect, fishes);
+
+    // URLパラメータがある場合、再設定（optionsがなかった状態から復元）
+    readUrlParams();
+  }
+
+  function fillSelect(select: HTMLSelectElement, values: string[]) {
+    const current = select.value;
+    // 最初のデフォルトoption以外を削除
+    while (select.options.length > 1) select.remove(1);
+    for (const v of values) {
+      const opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = v;
+      select.appendChild(opt);
+    }
+    if (current) select.value = current;
+  }
+
+  /** インメモリフィルタリング（APIコール不要） */
+  function filterIndex(query: string, manufacturer: string, type: string, targetFish: string): CardData[] {
+    const q = query.toLowerCase();
+    return searchIndex
+      .filter(item => {
+        // テキスト検索（name + name_kana + manufacturer）
+        if (q && !item.n.toLowerCase().includes(q) && !(item.k && item.k.toLowerCase().includes(q)) && !item.m.toLowerCase().includes(q)) return false;
+        // フィルタ
+        if (manufacturer && item.m !== manufacturer) return false;
+        if (type && item.t !== type) return false;
+        if (targetFish && !item.f.includes(targetFish)) return false;
+        return true;
+      })
+      .map(item => ({
+        slug: item.s,
+        name: item.n,
+        manufacturer: item.m,
+        manufacturer_slug: item.ms,
+        type: item.t,
+        target_fish: item.f,
+        representative_image: item.i || null,
+        color_count: item.c,
+        price_min: item.p,
+        price_max: item.p,
+        is_new: false,
+        has_limited: false,
+      }));
   }
 
   const BATCH_SIZE = 32;
   let currentPage = 0;
   let hasMore = true;
   let isLoading = false;
-  let isFiltering = false;
   let totalCount = 0;
+  let allResults: CardData[] = []; // フィルタ結果全件を保持
   let filterDebounceTimer: ReturnType<typeof setTimeout> | null = null;
 
   // --- Read URL params on load ---
@@ -151,23 +197,6 @@ const breadcrumbLd = {
     const qs = params.toString();
     const newUrl = qs ? `/search/?${qs}` : '/search/';
     history.replaceState(null, '', newUrl);
-  }
-
-  // --- API fetch helper ---
-  async function fetchCatalog(params: Record<string, string | number>): Promise<CatalogResponse | null> {
-    const qs = new URLSearchParams();
-    for (const [k, v] of Object.entries(params)) {
-      if (v !== '' && v !== 0) qs.set(k, String(v));
-    }
-    try {
-      const res = await fetch(`/api/catalog/?${qs.toString()}`, {
-        headers: { 'X-LDB-Token': TOKEN, 'Accept': 'application/json' },
-      });
-      if (!res.ok) return null;
-      return await res.json();
-    } catch {
-      return null;
-    }
   }
 
   function cardHtml(d: CardData): string {
@@ -221,39 +250,40 @@ const breadcrumbLd = {
     grid.appendChild(fragment);
   }
 
-  // --- Load page of results ---
+  // --- ページ読み込み（インメモリ配列からスライス） ---
   async function loadPage() {
     if (isLoading || !hasMore) return;
     isLoading = true;
     spinner.classList.remove('hidden');
 
-    const mfr = manufacturerSelect.value;
-    const type = typeSelect.value;
-    const fish = targetFishSelect.value;
-    const query = searchInput.value.trim();
+    // 初回のみインデックス読み込み
+    await loadSearchIndex();
 
-    const data = await fetchCatalog({
-      page: currentPage,
-      limit: BATCH_SIZE,
-      ...(mfr && { manufacturer: mfr }),
-      ...(type && { type }),
-      ...(fish && { targetFish: fish }),
-      ...(query && { search: query }),
-    });
+    // まだフィルタ結果がなければフィルタ実行
+    if (currentPage === 0) {
+      const mfr = manufacturerSelect.value;
+      const type = typeSelect.value;
+      const fish = targetFishSelect.value;
+      const query = searchInput.value.trim();
+      allResults = filterIndex(query, mfr, type, fish);
+      totalCount = allResults.length;
+    }
+
+    // ページネーション: BATCH_SIZE分ずつスライス
+    const start = currentPage * BATCH_SIZE;
+    const end = start + BATCH_SIZE;
+    const page = allResults.slice(start, end);
+
+    appendCards(page);
+    currentPage++;
+    hasMore = end < allResults.length;
 
     spinner.classList.add('hidden');
     isLoading = false;
 
-    if (!data) return;
-
-    appendCards(data.items);
-    totalCount = data.total;
-    currentPage++;
-    hasMore = data.hasMore;
-
     countDisplay.textContent = `${totalCount}件のシリーズ`;
-    grid.classList.toggle('hidden', totalCount === 0 && !hasMore);
-    noResults.classList.toggle('hidden', totalCount > 0 || hasMore);
+    grid.classList.toggle('hidden', totalCount === 0);
+    noResults.classList.toggle('hidden', totalCount > 0);
 
     if (!hasMore) {
       sentinel.style.display = 'none';
@@ -275,6 +305,7 @@ const breadcrumbLd = {
     currentPage = 0;
     hasMore = true;
     totalCount = 0;
+    allResults = [];
     sentinel.style.display = '';
 
     const mfr = manufacturerSelect.value;
@@ -299,7 +330,7 @@ const breadcrumbLd = {
 
   function debouncedApplyFilters() {
     if (filterDebounceTimer) clearTimeout(filterDebounceTimer);
-    filterDebounceTimer = setTimeout(applyFilters, 300);
+    filterDebounceTimer = setTimeout(applyFilters, 150);
   }
 
   [manufacturerSelect, typeSelect, targetFishSelect].forEach(el =>
