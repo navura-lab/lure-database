@@ -58,7 +58,7 @@ cd "$PROJECT_ROOT"
 # git pull（最新状態に同期、コンフリクト回避）
 git pull --rebase origin main 2>/dev/null || true
 
-OUTPUT=$(cat "$AGENT_FILE" | claude -p --output-format text 2>&1) || true
+OUTPUT=$(cat "$AGENT_FILE" | claude -p --output-format text --allowedTools "Edit,Write,Bash" 2>&1) || true
 
 echo "$OUTPUT" >> "$LOG_FILE"
 
