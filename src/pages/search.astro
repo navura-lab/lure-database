@@ -95,13 +95,40 @@ const breadcrumbLd = {
   let searchIndex: IndexItem[] = [];
   let indexLoaded = false;
 
+  // API方式（即座に結果を返す、lure_series未作成でもフォールバックあり）
+  async function apiSearch(query: string, manufacturer: string, type: string, targetFish: string): Promise<CardData[]> {
+    const params = new URLSearchParams();
+    if (query) params.set('q', query);
+    if (manufacturer) params.set('manufacturer', manufacturer);
+    if (type) params.set('type', type);
+    if (targetFish) params.set('targetFish', targetFish);
+    params.set('limit', '50');
+    try {
+      const res = await fetch(`/api/search?${params.toString()}`);
+      if (!res.ok) return [];
+      const data = await res.json();
+      return (data.items || []).map((r: any) => ({
+        slug: r.slug, name: r.name, manufacturer: r.manufacturer,
+        manufacturer_slug: r.manufacturer_slug, type: r.type,
+        target_fish: r.target_fish || [], representative_image: r.representative_image || null,
+        color_count: r.color_count || 0, price_min: r.price_min || 0, price_max: r.price_max || 0,
+        is_new: false, has_limited: false,
+      }));
+    } catch { return []; }
+  }
+
+  // search-index.jsonのバックグラウンド読み込み（遅延ロード）
   async function loadSearchIndex(): Promise<void> {
     if (indexLoaded) return;
-    const res = await fetch('/search-index.json');
-    searchIndex = await res.json();
-    indexLoaded = true;
-    populateFilterOptions();
+    try {
+      const res = await fetch('/search-index.json');
+      searchIndex = await res.json();
+      indexLoaded = true;
+      populateFilterOptions();
+    } catch { /* 読み込み失敗はAPI方式で対応 */ }
   }
+  // バックグラウンドで読み込み開始（UIはブロックしない）
+  loadSearchIndex();
 
   /** search-index.jsonからフィルタのselectオプションを動的生成 */
   function populateFilterOptions() {
@@ -256,16 +283,24 @@ const breadcrumbLd = {
     isLoading = true;
     spinner.classList.remove('hidden');
 
-    // 初回のみインデックス読み込み
-    await loadSearchIndex();
+    const mfr = manufacturerSelect.value;
+    const type = typeSelect.value;
+    const fish = targetFishSelect.value;
+    const query = searchInput.value.trim();
 
     // まだフィルタ結果がなければフィルタ実行
     if (currentPage === 0) {
-      const mfr = manufacturerSelect.value;
-      const type = typeSelect.value;
-      const fish = targetFishSelect.value;
-      const query = searchInput.value.trim();
-      allResults = filterIndex(query, mfr, type, fish);
+      if (indexLoaded) {
+        // インメモリ検索（高速）
+        allResults = filterIndex(query, mfr, type, fish);
+      } else if (query || mfr || type || fish) {
+        // API検索（search-index.json未ロード時のフォールバック）
+        allResults = await apiSearch(query, mfr, type, fish);
+      } else {
+        // フィルタなし＋インデックス未ロード → インデックス読み込みを待つ
+        await loadSearchIndex();
+        allResults = filterIndex(query, mfr, type, fish);
+      }
       totalCount = allResults.length;
     }
 
