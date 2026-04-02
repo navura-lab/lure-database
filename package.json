@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && npx pagefind --site dist/client && npx tsx scripts/generate-sitemaps.ts && node -e \"const{cpSync,existsSync}=require('fs');const src='dist/client/pagefind';const dst='.vercel/output/static/pagefind';if(existsSync(src)&&existsSync('.vercel/output/static')){cpSync(src,dst,{recursive:true});console.log('Pagefind copied to .vercel/output/static/pagefind')}\"",
+    "build": "astro build && npx pagefind --site dist/client && npx tsx scripts/generate-sitemaps.ts && npx tsx scripts/generate-search-index.ts && node -e \"const{cpSync,existsSync}=require('fs');const src='dist/client/pagefind';const dst='.vercel/output/static/pagefind';if(existsSync(src)&&existsSync('.vercel/output/static')){cpSync(src,dst,{recursive:true});console.log('Pagefind copied to .vercel/output/static/pagefind')}\"",
     "preview": "astro preview",
     "astro": "astro",
     "discover": "tsx scripts/discover-products.ts",
