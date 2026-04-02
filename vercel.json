@@ -2,7 +2,7 @@
   "trailingSlash": true,
   "redirects": [
     {
-      "source": "/:path((?!api/|_astro/|pagefind/|images/|icons/|favicon\\.svg|robots\\.txt|sitemap).*[^/])",
+      "source": "/:path((?!api/|_astro/|pagefind/|images/|icons/|favicon\\.svg|robots\\.txt|sitemap|search-index\\.json).*[^/])",
       "destination": "/:path/",
       "permanent": true
     },
