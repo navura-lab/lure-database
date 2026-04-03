@@ -39,6 +39,15 @@ echo "=== 5. 品質監査 ==="
 npx tsx scripts/audit-editorials.ts 2>/dev/null | tail -10
 
 echo ""
+echo "=== 5.5. 施策追跡+効果測定 ==="
+npx tsx scripts/action-tracker.ts 2>/dev/null
+npx tsx scripts/action-tracker.ts --report 2>/dev/null | tail -15
+
+echo ""
+echo "=== 5.6. GA4優先度更新 ==="
+npx tsx scripts/ga4-bounce-priority.ts 2>/dev/null | tail -5
+
+echo ""
 echo "=== 6. 前回のネタ帳 ==="
 cat /Users/user/clawd/obsidian/10_プロジェクト/CASTLOG/improvement-backlog.md 2>/dev/null || echo "ネタ帳なし（初回実行）"
 ```
