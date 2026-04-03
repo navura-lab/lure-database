@@ -50,6 +50,7 @@ import trout_spoon_2026 from './trout-spoon-2026.js';
 import bass_spinnerbait_2026 from './bass-spinnerbait-2026.js';
 import bass_rubber_jig_2026 from './bass-rubber-jig-2026.js';
 import bass_vibration_2026 from './bass-vibration-2026.js';
+import seabass_minnow_2026 from './seabass-minnow-2026.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -85,6 +86,7 @@ export const contentArticles: ContentArticle[] = [
   bass_spinnerbait_2026,
   bass_rubber_jig_2026,
   bass_vibration_2026,
+  seabass_minnow_2026,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
