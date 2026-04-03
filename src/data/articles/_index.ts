@@ -52,6 +52,7 @@ import bass_rubber_jig_2026 from './bass-rubber-jig-2026.js';
 import bass_vibration_2026 from './bass-vibration-2026.js';
 import seabass_minnow_2026 from './seabass-minnow-2026.js';
 import trout_minnow_2026 from './trout-minnow-2026.js';
+import bass_frog_2026 from './bass-frog-2026.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -89,6 +90,7 @@ export const contentArticles: ContentArticle[] = [
   bass_vibration_2026,
   seabass_minnow_2026,
   trout_minnow_2026,
+  bass_frog_2026,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
