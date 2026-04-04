@@ -20,7 +20,7 @@
         <string>/Users/user</string>
     </dict>
     <key>StartInterval</key>
-    <integer>43200</integer>
+    <integer>86400</integer>
     <key>RunAtLoad</key>
     <false/>
     <key>StandardOutPath</key>

@@ -18,7 +18,7 @@
         <string>/Users/user/.nvm/versions/node/v22.22.0/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
     </dict>
     <key>StartInterval</key>
-    <integer>14400</integer>
+    <integer>86400</integer>
     <key>RunAtLoad</key>
     <false/>
     <key>StandardOutPath</key>
