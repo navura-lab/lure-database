@@ -55,6 +55,7 @@ import trout_minnow_2026 from './trout-minnow-2026.js';
 import bass_frog_2026 from './bass-frog-2026.js';
 import bass_swimbait_2026 from './bass-swimbait-2026.js';
 import seabass_vibration_2026 from './seabass-vibration-2026.js';
+import trout_crankbait_2026 from './trout-crankbait-2026.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -95,6 +96,7 @@ export const contentArticles: ContentArticle[] = [
   bass_frog_2026,
   bass_swimbait_2026,
   seabass_vibration_2026,
+  trout_crankbait_2026,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
