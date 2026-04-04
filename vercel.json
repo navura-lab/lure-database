@@ -5580,6 +5580,81 @@
       "source": "/crazy-ocean/product-%E6%B5%B7%E6%AF%9B%E8%99%AB/",
       "destination": "/crazy-ocean/",
       "permanent": true
+    },
+    {
+      "source": "/6th-sense/shindig-3-2-chartreuse-pearl/",
+      "destination": "/6th-sense/shindig-3-2/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flipgill-watermelon-gill/",
+      "destination": "/6th-sense/flipgill/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/flush-5-2-shad-pearl/",
+      "destination": "/6th-sense/flush-5-2/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/boosa-ned-3-3-smallie-snack/",
+      "destination": "/6th-sense/boosa-ned-3-3/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/bamboosa-5-3-merthiolate/",
+      "destination": "/6th-sense/bamboosa-5-3/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/crube-darkmelon-neon/",
+      "destination": "/6th-sense/crube/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/party-paddle-4-3-saltwater-shrimp-burst/",
+      "destination": "/6th-sense/party-paddle-4-3/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/curly-clobber-white-treuse/",
+      "destination": "/6th-sense/curly-clobber/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/bongo-3-7-pbandj-pro/",
+      "destination": "/6th-sense/bongo-3-7/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/boosa-ned-3-3-black/",
+      "destination": "/6th-sense/boosa-ned-3-3/",
+      "permanent": true
+    },
+    {
+      "source": "/6th-sense/boosa-ned-3-3-4k-shad/",
+      "destination": "/6th-sense/boosa-ned-3-3/",
+      "permanent": true
+    },
+    {
+      "source": "/ranking/mebaru-spoon/",
+      "destination": "/ranking/mebaru-metal-jig/",
+      "permanent": true
+    },
+    {
+      "source": "/spro/cannon-ball-blue/",
+      "destination": "/spro/",
+      "permanent": true
+    },
+    {
+      "source": "/zero-dragon/valgo-40g-pinku-p/",
+      "destination": "/zero-dragon/",
+      "permanent": true
+    },
+    {
+      "source": "/grassroots/basslure04/",
+      "destination": "/grassroots/",
+      "permanent": true
     }
   ],
   "headers": [
