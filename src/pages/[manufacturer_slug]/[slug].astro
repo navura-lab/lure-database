@@ -1501,6 +1501,33 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
       </section>
     )}
 
+    <!-- 組み合わせページへのリンク（内部リンク強化） -->
+    <section class="mb-12 pt-8 border-t border-gray-100">
+      <h2 class="text-xl font-bold text-gray-900 mb-4">もっと探す</h2>
+      <div class="flex flex-wrap gap-2">
+        <a href={`/${series.manufacturer_slug}/type/${getTypeSlug(series.type)}/`}
+           class="px-4 py-2 bg-white text-text-mid rounded-lg border border-gray-100 text-sm hover:border-accent hover:text-accent transition-all">
+          {makerJa}の{series.type}一覧
+        </a>
+        {(series.target_fish || []).slice(0, 2).map(fish => (
+          <a href={`/${series.manufacturer_slug}/fish/${getFishSlug(fish)}/`}
+             class="px-4 py-2 bg-white text-text-mid rounded-lg border border-gray-100 text-sm hover:border-accent hover:text-accent transition-all">
+            {makerJa}の{fish}用ルアー
+          </a>
+        ))}
+        <a href={`/type/${getTypeSlug(series.type)}/`}
+           class="px-4 py-2 bg-white text-text-mid rounded-lg border border-gray-100 text-sm hover:border-accent hover:text-accent transition-all">
+          {series.type}の全メーカー一覧
+        </a>
+        {(series.target_fish || []).slice(0, 1).map(fish => (
+          <a href={`/fish/${getFishSlug(fish)}/`}
+             class="px-4 py-2 bg-white text-text-mid rounded-lg border border-gray-100 text-sm hover:border-accent hover:text-accent transition-all">
+            {fish}用ルアー全一覧
+          </a>
+        ))}
+      </div>
+    </section>
+
     <!-- 関連ガイド記事 -->
     {(() => {
       const guides = guideArticles.filter(g =>
