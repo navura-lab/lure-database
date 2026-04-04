@@ -39,6 +39,10 @@ echo "=== 5. 品質監査 ==="
 npx tsx scripts/audit-editorials.ts 2>/dev/null | tail -10
 
 echo ""
+echo "=== 5.45. インデックス可能性チェック ==="
+npx tsx scripts/check-indexability.ts 2>/dev/null | tail -10
+
+echo ""
 echo "=== 5.5. 施策追跡+効果測定 ==="
 npx tsx scripts/action-tracker.ts 2>/dev/null
 npx tsx scripts/action-tracker.ts --report 2>/dev/null | tail -15
