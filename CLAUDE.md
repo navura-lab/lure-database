@@ -46,6 +46,54 @@ Vercelにデプロイ。SSG（Static Site Generation）。
 4. ユーザーに「これは根拠あるか？」と聞かれて「ある」と答えられないコンテンツは作るな
 5. 既存の根拠なしコンテンツを発見したら、ユーザーに報告せよ
 
+## ⚠️ デプロイ方式（2026-04-06〜）
+
+**Vercel deploy hook は使わない。git push ベースのみ。**
+
+### ルール
+1. パイプラインから `VERCEL_DEPLOY_HOOK` を呼ぶな（削除済み）
+2. スクレイピング完了後のデプロイは **Claude Code セッションからの `git push`** で行う
+3. pipeline.ts は登録するだけ、pushは別途
+
+### 過去の事故（2026-03-18〜2026-04-06）
+- Vercel deploy hook が 404/429 を連発
+- `triggerVercelDeploy` 関数が3回リトライ → 全て失敗 → 最後に errorログだけ残して終了する設計だったが、**何らかの理由でプロセスがハング**
+- launchd の pipeline-jp が 19日間固着（PID 25392/25393）
+- 自動スケジュールが全スキップ → サイト更新停止
+- 3/30 から GSC インプレッションが6日連続減（3,140→2,142、-32%）
+- **真因の診断まで2週間遅れた**（GSC側の減少を見てから調査開始）
+
+### 教訓
+- **ハングする可能性のある外部サービス呼び出しはパイプラインから排除する**
+- 毎時実行されるジョブが詰まると、launchdは新しいインスタンスを起動しない → 長期停止に気づかない
+- プロセス死活監視の仕組みを入れるべき（`logs/pipeline-last-run.json` の更新日時をチェックする監視エージェント）
+
+## ⚠️ Google OAuth 運用（2026-04-06〜）
+
+**OAuth consent screen は必ず Production 設定。Testing だと7日ごとに refresh_token が強制失効する。**
+
+### 確認方法
+- https://console.cloud.google.com/apis/credentials/consent?project=plucky-mile-486802-j6
+- Publishing status が「In production」になっていること
+
+### refresh_token の更新手順（もし再度切れた場合）
+1. `scripts/refresh-google-token.ts` を参考に、OAuth Authorization URL を生成
+2. ブラウザで認証 → localhost:3000/callback にリダイレクトされる（エラー表示だが正常）
+3. URLの `code=` 以降をコピー
+4. code を token endpoint に POST して refresh_token を取得
+5. `.env` の `GOOGLE_REFRESH_TOKEN` を更新
+
+### 関連ファイル
+- `scripts/lib/gsc-client.ts` — 共通 getAccessToken()
+- `scripts/daily-indexing.ts` — 独自実装
+- `scripts/pipeline.ts` — 独自実装（新規ルアー即時インデックス送信）
+- `scripts/seo-monitor.ts`, `scripts/seo-opportunity-finder.ts` など — 独自実装
+
+### Indexing API クォータ
+- デフォルト: **200 requests/day/project**（無料枠上限）
+- 残り送信件数 / 200 = 完了までの日数
+- 上限申請はGCP Console → Quotasから可能（ユーザータスク）
+
 ## 技術スタック
 - Astro (SSG)
 - Supabase (PostgreSQL)
