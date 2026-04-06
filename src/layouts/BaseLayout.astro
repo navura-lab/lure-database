@@ -111,6 +111,21 @@ const orgDescription = locale === 'en'
         s.async = true;
         document.head.appendChild(s);
       });
+      // アフィリエイトクリック計測（イベントデリゲーション）
+      // data-aff属性付きリンクのクリックをGA4カスタムイベントとして送信
+      document.addEventListener('click', function(e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[data-aff]') : null;
+        if (!a) return;
+        try {
+          gtag('event', 'affiliate_click', {
+            affiliate: a.getAttribute('data-aff') || '',
+            product_name: a.getAttribute('data-product') || '',
+            manufacturer: a.getAttribute('data-maker') || '',
+            button_location: a.getAttribute('data-loc') || '',
+            page_path: location.pathname
+          });
+        } catch (err) {}
+      }, { passive: true });
     </script>
     <!-- ViewTransitions無効化: モバイルの戻るボタンが1ページスキップする問題の根本原因
          SPAモードのクライアントサイドナビゲーションがブラウザのhistory stackを破壊するため削除
