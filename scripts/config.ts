@@ -31,9 +31,6 @@ export const AIRTABLE_LURE_URL_TABLE_ID = requireEnv('AIRTABLE_LURE_URL_TABLE_ID
 export const AIRTABLE_MAKER_TABLE_ID = requireEnv('AIRTABLE_MAKER_TABLE_ID');
 export const AIRTABLE_API_BASE = 'https://api.airtable.com/v0';
 
-// --- Vercel ---
-export const VERCEL_DEPLOY_HOOK = requireEnv('VERCEL_DEPLOY_HOOK');
-
 // --- Scraping ---
 export const BLUEBLUE_BASE_URL = 'https://www.bluebluefishing.com';
 export const PAGE_LOAD_DELAY_MS = 2000;

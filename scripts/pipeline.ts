@@ -17,7 +17,6 @@ import {
   AIRTABLE_LURE_URL_TABLE_ID,
   AIRTABLE_MAKER_TABLE_ID,
   AIRTABLE_API_BASE,
-  VERCEL_DEPLOY_HOOK,
   PAGE_LOAD_DELAY_MS,
   IMAGE_WIDTH,
 } from './config.js';
@@ -446,43 +445,6 @@ async function insertLure(row: Record<string, unknown>): Promise<void> {
 }
 
 // ---------------------------------------------------------------------------
-// Vercel deploy
-// ---------------------------------------------------------------------------
-
-async function triggerVercelDeploy(maxRetries = 3): Promise<void> {
-  log('Triggering Vercel deploy...');
-
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      const res = await fetch(VERCEL_DEPLOY_HOOK, { method: 'POST' });
-      if (res.ok) {
-        log('Vercel deploy triggered successfully');
-        return;
-      }
-
-      if (res.status === 429) {
-        // Rate limited — wait and retry with exponential backoff
-        const waitMs = attempt * 10000; // 10s, 20s, 30s
-        log(`Vercel deploy hook rate limited (429). Retry ${attempt}/${maxRetries} in ${waitMs / 1000}s...`);
-        await sleep(waitMs);
-        continue;
-      }
-
-      logError(`Vercel deploy hook failed: ${res.status} (attempt ${attempt}/${maxRetries})`);
-    } catch (err) {
-      const errMsg = err instanceof Error ? err.message : String(err);
-      logError(`Vercel deploy hook error: ${errMsg} (attempt ${attempt}/${maxRetries})`);
-    }
-
-    if (attempt < maxRetries) {
-      await sleep(5000);
-    }
-  }
-
-  logError('Vercel deploy hook failed after all retries — deploy manually if needed');
-}
-
-// ---------------------------------------------------------------------------
 // Process a single record
 // ---------------------------------------------------------------------------
 
@@ -811,11 +773,7 @@ async function main(): Promise<void> {
       }
     }
 
-    // 3. Trigger Vercel deploy if any records were processed successfully
-    const successCount = results.filter(r => r.status === 'success').length;
-    if (successCount > 0) {
-      await triggerVercelDeploy();
-    }
+    // 3. Deploy is triggered by git push from Claude Code session, not from pipeline.
 
   } catch (err) {
     const errMsg = err instanceof Error ? err.message : String(err);
