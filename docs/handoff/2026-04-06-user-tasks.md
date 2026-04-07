@@ -313,6 +313,34 @@ user experience for our ~60,000 monthly searches.
 - git履歴で完全復旧可能
 - 1日上限20件
 
+### T15: ANTHROPIC_API_KEY を .env に設定（quality-improve-queue稼働の前提）
+**所要時間:** 3分
+**現状:** `.env` の `ANTHROPIC_API_KEY=` の **値が空**
+**必要理由:** quality-improve-queue.ts が Claude Haiku を呼び出すため
+**設定方法:**
+1. https://console.anthropic.com/settings/keys でAPIキー作成
+2. `.env` の `ANTHROPIC_API_KEY=` の右辺に貼り付け
+3. テスト: `npx tsx scripts/quality-improve-queue.ts --apply --limit 5`
+4. 結果確認: `logs/quality/improve-backup-YYYY-MM-DD.json`
+**コスト見積:** Haiku 1リクエスト約$0.001、3,071件全部処理しても約$3-4
+
+**ステータス:** ❌ 未設定
+
+### T16: クロール済み未登録リスト（crawled-not-indexed.json）の更新運用
+**所要時間:** 週次5分
+**現状:**
+- `logs/seo-data/crawled-not-indexed.json` に23件保存済み（2026-04-07時点）
+- `daily-indexing.ts` が毎日この23件を最優先で再送信する設定済み
+- 効果測定: 1週間後にGSCで「クロール済み-未登録」件数が減るかチェック
+
+**運用ルール:**
+- 月1回、GSCの「クロール済み - インデックス未登録」レポートを開いて新しいURLをコピー
+- `logs/seo-data/crawled-not-indexed.json` の `urls` 配列に追加
+- 既にインデックスされたURLは削除（手動 or `gh api` で確認）
+- ファイル更新後、git push で daily-indexing にも反映
+
+**ステータス:** ⚠️ 初回データセット保存済み、今後の運用が必要
+
 ---
 
 ## 📊 今日のセッションで完了したこと（参考）

@@ -205,8 +205,28 @@ async function fetchAllLureUrls(): Promise<string[]> {
   // 比較ページ（ランキングと同一slug体系）
   const compareUrls = [...rankingSlugs].sort().map(s => `${SITE_URL}compare/${s}/`);
 
+  // 「クロール済み - インデックス未登録」リスト（最優先送信）
+  // GSC で発見してからGoogleが価値判定でindexしなかったページ。再送信で再評価を促す
+  const crawledNotIndexedUrls: string[] = [];
+  try {
+    const cniPath = path.join(import.meta.dirname, '..', 'logs', 'seo-data', 'crawled-not-indexed.json');
+    if (fs2.existsSync(cniPath)) {
+      const cni = JSON.parse(fs2.readFileSync(cniPath, 'utf8'));
+      for (const u of (cni.urls || [])) {
+        // 相対パスを絶対URLに
+        const fullUrl = u.startsWith('http') ? u : `${SITE_URL.replace(/\/$/, '')}${u}`;
+        crawledNotIndexedUrls.push(fullUrl);
+      }
+      log(`Crawled-not-indexed URLs (priority resubmit): ${crawledNotIndexedUrls.length}`);
+    }
+  } catch (e: any) {
+    log(`Warning: crawled-not-indexed.json not loaded: ${e.message}`);
+  }
+
   // ── 日本語URL（優先） ──
   const jaUrls = [
+    // ★ クロール済み未登録（最優先 — Googleに再判定を強制）
+    ...crawledNotIndexedUrls,
     // 固定ページ（優先度最高）
     `${SITE_URL}`,
     `${SITE_URL}article/`,

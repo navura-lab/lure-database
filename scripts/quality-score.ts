@@ -134,9 +134,11 @@ async function fetchAllLures(supabase: any): Promise<Map<string, LureRow>> {
   const step = 1000;
 
   while (true) {
+    // ⚠️ ページネーションには必ず ORDER BY を入れる（無いと行順序が不定で取り漏れる）
     const { data, error } = await supabase
       .from('lures')
       .select('manufacturer_slug, slug, manufacturer, name, description, type, target_fish, color_name, price, images')
+      .order('id', { ascending: true })
       .range(offset, offset + step - 1);
     if (error) throw new Error(`Supabase error: ${JSON.stringify(error)}`);
     if (!data || data.length === 0) break;
@@ -520,6 +522,19 @@ async function main() {
   // 5. JSON書き込み（テンプレートが読む）
   log('Writing quality-overrides.json...');
   fs.mkdirSync(path.dirname(OVERRIDES_JSON), { recursive: true });
+
+  // 暴走防止: 前回JSONと比較して、noindex差分が一定以上なら警告 or 中止
+  const MAX_NOINDEX_DELTA = 200; // 1日に200件以上noindex/un-noindexが変わったら異常
+  let prevOverrides: Record<string, { noindex: boolean }> = {};
+  if (fs.existsSync(OVERRIDES_JSON)) {
+    try {
+      const prev = JSON.parse(fs.readFileSync(OVERRIDES_JSON, 'utf8'));
+      prevOverrides = prev.overrides || {};
+    } catch (e) {
+      log(`Warning: 前回JSON読込失敗: ${e}`);
+    }
+  }
+
   const overrideMap: Record<string, { score: number; band: string; noindex: boolean }> = {};
   for (const s of scores) {
     overrideMap[`${s.manufacturer_slug}/${s.slug}`] = {
@@ -528,10 +543,42 @@ async function main() {
       noindex: s.band === 'noindex' || s.band === 'delete',
     };
   }
+
+  // 差分計算
+  let newNoindex = 0;
+  let removedNoindex = 0;
+  for (const [key, cur] of Object.entries(overrideMap)) {
+    const prev = prevOverrides[key];
+    if (cur.noindex && (!prev || !prev.noindex)) newNoindex++;
+    if (!cur.noindex && prev && prev.noindex) removedNoindex++;
+  }
+  const totalChange = newNoindex + removedNoindex;
+  log(`noindex差分: 新規+${newNoindex}, 解除-${removedNoindex}, 合計変更=${totalChange}`);
+
+  if (totalChange > MAX_NOINDEX_DELTA) {
+    log(`🚨 異常検知: 1日のnoindex変更が${totalChange}件 (上限${MAX_NOINDEX_DELTA}件)`);
+    log(`   ⚠️  JSONを上書きせずに保護モードで終了します`);
+    log(`   安全と確認できたら手動で再実行: 前回JSONを削除してから再実行`);
+    log(`   または、上記差分が意図的なら MAX_NOINDEX_DELTA を引き上げてください`);
+    // 差分のサマリーだけ別ファイルに保存（手動確認用）
+    const guardPath = path.join(REPORT_DIR, `guard-blocked-${TODAY}.json`);
+    fs.writeFileSync(guardPath, JSON.stringify({
+      blocked_at: new Date().toISOString(),
+      reason: `noindex_delta_exceeded`,
+      total_change: totalChange,
+      max_allowed: MAX_NOINDEX_DELTA,
+      new_noindex: newNoindex,
+      removed_noindex: removedNoindex,
+    }, null, 2));
+    log(`Guard log saved: ${guardPath}`);
+    return;
+  }
+
   fs.writeFileSync(OVERRIDES_JSON, JSON.stringify({
     generated_at: new Date().toISOString(),
     total: scores.length,
     bands: bandCount,
+    delta: { new_noindex: newNoindex, removed_noindex: removedNoindex },
     overrides: overrideMap,
   }, null, 2));
   log(`Wrote ${OVERRIDES_JSON}`);
