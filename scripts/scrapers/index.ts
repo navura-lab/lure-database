@@ -58,6 +58,7 @@ import { scrapeThirtyfourPage } from './thirtyfour.js';
 import { scrapeTictPage } from './tict.js';
 import { scrapeNoikePage } from './noike.js';
 import { scrapeBaitBreathPage } from './baitbreath.js';
+import { scrapeIsmPage } from './ism.js';
 import { scrapePalmsPage } from './palms.js';
 import { scrapeMadnessPage } from './madness.js';
 // --- Formerly standalone scrapers (converted 2026-02-28) ---
@@ -187,6 +188,7 @@ const SCRAPER_REGISTRY: Record<string, ScraperFunction> = {
   tict: scrapeTictPage,
   noike: scrapeNoikePage,
   baitbreath: scrapeBaitBreathPage,
+  ism: scrapeIsmPage,
   palms: scrapePalmsPage,
   madness: scrapeMadnessPage,
   // --- Formerly standalone scrapers (converted 2026-02-28) ---

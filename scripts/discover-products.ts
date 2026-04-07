@@ -2377,6 +2377,45 @@ var GARY_YAMAMOTO_EXCLUDED_KEYWORDS = [
   'hoodjacket', 'apparel',
 ];
 
+// ---------------------------------------------------------------------------
+// ism (INFINITE SEEDS MAKERS) — BASE shop, fetch only (no Playwright needed)
+// ---------------------------------------------------------------------------
+
+async function discoverIsm(_page: Page): Promise<Array<{ url: string; name: string }>> {
+  log('[ism] Fetching items list...');
+  const allUrl = 'https://ismfishing.base.shop/items/all';
+  try {
+    const res = await fetch(allUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+      },
+    });
+    if (!res.ok) {
+      logError('[ism] Items list fetch failed: ' + res.status);
+      return [];
+    }
+    const html = await res.text();
+    // /items/{numeric_id} 形式のリンクを全部抽出（相対・絶対URL両対応）
+    const idMatches = html.matchAll(/(?:https:\/\/ismfishing\.base\.shop)?\/items\/(\d+)/g);
+    const seen = new Set<string>();
+    const products: Array<{ url: string; name: string }> = [];
+    for (const m of idMatches) {
+      const id = m[1];
+      if (seen.has(id)) continue;
+      seen.add(id);
+      products.push({
+        url: `https://ismfishing.base.shop/items/${id}`,
+        name: `ism-item-${id}`, // 仮名、スクレイプ時に正式名で上書き
+      });
+    }
+    log('[ism] Found ' + products.length + ' items');
+    return products;
+  } catch (err: any) {
+    logError('[ism] Discover error: ' + (err.message || err));
+    return [];
+  }
+}
+
 async function discoverGaryYamamoto(_page: Page): Promise<Array<{ url: string; name: string }>> {
   var allUrls: string[] = [];
   var seenUrls = new Set<string>();
@@ -7027,6 +7066,15 @@ const MANUFACTURERS: ManufacturerConfig[] = [
     discover: discoverGaryYamamoto,
     excludedNameKeywords: ['フック', 'HOOK', 'シンカー', 'SINKER', 'アパレル', 'ステッカー', 'DVD'],
     // URL-level filtering done in discover function.
+  },
+  {
+    slug: 'ism',
+    name: 'INFINITE SEEDS MAKERS',
+    discover: discoverIsm,
+    // BASE shopにはルアー以外（フーディ、キャップ、ジャケット等のアパレル）も含まれる
+    // discover段階で除外できるのは商品名キーワードのみ。BASE一覧の商品名取得は限定的なので
+    // pipeline段階でscraperがtype='その他'と判定したものを除外する仕組みも必要
+    excludedNameKeywords: ['HOODIE', 'CAP', 'JACKET', 'フーディ', 'キャップ', 'ジャケット', 'シャツ', 'タオル', 'ステッカー'],
   },
   {
     slug: 'issei',
