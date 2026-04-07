@@ -424,6 +424,21 @@ export async function scrapeGaryYamamotoPage(url: string): Promise<ScrapedLure> 
       enrichedColors.push({ name: name, imageUrl: mainImage });
     }
 
+    // ⚠️ Gary Yamamoto固有: colorchipは色見本(144x163px の三角アイコン)で
+    // 「ルアー本体写真」ではないため、サイト表示が貧弱になる問題があった。
+    // mainImage(.product_mainimg) はルアー本体の全体写真(1260x640px)なので、
+    // 全カラーの imageUrl を mainImage で上書きする(色見本は捨てる)。
+    // 結果: 全カラー行が「同じ本体写真 + 異なる color_name」で表現される。
+    if (mainImage && enrichedColors.length > 0) {
+      const isMainImageDifferentFromColors = enrichedColors[0].imageUrl !== mainImage;
+      if (isMainImageDifferentFromColors) {
+        log(`🖼️ Overriding ${enrichedColors.length} color images with main image (was colorchips)`);
+        for (var ec = 0; ec < enrichedColors.length; ec++) {
+          enrichedColors[ec].imageUrl = mainImage;
+        }
+      }
+    }
+
     // Gary Yamamoto targets bass primarily
     var targetFish = ['ブラックバス'];
     // YABAI also targets bass
