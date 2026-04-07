@@ -146,6 +146,68 @@ GA4 → **管理**（左下の歯車）→ **カスタム定義** → **カス�
 
 **ステータス:** ❌ 未設定
 
+### T5.6: ⚠️ 製品メイン画像が保存されていない問題（要調査・要修正）
+**所要時間:** 調査30分 + 修正1〜半日（範囲次第）
+**発見日:** 2026-04-06 夜（ユーザー指摘）
+
+**症状:**
+- ゲーリーヤマモトの商品ページ（例: https://www.castlog.xyz/gary-yamamoto/yamatanuki25/）に**ワーム本体の全体写真がない**
+- 表示されているのはカラーチップ画像（色見本の小さい画像）のみ
+- `images` 配列に色画像1枚だけ保存されていて、製品全体写真が抜け落ちている
+
+**根本原因（3層）:**
+
+1. **スクレイパー** (`scripts/scrapers/gary-yamamoto.ts:236`)
+   ```ts
+   var mainImgEl = document.querySelector('.product_mainimg img');
+   ```
+   - `.product_mainimg` というクラスが現在のページHTMLに存在しない可能性
+   - 結果: `mainImage` が空になる
+
+2. **パイプライン** (`scripts/pipeline.ts:608`)
+   ```ts
+   images: sanitizeImageUrls(imageUrl ? [imageUrl] : null),
+   ```
+   - 各DB行（カラー単位）には**そのカラーの色画像1枚しか入れていない**
+   - スクレイパーが `mainImage` を取っていてもDBに保存する経路がない
+
+3. **実際のメイン画像の場所**
+   - WebFetch調査結果: `<img src="https://www.gary-yamamoto.com/wp-content/uploads/2021/04/ymt005.jpg" alt="2.5″YAMATANUKI">` 形式
+   - 別ディレクトリ・別命名規則で配置されている
+
+**対処オプション:**
+
+#### Option A: gary-yamamoto単独修正（最短15分、影響範囲小）
+- スクレイパーで `<img alt={商品名}>` の正規表現マッチで全体画像を抽出
+- pipeline.ts で `images` 配列に `[mainImage, colorImage]` 形式で保存（スキーマ変更なし）
+- gary-yamamoto の全商品を Airtable で「未処理」に戻して再パイプライン
+- リスク: 他メーカーも同じ問題なら個別対応が必要
+
+#### Option B: 全メーカー点検（半日）
+- 全スクレイパーで `mainImage` が取れているかを一括チェックスクリプト作成
+- 取れていないメーカーを特定・修正
+- pipeline.ts でメイン画像を `images[0]` として保存するよう変更
+- 全該当商品を再スクレイプ
+
+#### Option C: スキーマ追加（半日〜1日）
+- `lures.representative_image TEXT` カラムを Supabase migration で追加
+- pipeline.ts で representative_image を別カラムに保存
+- テンプレートで representative_image があれば優先表示
+- リスク: 本番DBスキーマ変更、全レコードのバックアップ必須
+
+**俺の推奨: Option B**
+- 個別対応より体系的に解決
+- 「他メーカーは大丈夫か?」という不安が消える
+- スキーマ変更を避けつつ images 配列を活用できる
+- pipeline.ts の変更1箇所で全メーカー網羅できる
+
+**着手前の確認事項（ユーザー判断）:**
+- [ ] どのオプションで進めるか
+- [ ] 全メーカー再スクレイプは時間がかかる（数日間 pipeline-jp の通常運用と並行）→ いつ実行するか
+- [ ] スクレイパー修正の優先順位（gary-yamamoto は商品数も少ないので独立対応も可）
+
+**ステータス:** ❌ 未着手（要ユーザー判断）
+
 ---
 
 ## 🟢 低優先（1ヶ月以内）
@@ -199,6 +261,57 @@ user experience for our ~60,000 monthly searches.
 **現状:** コードはDiscord通知対応済みだが、URL未設定のため通知が飛んでいない
 **設定先:** `ops/run-agent.sh` 内の環境変数 or `.env`
 **ステータス:** ❌ 未設定
+
+---
+
+## 🛡️ 品質ゲートシステム（2026-04-07夜実装）
+
+**実装完了:**
+- `scripts/quality-score.ts` — 9指標で全6,511ルアーをスコアリング、SQLite + JSON出力
+- `scripts/quality-improve-queue.ts` — 改善キュー（Haiku呼び出しはTODO、要実装）
+- `scripts/run-quality-score.sh` + launchd plist — 毎日3:00 JST自動実行
+- `src/pages/[manufacturer_slug]/[slug].astro` — quality-overrides.json読み込み + noindex判定統合
+- ops/db/agents.db に `quality_scores` テーブル追加
+
+**初回スコアリング結果（2026-04-07）:**
+- ok (≥70): 2,831件 (43.5%)
+- improve (50-69): 2,529件 (38.8%)
+- noindex (30-49): 1,148件 (17.6%) ← デプロイ後に自動noindex
+- delete (<30): **3件のみ** (`spro/aiya-long-uv`, `spro/pesce-40g`, `spro/pesce-150g`)
+
+**ユーザー判断が必要なもの:**
+
+### T11: delete バンド3件の対応方針
+**所要時間:** 5分（判断のみ）
+- 3件すべて SPRO のメタルジグで `description: NULL, editorial: なし, image: なし`
+- 選択肢:
+  - **A**: 完全削除（404）→ redirects.json に追加して `/spro/` トップに301
+  - **B**: 残してdescription補完（再スクレイプ or 手動執筆）
+  - **C**: noindex のまま放置
+**ステータス:** ❌ 未判断
+
+### T12: quality-improve-queue.ts のHaiku呼び出し実装
+**所要時間:** 1-2時間 + Haikuコスト約$3-5
+**現状:** スクリプトのスケルトンと安全策（dry-run、上限50件/日）は実装済み。Claude Haiku API呼び出しと並列処理がTODOコメントになっている
+**完成すれば:**
+- improve バンド (2,529件) のうち description不備のページを日次50件ずつ自動補完
+- 約2ヶ月で全件補完完了
+- 補完後に再スコアリングで OK バンドへ昇格
+
+### T13: 1日の自動変更件数上限（暴走防止）
+**所要時間:** 30分
+**目的:** quality-improve-queue.tsとquality-score.tsで「1日にN件以上自動変更しない」上限を実装
+**現状:** quality-improve-queue.tsは50件上限済み。noindex適用には上限なし（オーバーライドは差分のみ反映なので暴走リスク低）
+
+### T14: Phase D（削除候補の承認ゲート）実装
+**前提:** Discord Webhook URL設定（既存T10）
+**所要時間:** 1-2時間
+**内容:**
+- delete バンド候補をDiscord通知
+- 24時間タイムアウトで自動実行（拒否なし時）
+- 削除はファイル削除ではなく301リダイレクト + redirects.json登録
+- git履歴で完全復旧可能
+- 1日上限20件
 
 ---
 

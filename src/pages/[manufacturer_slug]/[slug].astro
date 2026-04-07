@@ -22,6 +22,10 @@ import type { LurePathProps } from '../../lib/paths/lure-paths';
 import { editorialReviews } from '../../data/seo/editorials/_index';
 import { generateAutoEditorial } from '../../lib/auto-editorial';
 import { getManufacturerForTitle } from '../../lib/manufacturer-names-ja';
+import qualityOverridesData from '../../data/seo/quality-overrides.json';
+
+// 品質スコアによるnoindex判定（quality-score.tsが日次で更新するJSON）
+const qualityOverrides = (qualityOverridesData as { overrides: Record<string, { score: number; band: string; noindex: boolean }> }).overrides || {};
 
 export async function getStaticPaths() {
   return getLurePaths('ja');
@@ -548,8 +552,10 @@ const combinedJsonLd = [jsonLd, breadcrumbLd, ...(faqLd ? [faqLd] : []), ...vide
   ogImage={`https://www.castlog.xyz/og/${series.manufacturer_slug}/${series.slug}/`}
   ogType="product"
   noindex={
-    // コンテンツ不足ページはnoindex（クロール済み-インデックス未登録の防止）
-    (series.color_count <= 1 && (!series.description || series.description.length < 50))
+    // 品質スコア < 50（noindex/delete バンド）→ 自動noindex
+    // または既存のインライン低品質判定（後方互換）
+    qualityOverrides[`${series.manufacturer_slug}/${series.slug}`]?.noindex
+    || (series.color_count <= 1 && (!series.description || series.description.length < 50))
     || (!editorial && (!series.description || series.description.length < 30))
   }
   jsonLd={combinedJsonLd}

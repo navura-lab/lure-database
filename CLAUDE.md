@@ -156,6 +156,65 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 - `npx tsx scripts/us-post-pipeline.ts` — US後処理状態チェック
 - `npx tsx scripts/rewrite-descriptions.ts --check` — 英語説明文チェック
 - `npx tsx scripts/rewrite-descriptions.ts --apply` — リライト結果をDB書き込み
+- `npx tsx scripts/quality-score.ts [--dry-run] [--limit N] [--verbose]` — 品質スコアリング（全ルアーページに0-100点、noindex/improve/delete バンド分け）
+- `npx tsx scripts/quality-improve-queue.ts [--dry-run] [--apply] [--limit N]` — improveバンドのdescription補完キュー（Haiku呼び出しはTODO）
+
+## 🛡️ 品質ゲートシステム（2026-04-07〜）
+
+**目的:** 低品質ページがサイト全体のSEO評価を引っ張る問題を防ぐ。9指標で自動スコアリング → バンド別自動対処。
+
+### バンド分け
+| score | バンド | 件数(2026-04-07) | 自動処理 |
+|---|---|---:|---|
+| ≥70 | ok | 2,831 (43.5%) | 何もしない |
+| 50-69 | improve | 2,529 (38.8%) | improveキューへ（手動 or quality-improve-queue.ts） |
+| 30-49 | noindex | 1,148 (17.6%) | テンプレートで自動 `<meta robots="noindex">` |
+| <30 | delete | 3 (0.05%) | 削除候補（**承認ゲート必須、自動削除しない**） |
+
+### スコア指標（合計100点）
+1. description品質 (10) — null/英語/短すぎで減点
+2. エディトリアル品質 (15) — 旧フォーマット5点、新15点、なし0点
+3. 画像の質 (10) — 画像なしで0点
+4. 内部リンク被数 (10) — 簡易判定（GSC登場or editorial有無で代用）
+5. GSC 30日実績 (15) — imp/click 実績ベース
+6. GA4 30日実績 (10) — PV実績、データなしは中立
+7. スペック充実度 (10) — color_count, price
+8. 分類完備 (10) — type, target_fish
+9. 直帰率代用 (10) — GA4 PV ≥5 で満点
+
+### データフロー
+```
+quality-score.ts (毎日3:00 JST)
+  ↓
+[SQLite] ops/db/agents.db quality_scores テーブル（履歴追跡）
+  +
+[JSON] src/data/seo/quality-overrides.json （テンプレートが読む）
+  ↓
+src/pages/[manufacturer_slug]/[slug].astro の noindex 判定が JSON を参照
+  ↓
+ビルド時に各ページの <meta robots> が自動切替
+```
+
+### 安全策
+- delete バンド（<30）は **絶対に自動削除しない**。承認ゲート必須
+- noindexは可逆。スコアが回復したら自動でindex復帰
+- 既存の手動noindex判定（インライン）は後方互換のため残してある
+- 1日の自動変更件数に上限を設けるべき（現状未実装、Phase D で追加予定）
+
+### 関連ファイル
+- `scripts/quality-score.ts` — スコアリング本体
+- `scripts/quality-improve-queue.ts` — 改善キュー（Haiku呼び出し未実装）
+- `scripts/run-quality-score.sh` — launchd実行スクリプト
+- `~/Library/LaunchAgents/com.fablus.lure-quality-score.plist` — launchdジョブ
+- `src/data/seo/quality-overrides.json` — テンプレート連携用JSON（自動生成、約666KB）
+- `logs/quality/quality-YYYY-MM-DD.md` — 日次レポート
+- ops/db/agents.db `quality_scores` テーブル — 履歴追跡用
+
+### 既知の課題
+- スコア < 30 の delete バンド対応がまだない（Phase D未実装）
+- improve キューのHaiku呼び出しが未実装（quality-improve-queue.ts のTODO参照）
+- 内部リンク被数の判定が簡易（本格的にはリンクグラフ解析が必要）
+- 1日の自動変更上限機能が未実装
 
 ## SEO自動化システム（2026-03-07〜）
 
@@ -177,6 +236,7 @@ bad.slice(0,10).forEach(r => console.log(' ', r.manufacturer_slug+'/'+r.slug));
 | 週次レポート | 毎週月曜 9:00 JST | `weekly-seo-report.ts` | PDCA分析、クエリ成長/衰退、推奨アクション生成 |
 | SEO機会発見 | 毎週月曜 10:00 JST | `seo-opportunity-finder.ts` | GSCデータからSEO改善機会を自動抽出 |
 | ランク追跡 | 毎日 7:30 JST | `seo-rank-tracker.ts` | 全ページ×クエリの順位・機会スコア日次追跡 |
+| 品質スコアリング | 毎日 3:00 JST | `quality-score.ts` | 全ルアーページに0-100スコア付与、自動noindex判定 |
 
 ### SEO・データ収集スクリプト一覧
 | スクリプト | 用途 | 実行方法 |
