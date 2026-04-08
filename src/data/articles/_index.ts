@@ -60,6 +60,7 @@ import tairaba_2026 from './tairaba-2026.js';
 import bass_minnow_2026 from './bass-minnow-2026.js';
 import bass_popper_2026 from './bass-popper-2026.js';
 import seabass_worm_2026 from './seabass-worm-2026.js';
+import seabass_pencilbait_2026 from './seabass-pencilbait-2026.js';
 
 // ─── 集約 ─────────────────────────────────────────────
 
@@ -105,6 +106,7 @@ export const contentArticles: ContentArticle[] = [
   bass_minnow_2026,
   bass_popper_2026,
   seabass_worm_2026,
+  seabass_pencilbait_2026,
 ];
 
 // ─── ヘルパー ─────────────────────────────────────────
