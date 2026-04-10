@@ -301,17 +301,21 @@ export async function getLurePaths(locale: 'ja' | 'en' = 'ja') {
     b.color_count - a.color_count || a.name.localeCompare(b.name);
 
   return allSeries.map(series => {
+    // 関連ルアー件数: 内部リンク密度強化のため 6→10 に拡充（2026-04-09）
+    // 1ページあたり +12本の内部リンク追加 → クロール頻度UP → 「検出-未登録」削減
+    const RELATED_LIMIT = 10;
+
     const relatedByType = (byType.get(series.type) || [])
       .filter(s => !(s.slug === series.slug && s.manufacturer_slug === series.manufacturer_slug))
       .sort(deterministicSort)
-      .slice(0, 6);
+      .slice(0, RELATED_LIMIT);
 
     const usedSlugs = new Set(relatedByType.map(s => `${s.manufacturer_slug}/${s.slug}`));
     usedSlugs.add(`${series.manufacturer_slug}/${series.slug}`);
     const relatedByMaker = (byMaker.get(series.manufacturer_slug) || [])
       .filter(s => !usedSlugs.has(`${s.manufacturer_slug}/${s.slug}`))
       .sort(deterministicSort)
-      .slice(0, 6);
+      .slice(0, RELATED_LIMIT);
 
     for (const s of relatedByMaker) usedSlugs.add(`${s.manufacturer_slug}/${s.slug}`);
     const primaryFish = (series.target_fish || [])[0];
@@ -319,7 +323,7 @@ export async function getLurePaths(locale: 'ja' | 'en' = 'ja') {
       ? (byFish.get(primaryFish) || [])
           .filter(s => !usedSlugs.has(`${s.manufacturer_slug}/${s.slug}`))
           .sort(deterministicSort)
-          .slice(0, 6)
+          .slice(0, RELATED_LIMIT)
       : [];
 
     const ftKey = primaryFish ? `${primaryFish}|${series.type}` : null;
