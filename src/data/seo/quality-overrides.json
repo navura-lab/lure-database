@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-04-10T09:01:02.634Z",
+  "generated_at": "2026-04-11T09:00:57.927Z",
   "total": 7982,
   "bands": {
-    "ok": 3838,
-    "improve": 2834,
-    "noindex": 1309,
+    "ok": 3943,
+    "improve": 2749,
+    "noindex": 1289,
     "delete": 1
   },
   "delta": {
-    "new_noindex": 0,
-    "removed_noindex": 12
+    "new_noindex": 2,
+    "removed_noindex": 22
   },
   "overrides": {
     "tacklehouse/ssv": {
@@ -348,9 +348,9 @@
       "noindex": false
     },
     "ima/fox-tail-30g": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "spro/outsider-crank-dd-80": {
       "score": 55,
@@ -1383,8 +1383,8 @@
       "noindex": false
     },
     "ima/sasuke-120-3": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "6th-sense/flock-hair-jig": {
@@ -1643,8 +1643,8 @@
       "noindex": false
     },
     "hideup/pylon185": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "jackall/bakuryu-pb-binbindama-slide": {
@@ -1978,8 +1978,8 @@
       "noindex": false
     },
     "hideup/coike-thunder-l-elastomer": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "evergreen/irjig": {
@@ -2208,8 +2208,8 @@
       "noindex": false
     },
     "engine/livingstraight38": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "evergreen/capriceedge": {
@@ -2713,8 +2713,8 @@
       "noindex": false
     },
     "gancraft/184sw": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "lunkerhunt/compact-popping-frog": {
@@ -2753,8 +2753,8 @@
       "noindex": false
     },
     "ima/130md": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "palms/bitarts-ss-jig": {
@@ -3328,8 +3328,8 @@
       "noindex": false
     },
     "geecrack/spiron-grub": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "pazdesign/hanto": {
@@ -3473,7 +3473,7 @@
       "noindex": false
     },
     "viva/tobunder-alboroto": {
-      "score": 78,
+      "score": 75,
       "band": "ok",
       "noindex": false
     },
@@ -4153,7 +4153,7 @@
       "noindex": false
     },
     "forest/fable": {
-      "score": 85,
+      "score": 81,
       "band": "ok",
       "noindex": false
     },
@@ -4248,8 +4248,8 @@
       "noindex": false
     },
     "ima/komomo-sf-145-conter": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "z-man/finesse-trd": {
@@ -4368,7 +4368,7 @@
       "noindex": false
     },
     "evergreen/jackhammerbabyjack": {
-      "score": 81,
+      "score": 78,
       "band": "ok",
       "noindex": false
     },
@@ -4883,8 +4883,8 @@
       "noindex": false
     },
     "geecrack/saf-sticklite-pack": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "imakatsu/eel-crawler": {
@@ -4978,8 +4978,8 @@
       "noindex": false
     },
     "engine/likethreeninees": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "tacklehouse/furittsu": {
@@ -5553,9 +5553,9 @@
       "noindex": false
     },
     "gary-yamamoto/lightika45": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "jackall/riserbait006": {
       "score": 40,
@@ -6593,8 +6593,8 @@
       "noindex": false
     },
     "hideup/coike-r": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "palms/curref-jointed": {
@@ -6873,8 +6873,8 @@
       "noindex": false
     },
     "hideup/3pcs4": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "jackall/binbin-switch-mask": {
@@ -7223,9 +7223,9 @@
       "noindex": false
     },
     "gary-yamamoto/prosenko5": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "deepliner/surosukippu-cx": {
       "score": 60,
@@ -7383,8 +7383,8 @@
       "noindex": false
     },
     "raid/justraight-4inch-slim-5-5inch": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "hideup/sutaggapinteru": {
@@ -7733,9 +7733,9 @@
       "noindex": false
     },
     "ima/fox-tail-40g": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "daiwa/5yab6p7": {
       "score": 75,
@@ -8193,8 +8193,8 @@
       "noindex": false
     },
     "fisharrow/flash-j-1-5inch-slimsw": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "daiwa/5j5777l": {
@@ -8268,8 +8268,8 @@
       "noindex": false
     },
     "geecrack/g-crawler": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "6th-sense/duke": {
@@ -9233,8 +9233,8 @@
       "noindex": false
     },
     "gamakatsu/80-600": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "tacklehouse/bafyettodorasu": {
@@ -9683,8 +9683,8 @@
       "noindex": false
     },
     "hideup/coike-mini": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "spro/aruku-shad-75": {
@@ -10308,7 +10308,7 @@
       "noindex": true
     },
     "valkein/valcyanom": {
-      "score": 78,
+      "score": 75,
       "band": "ok",
       "noindex": false
     },
@@ -10798,8 +10798,8 @@
       "noindex": false
     },
     "evergreen/wideseeker": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "mukai/zanmu-ll": {
@@ -11198,7 +11198,7 @@
       "noindex": false
     },
     "palms/7degree": {
-      "score": 78,
+      "score": 75,
       "band": "ok",
       "noindex": false
     },
@@ -11703,8 +11703,8 @@
       "noindex": false
     },
     "engine/like2-5inchelastmor": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "strike-king/sugar-glider": {
@@ -12578,9 +12578,9 @@
       "noindex": false
     },
     "gary-yamamoto/shrimp3": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "evergreen/nelmezzo50fs": {
       "score": 75,
@@ -12863,9 +12863,9 @@
       "noindex": false
     },
     "gary-yamamoto/kuttail5-3_4": {
-      "score": 38,
-      "band": "noindex",
-      "noindex": true
+      "score": 58,
+      "band": "improve",
+      "noindex": false
     },
     "viva/step-shad": {
       "score": 55,
@@ -13058,8 +13058,8 @@
       "noindex": true
     },
     "fisharrow/vt-jack230": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "luckycraft/flatcrapea-area": {
@@ -13178,8 +13178,8 @@
       "noindex": false
     },
     "hideup/wapper4": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "osp/buzzncrank": {
@@ -13368,9 +13368,9 @@
       "noindex": false
     },
     "imakatsu/super-mogulla-chater-tg-wobble-max": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "strike-king/rage-ned-bug": {
       "score": 75,
@@ -13893,8 +13893,8 @@
       "noindex": false
     },
     "engine/likefivees": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "googan-baits/thicc-jig": {
@@ -14173,9 +14173,9 @@
       "noindex": false
     },
     "gary-yamamoto/flattail4-5": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "seafloor-control/messiah-semilong": {
       "score": 68,
@@ -14368,8 +14368,8 @@
       "noindex": false
     },
     "geecrack/bellows-shad": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "daiwa/430p4ym": {
@@ -14503,8 +14503,8 @@
       "noindex": false
     },
     "hideup/coike-thunder-elastomer": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "lunkerhunt/lunker-blade": {
@@ -14663,8 +14663,8 @@
       "noindex": false
     },
     "hideup/stagger-stick-3-3inch": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "jumprize/momopunch30g-45g": {
@@ -15098,9 +15098,9 @@
       "noindex": false
     },
     "flash-union/union-swimmer120": {
-      "score": 53,
-      "band": "improve",
-      "noindex": false
+      "score": 45,
+      "band": "noindex",
+      "noindex": true
     },
     "berkley-us/power-blade-standard-colorado-indiana": {
       "score": 75,
@@ -15778,8 +15778,8 @@
       "noindex": false
     },
     "fisharrow/dart-jack": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "tacklehouse/tkrp": {
@@ -15858,8 +15858,8 @@
       "noindex": false
     },
     "hideup/judy-fish-5-2inch": {
-      "score": 54,
-      "band": "improve",
+      "score": 74,
+      "band": "ok",
       "noindex": false
     },
     "jackson/athlete-45-svg-light-game": {
@@ -15873,8 +15873,8 @@
       "noindex": false
     },
     "evergreen/marvie50": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "zipbaits/zabura-zoea-49sburedo": {
@@ -17748,8 +17748,8 @@
       "noindex": false
     },
     "hideup/humino-77spsorutokara": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "engine/bosogaeru": {
@@ -17988,7 +17988,7 @@
       "noindex": false
     },
     "jackson/unyounyo": {
-      "score": 78,
+      "score": 81,
       "band": "ok",
       "noindex": false
     },
@@ -18008,8 +18008,8 @@
       "noindex": false
     },
     "geecrack/dumbbell-worm": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "berkley/power-pop-70-70": {
@@ -18038,8 +18038,8 @@
       "noindex": false
     },
     "evergreen/killerbug23": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "strike-king/pro-model-3xd-crankbait": {
@@ -18448,8 +18448,8 @@
       "noindex": false
     },
     "hideup/coike-shrimp-extra-large": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "strike-king/thunder-cricket-vibrating-swimming-jig-3-4oz": {
@@ -18563,8 +18563,8 @@
       "noindex": false
     },
     "engine/liketwoes": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "raid/masterjig": {
@@ -18808,8 +18808,8 @@
       "noindex": false
     },
     "hmkl/dynamo-buzzbait": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "zipbaits/kamushin-105sr": {
@@ -18858,8 +18858,8 @@
       "noindex": false
     },
     "ima/banett-190f": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "jackson/tobisugi-daniel-1g": {
@@ -18883,8 +18883,8 @@
       "noindex": false
     },
     "geecrack/portio-curly-3inch": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "lunkerhunt/spud": {
@@ -18938,9 +18938,9 @@
       "noindex": false
     },
     "ima/fox-tail-50g": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "megabass/sleeper-craw": {
       "score": 75,
@@ -18968,8 +18968,8 @@
       "noindex": false
     },
     "googan-baits/happy-trailer": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "jackson/tobisugi-daniel-blade-30g-40g": {
@@ -19018,8 +19018,8 @@
       "noindex": false
     },
     "ecogear/ekogia-akua-ajikomushi": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "ima/komomoii-90": {
@@ -19043,8 +19043,8 @@
       "noindex": false
     },
     "geecrack/ebisukerattle-model": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "osp/dolivehog": {
@@ -19538,8 +19538,8 @@
       "noindex": false
     },
     "hmkl/inchcrank-uner-hs": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "smith/salt-sminnowsolid": {
@@ -20223,8 +20223,8 @@
       "noindex": false
     },
     "ima/banett-160f": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "valleyhill/tama-type": {
@@ -20428,8 +20428,8 @@
       "noindex": false
     },
     "6th-sense/scramble-80": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "raid/scratch": {
@@ -20573,8 +20573,8 @@
       "noindex": false
     },
     "evergreen/stabil": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "berkley-us/power-blade-compact-double-colorado": {
@@ -21013,7 +21013,7 @@
       "noindex": true
     },
     "longin/levinheavy": {
-      "score": 78,
+      "score": 75,
       "band": "ok",
       "noindex": false
     },
@@ -21078,8 +21078,8 @@
       "noindex": false
     },
     "hideup/stagger-craw-2-2inch": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "attic/arcrank-slim": {
@@ -21208,8 +21208,8 @@
       "noindex": false
     },
     "evergreen/ddxover": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "majorcraft/ebft": {
@@ -21333,8 +21333,8 @@
       "noindex": false
     },
     "hideup/hu-perrer-248": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "zoom/big-critter-craw": {
@@ -21758,8 +21758,8 @@
       "noindex": false
     },
     "ecogear/ekogia-akua-suimushurinpu": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "hideup/stagger-wide-hog-2-2inch": {
@@ -21843,8 +21843,8 @@
       "noindex": false
     },
     "hideup/hu-shad-60sp": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "yamashita/ama": {
@@ -21978,8 +21978,8 @@
       "noindex": false
     },
     "engine/scoop-hammer": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "nories/tg-rattlin-jetter": {
@@ -22058,8 +22058,8 @@
       "noindex": false
     },
     "hideup/coike-thunder-m-elastomer": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "jackson/metal-effect-stay-fall-10g-15g": {
@@ -22183,8 +22183,8 @@
       "noindex": false
     },
     "ima/sasuke-130": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "osp/kotodama": {
@@ -22333,8 +22333,8 @@
       "noindex": false
     },
     "hideup/stagger-craw-4inch": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "valleyhill/dragon-q-metal-flat": {
@@ -22623,8 +22623,8 @@
       "noindex": false
     },
     "gamakatsu/okutoraizu-takoegi-2-0": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "pazdesign/fallon": {
@@ -22688,8 +22688,8 @@
       "noindex": false
     },
     "engine/microfishtail": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "apia/uprizing70-heavy-weight": {
@@ -22703,8 +22703,8 @@
       "noindex": true
     },
     "ima/renjisetta-15": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "palms/hexer-harsen": {
@@ -22998,8 +22998,8 @@
       "noindex": false
     },
     "hideup/stagger-original-2": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "nories/masukurouto-boon": {
@@ -23263,8 +23263,8 @@
       "noindex": true
     },
     "ima/meba-calm": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "megabass/big-m40": {
@@ -23418,9 +23418,9 @@
       "noindex": false
     },
     "imakatsu/big-bats": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "spro/tempamon": {
       "score": 55,
@@ -23563,8 +23563,8 @@
       "noindex": true
     },
     "hideup/stagger-stick-4inch": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "lunkerhunt/impact-shock-2-5f-squarebill": {
@@ -23683,7 +23683,7 @@
       "noindex": false
     },
     "jackall/tearo": {
-      "score": 63,
+      "score": 66,
       "band": "improve",
       "noindex": false
     },
@@ -23973,8 +23973,8 @@
       "noindex": false
     },
     "hideup/stagger-craw-3-3inch": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "longin/mizuki": {
@@ -24023,8 +24023,8 @@
       "noindex": false
     },
     "hideup/stagger-rola-2-6inch": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "rapala/rapala-snare50": {
@@ -24053,9 +24053,9 @@
       "noindex": false
     },
     "imakatsu/lot-bt100": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "mukai/snaq26dr-hf": {
       "score": 75,
@@ -25053,8 +25053,8 @@
       "noindex": false
     },
     "evergreen/bruco50": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "strike-king/comeback-stand-up-football-jig": {
@@ -25088,8 +25088,8 @@
       "noindex": false
     },
     "hideup/huenuguridei-zmoderu": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "6th-sense/hyperjerk-70-fw": {
@@ -25463,8 +25463,8 @@
       "noindex": false
     },
     "hideup/coike-fullcast-soft-material": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "blueblue/kumihon-deep-75s": {
@@ -25678,8 +25678,8 @@
       "noindex": false
     },
     "hideup/kyu-coike-soft-material": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "beat/bobcat": {
@@ -25698,8 +25698,8 @@
       "noindex": false
     },
     "hideup/hu-70l": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "zipbaits/kamushin-dr": {
@@ -25788,8 +25788,8 @@
       "noindex": false
     },
     "hideup/wapper3": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "jazz/semilong": {
@@ -26308,9 +26308,9 @@
       "noindex": false
     },
     "gary-yamamoto/kuttail6-5": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "dstyle/super-reserve": {
       "score": 55,
@@ -26383,7 +26383,7 @@
       "noindex": false
     },
     "daiwa/ds0e32p": {
-      "score": 78,
+      "score": 75,
       "band": "ok",
       "noindex": false
     },
@@ -26913,8 +26913,8 @@
       "noindex": false
     },
     "engine/baby-chin1-5": {
-      "score": 63,
-      "band": "improve",
+      "score": 78,
+      "band": "ok",
       "noindex": false
     },
     "megabass/big-m75": {
@@ -26953,8 +26953,8 @@
       "noindex": false
     },
     "deps/kontourjig": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "smith/salt-nezakanataisho": {
@@ -27288,8 +27288,8 @@
       "noindex": false
     },
     "geecrack/tairaba-super-curly": {
-      "score": 63,
-      "band": "improve",
+      "score": 78,
+      "band": "ok",
       "noindex": false
     },
     "zoom/5-winged-fluke": {
@@ -27393,13 +27393,13 @@
       "noindex": false
     },
     "gary-yamamoto/hugger44": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "hideup/coike-thunder": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "riot-baits/cyclone": {
@@ -27613,8 +27613,8 @@
       "noindex": false
     },
     "hideup/coike-thunder-m": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "jackall/peketail-tidepepper-2": {
@@ -27713,8 +27713,8 @@
       "noindex": false
     },
     "tacklehouse/tsuinkuru-surikku": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "6th-sense/cake-pop-4-mono": {
@@ -27748,8 +27748,8 @@
       "noindex": false
     },
     "gamakatsu/19-427": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "xzone-lures/rally-shad-4-5-6-pack": {
@@ -27768,8 +27768,8 @@
       "noindex": false
     },
     "ecogear/minnow": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "gary-yamamoto/detrator24": {
@@ -27778,8 +27778,8 @@
       "noindex": false
     },
     "ecogear/hatajigu": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "strike-king/rage-anaconda": {
@@ -27838,8 +27838,8 @@
       "noindex": false
     },
     "hideup/coike-thunder-l": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "shimano/a155f00000c5cszqav": {
@@ -28153,8 +28153,8 @@
       "noindex": true
     },
     "hideup/3pcs3": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "blueblue/ninjari-jiguheddo": {
@@ -28848,9 +28848,9 @@
       "noindex": true
     },
     "hideup/koiketorera": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "reins/5-fat-rockvibe-shad": {
       "score": 68,
@@ -28978,8 +28978,8 @@
       "noindex": false
     },
     "engine/fallcrawler4": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "blueblue/zepper-140-f": {
@@ -29053,7 +29053,7 @@
       "noindex": false
     },
     "engine/powerfluffy": {
-      "score": 81,
+      "score": 78,
       "band": "ok",
       "noindex": false
     },
@@ -29083,8 +29083,8 @@
       "noindex": false
     },
     "engine/fall-slider": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "6th-sense/speed-wake": {
@@ -29573,8 +29573,8 @@
       "noindex": false
     },
     "hideup/stagger-craw-2-7inch": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "drt/living10": {
@@ -29993,8 +29993,8 @@
       "noindex": false
     },
     "ima/sasuke-sf-50": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "zoom/mag-shakey-head": {
@@ -30063,9 +30063,9 @@
       "noindex": true
     },
     "tict/briliant18": {
-      "score": 56,
-      "band": "improve",
-      "noindex": false
+      "score": 48,
+      "band": "noindex",
+      "noindex": true
     },
     "rapala/rapala-rpsd": {
       "score": 63,
@@ -30108,8 +30108,8 @@
       "noindex": true
     },
     "evergreen/avenger90s": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "blueblue/ninjariwamu-ss": {
@@ -30283,8 +30283,8 @@
       "noindex": true
     },
     "engine/quad-shad": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "gamakatsu/19-335": {
@@ -30348,8 +30348,8 @@
       "noindex": false
     },
     "megabass/tk-twister": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "valleyhill/ebi-tank": {
@@ -30373,8 +30373,8 @@
       "noindex": false
     },
     "hideup/huenuguridei-nomarumoderu": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "ima/gun-30g-2": {
@@ -30533,9 +30533,9 @@
       "noindex": true
     },
     "gary-yamamoto/5-3-4kut-tail-worm-5-3-4kattoteruwamu": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "bottomup/bu-daddy-jr": {
       "score": 55,
@@ -30558,8 +30558,8 @@
       "noindex": true
     },
     "jackall/b-crawl-setup-1": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "z-man/trd-gobyz": {
@@ -30683,9 +30683,9 @@
       "noindex": false
     },
     "imakatsu/javallon-one-superreal": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "bassday/banjipoppa-160": {
       "score": 75,
@@ -30808,8 +30808,8 @@
       "noindex": false
     },
     "6th-sense/party-prop": {
-      "score": 51,
-      "band": "improve",
+      "score": 71,
+      "band": "ok",
       "noindex": false
     },
     "ima/soruheddo-3": {
@@ -30983,7 +30983,7 @@
       "noindex": false
     },
     "littlejack/gillary-01--01": {
-      "score": 90,
+      "score": 87,
       "band": "ok",
       "noindex": false
     },
@@ -31093,8 +31093,8 @@
       "noindex": false
     },
     "hideup/osmunda-fat-6-5": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "spro/walking-haint-110": {
@@ -31398,8 +31398,8 @@
       "noindex": false
     },
     "osp/iwaverswf": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "dstyle/d2-hog": {
@@ -31428,8 +31428,8 @@
       "noindex": true
     },
     "hideup/coike-f": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "daiwa/hpjupun": {
@@ -32028,8 +32028,8 @@
       "noindex": true
     },
     "gamakatsu/19-347": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "jackson/honoka": {
@@ -32168,8 +32168,8 @@
       "noindex": false
     },
     "engine/livingstraight55": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "jackson/pintail-sagoshi-tune-28g-with-storong-hook": {
@@ -32708,8 +32708,8 @@
       "noindex": true
     },
     "imakatsu/helter-twister": {
-      "score": 71,
-      "band": "ok",
+      "score": 68,
+      "band": "improve",
       "noindex": false
     },
     "shimano/a155f00000drzn9qab": {
@@ -33303,7 +33303,7 @@
       "noindex": false
     },
     "engine/likefive": {
-      "score": 78,
+      "score": 75,
       "band": "ok",
       "noindex": false
     },
@@ -33358,8 +33358,8 @@
       "noindex": true
     },
     "ecogear/ekogia-akua-baguantsu": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "apia/argo69": {
@@ -33468,8 +33468,8 @@
       "noindex": false
     },
     "hideup/coike-micro": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "megabass/griffon-bait-finesse-sr-x": {
@@ -33498,9 +33498,9 @@
       "noindex": false
     },
     "gamakatsu/19-336": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "ima/gun-40g-3": {
       "score": 55,
@@ -33688,8 +33688,8 @@
       "noindex": true
     },
     "evergreen/loudbuzz": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "d-claw/suimen-chop-tg": {
@@ -33753,8 +33753,8 @@
       "noindex": false
     },
     "hideup/coike-straight-elastomer-140mm": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "tiemco/daikichikuranku": {
@@ -33963,8 +33963,8 @@
       "noindex": true
     },
     "hideup/coike-fish-l-elastomer": {
-      "score": 50,
-      "band": "improve",
+      "score": 70,
+      "band": "ok",
       "noindex": false
     },
     "zoom/shakey-tail": {
@@ -34453,9 +34453,9 @@
       "noindex": false
     },
     "gary-yamamoto/heart-tail5": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "pickup/wasupusuraromu-80s-emerarudomirukuorenjiparu": {
       "score": 45,
@@ -34503,8 +34503,8 @@
       "noindex": true
     },
     "hideup/coike17mm-soft-material": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "shimano/a15f900000e5lreiaf": {
@@ -35058,8 +35058,8 @@
       "noindex": false
     },
     "geecrack/jack-master": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "daiwa/apxvytg": {
@@ -35123,9 +35123,9 @@
       "noindex": false
     },
     "imakatsu/oniviral-rs": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "baitbreath/u30mosha": {
       "score": 68,
@@ -35148,14 +35148,14 @@
       "noindex": false
     },
     "googan-baits/rip-blade-bait": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "imakatsu/do-no-shad": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "engine/rc-living4-7-erasutoma": {
       "score": 55,
@@ -35513,8 +35513,8 @@
       "noindex": false
     },
     "engine/fallcrawler3": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "palms/arkrover-140s": {
@@ -35968,8 +35968,8 @@
       "noindex": false
     },
     "hideup/coike-straight-elastomer-110mm": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "jackson/aji-pearl": {
@@ -36338,8 +36338,8 @@
       "noindex": false
     },
     "hideup/coike-shrimp-medium": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "shimano/a155f00000cbvyjqan": {
@@ -36873,9 +36873,9 @@
       "noindex": false
     },
     "imakatsu/dynagone": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "raid/dead-boy": {
       "score": 85,
@@ -36893,8 +36893,8 @@
       "noindex": false
     },
     "hideup/coike-popper-frog": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "jackall/tn80-trigon": {
@@ -37053,9 +37053,9 @@
       "noindex": true
     },
     "duo/spearhead-ryuki-m-aire": {
-      "score": 48,
-      "band": "noindex",
-      "noindex": true
+      "score": 68,
+      "band": "improve",
+      "noindex": false
     },
     "hideup/nota-nota-slim-s": {
       "score": 55,
@@ -37198,8 +37198,8 @@
       "noindex": true
     },
     "ima/komomo-130-slim-tomahawk": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "valleyhill/vc": {
@@ -37408,8 +37408,8 @@
       "noindex": false
     },
     "gamakatsu/noresore-1-8inchi": {
-      "score": 55,
-      "band": "improve",
+      "score": 75,
+      "band": "ok",
       "noindex": false
     },
     "cb-one/zorro": {
