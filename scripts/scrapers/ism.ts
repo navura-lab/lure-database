@@ -14,6 +14,9 @@ import type { ScrapedColor, ScrapedLure } from './types.js';
 
 const ISM_BASE_URL = 'https://ismfishing.base.shop';
 
+// 非ルアー判定（先にチェック、ヒットすればtype='その他' = pipeline側で除外可能）
+const NON_LURE_KEYWORDS = /HOODIE|フーディ|キャップ|CAP|ジャケット|JACKET|シャツ|SHIRT|タオル|TOWEL|ステッカー|STICKER|ロッド|ROD|BLADE|リール|REEL|ライフジャケット|LIFE\s*JACKET|バッグ|BAG|ケース|CASE|ホルダー|HOLDER|ストラップ|STRAP|GRIP|グリップ|プライヤー|PLIERS|シザース|SCISSORS|フック\s|HOOK\s|シンカー|SINKER|スイベル|SWIVEL|スナップ|SNAP|リーダー|LEADER|ライン\s|LINE\s|ガイド|GUIDE/i;
+
 // 商品名→ルアータイプ判定（既知のラインナップから）
 const TYPE_KEYWORDS: [RegExp, string][] = [
   // バスルアー
@@ -32,8 +35,6 @@ const TYPE_KEYWORDS: [RegExp, string][] = [
   [/フロッグ|FROG/i, 'フロッグ'],
   // ザザフィールド (ソルト系)
   [/ザザ|ZAZA/i, 'ソルトルアー'],
-  // 非ルアー（除外用 — type='その他'にして後段でフィルタ）
-  [/HOODIE|フーディ|キャップ|CAP|ジャケット|JACKET|シャツ|SHIRT|タオル|TOWEL/i, 'その他'],
 ];
 
 // ---------------------------------------------------------------------------
@@ -59,10 +60,9 @@ function extractItemId(url: string): string {
  * 商品名から slug を生成
  * "PULL-70F" → "pull-70f"
  * "龍乱シャッドテール Made by KIOB" → "ryuran-shadtail-made-by-kiob"
- * 日本語が混じる場合は item ID をフォールバックとして使う
+ * 日本語のみで slug 化できない、または "ism" 単独になる場合は itemId を併記して衝突回避
  */
 function makeSlug(name: string, itemId: string): string {
-  // 半角英数字と既知のローマ字単語のみで slug 化
   const ascii = name
     .replace(/[（(].*?[)）]/g, '') // 括弧内除去
     .replace(/\s*Made by .*$/i, '') // "Made by KIOB" 系除去
@@ -73,14 +73,17 @@ function makeSlug(name: string, itemId: string): string {
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
 
-  if (ascii.length >= 3 && /[a-z]/.test(ascii)) {
-    return ascii.substring(0, 60);
+  // 「ism」単独 or 短すぎる or 数字のみ → itemId 併記
+  const isAmbiguous = !ascii || ascii.length < 4 || ascii === 'ism' || /^\d+$/.test(ascii);
+  if (isAmbiguous) {
+    return `ism-${itemId}`;
   }
-  // 日本語のみ等で slug 化できなければ item ID
-  return `ism-${itemId}`;
+  return ascii.substring(0, 60);
 }
 
 function detectType(name: string): string {
+  // 非ルアー商品は最初にチェック → type='その他'
+  if (NON_LURE_KEYWORDS.test(name)) return 'その他';
   for (const [pattern, type] of TYPE_KEYWORDS) {
     if (pattern.test(name)) return type;
   }
